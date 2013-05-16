@@ -1,0 +1,794 @@
+package Diffraction;
+
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.vecmath.Matrix4f;
+import javax.vecmath.Point3f;
+import javax.vecmath.Vector3f;
+import javax.vecmath.Vector4f;
+
+import jrtr.Light;
+import jrtr.RenderContext;
+import jrtr.Shader;
+import jrtr.Shape;
+import jrtr.Texture;
+import Constants.MaterialTexturePaths;
+import Constants.ShaderPaths;
+import Materials.Material;
+import SceneGraph.GraphSceneManager;
+import SceneGraph.INode;
+import SceneGraph.LightNode;
+import SceneGraph.ShapeNode;
+import SceneGraph.TransformGroup;
+import ShaderLogic.DiffractionShaderTask;
+import ShaderLogic.MultiTexturesShaderTask;
+import ShaderLogic.MultiTexturesTAShaderTask;
+import ShaderLogic.MultiTexturesTaylorShaderTask;
+import ShaderLogic.ShaderTask;
+
+public class DiffractionSceneGraphFabricator {
+	private GraphSceneManager sceneManager;
+	private RenderContext renderContext;
+	private INode root;
+	private ShaderTask activeShaderTask;
+	private Shape diffDice;
+	private Shape diffPlane;
+	private Matrix4f diffDiceIMat;
+	private Matrix4f diffPlaneIMat;
+    private Material mat;
+    private Texture tex0, tex1, tex2, tex3, tex4, tex5, tex6;
+    private Texture[] textures = new Texture[2624];
+	private Light lightSource1;
+	private float trackDistance = 2.5f;
+	private TransformGroup rootGroup;
+	
+	String extension = ".bmp";
+//	private int version = 9;
+	// stam 4
+	private int version = 10;
+	// 10 approach to go
+	// exploit 9
+	
+	
+	private boolean hasVectorfield = true;
+	private boolean isPlane = true;
+
+	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
+		this.sceneManager = sceneManager;
+		this.renderContext = renderContext;
+		setUpShaderTask();
+		setUpMaterials();
+		setUpShapes();
+		setUpSceneGraph();
+		setUpLight();
+		setUpCamera(false);
+	}
+	
+	private void setUpShaderTask(){
+
+		if(version == 1 || version == 2 || version == 3 || version == 5 || version == 6 || version == 7 || version == 8 || version == 9)
+			activeShaderTask = new MultiTexturesTAShaderTask();
+		else if(version == 4 || version == 10){
+		    activeShaderTask = new MultiTexturesTaylorShaderTask();
+//		    activeShaderTask = new MultiTexturesTaylorShaderTask();
+//		    activeShaderTask = new MultiTexturesTAShaderTask();
+		}
+	}
+	
+	private void setUpMaterials(){
+		mat = new Material();
+		mat.setMaterialColor(new Vector3f(0, 0f, 0f));
+		mat.setShinnyCoefficient(new Vector3f(0f, 0f, 1f));
+		mat.setAmbientCoefficient(new Vector3f(0.0f, 0.0f, 1.0f));
+		mat.setPhongExponent(64f);
+		mat.setTrackDistance(trackDistance);
+		
+		
+		mat.setLayerCount(108);
+		if(version == 10) mat.setLayerCount(62);
+		
+		Shader shader = renderContext.makeShader();
+		try {
+			
+			if(version==1){
+				if(hasVectorfield)
+					shader.load(ShaderPaths.diffractionHF5VecVert.toString(), ShaderPaths.diffractionHF5VecFrag.toString());
+				else 
+					shader.load(ShaderPaths.diffractionHF5Vert.toString(), ShaderPaths.diffractionHF5Frag.toString());
+				
+			}else if(version == 2){
+				if(hasVectorfield)
+					shader.load(ShaderPaths.diffractionHF6VecVert.toString(), ShaderPaths.diffractionHF6VecFrag.toString());
+				else 
+					shader.load(ShaderPaths.diffractionHF6Vert.toString(), ShaderPaths.diffractionHF6Frag.toString());
+				
+				
+			}else if(version == 3){
+				
+				if(hasVectorfield)
+					shader.load(ShaderPaths.diffractionHF7VecVert.toString(), ShaderPaths.diffractionHF7VecFrag.toString());
+				else 
+					shader.load(ShaderPaths.diffractionHF7Vert.toString(), ShaderPaths.diffractionHF7Frag.toString());
+				
+				
+				
+			}else if(version == 4){
+				shader.load(ShaderPaths.diffraction4Vert.toString(), ShaderPaths.diffraction4Frag.toString());
+				
+			}else if(version == 5){
+				shader.load(ShaderPaths.diffractionHF8VecVert.toString(), ShaderPaths.diffractionHF8VecFrag.toString());
+			}else if(version == 6){
+				shader.load(ShaderPaths.diffractionHFExpVecVert.toString(), ShaderPaths.diffractionHFExpVecFrag.toString());
+			}else if(version == 7){
+					shader.load(ShaderPaths.diffractionHFExp2VecVert.toString(), ShaderPaths.diffractionHFExp2VecFrag.toString());
+					
+			}else if(version == 8){
+				shader.load(ShaderPaths.grid1Vert.toString(), ShaderPaths.grid1Frag.toString());
+				
+			}else if(version == 9){
+				shader.load(ShaderPaths.grid2Vert.toString(), ShaderPaths.grid2Frag.toString());
+				
+//				shader.load(ShaderPaths.expVert.toString(), ShaderPaths.expFrag.toString());
+	//			shader.load(ShaderPaths.grid3Vert.toString(), ShaderPaths.grid3Frag.toString());
+				
+			}else if(version == 10){
+				
+				shader.load(ShaderPaths.taylor1Vert.toString(), ShaderPaths.taylor1Frag.toString());
+			}
+
+		} catch (Exception e) {}
+		
+		mat.setShader(shader);
+		
+	
+		
+
+		String basisPathA = "../jrtr/textures/sampleX/3/"; //TODO use me k=6, w=0.1, awesome result
+		String basisPath16 = "../jrtr/textures/sampleX/16/"; // TODO use me
+		String random = "../jrtr/textures/random/1/";
+		String tri = "../jrtr/textures/random/2/";
+		String s1d = "../jrtr/textures/sampleX/1d/";
+		String grating = "../jrtr/textures/sampleX/grating/";
+		String grating2 = "../jrtr/textures/sampleX/grating2/";
+		String grating3 = "../jrtr/textures/sampleX/grating3/";
+		String grating4 = "../jrtr/textures/sampleX/grating4/";
+		String grating5 = "../jrtr/textures/sampleX/grating5/";
+		String grating6 = "../jrtr/textures/sampleX/grating6/";
+		String grating7 = "../jrtr/textures/sampleX/grating7/";
+		String rgb1 = "../jrtr/textures/sampleX/rgb1/";
+		
+		String fPath3 = "../jrtr/textures/sampleX/3/extrema.txt";
+		String fPath16 = "../jrtr/textures/sampleX/16/extrema.txt";
+		String frandom = "../jrtr/textures/random/1/extrema.txt";
+		String ftri = "../jrtr/textures/random/2/extrema.txt";
+		String f1d = "../jrtr/textures/sampleX/1d/extrema.txt";
+		String fgrating = "../jrtr/textures/sampleX/grating/extrema.txt";
+		String fgrating2 = "../jrtr/textures/sampleX/grating2/extrema.txt";
+		String fgrating3 = "../jrtr/textures/sampleX/grating3/extrema.txt";
+		String fgrating4 = "../jrtr/textures/sampleX/grating4/extrema.txt";
+		String fgrating5 = "../jrtr/textures/sampleX/grating5/extrema.txt";
+		String fgrating6 = "../jrtr/textures/sampleX/grating6/extrema.txt";
+		String frgb1 = "../jrtr/textures/sampleX/rgb1/extrema.txt";
+		
+		String samples = null;
+		String extrema = null;
+		
+		if(version < 4 || version == 5 || version == 6 || version == 7 || version == 8 || version == 9 || version == 10){
+			if(version==1){
+				samples = basisPathA;
+				extrema = fPath3;
+			}else if(version == 2){
+				samples = basisPath16;
+				extrema = fPath16;
+			}else if(version == 3){
+				samples = tri;
+				extrema = ftri;
+			}else if(version == 5){
+			samples = s1d;
+			extrema = f1d;
+			}else if(version == 6){
+				samples = grating;
+				extrema = fgrating;
+				mat.setKValues(loadKValues("../jrtr/textures/sampleX/grating/kvalues.txt"));
+				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/grating/globals.txt"));
+				mat.setWeights(readWeights("../jrtr/textures/sampleX/grating/weights.txt"));
+				
+				
+				
+//				samples = grating3;
+//				extrema = fgrating3;
+//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/grating3/kvalues.txt"));
+//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/grating3/globals.txt"));
+//				mat.setWeights(readWeights("../jrtr/textures/sampleX/grating3/weights.txt"));
+				
+				
+				
+			}else if(version == 7){
+				samples = grating2;
+				extrema = fgrating2;
+				mat.setKValues(loadKValues("../jrtr/textures/sampleX/grating/kvalues.txt"));
+				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/grating2/globals.txt"));
+				mat.setWeights(readWeights("../jrtr/textures/sampleX/grating2/weights.txt"));
+				
+			// grid approach
+			}else if(version == 8){
+				samples = grating6;
+				extrema = fgrating6;
+				mat.setKValues(loadKValues("../jrtr/textures/sampleX/grating6/kvalues.txt"));
+				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/grating6/globals.txt"));
+				mat.setWeights(readWeights("../jrtr/textures/sampleX/grating6/weights.txt"));
+				
+			// using bmp rgb	
+			}else if(version == 9){
+				// basis
+//				samples = "../jrtr/textures/sampleX/rgb1/";;
+//				extrema = "../jrtr/textures/sampleX/rgb1/extrema.txt";;
+//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/rgb1/kvalues.txt"));
+//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/rgb1/globals.txt"));
+//				mat.setWeights(readWeights("../jrtr/textures/sampleX/rgb1/weights.txt"));
+//				
+				
+				
+//				samples = "../jrtr/textures/sampleX/milestone/1dw10/";
+//				extrema = "../jrtr/textures/sampleX/milestone/1dw10/extrema.txt";
+//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/1dw10/kvalues.txt"));
+//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/1dw10/globals.txt"));
+//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/1dw10/weights.txt"));
+				
+				// basis comparision
+				samples = "../jrtr/textures/sampleX/milestone/1dw20/";
+				extrema = "../jrtr/textures/sampleX/milestone/1dw20/extrema.txt";
+				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/1dw20/kvalues.txt"));
+				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/1dw20/globals.txt"));
+				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/1dw20/weights.txt"));
+//				
+				
+				
+//				samples = "../jrtr/textures/sampleX/2dStam_1/";
+//				extrema = "../jrtr/textures/sampleX/2dStam_1/extrema.txt";
+//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/2dStam_1/kvalues.txt"));
+//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/2dStam_1/globals.txt"));
+//				mat.setWeights(readWeights("../jrtr/textures/sampleX/2dStam_1/weights.txt"));
+				
+
+				
+				
+//				samples = "../jrtr/textures/sampleX/milestone/1dw30/";
+//				extrema = "../jrtr/textures/sampleX/milestone/1dw30/extrema.txt";
+//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/1dw30/kvalues.txt"));
+//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/1dw30/globals.txt"));
+//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/1dw30/weights.txt"));
+				
+				
+//				samples = "../jrtr/textures/sampleX/milestone/1dspec/";
+//				extrema = "../jrtr/textures/sampleX/milestone/1dspec/extrema.txt";
+//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/1dspec/kvalues.txt"));
+//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/1dspec/globals.txt"));
+//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/1dspec/weights.txt"));
+				
+				
+//				samples = "../jrtr/textures/sampleX/milestone/tri/";
+//				extrema = "../jrtr/textures/sampleX/milestone/tri/extrema.txt";
+//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/tri/kvalues.txt"));
+//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/tri/globals.txt"));
+//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/tri/weights.txt"));
+				
+				
+//				samples = "../jrtr/textures/sampleX/milestone/sin/";
+//				extrema = "../jrtr/textures/sampleX/milestone/sin/extrema.txt";
+//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/sin/kvalues.txt"));
+//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/sin/globals.txt"));
+//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/sin/weights.txt"));
+				
+//				samples = "../jrtr/textures/sampleX/milestone/crossw20/";
+//				extrema = "../jrtr/textures/sampleX/milestone/crossw20/extrema.txt";
+//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/crossw20/kvalues.txt"));
+//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/crossw20/globals.txt"));
+//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/crossw20/weights.txt"));
+				
+//				samples = "../jrtr/textures/sampleX/milestone/C/";
+//				extrema = "../jrtr/textures/sampleX/milestone/C/extrema.txt";
+//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/C/kvalues.txt"));
+//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/C/globals.txt"));
+//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/C/weights.txt"));
+				
+				
+//				samples = "../jrtr/textures/sampleX/milestone/cos/";
+//				extrema = "../jrtr/textures/sampleX/milestone/cos/extrema.txt";
+//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/cos/kvalues.txt"));
+//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/cos/globals.txt"));
+//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/cos/weights.txt"));
+				
+//				samples = "../jrtr/textures/sampleX/milestone/pew/";
+//				extrema = "../jrtr/textures/sampleX/milestone/pew/extrema.txt";
+//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/pew/kvalues.txt"));
+//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/pew/globals.txt"));
+//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/pew/weights.txt"));
+				
+				
+				samples = "../jrtr/textures/sampleX/milestone/blaze/";
+				extrema = "../jrtr/textures/sampleX/milestone/blaze/extrema.txt";
+				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/blaze/kvalues.txt"));
+				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/blaze/globals.txt"));
+				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/blaze/weights.txt"));
+				
+			}else if(version == 10){
+//				samples = "../jrtr/textures/sampleX/taylor/w10/";
+//				extrema = "../jrtr/textures/sampleX/taylor/w10/extrema.txt";
+//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/w10/kvalues.txt"));
+//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/w10/globals.txt"));
+//				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/w10/weights.txt"));
+//				
+				samples = "../jrtr/textures/sampleX/taylor/w20/";
+				extrema = "../jrtr/textures/sampleX/taylor/w20/extrema.txt";
+				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/w20/kvalues.txt"));
+				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/w20/globals.txt"));
+				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/w20/weights.txt"));
+//				
+//				samples = "../jrtr/textures/sampleX/taylor/w30/";
+//				extrema = "../jrtr/textures/sampleX/taylor/w30/extrema.txt";
+//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/w30/kvalues.txt"));
+//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/w30/globals.txt"));
+//				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/w30/weights.txt"));
+//				
+//				samples = "../jrtr/textures/sampleX/taylor/cos/";
+//				extrema = "../jrtr/textures/sampleX/taylor/cos/extrema.txt";
+//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/cos/kvalues.txt"));
+//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/cos/globals.txt"));
+//				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/cos/weights.txt"));
+//				
+//				samples = "../jrtr/textures/sampleX/taylor/blaze/";
+//				extrema = "../jrtr/textures/sampleX/taylor/blaze/extrema.txt";
+//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/blaze/kvalues.txt"));
+//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/blaze/globals.txt"));
+//				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/blaze/weights.txt"));
+				
+			}
+			
+			if(version == 10) loadTaylorPatches(samples);
+			else loadPatches2(samples, false, true);
+			
+			mat.setHeightfieldFactors(loadScalingConstants(extrema));
+		}
+
+	}
+	
+	
+	private void loadTaylorPatches(String basisPath){
+		String path = basisPath;
+		String ext = ".bmp";
+		int counter = 0;
+		
+		for(int iter = 0; iter < 31; iter++){
+			counter++;
+			ext = "AmpRe"+Integer.toString(iter)+extension;
+			this.textures[iter] = renderContext.makeTexture();
+			mat.setTextureAt(path+ext, textures[iter], iter);
+		}
+		
+		for(int iter = 0; iter < 31; iter++){
+			
+			ext = "AmpIm"+Integer.toString(iter)+extension;
+			this.textures[counter] = renderContext.makeTexture();
+			mat.setTextureAt(path+ext, textures[counter], counter);
+			counter++;
+		}
+	}
+	
+	
+	private float[] loadKValues(String kValues_path){
+		List<Float> scalingFactors = new LinkedList<Float>();
+		
+		try {
+			// Open the file that is the first 
+			// command line parameter
+			FileInputStream fstream = new FileInputStream(kValues_path);
+			
+			// Get the object of DataInputStream
+			DataInputStream in = new DataInputStream(fstream);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			String strLine = "";
+			
+			//Read File Line By Line
+			while ((strLine = br.readLine()) != null)   {
+				// Print the content on the console
+				float f = Float.valueOf(strLine);
+				scalingFactors.add(f);
+				//System.out.println(f);
+			}
+			
+			//Close the input stream
+			in.close();
+		} catch (Exception e){
+			//Catch exception if any
+			System.err.println("Error: " + e.getMessage());
+		}
+		
+		float[] kValues = new float[scalingFactors.size()];
+		int i = 0;
+		for(Float value : scalingFactors){
+			kValues[i] = value.floatValue();
+			i++;
+		}
+		
+		return kValues;
+		
+	}
+	
+	
+	private float[] loadglobals(String globals_path){
+		List<Float> scalingFactors = new LinkedList<Float>();
+		
+		try {
+			// Open the file that is the first 
+			// command line parameter
+			FileInputStream fstream = new FileInputStream(globals_path);
+			
+			// Get the object of DataInputStream
+			DataInputStream in = new DataInputStream(fstream);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			String strLine = "";
+			
+			//Read File Line By Line
+			while ((strLine = br.readLine()) != null)   {
+				// Print the content on the console
+				float f = Float.valueOf(strLine);
+				scalingFactors.add(f);
+				//System.out.println(f);
+			}
+			
+			//Close the input stream
+			in.close();
+		} catch (Exception e){
+			//Catch exception if any
+			System.err.println("Error: " + e.getMessage());
+		}
+		
+		float[] globals = new float[scalingFactors.size()];
+		int i = 0;
+		for(Float value : scalingFactors){
+			globals[i] = value.floatValue();
+			i++;
+		}
+		
+		return globals;
+		
+	}
+	
+	
+	private float[] loadScalingConstants(String filepath){
+		List<Float> scalingFactors = new LinkedList<Float>();
+		
+		try {
+			// Open the file that is the first 
+			// command line parameter
+			FileInputStream fstream = new FileInputStream(filepath);
+			
+			// Get the object of DataInputStream
+			DataInputStream in = new DataInputStream(fstream);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			String strLine = "";
+			
+			//Read File Line By Line
+			while ((strLine = br.readLine()) != null)   {
+				// Print the content on the console
+				float f = Float.valueOf(strLine);
+				scalingFactors.add(f);
+				//System.out.println(f);
+			}
+			
+			//Close the input stream
+			in.close();
+		} catch (Exception e){
+			//Catch exception if any
+			System.err.println("Error: " + e.getMessage());
+		}
+		
+		float[] sfactors = new float[scalingFactors.size()];
+		int i = 0;
+		for(Float value : scalingFactors){
+			sfactors[i] = value.floatValue();
+			i++;
+		}
+		
+		return sfactors;
+		
+	}
+	
+	private float[] readWeights(String weightPath){
+		List<Float> scalingFactors = new LinkedList<Float>();
+		
+		try {
+			// Open the file that is the first 
+			// command line parameter
+			FileInputStream fstream = new FileInputStream(weightPath);
+			
+			// Get the object of DataInputStream
+			DataInputStream in = new DataInputStream(fstream);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			String strLine = "";
+			
+			//Read File Line By Line
+			while ((strLine = br.readLine()) != null)   {
+				// Print the content on the console
+				float f = Float.valueOf(strLine);
+				scalingFactors.add(f);
+				//System.out.println(f);
+			}
+			
+			//Close the input stream
+			in.close();
+		} catch (Exception e){
+			//Catch exception if any
+			System.err.println("Error: " + e.getMessage());
+		}
+		
+		float[] weights = new float[scalingFactors.size()];
+		int i = 0;
+		for(Float value : scalingFactors){
+			weights[i] = value.floatValue();
+			i++;
+		}
+		
+		return weights;
+	}
+	
+	private void foo(){
+		float L_min = 380.0f;
+		float L_max = 640.0f;
+		float r = 0.0f;
+		float g = 0.0f;
+		float b = 0.0f;
+		
+		int steps = 16;
+		float currentL = 0.0f;
+		float delta = (L_max - L_min)/(steps-1);
+		
+		for(int n=0; n < steps; n++){
+			currentL = L_min + delta*n;
+			
+			if(380.0f <= currentL && currentL < 410.0f){
+				r = 0.6f - 0.41f * ((410.0f - currentL) / 30.0f);
+				g = 0.0f;
+				b = 0.39f + 0.6f * ((410.0f - currentL) / 30.0f);
+				
+			}else if(410.0f <= currentL && currentL < 440.0f){
+				r = 0.19f - 0.19f * ((440.0f - currentL) / 30.0f);
+				g = 0.0f;
+				b = 1.0f;
+				
+			}else if(440.0f <= currentL && currentL < 490.0f){
+				r = 0.0f;
+				g = 1.0f - ((490.0f - currentL) / 50.0f);
+				b = 1.0f;
+				
+			}else if(490.0f <= currentL && currentL < 510.0f){
+				r = 0.0f;
+				g = 1.0f;
+				b = (510.0f - currentL) / 20.0f;
+				
+			}else if(510 <= currentL && currentL < 580){
+				r = 1.0f - ((580.0f - currentL) / 70.0f);
+				g = 1.0f;
+				b = 0.0f;
+				
+			}else if(580.0f <= currentL && currentL < 640.0f){
+				r = 1.0f;
+				g = (640.0f - currentL) / 60.0f;
+				b = 0.0f;
+				
+			}else if(640.0f <= currentL && currentL <= 700.0f){
+				r = 1.0f;
+				g = 0.0f;
+				b = 0.0f;
+				
+			}
+//			System.out.println("vec4(" + r + ", " + g + ", " + b + ", 1.0),");
+//			float kValue = (float) (2.0f*Math.PI / currentL*Math.pow(10, -9));
+//			float kValue = (float) ((currentL*Math.pow(10, 1)));
+			//System.out.println(kValue+",");
+	
+		}
+	}
+	
+
+	//String extension = ".png";
+	private void loadPatches2(String basisPath, boolean Lfolders, boolean bigSample){
+		int L = 350;
+		int step = 50;
+		if(bigSample){
+			L = 0;
+			step = 1;
+		}
+
+
+		String path = basisPath;
+
+		for(int iter = 0; iter < 492; iter++){
+			String ext = "";
+			if(iter%82 == 0) L+=step;
+			if(Lfolders) ext+=Integer.toString(L)+"/";
+			if(iter%82 < 41) ext+="imL"+L;
+			else ext+="reL"+L;
+			
+			int p = iter%41;
+			float t = -2.0f + p*0.1f;
+			t = (float)Math.round(t * 100000) / 100000;
+			if(t==-2.0f || t==-1.0f || t == 0.0f || t == 1.0f || t==2.0f){
+				if(t==-2.0f) ext += "w"+"-2"+"BH"+extension;
+				else if(t==-1.0f) ext += "w"+"-1"+"BH"+extension;
+				else if( t == 0.0f) ext += "w"+"0"+"BH"+extension;
+				else if(t == 1.0f)ext += "w"+"1"+"BH"+extension;
+				else ext += "w"+"2"+"BH"+extension;
+					
+			}else ext += "w"+t+"BH"+extension;
+			
+			this.textures[iter] = renderContext.makeTexture();
+			mat.setTextureAt(path+ext, textures[iter], iter);
+		}
+	}
+	
+	// for w=0.5 steps
+	private void loadPatches(String basisPath, boolean Lfolders){
+		int L = 350;
+		String path = basisPath;
+
+		for(int iter = 0; iter < 108; iter++){
+			String ext = "";
+			if(iter%18 == 0) L+=50;
+			if(Lfolders) ext+=Integer.toString(L)+"/";
+			if(iter%18 < 9) ext+="imL"+L;
+			else ext+="reL"+L;
+			
+			int p = iter%9;
+			float t = -2.0f + p*0.5f;
+			if(t==-2.0f || t==-1.0f || t == 0.0f || t == 1.0f || t==2.0f){
+				if(t==-2.0f) ext += "w"+"-2"+"BH.png";
+				else if(t==-1.0f) ext += "w"+"-1"+"BH.png";
+				else if( t == 0.0f) ext += "w"+"0"+"BH.png";
+				else if(t == 1.0f)ext += "w"+"1"+"BH.png";
+				else ext += "w"+"2"+"BH.png";
+					
+			}else ext += "w"+t+"BH.png";
+			
+			this.textures[iter] = renderContext.makeTexture();
+			mat.setTextureAt(path+ext, textures[iter], iter);
+		}
+	}
+	
+	private void setUpLight(){
+		Vector3f radiance = new Vector3f(1,1,1); 
+		Vector4f lightDirection = new Vector4f(0.0f, 0.0f, -1.0f, 0);  //directional light source
+//		lightDirection = new Vector4f(0, 0, 10, 1);  //directional light source
+		lightSource1 = new Light(radiance, lightDirection, "source1");
+		LightNode diceLightNode = new LightNode(lightSource1, sceneManager.getCamera().getCameraMatrix(), "light source1");
+		rootGroup.putChild(diceLightNode);
+	}
+	
+	private void setUpShapes(){
+		// care some numbers for segment count are buggy due to rounding error
+		// segment count = 45 seems to look enough smooth in order to represent
+		// a compact disc shape (i.e. dice)
+		// 45, 120, 240, 480
+		DiffractionDice4 diffDiceObj = new DiffractionDice4(960, 25, trackDistance);
+		
+		
+//		DiffractionDice6 diffDiceObj = new DiffractionDice6(480, 100, trackDistance);
+		
+		
+		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(300,10f,1f);
+		
+		diffDice = new Shape(diffDiceObj.getVertices());
+		diffPlane = new Shape(diffPlaneObj.getVertices());
+		
+		diffDice.setShaderTask(activeShaderTask);
+		diffDice.setMaterial(mat);
+		
+		diffPlane.setShaderTask(activeShaderTask);
+		diffPlane.setMaterial(mat);
+		
+		this.diffDiceIMat = diffDice.getTransformation();
+		
+		this.diffPlaneIMat = diffPlane.getTransformation();
+	}
+	
+	private void setUpSceneGraph(){
+		rootGroup = new TransformGroup("root");
+		this.root = rootGroup;
+		
+		if(isPlane) rootGroup.putChild(new ShapeNode(diffPlane, "plane shape"));
+		else rootGroup.putChild(new ShapeNode(diffDice, "dice shape"));
+	
+	}
+	
+	private void setUpCamera(boolean isFar){
+		
+		if(isPlane){
+			float aspectRatio = 1.0f;
+			float near = 0.0001f;
+			float far = 5500.0f;
+			float verticalFieldView = 60;
+//			verticalFieldView = 120; // viewing angle
+			Vector3f up = new Vector3f(0, 1, 0); // camera height
+			Point3f look = new Point3f(0, 0, 0); // point camera looks at
+			Point3f cop = new Point3f(0, 0, 1.0f); // camera distance
+//			cop = new Point3f(0, 0, 1.00f); // camera distance
+			sceneManager.getFrustum().setParameter(aspectRatio, near, far, verticalFieldView);
+			sceneManager.getCamera().setParameter(cop, look, up);
+		}else{
+			float aspectRatio = 1.0f;
+			float near = 0.0001f;
+			float far = 5500.0f;
+			float verticalFieldView = 40;
+//			verticalFieldView = 120; // viewing angle
+			Vector3f up = new Vector3f(0, 1, 0); // camera height
+			Point3f look = new Point3f(0, 0, 0); // point camera looks at
+			Point3f cop = new Point3f(0, 0, 10.0f); // camera distance
+//			cop = new Point3f(0, 0, 1.00f); // camera distance
+			sceneManager.getFrustum().setParameter(aspectRatio, near, far, verticalFieldView);
+			sceneManager.getCamera().setParameter(cop, look, up);
+			
+			
+			Matrix4f ma = new Matrix4f();
+			float[] a = {0.94874644f, 0.25298318f, -0.18942694f, 0.13349566f};
+			float[] b = {-0.049736004f, 0.7114186f, 0.7010073f, 0.32658237f};
+			float[] c = {0.31210417f, -0.6556542f, 0.6875345f, -10.968632f};
+			float[] d = {0.0f, 0.0f, 0.0f, 1.0f};
+			ma.setRow(0, a);
+			ma.setRow(1, b);
+			ma.setRow(2, c);
+			ma.setRow(3, d);
+			
+			sceneManager.getCamera().setCameraMatrix(ma);
+		}
+		
+
+		
+		
+//		Matrix4f ma = new Matrix4f();
+//		float[] a = {0.94874644f, 0.25298318f, -0.18942694f, 0.13349566f};
+//		float[] b = {-0.049736004f, 0.7114186f, 0.7010073f, 0.32658237f};
+//		float[] c = {0.31210417f, -0.6556542f, 0.6875345f, -10.968632f};
+//		float[] d = {0.0f, 0.0f, 0.0f, 1.0f};
+//		ma.setRow(0, a);
+//		ma.setRow(1, b);
+//		ma.setRow(2, c);
+//		ma.setRow(3, d);
+//		
+//		sceneManager.getCamera().setCameraMatrix(ma);
+		
+		
+	}
+	
+	public INode getRoot(){
+		return this.root;
+	}
+	
+	public Matrix4f calculateDiffDiceGroup(float phi){
+		Matrix4f answer = new Matrix4f();
+		answer.setIdentity();
+		Matrix4f rotX = new Matrix4f();
+		rotX.rotX(phi);
+		Matrix4f rotY = new Matrix4f();
+		rotY.rotY(phi);
+		answer.mul(rotX);
+		answer.mul(rotY);
+		return answer;
+	}
+	
+	public TransformGroup getDiffDiceGroup(){
+		return this.rootGroup;
+	}
+	
+	public Matrix4f getDiffDiceIMat(){
+		return this.diffDiceIMat;
+	}
+}

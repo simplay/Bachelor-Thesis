@@ -14,3 +14,19 @@ Thumbs.db
 #FILES
 .metadata/
 desktop.ini
+#jrtr FILES
+jrtr/.classpath
+jrtr/.cvsignore
+jrtr/.project
+jrtr/bin/*
+jrtr/bin/**/*
+jrtr/doc
+jrtr/textures/*
+jrtr/textures/**/*
+#simple FILES
+simple/bin
+simple/doc
+simple/*.log
+simple/.cvsignore
+simple/.classpath
+simple/.project
