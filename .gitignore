@@ -1,0 +1,16 @@
+# VIM
+.*.swo
+.*.swp
+tags
+#CVS
+.cvsignore
+#OS X
+.DS_Store
+._*
+#Windows
+Thumbs.db
+#FILES
+.metadata
+#FILES
+.metadata/
+desktop.ini
