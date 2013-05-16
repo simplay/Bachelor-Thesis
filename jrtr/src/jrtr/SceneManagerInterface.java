@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import SceneGraph.LightNode;
+
 /**
  * An interface declaration for scene managers. Scene managers 
  * need to provide an iterator to traverse through all objects in the
@@ -28,5 +30,9 @@ public interface SceneManagerInterface {
 	public Frustum getFrustum();
 	
 	public ArrayList<Light> getLightSources();
+	
+	
+	public LightNode getRootLight();
+	
 	public void flushLightSources();
 }

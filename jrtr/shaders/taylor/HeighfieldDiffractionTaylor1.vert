@@ -100,8 +100,8 @@ vec2 getC(float reHeight, float imHeight, int index){
 	float c = global_extrema[0].z;
 	float d = global_extrema[0].w;
 	
-//	reC = (reC-a)/b;
-//	imC = (imC-c)/d;
+	reC = (reC-a)/b;
+	imC = (imC-c)/d;
 	
 	return vec2(reC, imC); 
 
@@ -118,7 +118,11 @@ float getFactor(float k, float F, float G, float PI, float w){
 }
 
 void main() {
-
+	float a = global_extrema[0].x;
+	float b = global_extrema[0].y;
+	float c = global_extrema[0].z;
+	float d = global_extrema[0].w;
+	float brdfMax = pow((b-a),2)+pow((d-c),2);
 
 	vec4 LValues[16] = vec4[](
 			vec4(0.32666668, 0.0, 0.79, 1.0),
@@ -142,6 +146,8 @@ void main() {
 
 	
 	float omega = 8.0*PI*pow(10,7);
+	vec4 brdf2 = vec4(0);
+//	omega = 4.0*PI*pow(10,7);
 	
 	int MaxIter = 16;
 	int totRuns = 41;
@@ -265,10 +271,11 @@ void main() {
 			
 			// approximation till iteration 30 of fourier coefficient
 			// TODO paramet. upper bound asap (but remember to limit) 
-			for(int n = 0; n < 22; n++){
+			for(int n = 0; n < 20; n++){
 				
 				
 				float scaler = 3.2699430*pow(10,11); // see derivation
+				scaler = 1.0; // see derivation
 //				scaler = 1.0;
 //				scaler = (1.0/scaler);
 				
@@ -281,7 +288,7 @@ void main() {
 				
 				scales = getC(reHeight, imHeight, extremaIndex);
 				
-				k = k / (2*PI); // important
+			//	k = k / (2*PI); // important
 				
 				
 				// develope factorial and pow like this since 
@@ -313,7 +320,7 @@ void main() {
 				}
 			}
 			
-			k = k * 2*PI; // important
+		//	k = k * 2*PI; // important
 			
 			float abs_P_Sq = pow((real_part*real_part + imag_part*imag_part),1);
 			factor1 = getFactor(k, F, G, PI, w);
@@ -333,29 +340,32 @@ void main() {
 
 			
 			brdf += vec4(tmp*factor1 * abs_P_Sq * LValues[iter]);
-			
+			brdf2 += vec4(tmp*factor1 * brdfMax * brdf_weights[iter], 1);
 		}
 	}
-
-	float frac = 1.0 / 1.0;
-	float fac2 = 1.0 / 8.0;
-	fac2 = 1.0 / 3500.0; // cosine, n<22
-//	fac2 = 1.0 / 60.0; // w20, n<24
+	brdf = vec4(brdf.x/brdf2.x, brdf.y/brdf2.y, brdf.z/brdf2.z, 1) ;
+	float frac = 1.0 / 32.0;
+	float fac2 = 100.0 / 70000.0;
+	fac2 = 7.0 / 1.0;
 
 	
-
+	
+	brdf.xyz =  M_Adobe_XR*brdf.xyz;
+	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0, 1.0, 1.0 / 2.2);
+	brdf.xyz = fac2*fac2*fac2*fac2*frac*brdf.xyz;
+	
+//	brdf.xyz = getGammaCorrection(brdf.xyz, 0.0031308, 0.055, 12.92, 1.0 / 2.2);
+	
 	float ambient = 0.0;
 	
-	
+
 	// test for error - debug mode
 	if(brdf.x < 0.0 || brdf.y < 0.0 || brdf.z < 0.0){
-		col = vec4(0,1,0,1);
+		col = vec4(1,1,1,1);
 	}else{
-		
-		brdf.xyz =  M_Adobe_XR*brdf.xyz;
-//		brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0, 1.0, 1.0 / 2.2);
-		brdf.xyz = fac2*fac2*fac2*fac2*frac*brdf.xyz;	
 		col = brdf+vec4(ambient,ambient,ambient,1);
+	//		col = fac2*fac2*fac2*fac2*frac*vec4(G,G,G,1);
+		//col = vec4(ambient,ambient,ambient,1);
 	}
 	
 

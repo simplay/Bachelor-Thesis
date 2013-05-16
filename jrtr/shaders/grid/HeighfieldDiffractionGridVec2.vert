@@ -31,6 +31,9 @@ uniform vec4 scalingFactors[MAX_FACTORS];
 uniform vec4 global_extrema[1];
 uniform sampler2DArray TexArray;
 uniform float kValues[16];
+
+uniform float distToCam; // ne entity
+
 uniform vec4 camPos;
 
 
@@ -106,6 +109,7 @@ vec2 getC(float reHeight, float imHeight, int index){
 	float c = global_extrema[0].z;
 	float d = global_extrema[0].w;
 	
+
 	reC = (reC-a)/b;
 	imC = (imC-c)/d;
 	
@@ -125,6 +129,13 @@ float getFactor(float k, float F, float G, float PI, float w){
 
 void main() {
 
+	float a = global_extrema[0].x;
+	float b = global_extrema[0].y;
+	float c = global_extrema[0].z;
+	float d = global_extrema[0].w;
+	
+	
+	float brdfMax = pow((b-a),2)+pow((d-c),2);
 
 	vec4 LValues[16] = vec4[](
 			vec4(0.32666668, 0.0, 0.79, 1.0),
@@ -151,6 +162,9 @@ void main() {
 	
 	
 	float omega = 8.0*PI*pow(10,7); // omega scaled for texture cordinates => corresponds to 2.5
+	vec4 brdf2 = vec4(0);
+	
+	omega = (8.0/1.0)*PI*pow(10,7);
 	
 	float wStep = 0.1;
 	float hwStep = 0.05;
@@ -309,8 +323,8 @@ void main() {
 		vec2 modUV = getRotation(u,v,-phi);
 		float bias = 50.0/99.0;
 //		k = k/ (2.0*PI);
-		vec2 coords = vec2((k*modUV.x/omega) + bias, (k*modUV.y/(omega*1.0)) + bias); //2d
-		coords = vec2((k*modUV.x/omega) + bias, bias); //1d
+		vec2 coords = vec2((k*modUV.x/omega) + bias, (k*modUV.y/(omega)) + bias); //2d
+//		coords = vec2((k*modUV.x/omega) + bias, bias); //1d
 		
 		mayRun = true;
 		// only allow values within range [0,1]
@@ -359,7 +373,7 @@ void main() {
 			
 			
 			float tmp = k*v*1.25*pow(10.0,-7.0);
-//			tmp = k*v*0.1;
+//			tmp = k*v*0.01;
 //			tmp = k*v*0.0001;
 			tmp /= 2.0*PI;
 			
@@ -368,9 +382,10 @@ void main() {
 			}else{
 				tmp = sin(tmp)/tmp;
 			}
-//			tmp = 1.0;
+			tmp = 1.0;
 			tmp *= tmp;
 			brdf += vec4(tmp*factor1 * abs_P_Sq * brdf_weights[iter], 1);
+			brdf2 += vec4(tmp*factor1 * brdfMax * brdf_weights[iter], 1);
 			
 			
 			
@@ -380,6 +395,7 @@ void main() {
 		}
 	}
 	
+//	brdf = vec4(brdf.x/brdf2.x, brdf.y/brdf2.y, brdf.z/brdf2.z, 1) ;
 	
 	float frac = 1.0 / 32.0;
 	float fac2 = 1.0 / 70000.0;
@@ -397,6 +413,9 @@ void main() {
 	fac2 = 1.0 / 2480.0;
 	fac2 = 1.0 / 8000.0;
 	fac2 = 1.0 / 35.0;
+	fac2 = 1.0 / 35.0;
+	fac2 = 1.0 / 530000.0;
+	fac2 = 3.0;
 	fac2 = 1.0 / 35.0;
 //	float amount = 100000000;
 //	amount *= amount;

@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
+import SceneGraph.LightNode;
+
 /**
  * A simple scene manager that stores objects in a linked list.
  */
@@ -88,6 +90,12 @@ public class SimpleSceneManager implements ISceneManagerExtended {
 	public void flushLightSources() {
 		this.lightSources = new ArrayList<Light>();
 		
+	}
+
+	@Override
+	public LightNode getRootLight() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

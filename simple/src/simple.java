@@ -27,6 +27,7 @@ public class simple{
 	static Shape shape2;
 	static float angle;
 	static Matrix4f originalShape2Matrix;
+	static SimpleKeyListener ks;
 	static Vector3f v1 = new Vector3f(0,0,0), v2 = new Vector3f(0,0,0);
 	
 	/**
@@ -58,8 +59,9 @@ public class simple{
 		    
     
 		    DiffractionSceneGraphFabricator dgsf = new DiffractionSceneGraphFabricator(sceneManager, r);
+		    ks.setFabric(dgsf);
 			sceneManager.setRoot(dgsf.getRoot());
-		    timer.scheduleAtFixedRate(new DiffractionAnimationTask(dgsf, renderPanel), 0, 10);
+//		    timer.scheduleAtFixedRate(new DiffractionAnimationTask(dgsf, renderPanel), 0, 10);
 		}
 	}
 
@@ -88,7 +90,8 @@ public class simple{
 		//add(playFrame, BorderLayout.CENTER);
 		// Add a mouse listener
 		Storage s = new Storage();
-		renderPanel.getCanvas().addKeyListener(new SimpleKeyListener(s, sceneManager, renderPanel));
+		ks = new SimpleKeyListener(s, sceneManager, renderPanel);
+		renderPanel.getCanvas().addKeyListener(ks);
 		renderPanel.getCanvas().addMouseListener(new SimpleMouseListener(s,dim,dim));
 		renderPanel.getCanvas().addMouseMotionListener(new SimpleMouseMotionListener(s,sceneManager, renderPanel, dim, dim)); 
 

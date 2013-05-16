@@ -23,6 +23,11 @@ public class MultiTexturesTAShaderTask extends ShaderTask{
 		int id3 = gl.glGetUniformLocation(activeShader.programId(), "d");
 		gl.glUniform1f(id3, trackDistance);
 		
+		
+//		float camDist = m.getDistanceToCamera();
+//		int id33 = gl.glGetUniformLocation(activeShader.programId(), "distToCam");
+//		gl.glUniform1f(id33, camDist);
+		
 		// load texture array storing all our Fourier transformed patches.
 		gl.glUniform1i(gl.glGetUniformLocation(activeShader.programId(), "TexArray"), 0);
 		GLTexture t = (GLTexture) m.getTextureAt(0);

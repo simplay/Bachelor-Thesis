@@ -69,4 +69,18 @@ public class GraphSceneManager implements SceneManagerInterface{
     public void flushLightSources(){
     	lightSources = new ArrayList<Light>();
     }
+
+	@Override
+	public LightNode getRootLight() {	
+		ArrayList<INode> nodes = this.root.getChildren();
+		LightNode answer = null;
+		for(INode node : nodes){
+			if(node instanceof LightNode){
+				answer = (LightNode) node;
+				break;
+			}
+		}
+		return answer;
+	}
+	
 }

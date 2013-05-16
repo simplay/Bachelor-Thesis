@@ -5,9 +5,13 @@ import java.awt.event.KeyListener;
 
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
+import javax.vecmath.Vector4f;
 
+import jrtr.Light;
 import jrtr.RenderPanel;
+import Diffraction.DiffractionSceneGraphFabricator;
 import SceneGraph.GraphSceneManager;
+import SceneGraph.LightNode;
 
 public class SimpleKeyListener implements KeyListener{
 	Storage s;
@@ -17,6 +21,7 @@ public class SimpleKeyListener implements KeyListener{
 	GraphSceneManager sceneManager;
 	RenderPanel renderPanel;
 	float speed = 1.0f;
+	private DiffractionSceneGraphFabricator fabric;
 	
 	public SimpleKeyListener(Storage s, GraphSceneManager sceneManager, RenderPanel renderPanel){
 		this.s = s;
@@ -38,6 +43,14 @@ public class SimpleKeyListener implements KeyListener{
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+		
+    	LightNode light;
+    	Vector3f radiance;   	
+    	Vector4f oldLightDir;
+    	Vector4f newLightDir;
+		LightNode newlight;
+		
+		
 		switch (e.getKeyChar()) {
 		    case 'w':
 				Matrix4f camera = sceneManager.getCamera().getCameraMatrix();
@@ -107,6 +120,74 @@ public class SimpleKeyListener implements KeyListener{
 				renderPanel.getCanvas().repaint();
 				break;
 				
+				
+		    case 'u':
+		    	light = fabric.getLight();
+		    	radiance = new Vector3f(1,1,1);   	
+		    	oldLightDir = light.getLightSource().getLightDirection();
+		    	newLightDir = new Vector4f(oldLightDir.x + 0.2f, oldLightDir.y-0.01f, oldLightDir.z-0.01f, oldLightDir.w);
+		    	newLightDir.normalize();
+				newlight = new LightNode(new Light(radiance, newLightDir, "source1"), sceneManager.getCamera().getCameraMatrix(), "light source1");
+		    	fabric.updateRootLight(newlight);
+				renderPanel.getCanvas().repaint();
+				break;
+				
+		    case 'j':
+		    	light = fabric.getLight();
+		    	radiance = new Vector3f(1,1,1);   	
+		    	oldLightDir = light.getLightSource().getLightDirection();
+		    	newLightDir = new Vector4f(oldLightDir.x - 0.2f, oldLightDir.y+0.01f, oldLightDir.z+0.01f, oldLightDir.w);
+		    	newLightDir.normalize();
+				newlight = new LightNode(new Light(radiance, newLightDir, "source1"), sceneManager.getCamera().getCameraMatrix(), "light source1");
+		    	fabric.updateRootLight(newlight);
+				renderPanel.getCanvas().repaint();
+				break;
+				
+		    case 'i':
+		    	light = fabric.getLight();
+		    	radiance = new Vector3f(1,1,1);   	
+		    	oldLightDir = light.getLightSource().getLightDirection();
+		    	newLightDir = new Vector4f(oldLightDir.x, oldLightDir.y + 0.2f, oldLightDir.z, oldLightDir.w);
+		    	newLightDir.normalize();
+				newlight = new LightNode(new Light(radiance, newLightDir, "source1"), sceneManager.getCamera().getCameraMatrix(), "light source1");
+		    	fabric.updateRootLight(newlight);
+				renderPanel.getCanvas().repaint();
+				break;
+				
+		    case 'k':
+		    	light = fabric.getLight();
+		    	radiance = new Vector3f(1,1,1);   	
+		    	oldLightDir = light.getLightSource().getLightDirection();
+		    	newLightDir = new Vector4f(oldLightDir.x, oldLightDir.y - 0.2f, oldLightDir.z, oldLightDir.w);
+		    	newLightDir.normalize();
+				newlight = new LightNode(new Light(radiance, newLightDir, "source1"), sceneManager.getCamera().getCameraMatrix(), "light source1");
+		    	fabric.updateRootLight(newlight);
+				renderPanel.getCanvas().repaint();
+				break;
+				
+		    case 'o':
+		    	light = fabric.getLight();
+		    	radiance = new Vector3f(1,1,1);   	
+		    	oldLightDir = light.getLightSource().getLightDirection();
+		    	newLightDir = new Vector4f(oldLightDir.x, oldLightDir.y, oldLightDir.z + 0.2f, oldLightDir.w);
+		    	newLightDir.normalize();
+				newlight = new LightNode(new Light(radiance, newLightDir, "source1"), sceneManager.getCamera().getCameraMatrix(), "light source1");
+		    	fabric.updateRootLight(newlight);
+				renderPanel.getCanvas().repaint();
+				break;
+				
+		    case 'l':
+		    	light = fabric.getLight();
+		    	radiance = new Vector3f(1,1,1);   	
+		    	oldLightDir = light.getLightSource().getLightDirection();
+		    	newLightDir = new Vector4f(oldLightDir.x - 0.2f, oldLightDir.y, oldLightDir.z - 0.2f, oldLightDir.w);
+		    	newLightDir.normalize();
+				newlight = new LightNode(new Light(radiance, newLightDir, "source1"), sceneManager.getCamera().getCameraMatrix(), "light source1");
+		    	fabric.updateRootLight(newlight);
+				renderPanel.getCanvas().repaint();
+				break;
+				
+				
 		    case '+':
 		    	if(speed < 1.95f)this.speed += 0.05;
 				break;
@@ -116,6 +197,10 @@ public class SimpleKeyListener implements KeyListener{
 				break;
 
 		}
+	}
+	
+	public void setFabric(DiffractionSceneGraphFabricator fabric){
+		this.fabric = fabric;
 	}
 
 }

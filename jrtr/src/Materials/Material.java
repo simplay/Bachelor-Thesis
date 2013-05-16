@@ -27,6 +27,7 @@ public class Material {
 	private float[] weights;
 	private float[] globals;
 	private float[] kValues;
+	private float distanceToCamera;
 	
 	private float phongExponent;
 	private float trackDistance;
@@ -35,6 +36,14 @@ public class Material {
     
     public Material(){
 
+    }
+    
+    public float getDistanceToCamera(){
+    	return this.getDistanceToCamera();
+    }
+    
+    public void setDistanceToCamera(float dist){
+    	this.distanceToCamera = dist;
     }
     
     public int getLayerCount(){

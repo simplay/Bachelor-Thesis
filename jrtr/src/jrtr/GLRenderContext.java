@@ -206,8 +206,8 @@ public class GLRenderContext implements RenderContext {
 		
 		Vector4f cameraPosition = new Vector4f();
 		sceneManager.getCamera().getCameraMatrix().getColumn(3, cameraPosition);
-		System.out.println("camera position in scene: \n" + sceneManager.getCamera().getCameraMatrix());
-		System.out.println(cameraPosition);
+		System.out.println("\ncamera position in scene: \n" + sceneManager.getCamera().getCameraMatrix());
+		System.out.println("\nlight direction in scene: \n" + sceneManager.getRootLight().getLightSource().getLightDirection() );
 		
 		float[] cpos = {cameraPosition.x, cameraPosition.y, cameraPosition.z, cameraPosition.w};
 		int scalingID = gl.glGetUniformLocation(activeShader.programId(),"camPos");
