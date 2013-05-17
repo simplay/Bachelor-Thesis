@@ -47,7 +47,7 @@ public class DiffractionSceneGraphFabricator {
 	// stam 4
 	// grid 9
 	// taylor 10
-	private int version = 10;
+	private int version = 9;
 
 	
 	
@@ -617,11 +617,11 @@ public class DiffractionSceneGraphFabricator {
 	private void setUpCamera(boolean isFar){
 		float distance = 0.0f;
 		if(isPlane){
-			distance = 0.1f;
+			distance = 25.1f;
 			float aspectRatio = 1.0f;
 			float near = 0.0001f;
 			float far = 5500.0f;
-			float verticalFieldView = 60.0f;
+			float verticalFieldView = 3.0f;
 //			verticalFieldView = 120; // viewing angle
 			Vector3f up = new Vector3f(0, 1, 0); // camera height
 			Point3f look = new Point3f(0, 0, 0); // point camera looks at
