@@ -100,45 +100,12 @@ public class DiffractionSceneGraphFabricator {
 		try {
 			
 			if(version==1){
-				if(hasVectorfield)
-					shader.load(ShaderPaths.diffractionHF5VecVert.toString(), ShaderPaths.diffractionHF5VecFrag.toString());
-				else 
-					shader.load(ShaderPaths.diffractionHF5Vert.toString(), ShaderPaths.diffractionHF5Frag.toString());
-				
-			}else if(version == 2){
-				if(hasVectorfield)
-					shader.load(ShaderPaths.diffractionHF6VecVert.toString(), ShaderPaths.diffractionHF6VecFrag.toString());
-				else 
-					shader.load(ShaderPaths.diffractionHF6Vert.toString(), ShaderPaths.diffractionHF6Frag.toString());
-				
-				
-			}else if(version == 3){
-				
-				if(hasVectorfield)
-					shader.load(ShaderPaths.diffractionHF7VecVert.toString(), ShaderPaths.diffractionHF7VecFrag.toString());
-				else 
-					shader.load(ShaderPaths.diffractionHF7Vert.toString(), ShaderPaths.diffractionHF7Frag.toString());
-				
-				
-				
+	
 			}else if(version == 4){
 				shader.load(ShaderPaths.diffraction4Vert.toString(), ShaderPaths.diffraction4Frag.toString());
-				
-			}else if(version == 5){
-				shader.load(ShaderPaths.diffractionHF8VecVert.toString(), ShaderPaths.diffractionHF8VecFrag.toString());
-			}else if(version == 6){
-				shader.load(ShaderPaths.diffractionHFExpVecVert.toString(), ShaderPaths.diffractionHFExpVecFrag.toString());
-			}else if(version == 7){
-					shader.load(ShaderPaths.diffractionHFExp2VecVert.toString(), ShaderPaths.diffractionHFExp2VecFrag.toString());
 					
-			}else if(version == 8){
-				shader.load(ShaderPaths.grid1Vert.toString(), ShaderPaths.grid1Frag.toString());
-				
 			}else if(version == 9){
 				shader.load(ShaderPaths.grid2Vert.toString(), ShaderPaths.grid2Frag.toString());
-				
-//				shader.load(ShaderPaths.expVert.toString(), ShaderPaths.expFrag.toString());
-	//			shader.load(ShaderPaths.grid3Vert.toString(), ShaderPaths.grid3Frag.toString());
 				
 			}else if(version == 10){
 				
@@ -149,83 +116,12 @@ public class DiffractionSceneGraphFabricator {
 		
 		mat.setShader(shader);
 		
-	
-		
-
-		String basisPathA = "../jrtr/textures/sampleX/3/"; //TODO use me k=6, w=0.1, awesome result
-		String basisPath16 = "../jrtr/textures/sampleX/16/"; // TODO use me
-		String random = "../jrtr/textures/random/1/";
-		String tri = "../jrtr/textures/random/2/";
-		String s1d = "../jrtr/textures/sampleX/1d/";
-		String grating = "../jrtr/textures/sampleX/grating/";
-		String grating2 = "../jrtr/textures/sampleX/grating2/";
-		String grating3 = "../jrtr/textures/sampleX/grating3/";
-		String grating4 = "../jrtr/textures/sampleX/grating4/";
-		String grating5 = "../jrtr/textures/sampleX/grating5/";
-		String grating6 = "../jrtr/textures/sampleX/grating6/";
-		String grating7 = "../jrtr/textures/sampleX/grating7/";
-		String rgb1 = "../jrtr/textures/sampleX/rgb1/";
-		
-		String fPath3 = "../jrtr/textures/sampleX/3/extrema.txt";
-		String fPath16 = "../jrtr/textures/sampleX/16/extrema.txt";
-		String frandom = "../jrtr/textures/random/1/extrema.txt";
-		String ftri = "../jrtr/textures/random/2/extrema.txt";
-		String f1d = "../jrtr/textures/sampleX/1d/extrema.txt";
-		String fgrating = "../jrtr/textures/sampleX/grating/extrema.txt";
-		String fgrating2 = "../jrtr/textures/sampleX/grating2/extrema.txt";
-		String fgrating3 = "../jrtr/textures/sampleX/grating3/extrema.txt";
-		String fgrating4 = "../jrtr/textures/sampleX/grating4/extrema.txt";
-		String fgrating5 = "../jrtr/textures/sampleX/grating5/extrema.txt";
-		String fgrating6 = "../jrtr/textures/sampleX/grating6/extrema.txt";
-		String frgb1 = "../jrtr/textures/sampleX/rgb1/extrema.txt";
-		
 		String samples = null;
 		String extrema = null;
 		
-		if(version < 4 || version == 5 || version == 6 || version == 7 || version == 8 || version == 9 || version == 10){
+		if(version == 9 || version == 10){
 			if(version==1){
-				samples = basisPathA;
-				extrema = fPath3;
-			}else if(version == 2){
-				samples = basisPath16;
-				extrema = fPath16;
-			}else if(version == 3){
-				samples = tri;
-				extrema = ftri;
-			}else if(version == 5){
-			samples = s1d;
-			extrema = f1d;
-			}else if(version == 6){
-				samples = grating;
-				extrema = fgrating;
-				mat.setKValues(loadKValues("../jrtr/textures/sampleX/grating/kvalues.txt"));
-				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/grating/globals.txt"));
-				mat.setWeights(readWeights("../jrtr/textures/sampleX/grating/weights.txt"));
-				
-				
-				
-//				samples = grating3;
-//				extrema = fgrating3;
-//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/grating3/kvalues.txt"));
-//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/grating3/globals.txt"));
-//				mat.setWeights(readWeights("../jrtr/textures/sampleX/grating3/weights.txt"));
-				
-				
-				
-			}else if(version == 7){
-				samples = grating2;
-				extrema = fgrating2;
-				mat.setKValues(loadKValues("../jrtr/textures/sampleX/grating/kvalues.txt"));
-				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/grating2/globals.txt"));
-				mat.setWeights(readWeights("../jrtr/textures/sampleX/grating2/weights.txt"));
-				
-			// grid approach
-			}else if(version == 8){
-				samples = grating6;
-				extrema = fgrating6;
-				mat.setKValues(loadKValues("../jrtr/textures/sampleX/grating6/kvalues.txt"));
-				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/grating6/globals.txt"));
-				mat.setWeights(readWeights("../jrtr/textures/sampleX/grating6/weights.txt"));
+
 				
 			// using bmp rgb	
 			}else if(version == 9){
