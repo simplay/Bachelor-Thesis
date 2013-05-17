@@ -164,7 +164,7 @@ void main() {
 	float omega = 8.0*PI*pow(10,7); // omega scaled for texture cordinates => corresponds to 2.5
 	vec4 brdf2 = vec4(0);
 	
-	omega = (8.0/1.0)*PI*pow(10,7);
+	//omega = (8.0/1.0)*PI*pow(10,7);
 	
 	float wStep = 0.1;
 	float hwStep = 0.05;
@@ -324,7 +324,7 @@ void main() {
 		float bias = 50.0/99.0;
 //		k = k/ (2.0*PI);
 		vec2 coords = vec2((k*modUV.x/omega) + bias, (k*modUV.y/(omega)) + bias); //2d
-//		coords = vec2((k*modUV.x/omega) + bias, bias); //1d
+		coords = vec2((k*modUV.x/omega) + bias, bias); //1d
 		
 		mayRun = true;
 		// only allow values within range [0,1]
@@ -399,36 +399,14 @@ void main() {
 	
 	float frac = 1.0 / 32.0;
 	float fac2 = 1.0 / 70000.0;
-	fac2 = 1.0 / 7500.0;
-	fac2 = 1.0 / 3000000.0;
-	fac2 = 1.0 / 15.0;
-	fac2 = 1.0 / 2500.0;
 
-
-	fac2 = 1.0 / 15.0;
-	fac2 = 1.0 / 600.0;
-	fac2 = 1.0 / 7800.0;
-	fac2 = 1.0 / 30.0;
-	fac2 = 1.0 / 25.0;
-	fac2 = 1.0 / 2480.0;
-	fac2 = 1.0 / 8000.0;
-	fac2 = 1.0 / 35.0;
-	fac2 = 1.0 / 35.0;
-	fac2 = 1.0 / 530000.0;
 	fac2 = 3.0;
 	fac2 = 1.0 / 35.0;
-//	float amount = 100000000;
-//	amount *= amount;
-//	brdf += vec4(amount,amount,amount,0);
-	//vec3 getGammaCorrection(vec3 rgb, float t, float f, float s, float gamma){
 	
 
 	
 	brdf.xyz =  M_Adobe_XR*brdf.xyz;
-	sum = M_sRGB_XR1*sum;
-	
 	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0, 1.0, 1.0 / 2.2);
-	
 	brdf.xyz = fac2*fac2*fac2*fac2*frac*brdf.xyz;
 	
 //	brdf.xyz = getGammaCorrection(brdf.xyz, 0.0031308, 0.055, 12.92, 1.0 / 2.2);

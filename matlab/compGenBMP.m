@@ -8,11 +8,16 @@ function compGenBMP()
     wStep=0.1;
     specStep=16;
     dimN = 100;
-    n = 4;
+    n = 1;
     
     out = 'out/';
     patch_basis_path = '../input_patches/';
-    patch_file = '100x100stamBump.bmp';
+    RectPatch1d = '100x100stam1dBump.bmp';
+    RectPatch2d = '100x100stamBump.bmp';
+    BlazingPatch = 'BlazingBump.bmp';
+    CosinePatch = 'CosineBump.bmp';
+    
+    patch_file = RectPatch1d;
     
 	inputIMG = imread(strcat(patch_basis_path,patch_file));
     inputIMG = repmat(inputIMG, n, n);
@@ -56,7 +61,7 @@ function compGenBMP()
 		for w=-2:wStep:2,
 
 				% current wavenumber
-				k = kValues(t);
+				k = kValues(t) / (2.0*pi);
 				
 				% 2dim fourier transform of transformed 
 				% by exp(...) of input patch. 

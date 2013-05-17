@@ -1,27 +1,21 @@
 package Diffraction;
 
-
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 import javax.vecmath.Vector4f;
-
 import jrtr.Light;
 import jrtr.RenderContext;
 import jrtr.Shader;
 import jrtr.Shape;
 import jrtr.Texture;
-import Constants.MaterialTexturePaths;
 import Constants.ShaderPaths;
 import Materials.Material;
 import SceneGraph.GraphSceneManager;
@@ -29,8 +23,6 @@ import SceneGraph.INode;
 import SceneGraph.LightNode;
 import SceneGraph.ShapeNode;
 import SceneGraph.TransformGroup;
-import ShaderLogic.DiffractionShaderTask;
-import ShaderLogic.MultiTexturesShaderTask;
 import ShaderLogic.MultiTexturesTAShaderTask;
 import ShaderLogic.MultiTexturesTaylorShaderTask;
 import ShaderLogic.ShaderTask;
@@ -45,22 +37,22 @@ public class DiffractionSceneGraphFabricator {
 	private Matrix4f diffDiceIMat;
 	private Matrix4f diffPlaneIMat;
     private Material mat;
-    private Texture tex0, tex1, tex2, tex3, tex4, tex5, tex6;
+
     private Texture[] textures = new Texture[2624];
 	private Light lightSource1;
 	private float trackDistance = 2.5f;
 	private TransformGroup rootGroup;
 	
 	String extension = ".bmp";
-//	private int version = 9;
 	// stam 4
-	private int version = 9;
-	// 10 approach to go
-	// exploit 9
+	// grid 9
+	// taylor 10
+	private int version = 10;
+
 	
 	
 	private boolean hasVectorfield = true;
-	private boolean isPlane = false;
+	private boolean isPlane = true;
 
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
 		this.sceneManager = sceneManager;
@@ -232,11 +224,11 @@ public class DiffractionSceneGraphFabricator {
 //				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/w20/globals.txt"));
 //				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/w20/weights.txt"));
 				
-				samples = "../jrtr/textures/sampleX/taylor/newA/";
-				extrema = "../jrtr/textures/sampleX/taylor/newA/extrema.txt";
-				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/newA/kvalues.txt"));
-				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/newA/globals.txt"));
-				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/newA/weights.txt"));
+				samples = "../jrtr/textures/sampleX/taylor/AAA/";
+				extrema = "../jrtr/textures/sampleX/taylor/AAA/extrema.txt";
+				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/AAA/kvalues.txt"));
+				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/AAA/globals.txt"));
+				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/AAA/weights.txt"));
 //				
 //				samples = "../jrtr/textures/sampleX/taylor/w30/";
 //				extrema = "../jrtr/textures/sampleX/taylor/w30/extrema.txt";
@@ -273,10 +265,10 @@ public class DiffractionSceneGraphFabricator {
 		int counter = 0;
 		
 		for(int iter = 0; iter < 31; iter++){
-			counter++;
 			ext = "AmpRe"+Integer.toString(iter)+extension;
 			this.textures[iter] = renderContext.makeTexture();
 			mat.setTextureAt(path+ext, textures[iter], iter);
+			counter++;
 		}
 		
 		for(int iter = 0; iter < 31; iter++){
@@ -589,7 +581,7 @@ public class DiffractionSceneGraphFabricator {
 //		DiffractionDice6 diffDiceObj = new DiffractionDice6(480, 100, trackDistance);
 		
 		
-		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(100,10f,1f);
+		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(1,1f,1f);
 		
 		diffDice = new Shape(diffDiceObj.getVertices());
 		diffPlane = new Shape(diffPlaneObj.getVertices());

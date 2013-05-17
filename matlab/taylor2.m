@@ -2,10 +2,15 @@ function taylor2
 	format long
 	steps=30; specStep=16;
     dimN = 100;
-    n=4;
+    n=1;
     out = 'out/';
     patch_basis_path = '../input_patches/';
-    patch_file = '100x100stamBump.bmp';
+    RectPatch1d = '100x100stam1dBump.bmp';
+    RectPatch2d = '100x100stamBump.bmp';
+    BlazingPatch = 'BlazingBump.bmp';
+    CosinePatch = 'CosineBump.bmp';
+    
+    patch_file = RectPatch1d;
     
 	inputIMG = imread(strcat(patch_basis_path,patch_file));
     inputIMG = repmat(inputIMG, n, n);
