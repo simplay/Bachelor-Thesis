@@ -1,7 +1,15 @@
 function taylor2
-    steps=30, specStep=16
 	format long
-	inputIMG = imread('E:/image/milestone_samples/100x100stam1dBumpW20.bmp');
+	steps=30; specStep=16;
+    dimN = 100;
+    n=4;
+    out = 'out/';
+    patch_basis_path = '../input_patches/';
+    patch_file = '100x100stamBump.bmp';
+    
+	inputIMG = imread(strcat(patch_basis_path,patch_file));
+    inputIMG = repmat(inputIMG, n, n);
+   
 	d_inputIMG = double(inputIMG);
 	d_inputIMG = d_inputIMG./255;
 	
@@ -10,7 +18,8 @@ function taylor2
 	else
 		A = d_inputIMG;
 	end
-	
+	A = imresize(A, [dimN,dimN]);
+    
 	counter = 0;
 	extrema = [];
 	globals = [];
@@ -42,8 +51,10 @@ function taylor2
 				
 		% since we will defide by that found maximum value
 		% we have to care about dividing by zero.
-		reMax = max(abs(reMax),1);
-		imMax = max(abs(imMax),1);
+		%reMax = max(abs(reMax),1);
+		%imMax = max(abs(imMax),1);
+        if(reMax == 0) reMax = 1; end
+		if(imMax == 0) imMax = 1; end
 				
 		% scale entries of shifted D towards range [0,1]
 		reD = reC / reMax;
@@ -62,16 +73,16 @@ function taylor2
 		if(imMax > globalImMax) globalImMax = imMax; end
 		
 		outReal(:,:,1) = reD;
-		outReal(:,:,2) = zeros(100,100);
-		outReal(:,:,3) = zeros(100,100);
+		outReal(:,:,2) = zeros(dimN,dimN);
+		outReal(:,:,3) = zeros(dimN,dimN);
 				
 		outImag(:,:,1) = imD;
-		outImag(:,:,2) = zeros(100,100);
-		outImag(:,:,3) = zeros(100,100);	
+		outImag(:,:,2) = zeros(dimN,dimN);
+		outImag(:,:,3) = zeros(dimN,dimN);	
 				
 		% generate real and imaginary part images.		
-		imwrite(outReal, strcat("AmpRe",num2str(n),".bmp"))
-		imwrite(outImag, strcat("AmpIm",num2str(n),".bmp"))
+		imwrite(outReal, strcat(out,'AmpRe',num2str(n),'.bmp'))
+		imwrite(outImag, strcat(out,'AmpIm',num2str(n),'.bmp'))
 		
 		% increment index counter
 		counter = counter + 1;
@@ -85,8 +96,8 @@ function taylor2
 	globals(4) = globalImMax;
 
 	% save extrema  and globals in a txt file.
-	dlmwrite("extrema.txt", extrema, 'delimiter', '\n')
-	dlmwrite("globals.txt", globals, 'delimiter', '\n')
+	dlmwrite(strcat(out,'extrema.txt'), extrema, 'delimiter', '\n')
+	dlmwrite(strcat(out,'globals.txt'), globals, 'delimiter', '\n')
 	
 	
 	% spectrum
@@ -96,10 +107,10 @@ function taylor2
 	kValues = (2.0*pi) ./ (discretSpectrum*(10^-9));
 	
 	% save color weights for CIE_XYZ space
-	getBW3(discretSpectrum);
+	getXYZWeights(discretSpectrum);
 	
 	% save wavenumbers
-	dlmwrite("kvalues.txt", kValues, 'delimiter', '\n')
+	dlmwrite(strcat(out,'kvalues.txt'), kValues, 'delimiter', '\n')
 	
 	
 end

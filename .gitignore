@@ -30,3 +30,5 @@ simple/*.log
 simple/.cvsignore
 simple/.classpath
 simple/.project
+#matlab FILES
+matlab/out/*

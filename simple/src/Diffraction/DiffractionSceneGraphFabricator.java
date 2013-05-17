@@ -54,13 +54,13 @@ public class DiffractionSceneGraphFabricator {
 	String extension = ".bmp";
 //	private int version = 9;
 	// stam 4
-	private int version = 10;
+	private int version = 9;
 	// 10 approach to go
 	// exploit 9
 	
 	
 	private boolean hasVectorfield = true;
-	private boolean isPlane = true;
+	private boolean isPlane = false;
 
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
 		this.sceneManager = sceneManager;

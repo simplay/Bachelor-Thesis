@@ -8,11 +8,18 @@ function compGenBMP()
     wStep=0.1;
     specStep=16;
     dimN = 100;
-    n = 4;
+    n = 1;
     
+
     out = 'out/';
-    patch_basis_path = '../input_patches/';
+    patch_basis_path = 'input_patches/';
     patch_file = '100x100stamBump.bmp';
+    
+    inOctave = exist('OCTAVE_VERSION')
+    if( == 
+    
+    
+	%inputIMG = imread("E:/image/100x100stam1dBump.bmp");
     
 	inputIMG = imread(strcat(patch_basis_path,patch_file));
     inputIMG = repmat(inputIMG, n, n);
@@ -21,7 +28,13 @@ function compGenBMP()
 	d_inputIMG = d_inputIMG./255;
 	
 	if(length(size(inputIMG))==3),
-		A = d_inputIMG(:,:,1);	
+		%for u=1:1:100,
+		%	for v=1:1:100,
+				%A(u,v) = 0.2126*d_inputIMG(u,v,1) + 0.7152*d_inputIMG(u,v,2) + 0.0722*d_inputIMG(u,v,3); 
+				
+		%	end
+		%end
+		A = d_inputIMG(:,:,1);		
 	else
 		A = d_inputIMG;
     end
