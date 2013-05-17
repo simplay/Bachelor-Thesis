@@ -224,11 +224,17 @@ public class DiffractionSceneGraphFabricator {
 //				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/w20/globals.txt"));
 //				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/w20/weights.txt"));
 				
-				samples = "../jrtr/textures/sampleX/taylor/AAA/";
-				extrema = "../jrtr/textures/sampleX/taylor/AAA/extrema.txt";
-				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/AAA/kvalues.txt"));
-				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/AAA/globals.txt"));
-				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/AAA/weights.txt"));
+//				samples = "../jrtr/textures/sampleX/taylor/AAA/";
+//				extrema = "../jrtr/textures/sampleX/taylor/AAA/extrema.txt";
+//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/AAA/kvalues.txt"));
+//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/AAA/globals.txt"));
+//				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/AAA/weights.txt"));
+				
+				samples = "../jrtr/textures/sampleX/taylor/BBB/";
+				extrema = "../jrtr/textures/sampleX/taylor/BBB/extrema.txt";
+				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/BBB/kvalues.txt"));
+				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/BBB/globals.txt"));
+				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/BBB/weights.txt"));
 //				
 //				samples = "../jrtr/textures/sampleX/taylor/w30/";
 //				extrema = "../jrtr/textures/sampleX/taylor/w30/extrema.txt";
@@ -265,16 +271,18 @@ public class DiffractionSceneGraphFabricator {
 		int counter = 0;
 		
 		for(int iter = 0; iter < 31; iter++){
-			ext = "AmpRe"+Integer.toString(iter)+extension;
+			
+			ext = "AmpRe"+Integer.toString(counter)+extension;
 			this.textures[iter] = renderContext.makeTexture();
-			mat.setTextureAt(path+ext, textures[iter], iter);
+			System.out.println(path+ext + " " + counter);
+			mat.setTextureAt(path+ext, textures[counter], counter);
 			counter++;
 		}
 		
-		for(int iter = 0; iter < 31; iter++){
-			
+		for(int iter = 0; iter < 31; iter++){	
 			ext = "AmpIm"+Integer.toString(iter)+extension;
 			this.textures[counter] = renderContext.makeTexture();
+			System.out.println(path+ext + " " + counter);
 			mat.setTextureAt(path+ext, textures[counter], counter);
 			counter++;
 		}
@@ -581,7 +589,7 @@ public class DiffractionSceneGraphFabricator {
 //		DiffractionDice6 diffDiceObj = new DiffractionDice6(480, 100, trackDistance);
 		
 		
-		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(1,1f,1f);
+		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(100,10f,1f);
 		
 		diffDice = new Shape(diffDiceObj.getVertices());
 		diffPlane = new Shape(diffPlaneObj.getVertices());

@@ -100,8 +100,8 @@ vec2 getC(float reHeight, float imHeight, int index){
 	float c = global_extrema[0].z;
 	float d = global_extrema[0].w;
 	
-//	reC = (reC-a)/b;
-//	imC = (imC-c)/d;
+	reC = (reC-a)/b;
+	imC = (imC-c)/d;
 	
 	return vec2(reC, imC); 
 
@@ -276,25 +276,34 @@ void main() {
 				if(n == 0) fourier_fact = 1.0;
 				else fourier_fact *= ((k*w*s)/n);
 				
-				float fourier_re = fourier_fact*scaler*scales.x;
-				float fourier_im = fourier_fact*scaler*scales.y;
+				// we read a complex height value c, precomputed in matlab
+				// c = x + iy
+				
+				float x = fourier_fact*scaler*scales.x;
+				float y = fourier_fact*scaler*scales.y;
 				
 				// see derivations
+				// 4 cases: 
+				//i^0 * c = c = x + iy
+				//i^1 * c = i*c = ix - y = -y + ix
+				//i^2 * c = -c = -x - iy
+				//i^3 * c = -i*c = -ix + y = y - ix
+				
 				if(n % 4 == 0){
-					real_part += fourier_re;
-					imag_part += fourier_im;
+					real_part += x;
+					imag_part += y;
 					
 				}else if(n % 4 == 1){
-					real_part -= fourier_im;
-					imag_part += fourier_re;
+					real_part -= y;
+					imag_part += x;
 					
 				}else if(n % 4 == 2){
-					real_part -= fourier_re;
-					imag_part -= fourier_im;
+					real_part -= x;
+					imag_part -= y;
 					
-				}else{
-					real_part += fourier_im;
-					imag_part -= fourier_re;
+				}else if(n % 4 == 3){
+					real_part += y;
+					imag_part -= x;
 				}
 			}
 			
@@ -325,7 +334,7 @@ void main() {
 	float frac = 1.0 / 1.0;
 	float fac2 = 100.0 / 70000.0;
 	fac2 = 1.0 / 2.0; // with norm
-	fac2 = 1.0 / 1800.0;
+	fac2 = 1.0 / 200.0;
 
 	brdf.xyz =  M_Adobe_XR*brdf.xyz;
 	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0, 1.0, 1.0 / 2.2);
