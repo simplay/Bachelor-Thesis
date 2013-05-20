@@ -25,6 +25,6 @@ out vec4 frag_shaded;
 
 void main() {
 	
-	vec4 tex = texture2DArray(TexArray, vec3(frag_texcoord, 0));
+	vec4 tex = texture2DArray(TexArray, vec3(frag_texcoord, 31+13));
 	frag_shaded	= col;
 }

@@ -147,39 +147,17 @@ void main() {
 	
 	float omega = 8.0*PI*pow(10,7);
 	vec4 brdf2 = vec4(0);
-//	omega = 4.0*PI*pow(10,7);
-	
 	int MaxIter = 16;
-	int totRuns = 41;
+
 	
 	
 
 	
 	// dir light source
 	vec3 P = (modelview * position).xyz;
-	vec4 lightPosition = modelview*(directionArray[0]);
-	
+	vec4 lightPosition = modelview*(directionArray[0]);	
 	vec3 _k2 = normalize(-P);
 	vec3 _k1 = normalize(lightPosition.xyz);
-
-	
-	// point light source
-//	vec4 eyePosition = -(modelview * position); // point in camera space
-//	vec4 lightPosition = modelview*vec4(directionArray[0].xyz, 1); // light position in camera space
-//	vec3 P = (modelview * position).xyz; // point p under consideration
-//	vec3 _k1 = normalize(P - lightPosition.xyz); // _k1: vector from lightPos to point P
-//	vec3 _k2 = normalize(eyePosition.xyz - P); // _k2: vector from point P to camera
-	
-	
-//	Vector4f P = matrix4fVector4fProduct(cameraMatrix, position);
-//	Vector4f lookAT = new Vector4f(-P.x, -P.y, -P.z, -P.w);
-//	Vector4f lightDir = matrix4fVector4fProduct(cameraMatrix, lightDirection);
-//	k1.sub(P, lightDir); // light source is a point light
-//	k2 = lookAT;
-	
-	
-	
-	
 	vec3 V = _k1 - _k2;
 	
 	float u = V.x;
@@ -271,7 +249,7 @@ void main() {
 			
 			// approximation till iteration 30 of fourier coefficient
 			// TODO paramet. upper bound asap (but remember to limit) 
-			for(int n = 0; n < 20; n++){
+			for(int n = 0; n < 31; n++){
 				
 				
 				float scaler = 3.2699430*pow(10,11); // see derivation
@@ -279,8 +257,8 @@ void main() {
 //				scaler = 1.0;
 //				scaler = (1.0/scaler);
 				
-				int index_re = 2*n;
-				int index_im = (2*n +1);
+				int index_re = n;
+				int index_im = (n +31);
 				
 				reHeight = texture2DArray(TexArray, vec3(coords, index_re) ).x;
 				imHeight = texture2DArray(TexArray, vec3(coords, index_im) ).x;
@@ -288,7 +266,7 @@ void main() {
 				
 				scales = getC(reHeight, imHeight, extremaIndex);
 				
-			//	k = k / (2*PI); // important
+//				k = k / (2*PI); // important
 				
 				
 				// develope factorial and pow like this since 
@@ -298,29 +276,38 @@ void main() {
 				if(n == 0) fourier_fact = 1.0;
 				else fourier_fact *= ((k*w*s)/n);
 				
-				float fourier_re = fourier_fact*scaler*scales.x;
-				float fourier_im = fourier_fact*scaler*scales.y;
+				// we read a complex height value c, precomputed in matlab
+				// c = x + iy
+				
+				float x = fourier_fact*scaler*scales.x;
+				float y = fourier_fact*scaler*scales.y;
 				
 				// see derivations
+				// 4 cases: 
+				//i^0 * c = c = x + iy
+				//i^1 * c = i*c = ix - y = -y + ix
+				//i^2 * c = -c = -x - iy
+				//i^3 * c = -i*c = -ix + y = y - ix
+				
 				if(n % 4 == 0){
-					real_part += fourier_re;
-					imag_part += fourier_im;
+					real_part += x;
+					imag_part += y;
 					
 				}else if(n % 4 == 1){
-					real_part -= fourier_im;
-					imag_part += fourier_re;
+					real_part -= y;
+					imag_part += x;
 					
 				}else if(n % 4 == 2){
-					real_part -= fourier_re;
-					imag_part -= fourier_im;
+					real_part -= x;
+					imag_part -= y;
 					
-				}else{
-					real_part += fourier_im;
-					imag_part -= fourier_re;
+				}else if(n % 4 == 3){
+					real_part += y;
+					imag_part -= x;
 				}
 			}
 			
-		//	k = k * 2*PI; // important
+//			k = k * 2*PI; // important
 			
 			float abs_P_Sq = pow((real_part*real_part + imag_part*imag_part),1);
 			factor1 = getFactor(k, F, G, PI, w);
@@ -343,25 +330,24 @@ void main() {
 			brdf2 += vec4(tmp*factor1 * brdfMax * brdf_weights[iter], 1);
 		}
 	}
-	brdf = vec4(brdf.x/brdf2.x, brdf.y/brdf2.y, brdf.z/brdf2.z, 1) ;
-	float frac = 1.0 / 32.0;
+	//brdf = vec4(brdf.x/brdf2.x, brdf.y/brdf2.y, brdf.z/brdf2.z, 1) ; // with norm
+	float frac = 1.0 / 1.0;
 	float fac2 = 100.0 / 70000.0;
-	fac2 = 7.0 / 1.0;
+	fac2 = 1.0 / 2.0; // with norm
+	fac2 = 1.0 / 200.0;
 
-	
-	
 	brdf.xyz =  M_Adobe_XR*brdf.xyz;
 	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0, 1.0, 1.0 / 2.2);
 	brdf.xyz = fac2*fac2*fac2*fac2*frac*brdf.xyz;
 	
-//	brdf.xyz = getGammaCorrection(brdf.xyz, 0.0031308, 0.055, 12.92, 1.0 / 2.2);
+	//brdf.xyz = getGammaCorrection(brdf.xyz, 0.0031308, 0.055, 12.92, 1.0 / 2.3);
 	
 	float ambient = 0.0;
 	
 
 	// test for error - debug mode
 	if(brdf.x < 0.0 || brdf.y < 0.0 || brdf.z < 0.0){
-		col = vec4(1,1,1,1);
+		col = vec4(1,0,1,1);
 	}else{
 		col = brdf+vec4(ambient,ambient,ambient,1);
 	//		col = fac2*fac2*fac2*fac2*frac*vec4(G,G,G,1);
