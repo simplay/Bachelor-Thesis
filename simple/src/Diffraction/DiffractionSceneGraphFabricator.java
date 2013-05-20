@@ -50,12 +50,12 @@ public class DiffractionSceneGraphFabricator {
 	// stam 4
 	// grid 9
 	// taylor 10
-	private int version = 4;
+	private int version = 10;
 
 	
 	
 	private boolean hasVectorfield = true;
-	private boolean isPlane = false;
+	private boolean isPlane = true;
 
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
 		this.sceneManager = sceneManager;
@@ -70,13 +70,12 @@ public class DiffractionSceneGraphFabricator {
 	
 	private void setUpShaderTask(){
 
-		if(version == 1 || version == 2 || version == 3 || version == 5 || version == 6 || version == 7 || version == 8 || version == 9)
+		if(version == 9){
 			activeShaderTask = new MultiTexturesTAShaderTask();
-		else if(version == 4 || version == 10){
-		    activeShaderTask = new MultiTexturesTaylorShaderTask();
-		    activeShaderTask = new DiffractionShaderTask(); //4
-//		    activeShaderTask = new MultiTexturesTaylorShaderTask();
-//		    activeShaderTask = new MultiTexturesTAShaderTask();
+		}else if(version == 10){
+			activeShaderTask = new MultiTexturesTaylorShaderTask();
+		}else if(version == 4){
+		    activeShaderTask = new DiffractionShaderTask();
 		}
 	}
 	
@@ -98,14 +97,15 @@ public class DiffractionSceneGraphFabricator {
 			if(version==1){
 	
 			}else if(version == 4){
-				shader.load(ShaderPaths.diffraction4Vert.toString(), ShaderPaths.diffraction4Frag.toString());
+				shader.load(ShaderPaths.stamVert.toString(), ShaderPaths.stamFrag.toString());
 					
 			}else if(version == 9){
-				shader.load(ShaderPaths.grid2Vert.toString(), ShaderPaths.grid2Frag.toString());
-				
+				shader.load(ShaderPaths.grid_1d_Vert.toString(), ShaderPaths.grid_1d_Frag.toString());
+				//shader.load(ShaderPaths.grid_2d_Vert.toString(), ShaderPaths.grid_2d_Frag.toString());
 			}else if(version == 10){
 				
-				shader.load(ShaderPaths.taylor1Vert.toString(), ShaderPaths.taylor1Frag.toString());
+				shader.load(ShaderPaths.taylor_1d_Vert.toString(), ShaderPaths.taylor_1d_Frag.toString());
+//				shader.load(ShaderPaths.taylor_2d_Vert.toString(), ShaderPaths.taylor_2d_Frag.toString());
 			}
 
 		} catch (Exception e) {}
@@ -137,11 +137,11 @@ public class DiffractionSceneGraphFabricator {
 //				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/1dw10/weights.txt"));
 				
 				// basis comparision
-//				samples = "../jrtr/textures/sampleX/milestone/1dw20/";
-//				extrema = "../jrtr/textures/sampleX/milestone/1dw20/extrema.txt";
-//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/1dw20/kvalues.txt"));
-//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/1dw20/globals.txt"));
-//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/1dw20/weights.txt"));
+				samples = "../jrtr/textures/sampleX/milestone/1dw20/";
+				extrema = "../jrtr/textures/sampleX/milestone/1dw20/extrema.txt";
+				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/1dw20/kvalues.txt"));
+				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/1dw20/globals.txt"));
+				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/1dw20/weights.txt"));
 //				
 				
 				
@@ -202,11 +202,11 @@ public class DiffractionSceneGraphFabricator {
 				
 
 				
-				samples = "../jrtr/textures/sampleX/milestone/pew2/";
-				extrema = "../jrtr/textures/sampleX/milestone/pew2/extrema.txt";
-				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/pew2/kvalues.txt"));
-				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/pew2/globals.txt"));
-				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/pew2/weights.txt"));
+//				samples = "../jrtr/textures/sampleX/milestone/pew2/";
+//				extrema = "../jrtr/textures/sampleX/milestone/pew2/extrema.txt";
+//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/pew2/kvalues.txt"));
+//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/pew2/globals.txt"));
+//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/pew2/weights.txt"));
 //				
 				
 //				samples = "../jrtr/textures/sampleX/milestone/blaze/";
@@ -234,11 +234,11 @@ public class DiffractionSceneGraphFabricator {
 //				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/AAA/globals.txt"));
 //				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/AAA/weights.txt"));
 				
-				samples = "../jrtr/textures/sampleX/taylor/BBB/";
-				extrema = "../jrtr/textures/sampleX/taylor/BBB/extrema.txt";
-				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/BBB/kvalues.txt"));
-				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/BBB/globals.txt"));
-				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/BBB/weights.txt"));
+				samples = "../jrtr/textures/sampleX/taylor/newA/";
+				extrema = "../jrtr/textures/sampleX/taylor/newA/extrema.txt";
+				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/newA/kvalues.txt"));
+				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/newA/globals.txt"));
+				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/newA/weights.txt"));
 //				
 //				samples = "../jrtr/textures/sampleX/taylor/w30/";
 //				extrema = "../jrtr/textures/sampleX/taylor/w30/extrema.txt";
@@ -275,18 +275,15 @@ public class DiffractionSceneGraphFabricator {
 		int counter = 0;
 		
 		for(int iter = 0; iter < 31; iter++){
-			
-			ext = "AmpRe"+Integer.toString(counter)+extension;
+			ext = "AmpRe"+Integer.toString(iter)+extension;
 			this.textures[iter] = renderContext.makeTexture();
-			System.out.println(path+ext + " " + counter);
-			mat.setTextureAt(path+ext, textures[counter], counter);
+			mat.setTextureAt(path+ext, textures[iter], iter);
 			counter++;
 		}
 		
-		for(int iter = 0; iter < 31; iter++){	
+		for(int iter = 0; iter < 31; iter++){
 			ext = "AmpIm"+Integer.toString(iter)+extension;
 			this.textures[counter] = renderContext.makeTexture();
-			System.out.println(path+ext + " " + counter);
 			mat.setTextureAt(path+ext, textures[counter], counter);
 			counter++;
 		}
@@ -593,7 +590,7 @@ public class DiffractionSceneGraphFabricator {
 //		DiffractionDice6 diffDiceObj = new DiffractionDice6(480, 100, trackDistance);
 		
 		
-		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(10,10f,1f);
+		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(100,10f,1f);
 		
 		diffDice = new Shape(diffDiceObj.getVertices());
 		diffPlane = new Shape(diffPlaneObj.getVertices());
@@ -621,11 +618,11 @@ public class DiffractionSceneGraphFabricator {
 	private void setUpCamera(boolean isFar){
 		float distance = 0.0f;
 		if(isPlane){
-			distance = 25.1f;
+			distance = 0.1f;
 			float aspectRatio = 1.0f;
 			float near = 0.0001f;
 			float far = 5500.0f;
-			float verticalFieldView = 3.0f;
+			float verticalFieldView = 60.0f;
 //			verticalFieldView = 120; // viewing angle
 			Vector3f up = new Vector3f(0, 1, 0); // camera height
 			Point3f look = new Point3f(0, 0, 0); // point camera looks at
