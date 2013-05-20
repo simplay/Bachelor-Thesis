@@ -23,9 +23,12 @@ import SceneGraph.INode;
 import SceneGraph.LightNode;
 import SceneGraph.ShapeNode;
 import SceneGraph.TransformGroup;
+import ShaderLogic.DefaultShaderTask;
+import ShaderLogic.DiffractionShaderTask;
 import ShaderLogic.MultiTexturesTAShaderTask;
 import ShaderLogic.MultiTexturesTaylorShaderTask;
 import ShaderLogic.ShaderTask;
+import ShaderLogic.Task3ShaderTask;
 
 public class DiffractionSceneGraphFabricator {
 	private GraphSceneManager sceneManager;
@@ -47,12 +50,12 @@ public class DiffractionSceneGraphFabricator {
 	// stam 4
 	// grid 9
 	// taylor 10
-	private int version = 9;
+	private int version = 4;
 
 	
 	
 	private boolean hasVectorfield = true;
-	private boolean isPlane = true;
+	private boolean isPlane = false;
 
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
 		this.sceneManager = sceneManager;
@@ -71,6 +74,7 @@ public class DiffractionSceneGraphFabricator {
 			activeShaderTask = new MultiTexturesTAShaderTask();
 		else if(version == 4 || version == 10){
 		    activeShaderTask = new MultiTexturesTaylorShaderTask();
+		    activeShaderTask = new DiffractionShaderTask(); //4
 //		    activeShaderTask = new MultiTexturesTaylorShaderTask();
 //		    activeShaderTask = new MultiTexturesTAShaderTask();
 		}
@@ -589,7 +593,7 @@ public class DiffractionSceneGraphFabricator {
 //		DiffractionDice6 diffDiceObj = new DiffractionDice6(480, 100, trackDistance);
 		
 		
-		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(100,10f,1f);
+		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(10,10f,1f);
 		
 		diffDice = new Shape(diffDiceObj.getVertices());
 		diffPlane = new Shape(diffPlaneObj.getVertices());
