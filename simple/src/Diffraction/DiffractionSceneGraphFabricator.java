@@ -50,7 +50,7 @@ public class DiffractionSceneGraphFabricator {
 	// stam 4
 	// grid 9
 	// taylor 10
-	private int version = 10;
+	private int version = 9;
 
 	
 	
@@ -100,8 +100,10 @@ public class DiffractionSceneGraphFabricator {
 				shader.load(ShaderPaths.stamVert.toString(), ShaderPaths.stamFrag.toString());
 					
 			}else if(version == 9){
-				shader.load(ShaderPaths.grid_1d_Vert.toString(), ShaderPaths.grid_1d_Frag.toString());
+//				shader.load(ShaderPaths.grid_1d_Vert.toString(), ShaderPaths.grid_1d_Frag.toString());|
 				//shader.load(ShaderPaths.grid_2d_Vert.toString(), ShaderPaths.grid_2d_Frag.toString());
+				shader.load(ShaderPaths.grid_T_2dVert.toString(), ShaderPaths.grid_T_2dFrag.toString());
+				
 			}else if(version == 10){
 				
 				shader.load(ShaderPaths.taylor_1d_Vert.toString(), ShaderPaths.taylor_1d_Frag.toString());
@@ -137,11 +139,11 @@ public class DiffractionSceneGraphFabricator {
 //				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/1dw10/weights.txt"));
 				
 				// basis comparision
-				samples = "../jrtr/textures/sampleX/milestone/1dw20/";
-				extrema = "../jrtr/textures/sampleX/milestone/1dw20/extrema.txt";
-				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/1dw20/kvalues.txt"));
-				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/1dw20/globals.txt"));
-				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/1dw20/weights.txt"));
+//				samples = "../jrtr/textures/sampleX/milestone/1dw20/";
+//				extrema = "../jrtr/textures/sampleX/milestone/1dw20/extrema.txt";
+//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/1dw20/kvalues.txt"));
+//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/1dw20/globals.txt"));
+//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/1dw20/weights.txt"));
 //				
 				
 				
@@ -202,11 +204,11 @@ public class DiffractionSceneGraphFabricator {
 				
 
 				
-//				samples = "../jrtr/textures/sampleX/milestone/pew2/";
-//				extrema = "../jrtr/textures/sampleX/milestone/pew2/extrema.txt";
-//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/pew2/kvalues.txt"));
-//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/pew2/globals.txt"));
-//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/pew2/weights.txt"));
+				samples = "../jrtr/textures/sampleX/milestone/pew/";
+				extrema = "../jrtr/textures/sampleX/milestone/pew/extrema.txt";
+				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/pew/kvalues.txt"));
+				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/pew/globals.txt"));
+				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/pew/weights.txt"));
 //				
 				
 //				samples = "../jrtr/textures/sampleX/milestone/blaze/";
@@ -618,11 +620,11 @@ public class DiffractionSceneGraphFabricator {
 	private void setUpCamera(boolean isFar){
 		float distance = 0.0f;
 		if(isPlane){
-			distance = 0.1f;
+			distance = 25.1f;
 			float aspectRatio = 1.0f;
 			float near = 0.0001f;
 			float far = 5500.0f;
-			float verticalFieldView = 60.0f;
+			float verticalFieldView = 5.0f;
 //			verticalFieldView = 120; // viewing angle
 			Vector3f up = new Vector3f(0, 1, 0); // camera height
 			Point3f look = new Point3f(0, 0, 0); // point camera looks at
