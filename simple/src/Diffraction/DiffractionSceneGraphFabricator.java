@@ -228,17 +228,17 @@ public class DiffractionSceneGraphFabricator {
 //				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/w20/globals.txt"));
 //				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/w20/weights.txt"));
 				
-//				samples = "../jrtr/textures/sampleX/taylor/AAA/";
-//				extrema = "../jrtr/textures/sampleX/taylor/AAA/extrema.txt";
-//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/AAA/kvalues.txt"));
-//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/AAA/globals.txt"));
-//				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/AAA/weights.txt"));
+				samples = "../jrtr/textures/sampleX/taylor/AAA/";
+				extrema = "../jrtr/textures/sampleX/taylor/AAA/extrema.txt";
+				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/AAA/kvalues.txt"));
+				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/AAA/globals.txt"));
+				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/AAA/weights.txt"));
 				
-				samples = "../jrtr/textures/sampleX/taylor/newA/";
-				extrema = "../jrtr/textures/sampleX/taylor/newA/extrema.txt";
-				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/newA/kvalues.txt"));
-				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/newA/globals.txt"));
-				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/newA/weights.txt"));
+//				samples = "../jrtr/textures/sampleX/taylor/newA/";
+//				extrema = "../jrtr/textures/sampleX/taylor/newA/extrema.txt";
+//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/newA/kvalues.txt"));
+//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/newA/globals.txt"));
+//				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/newA/weights.txt"));
 //				
 //				samples = "../jrtr/textures/sampleX/taylor/w30/";
 //				extrema = "../jrtr/textures/sampleX/taylor/w30/extrema.txt";
