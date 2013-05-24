@@ -17,7 +17,7 @@ function compGenBMP()
     BlazingPatch = 'BlazingBump.bmp';
     CosinePatch = 'CosineBump.bmp';
     
-    patch_file = RectPatch1d;
+    patch_file = BlazingPatch;
     
 	inputIMG = imread(strcat(patch_basis_path,patch_file));
     inputIMG = repmat(inputIMG, n, n);
@@ -31,8 +31,12 @@ function compGenBMP()
 		A = d_inputIMG;
     end
     
-	A = imresize(A, [30,30]);
-	A = padarray(A,[35,35], 'both');
+	A = imresize(A, [30,1]);
+	A = padarray(A,[35, 0], 'both');
+    A = padarray(A,[0, 50], 0,'pre');
+    A = padarray(A,[0, 49], 0, 'post');
+    
+    imshow(A);
 	% height of bump, if equals 1 (in meters);
 	f = 1.5*(10)^-7;
 	%f = 1.49E-07;

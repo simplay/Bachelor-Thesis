@@ -86,7 +86,7 @@ vec3 getGammaCorrection(vec3 rgb, float t, float f, float s, float gamma){
 // see derivations
 float get_p_factor(float w_i, float T_i, float N_i){
 	//(0.5 + (cos(N*theta) - cos(theta*(N+1)))./(2*(1 - cos(theta)))) ./ (N+1);
-	float eps = 0.001; 
+	float eps = 0.0001; 
 	float tmp = 1.0;
 	
 	if(abs(T_i*w_i) > eps){
@@ -94,16 +94,18 @@ float get_p_factor(float w_i, float T_i, float N_i){
 		tmp /= (1.0 - cos(w_i*T_i));
 		tmp = 0.5 + 0.5*(tmp);
 	}else{
-		tmp = (N_i + 1);
+		tmp = (N_i + 1);	
+		tmp = 1.0;
 	}
 
-	return tmp/(N_i+1);
+//	return tmp/(N_i+1);
+	return tmp;
 }
 
 
 // is this correct
 float get_q_factor(float w_i, float T_i, float N_i){
-	float eps = 0.001; 
+	float eps = 0.0001; 
 	float tmp = 1.0;
 	
 	if(abs(T_i*w_i) > eps){
@@ -113,7 +115,8 @@ float get_q_factor(float w_i, float T_i, float N_i){
 		tmp = 0.0;
 	}
 	
-	return tmp/(N_i+1);
+//	return tmp/(N_i+1);
+	return tmp;
 }
 
 //use tangent in oder to consider the vector field.
@@ -204,7 +207,7 @@ void main() {
 	float T_1 = t_0 * N_1;
 	float T_2 = t_0 * N_1;
 	
-	float periods = 40000.0-1.0;
+	float periods = 400.0-1.0;
 	float N = periods - 1.0;
 	float M = 100.0; // #samples
 	 
@@ -473,7 +476,7 @@ void main() {
 	fac2 = 1.0 / 35.0;
 	fac2 = 1.0 / 32.0;
 
-	fac2 = 1.0 / 1.0;
+	fac2 = 1.0 / 150.0;
 	
 	
 	brdf.xyz =  M_Adobe_XR*brdf.xyz;
