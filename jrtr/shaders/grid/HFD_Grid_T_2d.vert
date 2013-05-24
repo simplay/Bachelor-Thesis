@@ -86,22 +86,34 @@ vec3 getGammaCorrection(vec3 rgb, float t, float f, float s, float gamma){
 // see derivations
 float get_p_factor(float w_i, float T_i, float N_i){
 	//(0.5 + (cos(N*theta) - cos(theta*(N+1)))./(2*(1 - cos(theta)))) ./ (N+1);
-	float eps = 0.00000001; 
-	float tmp = cos(w_i*T_i*N_i)-cos(w_i*T_i*(N_i + 1));
-	tmp /= (1.0 - cos(w_i*T_i));
-	tmp = 0.5 + 0.5*(tmp);
-	tmp = ( abs(T_i*N_i) < eps ) ? tmp : (N_i + 1);
-	return tmp;
+	float eps = 0.001; 
+	float tmp = 1.0;
+	
+	if(abs(T_i*w_i) > eps){
+		tmp = cos(w_i*T_i*N_i)-cos(w_i*T_i*(N_i + 1.0));
+		tmp /= (1.0 - cos(w_i*T_i));
+		tmp = 0.5 + 0.5*(tmp);
+	}else{
+		tmp = (N_i + 1);
+	}
+
+	return tmp/(N_i+1);
 }
 
 
 // is this correct
 float get_q_factor(float w_i, float T_i, float N_i){
-	float eps = 0.00000001; 
-	float tmp = sin(w_i*T_i*(N_i+1))*sin(w_i*T_i*N_i)*sin(w_i*T_i);
-	tmp /= 2.0*(1.0 - cos(w_i*T_i)); 
-	tmp = ( abs(T_i*N_i) < eps ) ? tmp : (N_i + 1);
-	return tmp;
+	float eps = 0.001; 
+	float tmp = 1.0;
+	
+	if(abs(T_i*w_i) > eps){
+		tmp = sin(w_i*T_i*(N_i+1.0))-sin(w_i*T_i*N_i)-sin(w_i*T_i);
+		tmp /= 2.0*(1.0 - cos(w_i*T_i)); 
+	}else{
+		tmp = 0.0;
+	}
+	
+	return tmp/(N_i+1);
 }
 
 //use tangent in oder to consider the vector field.
@@ -188,11 +200,11 @@ void main() {
 	float N_1 = 30.0;
 	float N_2 = 100.0;
 	
-	float t_0 = (2.5*pow(10.0,-6.0)) / 30.0;
+	float t_0 = (2.5*pow(10.0,-6.0)) / N_1;
 	float T_1 = t_0 * N_1;
-	float T_2 = t_0 * N_2;
+	float T_2 = t_0 * N_1;
 	
-	float periods = 40.0;
+	float periods = 40000.0-1.0;
 	float N = periods - 1.0;
 	float M = 100.0; // #samples
 	 
@@ -378,8 +390,8 @@ void main() {
 		int runCount = 0;
 		
 		
-		float w_u = 2*PI*k*u;
-		float w_v = 2*PI*k*v;
+		float w_u = k*u;
+		float w_v = k*v;
 		
 		// only contribute iff coords have components in range [0,1]
 		if(mayRun){
@@ -398,15 +410,17 @@ void main() {
 					scales = getC(reHeight, imHeight, index3);
 					
 					
-					float p1_fac = get_p_factor(w_u, T_1, N_1);
-					float p2_fac = get_p_factor(w_v, T_2, N_2);
+					float p1 = get_p_factor(w_u, T_1, periods);
+					float p2 = get_p_factor(w_v, T_2, periods);
 					
-					float q1_fac = get_q_factor(w_u, T_1, N_1);
-					float q2_fac = get_q_factor(w_v, T_2, N_2);
+					float q1 = get_q_factor(w_u, T_1, periods);
+					float q2 = get_q_factor(w_v, T_2, periods);
 					
 					
-					real_part = scales.x*p1_fac*p2_fac;
-					imag_part = scales.y*q1_fac*q2_fac;
+					float res_scale = pow(p1*p1 + q1*q1 , 0.5)*pow(p2*p2 + q2*q2 , 0.5); 
+					
+					real_part = scales.x*res_scale;
+					imag_part = scales.y*res_scale;
 					isRunning = false;
 				}
 
@@ -457,8 +471,10 @@ void main() {
 
 	fac2 = 3.0;
 	fac2 = 1.0 / 35.0;
-	fac2 = 1.0 / 220.0;
+	fac2 = 1.0 / 32.0;
 
+	fac2 = 1.0 / 1.0;
+	
 	
 	brdf.xyz =  M_Adobe_XR*brdf.xyz;
 	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0, 1.0, 1.0 / 2.2);
@@ -484,6 +500,9 @@ void main() {
 	//		col = fac2*fac2*fac2*fac2*frac*vec4(G,G,G,1);
 		//col = vec4(ambient,ambient,ambient,1);
 	}
+	
+	
+//	float ff = sin(PI/2.0); we are in radians => opengl
 	
 	
 	float fff = 1.0 / 20;

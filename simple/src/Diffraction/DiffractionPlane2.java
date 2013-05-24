@@ -24,8 +24,6 @@ public class DiffractionPlane2 extends DiffractionGeometricObject{
 		this.widthFac = widthFac;
 		this.heightFac = heightFac;
 		
-//		this.scale = 4.0f;
-		this.scale = 10.0f;
 		this.scale = 0.1f;
 		
 		this.setupObject();

@@ -61,7 +61,7 @@ function compGenBMP()
 		for w=-2:wStep:2,
 
 				% current wavenumber
-				k = kValues(t) / (2.0*pi);
+				k = kValues(t);
 				
 				% 2dim fourier transform of transformed 
 				% by exp(...) of input patch. 

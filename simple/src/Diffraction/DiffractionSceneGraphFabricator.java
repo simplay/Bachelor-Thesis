@@ -592,7 +592,7 @@ public class DiffractionSceneGraphFabricator {
 //		DiffractionDice6 diffDiceObj = new DiffractionDice6(480, 100, trackDistance);
 		
 		
-		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(100,10f,1f);
+		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(400,10f,1f);
 		
 		diffDice = new Shape(diffDiceObj.getVertices());
 		diffPlane = new Shape(diffPlaneObj.getVertices());
