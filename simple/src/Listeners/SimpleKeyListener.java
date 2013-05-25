@@ -22,6 +22,9 @@ public class SimpleKeyListener implements KeyListener{
 	RenderPanel renderPanel;
 	float speed = 1.0f;
 	private DiffractionSceneGraphFabricator fabric;
+	private float normDiv = 1.0f;
+	private Vector3f prevDir = new Vector3f(0.0f, 0.0f, 0.0f);
+	private float delta_eps = (float) Math.pow(10, -7);
 	
 	public SimpleKeyListener(Storage s, GraphSceneManager sceneManager, RenderPanel renderPanel){
 		this.s = s;
@@ -48,8 +51,10 @@ public class SimpleKeyListener implements KeyListener{
     	Vector3f radiance;   	
     	Vector4f oldLightDir;
     	Vector4f newLightDir;
+    	Vector3f tmpLightDir;
 		LightNode newlight;
 		Light newlightSource;
+		float eps;
 		
 		switch (e.getKeyChar()) {
 		    case 'w':
@@ -122,11 +127,28 @@ public class SimpleKeyListener implements KeyListener{
 				
 				
 		    case 'u':
+		    	eps = 0.2f;
 		    	light = fabric.getLight();
 		    	radiance = new Vector3f(1,1,1);   	
 		    	oldLightDir = light.getLightSource().getLightDirection();
-		    	newLightDir = new Vector4f(oldLightDir.x + 0.2f, oldLightDir.y-0.01f, oldLightDir.z-0.01f, oldLightDir.w);
-		    	newLightDir.normalize();
+		    	
+		    	newLightDir = new Vector4f(normDiv*oldLightDir.x , normDiv*oldLightDir.y, normDiv*oldLightDir.z, oldLightDir.w);
+		    	tmpLightDir = new Vector3f(newLightDir.x + eps, newLightDir.y, newLightDir.z);
+		    	
+		    	
+		    	
+		    	if(Math.abs(Math.abs(tmpLightDir.x)-1.0f) < delta_eps ) tmpLightDir.x = 1.0f*Math.signum(tmpLightDir.x);
+		    	if(Math.abs(Math.abs(tmpLightDir.y)-1.0f) < delta_eps ) tmpLightDir.y = 1.0f*Math.signum(tmpLightDir.y);
+		    	if(Math.abs(Math.abs(tmpLightDir.z)-1.0f) < delta_eps ) tmpLightDir.z = 1.0f*Math.signum(tmpLightDir.z);
+		    	
+		    	if(Math.abs(tmpLightDir.x) < delta_eps ) tmpLightDir.x = 0.0f;
+		    	if(Math.abs(tmpLightDir.y) < delta_eps ) tmpLightDir.y = 0.0f;
+		    	if(Math.abs(tmpLightDir.z) < delta_eps ) tmpLightDir.z = 0.0f;
+		    	tmpLightDir.normalize();
+		    	
+		    	newLightDir = new Vector4f(tmpLightDir.x, tmpLightDir.y, tmpLightDir.z, oldLightDir.w);
+		    	normDiv =  (float) Math.sqrt( (oldLightDir.x - eps)*(oldLightDir.x - eps)+oldLightDir.y*oldLightDir.y+oldLightDir.z*oldLightDir.z );
+		    	
 				newlightSource  = new Light(radiance, newLightDir, "source1");
 				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");		
 		    	sceneManager.addLight(newlightSource);
@@ -134,23 +156,55 @@ public class SimpleKeyListener implements KeyListener{
 				break;
 				
 		    case 'j':
+		    	eps = -0.2f;
 		    	light = fabric.getLight();
 		    	radiance = new Vector3f(1,1,1);   	
 		    	oldLightDir = light.getLightSource().getLightDirection();
-		    	newLightDir = new Vector4f(oldLightDir.x - 0.2f, oldLightDir.y+0.01f, oldLightDir.z+0.01f, oldLightDir.w);
-		    	newLightDir.normalize();
+		    	
+		    	newLightDir = new Vector4f(normDiv*oldLightDir.x , normDiv*oldLightDir.y, normDiv*oldLightDir.z, oldLightDir.w);
+		    	tmpLightDir = new Vector3f(newLightDir.x + eps, newLightDir.y, newLightDir.z);
+		    	
+		    	
+		    	
+		    	if(Math.abs(Math.abs(tmpLightDir.x)-1.0f) < delta_eps ) tmpLightDir.x = 1.0f*Math.signum(tmpLightDir.x);
+		    	if(Math.abs(Math.abs(tmpLightDir.y)-1.0f) < delta_eps ) tmpLightDir.y = 1.0f*Math.signum(tmpLightDir.y);
+		    	if(Math.abs(Math.abs(tmpLightDir.z)-1.0f) < delta_eps ) tmpLightDir.z = 1.0f*Math.signum(tmpLightDir.z);
+		    	
+		    	if(Math.abs(tmpLightDir.x) < delta_eps ) tmpLightDir.x = 0.0f;
+		    	if(Math.abs(tmpLightDir.y) < delta_eps ) tmpLightDir.y = 0.0f;
+		    	if(Math.abs(tmpLightDir.z) < delta_eps ) tmpLightDir.z = 0.0f;
+		    	tmpLightDir.normalize();
+		    	
+		    	newLightDir = new Vector4f(tmpLightDir.x, tmpLightDir.y, tmpLightDir.z, oldLightDir.w);
+		    	normDiv =  (float) Math.sqrt( (oldLightDir.x - eps)*(oldLightDir.x - eps)+oldLightDir.y*oldLightDir.y+oldLightDir.z*oldLightDir.z );
+		    	
 				newlightSource  = new Light(radiance, newLightDir, "source1");
-				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");	
+				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");		
 		    	sceneManager.addLight(newlightSource);
 				renderPanel.getCanvas().repaint();
 				break;
 				
 		    case 'i':
+		    	eps = 0.2f;
 		    	light = fabric.getLight();
 		    	radiance = new Vector3f(1,1,1);   	
 		    	oldLightDir = light.getLightSource().getLightDirection();
-		    	newLightDir = new Vector4f(oldLightDir.x, oldLightDir.y + 0.2f, oldLightDir.z, oldLightDir.w);
-		    	newLightDir.normalize();
+		    	
+		    	newLightDir = new Vector4f(normDiv*oldLightDir.x , normDiv*oldLightDir.y, normDiv*oldLightDir.z, oldLightDir.w);
+		    	tmpLightDir = new Vector3f(newLightDir.x, newLightDir.y+eps, newLightDir.z);
+		    	tmpLightDir.normalize();
+		    	
+		    	if(Math.abs(Math.abs(tmpLightDir.x)-1.0f) < delta_eps ) tmpLightDir.x = 1.0f*Math.signum(tmpLightDir.x);
+		    	if(Math.abs(Math.abs(tmpLightDir.y)-1.0f) < delta_eps ) tmpLightDir.y = 1.0f*Math.signum(tmpLightDir.y);
+		    	if(Math.abs(Math.abs(tmpLightDir.z)-1.0f) < delta_eps ) tmpLightDir.z = 1.0f*Math.signum(tmpLightDir.z);
+		    	
+		    	if(Math.abs(tmpLightDir.x) < delta_eps ) tmpLightDir.x = 0.0f;
+		    	if(Math.abs(tmpLightDir.y) < delta_eps ) tmpLightDir.y = 0.0f;
+		    	if(Math.abs(tmpLightDir.z) < delta_eps ) tmpLightDir.z = 0.0f;
+		    	
+		    	newLightDir = new Vector4f(tmpLightDir.x, tmpLightDir.y, tmpLightDir.z, oldLightDir.w);
+		    	normDiv =  (float) Math.sqrt( (oldLightDir.x)*(oldLightDir.x)+(oldLightDir.y+eps)*(oldLightDir.y+eps)+oldLightDir.z*oldLightDir.z );
+		    	
 				newlightSource  = new Light(radiance, newLightDir, "source1");
 				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");		
 		    	sceneManager.addLight(newlightSource);
@@ -158,37 +212,82 @@ public class SimpleKeyListener implements KeyListener{
 				break;
 				
 		    case 'k':
+		    	eps = -0.2f;
 		    	light = fabric.getLight();
 		    	radiance = new Vector3f(1,1,1);   	
 		    	oldLightDir = light.getLightSource().getLightDirection();
-		    	newLightDir = new Vector4f(oldLightDir.x, oldLightDir.y - 0.2f, oldLightDir.z, oldLightDir.w);
-		    	newLightDir.normalize();
+		    	
+		    	newLightDir = new Vector4f(normDiv*oldLightDir.x , normDiv*oldLightDir.y, normDiv*oldLightDir.z, oldLightDir.w);
+		    	tmpLightDir = new Vector3f(newLightDir.x, newLightDir.y+eps, newLightDir.z);
+		    	tmpLightDir.normalize();
+		    	
+		    	if(Math.abs(Math.abs(tmpLightDir.x)-1.0f) < delta_eps ) tmpLightDir.x = 1.0f*Math.signum(tmpLightDir.x);
+		    	if(Math.abs(Math.abs(tmpLightDir.y)-1.0f) < delta_eps ) tmpLightDir.y = 1.0f*Math.signum(tmpLightDir.y);
+		    	if(Math.abs(Math.abs(tmpLightDir.z)-1.0f) < delta_eps ) tmpLightDir.z = 1.0f*Math.signum(tmpLightDir.z);
+		    	
+		    	if(Math.abs(tmpLightDir.x) < delta_eps ) tmpLightDir.x = 0.0f;
+		    	if(Math.abs(tmpLightDir.y) < delta_eps ) tmpLightDir.y = 0.0f;
+		    	if(Math.abs(tmpLightDir.z) < delta_eps ) tmpLightDir.z = 0.0f;
+		    	
+		    	newLightDir = new Vector4f(tmpLightDir.x, tmpLightDir.y, tmpLightDir.z, oldLightDir.w);
+		    	normDiv =  (float) Math.sqrt( (oldLightDir.x)*(oldLightDir.x)+(oldLightDir.y+eps)*(oldLightDir.y+eps)+oldLightDir.z*oldLightDir.z );
+		    	
 				newlightSource  = new Light(radiance, newLightDir, "source1");
-				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");	
+				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");		
 		    	sceneManager.addLight(newlightSource);
 				renderPanel.getCanvas().repaint();
 				break;
 				
 		    case 'o':
+		    	eps = 0.2f;
 		    	light = fabric.getLight();
 		    	radiance = new Vector3f(1,1,1);   	
 		    	oldLightDir = light.getLightSource().getLightDirection();
-		    	newLightDir = new Vector4f(oldLightDir.x, oldLightDir.y, oldLightDir.z + 0.2f, oldLightDir.w);
-		    	newLightDir.normalize();
+		    	
+		    	newLightDir = new Vector4f(normDiv*oldLightDir.x , normDiv*oldLightDir.y, normDiv*oldLightDir.z, oldLightDir.w);
+		    	tmpLightDir = new Vector3f(newLightDir.x, newLightDir.y, newLightDir.z+eps);
+		    	tmpLightDir.normalize();
+		    	
+		    	if(Math.abs(Math.abs(tmpLightDir.x)-1.0f) < delta_eps ) tmpLightDir.x = 1.0f*Math.signum(tmpLightDir.x);
+		    	if(Math.abs(Math.abs(tmpLightDir.y)-1.0f) < delta_eps ) tmpLightDir.y = 1.0f*Math.signum(tmpLightDir.y);
+		    	if(Math.abs(Math.abs(tmpLightDir.z)-1.0f) < delta_eps ) tmpLightDir.z = 1.0f*Math.signum(tmpLightDir.z);
+		    	
+		    	if(Math.abs(tmpLightDir.x) < delta_eps ) tmpLightDir.x = 0.0f;
+		    	if(Math.abs(tmpLightDir.y) < delta_eps ) tmpLightDir.y = 0.0f;
+		    	if(Math.abs(tmpLightDir.z) < delta_eps ) tmpLightDir.z = 0.0f;
+		    	
+		    	newLightDir = new Vector4f(tmpLightDir.x, tmpLightDir.y, tmpLightDir.z, oldLightDir.w);
+		    	normDiv =  (float) Math.sqrt( (oldLightDir.x)*(oldLightDir.x)+(oldLightDir.y)*(oldLightDir.y)+(oldLightDir.z+eps)*(oldLightDir.z+eps) );
+		    	
 				newlightSource  = new Light(radiance, newLightDir, "source1");
-				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");	
+				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");		
 		    	sceneManager.addLight(newlightSource);
 				renderPanel.getCanvas().repaint();
 				break;
 				
 		    case 'l':
+		    	eps = -0.2f;
 		    	light = fabric.getLight();
 		    	radiance = new Vector3f(1,1,1);   	
 		    	oldLightDir = light.getLightSource().getLightDirection();
-		    	newLightDir = new Vector4f(oldLightDir.x - 0.2f, oldLightDir.y, oldLightDir.z - 0.2f, oldLightDir.w);
-		    	newLightDir.normalize();
+		    	
+		    	newLightDir = new Vector4f(normDiv*oldLightDir.x , normDiv*oldLightDir.y, normDiv*oldLightDir.z, oldLightDir.w);
+		    	tmpLightDir = new Vector3f(newLightDir.x, newLightDir.y, newLightDir.z+eps);
+		    	tmpLightDir.normalize();
+		    	
+		    	if(Math.abs(Math.abs(tmpLightDir.x)-1.0f) < delta_eps ) tmpLightDir.x = 1.0f*Math.signum(tmpLightDir.x);
+		    	if(Math.abs(Math.abs(tmpLightDir.y)-1.0f) < delta_eps ) tmpLightDir.y = 1.0f*Math.signum(tmpLightDir.y);
+		    	if(Math.abs(Math.abs(tmpLightDir.z)-1.0f) < delta_eps ) tmpLightDir.z = 1.0f*Math.signum(tmpLightDir.z);
+		    	
+		    	if(Math.abs(tmpLightDir.x) < delta_eps ) tmpLightDir.x = 0.0f;
+		    	if(Math.abs(tmpLightDir.y) < delta_eps ) tmpLightDir.y = 0.0f;
+		    	if(Math.abs(tmpLightDir.z) < delta_eps ) tmpLightDir.z = 0.0f;
+		    	
+		    	newLightDir = new Vector4f(tmpLightDir.x, tmpLightDir.y, tmpLightDir.z, oldLightDir.w);
+		    	normDiv =  (float) Math.sqrt( (oldLightDir.x)*(oldLightDir.x)+(oldLightDir.y)*(oldLightDir.y)+(oldLightDir.z+eps)*(oldLightDir.z+eps) );
+		    	
 				newlightSource  = new Light(radiance, newLightDir, "source1");
-				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");	
+				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");		
 		    	sceneManager.addLight(newlightSource);
 				renderPanel.getCanvas().repaint();
 				break;

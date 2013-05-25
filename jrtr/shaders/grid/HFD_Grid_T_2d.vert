@@ -89,7 +89,11 @@ float get_p_factor(float w_i, float T_i, float N_i){
 	float eps = 0.0001; 
 	float tmp = 1.0;
 	
+	
+//	if(abs(cos(T_i*w_i)) < eps){
+	
 	if(abs(T_i*w_i) > eps){
+//	if(abs(1.0 - cos(T_i*w_i)) < eps){
 		tmp = cos(w_i*T_i*N_i)-cos(w_i*T_i*(N_i + 1.0));
 		tmp /= (1.0 - cos(w_i*T_i));
 		tmp = 0.5 + 0.5*(tmp);
@@ -108,6 +112,9 @@ float get_q_factor(float w_i, float T_i, float N_i){
 	float eps = 0.0001; 
 	float tmp = 1.0;
 	
+	
+	
+//	if(abs(1.0 - cos(T_i*w_i)) < eps){
 	if(abs(T_i*w_i) > eps){
 		tmp = sin(w_i*T_i*(N_i+1.0))-sin(w_i*T_i*N_i)-sin(w_i*T_i);
 		tmp /= 2.0*(1.0 - cos(w_i*T_i)); 
@@ -207,7 +214,7 @@ void main() {
 	float T_1 = t_0 * N_1;
 	float T_2 = t_0 * N_1;
 	
-	float periods = 400.0-1.0;
+	float periods = 40.0-1.0;
 	float N = periods - 1.0;
 	float M = 100.0; // #samples
 	 
@@ -477,7 +484,7 @@ void main() {
 	fac2 = 1.0 / 32.0;
 
 	fac2 = 1.0 / 150.0;
-	
+//	fac2 = 1.0 / 36.0;
 	
 	brdf.xyz =  M_Adobe_XR*brdf.xyz;
 	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0, 1.0, 1.0 / 2.2);
