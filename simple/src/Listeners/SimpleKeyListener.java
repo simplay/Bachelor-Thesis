@@ -49,14 +49,14 @@ public class SimpleKeyListener implements KeyListener{
     	Vector4f oldLightDir;
     	Vector4f newLightDir;
 		LightNode newlight;
-		
+		Light newlightSource;
 		
 		switch (e.getKeyChar()) {
 		    case 'w':
 				Matrix4f camera = sceneManager.getCamera().getCameraMatrix();
 				Matrix4f rwMatrix = new Matrix4f();
 				rwMatrix.setIdentity();
-				Vector3f rwVector = new Vector3f(0f, 0f, speed);
+				Vector3f rwVector = new Vector3f(0f, 0f, -speed);
 				rwMatrix.setTranslation(rwVector);
 				camera.mul(rwMatrix);
 				sceneManager.getCamera().setCameraMatrix(camera);
@@ -67,7 +67,7 @@ public class SimpleKeyListener implements KeyListener{
 				Matrix4f camera2 = sceneManager.getCamera().getCameraMatrix();
 				Matrix4f rwMatrix2 = new Matrix4f();
 				rwMatrix2.setIdentity();
-				Vector3f rwVector2 = new Vector3f(0f, 0f, -speed);
+				Vector3f rwVector2 = new Vector3f(0f, 0f, speed);
 				rwMatrix2.setTranslation(rwVector2);
 				camera2.mul(rwMatrix2);
 				sceneManager.getCamera().setCameraMatrix(camera2);
@@ -80,7 +80,7 @@ public class SimpleKeyListener implements KeyListener{
 				Matrix4f camera1 = sceneManager.getCamera().getCameraMatrix();
 				Matrix4f rwMatrix1 = new Matrix4f();
 				rwMatrix1.setIdentity();
-				Vector3f rwVector1 = new Vector3f(speed, 0f, 0f);
+				Vector3f rwVector1 = new Vector3f(-speed, 0f, 0f);
 				rwMatrix1.setTranslation(rwVector1);
 				camera1.mul(rwMatrix1);
 				sceneManager.getCamera().setCameraMatrix(camera1);
@@ -91,7 +91,7 @@ public class SimpleKeyListener implements KeyListener{
 				Matrix4f camera11 = sceneManager.getCamera().getCameraMatrix();
 				Matrix4f rwMatrix11 = new Matrix4f();
 				rwMatrix11.setIdentity();
-				Vector3f rwVector11 = new Vector3f(-speed, 0f, 0f);
+				Vector3f rwVector11 = new Vector3f(speed, 0f, 0f);
 				rwMatrix11.setTranslation(rwVector11);
 				camera11.mul(rwMatrix11);
 				sceneManager.getCamera().setCameraMatrix(camera11);
@@ -102,7 +102,7 @@ public class SimpleKeyListener implements KeyListener{
 				Matrix4f camera12 = sceneManager.getCamera().getCameraMatrix();
 				Matrix4f rwMatrix12 = new Matrix4f();
 				rwMatrix12.setIdentity();
-				Vector3f rwVector12 = new Vector3f(0f, -speed, 0f);
+				Vector3f rwVector12 = new Vector3f(0f, speed, 0f);
 				rwMatrix12.setTranslation(rwVector12);
 				camera12.mul(rwMatrix12);
 				sceneManager.getCamera().setCameraMatrix(camera12);
@@ -113,7 +113,7 @@ public class SimpleKeyListener implements KeyListener{
 				Matrix4f camera22 = sceneManager.getCamera().getCameraMatrix();
 				Matrix4f rwMatrix22 = new Matrix4f();
 				rwMatrix22.setIdentity();
-				Vector3f rwVector22 = new Vector3f(0f, speed, 0f);
+				Vector3f rwVector22 = new Vector3f(0f, -speed, 0f);
 				rwMatrix22.setTranslation(rwVector22);
 				camera22.mul(rwMatrix22);
 				sceneManager.getCamera().setCameraMatrix(camera22);
@@ -127,8 +127,9 @@ public class SimpleKeyListener implements KeyListener{
 		    	oldLightDir = light.getLightSource().getLightDirection();
 		    	newLightDir = new Vector4f(oldLightDir.x + 0.2f, oldLightDir.y-0.01f, oldLightDir.z-0.01f, oldLightDir.w);
 		    	newLightDir.normalize();
-				newlight = new LightNode(new Light(radiance, newLightDir, "source1"), sceneManager.getCamera().getCameraMatrix(), "light source1");
-		    	fabric.updateRootLight(newlight);
+				newlightSource  = new Light(radiance, newLightDir, "source1");
+				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");		
+		    	sceneManager.addLight(newlightSource);
 				renderPanel.getCanvas().repaint();
 				break;
 				
@@ -138,8 +139,9 @@ public class SimpleKeyListener implements KeyListener{
 		    	oldLightDir = light.getLightSource().getLightDirection();
 		    	newLightDir = new Vector4f(oldLightDir.x - 0.2f, oldLightDir.y+0.01f, oldLightDir.z+0.01f, oldLightDir.w);
 		    	newLightDir.normalize();
-				newlight = new LightNode(new Light(radiance, newLightDir, "source1"), sceneManager.getCamera().getCameraMatrix(), "light source1");
-		    	fabric.updateRootLight(newlight);
+				newlightSource  = new Light(radiance, newLightDir, "source1");
+				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");	
+		    	sceneManager.addLight(newlightSource);
 				renderPanel.getCanvas().repaint();
 				break;
 				
@@ -149,8 +151,9 @@ public class SimpleKeyListener implements KeyListener{
 		    	oldLightDir = light.getLightSource().getLightDirection();
 		    	newLightDir = new Vector4f(oldLightDir.x, oldLightDir.y + 0.2f, oldLightDir.z, oldLightDir.w);
 		    	newLightDir.normalize();
-				newlight = new LightNode(new Light(radiance, newLightDir, "source1"), sceneManager.getCamera().getCameraMatrix(), "light source1");
-		    	fabric.updateRootLight(newlight);
+				newlightSource  = new Light(radiance, newLightDir, "source1");
+				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");		
+		    	sceneManager.addLight(newlightSource);
 				renderPanel.getCanvas().repaint();
 				break;
 				
@@ -160,8 +163,9 @@ public class SimpleKeyListener implements KeyListener{
 		    	oldLightDir = light.getLightSource().getLightDirection();
 		    	newLightDir = new Vector4f(oldLightDir.x, oldLightDir.y - 0.2f, oldLightDir.z, oldLightDir.w);
 		    	newLightDir.normalize();
-				newlight = new LightNode(new Light(radiance, newLightDir, "source1"), sceneManager.getCamera().getCameraMatrix(), "light source1");
-		    	fabric.updateRootLight(newlight);
+				newlightSource  = new Light(radiance, newLightDir, "source1");
+				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");	
+		    	sceneManager.addLight(newlightSource);
 				renderPanel.getCanvas().repaint();
 				break;
 				
@@ -171,8 +175,9 @@ public class SimpleKeyListener implements KeyListener{
 		    	oldLightDir = light.getLightSource().getLightDirection();
 		    	newLightDir = new Vector4f(oldLightDir.x, oldLightDir.y, oldLightDir.z + 0.2f, oldLightDir.w);
 		    	newLightDir.normalize();
-				newlight = new LightNode(new Light(radiance, newLightDir, "source1"), sceneManager.getCamera().getCameraMatrix(), "light source1");
-		    	fabric.updateRootLight(newlight);
+				newlightSource  = new Light(radiance, newLightDir, "source1");
+				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");	
+		    	sceneManager.addLight(newlightSource);
 				renderPanel.getCanvas().repaint();
 				break;
 				
@@ -182,8 +187,9 @@ public class SimpleKeyListener implements KeyListener{
 		    	oldLightDir = light.getLightSource().getLightDirection();
 		    	newLightDir = new Vector4f(oldLightDir.x - 0.2f, oldLightDir.y, oldLightDir.z - 0.2f, oldLightDir.w);
 		    	newLightDir.normalize();
-				newlight = new LightNode(new Light(radiance, newLightDir, "source1"), sceneManager.getCamera().getCameraMatrix(), "light source1");
-		    	fabric.updateRootLight(newlight);
+				newlightSource  = new Light(radiance, newLightDir, "source1");
+				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");	
+		    	sceneManager.addLight(newlightSource);
 				renderPanel.getCanvas().repaint();
 				break;
 				

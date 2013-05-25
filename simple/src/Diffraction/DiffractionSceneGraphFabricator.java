@@ -103,7 +103,6 @@ public class DiffractionSceneGraphFabricator {
 //				shader.load(ShaderPaths.grid_1d_Vert.toString(), ShaderPaths.grid_1d_Frag.toString());|
 				//shader.load(ShaderPaths.grid_2d_Vert.toString(), ShaderPaths.grid_2d_Frag.toString());
 				shader.load(ShaderPaths.grid_T_2dVert.toString(), ShaderPaths.grid_T_2dFrag.toString());
-				
 			}else if(version == 10){
 				
 				shader.load(ShaderPaths.taylor_1d_Vert.toString(), ShaderPaths.taylor_1d_Frag.toString());
@@ -715,17 +714,18 @@ public class DiffractionSceneGraphFabricator {
 		}
 		return answer;
 	}
-	
-	public void updateRootLight(LightNode light){
-		ArrayList<INode> nodes = rootGroup.getChildren();
-		for(INode node : nodes){
-			if(node instanceof LightNode){
-				rootGroup.removeChild(node);
-				rootGroup.putChild(light);
-				break;
-			}
-		}
-	}
+//	
+//	public void updateRootLight(LightNode light){
+//		ArrayList<INode> nodes = rootGroup.getChildren();
+//		for(INode node : nodes){
+//			if(node instanceof LightNode){
+//				Light tagetLightSource = ((LightNode) node).getLightSource();
+//				Vector4f newLightDir = light.getLightSource().getLightDirection();
+//				tagetLightSource.setLightDirection(newLightDir);
+//				break;
+//			}
+//		}
+//	}
 	
 	
 	

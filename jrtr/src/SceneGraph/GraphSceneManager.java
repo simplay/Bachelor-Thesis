@@ -3,6 +3,8 @@ package SceneGraph;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.vecmath.Vector4f;
+
 
 import jrtr.Camera;
 import jrtr.Frustum;
@@ -50,21 +52,49 @@ public class GraphSceneManager implements SceneManagerInterface{
 		return new LightSourceIterator(this.root);
 	}
 
-	@Override
+//	@Override
+//	public ArrayList<Light> old_getLightSources() {
+//		return this.lightSources;
+//	}
+	
 	public ArrayList<Light> getLightSources() {
-		return this.lightSources;
+		ArrayList<Light> lightSources2 = new ArrayList<Light>();
+		
+		ArrayList<INode> nodes = this.getRoot().getChildren();
+		for(INode node : nodes){
+			if(node instanceof LightNode){
+				Light tagetLightSource = ((LightNode) node).getLightSource();
+				lightSources2.add(tagetLightSource);
+			}
+		}
+		return lightSources2;
 	}
 	
+//    public void addLight(Light lightSource) {
+//    	int index = -1;
+//    	for(Light light : this.lightSources){
+//    		if(light.getName().equals(lightSource.getName()) )
+//    			index = lightSources.indexOf(light);
+//    	}
+//    	
+//    	if(index == -1) lightSources.add(lightSource);
+//    	else lightSources.set(index, lightSource);
+//    }
+    
+    
     public void addLight(Light lightSource) {
-    	int index = -1;
-    	for(Light light : this.lightSources){
-    		if(light.getName().equals(lightSource.getName()) )
-    			index = lightSources.indexOf(light);
-    	}
-    	
-    	if(index == -1) lightSources.add(lightSource);
-    	else lightSources.set(index, lightSource);
+		ArrayList<INode> nodes = this.getRoot().getChildren();
+		for(INode node : nodes){
+			if(node instanceof LightNode){
+				Light tagetLightSource = ((LightNode) node).getLightSource();
+				Vector4f newLightDir = lightSource.getLightDirection();
+				tagetLightSource.setLightDirection(newLightDir);
+				break;
+			}
+		}
     }
+    
+    
     
     public void flushLightSources(){
     	lightSources = new ArrayList<Light>();

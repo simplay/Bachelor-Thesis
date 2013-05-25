@@ -195,6 +195,9 @@ public class GLRenderContext implements RenderContext {
 		// Don't draw if there are no indices
 		if(indices == null) return;
 		
+//		if(this.sceneManager.getLightSources().get(0) != null)
+//			this.sceneManager.getLightSources().get(0).setLightDirection(this.sceneManager.getRootLight().getLightSource().getLightDirection());
+		
 		// Set the material
 		setMaterial(renderItem.getShape().getMaterial());
 
