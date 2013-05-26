@@ -3,7 +3,6 @@
 // which have been precalculated.
 // Michael Single
 
-
 #version 150
 #extension GL_EXT_gpu_shader4 : enable
 
@@ -43,13 +42,11 @@ out vec4 col;
 // constants
 const float PI = 3.14159265358979323846264;
 
-
 const mat3 M_Adobe_XR = mat3(
 		2.0414, -0.5649, -0.3447,
 		-0.9693,  1.8760,  0.0416,
 		 0.0134, -0.01184,  1.0154
 		);	
-
 
 // gamma correction
 vec3 getGammaCorrection(vec3 rgb, float t, float f, float s, float gamma){
@@ -149,8 +146,10 @@ void main() {
 	float b = global_extrema[0].y;
 	float c = global_extrema[0].z;
 	float d = global_extrema[0].w;
-	float brdfMax = pow((b-a),2)+pow((d-c),2);
 	
+	
+	float brdfMax = pow((b-a),2)+pow((d-c),2);
+
 	float omega = 8.0*PI*pow(10,7); // omega scaled for texture cordinates => corresponds to 2.5
 	omega = (30.0/100.0)*8.0*PI*pow(10,7);
 	
@@ -166,11 +165,11 @@ void main() {
 	float M = 100.0; // #samples
 	 
 	vec4 brdf2 = vec4(0);
+
 	float wStep = 0.1;
 	float hwStep = 0.05;
 	int MaxIter = 16;
 	int totRuns = 41;
-	
 	
 	// dir light source
 	vec3 P = (modelview * position).xyz;
@@ -186,7 +185,6 @@ void main() {
 //	vec3 P = (modelview * position).xyz; // point p under consideration
 //	vec3 _k1 = normalize(P - lightPosition.xyz); // _k1: vector from lightPos to point P
 //	vec3 _k2 = normalize(eyePosition.xyz - P); // _k2: vector from point P to camera
-	
 	
 	vec3 V = _k1 - _k2;
 	
@@ -253,9 +251,8 @@ void main() {
 		imHeight = 0.0;
 		k = kValues[iter];
 		vec2 modUV = getRotation(u,v,-phi);
-		float bias = 50.0/99.0;
-		vec2 coords = vec2((k*modUV.x/omega) + bias, (k*modUV.y/(omega)) + bias); //2d
-
+		float bias = 50.0/99.0; 	
+		vec2 coords = vec2((k*modUV.x/omega) + bias, bias); //1d
 		
 		mayRun = true;
 		// only allow values within range [0,1]
@@ -311,16 +308,24 @@ void main() {
 				if(runCount == 41) isRunning = false; // bruteforce break;
 			}
 			
-	
 			float abs_P_Sq = pow((real_part*real_part + imag_part*imag_part),1);
 			factor1 = getFactor(k, F, G, PI, w);
-
-			//if(abs_P_Sq > 1.0) factor1 = 0.0;
 			vec4 waveColor = vec4(brdf_weights[iter],1);
 			
-			brdf += vec4(factor1 * abs_P_Sq * brdf_weights[iter], 1);
-			brdf2 += vec4(factor1 * brdfMax * brdf_weights[iter], 1);
-			sum += waveColor.xyz;
+			
+			float tmp = k*v*1.25*pow(10.0,-7.0);
+			tmp /= 2.0*PI;
+			
+			if(abs(tmp) < pow(10.0,-8.0)){
+				tmp = 1.0;
+			}else{
+				tmp = sin(tmp)/tmp;
+			}
+			tmp *= tmp;
+
+			brdf += vec4(tmp*factor1 * abs_P_Sq * brdf_weights[iter], 1);
+			brdf2 += vec4(tmp*factor1 * brdfMax * brdf_weights[iter], 1);
+			sum += waveColor.xyz;		
 		}
 	}
 	
@@ -328,24 +333,21 @@ void main() {
 	
 	float frac = 1.0 / 32.0;
 	float fac2 = 1.0 / 70000.0;
+	fac2 = 1.0 / 65.0;
 	fac2 = 1.0 / 35.0;
-	
 	brdf.xyz =  M_Adobe_XR*brdf.xyz;
 	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0, 1.0, 1.0 / 2.2);
 	brdf.xyz = fac2*fac2*fac2*fac2*frac*brdf.xyz;
 	
 	float ambient = 0.0;
 	
+
 	// test for error - debug mode
 	if(brdf.x < 0.0 || brdf.y < 0.0 || brdf.z < 0.0){
 		col = vec4(0,1,0,1);
 	}else{
 		col = brdf+vec4(ambient,ambient,ambient,1);
 	}
-	
-	
-//	float ff = sin(PI/2.0); we are in radians => opengl
-	
 	
 	frag_texcoord = texcoord;
 	gl_Position = projection * modelview * position;

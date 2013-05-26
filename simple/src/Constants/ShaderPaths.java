@@ -17,6 +17,9 @@ public enum ShaderPaths {
 	grid_2d_Vert("../jrtr/shaders/grid/HFD_Grid_2d.vert"),
 	grid_2d_Frag("../jrtr/shaders/grid/HFD_Grid.frag"),
 	
+	grid_T_1dVert("../jrtr/shaders/grid/HFD_Grid_T_1d.vert"),
+	grid_T_1dFrag("../jrtr/shaders/grid/HFD_Grid.frag"),
+	
 	grid_T_2dVert("../jrtr/shaders/grid/HFD_Grid_T_2d.vert"),
 	grid_T_2dFrag("../jrtr/shaders/grid/HFD_Grid.frag"),
 	
