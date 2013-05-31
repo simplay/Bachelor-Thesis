@@ -161,7 +161,7 @@ void main() {
 	float T_1 = t_0 * N_1;
 	float T_2 = t_0 * N_1;
 	
-	float periods = 1.0-1.0;
+	float periods = 4.0-1.0;
 	float N = periods - 1.0;
 	float M = 100.0; // #samples
 	 
@@ -328,7 +328,8 @@ void main() {
 	
 	float frac = 1.0 / 32.0;
 	float fac2 = 1.0 / 70000.0;
-	fac2 = 1.0 / 35.0;
+	fac2 = 1.0 / 62.0;
+//	fac2 = 1.0 / 150.0;
 	
 	brdf.xyz =  M_Adobe_XR*brdf.xyz;
 	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0, 1.0, 1.0 / 2.2);

@@ -55,7 +55,7 @@ public class DiffractionSceneGraphFabricator {
 	
 	
 	private boolean hasVectorfield = true;
-	private boolean isPlane = false;
+	private boolean isPlane = true;
 
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
 		this.sceneManager = sceneManager;
@@ -102,8 +102,8 @@ public class DiffractionSceneGraphFabricator {
 			}else if(version == 9){
 //				shader.load(ShaderPaths.grid_1d_Vert.toString(), ShaderPaths.grid_1d_Frag.toString());|
 				//shader.load(ShaderPaths.grid_2d_Vert.toString(), ShaderPaths.grid_2d_Frag.toString());
-				shader.load(ShaderPaths.grid_T_1dVert.toString(), ShaderPaths.grid_T_1dFrag.toString());
-//				shader.load(ShaderPaths.grid_T_2dVert.toString(), ShaderPaths.grid_T_2dFrag.toString());
+//				shader.load(ShaderPaths.grid_T_1dVert.toString(), ShaderPaths.grid_T_1dFrag.toString());
+				shader.load(ShaderPaths.grid_T_2dVert.toString(), ShaderPaths.grid_T_2dFrag.toString());
 			}else if(version == 10){
 				
 				shader.load(ShaderPaths.taylor_1d_Vert.toString(), ShaderPaths.taylor_1d_Frag.toString());
@@ -204,11 +204,22 @@ public class DiffractionSceneGraphFabricator {
 				
 
 				
-				samples = "../jrtr/textures/sampleX/milestone/pew/";
-				extrema = "../jrtr/textures/sampleX/milestone/pew/extrema.txt";
-				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/pew/kvalues.txt"));
-				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/pew/globals.txt"));
-				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/pew/weights.txt"));
+//				samples = "../jrtr/textures/sampleX/milestone/pew/";
+//				extrema = "../jrtr/textures/sampleX/milestone/pew/extrema.txt";
+//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/pew/kvalues.txt"));
+//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/pew/globals.txt"));
+//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/pew/weights.txt"));
+				
+				String s_name1 = "1dStam";
+				String s_name2 = "2dStam";
+				String s_name3 = "blaze";
+				String s_name4 = "cos";
+				String s_name = s_name1;
+				samples = "../jrtr/textures/sampleX/padded/"+ s_name +"/";
+				extrema = "../jrtr/textures/sampleX/padded/"+ s_name +"/extrema.txt";
+				mat.setKValues(loadKValues("../jrtr/textures/sampleX/padded/"+ s_name +"/kvalues.txt"));
+				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/padded/"+ s_name +"/globals.txt"));
+				mat.setWeights(readWeights("../jrtr/textures/sampleX/padded/"+ s_name +"/weights.txt"));
 //				
 				
 //				samples = "../jrtr/textures/sampleX/milestone/blaze/";
@@ -620,7 +631,7 @@ public class DiffractionSceneGraphFabricator {
 	private void setUpCamera(boolean isFar){
 		float distance = 0.0f;
 		if(isPlane){
-			distance = 25.1f;
+			distance = 25.0f;
 			float aspectRatio = 1.0f;
 			float near = 0.0001f;
 			float far = 5500.0f;
