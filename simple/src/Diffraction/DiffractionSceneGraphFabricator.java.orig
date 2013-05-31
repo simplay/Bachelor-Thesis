@@ -210,7 +210,8 @@ public class DiffractionSceneGraphFabricator {
 //				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/pew/kvalues.txt"));
 //				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/pew/globals.txt"));
 //				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/pew/weights.txt"));
-
+<<<<<<< HEAD
+				
 				String s_name1 = "1dStam";
 				String s_name2 = "2dStam";
 				String s_name3 = "blaze";
@@ -221,7 +222,8 @@ public class DiffractionSceneGraphFabricator {
 				mat.setKValues(loadKValues("../jrtr/textures/sampleX/padded/"+ s_name +"/kvalues.txt"));
 				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/padded/"+ s_name +"/globals.txt"));
 				mat.setWeights(readWeights("../jrtr/textures/sampleX/padded/"+ s_name +"/weights.txt"));
-
+=======
+>>>>>>> 8716a21e1b90dabeabe3174ac3c9030a90d4596c
 //				
 				
 //				samples = "../jrtr/textures/sampleX/milestone/blaze/";
@@ -633,9 +635,11 @@ public class DiffractionSceneGraphFabricator {
 	private void setUpCamera(boolean isFar){
 		float distance = 0.0f;
 		if(isPlane){
-
+<<<<<<< HEAD
+			distance = 25.0f;
+=======
 			distance = 1.1f;
-
+>>>>>>> 8716a21e1b90dabeabe3174ac3c9030a90d4596c
 			float aspectRatio = 1.0f;
 			float near = 0.0001f;
 			float far = 5500.0f;
