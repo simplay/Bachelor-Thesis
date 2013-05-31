@@ -243,9 +243,11 @@ void main() {
 	float s = 1.5*pow(10,-7);
 	
 	
-	for(int iter = 0; iter < MaxIter; iter++){
+	for(int iter = 0; iter < 16; iter++){
 		reHeight = 0.0;
 		imHeight = 0.0;
+		real_part = 0.0;
+		imag_part = 0.0;
 		k = kValues[iter];
 		vec2 modUV = getRotation(u,v,-phi);
 		
@@ -256,11 +258,11 @@ void main() {
 		mayRun = true;
 		// only allow values within range [0,1]
 		
-		if(coords.x < 0.0 || coords.y < 0.0 || coords.x > 1.0  || coords.y > 1.0) {
-			real_part = 0.0;
-			imag_part = 0.0;
-			mayRun = false;
-		}
+//		if(coords.x < 0.0 || coords.y < 0.0 || coords.x > 1.0  || coords.y > 1.0) {
+//			real_part = 0.0;
+//			imag_part = 0.0;
+//			mayRun = false;
+//		}
 
 		float fourier_fact = 1.0;
 		// only contribute iff coords have components in range [0,1]
@@ -271,7 +273,7 @@ void main() {
 			
 			// approximation till iteration 30 of fourier coefficient
 			// TODO paramet. upper bound asap (but remember to limit) 
-			for(int n = 0; n < 28; n++){
+			for(int n = 0; n < 31; n++){
 				
 				
 				float scaler = 3.2699430*pow(10,11); // see derivation
@@ -335,7 +337,7 @@ void main() {
 			}else{
 				tmp = sin(tmp)/tmp;
 			}
-//			tmp = 1.0;
+			tmp = 1.0;
 			tmp *= tmp;
 
 			
@@ -349,7 +351,7 @@ void main() {
 	
 	
 	fac2 = 10.0 / 7.5; // wenn A und ohne global minmax
-	fac2 = 1.0 / 600.0; // wenn nicht A und ohne gloabl minmax
+	fac2 = 1.0 / 300.0; // wenn nicht A und ohne gloabl minmax
 //	fac2 = 7.0 / 1.0;
 
 	

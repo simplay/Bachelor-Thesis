@@ -62,7 +62,8 @@ float get_p_factor(float w_i, float T_i, float N_i){
 	float divVal =  T_i*w_i / (2.0*PI);
 	float divRound = round(divVal);
 
-	if (abs(divVal - divRound) < eps){
+//	if (abs(divVal - divRound) < eps){
+	if (abs(1.0-cos(T_i*w_i)) < eps){
 	// T_i*w_i is a multiple of 2*PI
 		tmp = (N_i + 1);
 	}else{
@@ -83,7 +84,8 @@ float get_q_factor(float w_i, float T_i, float N_i){
 	float divVal =  T_i*w_i / (2.0*PI);
 	float divRound = round(divVal);
 
-	if (abs(divVal - divRound) < eps){
+//	if (abs(divVal - divRound) < eps){
+	if (abs(1.0-cos(T_i*w_i)) < eps){
 	// T_i*w_i is a multiple of 2*PI
 		tmp = 0.0;
 	}else{
@@ -322,6 +324,7 @@ void main() {
 				tmp = sin(tmp)/tmp;
 			}
 			tmp *= tmp;
+			tmp = 1.0;
 
 			brdf += vec4(tmp*factor1 * abs_P_Sq * brdf_weights[iter], 1);
 			brdf2 += vec4(tmp*factor1 * brdfMax * brdf_weights[iter], 1);
