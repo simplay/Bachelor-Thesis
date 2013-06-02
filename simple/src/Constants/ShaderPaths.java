@@ -40,7 +40,13 @@ public enum ShaderPaths {
 	taylor_1d_Frag("../jrtr/shaders/taylor/HFD_Taylor.frag"),
 	
 	taylor_2d_Vert("../jrtr/shaders/taylor/HFD_Taylor_2d.vert"),
-	taylor_2d_Frag("../jrtr/shaders/taylor/HFD_Taylor.frag");
+	taylor_2d_Frag("../jrtr/shaders/taylor/HFD_Taylor.frag"),
+	
+	taylor_T_1d_Vert("../jrtr/shaders/taylor/HFD_Taylor_T_1d.vert"),
+	taylor_T_1d_Frag("../jrtr/shaders/taylor/HFD_Taylor.frag"),
+	
+	taylor_T_2d_Vert("../jrtr/shaders/taylor/HFD_Taylor_T_2d.vert"),
+	taylor_T_2d_Frag("../jrtr/shaders/taylor/HFD_Taylor.frag");
 	
 	private final String value;
 		 

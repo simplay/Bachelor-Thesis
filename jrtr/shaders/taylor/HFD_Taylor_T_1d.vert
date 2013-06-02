@@ -74,51 +74,6 @@ vec3 getGammaCorrection(vec3 rgb, float t, float f, float s, float gamma){
 	return vec3(q*pow(rgb.x,gamma)-f, q*pow(rgb.y,gamma)-f, q*pow(rgb.z,gamma)-f );
 }
 
-
-//see derivations
-float get_p_factor(float w_i, float T_i, float N_i){
-	float eps = 0.0001; 
-	float tmp = 1.0;
-	float divVal =  T_i*w_i / (2.0*PI);
-	float divRound = round(divVal);
-
-//	if (abs(divVal - divRound) < eps){
-	if (abs(1.0-cos(T_i*w_i)) < eps){
-	// T_i*w_i is a multiple of 2*PI
-		tmp = (N_i + 1);
-	}else{
-	//otherwise
-		tmp = cos(w_i*T_i*N_i)-cos(w_i*T_i*(N_i + 1.0));
-		tmp /= (1.0 - cos(w_i*T_i));
-		tmp = 0.5 + 0.5*(tmp);
-	}
-
-	return tmp;
-}
-
-
-// is this correct
-float get_q_factor(float w_i, float T_i, float N_i){
-	float eps = 0.0001; 
-	float tmp = 1.0;	
-	float divVal =  T_i*w_i / (2.0*PI);
-	float divRound = round(divVal);
-
-//	if (abs(divVal - divRound) < eps){
-	if (abs(1.0-cos(T_i*w_i)) < eps){
-	// T_i*w_i is a multiple of 2*PI
-		tmp = 0.0;
-	}else{
-	//otherwise
-		tmp = sin(w_i*T_i*(N_i+1.0))-sin(w_i*T_i*N_i)-sin(w_i*T_i);
-		tmp /= 2.0*(1.0 - cos(w_i*T_i));
-	}
-	
-//	return tmp/(N_i+1);
-	return tmp;
-}
-
-
 //use tangent in oder to consider the vector field.
 vec2 getRotation(float u, float v, float phi){
 	
@@ -191,21 +146,6 @@ void main() {
 
 	
 	float omega = 8.0*PI*pow(10,7);
-	omega = (30.0/100.0)*8.0*PI*pow(10,7);
-	
-	
-	float N_1 = 30.0;
-	float N_2 = 100.0;
-	
-	float t_0 = (2.5*pow(10.0,-6.0)) / N_1;
-	float T_1 = t_0 * N_1;
-	float T_2 = t_0 * N_1;
-	
-	float periods = 4.0-1.0;
-	float N = periods - 1.0;
-	float M = 100.0; // #samples
-	
-	
 	vec4 brdf2 = vec4(0);
 //	omega = 4.0*PI*pow(10,7);
 	
@@ -313,7 +253,7 @@ void main() {
 		
 		float bias = 50.0/99.0; // (100/2) / (100-1) = (sizeIMG/2) / (upper-lower)
 		vec2 coords = vec2((k*modUV.x/omega) + bias, (k*modUV.y/(omega*1.0)) + bias); //2d
-//		vec2 coords = vec2((k*modUV.x/omega) + bias, bias); //1d
+		coords = vec2((k*modUV.x/omega) + bias, bias); //1d
 			
 		mayRun = true;
 		// only allow values within range [0,1]
@@ -323,8 +263,7 @@ void main() {
 //			imag_part = 0.0;
 //			mayRun = false;
 //		}
-		float w_u = k*u;
-		float w_v = k*v;
+
 		float fourier_fact = 1.0;
 		// only contribute iff coords have components in range [0,1]
 		if(mayRun){
@@ -351,18 +290,6 @@ void main() {
 				
 				scales = getC(reHeight, imHeight, extremaIndex);
 				
-				
-				
-				float p1 = get_p_factor(w_u, T_1, periods);
-				float p2 = get_p_factor(w_v, T_2, periods);
-				
-				float q1 = get_q_factor(w_u, T_1, periods);
-				float q2 = get_q_factor(w_v, T_2, periods);
-				
-				
-				float res_scale = pow(p1*p1 + q1*q1 , 0.5)*pow(p2*p2 + q2*q2 , 0.5); 
-				
-				
 //				k = k / (2*PI); // important
 				
 				
@@ -373,8 +300,8 @@ void main() {
 				if(n == 0) fourier_fact = 1.0;
 				else fourier_fact *= ((k*w*s)/n);
 				
-				float fourier_re = fourier_fact*scaler*scales.x*res_scale;
-				float fourier_im = fourier_fact*scaler*scales.y*res_scale;
+				float fourier_re = fourier_fact*scaler*scales.x;
+				float fourier_im = fourier_fact*scaler*scales.y;
 				
 				// see derivations
 				if(n % 4 == 0){
@@ -418,17 +345,13 @@ void main() {
 			brdf2 += vec4(tmp*factor1 * brdfMax * brdf_weights[iter], 1);
 		}
 	}
-	brdf = vec4(brdf.x/brdf2.x, brdf.y/brdf2.y, brdf.z/brdf2.z, 1) ; //  A
+	//brdf = vec4(brdf.x/brdf2.x, brdf.y/brdf2.y, brdf.z/brdf2.z, 1) ; //  A
 	float frac = 1.0 / 32.0;
 	float fac2 = 100.0 / 70000.0;
 	
 	
 	fac2 = 10.0 / 7.5; // wenn A und ohne global minmax
-	fac2 = 1.0 / 3.0; // wenn nicht A und ohne gloabl minmax, // T=40
-	fac2 = 1.4 / 1.0; // wenn nicht A und ohne gloabl minmax, // T=1
-	fac2 = 1.0 / 3.0; // wenn nicht A und ohne gloabl minmax, // T=400
-	fac2 = 1.0 / 10.5; // wenn nicht A und ohne gloabl minmax, // T=4000
-	fac2 = 1.2 / 1.0; // wenn nicht A und ohne gloabl minmax, // T=4
+	fac2 = 1.0 / 300.0; // wenn nicht A und ohne gloabl minmax
 //	fac2 = 7.0 / 1.0;
 
 	
