@@ -23,7 +23,8 @@ function taylor2
 	else
 		A = d_inputIMG;
 	end
-	A = imresize(A, [dimN,dimN]);
+	A = imresize(A, [30,30]);
+	A = padarray(A,[35, 35], 'both');
     
 	counter = 0;
 	extrema = [];
