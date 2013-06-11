@@ -13,13 +13,14 @@
 #define MAX_LIGHTS 1
 #define MAX_FACTORS 656
 #define MAX_Weight 16
+#define MAX_Weight2 321
 
 //Uniform variables, passed in from host program via suitable 
 //variants of glUniform*
 uniform mat4 projection;
 uniform mat4 modelview;
 uniform vec3 radianceArray[MAX_LIGHTS];
-uniform vec3 brdf_weights[MAX_Weight];
+uniform vec3 brdf_weights[MAX_Weight2];
 uniform vec4 directionArray[MAX_LIGHTS];
 uniform vec4 scalingFactors[MAX_FACTORS];
 uniform vec4 global_extrema[1];
@@ -59,7 +60,7 @@ const float N_2 = 100.0; // input dyn
 const float t_0 = (2.5*pow(10.0,-6.0)) / N_1;
 const float T_1 = t_0 * N_1;
 const float T_2 = t_0 * N_1;
-const float periods = 4.0-1.0;
+const float periods = 260.0-1.0;
 const float M = 100.0; // #samples //not used?
 
 // transformation constant
@@ -183,7 +184,11 @@ vec3 avgWeighted_XYZ_weight(float lambda){
 	// convex combination of a,b gives us the nearest weight for current:
 	// (L_b-L)f(L_b) + (L-L_a)f(L_a)
 	
-	vec3 cie_XYZ_lambda_weight = (lambda_b - lambda)*brdf_weights[int(lambda_b)] + (lambda - lambda_a)*brdf_weights[int(lambda_a)];
+	// find index by wavelength
+	int index_a = int(lambda_a - lambda_min);
+	int index_b = int(lambda_b - lambda_min);
+	
+	vec3 cie_XYZ_lambda_weight = (lambda_b - lambda)*brdf_weights[index_b] + (lambda - lambda_a)*brdf_weights[index_a];
 	return cie_XYZ_lambda_weight;
 }
 
@@ -274,7 +279,7 @@ void main() {
 	float imHeight = 0.0;
 	float factor1 = 0.0;
 	float k = 0.0;
-	float s = 1.5*pow(10,-7);
+	float s = 2.4623*pow(10,-7);
 	float fourier_coefficients = 1.0;
 	float a = global_extrema[0].x;
 	float b = global_extrema[0].y;
@@ -287,10 +292,6 @@ void main() {
 	float omega = 8.0*PI*pow(10.0, 7.0);
 	omega = (30.0/100.0)*8.0*PI*pow(10.0, 7.0);
 	
-	
-	// initialize period 
-
-
 	
 	// directional light source
 	vec3 Pos = (modelview * position).xyz;
@@ -334,8 +335,11 @@ void main() {
 			int lower = int(N_uv[variant].x);
 			int upper = int(N_uv[variant].y);
 			
+			float t = u;
+			if(variant == 1) t = v;
+			
 			for(int iter = lower; iter <= upper; iter++){
-				float lambda_iter = dx*abs(u)/iter; 
+				float lambda_iter = (dx*abs(t))/float(iter); 
 				k = 2.0*PI / lambda_iter;
 				
 				vec2 coords = vec2((k*modUV.x/omega) + bias, (k*modUV.y/omega) + bias); //2d
@@ -346,9 +350,9 @@ void main() {
 				float abs_P_Sq = P.x*P.x + P.y*P.y;
 				
 				float diffractionCoeff = getFactor(k, F, G, PI, w);			
-				vec4 waveColor = vec4(avgWeighted_XYZ_weight(lambda_iter), 1.0); // fix me pls QQ => brdf weights has to be increased and exported to a function- find nearest color
-				brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor);
-				maxBRDF += vec4(diffractionCoeff * brdfMax * waveColor);
+				vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter); // fix me pls QQ => brdf weights has to be increased and exported to a function- find nearest color
+				brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 1.0);
+				maxBRDF += vec4(diffractionCoeff * brdfMax * waveColor, 1.0);
 			}
 		}
 	}
@@ -365,7 +369,7 @@ void main() {
 //	fac2 = 1.4 / 1.0; // wenn nicht A und ohne gloabl minmax, // T=1
 //	fac2 = 1.0 / 3.0; // wenn nicht A und ohne gloabl minmax, // T=400
 //	fac2 = 1.0 / 10.5; // wenn nicht A und ohne gloabl minmax, // T=4000
-	fac2 = 1.2 / 1.0; // wenn nicht A und ohne gloabl minmax, // T=4
+	fac2 = 1.0 / 1.0; // wenn nicht A und ohne gloabl minmax, // T=4
 //	fac2 = 7.0 / 1.0;
 
 	

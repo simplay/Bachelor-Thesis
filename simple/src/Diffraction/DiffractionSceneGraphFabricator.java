@@ -569,7 +569,7 @@ public class DiffractionSceneGraphFabricator {
 			float aspectRatio = 1.0f;
 			float near = 0.0001f;
 			float far = 5500.0f;
-			float verticalFieldView = 5.0f;
+			float verticalFieldView = 50.0f;
 //			verticalFieldView = 120; // viewing angle
 			Vector3f up = new Vector3f(0, 1, 0); // camera height
 			Point3f look = new Point3f(0, 0, 0); // point camera looks at
