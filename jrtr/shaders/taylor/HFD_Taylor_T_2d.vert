@@ -169,24 +169,7 @@ void main() {
 	float d = global_extrema[0].w;
 	float brdfMax = pow((b-a),2)+pow((d-c),2);
 
-	vec4 LValues[16] = vec4[](
-			vec4(0.32666668, 0.0, 0.79, 1.0),
-			vec4(0.0042221546, 0.0, 1.0, 1.0),
-			vec4(0.13511118, 0.0, 1.0, 1.0),
-			vec4(0.0, 0.24000001, 1.0, 1.0),
-			vec4(0.0, 0.6533331, 1.0, 1.0),
-			vec4(0.0, 1.0, 0.8333343, 1.0),
-			vec4(0.057142854, 1.0, 0.0, 1.0),
-			vec4(0.3523804, 1.0, 0.0, 1.0),
-			vec4(0.6476188, 1.0, 0.0, 1.0),
-			vec4(0.94285715, 1.0, 0.0, 1.0),
-			vec4(1.0, 0.7222229, 0.0, 1.0),
-			vec4(1.0, 0.3777781, 0.0, 1.0),
-			vec4(1.0, 0.033333335, 0.0, 1.0),
-			vec4(1.0, 0.0, 0.0, 1.0),
-			vec4(1.0, 0.0, 0.0, 1.0),
-			vec4(1.0, 0.0, 0.0, 1.0)
-	);
+
 	
 
 	
@@ -201,7 +184,7 @@ void main() {
 	float T_1 = t_0 * N_1;
 	float T_2 = t_0 * N_1;
 	
-	float periods = 4.0-1.0;
+	float periods = 40.0-1.0;
 	float N = periods - 1.0;
 	float M = 100.0; // #samples
 	
@@ -414,7 +397,7 @@ void main() {
 			tmp *= tmp;
 
 			
-			brdf += vec4(tmp*factor1 * abs_P_Sq * LValues[iter]);
+			brdf += vec4(tmp*factor1 * abs_P_Sq * waveColor);
 			brdf2 += vec4(tmp*factor1 * brdfMax * brdf_weights[iter], 1);
 		}
 	}
@@ -424,11 +407,11 @@ void main() {
 	
 	
 	fac2 = 10.0 / 7.5; // wenn A und ohne global minmax
-	fac2 = 1.0 / 3.0; // wenn nicht A und ohne gloabl minmax, // T=40
-//	fac2 = 1.4 / 1.0; // wenn nicht A und ohne gloabl minmax, // T=1
+//	fac2 = 1.0 / 1.0; // wenn nicht A und ohne gloabl minmax, // T=40
+	fac2 = 1.0 / 2.1; // wenn nicht A und ohne gloabl minmax, // T=1
 //	fac2 = 1.0 / 3.0; // wenn nicht A und ohne gloabl minmax, // T=400
 //	fac2 = 1.0 / 10.5; // wenn nicht A und ohne gloabl minmax, // T=4000
-	fac2 = 1.2 / 1.0; // wenn nicht A und ohne gloabl minmax, // T=4
+//	fac2 = 1.2 / 1.0; // wenn nicht A und ohne gloabl minmax, // T=4
 //	fac2 = 7.0 / 1.0;
 
 	

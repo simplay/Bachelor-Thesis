@@ -107,10 +107,10 @@ public class DiffractionSceneGraphFabricator {
 				shader.load(ShaderPaths.grid_T_2dVert.toString(), ShaderPaths.grid_T_2dFrag.toString());
 			}else if(version == 10){
 				
-				shader.load(ShaderPaths.taylor_1d_Vert.toString(), ShaderPaths.taylor_1d_Frag.toString());
+//				shader.load(ShaderPaths.taylor_1d_Vert.toString(), ShaderPaths.taylor_1d_Frag.toString());
 //				shader.load(ShaderPaths.taylor_2d_Vert.toString(), ShaderPaths.taylor_2d_Frag.toString());
 //				shader.load(ShaderPaths.taylor_T_1d_Vert.toString(), ShaderPaths.taylor_T_1d_Frag.toString());
-//				shader.load(ShaderPaths.taylor_T_2d_Vert.toString(), ShaderPaths.taylor_T_2d_Frag.toString());
+				shader.load(ShaderPaths.taylor_T_2d_Vert.toString(), ShaderPaths.taylor_T_2d_Frag.toString());
 			}
 
 		} catch (Exception e) {}
@@ -636,9 +636,9 @@ public class DiffractionSceneGraphFabricator {
 		float distance = 0.0f;
 		if(isPlane){
 
-			distance = 10.0f;
+			distance = 1.1f;
 
-			float aspectRatio = 25.0f;
+			float aspectRatio = 1.0f;
 			float near = 0.0001f;
 			float far = 5500.0f;
 			float verticalFieldView = 5.0f;
