@@ -46,7 +46,7 @@ const float SMOOTH = 2.5;
 // wave constants
 const float lambda_min = 380.0*pow(10.0, -9.0);
 const float lambda_max = 700.0*pow(10.0, -9.0);
-const float dx = 2.5*pow(10.0, -6.0)
+const float dx = 2.5*pow(10.0, -6.0);
 
 // error constants
 const float eps_pq = 0.0001; 
@@ -171,18 +171,19 @@ float computeGFactor(vec3 camNormal, vec3 _k1, vec3 _k2){
 	float rightNom = dot(_k2, camNormal);
 	rightNom = (rightNom > tolerance)? tolerance : ((rightNom < -tolerance) ? -tolerance :  rightNom);
 	float nominator = leftNom*rightNom;
-	return dominator / nominator;;
+	return (dominator / nominator);
 }
 
 // assuming we have weigths given foreach lambda in [380nm,700nm] with delta 1nm steps.
-float avgWeighted_XYZ_weight(lambda){
+vec3 avgWeighted_XYZ_weight(float lambda){
 	
 	float lambda_a = floor(lambda); // lower bound current lambda
 	float lambda_b = ceil(lambda); // upper bound current lambda
 	
 	// convex combination of a,b gives us the nearest weight for current:
 	// (L_b-L)f(L_b) + (L-L_a)f(L_a)
-	cie_XYZ_lambda_weight = (lambda_b - lambda)*brdf_weights[lambda_b] + (lambda - lambda_a)*brdf_weights[lambda_a];
+	
+	vec3 cie_XYZ_lambda_weight = (lambda_b - lambda)*brdf_weights[int(lambda_b)] + (lambda - lambda_a)*brdf_weights[int(lambda_a)];
 	return cie_XYZ_lambda_weight;
 }
 
@@ -292,9 +293,9 @@ void main() {
 
 	
 	// directional light source
-	vec3 P = (modelview * position).xyz;
+	vec3 Pos = (modelview * position).xyz;
 	vec4 lightPosition = modelview*(directionArray[0]);
-	vec3 _k2 = normalize(-P);
+	vec3 _k2 = normalize(-Pos);
 	vec3 _k1 = normalize(lightPosition.xyz);
 	vec3 V = _k1 - _k2;
 	float u = V.x; float v = V.y; float w = V.z;
@@ -305,7 +306,7 @@ void main() {
 	vec3 camTangent = normalize((modelview*vec4(tangent,0.0)).xyz);
 
 	// compute vector-field rotation
-	float phi = computeRotationAngle(tangent)
+	float phi = computeRotationAngle(tangent);
 			
 	// compute Fresnel and Gemometric Factor
 	float F = getFressnelFactor(_k1, camNormal);
@@ -328,10 +329,10 @@ void main() {
 		vec2 modUV = getRotation(u,v,-phi);
 		
 		// iterate twice: once for N_u and once for N_v lower,upper
-		for(variant=0;variant < 2; variant++){
+		for(int variant = 0; variant < 2; variant++){
 			
-			int lower = N_uv[variant].x
-			int upper = N_uv[variant].y
+			int lower = int(N_uv[variant].x);
+			int upper = int(N_uv[variant].y);
 			
 			for(int iter = lower; iter <= upper; iter++){
 				float lambda_iter = dx*abs(u)/iter; 
@@ -344,10 +345,10 @@ void main() {
 				P = taylorApproximation(coords, k, w, s, w_u, w_v);
 				float abs_P_Sq = P.x*P.x + P.y*P.y;
 				
-				diffractionCoeff = getFactor(k, F, G, PI, w);			
-				vec4 waveColor = avgWeighted_XYZ_weight(lambda_iter); // fix me pls QQ => brdf weights has to be increased and exported to a function- find nearest color
-				brdf += vec4(tmp*diffractionCoeff * abs_P_Sq * waveColor);
-				maxBRDF += vec4(tmp*diffractionCoeff * brdfMax * waveColor, 1);
+				float diffractionCoeff = getFactor(k, F, G, PI, w);			
+				vec4 waveColor = vec4(avgWeighted_XYZ_weight(lambda_iter), 1.0); // fix me pls QQ => brdf weights has to be increased and exported to a function- find nearest color
+				brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor);
+				maxBRDF += vec4(diffractionCoeff * brdfMax * waveColor);
 			}
 		}
 	}
