@@ -175,10 +175,24 @@ float computeGFactor(vec3 camNormal, vec3 _k1, vec3 _k2){
 	return dominator / nominator;;
 }
 
+// assuming we have weigths given foreach lambda in [380nm,700nm] with delta 1nm steps.
+float avgWeighted_XYZ_weight(lambda){
+	
+	float lambda_a = floor(lambda); // lower bound current lambda
+	float lambda_b = ceil(lambda); // upper bound current lambda
+	
+	// convex combination of a,b gives us the nearest weight for current:
+	// (L_b-L)f(L_b) + (L-L_a)f(L_a)
+	cie_XYZ_lambda_weight = (lambda_b - lambda)*brdf_weights[lambda_b] + (lambda - lambda_a)*brdf_weights[lambda_a];
+	return cie_XYZ_lambda_weight;
+}
+
 
 // perform taylor approximation
 vec2 taylorApproximation(vec2 coords, float k, float w, float s, float w_u, float w_v){
-	
+	vec2 precomputedFourier = vec2(0);
+	int lower = 0;
+	int upper = 32;
 	float reHeight = 0.0;
 	float imHeight = 0.0;
 	float real_part = 0.0;
@@ -189,7 +203,7 @@ vec2 taylorApproximation(vec2 coords, float k, float w, float s, float w_u, floa
 	
 	// approximation till iteration 30 of fourier coefficient
 	// TODO paramet. upper bound asap (but remember to limit) 
-	for(int n = 0; n < 31; n++){
+	for(int n = lower; n < upper; n++){
 		
 		int index_re = n;
 		int index_im = (n + 31);
@@ -219,27 +233,13 @@ vec2 taylorApproximation(vec2 coords, float k, float w, float s, float w_u, floa
 		float fourier_re = fourier_coefficients*precomputedFourier.x*pq_scale_factor;
 		float fourier_im = fourier_coefficients*precomputedFourier.y*pq_scale_factor;
 		
-		// see derivations
-		if(n % 4 == 0){
-			real_part += fourier_re;
-			imag_part += fourier_im;
-			
-		}else if(n % 4 == 1){
-			real_part -= fourier_im;
-			imag_part += fourier_re;
-			
-		}else if(n % 4 == 2){
-			real_part -= fourier_re;
-			imag_part -= fourier_im;
-			
-		}else{
-			real_part += fourier_im;
-			imag_part -= fourier_re;
-		}
+		
+		real_part += fourier_re;
+		imag_part += fourier_im;
 	}
 	
 	
-	
+	return vec2(real_part, imag_part);
 }
 
 
@@ -265,8 +265,8 @@ void main() {
 	bool mayRun = true;
 	vec4 brdf = vec4(0.0,0.0,0.0,1.0);
 	vec4 maxBRDF = vec4(0);
-	vec3 sum = vec3(0);
-	vec2 precomputedFourier = vec2(0);
+	vec2 P = vec2(0.0, 0.0);
+	
 	float abs_P_Sq = 0.0;
 	float real_part = 0.0;
 	float imag_part = 0.0;
@@ -317,127 +317,43 @@ void main() {
 	vec2 N_v = compute_N_min_max(v);
 	
 	
+	vec2 N_uv[2] = vec2[2](N_u, N_v);
+	
 	// only specular contribution within epsilon range
 	if(abs(u) < eps && abs(v) < eps){
 
 		// TODO
 		
 	}else{
-		for(int iter = N_u.x; iter <= N_u.y; iter++){
-			float bias = 50.0/99.0;
-			vec2 modUV = getRotation(u,v,-phi);	
-			float lambda_iter = dx*abs(u)/iter; 
-			k = 2.0*PI / lambda_iter;
-			vec2 coords = vec2((k*modUV.x/omega) + bias, (k*modUV.y/omega) + bias); //2d
-			float w_u = k*u;
-			float w_v = k*v;		
-			vec2 P = taylorApproximation(coords, k, w, s, w_u, w_v);
-			
-			
-			float abs_P_Sq = P.x*P.x + P.y*P.y;
-			diffractionCoeff = getFactor(k, F, G, PI, w);			
-			
-			vec4 waveColor = vec4(brdf_weights[iter],1); // fix me pls QQ => brdf weights has to be increased and exported to a function- find nearest color
-			
-			brdf += vec4(tmp*diffractionCoeff * abs_P_Sq * waveColor);
-			maxBRDF += vec4(tmp*diffractionCoeff * brdfMax * waveColor, 1);
-			
-		}
-		
-		for(int iter = N_v.x; iter <= N_v.y; iter++){
-			
-			vec2 P = taylorApproximation(coords, k, w, s, w_u, w_v);
-			
-			
-		}
-	}
-
-	
-	
-	for(int iter = 0; iter < 16; iter++){
-		reHeight = 0.0;
-		imHeight = 0.0;
-		real_part = 0.0;
-		imag_part = 0.0;
-		fourier_coefficients = 1.0;
-		k = kValues[iter]; // wont work anymore
+		float bias = 50.0/99.0;
 		vec2 modUV = getRotation(u,v,-phi);
 		
-		float bias = 50.0/99.0; // (100/2) / (100-1) = (sizeIMG/2) / (upper-lower)
-		vec2 coords = vec2((k*modUV.x/omega) + bias, (k*modUV.y/(omega*1.0)) + bias); //2d
-
-		float w_u = k*u;
-		float w_v = k*v;
-		
-		// only contribute iff coords have components in range [0,1]
-		if(mayRun){
+		// iterate twice: once for N_u and once for N_v lower,upper
+		for(variant=0;variant < 2; variant++){
 			
+			int lower = N_uv[variant].x
+			int upper = N_uv[variant].y
 			
-			
-			
-			// approximation till iteration 30 of fourier coefficient
-			// TODO paramet. upper bound asap (but remember to limit) 
-			for(int n = 0; n < 31; n++){
+			for(int iter = lower; iter <= upper; iter++){
+				float lambda_iter = dx*abs(u)/iter; 
+				k = 2.0*PI / lambda_iter;
 				
+				vec2 coords = vec2((k*modUV.x/omega) + bias, (k*modUV.y/omega) + bias); //2d
+				float w_u = k*u;
+				float w_v = k*v;
 				
-
-
+				P = taylorApproximation(coords, k, w, s, w_u, w_v);
+				float abs_P_Sq = P.x*P.x + P.y*P.y;
 				
-				int index_re = n;
-				int index_im = (n + 31);
-				
-				reHeight = texture2DArray(TexArray, vec3(coords, index_re) ).x;
-				imHeight = texture2DArray(TexArray, vec3(coords, index_im) ).x;
-				int extremaIndex = n;
-				
-				precomputedFourier = getRescaledHeight(reHeight, imHeight, extremaIndex);
-
-				float p1 = get_p_factor(w_u, T_1, periods);
-				float p2 = get_p_factor(w_v, T_2, periods);
-				
-				float q1 = get_q_factor(w_u, T_1, periods);
-				float q2 = get_q_factor(w_v, T_2, periods);
-				
-				
-				float pq_scale_factor = pow(p1*p1 + q1*q1 , 0.5)*pow(p2*p2 + q2*q2 , 0.5); 
-
-				// develope factorial and pow like this since 
-				// otherwise we could get numerical rounding errors.
-				// PRODUCT_n=0^N { pow(k*w*s,n)/n! }
-				
-				if(n == 0) fourier_coefficients = 1.0;
-				else fourier_coefficients *= ((k*w*s)/n);
-				
-				float fourier_re = fourier_coefficients*precomputedFourier.x*pq_scale_factor;
-				float fourier_im = fourier_coefficients*precomputedFourier.y*pq_scale_factor;
-				
-				// see derivations
-				if(n % 4 == 0){
-					real_part += fourier_re;
-					imag_part += fourier_im;
-					
-				}else if(n % 4 == 1){
-					real_part -= fourier_im;
-					imag_part += fourier_re;
-					
-				}else if(n % 4 == 2){
-					real_part -= fourier_re;
-					imag_part -= fourier_im;
-					
-				}else{
-					real_part += fourier_im;
-					imag_part -= fourier_re;
-				}
+				diffractionCoeff = getFactor(k, F, G, PI, w);			
+				vec4 waveColor = avgWeighted_XYZ_weight(lambda_iter); // fix me pls QQ => brdf weights has to be increased and exported to a function- find nearest color
+				brdf += vec4(tmp*diffractionCoeff * abs_P_Sq * waveColor);
+				maxBRDF += vec4(tmp*diffractionCoeff * brdfMax * waveColor, 1);
 			}
-
-			
-			float abs_P_Sq = pow((real_part*real_part + imag_part*imag_part),1);
-			factor1 = getFactor(k, F, G, PI, w);			
-			vec4 waveColor = vec4(brdf_weights[iter],1);
-			brdf += vec4(tmp*factor1 * abs_P_Sq * LValues[iter]);
-			maxBRDF += vec4(tmp*factor1 * brdfMax * brdf_weights[iter], 1);
 		}
 	}
+
+	
 	brdf = vec4(brdf.x/maxBRDF.x, brdf.y/maxBRDF.y, brdf.z/maxBRDF.z, 1) ; //  relative scaling
 	
 	float frac = 1.0 / 32.0;
