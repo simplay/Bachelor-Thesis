@@ -3,7 +3,7 @@
 % foreach t, foreach w, 
 % [realMin_(nm(t),w), realMax_(nm(t),w), imagMin_(nm(t),w), imagMax_(nm(t),w)]
 
-function compGenBMP()
+function compGenPadBMP()
 	format long
     wStep=0.1;
     specStep=16;

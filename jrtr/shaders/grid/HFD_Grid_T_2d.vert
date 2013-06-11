@@ -161,7 +161,7 @@ void main() {
 	float T_1 = t_0 * N_1;
 	float T_2 = t_0 * N_1;
 	
-	float periods = 40000.0-1.0;
+	float periods = 40.0-1.0;
 	float N = periods - 1.0;
 	float M = 100.0; // #samples
 	 
@@ -329,8 +329,8 @@ void main() {
 	float frac = 1.0 / 32.0;
 	float fac2 = 1.0 / 70000.0;
 	fac2 = 1.0 / 2.0; // T=40
-	fac2 = 2.0 / 1.0; // T=1
-	fac2 = 1.0 / 4.0; // T=400
+//	fac2 = 2.0 / 1.0; // T=1
+//	fac2 = 1.0 / 4.0; // T=400
 //	fac2 = 1.0 / 150.0;
 	
 	brdf.xyz =  M_Adobe_XR*brdf.xyz;
