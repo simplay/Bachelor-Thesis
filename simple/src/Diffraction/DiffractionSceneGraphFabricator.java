@@ -52,7 +52,7 @@ public class DiffractionSceneGraphFabricator {
 	// grid 9
 	// taylor 10
 	// experimental: adaptive taylor series 11
-	private int version = 10;
+	private int version = 11;
 
 	
 	
@@ -128,7 +128,7 @@ public class DiffractionSceneGraphFabricator {
 		String samples = null;
 		String extrema = null;
 		
-		if(version == 9 || version == 10){
+		if(version == 9 || version == 10 || version == 11){
 			if(version==1){
 
 				
@@ -284,10 +284,13 @@ public class DiffractionSceneGraphFabricator {
 //				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/blaze/weights.txt"));
 				
 			}else if(version == 11){
-				// TODO add us
+				samples = "../jrtr/textures/sampleX/expTaylor/blaze/";
+				extrema = "../jrtr/textures/sampleX/expTaylor/blaze/extrema.txt";
+				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/expTaylor/blaze/globals.txt"));
+				mat.setWeights(readWeights("../jrtr/textures/sampleX/expTaylor/blaze/weights.txt"));
 			}
 			
-			if(version == 10) loadTaylorPatches(samples);
+			if(version == 10 || version == 11) loadTaylorPatches(samples);
 			else loadPatches2(samples, false, true);
 			
 			mat.setHeightfieldFactors(loadScalingConstants(extrema));
