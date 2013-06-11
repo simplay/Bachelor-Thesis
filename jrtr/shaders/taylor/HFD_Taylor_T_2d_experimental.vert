@@ -43,6 +43,11 @@ out vec4 col;
 const float PI = 3.14159265358979323846264;
 const float CERATIN = 1.6;
 const float SMOOTH = 2.5;
+
+const float lambda_min = 380.0*pow(10.0, -9.0);
+const float lambda_max = 700.0*pow(10.0, -9.0);
+const float dx = 2.5*pow(10.0, -6.0)
+
 const float eps_pq = 0.0001; 
 const float tolerance = 0.999999999;
 const mat3 M_Adobe_XR = mat3(
@@ -156,6 +161,23 @@ float computeGFactor(vec3 camNormal, vec3 _k1, vec3 _k2){
 	return dominator / nominator;;
 }
 
+// first component N_min, second compontent N_max
+vec2 compute_N_min_max(float t){
+	// default case if t == 0 otherwise override it.
+	float N_min = 0.0;
+	float N_max = 0.0;
+	
+	if(t > 0.0){
+		N_min = ceil((dx*t) / lambda_max);
+		N_max = floor((dx*t) / lambda_min);
+	}else if(t < 0.0){
+		N_min = -ceil((dx*t) / lambda_min);
+		N_max = -floor((dx*t) / lambda_max);
+	}
+ 
+	return vec2(N_min, N_max);
+}
+
 void main() {
 	// INITIALIZATION
 	bool mayRun = true;
@@ -213,6 +235,15 @@ void main() {
 	// compute Fresnel and Gemometric Factor
 	float F = getFressnelFactor(_k1, camNormal);
 	float G = computeGFactor(camNormal, _k1, _k2);
+	
+	// get iteration bounds for given (u,v)
+	vec2 N_u = compute_N_min_max(u);
+	vec2 N_v = compute_N_min_max(v);
+	
+	
+	for(int iter = N_u.x; iter < N_u.y; iter++){
+		
+	}
 	
 	
 	for(int iter = 0; iter < 16; iter++){
