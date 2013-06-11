@@ -24,7 +24,6 @@ uniform vec4 directionArray[MAX_LIGHTS];
 uniform vec4 scalingFactors[MAX_FACTORS];
 uniform vec4 global_extrema[1];
 uniform sampler2DArray TexArray;
-uniform float kValues[16];
 uniform vec4 camPos;
 
 

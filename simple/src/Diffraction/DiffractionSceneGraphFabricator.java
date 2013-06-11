@@ -25,6 +25,7 @@ import SceneGraph.ShapeNode;
 import SceneGraph.TransformGroup;
 import ShaderLogic.DefaultShaderTask;
 import ShaderLogic.DiffractionShaderTask;
+import ShaderLogic.ExpTaylorShaderTask;
 import ShaderLogic.MultiTexturesTAShaderTask;
 import ShaderLogic.MultiTexturesTaylorShaderTask;
 import ShaderLogic.ShaderTask;
@@ -50,6 +51,7 @@ public class DiffractionSceneGraphFabricator {
 	// stam 4
 	// grid 9
 	// taylor 10
+	// experimental: adaptive taylor series 11
 	private int version = 10;
 
 	
@@ -74,6 +76,8 @@ public class DiffractionSceneGraphFabricator {
 			activeShaderTask = new MultiTexturesTAShaderTask();
 		}else if(version == 10){
 			activeShaderTask = new MultiTexturesTaylorShaderTask();
+		}else if(version == 11){
+			activeShaderTask = new ExpTaylorShaderTask();
 		}else if(version == 4){
 		    activeShaderTask = new DiffractionShaderTask();
 		}
@@ -89,7 +93,7 @@ public class DiffractionSceneGraphFabricator {
 		
 		
 		mat.setLayerCount(108);
-		if(version == 10) mat.setLayerCount(62);
+		if(version == 10 || version == 11) mat.setLayerCount(62);
 		
 		Shader shader = renderContext.makeShader();
 		try {
@@ -111,7 +115,11 @@ public class DiffractionSceneGraphFabricator {
 //				shader.load(ShaderPaths.taylor_2d_Vert.toString(), ShaderPaths.taylor_2d_Frag.toString());
 //				shader.load(ShaderPaths.taylor_T_1d_Vert.toString(), ShaderPaths.taylor_T_1d_Frag.toString());
 				shader.load(ShaderPaths.taylor_T_2d_Vert.toString(), ShaderPaths.taylor_T_2d_Frag.toString());
+				
+			}else if(version == 11){
+				shader.load(ShaderPaths.expTaylor_2d_Vert.toString(), ShaderPaths.expTaylor_2d_Frag.toString());
 			}
+			
 
 		} catch (Exception e) {}
 		
@@ -275,6 +283,8 @@ public class DiffractionSceneGraphFabricator {
 //				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/blaze/globals.txt"));
 //				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/blaze/weights.txt"));
 				
+			}else if(version == 11){
+				// TODO add us
 			}
 			
 			if(version == 10) loadTaylorPatches(samples);
@@ -285,7 +295,7 @@ public class DiffractionSceneGraphFabricator {
 
 	}
 	
-	
+	// TODO again check this method - for santy's sake!!!
 	private void loadTaylorPatches(String basisPath){
 		String path = basisPath;
 		String ext = ".bmp";
@@ -464,66 +474,8 @@ public class DiffractionSceneGraphFabricator {
 		return weights;
 	}
 	
-	private void foo(){
-		float L_min = 380.0f;
-		float L_max = 640.0f;
-		float r = 0.0f;
-		float g = 0.0f;
-		float b = 0.0f;
-		
-		int steps = 16;
-		float currentL = 0.0f;
-		float delta = (L_max - L_min)/(steps-1);
-		
-		for(int n=0; n < steps; n++){
-			currentL = L_min + delta*n;
-			
-			if(380.0f <= currentL && currentL < 410.0f){
-				r = 0.6f - 0.41f * ((410.0f - currentL) / 30.0f);
-				g = 0.0f;
-				b = 0.39f + 0.6f * ((410.0f - currentL) / 30.0f);
-				
-			}else if(410.0f <= currentL && currentL < 440.0f){
-				r = 0.19f - 0.19f * ((440.0f - currentL) / 30.0f);
-				g = 0.0f;
-				b = 1.0f;
-				
-			}else if(440.0f <= currentL && currentL < 490.0f){
-				r = 0.0f;
-				g = 1.0f - ((490.0f - currentL) / 50.0f);
-				b = 1.0f;
-				
-			}else if(490.0f <= currentL && currentL < 510.0f){
-				r = 0.0f;
-				g = 1.0f;
-				b = (510.0f - currentL) / 20.0f;
-				
-			}else if(510 <= currentL && currentL < 580){
-				r = 1.0f - ((580.0f - currentL) / 70.0f);
-				g = 1.0f;
-				b = 0.0f;
-				
-			}else if(580.0f <= currentL && currentL < 640.0f){
-				r = 1.0f;
-				g = (640.0f - currentL) / 60.0f;
-				b = 0.0f;
-				
-			}else if(640.0f <= currentL && currentL <= 700.0f){
-				r = 1.0f;
-				g = 0.0f;
-				b = 0.0f;
-				
-			}
-//			System.out.println("vec4(" + r + ", " + g + ", " + b + ", 1.0),");
-//			float kValue = (float) (2.0f*Math.PI / currentL*Math.pow(10, -9));
-//			float kValue = (float) ((currentL*Math.pow(10, 1)));
-			//System.out.println(kValue+",");
-	
-		}
-	}
-	
 
-	//String extension = ".png";
+	//String extension = ".bmp";
 	private void loadPatches2(String basisPath, boolean Lfolders, boolean bigSample){
 		int L = 350;
 		int step = 50;
@@ -559,33 +511,6 @@ public class DiffractionSceneGraphFabricator {
 		}
 	}
 	
-	// for w=0.5 steps
-	private void loadPatches(String basisPath, boolean Lfolders){
-		int L = 350;
-		String path = basisPath;
-
-		for(int iter = 0; iter < 108; iter++){
-			String ext = "";
-			if(iter%18 == 0) L+=50;
-			if(Lfolders) ext+=Integer.toString(L)+"/";
-			if(iter%18 < 9) ext+="imL"+L;
-			else ext+="reL"+L;
-			
-			int p = iter%9;
-			float t = -2.0f + p*0.5f;
-			if(t==-2.0f || t==-1.0f || t == 0.0f || t == 1.0f || t==2.0f){
-				if(t==-2.0f) ext += "w"+"-2"+"BH.png";
-				else if(t==-1.0f) ext += "w"+"-1"+"BH.png";
-				else if( t == 0.0f) ext += "w"+"0"+"BH.png";
-				else if(t == 1.0f)ext += "w"+"1"+"BH.png";
-				else ext += "w"+"2"+"BH.png";
-					
-			}else ext += "w"+t+"BH.png";
-			
-			this.textures[iter] = renderContext.makeTexture();
-			mat.setTextureAt(path+ext, textures[iter], iter);
-		}
-	}
 	
 	private void setUpLight(){
 		Vector3f radiance = new Vector3f(1,1,1); 
