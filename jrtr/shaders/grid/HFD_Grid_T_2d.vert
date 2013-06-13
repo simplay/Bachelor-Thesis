@@ -54,7 +54,7 @@ const mat3 M_Adobe_XR = mat3(
 // gamma correction
 vec3 getGammaCorrection(vec3 rgb, float t, float f, float s, float gamma){
 	
-	float q = (1+f);
+	float q = (1.0+f);
 	return vec3(q*pow(rgb.x,gamma)-f, q*pow(rgb.y,gamma)-f, q*pow(rgb.z,gamma)-f );
 }
 

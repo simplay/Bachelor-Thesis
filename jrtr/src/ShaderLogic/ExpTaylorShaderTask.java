@@ -66,15 +66,16 @@ public class ExpTaylorShaderTask extends ShaderTask{
 		
 		// handle weights stuff
 		if(m.getWeights() != null){
+			System.out.println("WEIGHT COUNT " + m.getWeights().length);
 			int scalingID = gl.glGetUniformLocation(activeShader.programId(),"brdf_weights");
-			gl.glUniform3fv(scalingID, m.getWeights().length, m.getWeights(), 0);
+			gl.glUniform3fv(scalingID, m.getWeights().length/3, m.getWeights(), 0);
 		}
 		
 		// handle globals
 		
 		if(m.getGlobals() != null){
 			int scalingID = gl.glGetUniformLocation(activeShader.programId(),"global_extrema");
-			gl.glUniform4fv(scalingID, m.getGlobals().length, m.getGlobals(), 0);
+			gl.glUniform4fv(scalingID, m.getGlobals().length/4, m.getGlobals(), 0);
 		}
 
 

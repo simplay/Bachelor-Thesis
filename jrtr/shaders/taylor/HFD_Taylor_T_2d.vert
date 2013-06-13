@@ -274,14 +274,14 @@ void main() {
 	float real_part = 0.0;
 	float imag_part = 0.0;
 	vec4 brdf = vec4(0.0,0.0,0.0,1.0);
-	vec2 scales = vec2(0);
+	vec2 scales = vec2(0.0, 0.0);
 	
 	float reHeight = 0.0;
 	float imHeight = 0.0;
 	float factor1 = 0.0;
 	float k = 0.0;
 	bool mayRun = true;
-	vec3 sum = vec3(0);
+	vec3 sum = vec3(0.0, 0.0, 0.0);
 	
 	float s = 1.5*pow(10,-7);
 	
@@ -408,7 +408,7 @@ void main() {
 	
 	fac2 = 10.0 / 7.5; // wenn A und ohne global minmax
 //	fac2 = 1.0 / 1.0; // wenn nicht A und ohne gloabl minmax, // T=40
-	fac2 = 1.0 / 2.1; // wenn nicht A und ohne gloabl minmax, // T=1
+	fac2 = 100.0 / 1.1; // wenn nicht A und ohne gloabl minmax, // T=1
 //	fac2 = 1.0 / 3.0; // wenn nicht A und ohne gloabl minmax, // T=400
 //	fac2 = 1.0 / 10.5; // wenn nicht A und ohne gloabl minmax, // T=4000
 //	fac2 = 1.2 / 1.0; // wenn nicht A und ohne gloabl minmax, // T=4
