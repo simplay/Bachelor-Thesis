@@ -45,6 +45,7 @@ const float SMOOTH = 2.5;
 
 // wave constants
 const float lambda_min = 390.0*pow(10.0, -9.0);
+const float rescale = pow(10.0, 9.0);
 const float lambda_max = 700.0*pow(10.0, -9.0);
 const float dx = 2.5*pow(10.0, -6.0);
 const float s = 2.4623*pow(10,-7.0);
@@ -60,7 +61,7 @@ const float N_2 = 100.0; // input dyn
 const float t_0 = (2.5*pow(10.0,-6.0)) / N_1;
 const float T_1 = t_0 * N_1;
 const float T_2 = t_0 * N_1;
-const float periods = 26.0-1.0;
+const float periods = 26.0-1.0; //26
 const float M = 100.0; // #samples //not used?
 
 // transformation constant
@@ -174,17 +175,19 @@ float computeGFactor(vec3 camNormal, vec3 _k1, vec3 _k2){
 // assuming we have weigths given foreach lambda in [380nm,700nm] with delta 1nm steps.
 vec3 avgWeighted_XYZ_weight(float lambda){
 	
-	float lambda_a = floor(lambda); // lower bound current lambda
-	float lambda_b = ceil(lambda); // upper bound current lambda
+	float lambda_a = floor(lambda*rescale); // lower bound current lambda
+	float lambda_b = ceil(lambda*rescale); // upper bound current lambda
 	
 	// convex combination of a,b gives us the nearest weight for current:
 	// (L_b-L)f(L_b) + (L-L_a)f(L_a)
 	
 	// find index by wavelength
-	int index_a = int(lambda_a - lambda_min);
-	int index_b = int(lambda_b - lambda_min);
+	int index_a = int(lambda_a) - 390;
+	int index_b = int(lambda_b) - 390;
+	float weight_b = (lambda_b - lambda*rescale);
+	float weight_a = (lambda*rescale - lambda_a);
 	
-	vec3 cie_XYZ_lambda_weight = (lambda_b - lambda)*brdf_weights[index_b] + (lambda - lambda_a)*brdf_weights[index_a];
+	vec3 cie_XYZ_lambda_weight = weight_b*brdf_weights[index_b] + weight_a*brdf_weights[index_a];
 	return cie_XYZ_lambda_weight;
 }
 
@@ -229,11 +232,23 @@ vec2 taylorApproximation(vec2 coords, float k, float w, float w_u, float w_v){
 		float fourier_re = fourier_coefficients*precomputedFourier.x*pq_scale_factor;
 		float fourier_im = fourier_coefficients*precomputedFourier.y*pq_scale_factor;
 		
-		
-		real_part += fourier_re;
-		imag_part += fourier_im;
+		if(n % 4 == 0){
+			real_part += fourier_re;
+			imag_part += fourier_im;
+			
+		}else if(n % 4 == 1){
+			real_part -= fourier_im;
+			imag_part += fourier_re;
+			
+		}else if(n % 4 == 2){
+			real_part -= fourier_re;
+			imag_part -= fourier_im;
+			
+		}else{
+			real_part += fourier_im;
+			imag_part -= fourier_re;
+		}
 	}
-	
 	
 	return vec2(real_part, imag_part);
 }
@@ -252,7 +267,6 @@ vec2 compute_N_min_max(float t){
 		N_min = ceil((dx*t) / lambda_min);
 		N_max = floor((dx*t) / lambda_max);
 	}
- 
 	return vec2(N_min, N_max);
 }
 
@@ -311,7 +325,8 @@ void main() {
 	// only specular contribution within epsilon range
 	if(abs(u) < eps && abs(v) < eps){
 
-		// TODO
+		brdf = vec4(0.0, 0.0, 1.0, 1.0);
+		maxBRDF = vec4(0.0, 0.0, 1.0, 1.0);
 		
 	}else{
 		float bias = 50.0/99.0;
@@ -327,15 +342,16 @@ void main() {
 			if(variant == 1) t = v;
 			
 			for(int iter = lower; iter <= upper; iter++){
-				if(iter == 0) continue;
+				if(iter == 0) break;
 				float lambda_iter = (dx*t)/float(iter); 
 				k = 2.0*PI / lambda_iter;
+				float k2 = 1.0 / lambda_iter;
 				
-				vec2 coords = vec2((k*modUV.x/omega) + bias, (k*modUV.y/omega) + bias); //2d
+				vec2 coords = vec2((k2*modUV.x/omega) + bias, (k2*modUV.y/omega) + bias); //2d
 				float w_u = k*u;
 				float w_v = k*v;
 				
-				P = taylorApproximation(coords, k, w, w_u, w_v);
+				P = taylorApproximation(coords, k2, w, w_u, w_v);
 				float abs_P_Sq = P.x*P.x + P.y*P.y;
 				
 				float diffractionCoeff = getFactor(k, F, G, w);			
@@ -360,7 +376,7 @@ void main() {
 //	fac2 = 1.4 / 1.0; // wenn nicht A und ohne gloabl minmax, // T=1
 //	fac2 = 1.0 / 3.0; // wenn nicht A und ohne gloabl minmax, // T=400
 //	fac2 = 1.0 / 10.5; // wenn nicht A und ohne gloabl minmax, // T=4000
-	fac2 = 1.0 / 4.0; // wenn nicht A und ohne gloabl minmax, // T=4
+	fac2 = 2.2 / 1.0; // wenn nicht A und ohne gloabl minmax, // T=4
 //	fac2 = 7.0 / 1.0;
 
 	

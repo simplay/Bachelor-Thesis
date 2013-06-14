@@ -408,7 +408,7 @@ void main() {
 	
 	fac2 = 10.0 / 7.5; // wenn A und ohne global minmax
 //	fac2 = 1.0 / 1.0; // wenn nicht A und ohne gloabl minmax, // T=40
-	fac2 = 100.0 / 1.1; // wenn nicht A und ohne gloabl minmax, // T=1
+	fac2 = 1.0 / 1.1; // wenn nicht A und ohne gloabl minmax, // T=1
 //	fac2 = 1.0 / 3.0; // wenn nicht A und ohne gloabl minmax, // T=400
 //	fac2 = 1.0 / 10.5; // wenn nicht A und ohne gloabl minmax, // T=4000
 //	fac2 = 1.2 / 1.0; // wenn nicht A und ohne gloabl minmax, // T=4

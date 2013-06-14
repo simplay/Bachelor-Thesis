@@ -104,11 +104,11 @@ public class DiffractionSceneGraphFabricator {
 				shader.load(ShaderPaths.stamVert.toString(), ShaderPaths.stamFrag.toString());
 					
 			}else if(version == 9){
-//				shader.load(ShaderPaths.grid_1d_Vert.toString(), ShaderPaths.grid_1d_Frag.toString());|
+				shader.load(ShaderPaths.grid_1d_Vert.toString(), ShaderPaths.grid_1d_Frag.toString());
 //				shader.load(ShaderPaths.grid_1d_Vert.toString(), ShaderPaths.grid_1d_Frag.toString());
 				//shader.load(ShaderPaths.grid_2d_Vert.toString(), ShaderPaths.grid_2d_Frag.toString());
 //				shader.load(ShaderPaths.grid_T_1dVert.toString(), ShaderPaths.grid_T_1dFrag.toString());
-				shader.load(ShaderPaths.grid_T_2dVert.toString(), ShaderPaths.grid_T_2dFrag.toString());
+//				shader.load(ShaderPaths.grid_T_2dVert.toString(), ShaderPaths.grid_T_2dFrag.toString());
 			}else if(version == 10){
 				
 //				shader.load(ShaderPaths.taylor_1d_Vert.toString(), ShaderPaths.taylor_1d_Frag.toString());
@@ -535,7 +535,7 @@ public class DiffractionSceneGraphFabricator {
 //		DiffractionDice6 diffDiceObj = new DiffractionDice6(480, 100, trackDistance);
 		
 		
-		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(400,10f,1f);
+		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(100,10f,1f);
 		
 		diffDice = new Shape(diffDiceObj.getVertices());
 		diffPlane = new Shape(diffPlaneObj.getVertices());
@@ -564,12 +564,12 @@ public class DiffractionSceneGraphFabricator {
 		float distance = 0.0f;
 		if(isPlane){
 
-			distance = 1.1f;
+			distance = 1.0f;
 
-			float aspectRatio = 1.0f;
+			float aspectRatio = 0.1f;
 			float near = 0.0001f;
 			float far = 5500.0f;
-			float verticalFieldView = 50.0f;
+			float verticalFieldView = 40.0f;
 //			verticalFieldView = 120; // viewing angle
 			Vector3f up = new Vector3f(0, 1, 0); // camera height
 			Point3f look = new Point3f(0, 0, 0); // point camera looks at
