@@ -56,12 +56,12 @@ const float eps = 1.0*pow(10.0, -3.0);
 const float tolerance = 0.999999999;
 
 // period constants
-const float N_1 = 30.0; // input dyn
+const float N_1 = 100.0; // input dyn, prec 30
 const float N_2 = 100.0; // input dyn
 const float t_0 = (2.5*pow(10.0,-6.0)) / N_1;
 const float T_1 = t_0 * N_1;
 const float T_2 = t_0 * N_1;
-const float periods = 1.0-1.0; //26
+const float periods = 5000.0-1.0; //26
 const float M = 100.0; // #samples //not used?
 
 // transformation constant
@@ -71,6 +71,11 @@ const mat3 M_Adobe_XR = mat3(
 		 0.0134, -0.01184,  1.0154
 );	
 
+
+const mat3 CIE_XYZ = mat3(
+0.418465712421894,	-0.158660784803799,	-0.0828349276180955,
+-0.0911689639090227,	0.252431442139465,	0.0157075217695576,
+0.000920898625343664,	-0.00254981254686328,	0.178598913921520);
 
 // gamma correction
 vec3 getGammaCorrection(vec3 rgb, float t, float f, float s, float gamma){
@@ -83,13 +88,13 @@ vec3 getGammaCorrection(vec3 rgb, float t, float f, float s, float gamma){
 float get_p_factor(float w_i, float T_i, float N_i){
 	float tmp = 1.0;
 	if (abs(1.0-cos(T_i*w_i)) < eps_pq){
-		tmp = (N_i + 1.0);
+		tmp = 1.0;
 	}else{
 		tmp = cos(w_i*T_i*N_i)-cos(w_i*T_i*(N_i + 1.0));
 		tmp /= (1.0 - cos(w_i*T_i));
 		tmp = 0.5 + 0.5*(tmp);
 	}
-	return tmp;
+	return tmp/N_i;
 }
 
 
@@ -102,7 +107,7 @@ float get_q_factor(float w_i, float T_i, float N_i){
 		tmp = sin(w_i*T_i*(N_i+1.0))-sin(w_i*T_i*N_i)-sin(w_i*T_i);
 		tmp /= 2.0*(1.0 - cos(w_i*T_i));
 	}
-	return tmp;
+	return tmp/N_i;
 }
 
 
@@ -221,7 +226,7 @@ vec2 taylorApproximation(vec2 coords, float k, float w, float w_u, float w_v){
 		
 		
 		float pq_scale_factor = pow(p1*p1 + q1*q1 , 0.5)*pow(p2*p2 + q2*q2 , 0.5); 
-
+//		pq_scale_factor = 1.0;
 		// develope factorial and pow like this since 
 		// otherwise we could get numerical rounding errors.
 		// PRODUCT_n=0^N { pow(k*w*s,n)/n! }
@@ -251,6 +256,7 @@ vec2 taylorApproximation(vec2 coords, float k, float w, float w_u, float w_v){
 	}
 	
 	return vec2(real_part, imag_part);
+//	return vec2(1.0, 1.0);
 }
 
 
@@ -292,7 +298,7 @@ void main() {
 	
 	//NB compute dynamically!!!
 	float omega = 8.0*PI*pow(10.0, 7.0);
-	omega = (30.0/100.0)*8.0*PI*pow(10.0, 7.0);
+//	omega = (30.0/100.0)*8.0*PI*pow(10.0, 7.0);
 	
 	
 	// directional light source
@@ -314,7 +320,7 @@ void main() {
 	// compute Fresnel and Gemometric Factor
 	float F = getFressnelFactor(_k1, _k2);
 	float G = computeGFactor(camNormal, _k1, _k2);
-	F = 1.0;
+	F = 1.0; 
 	// get iteration bounds for given (u,v)
 	vec2 N_u = compute_N_min_max(u);
 	vec2 N_v = compute_N_min_max(v);
@@ -324,9 +330,9 @@ void main() {
 	bool flag1 = false;
 	// only specular contribution within epsilon range
 	if(abs(u) < eps && abs(v) < eps){
-		flag1 = true;
-		brdf = vec4(1.0, 1.0, 1.0, 1.0);
-		maxBRDF = vec4(1.0, 1.0, 1.0, 1.0);
+		flag1 = false;
+//		brdf = vec4(1.0, 1.0, 1.0, 1.0);
+//		maxBRDF = vec4(1.0, 1.0, 1.0, 1.0);
 		
 	}else{
 		float bias = 50.0/99.0;
@@ -342,19 +348,22 @@ void main() {
 			if(variant == 1) t = v;
 			
 			for(int iter = lower; iter <= upper; iter++){
-				if(iter == 0) break;
-				float lambda_iter = (dx*t)/float(iter); 
+				if(iter == 0) continue;
+				float lambda_iter = (dx*t)/float(iter);
+				if(lambda_iter < 0.0) flag1 = true;
 				k = 2.0*PI / lambda_iter;
-				float k2 = 1.0 / lambda_iter;
+				vec2 coords = vec2((k*modUV.x/omega) + bias, (k*modUV.y/omega) + bias); //2d
 				
-				vec2 coords = vec2((k2*modUV.x/omega) + bias, (k2*modUV.y/omega) + bias); //2d
-				float w_u = k*u;
-				float w_v = k*v;
+				if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
 				
-				P = taylorApproximation(coords, k2, w, w_u, w_v);
+				float w_u = k*modUV.x;
+				float w_v = k*modUV.y;
+				
+				P = taylorApproximation(coords, k, w, w_u, w_v);
 				float abs_P_Sq = P.x*P.x + P.y*P.y;
 				
-				float diffractionCoeff = getFactor(k, F, G, w);			
+				float diffractionCoeff = getFactor(k, F, G, w);
+				diffractionCoeff = 1.0;
 				vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
 				brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 1.0);
 				maxBRDF += vec4(diffractionCoeff * brdfMax * waveColor, 1.0);
@@ -363,7 +372,7 @@ void main() {
 	}
 
 	
-	brdf = vec4(brdf.x/maxBRDF.x, brdf.y/maxBRDF.y, brdf.z/maxBRDF.z, 1.0) ; //  relative scaling
+//	brdf = vec4(brdf.x/maxBRDF.x, brdf.y/maxBRDF.y, brdf.z/maxBRDF.z, 1.0) ; //  relative scaling
 	
 	
 	
@@ -376,25 +385,36 @@ void main() {
 //	fac2 = 1.4 / 1.0; // wenn nicht A und ohne gloabl minmax, // T=1
 //	fac2 = 1.0 / 3.0; // wenn nicht A und ohne gloabl minmax, // T=400
 //	fac2 = 1.0 / 10.5; // wenn nicht A und ohne gloabl minmax, // T=4000
-	fac2 = 6.0 / 2.0; // wenn nicht A und ohne gloabl minmax, // T=4
+	fac2 = 30.0 / 1.5; // wenn nicht A und ohne gloabl minmax, // T=4
 //	fac2 = 7.0 / 1.0;
 
 	
 	
 	brdf.xyz =  M_Adobe_XR*brdf.xyz;
-	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0, 1.0, 1.0 / 2.2);
 	brdf.xyz = fac2*fac2*fac2*fac2*frac*brdf.xyz;
+	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0, 1.0, 1.0 / 2.2);
 
 	float ambient = 0.0;
+
+	if(brdf.x < 0.0 ){
+		brdf.x = 0;
+	}
+	if(brdf.z < 0.0 ){
+		brdf.z = 0;
+	}
+	if(brdf.y < 0.0 ){
+		brdf.y = 0;
+	}
+	
 	
 	// test for error - debug mode
 	if(brdf.x < 0.0 || brdf.y < 0.0 || brdf.z < 0.0){
-		col = vec4(0,0,1,1);
+		col = vec4(1,0,0,1);
 	}else{
 		col = brdf+vec4(ambient,ambient,ambient,1);
 	}
 	
-	if(flag1) col = vec4(0,0,0,1);
+	if(flag1) col = vec4(1,0,0,1);
 	
 	frag_texcoord = texcoord;
 	gl_Position = projection * modelview * position;

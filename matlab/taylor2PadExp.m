@@ -10,7 +10,7 @@ function taylor2PadExp
     BlazingPatch = 'BlazingBump.bmp';
     CosinePatch = 'CosineBump.bmp';
     
-    patch_file = RectPatch1d;
+    patch_file = BlazingPatch;
     
 	inputIMG = imread(strcat(patch_basis_path,patch_file));
     inputIMG = repmat(inputIMG, n, n);
@@ -23,8 +23,8 @@ function taylor2PadExp
 	else
 		A = d_inputIMG;
 	end
-	A = imresize(A, [30,30]);
-	A = padarray(A,[35, 35], 'both');
+	%A = imresize(A, [30,30]);
+	%A = padarray(A,[35, 35], 'both');
     
 	counter = 0;
 	extrema = [];
@@ -38,7 +38,7 @@ function taylor2PadExp
 	
 	for n=0:1:steps,
 	
-		B = (i*A).^n;
+		B = A.^n;
 		C = fftshift(fft2(B));
 		
 		

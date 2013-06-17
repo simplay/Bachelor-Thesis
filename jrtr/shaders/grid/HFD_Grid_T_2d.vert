@@ -50,6 +50,13 @@ const mat3 M_Adobe_XR = mat3(
 		 0.0134, -0.01184,  1.0154
 		);	
 
+const mat3 CIE_XYZ = mat3(
+0.418465712421894,	-0.158660784803799,	-0.0828349276180955,
+-0.0911689639090227,	0.252431442139465,	0.0157075217695576,
+0.000920898625343664,	-0.00254981254686328,	0.178598913921520);
+
+
+
 
 // gamma correction
 vec3 getGammaCorrection(vec3 rgb, float t, float f, float s, float gamma){
@@ -333,9 +340,12 @@ void main() {
 //	fac2 = 1.0 / 4.0; // T=400
 //	fac2 = 1.0 / 150.0;
 	
-	brdf.xyz =  M_Adobe_XR*brdf.xyz;
-	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0, 1.0, 1.0 / 2.2);
+//	brdf.xyz =  CIE_XYZ*brdf.xyz;
+//	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0, 1.0, 1.0 / 2.2);
 	brdf.xyz = fac2*fac2*fac2*fac2*frac*brdf.xyz;
+	
+	
+	brdf.xyz = 0.0*brdf.xyz;
 	
 	float ambient = 0.0;
 	

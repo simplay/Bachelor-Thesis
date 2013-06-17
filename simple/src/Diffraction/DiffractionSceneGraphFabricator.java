@@ -57,7 +57,7 @@ public class DiffractionSceneGraphFabricator {
 	
 	
 	private boolean hasVectorfield = true;
-	private boolean isPlane = false;
+	private boolean isPlane = true;
 
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
 		this.sceneManager = sceneManager;
@@ -517,7 +517,8 @@ public class DiffractionSceneGraphFabricator {
 	
 	private void setUpLight(){
 		Vector3f radiance = new Vector3f(1,1,1); 
-		Vector4f lightDirection = new Vector4f(0.0f, 0.0f, -1.0f, 0);  //directional light source
+		
+		Vector4f lightDirection = new Vector4f(0.1f, 0.0f, (float) -Math.sqrt(0.99f), 0);  //directional light source
 //		lightDirection = new Vector4f(0, 0, 10, 1);  //directional light source
 		lightSource1 = new Light(radiance, lightDirection, "source1");
 		LightNode diceLightNode = new LightNode(lightSource1, sceneManager.getCamera().getCameraMatrix(), "light source1");
@@ -535,7 +536,7 @@ public class DiffractionSceneGraphFabricator {
 //		DiffractionDice6 diffDiceObj = new DiffractionDice6(480, 100, trackDistance);
 		
 		
-		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(100,10f,1f);
+		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(400,2.0f,0.15f);
 		
 		diffDice = new Shape(diffDiceObj.getVertices());
 		diffPlane = new Shape(diffPlaneObj.getVertices());
@@ -564,16 +565,16 @@ public class DiffractionSceneGraphFabricator {
 		float distance = 0.0f;
 		if(isPlane){
 
-			distance = 25.0f;
+			distance = 1.0f;
 
 			float aspectRatio = 1.0f;
 			float near = 0.0001f;
 			float far = 5500.0f;
-			float verticalFieldView = 4.0f;
+			float verticalFieldView = 15.0f;
 //			verticalFieldView = 120; // viewing angle
 			Vector3f up = new Vector3f(0, 1, 0); // camera height
 			Point3f look = new Point3f(0, 0, 0); // point camera looks at
-			Point3f cop = new Point3f(0, 0, distance); // camera distance
+			Point3f cop = new Point3f(0.1f, 0.0f, distance); // camera distance
 //			cop = new Point3f(0, 0, 1.00f); // camera distance
 			sceneManager.getFrustum().setParameter(aspectRatio, near, far, verticalFieldView);
 			sceneManager.getCamera().setParameter(cop, look, up);
