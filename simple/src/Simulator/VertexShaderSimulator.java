@@ -27,7 +27,15 @@ public class VertexShaderSimulator{
 	private float dimension = 100;
 	private int width = 20; // width of white stripe in patch
 	private float omega = (float) (8.0f*Math.PI*Math.pow(10,7));
-
+	
+	
+	
+	private float lambda_min = (float) (390.0*Math.pow(10.0f, -9.0f));
+	private float rescale = (float) Math.pow(10.0f, 9.0f);
+	private float lambda_max = (float) (700.0*Math.pow(10.0f, -9.0f));
+	private float dx = (float) (2.5*Math.pow(10.0f, -6.0f));
+	private float s = (float) (2.4623*Math.pow(10f,-7.f));
+	
 	
 	private float[] newColors;
 
@@ -85,6 +93,23 @@ public class VertexShaderSimulator{
 		
 		System.out.println("simulation vertex shader finished...");
 	}
+	
+	
+	Vector2f compute_N_min_max(float t){
+		// default case if t == 0 otherwise override it.
+		float N_min = 0.0f;
+		float N_max = 0.0f;
+		
+		if(t > 0.0){
+			N_min = (float) Math.ceil((dx*t) / lambda_max);
+			N_max = (float) Math.floor((dx*t) / lambda_min);
+		}else if(t < 0.0){
+			N_min = (float) Math.ceil((dx*t) / lambda_min);
+			N_max = (float) Math.floor((dx*t) / lambda_max);
+		}
+		return new Vector2f(N_min, N_max);
+	}
+	
 	
 	private Vector3f getApproxRGB(float currentL){
 
@@ -291,7 +316,8 @@ public class VertexShaderSimulator{
 		float v = V.y;
 		float w = V.z;
 		
-		
+		Vector2f N_u = compute_N_min_max(u);
+		Vector2f N_v = compute_N_min_max(v);
 		
 		Vector3f ntangent = new Vector3f(tangent.x,tangent.y,tangent.z);
 		ntangent.normalize();
@@ -385,6 +411,8 @@ public class VertexShaderSimulator{
 			System.out.println("phi " + phi);
 			System.out.println("BRDF " + brdf);
 			System.out.println("color " + color);
+			System.out.println("N_u " + N_u);
+			System.out.println("N_v " + N_v);
 			System.out.println();
 //		}
 		

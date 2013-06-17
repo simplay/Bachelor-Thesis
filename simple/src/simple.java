@@ -17,7 +17,7 @@ import java.util.Timer;
 
 
 public class simple{	
-
+	static boolean simulate = false;
 	static int shaderFlag = ShaderTaskNr.simpleToon.getValue();
 	static RenderPanel renderPanel;
 	static RenderPanel renderPanel2;
@@ -54,14 +54,19 @@ public class simple{
 //		    System.out.println("cos 2pi " +a);
 //		    System.out.println("sin 2pi " +b);
 		    
-//		    SimulationFabricator simulator = new SimulationFabricator(sceneManager, r);
-//		    sceneManager.setRoot(simulator.getRoot());
+		    if(simulate){
+			    SimulationFabricator simulator = new SimulationFabricator(sceneManager, r);
+			    sceneManager.setRoot(simulator.getRoot());
+		    }else{
+			    DiffractionSceneGraphFabricator dgsf = new DiffractionSceneGraphFabricator(sceneManager, r);
+			    ks.setFabric(dgsf);
+				sceneManager.setRoot(dgsf.getRoot());
+			    timer.scheduleAtFixedRate(new DiffractionAnimationTask(dgsf, renderPanel), 0, 10);
+		    }
+
 		    
-    
-		    DiffractionSceneGraphFabricator dgsf = new DiffractionSceneGraphFabricator(sceneManager, r);
-		    ks.setFabric(dgsf);
-			sceneManager.setRoot(dgsf.getRoot());
-//		    timer.scheduleAtFixedRate(new DiffractionAnimationTask(dgsf, renderPanel), 0, 10);
+		    // diffraction fabricator
+
 		}
 	}
 

@@ -47,12 +47,12 @@ const float SMOOTH = 2.5;
 const float lambda_min = 390.0*pow(10.0, -9.0);
 const float rescale = pow(10.0, 9.0);
 const float lambda_max = 700.0*pow(10.0, -9.0);
-const float dx = 2.5*pow(10.0, -6.0);
-const float s = 2.4623*pow(10,-7.0);
+const float dx = 2.5*pow(10.0, -6.0); // -6
+const float s = 2.4623*pow(10,-7.0); // -7
 
 // error constants
 const float eps_pq = 0.0001; 
-const float eps = 1.0*pow(10.0, -10.0);
+const float eps = 1.0*pow(10.0, -3.0);
 const float tolerance = 0.999999999;
 
 // period constants
@@ -61,7 +61,7 @@ const float N_2 = 100.0; // input dyn
 const float t_0 = (2.5*pow(10.0,-6.0)) / N_1;
 const float T_1 = t_0 * N_1;
 const float T_2 = t_0 * N_1;
-const float periods = 26.0-1.0; //26
+const float periods = 1.0-1.0; //26
 const float M = 100.0; // #samples //not used?
 
 // transformation constant
@@ -314,19 +314,19 @@ void main() {
 	// compute Fresnel and Gemometric Factor
 	float F = getFressnelFactor(_k1, _k2);
 	float G = computeGFactor(camNormal, _k1, _k2);
-	
+	F = 1.0;
 	// get iteration bounds for given (u,v)
 	vec2 N_u = compute_N_min_max(u);
 	vec2 N_v = compute_N_min_max(v);
 	
 	
 	vec2 N_uv[2] = vec2[2](N_u, N_v);
-	
+	bool flag1 = false;
 	// only specular contribution within epsilon range
 	if(abs(u) < eps && abs(v) < eps){
-
-		brdf = vec4(0.0, 0.0, 1.0, 1.0);
-		maxBRDF = vec4(0.0, 0.0, 1.0, 1.0);
+		flag1 = true;
+		brdf = vec4(1.0, 1.0, 1.0, 1.0);
+		maxBRDF = vec4(1.0, 1.0, 1.0, 1.0);
 		
 	}else{
 		float bias = 50.0/99.0;
@@ -376,7 +376,7 @@ void main() {
 //	fac2 = 1.4 / 1.0; // wenn nicht A und ohne gloabl minmax, // T=1
 //	fac2 = 1.0 / 3.0; // wenn nicht A und ohne gloabl minmax, // T=400
 //	fac2 = 1.0 / 10.5; // wenn nicht A und ohne gloabl minmax, // T=4000
-	fac2 = 2.2 / 1.0; // wenn nicht A und ohne gloabl minmax, // T=4
+	fac2 = 6.0 / 2.0; // wenn nicht A und ohne gloabl minmax, // T=4
 //	fac2 = 7.0 / 1.0;
 
 	
@@ -394,6 +394,7 @@ void main() {
 		col = brdf+vec4(ambient,ambient,ambient,1);
 	}
 	
+	if(flag1) col = vec4(0,0,0,1);
 	
 	frag_texcoord = texcoord;
 	gl_Position = projection * modelview * position;
