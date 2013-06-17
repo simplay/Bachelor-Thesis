@@ -61,7 +61,7 @@ const float N_2 = 100.0; // input dyn
 const float t_0 = (2.5*pow(10.0,-6.0)) / N_1;
 const float T_1 = t_0 * N_1;
 const float T_2 = t_0 * N_1;
-const float periods = 5000.0-1.0; //26
+const float periods = 26.0-1.0; //26
 const float M = 100.0; // #samples //not used?
 
 // transformation constant
@@ -88,7 +88,7 @@ vec3 getGammaCorrection(vec3 rgb, float t, float f, float s, float gamma){
 float get_p_factor(float w_i, float T_i, float N_i){
 	float tmp = 1.0;
 	if (abs(1.0-cos(T_i*w_i)) < eps_pq){
-		tmp = 1.0;
+		tmp = N_i;
 	}else{
 		tmp = cos(w_i*T_i*N_i)-cos(w_i*T_i*(N_i + 1.0));
 		tmp /= (1.0 - cos(w_i*T_i));
@@ -115,7 +115,7 @@ float get_q_factor(float w_i, float T_i, float N_i){
 vec2 getRotation(float u, float v, float phi){
 	float uu = u*cos(phi) - v*sin(phi);
 	float vv = u*sin(phi) + v*cos(phi);
-	return vec2(uu, vv);
+	return vec2(u, v);
 }
 
 
@@ -320,7 +320,7 @@ void main() {
 	// compute Fresnel and Gemometric Factor
 	float F = getFressnelFactor(_k1, _k2);
 	float G = computeGFactor(camNormal, _k1, _k2);
-	F = 1.0; 
+
 	// get iteration bounds for given (u,v)
 	vec2 N_u = compute_N_min_max(u);
 	vec2 N_v = compute_N_min_max(v);
@@ -340,6 +340,7 @@ void main() {
 		
 		// iterate twice: once for N_u and once for N_v lower,upper
 		for(int variant = 0; variant < 2; variant++){
+//			if(abs(v) > eps) continue;
 			
 			int lower = int(N_uv[variant].x);
 			int upper = int(N_uv[variant].y);
@@ -350,10 +351,10 @@ void main() {
 			for(int iter = lower; iter <= upper; iter++){
 				if(iter == 0) continue;
 				float lambda_iter = (dx*t)/float(iter);
-				if(lambda_iter < 0.0) flag1 = true;
+//				if(lambda_iter < 0.0) flag1 = true;
 				k = 2.0*PI / lambda_iter;
 				vec2 coords = vec2((k*modUV.x/omega) + bias, (k*modUV.y/omega) + bias); //2d
-				
+
 				if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
 				
 				float w_u = k*modUV.x;
@@ -363,7 +364,7 @@ void main() {
 				float abs_P_Sq = P.x*P.x + P.y*P.y;
 				
 				float diffractionCoeff = getFactor(k, F, G, w);
-				diffractionCoeff = 1.0;
+				//diffractionCoeff = 1.0;
 				vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
 				brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 1.0);
 				maxBRDF += vec4(diffractionCoeff * brdfMax * waveColor, 1.0);
@@ -385,12 +386,13 @@ void main() {
 //	fac2 = 1.4 / 1.0; // wenn nicht A und ohne gloabl minmax, // T=1
 //	fac2 = 1.0 / 3.0; // wenn nicht A und ohne gloabl minmax, // T=400
 //	fac2 = 1.0 / 10.5; // wenn nicht A und ohne gloabl minmax, // T=4000
-	fac2 = 30.0 / 1.5; // wenn nicht A und ohne gloabl minmax, // T=4
+	fac2 = 1.0 / 100000.5; // wenn nicht A und ohne gloabl minmax, // T=4
+	fac2 = 1.0 / 20000.5; // wenn nicht A und ohne gloabl minmax, // T=4
 //	fac2 = 7.0 / 1.0;
 
 	
 	
-	brdf.xyz =  M_Adobe_XR*brdf.xyz;
+	brdf.xyz = M_Adobe_XR*brdf.xyz;
 	brdf.xyz = fac2*fac2*fac2*fac2*frac*brdf.xyz;
 	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0, 1.0, 1.0 / 2.2);
 
@@ -414,7 +416,7 @@ void main() {
 		col = brdf+vec4(ambient,ambient,ambient,1);
 	}
 	
-	if(flag1) col = vec4(1,0,0,1);
+//	if(flag1) col = vec4(1,0,0,1);
 	
 	frag_texcoord = texcoord;
 	gl_Position = projection * modelview * position;
