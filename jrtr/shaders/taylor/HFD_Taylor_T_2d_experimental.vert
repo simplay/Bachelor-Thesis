@@ -1,10 +1,13 @@
-// Diffraction shader using a heightfield
-// crude approximation, working with fourier transformations.
+// Diffraction shader using a given heightfield
+// adptive (regarding wavelength) diffraction shader 
+// using taylor series approximation.
 // which have been precalculated.
 // Michael Single
 
-
-//NB compute Omega dynamically!!!
+// NB: find pq bug where u=0 and v != 0, along this line, always zero
+// NB: parameterize lambda_min, lambda_max
+// NB: find relative weighting s.t. no huge rescale fac2 is necessary anymore.
+// NB: Write better documentation.
 
 #version 150
 #extension GL_EXT_gpu_shader4 : enable
@@ -47,22 +50,22 @@ const float SMOOTH = 2.5;
 const float lambda_min = 390.0*pow(10.0, -9.0);
 const float rescale = pow(10.0, 9.0);
 const float lambda_max = 700.0*pow(10.0, -9.0);
-const float dx = 2.5*pow(10.0, -6.0); // -6
-const float s = 2.4623*pow(10,-7.0); // -7
+const float dx = 2.5*pow(10.0, -6.0); // -6 // distance between two patches (from center to center)
+const float s = 2.4623*pow(10,-7.0); // -7 // max height of a bump
 
 // error constants
 const float eps_pq = 0.0001; 
 const float eps = 1.0*pow(10.0, -3.0);
-const float tolerance = 0.999999999;
+const float tolerance = 0.999999999; 
 
 // period constants
-const float N_1 = 100.0; // input dyn, prec 30
-const float N_2 = 100.0; // input dyn
-const float t_0 = (2.5*pow(10.0,-6.0)) / N_1;
+const float N_1 = 100.0; // number of pixels of downsized patch 
+const float N_2 = 100.0; // number of pixels padded patch - see matlab
+const float t_0 = dx / N_1;
 const float T_1 = t_0 * N_1;
 const float T_2 = t_0 * N_1;
-const float periods = 26.0-1.0; //26
-const float M = 100.0; // #samples //not used?
+const float periods = 26.0-1.0; //26 // number of patch periods along surface
+const float Omega = ((N_1/N_2)*2.0*PI)/t_0; //(N_1/N_2)*2*PI/t_0, before 8.0*PI*pow(10.0,7.0);
 
 // transformation constant
 const mat3 M_Adobe_XR = mat3(
@@ -115,7 +118,7 @@ float get_q_factor(float w_i, float T_i, float N_i){
 vec2 getRotation(float u, float v, float phi){
 	float uu = u*cos(phi) - v*sin(phi);
 	float vv = u*sin(phi) + v*cos(phi);
-	return vec2(u, v);
+	return vec2(uu, vv);
 }
 
 
@@ -196,9 +199,19 @@ vec3 avgWeighted_XYZ_weight(float lambda){
 	return cie_XYZ_lambda_weight;
 }
 
+float compute_pq_scale_factor(float w_u, float w_v){
+	float p1 = get_p_factor(w_u, T_1, periods);
+	float p2 = get_p_factor(w_v, T_2, periods);
+	
+	float q1 = get_q_factor(w_u, T_1, periods);
+	float q2 = get_q_factor(w_v, T_2, periods);
+
+	return pow(p1*p1 + q1*q1 , 0.5)*pow(p2*p2 + q2*q2 , 0.5);
+}
+
 
 // perform taylor approximation
-vec2 taylorApproximation(vec2 coords, float k, float w, float w_u, float w_v){
+vec2 taylorApproximation(vec2 coords, float k, float w){
 	vec2 precomputedFourier = vec2(0.0, 0.0);
 	int lower = 0; int upper = 31;
 	float reHeight = 0.0; float imHeight = 0.0;
@@ -218,15 +231,6 @@ vec2 taylorApproximation(vec2 coords, float k, float w, float w_u, float w_v){
 		
 		precomputedFourier = getRescaledHeight(reHeight, imHeight, extremaIndex);
 
-		float p1 = get_p_factor(w_u, T_1, periods);
-		float p2 = get_p_factor(w_v, T_2, periods);
-		
-		float q1 = get_q_factor(w_u, T_1, periods);
-		float q2 = get_q_factor(w_v, T_2, periods);
-		
-		
-		float pq_scale_factor = pow(p1*p1 + q1*q1 , 0.5)*pow(p2*p2 + q2*q2 , 0.5); 
-//		pq_scale_factor = 1.0;
 		// develope factorial and pow like this since 
 		// otherwise we could get numerical rounding errors.
 		// PRODUCT_n=0^N { pow(k*w*s,n)/n! }
@@ -234,8 +238,8 @@ vec2 taylorApproximation(vec2 coords, float k, float w, float w_u, float w_v){
 		if(n == 0) fourier_coefficients = 1.0;
 		else fourier_coefficients *= ((k*w*s)/n);
 		
-		float fourier_re = fourier_coefficients*precomputedFourier.x*pq_scale_factor;
-		float fourier_im = fourier_coefficients*precomputedFourier.y*pq_scale_factor;
+		float fourier_re = fourier_coefficients*precomputedFourier.x;
+		float fourier_im = fourier_coefficients*precomputedFourier.y;
 		
 		if(n % 4 == 0){
 			real_part += fourier_re;
@@ -256,7 +260,6 @@ vec2 taylorApproximation(vec2 coords, float k, float w, float w_u, float w_v){
 	}
 	
 	return vec2(real_part, imag_part);
-//	return vec2(1.0, 1.0);
 }
 
 
@@ -276,12 +279,13 @@ vec2 compute_N_min_max(float t){
 	return vec2(N_min, N_max);
 }
 
+
 void main() {
+	
 	// INITIALIZATION
 	vec4 brdf = vec4(0.0, 0.0, 0.0, 1.0);
 	vec4 maxBRDF = vec4(0.0, 0.0, 0.0, 1.0);
 	vec2 P = vec2(0.0, 0.0);
-	
 	float abs_P_Sq = 0.0;
 	float real_part = 0.0;
 	float imag_part = 0.0;
@@ -289,23 +293,17 @@ void main() {
 	float imHeight = 0.0;
 	float factor1 = 0.0;
 	float k = 0.0;
-
 	float fourier_coefficients = 1.0;
 	float a = global_extrema[0].x; float b = global_extrema[0].y;
 	float c = global_extrema[0].z; float d = global_extrema[0].w;
 	float brdfMax = pow((b-a),2.0)+pow((d-c),2.0);
-	
-	
-	//NB compute dynamically!!!
-	float omega = 8.0*PI*pow(10.0, 7.0);
-//	omega = (30.0/100.0)*8.0*PI*pow(10.0, 7.0);
-	
+
 	
 	// directional light source
-	vec3 Pos = (modelview * position).xyz;
-	vec4 lightDir = modelview*(directionArray[0]);
-	vec3 _k2 = normalize(-Pos); // from position P towards light source
-	vec3 _k1 = normalize(lightDir.xyz);
+	vec3 Pos = (modelview * position).xyz; // point in camera space
+	vec4 lightDir = modelview*(directionArray[0]); // light direction in camera space
+	vec3 _k2 = normalize(-Pos); //vector from point P to camera
+	vec3 _k1 = normalize(lightDir.xyz); // light direction, same for every point
 	vec3 V = _k1 - _k2;
 	float u = V.x; float v = V.y; float w = V.z;
 	
@@ -314,25 +312,26 @@ void main() {
 	vec3 camNormal = normalize((modelview*vec4(normal,0.0)).xyz);
 	vec3 camTangent = normalize((modelview*vec4(tangent,0.0)).xyz);
 
+	
 	// compute vector-field rotation
 	float phi = computeRotationAngle(tangent);
 			
+	
 	// compute Fresnel and Gemometric Factor
 	float F = getFressnelFactor(_k1, _k2);
 	float G = computeGFactor(camNormal, _k1, _k2);
 
+	
 	// get iteration bounds for given (u,v)
 	vec2 N_u = compute_N_min_max(u);
 	vec2 N_v = compute_N_min_max(v);
-	
-	
 	vec2 N_uv[2] = vec2[2](N_u, N_v);
-	bool flag1 = false;
-	// only specular contribution within epsilon range
+	
+	
+	// only specular contribution within epsilon range: i.e. fixed number of lambdas
 	if(abs(u) < eps && abs(v) < eps){
-		flag1 = false;
-//		brdf = vec4(1.0, 1.0, 1.0, 1.0);
-//		maxBRDF = vec4(1.0, 1.0, 1.0, 1.0);
+
+
 		
 	}else{
 		float bias = 50.0/99.0;
@@ -351,20 +350,21 @@ void main() {
 			for(int iter = lower; iter <= upper; iter++){
 				if(iter == 0) continue;
 				float lambda_iter = (dx*t)/float(iter);
-//				if(lambda_iter < 0.0) flag1 = true;
 				k = 2.0*PI / lambda_iter;
-				vec2 coords = vec2((k*modUV.x/omega) + bias, (k*modUV.y/omega) + bias); //2d
+				vec2 coords = vec2((k*modUV.x/Omega) + bias, (k*modUV.y/Omega) + bias); //2d
 
 				if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
 				
 				float w_u = k*modUV.x;
 				float w_v = k*modUV.y;
 				
-				P = taylorApproximation(coords, k, w, w_u, w_v);
+				P = taylorApproximation(coords, k, w);
+				float pq_scale = compute_pq_scale_factor(w_u,w_v);
+				P *= pq_scale;
+				
 				float abs_P_Sq = P.x*P.x + P.y*P.y;
 				
 				float diffractionCoeff = getFactor(k, F, G, w);
-				//diffractionCoeff = 1.0;
 				vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
 				brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 1.0);
 				maxBRDF += vec4(diffractionCoeff * brdfMax * waveColor, 1.0);
@@ -376,48 +376,27 @@ void main() {
 //	brdf = vec4(brdf.x/maxBRDF.x, brdf.y/maxBRDF.y, brdf.z/maxBRDF.z, 1.0) ; //  relative scaling
 	
 	
-	
 	float frac = 1.0 / 32.0;
 	float fac2 = 100.0 / 70000.0;
 	
-	
-	fac2 = 10.0 / 7.5; // wenn A und ohne global minmax
-	fac2 = 1.0 / 3.0; // wenn nicht A und ohne gloabl minmax, // T=40
-//	fac2 = 1.4 / 1.0; // wenn nicht A und ohne gloabl minmax, // T=1
-//	fac2 = 1.0 / 3.0; // wenn nicht A und ohne gloabl minmax, // T=400
-//	fac2 = 1.0 / 10.5; // wenn nicht A und ohne gloabl minmax, // T=4000
 	fac2 = 1.0 / 100000.5; // wenn nicht A und ohne gloabl minmax, // T=4
-	fac2 = 1.0 / 20000.5; // wenn nicht A und ohne gloabl minmax, // T=4
-//	fac2 = 7.0 / 1.0;
+	fac2 = 1.0 / 70000.0; // wenn nicht A und ohne gloabl minmax, // T=4
 
-	
-	
+
 	brdf.xyz = M_Adobe_XR*brdf.xyz;
 	brdf.xyz = fac2*fac2*fac2*fac2*frac*brdf.xyz;
 	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0, 1.0, 1.0 / 2.2);
 
 	float ambient = 0.0;
 
-	if(brdf.x < 0.0 ){
-		brdf.x = 0;
-	}
-	if(brdf.z < 0.0 ){
-		brdf.z = 0;
-	}
-	if(brdf.y < 0.0 ){
-		brdf.y = 0;
-	}
-	
+	if(brdf.x < 0.0 ) brdf.x = 0.0;
+	if(brdf.z < 0.0 ) brdf.z = 0.0;
+	if(brdf.y < 0.0 ) brdf.y = 0.0;
 	
 	// test for error - debug mode
-	if(brdf.x < 0.0 || brdf.y < 0.0 || brdf.z < 0.0){
-		col = vec4(1,0,0,1);
-	}else{
-		col = brdf+vec4(ambient,ambient,ambient,1);
-	}
-	
-//	if(flag1) col = vec4(1,0,0,1);
-	
+	if(brdf.x < 0.0 || brdf.y < 0.0 || brdf.z < 0.0) col = vec4(1,0,0,1);
+	else col = brdf+vec4(ambient,ambient,ambient,1);
+
 	frag_texcoord = texcoord;
 	gl_Position = projection * modelview * position;
 }
