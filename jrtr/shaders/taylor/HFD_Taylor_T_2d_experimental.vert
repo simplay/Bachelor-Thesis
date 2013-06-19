@@ -55,7 +55,7 @@ const float s = 2.4623*pow(10,-7.0); // -7 // max height of a bump
 
 // error constants
 const float eps_pq = 0.0001; 
-const float eps = 1.0*pow(10.0, -3.0);
+const float eps = 1.0*pow(10.0, -4.0);
 const float tolerance = 0.999999999; 
 
 // period constants
@@ -64,8 +64,9 @@ const float N_2 = 100.0; // number of pixels padded patch - see matlab
 const float t_0 = dx / N_1;
 const float T_1 = t_0 * N_1;
 const float T_2 = t_0 * N_1;
-const float periods = 26.0-1.0; //26 // number of patch periods along surface
-const float Omega = ((N_1/N_2)*2.0*PI)/t_0; //(N_1/N_2)*2*PI/t_0, before 8.0*PI*pow(10.0,7.0);
+const float periods = 26.0-1.0; // 26 // number of patch periods along surface
+const float Omega = ((N_1/N_2)*2.0*PI)/t_0; // (N_1/N_2)*2*PI/t_0, before 8.0*PI*pow(10.0,7.0);
+const float bias = (N_2/2.0)/(N_2-1.0); // old: 50.0/99.0;
 
 // transformation constant
 const mat3 M_Adobe_XR = mat3(
@@ -79,6 +80,19 @@ const mat3 CIE_XYZ = mat3(
 0.418465712421894,	-0.158660784803799,	-0.0828349276180955,
 -0.0911689639090227,	0.252431442139465,	0.0157075217695576,
 0.000920898625343664,	-0.00254981254686328,	0.178598913921520);
+
+
+const float[16] fixed_lambdas = float[](
+	390.0000,  410.6667,  431.3333,  452.0000,  
+	472.6667,  493.3333,  514.0000,  534.6667,  
+	555.3333,  576.0000,  596.6667,  617.3333,  
+	638.0000,  658.6667,  679.3333,  700.0000
+);
+
+
+
+
+// FUNCTIONS
 
 // gamma correction
 vec3 getGammaCorrection(vec3 rgb, float t, float f, float s, float gamma){
@@ -327,15 +341,34 @@ void main() {
 	vec2 N_v = compute_N_min_max(v);
 	vec2 N_uv[2] = vec2[2](N_u, N_v);
 	
+
+	vec2 modUV = getRotation(u,v,-phi);
 	
 	// only specular contribution within epsilon range: i.e. fixed number of lambdas
 	if(abs(u) < eps && abs(v) < eps){
+		for(int iter = 0; iter < 16; iter++){
+			float lambda_iter = fixed_lambdas[iter]*pow(10.0,-9.0);
+			k = 2.0*PI / lambda_iter;
+			vec2 coords = vec2((k*modUV.x/Omega) + bias, (k*modUV.y/Omega) + bias); //2d
 
-
-		
+			if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
+			
+			float w_u = k*modUV.x;
+			float w_v = k*modUV.y;
+			
+			P = taylorApproximation(coords, k, w);
+			float pq_scale = compute_pq_scale_factor(w_u,w_v);
+			P *= pq_scale;
+			
+			float abs_P_Sq = P.x*P.x + P.y*P.y;
+			
+			float diffractionCoeff = getFactor(k, F, G, w);
+			vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
+			brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 1.0);
+			maxBRDF += vec4(diffractionCoeff * brdfMax * waveColor, 1.0);		
+		}
 	}else{
-		float bias = 50.0/99.0;
-		vec2 modUV = getRotation(u,v,-phi);
+
 		
 		// iterate twice: once for N_u and once for N_v lower,upper
 		for(int variant = 0; variant < 2; variant++){
