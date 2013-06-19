@@ -8,25 +8,15 @@
  */
 package Simulator;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.vecmath.Matrix4f;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 import javax.vecmath.Vector4f;
 
-import jrtr.GLRenderContext;
 import jrtr.Light;
 import jrtr.RenderContext;
 import jrtr.Shader;
 import jrtr.Shape;
 import Constants.ShaderPaths;
-import Diffraction.DiffractionDice4;
 import Diffraction.DiffractionPlane2;
 import Materials.Material;
 import SceneGraph.GraphSceneManager;
@@ -35,8 +25,6 @@ import SceneGraph.LightNode;
 import SceneGraph.ShapeNode;
 import SceneGraph.TransformGroup;
 import ShaderLogic.DefaultShaderTask;
-import ShaderLogic.DiffractionShaderTask;
-import ShaderLogic.MultiTexturesTAShaderTask;
 import ShaderLogic.ShaderTask;
 
 public class SimulationFabricator {

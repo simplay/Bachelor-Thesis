@@ -1,13 +1,13 @@
 package ReadObjects;
 
-import com.sun.org.apache.regexp.internal.recompile;
+import java.util.ArrayList;
 
 public class Vertex {
 	private long id;
 	private float[] position;
 	private float[] normal;
 	private float[] textureCoordiante;
-	private long triangleId;
+	private ArrayList<Face> faces = new ArrayList<Face>();
 	private float[] vp;
 	
 	public Vertex(long id, float[] position){
@@ -23,8 +23,8 @@ public class Vertex {
 		this.textureCoordiante = textureCoordinate;
 	}
 	
-	public void setTriagnleID(long triangleID){
-		this.triangleId = triangleID;
+	public void addface(Face face){
+		this.faces.add(face);
 	}
 	
 	public void setVp(float[] vp){
@@ -49,6 +49,10 @@ public class Vertex {
 	
 	public float[] getVp(){
 		return this.vp;
+	}
+	
+	public ArrayList<Face> getFaces(){
+		return this.faces;
 	}
 	
 	public long getId(){

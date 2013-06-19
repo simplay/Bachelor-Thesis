@@ -2,8 +2,6 @@ package Diffraction;
 
 import java.util.TimerTask;
 
-import javax.vecmath.Matrix4f;
-
 import jrtr.RenderPanel;
 
 public class DiffractionAnimationTask extends TimerTask{

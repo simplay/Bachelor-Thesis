@@ -6,7 +6,6 @@ import javax.vecmath.Vector4f;
 
 import jrtr.Light;
 import jrtr.Shape;
-import jrtr.VertexData;
 import jrtr.VertexData.Semantic;
 import SceneGraph.GraphSceneManager;
 

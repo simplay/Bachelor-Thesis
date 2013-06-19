@@ -23,13 +23,11 @@ import SceneGraph.INode;
 import SceneGraph.LightNode;
 import SceneGraph.ShapeNode;
 import SceneGraph.TransformGroup;
-import ShaderLogic.DefaultShaderTask;
 import ShaderLogic.DiffractionShaderTask;
 import ShaderLogic.ExpTaylorShaderTask;
 import ShaderLogic.MultiTexturesTAShaderTask;
 import ShaderLogic.MultiTexturesTaylorShaderTask;
 import ShaderLogic.ShaderTask;
-import ShaderLogic.Task3ShaderTask;
 
 public class DiffractionSceneGraphFabricator {
 	private GraphSceneManager sceneManager;

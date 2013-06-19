@@ -12,7 +12,6 @@ import Listeners.Storage;
 import SceneGraph.GraphSceneManager;
 import Simulator.SimulationFabricator;
 
-import java.awt.BorderLayout;
 import java.io.IOException;
 import java.util.Timer;
 
@@ -42,6 +41,7 @@ public class simple{
 		 * 
 		 * @param r	the render context that is associated with this render panel
 		 */
+		@Override
 		public void init(RenderContext r){
 			renderContext = r;
 			renderContext.setSceneManager(sceneManager);

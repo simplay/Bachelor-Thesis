@@ -9,10 +9,6 @@ import javax.vecmath.Vector2f;
 import javax.vecmath.Vector3f;
 import javax.vecmath.Vector4f;
 
-
-
-import jrtr.VertexData.Semantic;
-
 public class VertexShaderSimulator{ 
 	private boolean debugMode = false;
 	private int index = 0;

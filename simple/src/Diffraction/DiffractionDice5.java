@@ -249,8 +249,8 @@ public class DiffractionDice5 extends DiffractionGeometricObject{
 		float[] normals = new float[2*(segmentCount)*3+6];
 		for(int i = 0; i < segmentCount*2+2; i++){
 			normals[3*i] = (float) 0.0;
-			normals[3*i+1] = (float) 0.0f;
-			normals[3*i+2] = (float) 1.0f;		   
+			normals[3*i+1] = 0.0f;
+			normals[3*i+2] = 1.0f;		   
 		}
 //		System.out.println(normals.length/3 + " normals");
 		return normals;

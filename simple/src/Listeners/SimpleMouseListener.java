@@ -5,9 +5,6 @@ import java.awt.event.MouseListener;
 import javax.vecmath.Point2f;
 import javax.vecmath.Vector3f;
 
-import jrtr.RenderPanel;
-import SceneGraph.GraphSceneManager;
-
 
 public class SimpleMouseListener implements MouseListener{
 	
