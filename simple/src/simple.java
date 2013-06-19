@@ -9,6 +9,7 @@ import Listeners.SimpleKeyListener;
 import Listeners.SimpleMouseListener;
 import Listeners.SimpleMouseMotionListener;
 import Listeners.Storage;
+import ReadObjects.VertexFaceData;
 import SceneGraph.GraphSceneManager;
 import Simulator.SimulationFabricator;
 
@@ -54,11 +55,11 @@ public class simple{
 //		    double b = Math.sin(2.0d*Math.PI);
 //		    System.out.println("cos 2pi " +a);
 //		    System.out.println("sin 2pi " +b);
-		    
+		    VertexFaceData vd;
 		    try {
 //				ReadObjects.ObjReader reader = new ReadObjects.ObjReader("../models/teapot.obj");
 				ReadObjects.ObjReader reader = new ReadObjects.ObjReader("../models/snake_test_piece.obj");
-				
+				vd = reader.getVFData();
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
