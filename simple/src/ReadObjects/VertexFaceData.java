@@ -13,7 +13,7 @@ public class VertexFaceData {
 	private ArrayList<Face> faces;
 	
 	
-	protected VertexData vertexData;
+	private VertexData vertexData;
 	
 	
 	
@@ -21,9 +21,19 @@ public class VertexFaceData {
 	public VertexFaceData(ArrayList<Vertex> vertices, ArrayList<Face> faces){
 		this.vertices = vertices;
 		this.faces = faces;
+		int facesCount = faces.size();
 		
+		int verticesCount = vertices.size();
+		float vertices_f[] = new float[verticesCount*3];
+		float normals_f[] = new float[verticesCount*3];
+		float tangents_f[] = new float[verticesCount*3];
+		float colors_f[] = new float[verticesCount*3];
+		float TextureCoordinates_f[] = new float[verticesCount*2];
+		int indices_i[] = new int[facesCount*3];
 		
+//		float colors
 		// postprocessing: tangent and bitangent avg-summation over each face.
+		int faceCounter = 0;
 		for(Face face : this.faces){
 			Vector3f pos21 = new Vector3f();
 			Vector3f pos31 = new Vector3f();
@@ -68,6 +78,13 @@ public class VertexFaceData {
 			v1.addVectorToTan2(tdir);
 			v2.addVectorToTan2(tdir);
 			v3.addVectorToTan2(tdir);
+			
+			// merge indices of faces
+			int[] inds = face.getIndices();
+			indices_i[3*faceCounter] = inds[0];
+			indices_i[3*faceCounter+1] = inds[1];
+			indices_i[3*faceCounter+2] = inds[2];
+			faceCounter++;
 		}
 		
 		// compute tangent for each vertex
@@ -91,25 +108,49 @@ public class VertexFaceData {
 			vertex.setTangent(tangent);
 		}
 		
-		int verticesCount = vertices.size();
-		float colors[] = new float[verticesCount*3];
-		
+
+		// merging process
+		int vertexCounter = 0;
 		for(Vertex vertex : vertices){
 			float[] position = vertex.getPosition();
 			float[] normal = vertex.getNormal();
 			float[] color = {1.0f, 0.0f, 0.0f};
 			float[] textureCoordinate = vertex.getTextureCoordiante();
-			int[] inds = vertex.getFaceIndices();
+			float[] tangent = vertex.getTangent();
+			
+			vertices_f[3*vertexCounter] = position[0];
+			vertices_f[3*vertexCounter+1] = position[1];
+			vertices_f[3*vertexCounter+2] = position[2];
+			
+			normals_f[3*vertexCounter] = normal[0];
+			normals_f[3*vertexCounter+1] = normal[1];
+			normals_f[3*vertexCounter+2] = normal[2];
+			
+			tangents_f[3*vertexCounter] = tangent[0];
+			tangents_f[3*vertexCounter+1] = tangent[1];
+			tangents_f[3*vertexCounter+2] = tangent[2];
+			
+			colors_f[3*vertexCounter] = color[0];
+			colors_f[3*vertexCounter+1] = color[1];
+			colors_f[3*vertexCounter+2] = color[2];
+			
+			TextureCoordinates_f[2*vertexCounter] = textureCoordinate[0];
+			TextureCoordinates_f[2*vertexCounter+1] = textureCoordinate[1];
+			
+			vertexCounter++;
 		}
 		
-		
-//		this.vertexData = new VertexData(verticesCount);
-//		this.vertexData.addElement(colors, VertexData.Semantic.COLOR, 3);
-//		this.vertexData.addElement(this.vetices, VertexData.Semantic.POSITION, 3);
-//		this.vertexData.addElement(this.textureCoordinates, VertexData.Semantic.TEXCOORD, 2);
-//		this.vertexData.addElement(this.normals, VertexData.Semantic.NORMAL, 3);
-//		this.vertexData.addIndices(this.indices);
-		
-		
+		// compose vertex data
+		this.vertexData = new VertexData(verticesCount);
+		this.vertexData.addElement(colors_f, VertexData.Semantic.COLOR, 3);
+		this.vertexData.addElement(vertices_f, VertexData.Semantic.POSITION, 3);
+		this.vertexData.addElement(TextureCoordinates_f, VertexData.Semantic.TEXCOORD, 2);
+		this.vertexData.addElement(normals_f, VertexData.Semantic.NORMAL, 3);
+		this.vertexData.addElement(tangents_f, VertexData.Semantic.TANGENT, 3);
+		this.vertexData.addIndices(indices_i);	
+	}
+	
+	public VertexData getVetexData(){
+		return this.vertexData;
 	}
 }
