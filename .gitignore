@@ -32,3 +32,5 @@ simple/.classpath
 simple/.project
 #matlab FILES
 matlab/out/*
+#models
+models/*

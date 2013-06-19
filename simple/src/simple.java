@@ -13,6 +13,7 @@ import SceneGraph.GraphSceneManager;
 import Simulator.SimulationFabricator;
 
 import java.awt.BorderLayout;
+import java.io.IOException;
 import java.util.Timer;
 
 
@@ -53,6 +54,17 @@ public class simple{
 //		    double b = Math.sin(2.0d*Math.PI);
 //		    System.out.println("cos 2pi " +a);
 //		    System.out.println("sin 2pi " +b);
+		    
+		    try {
+//				ReadObjects.ObjReader reader = new ReadObjects.ObjReader("../models/teapot.obj");
+				ReadObjects.ObjReader reader = new ReadObjects.ObjReader("../models/snake_test_piece.obj");
+				
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    
 		    
 		    if(simulate){
 			    SimulationFabricator simulator = new SimulationFabricator(sceneManager, r);
