@@ -31,8 +31,9 @@ public class ObjReader {
 				v[0] = Float.valueOf(s[1]).floatValue();
 				v[1] = Float.valueOf(s[2]).floatValue();
 				v[2] = Float.valueOf(s[3]).floatValue();
-				vertexCount++;
+				
 				vertices.add(new Vertex(vertexCount, v));
+				vertexCount++;
 				
 			}else if(s[0].compareTo("vt")==0){
 				float[] t = new float[2];

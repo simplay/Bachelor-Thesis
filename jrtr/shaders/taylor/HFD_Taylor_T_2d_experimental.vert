@@ -429,7 +429,7 @@ void main() {
 	// test for error - debug mode
 	if(brdf.x < 0.0 || brdf.y < 0.0 || brdf.z < 0.0) col = vec4(1,0,0,1);
 	else col = brdf+vec4(ambient,ambient,ambient,1);
-
+	
 	frag_texcoord = texcoord;
 	gl_Position = projection * modelview * position;
 }
