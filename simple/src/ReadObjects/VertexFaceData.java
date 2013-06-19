@@ -5,10 +5,18 @@ import java.util.ArrayList;
 import javax.vecmath.Vector2f;
 import javax.vecmath.Vector3f;
 
+import jrtr.VertexData;
+
 public class VertexFaceData {
 	
 	private ArrayList<Vertex> vertices;
 	private ArrayList<Face> faces;
+	
+	
+	protected VertexData vertexData;
+	
+	
+	
 	
 	public VertexFaceData(ArrayList<Vertex> vertices, ArrayList<Face> faces){
 		this.vertices = vertices;
@@ -82,6 +90,26 @@ public class VertexFaceData {
 			
 			vertex.setTangent(tangent);
 		}
+		
+		int verticesCount = vertices.size();
+		float colors[] = new float[verticesCount*3];
+		
+		for(Vertex vertex : vertices){
+			float[] position = vertex.getPosition();
+			float[] normal = vertex.getNormal();
+			float[] color = {1.0f, 0.0f, 0.0f};
+			float[] textureCoordinate = vertex.getTextureCoordiante();
+			int[] inds = vertex.getFaceIndices();
+		}
+		
+		
+//		this.vertexData = new VertexData(verticesCount);
+//		this.vertexData.addElement(colors, VertexData.Semantic.COLOR, 3);
+//		this.vertexData.addElement(this.vetices, VertexData.Semantic.POSITION, 3);
+//		this.vertexData.addElement(this.textureCoordinates, VertexData.Semantic.TEXCOORD, 2);
+//		this.vertexData.addElement(this.normals, VertexData.Semantic.NORMAL, 3);
+//		this.vertexData.addIndices(this.indices);
+		
 		
 	}
 }

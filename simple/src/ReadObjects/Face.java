@@ -49,4 +49,16 @@ public class Face {
 	public float[] getTriNormal(){
 		return null;
 	}
+	
+	public long getId(){
+		return this.id;
+	}
+	
+	public int[] getIndices(){
+		int index1 = (int)i_1.getId();
+		int index2 = (int)i_2.getId();
+		int index3 = (int)i_3.getId();
+		int[] indices = {index1, index2, index3};
+		return indices;
+	}
 }

@@ -95,4 +95,16 @@ public class Vertex {
 		this.tangent = tmp_tan;
 	}
 	
+	public int[] getFaceIndices(){
+		int[] indices = new int[100];
+		int counter = 0;
+		for(Face face : this.faces){
+			int id = (int)face.getId();
+			indices[counter] = id;
+			counter++;
+		}
+		
+		return indices;
+	}
+	
 }

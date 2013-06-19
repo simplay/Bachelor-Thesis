@@ -57,8 +57,8 @@ public class simple{
 //		    System.out.println("sin 2pi " +b);
 		    VertexFaceData vd;
 		    try {
-//				ReadObjects.ObjReader reader = new ReadObjects.ObjReader("../models/teapot.obj");
-				ReadObjects.ObjReader reader = new ReadObjects.ObjReader("../models/snake_test_piece.obj");
+				ReadObjects.ObjReader reader = new ReadObjects.ObjReader("../models/teapot.obj");
+//				ReadObjects.ObjReader reader = new ReadObjects.ObjReader("../models/snake_test_piece.obj");
 				vd = reader.getVFData();
 				
 			} catch (IOException e) {
