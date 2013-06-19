@@ -546,8 +546,8 @@ public class DiffractionSceneGraphFabricator {
 		
 	    VertexFaceData vd = null;
 	    try {
-			ReadObjects.ObjReader reader = new ReadObjects.ObjReader("../models/teapot.obj");
-//			ReadObjects.ObjReader reader = new ReadObjects.ObjReader("../models/snake_test_piece.obj");
+//			ReadObjects.ObjReader reader = new ReadObjects.ObjReader("../models/teapot.obj");
+			ReadObjects.ObjReader reader = new ReadObjects.ObjReader("../models/snake_test_piece.obj");
 			vd = reader.getVFData();
 			
 		} catch (IOException e) {
@@ -598,13 +598,14 @@ public class DiffractionSceneGraphFabricator {
 //			cop = new Point3f(0, 0, 1.00f); // camera distance
 			sceneManager.getFrustum().setParameter(aspectRatio, near, far, verticalFieldView);
 			sceneManager.getCamera().setParameter(cop, look, up);
+			
 		}else if(isSnake){
-			distance = 40.0f;
-
+			distance = 40.0f; // teapot
+			distance = 12.0f;
 			float aspectRatio = 1.0f;
 			float near = 0.0001f;
 			float far = 5500.0f;
-			float verticalFieldView = 50.0f;
+			float verticalFieldView = 20.0f;
 //			verticalFieldView = 120; // viewing angle
 			Vector3f up = new Vector3f(0, 1, 0); // camera height
 			Point3f look = new Point3f(1, 0, 0); // point camera looks at
@@ -612,6 +613,7 @@ public class DiffractionSceneGraphFabricator {
 //			cop = new Point3f(0, 0, 1.00f); // camera distance
 			sceneManager.getFrustum().setParameter(aspectRatio, near, far, verticalFieldView);
 			sceneManager.getCamera().setParameter(cop, look, up);
+	
 		}else{
 			distance = 1.0f;
 			float aspectRatio = 1.0f;
