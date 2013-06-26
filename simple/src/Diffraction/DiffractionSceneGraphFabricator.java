@@ -546,8 +546,8 @@ public class DiffractionSceneGraphFabricator {
 		
 	    VertexFaceData vd = null;
 	    try {
-//			ReadObjects.ObjReader reader = new ReadObjects.ObjReader("../models/teapot.obj");
-			ReadObjects.ObjReader reader = new ReadObjects.ObjReader("../models/snake_test_piece.obj");
+			ReadObjects.ObjReader reader = new ReadObjects.ObjReader("../models/teapot.obj");
+//			ReadObjects.ObjReader reader = new ReadObjects.ObjReader("../models/snake_test_piece.obj");
 			vd = reader.getVFData();
 			
 		} catch (IOException e) {
@@ -600,8 +600,8 @@ public class DiffractionSceneGraphFabricator {
 			sceneManager.getCamera().setParameter(cop, look, up);
 			
 		}else if(isSnake){
-			distance = 40.0f; // teapot
-			distance = 12.0f;
+			distance = 160.0f; // teapot
+//			distance = 12.0f;
 			float aspectRatio = 1.0f;
 			float near = 0.0001f;
 			float far = 5500.0f;

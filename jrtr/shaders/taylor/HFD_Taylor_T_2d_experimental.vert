@@ -420,7 +420,7 @@ void main() {
 	brdf.xyz = fac2*fac2*fac2*fac2*frac*brdf.xyz;
 	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0, 1.0, 1.0 / 2.2);
 
-	float ambient = 0.0;
+	float ambient = 0.1;
 
 	if(brdf.x < 0.0 ) brdf.x = 0.0;
 	if(brdf.z < 0.0 ) brdf.z = 0.0;
