@@ -8,10 +8,12 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 import javax.vecmath.Vector4f;
+
 import jrtr.Light;
 import jrtr.RenderContext;
 import jrtr.Shader;
@@ -48,7 +50,7 @@ public class DiffractionSceneGraphFabricator {
 	private Light lightSource1;
 	private float trackDistance = 2.5f;
 	private TransformGroup rootGroup;
-	
+	private String obj_file = "../models/Teapot_33K.obj";
 	String extension = ".bmp";
 	// stam 4
 	// grid 9
@@ -546,7 +548,7 @@ public class DiffractionSceneGraphFabricator {
 		
 	    VertexFaceData vd = null;
 	    try {
-			ReadObjects.ObjReader reader = new ReadObjects.ObjReader("../models/teapot.obj");
+			ReadObjects.ObjReader reader = new ReadObjects.ObjReader(obj_file);
 //			ReadObjects.ObjReader reader = new ReadObjects.ObjReader("../models/snake_test_piece.obj");
 			vd = reader.getVFData();
 			

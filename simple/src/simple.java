@@ -1,7 +1,14 @@
-import jrtr.*;
+import java.util.Timer;
 
-import javax.swing.*;
-import javax.vecmath.*;
+import javax.swing.JFrame;
+import javax.vecmath.Matrix4f;
+import javax.vecmath.Vector3f;
+
+import jrtr.GLRenderPanel;
+import jrtr.RenderContext;
+import jrtr.RenderPanel;
+import jrtr.SWRenderPanel;
+import jrtr.Shape;
 import Constants.ShaderTaskNr;
 import Diffraction.DiffractionAnimationTask;
 import Diffraction.DiffractionSceneGraphFabricator;
@@ -9,12 +16,8 @@ import Listeners.SimpleKeyListener;
 import Listeners.SimpleMouseListener;
 import Listeners.SimpleMouseMotionListener;
 import Listeners.Storage;
-import ReadObjects.VertexFaceData;
 import SceneGraph.GraphSceneManager;
 import Simulator.SimulationFabricator;
-
-import java.io.IOException;
-import java.util.Timer;
 
 
 public class simple{	

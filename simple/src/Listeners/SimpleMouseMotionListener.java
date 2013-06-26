@@ -10,7 +10,6 @@ import javax.vecmath.Vector3f;
 import javax.vecmath.Vector4f;
 
 import jrtr.RenderPanel;
-
 import SceneGraph.GraphSceneManager;
 
 

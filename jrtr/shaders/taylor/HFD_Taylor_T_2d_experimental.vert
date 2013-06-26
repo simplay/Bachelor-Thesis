@@ -54,7 +54,7 @@ const float dx = 2.5*pow(10.0, -6.0); // -6 // distance between two patches (fro
 const float s = 2.4623*pow(10,-7.0); // -7 // max height of a bump
 
 // error constants
-const float eps_pq = 0.0001; 
+const float eps_pq = pow(10.0, -16); 
 const float eps = 1.0*pow(10.0, -4.0);
 const float tolerance = 0.999999999; 
 
@@ -117,7 +117,7 @@ float get_p_factor(float w_i, float T_i, float N_i){
 
 // is this correct: T_i*w_i is a multiple of 2*PI
 float get_q_factor(float w_i, float T_i, float N_i){
-	float tmp = 1.0;	
+	float tmp = N_i;	
 	if (abs(1.0-cos(T_i*w_i)) < eps_pq){
 		tmp = 0.0;
 	}else{
@@ -204,8 +204,8 @@ vec3 avgWeighted_XYZ_weight(float lambda){
 	// (L_b-L)f(L_b) + (L-L_a)f(L_a)
 	
 	// find index by wavelength
-	int index_a = int(lambda_a) - 390;
-	int index_b = int(lambda_b) - 390;
+	int index_a = int(lambda_a - 390.0);
+	int index_b = int(lambda_b - 390.0);
 	float weight_b = (lambda_b - lambda*rescale);
 	float weight_a = (lambda*rescale - lambda_a);
 	
@@ -311,7 +311,9 @@ void main() {
 	float a = global_extrema[0].x; float b = global_extrema[0].y;
 	float c = global_extrema[0].z; float d = global_extrema[0].w;
 	float brdfMax = pow((b-a),2.0)+pow((d-c),2.0);
-
+	float lambda_iter = 0.0;
+	float t = 0.0;
+	
 	
 	// directional light source
 	vec3 Pos = (modelview * position).xyz; // point in camera space
@@ -324,7 +326,6 @@ void main() {
 	
 	// normal and tangent vector in camera coordinates
 	vec3 camNormal = normalize((modelview*vec4(normal,0.0)).xyz);
-	vec3 camTangent = normalize((modelview*vec4(tangent,0.0)).xyz);
 
 	
 	// compute vector-field rotation
@@ -344,9 +345,12 @@ void main() {
 
 	vec2 modUV = getRotation(u,v,-phi);
 	
+	
+	vec4 bruteforce = vec4(1.0, 0.0, 0.0, 1.0);
+	bool flag12 = false;
 	// only specular contribution within epsilon range: i.e. fixed number of lambdas
 	if(abs(u) < eps && abs(v) < eps){
-		for(int iter = 0; iter < 16; iter++){
+		for(int iter = 0; iter < 0; iter++){
 			float lambda_iter = fixed_lambdas[iter]*pow(10.0,-9.0);
 			k = 2.0*PI / lambda_iter;
 			vec2 coords = vec2((k*modUV.x/Omega) + bias, (k*modUV.y/Omega) + bias); //2d
@@ -368,21 +372,28 @@ void main() {
 			maxBRDF += vec4(diffractionCoeff * brdfMax * waveColor, 1.0);		
 		}
 	}else{
+		if((v==0 && u != 0) ||(v!=0 && u == 0)){
+			flag12 = true;
 
+		}
 		
 		// iterate twice: once for N_u and once for N_v lower,upper
 		for(int variant = 0; variant < 2; variant++){
+			
+			if(flag12) break;
+			
 //			if(abs(v) > eps) continue;
 			
 			int lower = int(N_uv[variant].x);
 			int upper = int(N_uv[variant].y);
 			
-			float t = u;
-			if(variant == 1) t = v;
+			if(variant == 0) t = u;
+			else t = v;
 			
-			for(int iter = lower; iter <= upper; iter++){
-				if(iter == 0) continue;
-				float lambda_iter = (dx*t)/float(iter);
+			for(float iter = lower; iter <= upper; iter++){
+				
+				if(iter == 0.0) continue;
+				lambda_iter = (dx*t)/iter;
 				k = 2.0*PI / lambda_iter;
 				vec2 coords = vec2((k*modUV.x/Omega) + bias, (k*modUV.y/Omega) + bias); //2d
 
@@ -406,29 +417,36 @@ void main() {
 	}
 
 	
-//	brdf = vec4(brdf.x/maxBRDF.x, brdf.y/maxBRDF.y, brdf.z/maxBRDF.z, 1.0) ; //  relative scaling
+	brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
 	
 	
-	float frac = 1.0 / 32.0;
 	float fac2 = 100.0 / 70000.0;
 	
 	fac2 = 1.0 / 100000.5; // wenn nicht A und ohne gloabl minmax, // T=4
 	fac2 = 1.0 / 100000.0; // wenn nicht A und ohne gloabl minmax, // T=4
 	fac2 = 1.0 / 9000.0;
-
+	fac2 = 1.7 / 1.0;
+	fac2 = 100.7 / 1.0;
 	brdf.xyz = M_Adobe_XR*brdf.xyz;
-	brdf.xyz = fac2*fac2*fac2*fac2*frac*brdf.xyz;
-	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0, 1.0, 1.0 / 2.2);
+	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
+	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.2);
 
-	float ambient = 0.1;
+	float ambient = 1.0;
 
 	if(brdf.x < 0.0 ) brdf.x = 0.0;
 	if(brdf.z < 0.0 ) brdf.z = 0.0;
 	if(brdf.y < 0.0 ) brdf.y = 0.0;
+	brdf.w = 1.0;
+	
+	if(brdf.x == 0.0 && brdf.y == 0.0 && brdf.z == 0.0) col = vec4(1.0, 0.0, 0.0, 1.0);
 	
 	// test for error - debug mode
-	if(brdf.x < 0.0 || brdf.y < 0.0 || brdf.z < 0.0) col = vec4(1,0,0,1);
-	else col = brdf+vec4(ambient,ambient,ambient,1);
+	if(brdf.x < 0.0 || brdf.y < 0.0 || brdf.z < 0.0) col = vec4(1.0, 0.0, 0.0, 1.0);
+	else col = brdf+vec4(ambient,ambient,ambient,0.0);
+	
+//	if(flag12) col = bruteforce;
+//	col = vec4(0.0,0.0,1.0,1.0);
+
 	
 	frag_texcoord = texcoord;
 	gl_Position = projection * modelview * position;
