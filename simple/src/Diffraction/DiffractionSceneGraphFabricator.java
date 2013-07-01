@@ -61,8 +61,8 @@ public class DiffractionSceneGraphFabricator {
 	
 	
 	private boolean hasVectorfield = true;
-	private boolean isPlane = true;
-	private boolean isSnake = true && !isPlane;
+	private boolean isPlane = false;
+	private boolean isSnake = false && !isPlane;
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
 		this.sceneManager = sceneManager;
 		this.renderContext = renderContext;

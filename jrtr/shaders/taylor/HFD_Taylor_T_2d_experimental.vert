@@ -64,7 +64,7 @@ const float N_2 = 100.0; // number of pixels padded patch - see matlab
 const float t_0 = dx / N_1;
 const float T_1 = t_0 * N_1;
 const float T_2 = t_0 * N_1;
-const float periods = 26.0-1.0; // 26 // number of patch periods along surface
+const float periods = 2.0-1.0; // 26 // number of patch periods along surface
 const float Omega = ((N_1/N_2)*2.0*PI)/t_0; // (N_1/N_2)*2*PI/t_0, before 8.0*PI*pow(10.0,7.0);
 const float bias = (N_2/2.0)/(N_2-1.0); // old: 50.0/99.0;
 
@@ -132,7 +132,7 @@ float get_q_factor(float w_i, float T_i, float N_i){
 vec2 getRotation(float u, float v, float phi){
 	float uu = u*cos(phi) - v*sin(phi);
 	float vv = u*sin(phi) + v*cos(phi);
-	return vec2(uu, vv);
+	return vec2(u, v);
 }
 
 
@@ -155,8 +155,12 @@ float getFactor(float k, float F, float G, float w){
 	
 	// area of CD with d=30cm
 	float d = 0.3;
-	float A = pow(0.5*d, 2.0)*PI;
-	return (k*k*F*F*G)/(4.0*PI*PI*w*w*A);
+	float A = 1.0;
+	
+	float kk_ww = (k*k)/(w*w);
+	return kk_ww*(F*F*G)/(4.0*PI*PI*A);
+//	if(abs(w) < 0.2 || k < eps) return 1.0;
+//	else return (k*k*F*F*G)/(4.0*PI*PI*w*w*A);
 }
 
 
@@ -164,10 +168,10 @@ float getFressnelFactor(vec3 _k1, vec3 _k2){
 	float n_t = SMOOTH; // material constant
 	float R0 = pow( (n_t - 1.0) / (n_t + 1.0) , 2.0); 
 	vec3 L = _k2; 
-	vec3 V = _k1;
+	vec3 V = -_k1;
 	vec3 H = (L + V) / normalize(L + V);
 	float cos_teta = dot(H,V);
-	//return (R0 + (1.0 - R0) * pow(1.0 - cos_teta, 5.0));
+//	return (R0 + (1.0 - R0) * pow(1.0 - cos_teta, 5.0));
 	// faster than above - see GLSL specs
 	return mix(R0, 1.0, pow(1.0 - cos_teta, 5.0));
 }
@@ -432,11 +436,13 @@ void main() {
 				P = taylorApproximation(coords, k, w);
 				float pq_scale = compute_pq_scale_factor(w_u,w_v);
 				P *= pq_scale;
-				
+
 				float abs_P_Sq = P.x*P.x + P.y*P.y;
+
 				
 				float diffractionCoeff = getFactor(k, F, G, w);
 				vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
+
 				brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 1.0);
 				maxBRDF += vec4(diffractionCoeff * brdfMax * waveColor, 1.0);
 			}
@@ -461,8 +467,8 @@ void main() {
 	float ambient = 0.0;
 
 	if(brdf.x < 0.0 ) brdf.x = 0.0;
-	if(brdf.z < 0.0 ) brdf.z = 0.0;
 	if(brdf.y < 0.0 ) brdf.y = 0.0;
+	if(brdf.z < 0.0 ) brdf.z = 0.0;
 	brdf.w = 1.0;
 	
 	if(brdf.x == 0.0 && brdf.y == 0.0 && brdf.z == 0.0) col = vec4(1.0, 0.0, 0.0, 1.0);
