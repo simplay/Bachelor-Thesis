@@ -61,7 +61,7 @@ public class DiffractionSceneGraphFabricator {
 	
 	
 	private boolean hasVectorfield = true;
-	private boolean isPlane = false;
+	private boolean isPlane = true;
 	private boolean isSnake = true && !isPlane;
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
 		this.sceneManager = sceneManager;
@@ -122,6 +122,7 @@ public class DiffractionSceneGraphFabricator {
 				
 			}else if(version == 11){
 				shader.load(ShaderPaths.expTaylor_2d_Vert.toString(), ShaderPaths.expTaylor_2d_Frag.toString());
+//				shader.load(ShaderPaths.defaultVert.toString(), ShaderPaths.defaultFrag.toString());
 			}
 			
 
@@ -540,24 +541,32 @@ public class DiffractionSceneGraphFabricator {
 //		DiffractionDice6 diffDiceObj = new DiffractionDice6(480, 100, trackDistance);
 		
 		
-		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(300,2.0f,0.15f);
+//		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(300,2.0f,0.15f);
+		
+		DiffractionCylinder diffPlaneObj = new DiffractionCylinder(1.0f,1.0f, 300, 300);
 		
 		diffDice = new Shape(diffDiceObj.getVertices());
 		diffPlane = new Shape(diffPlaneObj.getVertices());
 		
-		
-	    VertexFaceData vd = null;
-	    try {
-			ReadObjects.ObjReader reader = new ReadObjects.ObjReader(obj_file);
-//			ReadObjects.ObjReader reader = new ReadObjects.ObjReader("../models/snake_test_piece.obj");
-			vd = reader.getVFData();
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(this.isSnake){
+		    VertexFaceData vd = null;
+		    try {
+				ReadObjects.ObjReader reader = new ReadObjects.ObjReader(obj_file);
+//				ReadObjects.ObjReader reader = new ReadObjects.ObjReader("../models/snake_test_piece.obj");
+				vd = reader.getVFData();
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    diffSnake = new Shape(vd.getVetexData());
+			diffSnake.setShaderTask(activeShaderTask);
+			diffSnake.setMaterial(mat);
+			this.diffSnakeIMat = diffSnake.getTransformation();
 		}
+
 		
-		diffSnake = new Shape(vd.getVetexData());
+		
 		
 		diffDice.setShaderTask(activeShaderTask);
 		diffDice.setMaterial(mat);
@@ -565,12 +574,11 @@ public class DiffractionSceneGraphFabricator {
 		diffPlane.setShaderTask(activeShaderTask);
 		diffPlane.setMaterial(mat);
 		
-		diffSnake.setShaderTask(activeShaderTask);
-		diffSnake.setMaterial(mat);
+
 		
 		this.diffDiceIMat = diffDice.getTransformation();	
 		this.diffPlaneIMat = diffPlane.getTransformation();
-		this.diffSnakeIMat = diffSnake.getTransformation();
+
 	}
 	
 	private void setUpSceneGraph(){

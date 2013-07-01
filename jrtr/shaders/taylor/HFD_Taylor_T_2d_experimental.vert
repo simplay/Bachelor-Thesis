@@ -425,13 +425,13 @@ void main() {
 	fac2 = 1.0 / 100000.5; // wenn nicht A und ohne gloabl minmax, // T=4
 	fac2 = 1.0 / 100000.0; // wenn nicht A und ohne gloabl minmax, // T=4
 	fac2 = 1.0 / 9000.0;
-	fac2 = 1.7 / 1.0;
-	fac2 = 100.7 / 1.0;
+	fac2 = 2.7 / 1.0;
+//	fac2 = 100.7 / 1.0;
 	brdf.xyz = M_Adobe_XR*brdf.xyz;
 	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.2);
 
-	float ambient = 1.0;
+	float ambient = 0.0;
 
 	if(brdf.x < 0.0 ) brdf.x = 0.0;
 	if(brdf.z < 0.0 ) brdf.z = 0.0;
