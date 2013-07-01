@@ -15,7 +15,10 @@ public class VertexFaceData {
 	
 	private VertexData vertexData;
 	
-	
+	private float getNorm(Vector3f v){
+		float norm_v = v.x*v.x + v.y*v.y + v.z*v.z;
+		return (float) Math.sqrt(norm_v);
+	}
 	
 	
 	public VertexFaceData(ArrayList<Vertex> vertices, ArrayList<Face> faces){
@@ -33,12 +36,28 @@ public class VertexFaceData {
 		
 //		float colors
 		// postprocessing: tangent and bitangent avg-summation over each face.
+		
+		
+		// see *.obj file in meshlab for convenience
+		Vector3f v1_m = new Vector3f(-0.090766f, 0.824358f, -6.04617f);
+		Vector3f v2_m = new Vector3f(0.014242f, -1.86301f, -5.82007f);
+		
+		Vector3f vMain12 = new Vector3f();
+		vMain12.sub(v1_m,v2_m);
+		float norm_vMain12 = getNorm(vMain12);
+		// vector field directed along this main vector
+		Vector3f main_v = new Vector3f(vMain12.x/norm_vMain12, vMain12.y/norm_vMain12, vMain12.z/norm_vMain12);
+		
+		
+		float avgEdgeLength = 0.0f;
 		int faceCounter = 0;
 		for(Face face : this.faces){
-			Vector3f pos21 = new Vector3f();
-			Vector3f pos31 = new Vector3f();
-			Vector2f coord21 = new Vector2f();
-			Vector2f coord31 = new Vector2f();
+			Vector3f pos12 = new Vector3f();
+			Vector3f pos13 = new Vector3f();
+			Vector3f pos23 = new Vector3f();
+			Vector3f faceNormal = new Vector3f();
+//			Vector2f coord21 = new Vector2f();
+//			Vector2f coord31 = new Vector2f();
 			
 			Vertex v1 = face.getVertex1();
 			Vertex v2 = face.getVertex2();
@@ -48,43 +67,66 @@ public class VertexFaceData {
 			Vector3f pos2 = new Vector3f(v2.getPosition()); 
 			Vector3f pos3 = new Vector3f(v3.getPosition());
 			
-			Vector2f coord1 = new Vector2f(v1.getTextureCoordiante());
-			Vector2f coord2 = new Vector2f(v2.getTextureCoordiante());
-			Vector2f coord3 = new Vector2f(v3.getTextureCoordiante());
+//			Vector2f coord1 = new Vector2f(v1.getTextureCoordiante());
+//			Vector2f coord2 = new Vector2f(v2.getTextureCoordiante());
+//			Vector2f coord3 = new Vector2f(v3.getTextureCoordiante());
 			
-			pos21.sub(pos2, pos1);
-			pos31.sub(pos3, pos1);
-			
-			coord21.sub(coord2, coord1);
-			coord31.sub(coord3, coord1);
-			
-			float r = 1.0f / (coord21.x*coord31.y - coord21.y - coord31.x); // determinant
+			pos12.sub(pos2, pos1);
+			pos13.sub(pos3, pos1);
+			pos23.sub(pos3, pos2);
 			
 			
-			float sdir_x = (coord31.y*pos21.x-coord21.y-pos31.x)*r;
-			float sdir_y = (coord31.y*pos21.y-coord21.y-pos31.y)*r;
-			float sdir_z = (coord31.y*pos21.z-coord21.y-pos31.z)*r;
-			Vector3f sdir = new Vector3f(sdir_x, sdir_y, sdir_z);
+			avgEdgeLength += getNorm(pos12)+getNorm(pos13)+getNorm(pos23);
 			
-			float tdir_x = (coord21.x*pos31.x-coord31.x-pos21.x)*r;
-			float tdir_y = (coord21.x*pos31.y-coord31.x-pos21.y)*r;
-			float tdir_z = (coord21.x*pos31.z-coord31.x-pos21.z)*r;
-			Vector3f tdir = new Vector3f(tdir_x, tdir_y, tdir_z);
+			faceNormal.cross(pos12, pos23);
+			float face_normal = getNorm(faceNormal);
+			faceNormal.scale(1.0f/face_normal);
 			
-			v1.addVectorToTan1(sdir);
-			v2.addVectorToTan1(sdir);
-			v3.addVectorToTan1(sdir);
+			float scale_pro = vMain12.x*faceNormal.x + vMain12.y*faceNormal.y + vMain12.z*faceNormal.z;
+			Vector3f vMainOnN = new Vector3f(faceNormal.x, faceNormal.y, faceNormal.z);
+			vMainOnN.scale(scale_pro);
 			
-			v1.addVectorToTan2(tdir);
-			v2.addVectorToTan2(tdir);
-			v3.addVectorToTan2(tdir);
+			Vector3f vMainOnTri = new Vector3f();
+			vMainOnTri.sub(vMain12, vMainOnN);
+			float norm_vMainOnTri = getNorm(vMainOnTri);
+			vMainOnTri.scale(1.0f / norm_vMainOnTri);
 			
-			// merge indices of faces
-			int[] inds = face.getIndices();
-			indices_i[3*faceCounter] = inds[0];
-			indices_i[3*faceCounter+1] = inds[1];
-			indices_i[3*faceCounter+2] = inds[2];
-			faceCounter++;
+			
+			v1.addVectorToTan1(vMainOnTri);
+			v2.addVectorToTan1(vMainOnTri);
+			v3.addVectorToTan1(vMainOnTri);
+			
+			
+//			coord21.sub(coord2, coord1);
+//			coord31.sub(coord3, coord1);
+//			
+//			float r = 1.0f / (coord21.x*coord31.y - coord21.y - coord31.x); // determinant
+			
+			
+//			float sdir_x = (coord31.y*pos21.x-coord21.y-pos31.x)*r;
+//			float sdir_y = (coord31.y*pos21.y-coord21.y-pos31.y)*r;
+//			float sdir_z = (coord31.y*pos21.z-coord21.y-pos31.z)*r;
+//			Vector3f sdir = new Vector3f(sdir_x, sdir_y, sdir_z);
+//			
+//			float tdir_x = (coord21.x*pos31.x-coord31.x-pos21.x)*r;
+//			float tdir_y = (coord21.x*pos31.y-coord31.x-pos21.y)*r;
+//			float tdir_z = (coord21.x*pos31.z-coord31.x-pos21.z)*r;
+//			Vector3f tdir = new Vector3f(tdir_x, tdir_y, tdir_z);
+			
+//			v1.addVectorToTan1(sdir);
+//			v2.addVectorToTan1(sdir);
+//			v3.addVectorToTan1(sdir);
+//			
+//			v1.addVectorToTan2(tdir);
+//			v2.addVectorToTan2(tdir);
+//			v3.addVectorToTan2(tdir);
+//			
+//			// merge indices of faces
+//			int[] inds = face.getIndices();
+//			indices_i[3*faceCounter] = inds[0];
+//			indices_i[3*faceCounter+1] = inds[1];
+//			indices_i[3*faceCounter+2] = inds[2];
+//			faceCounter++;
 		}
 		
 		// compute tangent for each vertex

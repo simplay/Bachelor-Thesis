@@ -21,6 +21,7 @@
 //variants of glUniform*
 uniform mat4 projection;
 uniform mat4 modelview;
+uniform vec3 cop_w;
 uniform vec3 radianceArray[MAX_LIGHTS];
 uniform vec3 brdf_weights[MAX_WEIGHTS];
 uniform vec4 directionArray[MAX_LIGHTS];
@@ -64,7 +65,7 @@ const float N_2 = 100.0; // number of pixels padded patch - see matlab
 const float t_0 = dx / N_1;
 const float T_1 = t_0 * N_1;
 const float T_2 = t_0 * N_1;
-const float periods = 26.0-1.0; // 26 // number of patch periods along surface
+const float periods = 10.0-1.0; // 26 // number of patch periods along surface
 const float Omega = ((N_1/N_2)*2.0*PI)/t_0; // (N_1/N_2)*2*PI/t_0, before 8.0*PI*pow(10.0,7.0);
 const float bias = (N_2/2.0)/(N_2-1.0); // old: 50.0/99.0;
 
@@ -132,7 +133,7 @@ float get_q_factor(float w_i, float T_i, float N_i){
 vec2 getRotation(float u, float v, float phi){
 	float uu = u*cos(phi) - v*sin(phi);
 	float vv = u*sin(phi) + v*cos(phi);
-	return vec2(u, v);
+	return vec2(uu, vv);
 }
 
 
@@ -184,7 +185,7 @@ float computeRotationAngle(vec3 tangent){
 	float phi = acos(dTemp);
 	vec3 tempV = cross(vec3(1.0,0,0), ntangent);
 	if(tempV.z < 0.0) phi = -phi;
-	return phi;
+	return 0.0;
 }
 
 
@@ -320,16 +321,16 @@ void main() {
 	
 
     vec3 binormal = normalize(cross(normal, tangent));
-    vec3 N = normalize(normal);
-    vec3 T = normalize(tangent);
-    vec3 B = normalize(binormal);
+    vec3 N = normalize(modelview*vec4(normal,0.0)).xyz;
+    vec3 T = normalize(modelview*vec4(tangent,0.0)).xyz;
+    vec3 B = normalize(modelview*vec4(binormal,0.0)).xyz;
     
     
  // transform light and half angle vectors by tangent basis
 
 	
 	// directional light source
-	vec3 Pos = (modelview * position).xyz; // point in camera space
+	vec3 Pos = (modelview*position).xyz; // point in camera space
 	vec4 lightDir = modelview*(directionArray[0]); // light direction in camera space
 	vec3 _k2 = normalize(-Pos); //vector from point P to camera
 	vec3 _k1 = normalize(lightDir.xyz); // light direction, same for every point
@@ -356,11 +357,11 @@ void main() {
 	
 	
 	// normal and tangent vector in camera coordinates
-	vec3 camNormal = normalize((modelview*vec4(TRANSFORM*normal,0.0)).xyz);
+	vec3 camNormal = normalize((TRANSFORM*vec3(normal)).xyz);
 
 	
 	// compute vector-field rotation
-	float phi = computeRotationAngle(vec3(TRANSFORM*tangent.xyz));
+	float phi = computeRotationAngle(vec3(tangent.xyz));
 			
 	
 	// compute Fresnel and Gemometric Factor
@@ -451,12 +452,12 @@ void main() {
 	
 	fac2 = 2.7 / 1.0;
 	//fac2 = 1.7 / 2.0; // plane shape 1m
-	fac2 = 6.7 / 1.0;
+	fac2 = 6.7 / 3.0;
 	brdf.xyz = M_Adobe_XR*brdf.xyz;
 	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.2);
 
-	float ambient = 0.0;
+	float ambient = 0.1;
 
 	if(brdf.x < 0.0 ) brdf.x = 0.0;
 	if(brdf.y < 0.0 ) brdf.y = 0.0;
@@ -470,7 +471,6 @@ void main() {
 	else col = vec4(brdf.xyz, 1.0)+vec4(ambient,ambient,ambient,0.0);
 	
 
-	
 	frag_texcoord = texcoord;
 	gl_Position = projection * modelview * position;
 }

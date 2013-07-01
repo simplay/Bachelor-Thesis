@@ -50,7 +50,7 @@ public class DiffractionSceneGraphFabricator {
 	private Light lightSource1;
 	private float trackDistance = 2.5f;
 	private TransformGroup rootGroup;
-	private String obj_file = "../models/teapot.obj";
+	private String obj_file = "../models/snake_test_piece.obj";
 	String extension = ".bmp";
 	// stam 4
 	// grid 9
