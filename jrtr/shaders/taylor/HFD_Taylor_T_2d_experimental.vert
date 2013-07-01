@@ -54,9 +54,9 @@ const float dx = 2.5*pow(10.0, -6.0); // -6 // distance between two patches (fro
 const float s = 2.4623*pow(10,-7.0); // -7 // max height of a bump
 
 // error constants
-const float eps_pq = 1.0*pow(10.0, -6.0); 
-const float eps = 1.0*pow(10.0, -6.0);
-const float tolerance = 0.999999999; 
+const float eps_pq = 1.0*pow(10.0, -5.0); 
+const float eps = 1.0*pow(10.0, -5.0);
+const float tolerance = 0.9999999; 
 
 // period constants
 const float N_1 = 100.0; // number of pixels of downsized patch 
@@ -169,7 +169,7 @@ float getFressnelFactor(vec3 _k1, vec3 _k2){
 	float R0 = pow( (n_t - 1.0) / (n_t + 1.0) , 2.0); 
 	vec3 L = _k2; 
 	vec3 V = -_k1;
-	vec3 H = (L + V) / normalize(L + V);
+	vec3 H = normalize(L + V);
 	float cos_teta = dot(H,V);
 //	return (R0 + (1.0 - R0) * pow(1.0 - cos_teta, 5.0));
 	// faster than above - see GLSL specs
@@ -366,7 +366,7 @@ void main() {
 	// compute Fresnel and Gemometric Factor
 	float F = getFressnelFactor(_k1, _k2);
 	float G = computeGFactor(camNormal, _k1, _k2);
-F = 1.0;
+//F = 1.0;
 
 	
 	// get iteration bounds for given (u,v)
@@ -378,8 +378,7 @@ F = 1.0;
 	vec2 modUV = getRotation(u,v,-phi);
 	
 	
-	vec4 bruteforce = vec4(1.0, 0.0, 0.0, 1.0);
-	bool flag12 = false;
+
 	// only specular contribution within epsilon range: i.e. fixed number of lambdas
 	if(abs(u) < eps && abs(v) < eps){
 		for(int iter = 0; iter < 0; iter++){
@@ -404,15 +403,11 @@ F = 1.0;
 			maxBRDF += vec4(diffractionCoeff * brdfMax * waveColor, 1.0);		
 		}
 	}else{
-		if((v==0 && u != 0) ||(v!=0 && u == 0)){
-			flag12 = false;
 
-		}
 		
 		// iterate twice: once for N_u and once for N_v lower,upper
 		for(int variant = 0; variant < 2; variant++){
 			
-			if(flag12) break;
 			
 //			if(abs(v) > eps) continue;
 			
@@ -455,8 +450,8 @@ F = 1.0;
 	float fac2 = 100.0 / 70000.0;
 	
 	fac2 = 2.7 / 1.0;
-	fac2 = 1.7 / 2.0;
-//	fac2 = 100.7 / 1.0;
+	//fac2 = 1.7 / 2.0; // plane shape 1m
+	fac2 = 6.7 / 1.0;
 	brdf.xyz = M_Adobe_XR*brdf.xyz;
 	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.2);
@@ -474,8 +469,6 @@ F = 1.0;
 	if(brdf.x < 0.0 || brdf.y < 0.0 || brdf.z < 0.0) col = vec4(1.0, 0.0, 0.0, 1.0);
 	else col = vec4(brdf.xyz, 1.0)+vec4(ambient,ambient,ambient,0.0);
 	
-//	if(flag12) col = bruteforce;
-//	col = vec4(0.0,0.0,1.0,1.0);
 
 	
 	frag_texcoord = texcoord;

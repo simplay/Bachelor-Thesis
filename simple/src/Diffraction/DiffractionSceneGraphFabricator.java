@@ -50,7 +50,7 @@ public class DiffractionSceneGraphFabricator {
 	private Light lightSource1;
 	private float trackDistance = 2.5f;
 	private TransformGroup rootGroup;
-	private String obj_file = "../models/Teapot_33K.obj";
+	private String obj_file = "../models/teapot.obj";
 	String extension = ".bmp";
 	// stam 4
 	// grid 9
@@ -543,7 +543,7 @@ public class DiffractionSceneGraphFabricator {
 		
 		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(300,2.0f,0.15f);
 		
-//		DiffractionCylinder diffPlaneObj = new DiffractionCylinder(1.0f,1.0f, 600, 600);
+//		DiffractionCylinder diffPlaneObj = new DiffractionCylinder(1.0f,1.0f, 600, 200);
 		
 		diffDice = new Shape(diffDiceObj.getVertices());
 		diffPlane = new Shape(diffPlaneObj.getVertices());
@@ -610,8 +610,8 @@ public class DiffractionSceneGraphFabricator {
 			sceneManager.getCamera().setParameter(cop, look, up);
 			
 		}else if(isSnake){
-			distance = 160.0f; // teapot
-//			distance = 12.0f;
+//			distance = 160.0f; // teapot
+			distance = 12.0f;
 			float aspectRatio = 1.0f;
 			float near = 0.0001f;
 			float far = 5500.0f;
