@@ -61,7 +61,7 @@ public class DiffractionSceneGraphFabricator {
 	
 	
 	private boolean hasVectorfield = true;
-	private boolean isPlane = false;
+	private boolean isPlane = true;
 	private boolean isSnake = false && !isPlane;
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
 		this.sceneManager = sceneManager;
@@ -541,9 +541,9 @@ public class DiffractionSceneGraphFabricator {
 //		DiffractionDice6 diffDiceObj = new DiffractionDice6(480, 100, trackDistance);
 		
 		
-//		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(300,2.0f,0.15f);
+		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(300,2.0f,0.15f);
 		
-		DiffractionCylinder diffPlaneObj = new DiffractionCylinder(1.0f,1.0f, 600, 600);
+//		DiffractionCylinder diffPlaneObj = new DiffractionCylinder(1.0f,1.0f, 600, 600);
 		
 		diffDice = new Shape(diffDiceObj.getVertices());
 		diffPlane = new Shape(diffPlaneObj.getVertices());
@@ -595,7 +595,7 @@ public class DiffractionSceneGraphFabricator {
 		float distance = 0.0f;
 		if(isPlane){
 
-			distance = 25.0f;
+			distance = 1.0f;
 
 			float aspectRatio = 1.0f;
 			float near = 0.0001f;

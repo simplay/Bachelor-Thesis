@@ -54,8 +54,8 @@ const float dx = 2.5*pow(10.0, -6.0); // -6 // distance between two patches (fro
 const float s = 2.4623*pow(10,-7.0); // -7 // max height of a bump
 
 // error constants
-const float eps_pq = pow(10.0, -16); 
-const float eps = 1.0*pow(10.0, -4.0);
+const float eps_pq = 1.0*pow(10.0, -6.0); 
+const float eps = 1.0*pow(10.0, -6.0);
 const float tolerance = 0.999999999; 
 
 // period constants
@@ -64,7 +64,7 @@ const float N_2 = 100.0; // number of pixels padded patch - see matlab
 const float t_0 = dx / N_1;
 const float T_1 = t_0 * N_1;
 const float T_2 = t_0 * N_1;
-const float periods = 2.0-1.0; // 26 // number of patch periods along surface
+const float periods = 26.0-1.0; // 26 // number of patch periods along surface
 const float Omega = ((N_1/N_2)*2.0*PI)/t_0; // (N_1/N_2)*2*PI/t_0, before 8.0*PI*pow(10.0,7.0);
 const float bias = (N_2/2.0)/(N_2-1.0); // old: 50.0/99.0;
 
@@ -117,7 +117,7 @@ float get_p_factor(float w_i, float T_i, float N_i){
 
 // is this correct: T_i*w_i is a multiple of 2*PI
 float get_q_factor(float w_i, float T_i, float N_i){
-	float tmp = N_i;	
+	float tmp = N_i;
 	if (abs(1.0-cos(T_i*w_i)) < eps_pq){
 		tmp = 0.0;
 	}else{
@@ -366,6 +366,7 @@ void main() {
 	// compute Fresnel and Gemometric Factor
 	float F = getFressnelFactor(_k1, _k2);
 	float G = computeGFactor(camNormal, _k1, _k2);
+F = 1.0;
 
 	
 	// get iteration bounds for given (u,v)
@@ -404,7 +405,7 @@ void main() {
 		}
 	}else{
 		if((v==0 && u != 0) ||(v!=0 && u == 0)){
-			flag12 = true;
+			flag12 = false;
 
 		}
 		
@@ -432,17 +433,15 @@ void main() {
 				
 				float w_u = k*modUV.x;
 				float w_v = k*modUV.y;
-				
+		
 				P = taylorApproximation(coords, k, w);
 				float pq_scale = compute_pq_scale_factor(w_u,w_v);
 				P *= pq_scale;
 
 				float abs_P_Sq = P.x*P.x + P.y*P.y;
-
 				
 				float diffractionCoeff = getFactor(k, F, G, w);
 				vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
-
 				brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 1.0);
 				maxBRDF += vec4(diffractionCoeff * brdfMax * waveColor, 1.0);
 			}
@@ -455,10 +454,8 @@ void main() {
 	
 	float fac2 = 100.0 / 70000.0;
 	
-	fac2 = 1.0 / 100000.5; // wenn nicht A und ohne gloabl minmax, // T=4
-	fac2 = 1.0 / 100000.0; // wenn nicht A und ohne gloabl minmax, // T=4
-	fac2 = 1.0 / 9000.0;
 	fac2 = 2.7 / 1.0;
+	fac2 = 1.7 / 2.0;
 //	fac2 = 100.7 / 1.0;
 	brdf.xyz = M_Adobe_XR*brdf.xyz;
 	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
@@ -475,7 +472,7 @@ void main() {
 	
 	// test for error - debug mode
 	if(brdf.x < 0.0 || brdf.y < 0.0 || brdf.z < 0.0) col = vec4(1.0, 0.0, 0.0, 1.0);
-	else col = brdf+vec4(ambient,ambient,ambient,0.0);
+	else col = vec4(brdf.xyz, 1.0)+vec4(ambient,ambient,ambient,0.0);
 	
 //	if(flag12) col = bruteforce;
 //	col = vec4(0.0,0.0,1.0,1.0);
