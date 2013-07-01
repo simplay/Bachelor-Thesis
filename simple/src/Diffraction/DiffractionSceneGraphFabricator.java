@@ -543,7 +543,7 @@ public class DiffractionSceneGraphFabricator {
 		
 //		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(300,2.0f,0.15f);
 		
-		DiffractionCylinder diffPlaneObj = new DiffractionCylinder(1.0f,1.0f, 300, 300);
+		DiffractionCylinder diffPlaneObj = new DiffractionCylinder(1.0f,1.0f, 600, 600);
 		
 		diffDice = new Shape(diffDiceObj.getVertices());
 		diffPlane = new Shape(diffPlaneObj.getVertices());
@@ -595,7 +595,7 @@ public class DiffractionSceneGraphFabricator {
 		float distance = 0.0f;
 		if(isPlane){
 
-			distance = 1.0f;
+			distance = 25.0f;
 
 			float aspectRatio = 1.0f;
 			float near = 0.0001f;

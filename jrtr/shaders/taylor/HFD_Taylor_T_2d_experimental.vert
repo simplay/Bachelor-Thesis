@@ -314,22 +314,49 @@ void main() {
 	float lambda_iter = 0.0;
 	float t = 0.0;
 	
+
+    vec3 binormal = normalize(cross(normal, tangent));
+    vec3 N = normalize(normal);
+    vec3 T = normalize(tangent);
+    vec3 B = normalize(binormal);
+    
+    
+ // transform light and half angle vectors by tangent basis
+
 	
 	// directional light source
 	vec3 Pos = (modelview * position).xyz; // point in camera space
 	vec4 lightDir = modelview*(directionArray[0]); // light direction in camera space
 	vec3 _k2 = normalize(-Pos); //vector from point P to camera
 	vec3 _k1 = normalize(lightDir.xyz); // light direction, same for every point
+	
+	mat3 TRANSFORM = mat3(N,T,B);
+	
+ 	vec3 _k1_ts;
+ 	_k1_ts.x = dot(_k1, T);
+ 	_k1_ts.y = dot(_k1, B);
+ 	_k1_ts.z = dot(_k1, N);
+ 	_k1_ts = normalize (_k1_ts);
+ 	
+ 	vec3 _k2_ts;
+ 	_k2_ts.x = dot(_k2, T);
+ 	_k2_ts.y = dot(_k2, B);
+ 	_k2_ts.z = dot(_k2, N);
+ 	_k2_ts = normalize (_k2_ts);
+	
+ 	_k1 = _k1_ts;
+ 	_k2 = _k2_ts;		
+	
 	vec3 V = _k1 - _k2;
 	float u = V.x; float v = V.y; float w = V.z;
 	
 	
 	// normal and tangent vector in camera coordinates
-	vec3 camNormal = normalize((modelview*vec4(normal,0.0)).xyz);
+	vec3 camNormal = normalize((modelview*vec4(TRANSFORM*normal,0.0)).xyz);
 
 	
 	// compute vector-field rotation
-	float phi = computeRotationAngle(tangent);
+	float phi = computeRotationAngle(vec3(TRANSFORM*tangent.xyz));
 			
 	
 	// compute Fresnel and Gemometric Factor
