@@ -50,7 +50,7 @@ public class DiffractionSceneGraphFabricator {
 	private Light lightSource1;
 	private float trackDistance = 2.5f;
 	private TransformGroup rootGroup;
-	private String obj_file = "../models/snake_test_piece.obj";
+	private String obj_file = "../models/teapot.obj";
 	String extension = ".bmp";
 	// stam 4
 	// grid 9
@@ -61,7 +61,7 @@ public class DiffractionSceneGraphFabricator {
 	
 	
 	private boolean hasVectorfield = true;
-	private boolean isPlane = true;
+	private boolean isPlane = false;
 	private boolean isSnake = false && !isPlane;
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
 		this.sceneManager = sceneManager;
@@ -523,7 +523,7 @@ public class DiffractionSceneGraphFabricator {
 	private void setUpLight(){
 		Vector3f radiance = new Vector3f(1,1,1); 
 		
-		Vector4f lightDirection = new Vector4f(0.1f, 0.0f, (float) -Math.sqrt(0.99f), 0.0f);  //directional light source
+		Vector4f lightDirection = new Vector4f(-0.1f, 0.0f, (float) -Math.sqrt(0.99f), 0.0f);  //directional light source
 //		lightDirection = new Vector4f(0, 0, 10, 1);  //directional light source
 		lightSource1 = new Light(radiance, lightDirection, "source1");
 		LightNode diceLightNode = new LightNode(lightSource1, sceneManager.getCamera().getCameraMatrix(), "light source1");
@@ -541,9 +541,9 @@ public class DiffractionSceneGraphFabricator {
 //		DiffractionDice6 diffDiceObj = new DiffractionDice6(480, 100, trackDistance);
 		
 		
-		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(300,2.0f,0.15f);
+//		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(300,2.0f,0.15f);
 		
-//		DiffractionCylinder diffPlaneObj = new DiffractionCylinder(1.0f,1.0f, 600, 200);
+		DiffractionCylinder diffPlaneObj = new DiffractionCylinder(1.0f,1.0f, 600, 600);
 		
 		diffDice = new Shape(diffDiceObj.getVertices());
 		diffPlane = new Shape(diffPlaneObj.getVertices());
@@ -595,7 +595,7 @@ public class DiffractionSceneGraphFabricator {
 		float distance = 0.0f;
 		if(isPlane){
 
-			distance = 1.0f;
+			distance = 12.0f;
 
 			float aspectRatio = 1.0f;
 			float near = 0.0001f;

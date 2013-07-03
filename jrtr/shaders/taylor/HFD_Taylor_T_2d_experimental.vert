@@ -140,7 +140,7 @@ float get_q_factor(float w_i, float T_i, float N_i){
 vec2 getRotation(float u, float v, float phi){
 	float uu = u*cos(phi) - v*sin(phi);
 	float vv = u*sin(phi) + v*cos(phi);
-	return vec2(u, v);
+	return vec2(uu, vv);
 }
 
 
@@ -325,22 +325,22 @@ void main() {
 	float t = 0.0;
 	
 
-    vec3 N = normalize(modelview*vec4(normal,0.0)).xyz;
-    vec3 T = normalize(modelview*vec4(tangent,0.0)).xyz;
+    vec3 N = normalize(vec4(normal,0.0)).xyz;
+    vec3 T = normalize(vec4(tangent,0.0)).xyz;
     vec3 B = normalize(cross(N, T));
     
     vec4 cop_new = vec4(0.1, 0.0, 12.0, 1.0);
     
 	// directional light source
-	vec3 Pos =  (modelview*(cop_new-position)).xyz; // point in camera space
-	vec4 lightDir = modelview*(directionArray[0]); // light direction in camera space
+	vec3 Pos =  ((cop_new-position)).xyz; // point in camera space
+	vec4 lightDir = (directionArray[0]); // light direction in camera space
 	lightDir = normalize(lightDir);
 	
 	// light direction: from camera space to tangent space
 	lightDir.x = dot(lightDir.xyz, T); 
 	lightDir.y = dot(lightDir.xyz, B);
 	lightDir.z = dot(lightDir.xyz, N);
-	
+	lightDir.w = 0;
 	// position: from camera space to tangent space
 	Pos.x = dot(Pos, T);
 	Pos.y = dot(Pos, B);
@@ -349,11 +349,14 @@ void main() {
 	vec3 _k2 = normalize(Pos); //vector from point P to camera
 	vec3 _k1 = normalize(lightDir.xyz); // light direction, same for every point	
 	
+	
+	
 	vec3 V = _k1 - _k2;
 	float u = V.x; float v = V.y; float w = V.z;
-//	float u = 0.6; float v = 0.4; float w = 0.52;
+//	float u = 0.5; float v = 0.5; float w = 0.52;
 	
-	
+
+
 	// normal and tangent vector in camera coordinates
 	
 	vec3 camNormal = vec3(0.0);
@@ -363,13 +366,11 @@ void main() {
 	camNormal = normalize((vec3(N)).xyz);
 	// compute vector-field rotation
 	float phi = computeRotationAngle(vec3(tangent.xyz));
-	phi = 0.0;
+	phi = -PI/2.0;
 	
 	// compute Fresnel and Gemometric Factor
 	float F = getFressnelFactor(_k1, _k2);
 	float G = computeGFactor(camNormal, _k1, _k2);
-//F = 1.0;
-//G = 1.0;
 	
 	// get iteration bounds for given (u,v)
 	vec2 N_u = compute_N_min_max(u);
@@ -383,7 +384,7 @@ void main() {
 
 	// only specular contribution within epsilon range: i.e. fixed number of lambdas
 	if(abs(u) < eps && abs(v) < eps){
-		for(int iter = 0; iter < 16; iter++){
+		for(int iter = 0; iter < 0; iter++){
 			float lambda_iter = fixed_lambdas[iter]*pow(10.0,-9.0);
 			k = 2.0*PI / lambda_iter;
 			vec2 coords = vec2((k*modUV.x/Omega) + bias, (k*modUV.y/Omega) + bias); //2d
@@ -421,7 +422,7 @@ void main() {
 			
 			for(float iter = lower; iter <= upper; iter++){
 				
-//				if(iter == 0.0) continue;
+				if(iter == 0.0) continue;
 				lambda_iter = (dx*t)/iter;
 				k = 2.0*PI / lambda_iter;
 				vec2 coords = vec2((k*modUV.x/Omega) + bias, (k*modUV.y/Omega) + bias); //2d
@@ -450,12 +451,12 @@ void main() {
 	
 //	brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
 
-	float fac2 = 1.0 / 3000.0;
+	float fac2 = 1.0 / 5000.0;
 	brdf.xyz = M_Adobe_XR*brdf.xyz;
 	
 	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 	
-	float ambient = 0.0;
+	float ambient = 0.1;
 
 	if(brdf.x < 0.0 ) brdf.x = 0.0;
 	if(brdf.y < 0.0 ) brdf.y = 0.0;
@@ -467,7 +468,7 @@ void main() {
 //	float n222 = 1.0/0.0;
 	
 
-	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) col = vec4(1.0, 0.0, 0.0, 1.0);
+	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) col = vec4(0.0, 1.0, 0.0, 1.0);
 	else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) col = vec4(0.0, 1.0, 0.0, 1.0);
 	else col = brdf+vec4(ambient,ambient,ambient,0.0);
 //	else col = vec4(ambient,ambient,ambient,0.0);

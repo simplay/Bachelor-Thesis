@@ -158,12 +158,14 @@ public class Camera {
 		// x-axis:
 		Vector3f tmpXC = new Vector3f(0.0f, 0.0f, 0.0f);
 		tmpXC.cross(up, tmpZC);
+//		tmpXC.cross(tmpZC, up);
 		tmpXC.normalize();
 		Vector4f XC = new Vector4f(tmpXC);
 		
 		// y-axis:
 		Vector3f tmpYC = new Vector3f(0.0f, 0.0f, 0.0f);
 		tmpYC.cross(tmpZC, tmpXC);
+		tmpYC.normalize();
 		Vector4f YC = new Vector4f(tmpYC);
 	
 		tmpCamera.setColumn(0, XC);
