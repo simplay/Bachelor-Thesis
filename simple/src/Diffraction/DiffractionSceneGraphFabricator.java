@@ -541,9 +541,9 @@ public class DiffractionSceneGraphFabricator {
 //		DiffractionDice6 diffDiceObj = new DiffractionDice6(480, 100, trackDistance);
 		
 		
-		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(300,2.0f,0.15f);
+//		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(300,2.0f,0.15f);
 		
-//		DiffractionCylinder diffPlaneObj = new DiffractionCylinder(1.0f,1.0f, 600, 200);
+		DiffractionCylinder diffPlaneObj = new DiffractionCylinder(1.0f,1.0f, 600, 200);
 		
 		diffDice = new Shape(diffDiceObj.getVertices());
 		diffPlane = new Shape(diffPlaneObj.getVertices());
@@ -694,6 +694,10 @@ public class DiffractionSceneGraphFabricator {
 	
 	public Matrix4f getDiffDiceIMat(){
 		return this.diffDiceIMat;
+	}
+	
+	public Matrix4f getDiffPlane(){
+		return this.diffPlaneIMat;
 	}
 	
 	public LightNode getLight(){

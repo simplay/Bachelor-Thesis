@@ -65,7 +65,7 @@ const float N_2 = 100.0; // number of pixels padded patch - see matlab
 const float t_0 = dx / N_1;
 const float T_1 = t_0 * N_1;
 const float T_2 = t_0 * N_1;
-const float periods = 10.0-1.0; // 26 // number of patch periods along surface
+const float periods = 26.0-1.0; // 26 // number of patch periods along surface
 const float Omega = ((N_1/N_2)*2.0*PI)/t_0; // (N_1/N_2)*2*PI/t_0, before 8.0*PI*pow(10.0,7.0);
 const float bias = (N_2/2.0)/(N_2-1.0); // old: 50.0/99.0;
 
@@ -326,25 +326,25 @@ void main() {
     vec3 B = normalize((modelview*vec4(binormal,0.0)).xyz);
     
 	// directional light source
-	vec3 Pos = (modelview*position).xyz; // point in camera space
-	vec4 lightDir = (modelview*directionArray[0]); // light direction in camera space
+	vec3 Pos = (modelview*( vec4(cop_w,1.0)-position)).xyz; // point in camera space
+	vec4 lightDir = modelview*(directionArray[0]); // light direction in camera space
 	
 	
 	lightDir.x = dot(lightDir.xyz, T);
 	lightDir.y = dot(lightDir.xyz, B);
 	lightDir.z = dot(lightDir.xyz, N);
-	
+
 	Pos.x = dot(Pos, T);
 	Pos.y = dot(Pos, B);
 	Pos.z = dot(Pos, N);
 	
 	
-	vec3 _k2 = normalize(-Pos); //vector from point P to camera
+	vec3 _k2 = normalize(Pos); //vector from point P to camera
 	vec3 _k1 = normalize(lightDir.xyz); // light direction, same for every point	
 	
 	vec3 V = _k1 - _k2;
-//	float u = V.x; float v = V.y; float w = V.z;
-	float u = 0.6; float v = 0.4; float w = 0.5;
+	float u = V.x; float v = V.y; float w = V.z;
+//	float u = 0.6; float v = 0.4; float w = 0.5;
 	
 	
 	// normal and tangent vector in camera coordinates
@@ -358,8 +358,8 @@ void main() {
 	// compute Fresnel and Gemometric Factor
 	float F = getFressnelFactor(_k1, _k2);
 	float G = computeGFactor(camNormal, _k1, _k2);
-//F = 1.0;
-//G = 1.0;
+F = 1.0;
+G = 1.0;
 	
 	// get iteration bounds for given (u,v)
 	vec2 N_u = compute_N_min_max(u);
@@ -445,7 +445,7 @@ void main() {
 	
 	fac2 = 2.7 / 1.0;
 	//fac2 = 1.7 / 2.0; // plane shape 1m
-	fac2 = 6.7 / 8000.0;
+	fac2 = 30.7 / 38000.0;
 	brdf.xyz = M_Adobe_XR*brdf.xyz;
 	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 //	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.2);
@@ -458,14 +458,14 @@ void main() {
 	brdf.w = 1.0;
 	
 	
-	float n111 = 1.0/0.0;
-	float n222 = 1.0/0.0;
+//	float n111 = 1.0/0.0;
+//	float n222 = 1.0/0.0;
 	
 //	if(brdf.x == 0.0 && brdf.y == 0.0 && brdf.z == 0.0) col = vec4(1.0, 0.0, 0.0, 1.0);
-	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) col = vec4(1.0, 0.0, 1.0, 1.0);
+	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) col = vec4(1.0, 0.0, 0.0, 1.0);
 	else col = brdf+vec4(ambient,ambient,ambient,0.0);
 	
-	
+//	col = vec4(0.0, 1.0, 0.0, 1.0);
 	
 	
 	// test for error - debug mode

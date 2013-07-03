@@ -2,6 +2,8 @@ package Diffraction;
 
 import java.util.TimerTask;
 
+import javax.vecmath.Matrix4f;
+
 import jrtr.RenderPanel;
 
 public class DiffractionAnimationTask extends TimerTask{
@@ -18,7 +20,7 @@ public class DiffractionAnimationTask extends TimerTask{
 	
 	@Override
 	public void run() {
-//		Matrix4f currentDiffDiceMat = new Matrix4f(dsgf.getDiffDiceIMat());
+//		Matrix4f currentDiffDiceMat = new Matrix4f(dsgf.getDiffPlane());
 //		currentDiffDiceMat.mul(dsgf.calculateDiffDiceGroup(phi));
 //		dsgf.getDiffDiceGroup().setTransformationMatrix(currentDiffDiceMat);
 //		
