@@ -48,16 +48,18 @@ const float CERATIN = 1.6;
 const float SMOOTH = 2.5;
 
 // wave constants
-const float lambda_min = 390.0*pow(10.0, -9.0);
+const float l_min = 390.0;
+const float l_max = 700.0;
+const float lambda_min = l_min*pow(10.0, -9.0);
 const float rescale = pow(10.0, 9.0);
-const float lambda_max = 700.0*pow(10.0, -9.0);
+const float lambda_max = l_max*pow(10.0, -9.0);
 const float dx = 2.5*pow(10.0, -6.0); // -6 // distance between two patches (from center to center)
 const float s = 2.4623*pow(10,-7.0); // -7 // max height of a bump
 
 // error constants
 const float eps_pq = 1.0*pow(10.0, -5.0); 
-const float eps = 1.0*pow(10.0, -5.0);
-const float tolerance = 0.9999999; 
+const float eps = 1.0*pow(10.0, -4.0);
+const float tolerance = 0.999999; 
 
 // period constants
 const float N_1 = 100.0; // number of pixels of downsized patch 
@@ -96,9 +98,14 @@ const float[16] fixed_lambdas = float[](
 // FUNCTIONS
 
 // gamma correction
+// (brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.2);
 vec3 getGammaCorrection(vec3 rgb, float t, float f, float s, float gamma){
-	float q = (1+f);
-	return vec3(q*pow(rgb.x,gamma)-f, q*pow(rgb.y,gamma)-f, q*pow(rgb.z,gamma)-f );
+	float q = (1.0+f);
+//	return vec3(q*pow(rgb.x,gamma)-f, q*pow(rgb.y,gamma)-f, q*pow(rgb.z,gamma) -f );
+	float a = 1.0/2.2;
+//	return vec3(pow(rgb.y, a), pow(rgb.y, a), pow(rgb.y, a) );
+	
+	return q*pow(rgb, vec3(gamma));
 }
 
 
@@ -133,7 +140,7 @@ float get_q_factor(float w_i, float T_i, float N_i){
 vec2 getRotation(float u, float v, float phi){
 	float uu = u*cos(phi) - v*sin(phi);
 	float vv = u*sin(phi) + v*cos(phi);
-	return vec2(uu, vv);
+	return vec2(u, v);
 }
 
 
@@ -160,8 +167,6 @@ float getFactor(float k, float F, float G, float w){
 	
 	float kk_ww = (k*k)/(w*w);
 	return kk_ww*(F*F*G)/(4.0*PI*PI*A);
-//	if(abs(w) < 0.2 || k < eps) return 1.0;
-//	else return (k*k*F*F*G)/(4.0*PI*PI*w*w*A);
 }
 
 
@@ -209,8 +214,8 @@ vec3 avgWeighted_XYZ_weight(float lambda){
 	// (L_b-L)f(L_b) + (L-L_a)f(L_a)
 	
 	// find index by wavelength
-	int index_a = int(lambda_a - 390.0);
-	int index_b = int(lambda_b - 390.0);
+	int index_a = int(lambda_a - l_min);
+	int index_b = int(lambda_b - l_min);
 	float weight_b = (lambda_b - lambda*rescale);
 	float weight_a = (lambda*rescale - lambda_a);
 	
@@ -320,37 +325,42 @@ void main() {
 	float t = 0.0;
 	
 
-    vec3 binormal = normalize(cross(normal, tangent));
-    vec3 N = normalize((modelview*vec4(normal,0.0)).xyz);
-    vec3 T = normalize((modelview*vec4(tangent,0.0)).xyz);
-    vec3 B = normalize((modelview*vec4(binormal,0.0)).xyz);
+    vec3 N = normalize(modelview*vec4(normal,0.0)).xyz;
+    vec3 T = normalize(modelview*vec4(tangent,0.0)).xyz;
+    vec3 B = normalize(cross(N, T));
+    
+    vec4 cop_new = vec4(0.1, 0.0, 12.0, 1.0);
     
 	// directional light source
-	vec3 Pos = (modelview*( vec4(cop_w,1.0)-position)).xyz; // point in camera space
+	vec3 Pos =  (modelview*(cop_new-position)).xyz; // point in camera space
 	vec4 lightDir = modelview*(directionArray[0]); // light direction in camera space
+	lightDir = normalize(lightDir);
 	
-	
-	lightDir.x = dot(lightDir.xyz, T);
+	// light direction: from camera space to tangent space
+	lightDir.x = dot(lightDir.xyz, T); 
 	lightDir.y = dot(lightDir.xyz, B);
 	lightDir.z = dot(lightDir.xyz, N);
-
+	
+	// position: from camera space to tangent space
 	Pos.x = dot(Pos, T);
 	Pos.y = dot(Pos, B);
 	Pos.z = dot(Pos, N);
-	
 	
 	vec3 _k2 = normalize(Pos); //vector from point P to camera
 	vec3 _k1 = normalize(lightDir.xyz); // light direction, same for every point	
 	
 	vec3 V = _k1 - _k2;
 	float u = V.x; float v = V.y; float w = V.z;
-//	float u = 0.6; float v = 0.4; float w = 0.5;
+//	float u = 0.6; float v = 0.4; float w = 0.52;
 	
 	
 	// normal and tangent vector in camera coordinates
-	vec3 camNormal = normalize((vec3(normal)).xyz);
-
 	
+	vec3 camNormal = vec3(0.0);
+	camNormal.x = dot(N, T);
+	camNormal.y = dot(N, B);
+	camNormal.z = dot(N, N);
+	camNormal = normalize((vec3(N)).xyz);
 	// compute vector-field rotation
 	float phi = computeRotationAngle(vec3(tangent.xyz));
 	phi = 0.0;
@@ -358,8 +368,8 @@ void main() {
 	// compute Fresnel and Gemometric Factor
 	float F = getFressnelFactor(_k1, _k2);
 	float G = computeGFactor(camNormal, _k1, _k2);
-F = 1.0;
-G = 1.0;
+//F = 1.0;
+//G = 1.0;
 	
 	// get iteration bounds for given (u,v)
 	vec2 N_u = compute_N_min_max(u);
@@ -373,7 +383,7 @@ G = 1.0;
 
 	// only specular contribution within epsilon range: i.e. fixed number of lambdas
 	if(abs(u) < eps && abs(v) < eps){
-		for(int iter = 0; iter < 0; iter++){
+		for(int iter = 0; iter < 16; iter++){
 			float lambda_iter = fixed_lambdas[iter]*pow(10.0,-9.0);
 			k = 2.0*PI / lambda_iter;
 			vec2 coords = vec2((k*modUV.x/Omega) + bias, (k*modUV.y/Omega) + bias); //2d
@@ -411,7 +421,7 @@ G = 1.0;
 			
 			for(float iter = lower; iter <= upper; iter++){
 				
-				if(iter == 0.0) continue;
+//				if(iter == 0.0) continue;
 				lambda_iter = (dx*t)/iter;
 				k = 2.0*PI / lambda_iter;
 				vec2 coords = vec2((k*modUV.x/Omega) + bias, (k*modUV.y/Omega) + bias); //2d
@@ -439,17 +449,12 @@ G = 1.0;
 	
 	
 //	brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
-	
-	
-	float fac2 = 100.0 / 70000.0;
-	
-	fac2 = 2.7 / 1.0;
-	//fac2 = 1.7 / 2.0; // plane shape 1m
-	fac2 = 30.7 / 38000.0;
-	brdf.xyz = M_Adobe_XR*brdf.xyz;
-	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
-//	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.2);
 
+	float fac2 = 1.0 / 3000.0;
+	brdf.xyz = M_Adobe_XR*brdf.xyz;
+	
+	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
+	
 	float ambient = 0.0;
 
 	if(brdf.x < 0.0 ) brdf.x = 0.0;
@@ -457,22 +462,17 @@ G = 1.0;
 	if(brdf.z < 0.0 ) brdf.z = 0.0;
 	brdf.w = 1.0;
 	
-	
+	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.2);
 //	float n111 = 1.0/0.0;
 //	float n222 = 1.0/0.0;
 	
-//	if(brdf.x == 0.0 && brdf.y == 0.0 && brdf.z == 0.0) col = vec4(1.0, 0.0, 0.0, 1.0);
+
 	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) col = vec4(1.0, 0.0, 0.0, 1.0);
+	else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) col = vec4(0.0, 1.0, 0.0, 1.0);
 	else col = brdf+vec4(ambient,ambient,ambient,0.0);
-	
+//	else col = vec4(ambient,ambient,ambient,0.0);
 //	col = vec4(0.0, 1.0, 0.0, 1.0);
-	
-	
-	// test for error - debug mode
-	//if(brdf.x < 0.0 || brdf.y < 0.0 || brdf.z < 0.0) col = vec4(1.0, 0.0, 0.0, 1.0);
-	//else 
 		
-	
 
 	frag_texcoord = texcoord;
 	gl_Position = projection * modelview * position;
