@@ -523,7 +523,7 @@ public class DiffractionSceneGraphFabricator {
 	private void setUpLight(){
 		Vector3f radiance = new Vector3f(1,1,1); 
 		
-		Vector4f lightDirection = new Vector4f(0.1f, 0.0f, (float) -Math.sqrt(0.99f), 0);  //directional light source
+		Vector4f lightDirection = new Vector4f(0.1f, 0.0f, (float) -Math.sqrt(0.99f), 0.0f);  //directional light source
 //		lightDirection = new Vector4f(0, 0, 10, 1);  //directional light source
 		lightSource1 = new Light(radiance, lightDirection, "source1");
 		LightNode diceLightNode = new LightNode(lightSource1, sceneManager.getCamera().getCameraMatrix(), "light source1");

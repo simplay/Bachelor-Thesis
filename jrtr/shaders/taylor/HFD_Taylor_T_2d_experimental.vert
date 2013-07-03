@@ -321,54 +321,45 @@ void main() {
 	
 
     vec3 binormal = normalize(cross(normal, tangent));
-    vec3 N = normalize(modelview*vec4(normal,0.0)).xyz;
-    vec3 T = normalize(modelview*vec4(tangent,0.0)).xyz;
-    vec3 B = normalize(modelview*vec4(binormal,0.0)).xyz;
+    vec3 N = normalize((modelview*vec4(normal,0.0)).xyz);
+    vec3 T = normalize((modelview*vec4(tangent,0.0)).xyz);
+    vec3 B = normalize((modelview*vec4(binormal,0.0)).xyz);
     
-    
- // transform light and half angle vectors by tangent basis
-
-	
 	// directional light source
 	vec3 Pos = (modelview*position).xyz; // point in camera space
-	vec4 lightDir = modelview*(directionArray[0]); // light direction in camera space
+	vec4 lightDir = (modelview*directionArray[0]); // light direction in camera space
+	
+	
+	lightDir.x = dot(lightDir.xyz, T);
+	lightDir.y = dot(lightDir.xyz, B);
+	lightDir.z = dot(lightDir.xyz, N);
+	
+	Pos.x = dot(Pos, T);
+	Pos.y = dot(Pos, B);
+	Pos.z = dot(Pos, N);
+	
+	
 	vec3 _k2 = normalize(-Pos); //vector from point P to camera
-	vec3 _k1 = normalize(lightDir.xyz); // light direction, same for every point
-	
-	mat3 TRANSFORM = mat3(N,T,B);
-	
- 	vec3 _k1_ts;
- 	_k1_ts.x = dot(_k1, T);
- 	_k1_ts.y = dot(_k1, B);
- 	_k1_ts.z = dot(_k1, N);
- 	_k1_ts = normalize (_k1_ts);
- 	
- 	vec3 _k2_ts;
- 	_k2_ts.x = dot(_k2, T);
- 	_k2_ts.y = dot(_k2, B);
- 	_k2_ts.z = dot(_k2, N);
- 	_k2_ts = normalize (_k2_ts);
-	
- 	_k1 = _k1_ts;
- 	_k2 = _k2_ts;		
+	vec3 _k1 = normalize(lightDir.xyz); // light direction, same for every point	
 	
 	vec3 V = _k1 - _k2;
-	float u = V.x; float v = V.y; float w = V.z;
+//	float u = V.x; float v = V.y; float w = V.z;
+	float u = 0.6; float v = 0.4; float w = 0.5;
 	
 	
 	// normal and tangent vector in camera coordinates
-	vec3 camNormal = normalize((TRANSFORM*vec3(normal)).xyz);
+	vec3 camNormal = normalize((vec3(normal)).xyz);
 
 	
 	// compute vector-field rotation
 	float phi = computeRotationAngle(vec3(tangent.xyz));
-			
+	phi = 0.0;
 	
 	// compute Fresnel and Gemometric Factor
 	float F = getFressnelFactor(_k1, _k2);
 	float G = computeGFactor(camNormal, _k1, _k2);
 //F = 1.0;
-
+//G = 1.0;
 	
 	// get iteration bounds for given (u,v)
 	vec2 N_u = compute_N_min_max(u);
@@ -439,36 +430,48 @@ void main() {
 				float diffractionCoeff = getFactor(k, F, G, w);
 				vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
 				brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 1.0);
+				
 				maxBRDF += vec4(diffractionCoeff * brdfMax * waveColor, 1.0);
 			}
 		}
 	}
 
 	
-	brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
+	
+//	brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
 	
 	
 	float fac2 = 100.0 / 70000.0;
 	
 	fac2 = 2.7 / 1.0;
 	//fac2 = 1.7 / 2.0; // plane shape 1m
-	fac2 = 6.7 / 3.0;
+	fac2 = 6.7 / 8000.0;
 	brdf.xyz = M_Adobe_XR*brdf.xyz;
 	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
-	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.2);
+//	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.2);
 
-	float ambient = 0.1;
+	float ambient = 0.0;
 
 	if(brdf.x < 0.0 ) brdf.x = 0.0;
 	if(brdf.y < 0.0 ) brdf.y = 0.0;
 	if(brdf.z < 0.0 ) brdf.z = 0.0;
 	brdf.w = 1.0;
 	
-	if(brdf.x == 0.0 && brdf.y == 0.0 && brdf.z == 0.0) col = vec4(1.0, 0.0, 0.0, 1.0);
+	
+	float n111 = 1.0/0.0;
+	float n222 = 1.0/0.0;
+	
+//	if(brdf.x == 0.0 && brdf.y == 0.0 && brdf.z == 0.0) col = vec4(1.0, 0.0, 0.0, 1.0);
+	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) col = vec4(1.0, 0.0, 1.0, 1.0);
+	else col = brdf+vec4(ambient,ambient,ambient,0.0);
+	
+	
+	
 	
 	// test for error - debug mode
-	if(brdf.x < 0.0 || brdf.y < 0.0 || brdf.z < 0.0) col = vec4(1.0, 0.0, 0.0, 1.0);
-	else col = vec4(brdf.xyz, 1.0)+vec4(ambient,ambient,ambient,0.0);
+	//if(brdf.x < 0.0 || brdf.y < 0.0 || brdf.z < 0.0) col = vec4(1.0, 0.0, 0.0, 1.0);
+	//else 
+		
 	
 
 	frag_texcoord = texcoord;
