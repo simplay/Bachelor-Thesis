@@ -20,6 +20,7 @@ import jrtr.Shader;
 import jrtr.Shape;
 import jrtr.Texture;
 import Constants.ShaderPaths;
+import Constants.ShaderTaskNr;
 import Materials.Material;
 import ReadObjects.VertexFaceData;
 import SceneGraph.GraphSceneManager;
@@ -56,7 +57,7 @@ public class DiffractionSceneGraphFabricator {
 	// grid 9
 	// taylor 10
 	// experimental: adaptive taylor series 11
-	private int version = 11;
+	private ShaderTaskNr shaderTask = ShaderTaskNr.EXPERIMENTAL;
 
 	private boolean isPlane = true;
 	private boolean isSnake = false && !isPlane;
@@ -73,13 +74,13 @@ public class DiffractionSceneGraphFabricator {
 	
 	private void setUpShaderTask(){
 
-		if(version == 9){
+		if(shaderTask == ShaderTaskNr.GRID){
 			activeShaderTask = new MultiTexturesTAShaderTask();
-		}else if(version == 10){
+		}else if(shaderTask == ShaderTaskNr.TAYLOR){
 			activeShaderTask = new MultiTexturesTaylorShaderTask();
-		}else if(version == 11){
+		}else if(shaderTask == ShaderTaskNr.EXPERIMENTAL){
 			activeShaderTask = new ExpTaylorShaderTask();
-		}else if(version == 4){
+		}else if(shaderTask == ShaderTaskNr.STAM){
 		    activeShaderTask = new DiffractionShaderTask();
 		}
 	}
@@ -94,30 +95,30 @@ public class DiffractionSceneGraphFabricator {
 		
 		
 		mat.setLayerCount(108);
-		if(version == 10 || version == 11) mat.setLayerCount(62);
+		if(shaderTask == ShaderTaskNr.TAYLOR || shaderTask == ShaderTaskNr.EXPERIMENTAL) mat.setLayerCount(62);
 		
 		Shader shader = renderContext.makeShader();
 		try {
 			
-			if(version==1){
+			if(shaderTask==ShaderTaskNr.ELSE){
 	
-			}else if(version == 4){
+			}else if(shaderTask == ShaderTaskNr.STAM){
 				shader.load(ShaderPaths.stamVert.toString(), ShaderPaths.stamFrag.toString());
 					
-			}else if(version == 9){
+			}else if(shaderTask == ShaderTaskNr.GRID){
 				shader.load(ShaderPaths.grid_1d_Vert.toString(), ShaderPaths.grid_1d_Frag.toString());
 //				shader.load(ShaderPaths.grid_1d_Vert.toString(), ShaderPaths.grid_1d_Frag.toString());
 				//shader.load(ShaderPaths.grid_2d_Vert.toString(), ShaderPaths.grid_2d_Frag.toString());
 //				shader.load(ShaderPaths.grid_T_1dVert.toString(), ShaderPaths.grid_T_1dFrag.toString());
 //				shader.load(ShaderPaths.grid_T_2dVert.toString(), ShaderPaths.grid_T_2dFrag.toString());
-			}else if(version == 10){
+			}else if(shaderTask == ShaderTaskNr.TAYLOR){
 				
 //				shader.load(ShaderPaths.taylor_1d_Vert.toString(), ShaderPaths.taylor_1d_Frag.toString());
 //				shader.load(ShaderPaths.taylor_2d_Vert.toString(), ShaderPaths.taylor_2d_Frag.toString());
 //				shader.load(ShaderPaths.taylor_T_1d_Vert.toString(), ShaderPaths.taylor_T_1d_Frag.toString());
 				shader.load(ShaderPaths.taylor_T_2d_Vert.toString(), ShaderPaths.taylor_T_2d_Frag.toString());
 				
-			}else if(version == 11){
+			}else if(shaderTask == ShaderTaskNr.EXPERIMENTAL){
 				shader.load(ShaderPaths.expTaylor_2d_Vert.toString(), ShaderPaths.expTaylor_2d_Frag.toString());
 //				shader.load(ShaderPaths.defaultVert.toString(), ShaderPaths.defaultFrag.toString());
 			}
@@ -126,7 +127,7 @@ public class DiffractionSceneGraphFabricator {
 		} catch (Exception e) {}
 		
 		mat.setShader(shader);
-		pcdm = new PreCompDataManager(renderContext, version, mat);
+		pcdm = new PreCompDataManager(renderContext, shaderTask.getValue(), mat);
 		
 
 	}

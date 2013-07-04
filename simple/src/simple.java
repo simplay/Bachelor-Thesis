@@ -22,7 +22,7 @@ import Simulator.SimulationFabricator;
 
 public class simple{	
 	static boolean simulate = false;
-	static int shaderFlag = ShaderTaskNr.simpleToon.getValue();
+//	static int shaderFlag = ShaderTaskNr.simpleToon.getValue();
 	static RenderPanel renderPanel;
 	static RenderPanel renderPanel2;
 	static RenderContext renderContext;
