@@ -92,44 +92,11 @@ public class DiffractionSceneGraphFabricator {
 		mat.setAmbientCoefficient(new Vector3f(0.0f, 0.0f, 1.0f));
 		mat.setPhongExponent(64f);
 		mat.setTrackDistance(trackDistance);
-		
-		
 		mat.setLayerCount(108);
 		if(shaderTask == ShaderTaskNr.TAYLOR || shaderTask == ShaderTaskNr.EXPERIMENTAL) mat.setLayerCount(62);
-		
-		Shader shader = renderContext.makeShader();
-		try {
-			
-			if(shaderTask==ShaderTaskNr.ELSE){
-	
-			}else if(shaderTask == ShaderTaskNr.STAM){
-				shader.load(ShaderPaths.stamVert.toString(), ShaderPaths.stamFrag.toString());
-					
-			}else if(shaderTask == ShaderTaskNr.GRID){
-				shader.load(ShaderPaths.grid_1d_Vert.toString(), ShaderPaths.grid_1d_Frag.toString());
-//				shader.load(ShaderPaths.grid_1d_Vert.toString(), ShaderPaths.grid_1d_Frag.toString());
-				//shader.load(ShaderPaths.grid_2d_Vert.toString(), ShaderPaths.grid_2d_Frag.toString());
-//				shader.load(ShaderPaths.grid_T_1dVert.toString(), ShaderPaths.grid_T_1dFrag.toString());
-//				shader.load(ShaderPaths.grid_T_2dVert.toString(), ShaderPaths.grid_T_2dFrag.toString());
-			}else if(shaderTask == ShaderTaskNr.TAYLOR){
-				
-//				shader.load(ShaderPaths.taylor_1d_Vert.toString(), ShaderPaths.taylor_1d_Frag.toString());
-//				shader.load(ShaderPaths.taylor_2d_Vert.toString(), ShaderPaths.taylor_2d_Frag.toString());
-//				shader.load(ShaderPaths.taylor_T_1d_Vert.toString(), ShaderPaths.taylor_T_1d_Frag.toString());
-				shader.load(ShaderPaths.taylor_T_2d_Vert.toString(), ShaderPaths.taylor_T_2d_Frag.toString());
-				
-			}else if(shaderTask == ShaderTaskNr.EXPERIMENTAL){
-				shader.load(ShaderPaths.expTaylor_2d_Vert.toString(), ShaderPaths.expTaylor_2d_Frag.toString());
-//				shader.load(ShaderPaths.defaultVert.toString(), ShaderPaths.defaultFrag.toString());
-			}
-			
-
-		} catch (Exception e) {}
-		
-		mat.setShader(shader);
+		ShaderTaskSetupManager stm = new ShaderTaskSetupManager(renderContext, mat, shaderTask);		
+		mat.setShader(stm.getShader());
 		pcdm = new PreCompDataManager(renderContext, shaderTask.getValue(), mat);
-		
-
 	}
 	
 	
@@ -137,7 +104,6 @@ public class DiffractionSceneGraphFabricator {
 	
 	private void setUpLight(){
 		Vector3f radiance = new Vector3f(1,1,1); 
-		
 		Vector4f lightDirection = new Vector4f(-0.1f, 0.0f, (float) -Math.sqrt(0.99f), 0.0f);  //directional light source
 //		lightDirection = new Vector4f(0, 0, 10, 1);  //directional light source
 		lightSource1 = new Light(radiance, lightDirection, "source1");
