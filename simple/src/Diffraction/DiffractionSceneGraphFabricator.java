@@ -61,7 +61,7 @@ public class DiffractionSceneGraphFabricator {
 	
 	
 	private boolean hasVectorfield = true;
-	private boolean isPlane = false;
+	private boolean isPlane = true;
 	private boolean isSnake = false && !isPlane;
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
 		this.sceneManager = sceneManager;
@@ -541,9 +541,9 @@ public class DiffractionSceneGraphFabricator {
 //		DiffractionDice6 diffDiceObj = new DiffractionDice6(480, 100, trackDistance);
 		
 		
-//		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(300,2.0f,0.15f);
+		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(300,2.0f,0.15f);
 		
-		DiffractionCylinder diffPlaneObj = new DiffractionCylinder(1.0f,1.0f, 600, 600);
+//		DiffractionCylinder diffPlaneObj = new DiffractionCylinder(1.0f,1.0f, 600, 600);
 		
 		diffDice = new Shape(diffDiceObj.getVertices());
 		diffPlane = new Shape(diffPlaneObj.getVertices());
@@ -592,10 +592,11 @@ public class DiffractionSceneGraphFabricator {
 	}
 	
 	private void setUpCamera(boolean isFar){
+		Point3f cop = null;
 		float distance = 0.0f;
 		if(isPlane){
 
-			distance = 12.0f;
+			distance = 1.0f;
 
 			float aspectRatio = 1.0f;
 			float near = 0.0001f;
@@ -604,7 +605,7 @@ public class DiffractionSceneGraphFabricator {
 //			verticalFieldView = 120; // viewing angle
 			Vector3f up = new Vector3f(0, 1, 0); // camera height
 			Point3f look = new Point3f(0, 0, 0); // point camera looks at
-			Point3f cop = new Point3f(0.1f, 0.0f, distance); // camera distance
+			cop = new Point3f(0.1f, 0.0f, distance); // camera distance
 //			cop = new Point3f(0, 0, 1.00f); // camera distance
 			sceneManager.getFrustum().setParameter(aspectRatio, near, far, verticalFieldView);
 			sceneManager.getCamera().setParameter(cop, look, up);
@@ -619,7 +620,7 @@ public class DiffractionSceneGraphFabricator {
 //			verticalFieldView = 120; // viewing angle
 			Vector3f up = new Vector3f(0, 1, 0); // camera height
 			Point3f look = new Point3f(1, 0, 0); // point camera looks at
-			Point3f cop = new Point3f(0.1f, 0.0f, distance); // camera distance
+			cop = new Point3f(0.1f, 0.0f, distance); // camera distance
 //			cop = new Point3f(0, 0, 1.00f); // camera distance
 			sceneManager.getFrustum().setParameter(aspectRatio, near, far, verticalFieldView);
 			sceneManager.getCamera().setParameter(cop, look, up);
@@ -633,7 +634,7 @@ public class DiffractionSceneGraphFabricator {
 //			verticalFieldView = 120; // viewing angle
 			Vector3f up = new Vector3f(0, 1, 0); // camera height
 			Point3f look = new Point3f(0, 0, 0); // point camera looks at
-			Point3f cop = new Point3f(0, 0, distance); // camera distance
+			cop = new Point3f(0, 0, distance); // camera distance
 //			cop = new Point3f(0, 0, 1.00f); // camera distance
 			sceneManager.getFrustum().setParameter(aspectRatio, near, far, verticalFieldView);
 			sceneManager.getCamera().setParameter(cop, look, up);
@@ -668,7 +669,7 @@ public class DiffractionSceneGraphFabricator {
 //		ma.setRow(3, d);
 //		
 //		sceneManager.getCamera().setCameraMatrix(ma);
-		
+		mat.setCOP(cop);
 		
 	}
 	

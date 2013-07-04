@@ -4,8 +4,6 @@
 // which have been precalculated.
 // Michael Single
 
-// NB: find pq bug where u=0 and v != 0, along this line, always zero
-// NB: parameterize lambda_min, lambda_max
 // NB: find relative weighting s.t. no huge rescale fac2 is necessary anymore.
 // NB: Write better documentation.
 
@@ -21,7 +19,7 @@
 //variants of glUniform*
 uniform mat4 projection;
 uniform mat4 modelview;
-uniform vec3 cop_w;
+uniform vec4 cop_w;
 uniform vec3 radianceArray[MAX_LIGHTS];
 uniform vec3 brdf_weights[MAX_WEIGHTS];
 uniform vec4 directionArray[MAX_LIGHTS];
@@ -92,20 +90,19 @@ const float[16] fixed_lambdas = float[](
 	638.0000,  658.6667,  679.3333,  700.0000
 );
 
+const mat3 CIE_RGB = mat3(
+2.3706743, -0.9000405, -0.4706338,
+-0.5138850,  1.4253036,  0.0885814,
+0.0052982, -0.0146949,  1.009396);
 
 
 
 // FUNCTIONS
 
 // gamma correction
-// (brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.2);
 vec3 getGammaCorrection(vec3 rgb, float t, float f, float s, float gamma){
 	float q = (1.0+f);
-//	return vec3(q*pow(rgb.x,gamma)-f, q*pow(rgb.y,gamma)-f, q*pow(rgb.z,gamma) -f );
-	float a = 1.0/2.2;
-//	return vec3(pow(rgb.y, a), pow(rgb.y, a), pow(rgb.y, a) );
-	
-	return q*pow(rgb, vec3(gamma));
+	return q*pow(rgb, vec3(gamma))-f;
 }
 
 
@@ -323,16 +320,14 @@ void main() {
 	float brdfMax = pow((b-a),2.0)+pow((d-c),2.0);
 	float lambda_iter = 0.0;
 	float t = 0.0;
-	
+	float phi = -PI/2.0;
 
     vec3 N = normalize(vec4(normal,0.0)).xyz;
     vec3 T = normalize(vec4(tangent,0.0)).xyz;
     vec3 B = normalize(cross(N, T));
     
-    vec4 cop_new = vec4(0.1, 0.0, 12.0, 1.0);
-    
 	// directional light source
-	vec3 Pos =  ((cop_new-position)).xyz; // point in camera space
+	vec3 Pos =  ((cop_w-position)).xyz; // point in camera space
 	vec4 lightDir = (directionArray[0]); // light direction in camera space
 	lightDir = normalize(lightDir);
 	
@@ -340,51 +335,35 @@ void main() {
 	lightDir.x = dot(lightDir.xyz, T); 
 	lightDir.y = dot(lightDir.xyz, B);
 	lightDir.z = dot(lightDir.xyz, N);
-	lightDir.w = 0;
+	lightDir.w = 0.0;
+	
 	// position: from camera space to tangent space
 	Pos.x = dot(Pos, T);
 	Pos.y = dot(Pos, B);
 	Pos.z = dot(Pos, N);
 	
 	vec3 _k2 = normalize(Pos); //vector from point P to camera
-	vec3 _k1 = normalize(lightDir.xyz); // light direction, same for every point	
-	
-	
-	
+	vec3 _k1 = normalize(lightDir.xyz); // light direction, same for every point		
 	vec3 V = _k1 - _k2;
 	float u = V.x; float v = V.y; float w = V.z;
-//	float u = 0.5; float v = 0.5; float w = 0.52;
-	
 
 
-	// normal and tangent vector in camera coordinates
-	
-	vec3 camNormal = vec3(0.0);
-	camNormal.x = dot(N, T);
-	camNormal.y = dot(N, B);
-	camNormal.z = dot(N, N);
-	camNormal = normalize((vec3(N)).xyz);
 	// compute vector-field rotation
-	float phi = computeRotationAngle(vec3(tangent.xyz));
-	phi = -PI/2.0;
+	//	float phi = computeRotationAngle(vec3(tangent.xyz));
 	
 	// compute Fresnel and Gemometric Factor
 	float F = getFressnelFactor(_k1, _k2);
-	float G = computeGFactor(camNormal, _k1, _k2);
+	float G = computeGFactor(N, _k1, _k2);
 	
 	// get iteration bounds for given (u,v)
 	vec2 N_u = compute_N_min_max(u);
 	vec2 N_v = compute_N_min_max(v);
 	vec2 N_uv[2] = vec2[2](N_u, N_v);
-	
-
 	vec2 modUV = getRotation(u,v,-phi);
 	
-	
-
 	// only specular contribution within epsilon range: i.e. fixed number of lambdas
 	if(abs(u) < eps && abs(v) < eps){
-		for(int iter = 0; iter < 0; iter++){
+		for(int iter = 0; iter < 16; iter++){
 			float lambda_iter = fixed_lambdas[iter]*pow(10.0,-9.0);
 			k = 2.0*PI / lambda_iter;
 			vec2 coords = vec2((k*modUV.x/Omega) + bias, (k*modUV.y/Omega) + bias); //2d
@@ -406,13 +385,8 @@ void main() {
 			maxBRDF += vec4(diffractionCoeff * brdfMax * waveColor, 1.0);		
 		}
 	}else{
-
-		
 		// iterate twice: once for N_u and once for N_v lower,upper
 		for(int variant = 0; variant < 2; variant++){
-			
-			
-//			if(abs(v) > eps) continue;
 			
 			int lower = int(N_uv[variant].x);
 			int upper = int(N_uv[variant].y);
@@ -448,31 +422,29 @@ void main() {
 	}
 
 	
-	
+	// normalization - find a stabler approach
 //	brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
 
-	float fac2 = 1.0 / 5000.0;
-	brdf.xyz = M_Adobe_XR*brdf.xyz;
+	float fac2 = 1.0 / 4000.0;
+	brdf.xyz = CIE_RGB*brdf.xyz;
 	
 	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 	
-	float ambient = 0.1;
-
+	float ambient = 0.0;
+	
+	// remove negative values
 	if(brdf.x < 0.0 ) brdf.x = 0.0;
 	if(brdf.y < 0.0 ) brdf.y = 0.0;
 	if(brdf.z < 0.0 ) brdf.z = 0.0;
 	brdf.w = 1.0;
 	
 	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.2);
-//	float n111 = 1.0/0.0;
-//	float n222 = 1.0/0.0;
 	
-
-	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) col = vec4(0.0, 1.0, 0.0, 1.0);
+	// Debug mode
+	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) col = vec4(1.0, 0.0, 0.0, 1.0);
 	else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) col = vec4(0.0, 1.0, 0.0, 1.0);
 	else col = brdf+vec4(ambient,ambient,ambient,0.0);
 //	else col = vec4(ambient,ambient,ambient,0.0);
-//	col = vec4(0.0, 1.0, 0.0, 1.0);
 		
 
 	frag_texcoord = texcoord;

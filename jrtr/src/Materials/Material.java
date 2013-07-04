@@ -1,7 +1,10 @@
 package Materials;
 
 import java.io.IOException;
+
+import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
+import javax.vecmath.Vector4f;
 
 import jrtr.SWTexture;
 import jrtr.Shader;
@@ -28,7 +31,7 @@ public class Material {
 	private float[] globals;
 	private float[] kValues;
 	private float distanceToCamera;
-	
+	private Vector4f cop;
 	private float phongExponent;
 	private float trackDistance;
     private int layerCount;
@@ -38,7 +41,16 @@ public class Material {
 
     }
     
-    public float getDistanceToCamera(){
+    public void setCOP(Point3f cop){
+    	Vector4f tmpCOP = new Vector4f(cop.x, cop.y, cop.z, 1.0f); 
+    	this.cop = tmpCOP;
+    }
+    
+    public Vector4f getCOP(){
+    	return this.cop;
+    }
+    
+    public Point3f getDistanceToCamera(){
     	return this.getDistanceToCamera();
     }
     
