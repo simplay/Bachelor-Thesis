@@ -118,7 +118,7 @@ public class ObjReader {
 		long counter = 0;
 		for(Vertex v : vertices){
 			v.setNormal(normals.get((int) counter));
-			v.setTextureCoordinate(texCoords.get((int) counter));
+			//v.setTextureCoordinate(texCoords.get((int) counter));
 			counter++;
 		}
 		

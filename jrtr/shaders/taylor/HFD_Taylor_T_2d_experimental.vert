@@ -321,7 +321,7 @@ void main() {
 	float lambda_iter = 0.0;
 	float t = 0.0;
 	float phi = -PI/2.0;
-
+	phi = -PI/2.0;
     vec3 N = normalize(vec4(normal,0.0)).xyz;
     vec3 T = normalize(vec4(tangent,0.0)).xyz;
     vec3 B = normalize(cross(N, T));
@@ -425,8 +425,8 @@ void main() {
 	// normalization - find a stabler approach
 //	brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
 
-	float fac2 = 1.0 / 4000.0;
-	brdf.xyz = CIE_RGB*brdf.xyz;
+	float fac2 = 1.0 / 6000.0;
+	brdf.xyz = M_Adobe_XR*brdf.xyz;
 	
 	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 	

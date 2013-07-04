@@ -50,7 +50,7 @@ public class DiffractionSceneGraphFabricator {
 	private Light lightSource1;
 	private float trackDistance = 2.5f;
 	private TransformGroup rootGroup;
-	private String obj_file = "../models/teapot.obj";
+	private String obj_file = "../models/snake_test_piece.obj";
 	String extension = ".bmp";
 	// stam 4
 	// grid 9
@@ -62,7 +62,7 @@ public class DiffractionSceneGraphFabricator {
 	
 	private boolean hasVectorfield = true;
 	private boolean isPlane = false;
-	private boolean isSnake = false && !isPlane;
+	private boolean isSnake = true && !isPlane;
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
 		this.sceneManager = sceneManager;
 		this.renderContext = renderContext;
@@ -535,10 +535,11 @@ public class DiffractionSceneGraphFabricator {
 		// segment count = 45 seems to look enough smooth in order to represent
 		// a compact disc shape (i.e. dice)
 		// 45, 120, 240, 480
-//		DiffractionDice4 diffDiceObj = new DiffractionDice4(960, 25, trackDistance);
+//		DiffractionDiceSimple diffDiceObj = new DiffractionDiceSimple(960, 25, trackDistance);
 		
 		
-		DiffractionDice diffDiceObj = new DiffractionDice(1.0f, 0.2f, 900, 50);
+		DiffractionDice diffDiceObj = new DiffractionDice(1.20f, 0.15f, 900, 50);
+//		DiffractionSphere diffDiceObj = new DiffractionSphere(1.20f,3);
 		
 		
 		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(300,2.0f,0.15f);
@@ -626,7 +627,7 @@ public class DiffractionSceneGraphFabricator {
 			sceneManager.getCamera().setParameter(cop, look, up);
 	
 		}else{
-			distance = 1.0f;
+			distance = 0.1f;
 			float aspectRatio = 1.0f;
 			float near = 0.0001f;
 			float far = 5500.0f;
