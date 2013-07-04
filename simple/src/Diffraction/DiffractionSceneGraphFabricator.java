@@ -58,7 +58,7 @@ public class DiffractionSceneGraphFabricator {
 	// taylor 10
 	// experimental: adaptive taylor series 11
 	private ShaderTaskNr shaderTask = ShaderTaskNr.EXPERIMENTAL;
-
+	private boolean useSpecificCam = false;
 	private boolean isPlane = true;
 	private boolean isSnake = false && !isPlane;
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
@@ -147,20 +147,14 @@ public class DiffractionSceneGraphFabricator {
 			this.diffSnakeIMat = diffSnake.getTransformation();
 		}
 
-		
-		
-		
 		diffDice.setShaderTask(activeShaderTask);
 		diffDice.setMaterial(mat);
 		
 		diffPlane.setShaderTask(activeShaderTask);
 		diffPlane.setMaterial(mat);
 		
-
-		
 		this.diffDiceIMat = diffDice.getTransformation();	
 		this.diffPlaneIMat = diffPlane.getTransformation();
-
 	}
 	
 	private void setUpSceneGraph(){
@@ -177,18 +171,14 @@ public class DiffractionSceneGraphFabricator {
 		Point3f cop = null;
 		float distance = 0.0f;
 		if(isPlane){
-
 			distance = 1.0f;
-
 			float aspectRatio = 1.0f;
 			float near = 0.0001f;
 			float far = 5500.0f;
 			float verticalFieldView = 15.0f;
-//			verticalFieldView = 120; // viewing angle
 			Vector3f up = new Vector3f(0, 1, 0); // camera height
 			Point3f look = new Point3f(0, 0, 0); // point camera looks at
 			cop = new Point3f(0.1f, 0.0f, distance); // camera distance
-//			cop = new Point3f(0, 0, 1.00f); // camera distance
 			sceneManager.getFrustum().setParameter(aspectRatio, near, far, verticalFieldView);
 			sceneManager.getCamera().setParameter(cop, look, up);
 			
@@ -199,11 +189,9 @@ public class DiffractionSceneGraphFabricator {
 			float near = 0.0001f;
 			float far = 5500.0f;
 			float verticalFieldView = 20.0f;
-//			verticalFieldView = 120; // viewing angle
 			Vector3f up = new Vector3f(0, 1, 0); // camera height
 			Point3f look = new Point3f(1, 0, 0); // point camera looks at
 			cop = new Point3f(0.1f, 0.0f, distance); // camera distance
-//			cop = new Point3f(0, 0, 1.00f); // camera distance
 			sceneManager.getFrustum().setParameter(aspectRatio, near, far, verticalFieldView);
 			sceneManager.getCamera().setParameter(cop, look, up);
 	
@@ -213,11 +201,9 @@ public class DiffractionSceneGraphFabricator {
 			float near = 0.0001f;
 			float far = 5500.0f;
 			float verticalFieldView = 30f;
-//			verticalFieldView = 120; // viewing angle
 			Vector3f up = new Vector3f(0, 1, 0); // camera height
 			Point3f look = new Point3f(0, 0, 0); // point camera looks at
 			cop = new Point3f(0, 0, distance); // camera distance
-//			cop = new Point3f(0, 0, 1.00f); // camera distance
 			sceneManager.getFrustum().setParameter(aspectRatio, near, far, verticalFieldView);
 			sceneManager.getCamera().setParameter(cop, look, up);
 			
@@ -230,29 +216,28 @@ public class DiffractionSceneGraphFabricator {
 			ma.setRow(0, a);
 			ma.setRow(1, b);
 			ma.setRow(2, c);
-			ma.setRow(3, d);
-			
-			mat.setDistanceToCamera(distance);
-			
+			ma.setRow(3, d);	
+			mat.setDistanceToCamera(distance);	
 			sceneManager.getCamera().setCameraMatrix(ma);
 		}
 		
-
-		
-		
-//		Matrix4f ma = new Matrix4f();
-//		float[] a = {0.94874644f, 0.25298318f, -0.18942694f, 0.13349566f};
-//		float[] b = {-0.049736004f, 0.7114186f, 0.7010073f, 0.32658237f};
-//		float[] c = {0.31210417f, -0.6556542f, 0.6875345f, -10.968632f};
-//		float[] d = {0.0f, 0.0f, 0.0f, 1.0f};
-//		ma.setRow(0, a);
-//		ma.setRow(1, b);
-//		ma.setRow(2, c);
-//		ma.setRow(3, d);
-//		
-//		sceneManager.getCamera().setCameraMatrix(ma);
+		if(useSpecificCam) setSpecificCam();
 		mat.setCOP(cop);
 		
+	}
+	
+	private void setSpecificCam(){
+		Matrix4f ma = new Matrix4f();
+		float[] a = {0.94874644f, 0.25298318f, -0.18942694f, 0.13349566f};
+		float[] b = {-0.049736004f, 0.7114186f, 0.7010073f, 0.32658237f};
+		float[] c = {0.31210417f, -0.6556542f, 0.6875345f, -10.968632f};
+		float[] d = {0.0f, 0.0f, 0.0f, 1.0f};
+		ma.setRow(0, a);
+		ma.setRow(1, b);
+		ma.setRow(2, c);
+		ma.setRow(3, d);
+		
+		sceneManager.getCamera().setCameraMatrix(ma);
 	}
 	
 	public INode getRoot(){
@@ -294,19 +279,5 @@ public class DiffractionSceneGraphFabricator {
 		}
 		return answer;
 	}
-//	
-//	public void updateRootLight(LightNode light){
-//		ArrayList<INode> nodes = rootGroup.getChildren();
-//		for(INode node : nodes){
-//			if(node instanceof LightNode){
-//				Light tagetLightSource = ((LightNode) node).getLightSource();
-//				Vector4f newLightDir = light.getLightSource().getLightDirection();
-//				tagetLightSource.setLightDirection(newLightDir);
-//				break;
-//			}
-//		}
-//	}
-	
-	
 	
 }
