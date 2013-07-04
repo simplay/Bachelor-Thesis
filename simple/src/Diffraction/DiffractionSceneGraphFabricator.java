@@ -61,7 +61,7 @@ public class DiffractionSceneGraphFabricator {
 	
 	
 	private boolean hasVectorfield = true;
-	private boolean isPlane = true;
+	private boolean isPlane = false;
 	private boolean isSnake = false && !isPlane;
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
 		this.sceneManager = sceneManager;
@@ -535,10 +535,10 @@ public class DiffractionSceneGraphFabricator {
 		// segment count = 45 seems to look enough smooth in order to represent
 		// a compact disc shape (i.e. dice)
 		// 45, 120, 240, 480
-		DiffractionDice4 diffDiceObj = new DiffractionDice4(960, 25, trackDistance);
+//		DiffractionDice4 diffDiceObj = new DiffractionDice4(960, 25, trackDistance);
 		
 		
-//		DiffractionDice6 diffDiceObj = new DiffractionDice6(480, 100, trackDistance);
+		DiffractionDice diffDiceObj = new DiffractionDice(1.0f, 0.2f, 900, 50);
 		
 		
 		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(300,2.0f,0.15f);

@@ -27,4 +27,6 @@ void main() {
 	
 	vec4 tex = texture2DArray(TexArray, vec3(frag_texcoord, 30+31));
 	frag_shaded	= col;
+	//vec3 fc = gl_FragCoord.xyz/1000.0;
+	//frag_shaded	= vec4(fc.x*col.x, fc.y*col.y, fc.z*col.z, 1.0 );
 }

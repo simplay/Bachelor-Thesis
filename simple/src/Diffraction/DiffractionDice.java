@@ -7,22 +7,20 @@ import javax.vecmath.Vector3f;
 
 import jrtr.VertexData;
 
-public class DiffractionCylinder extends DiffractionGeometricObject{
+public class DiffractionDice extends DiffractionGeometricObject{
 	
-	
-	private float radius;
-	private float height;
-	private int circlePointCount;
-	private int circleCount;
-	private float scale;
-	
-	
-	public DiffractionCylinder(float r, float h, int cpc, int cc){
-		this.radius = r;
-		this.height = h;
-		this.circlePointCount = cpc;
-		this.circleCount = cc;
-		this.scale = 0.1f;
+	private float totalR;
+	private float wholeR;
+	private int pointsPerCircle;
+	private int innerCircleCount;
+	private float deltaR;
+
+	public DiffractionDice(float oR, float iR,  int ppc, int icc){
+		this.totalR = oR;
+		this.wholeR = iR;
+		this.deltaR = oR - iR;
+		this.pointsPerCircle = ppc;
+		this.innerCircleCount = icc;
 		
 		this.setupObject();
 		this.tangentVectors = this.getTangentVectors();
@@ -33,57 +31,56 @@ public class DiffractionCylinder extends DiffractionGeometricObject{
 	protected float[] getTangentVectors() {
 		int counter = 0;
 		List<Float> tangents = new LinkedList<Float>();
-		float phiStep = (float) (2.0f*Math.PI/circlePointCount);
-		
-		for(int t = 0; t < circleCount; t++){
-			for(int k = 0; k < circlePointCount; k++){
-				float x = (float) -(radius*Math.sin(phiStep*k));
-				float y = (float) (radius*Math.cos(phiStep*k));
+		float phiStep = (float) (2.0f*Math.PI/pointsPerCircle);
+		float setpR = deltaR/innerCircleCount;
+		for(int k = 0; k < innerCircleCount; k++){
+			float currDist = setpR*k + wholeR;
+			for(int t = 0; t < pointsPerCircle; t++){
+				float x = (float) -(currDist*Math.sin(phiStep*t));
+				float y = (float) (currDist*Math.cos(phiStep*t));
 				float z = 0.0f;
-				
+						
 				Vector3f a = new Vector3f(x,y,z);
 				a.normalize();
 				
 				tangents.add(a.x);
 				tangents.add(a.y);
 				tangents.add(a.z);	
-				counter++;
+				counter++;							
 			}
 		}
 		
-
-		float[] tang = new float[tangents.size()];
+		float[] tan = new float[tangents.size()];
 		int i = 0;
 		for(Float value : tangents){
-			tang[i] = value.floatValue();
+			tan[i] = value.floatValue();
 			i++;
 		}
 		
 		System.out.println(counter + " tangents");
-		return tang;
+		return tan;
 	}
 
 	@Override
 	protected float[] getVertexPositions() {
 		int counter = 0;
 		List<Float> vertices = new LinkedList<Float>();
-		float phiStep = (float) (2.0f*Math.PI/circlePointCount);
-		float heightStep = height / circleCount;
-		
-		for(int t = 0; t < circleCount; t++){
-			for(int k = 0; k < circlePointCount; k++){
-				float x = (float) (radius*Math.cos(phiStep*k));
-				float y = (float) (radius*Math.sin(phiStep*k));
-				float z = t*heightStep;
-				
+		float phiStep = (float) (2.0f*Math.PI/pointsPerCircle);
+		float setpR = deltaR/innerCircleCount;
+		for(int k = 0; k < innerCircleCount; k++){
+			float currDist = setpR*k + wholeR;
+			for(int t = 0; t < pointsPerCircle; t++){
+				float x = (float) (currDist*Math.cos(phiStep*t));
+				float y = (float) (currDist*Math.sin(phiStep*t));
+				float z = 0.0f;
+						
 				vertices.add(x);
 				vertices.add(y);
 				vertices.add(z);	
-				counter++;
+				counter++;									
 			}
 		}
 		
-
 		float[] vert = new float[vertices.size()];
 		int i = 0;
 		for(Float value : vertices){
@@ -99,12 +96,12 @@ public class DiffractionCylinder extends DiffractionGeometricObject{
 	protected float[] getTextureCoordinates() {
 		int counter = 0;
 		List<Float> textureCoordiantes = new LinkedList<Float>();
-		float phiStep = (float) (2.0f*Math.PI/circlePointCount);
-		float heightStep = height / circleCount;
+		float phiStep = (float) (2.0f*Math.PI/pointsPerCircle);
+		float setpR = deltaR/innerCircleCount;
 		
-		for(int t = 0; t < circleCount; t++){
-			for(int k = 0; k < circlePointCount; k++){
-				float u = t*heightStep;
+		for(int t = 0; t < innerCircleCount; t++){
+			for(int k = 0; k < pointsPerCircle; k++){
+				float u = t*setpR;
 				float v = k*phiStep;
 				textureCoordiantes.add(u);
 				textureCoordiantes.add(v);
@@ -128,16 +125,17 @@ public class DiffractionCylinder extends DiffractionGeometricObject{
 	protected float[] getNormals() {
 		int counter = 0;
 		List<Float> normals = new LinkedList<Float>();
-		float phiStep = (float) (2.0f*Math.PI/circlePointCount);
-		
-		for(int t = 0; t < circleCount; t++){
-			for(int k = 0; k < circlePointCount; k++){
-				float x_tan = (float) -(radius*Math.sin(phiStep*k));
-				float y_tan = (float) (radius*Math.cos(phiStep*k));
+		float phiStep = (float) (2.0f*Math.PI/pointsPerCircle);
+		float setpR = deltaR/innerCircleCount;
+		for(int k = 0; k < innerCircleCount; k++){
+			float currDist = setpR*k + wholeR;
+			for(int t = 0; t < pointsPerCircle; t++){
+				float x_tan = (float) -(currDist*Math.sin(phiStep*t));
+				float y_tan = (float) (currDist*Math.cos(phiStep*t));
 				float z_tan = 0.0f;
 				
-				float x_bitan = (float) (Math.cos(phiStep*k));
-				float y_bitan = (float) (Math.sin(phiStep*k));
+				float x_bitan = (float) (Math.cos(phiStep*t));
+				float y_bitan = (float) (Math.sin(phiStep*t));
 				float z_bitan = 0.0f;
 				
 				Vector3f a = new Vector3f(x_tan,y_tan,z_tan);
@@ -150,11 +148,10 @@ public class DiffractionCylinder extends DiffractionGeometricObject{
 				normals.add(c.x);
 				normals.add(c.y);
 				normals.add(c.z);	
-				counter++;
+				counter++;							
 			}
 		}
 		
-
 		float[] norm = new float[normals.size()];
 		int i = 0;
 		for(Float value : normals){
@@ -171,8 +168,8 @@ public class DiffractionCylinder extends DiffractionGeometricObject{
 		int counter = 0;
 		List<Float> colors = new LinkedList<Float>();
 		
-		for(int t = 0; t < circleCount; t++){
-			for(int k = 0; k < circlePointCount; k++){
+		for(int t = 0; t < innerCircleCount; t++){
+			for(int k = 0; k < pointsPerCircle; k++){
 				float x = 1.0f;
 				float y = 0.0f;
 				float z = 0.0f;
@@ -191,7 +188,7 @@ public class DiffractionCylinder extends DiffractionGeometricObject{
 			i++;
 		}
 		
-		System.out.println(counter + " colors");
+//		System.out.println(counter + " colors");
 		return col;
 	}
 
@@ -200,36 +197,33 @@ public class DiffractionCylinder extends DiffractionGeometricObject{
 		List<Integer> indicesValues = new LinkedList<Integer>();
 		int counter = 0;
 		
-		for(int t = 0; t < circleCount-1; t++){
-			for(int k = 0; k < circlePointCount; k++){
-				
-				int a = k+t*circlePointCount;
-				int b = (k+1)%circlePointCount+t*circlePointCount;
-				int c = (k)%circlePointCount+((t+1)*circlePointCount);
-				
+		for(int k = 0; k < innerCircleCount-1; k++){
+			for(int t = 0; t < pointsPerCircle; t++){
+				int a = t+k*pointsPerCircle;
+				int b = (t+1)%pointsPerCircle+k*pointsPerCircle;
+				int c = t+(k+1)*pointsPerCircle;
+//				System.out.println(a + " " + b + " " + c);
 				
 				indicesValues.add(a);
 				indicesValues.add(b);
 				indicesValues.add(c);
-//				System.out.println(a + " " + b + " " + c);
 				counter++;
 			}
 		}
 		
-		for(int t = circleCount-1; t > 0; t--){
-			for(int k = 0; k < circlePointCount; k++){
-				
-				int a = k+t*circlePointCount;
-				int b = (k+1)%circlePointCount+t*circlePointCount;
-				int c = (k+1)%circlePointCount+((t-1)*circlePointCount);
+		for(int k = innerCircleCount-1; k > 0; k--){
+			for(int t = 0; t < pointsPerCircle; t++){
+				int a = t+k*pointsPerCircle;
+				int b = (t+1)%pointsPerCircle+k*pointsPerCircle;
+				int c = (t+1)%pointsPerCircle+((k-1)*pointsPerCircle);
 				
 				
 				indicesValues.add(a);
 				indicesValues.add(b);
 				indicesValues.add(c);
-				
 //				System.out.println(a + " " + b + " " + c);
 				counter++;
+
 			}
 		}
 		
@@ -248,6 +242,5 @@ public class DiffractionCylinder extends DiffractionGeometricObject{
 	protected int getVerticesCount() {
 		return this.vetices.length/3;
 	}
-	
 
 }
