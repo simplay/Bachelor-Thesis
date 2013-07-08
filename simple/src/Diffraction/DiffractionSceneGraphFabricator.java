@@ -1,25 +1,16 @@
 package Diffraction;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
-import javax.vecmath.Vector4f;
-
 import jrtr.Light;
 import jrtr.RenderContext;
 import jrtr.Shape;
 import Constants.ShaderTaskNr;
 import Managers.BumpConstants;
-import Managers.ConstantsManager;
+import Managers.BumpConstantsManager;
+import Managers.LightConstantManager;
 import Managers.ParameterManager;
 import Managers.PreCompDataManager;
 import Managers.ShaderTaskSetupManager;
@@ -37,7 +28,6 @@ import ShaderLogic.MultiTexturesTaylorShaderTask;
 import ShaderLogic.ShaderTask;
 import Constants.ShapeTask;
 
-
 public class DiffractionSceneGraphFabricator {
 	private GraphSceneManager sceneManager;
 	private RenderContext renderContext;
@@ -47,10 +37,9 @@ public class DiffractionSceneGraphFabricator {
 	private Shape targetShape;
 	private Matrix4f targetIMat;
     private Material mat;
-    private PreCompDataManager pcdm;
-    private ConstantsManager cm;
+    private BumpConstantsManager bcm;
+    private LightConstantManager lcm;
     
-	private Light lightSource1;
 	private float trackDistance = 2.5f;
 	private TransformGroup rootGroup;
 	private ShapeTask shapeTask = ShapeTask.PLANE;
@@ -62,7 +51,8 @@ public class DiffractionSceneGraphFabricator {
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
 		this.sceneManager = sceneManager;
 		this.renderContext = renderContext;
-		this.cm = new ConstantsManager();		
+		this.bcm = new BumpConstantsManager();	
+		this.lcm = new LightConstantManager();
 		setUpShaderTask();
 		setUpMaterials();
 		setUpShapes();
@@ -86,8 +76,8 @@ public class DiffractionSceneGraphFabricator {
 	
 	private void setUpMaterials(){
 		mat = new Material();
-		ParameterManager pm = new ParameterManager(mat, parameter_path);
-		BumpConstants bc = cm.getByIdentifyer("Stam");
+		new ParameterManager(mat, parameter_path);
+		BumpConstants bc = bcm.getByIdentifyer("Stam");
 		mat.setPeriodCount(26);
 		mat.setMaxBumpHeight(bc.getMaxHeight());
 		mat.setPatchSpacing(bc.getSpacing());
@@ -101,16 +91,12 @@ public class DiffractionSceneGraphFabricator {
 		if(shaderTask == ShaderTaskNr.TAYLOR || shaderTask == ShaderTaskNr.EXPERIMENTAL) mat.setLayerCount(62);
 		ShaderTaskSetupManager stm = new ShaderTaskSetupManager(renderContext, mat, shaderTask);		
 		mat.setShader(stm.getShader());
-		pcdm = new PreCompDataManager(renderContext, shaderTask.getValue(), mat);
+		new PreCompDataManager(renderContext, shaderTask.getValue(), mat); // TODO extend me, i want also the shape task, the shader task and further stuff
 	}
 	
-	
 	private void setUpLight(){
-		Vector3f radiance = new Vector3f(1,1,1); 
-		Vector4f lightDirection = new Vector4f(-0.1f, 0.0f, (float) -Math.sqrt(0.99f), 0.0f);  //directional light source
-//		lightDirection = new Vector4f(0, 0, 10, 1);  //directional light source
-		lightSource1 = new Light(radiance, lightDirection, "source1");
-		LightNode diceLightNode = new LightNode(lightSource1, sceneManager.getCamera().getCameraMatrix(), "light source1");
+		Light light = lcm.getLightConstantByName("light1");
+		LightNode diceLightNode = new LightNode(light, sceneManager.getCamera().getCameraMatrix(), light.getName());
 		rootGroup.putChild(diceLightNode);
 	}
 	

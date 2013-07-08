@@ -2,10 +2,10 @@ package Managers;
 
 import java.util.LinkedList;
 
-public class ConstantsManager {
+public class BumpConstantsManager {
 	
 	private LinkedList<BumpConstants> constants;
-	public ConstantsManager() {
+	public BumpConstantsManager() {
 		constants = new LinkedList<BumpConstants>();
 		defineConstant();
 	}
