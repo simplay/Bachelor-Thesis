@@ -2,8 +2,7 @@ function taylor2PadExp
 	format long
 	steps=30;
     dimN = 100;
-    dimSmall = 30;
-    dimDiff = (dimN-dimSmall)/2;
+    dimS
     %dimN = 1024;
     rep_nn=1;
     out = 'out/';
@@ -26,9 +25,9 @@ function taylor2PadExp
 	else
 		A = d_inputIMG;
 	end
-	%A = imresize(A, [dimSmall,dimSmall]);
+	%A = imresize(A, [30,30]);
     %A = imresize(A, [dimN,dimN]);
-	%A = padarray(A,[dimDiff, dimDiff], 'both');
+	%A = padarray(A,[35, 35], 'both');
     
 	counter = 0;
 	extrema = zeros(steps*4,1);
@@ -115,7 +114,7 @@ function taylor2PadExp
 	
 	% save important paramters which have been used for calcualtions
     %parameters = [ num2str(Lmin); num2str(Lmax); num2str(steps); num2str(dimN);num2str(n)]
-    parameters = [Lmin; Lmax; steps; dimN;dimSmall;dimDiff;rep_nn]
+    parameters = [Lmin; Lmax; steps; dimN;rep_nn]
     f = fopen(strcat(out,'paramters.txt'), 'w')
     for t=1:length(parameters),
         fprintf(f,'%i \n', parameters(t));

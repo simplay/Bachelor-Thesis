@@ -39,10 +39,22 @@ public class Material {
     private float lambdaMax;
     private int stepCount;
     private int dimN;
+    private int dimSmall;
+    private int dimDiff;
     private int repNN;
+    private int periodCount;
+    
     
     public Material(){
 
+    }
+    
+    public void setPeriodCount(int periodCount){
+    	this.periodCount = periodCount;
+    }
+    
+    public int getPeriodCount(){
+    	return this.periodCount;
     }
     
     public void setCOP(Point3f cop){
@@ -84,6 +96,22 @@ public class Material {
     
     public int getDimN(){
     	return this.dimN;
+    }
+    
+    public void setSmall(int dimSmall){
+    	this.dimSmall = dimSmall;
+    }
+    
+    public int getDimSmall(){
+    	return this.dimSmall;
+    }
+    
+    public void setDimDiff(int dimDiff){
+    	this.dimDiff = dimDiff;
+    }
+    
+    public int getDimDiff(){
+    	return this.dimDiff;
     }
     
     public void setRepNN(int repNN){

@@ -42,10 +42,14 @@ public class ParameterManager {
 		mat.setLambdaMin((new Float(paramters.get(0))).floatValue());
 		mat.setLambdaMax((new Float(paramters.get(1))).floatValue());
 		int setps = (int) (new Float(paramters.get(2)).floatValue());
-		int  dimN= (int) (new Float(paramters.get(2)).floatValue());
-		int rep_nn = (int) (new Float(paramters.get(2)).floatValue());
+		int  dimN= (int) (new Float(paramters.get(3)).floatValue());
+		int  dimSmall= (int) (new Float(paramters.get(4)).floatValue());
+		int  dimDiff= (int) (new Float(paramters.get(5)).floatValue());
+		int rep_nn = (int) (new Float(paramters.get(6)).floatValue());
 		mat.setStepCount(setps);
 		mat.setDimN(dimN);
+		mat.setSmall(dimSmall);
+		mat.setDimDiff(dimDiff);
 		mat.setRepNN(rep_nn);
 	}
 	

@@ -28,6 +28,14 @@ uniform vec4 global_extrema[1];
 uniform sampler2DArray TexArray;
 uniform vec4 camPos;
 
+uniform float LMIN;
+uniform float LMAX;
+uniform float approxSteps;
+uniform float dimN;
+uniform float dimSmall; // not used right now
+uniform float dimDiff; // not used right now
+uniform float repNN; // not used right now
+uniform int periodCount;
 
 in vec3 normal;
 in vec4 position;
@@ -46,13 +54,13 @@ const float CERATIN = 1.6;
 const float SMOOTH = 2.5;
 
 // wave constants
-const float l_min = 390.0;
-const float l_max = 700.0;
-const float lambda_min = l_min*pow(10.0, -9.0);
+float l_min = LMIN;
+float l_max = LMAX;
+float lambda_min = l_min*pow(10.0, -9.0);
+float lambda_max = l_max*pow(10.0, -9.0);
 const float rescale = pow(10.0, 9.0);
-const float lambda_max = l_max*pow(10.0, -9.0);
-const float dx = 2.5*pow(10.0, -6.0); // -6 // distance between two patches (from center to center)
-const float s = 2.4623*pow(10,-7.0); // -7 // max height of a bump
+const float dx = 2.5*pow(10.0, -6.0); // -6 // distance between two patches (from center to center), make me parametric too
+const float s = 2.4623*pow(10,-7.0); // -7 // max height of a bump, make me parametric
 
 // error constants
 const float eps_pq = 1.0*pow(10.0, -5.0); 
@@ -60,14 +68,14 @@ const float eps = 1.0*pow(10.0, -4.0);
 const float tolerance = 0.999999; 
 
 // period constants
-const float N_1 = 100.0; // number of pixels of downsized patch 
-const float N_2 = 100.0; // number of pixels padded patch - see matlab
-const float t_0 = dx / N_1;
-const float T_1 = t_0 * N_1;
-const float T_2 = t_0 * N_1;
-const float periods = 26.0-1.0; // 26 // number of patch periods along surface
-const float Omega = ((N_1/N_2)*2.0*PI)/t_0; // (N_1/N_2)*2*PI/t_0, before 8.0*PI*pow(10.0,7.0);
-const float bias = (N_2/2.0)/(N_2-1.0); // old: 50.0/99.0;
+float N_1 = dimN; // number of pixels of downsized patch 
+float N_2 = dimN; // number of pixels padded patch - see matlab
+float t_0 = dx / N_1;
+float T_1 = t_0 * N_1;
+float T_2 = t_0 * N_1;
+float periods = periodCount-1.0; // 26 // number of patch periods along surface
+float Omega = ((N_1/N_2)*2.0*PI)/t_0; // (N_1/N_2)*2*PI/t_0, before 8.0*PI*pow(10.0,7.0);
+float bias = (N_2/2.0)/(N_2-1.0); // old: 50.0/99.0;
 
 // transformation constant
 const mat3 M_Adobe_XR = mat3(
@@ -234,7 +242,7 @@ float compute_pq_scale_factor(float w_u, float w_v){
 // perform taylor approximation
 vec2 taylorApproximation(vec2 coords, float k, float w){
 	vec2 precomputedFourier = vec2(0.0, 0.0);
-	int lower = 0; int upper = 31;
+	int lower = 0; int upper = int(approxSteps)+1;
 	float reHeight = 0.0; float imHeight = 0.0;
 	float real_part = 0.0; float imag_part = 0.0;
 	float fourier_coefficients = 1.0;

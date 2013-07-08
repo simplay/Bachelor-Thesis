@@ -82,6 +82,39 @@ public class ExpTaylorShaderTask extends ShaderTask{
 		float[] cop_f = {t_cop.x, t_cop.y, t_cop.z, t_cop.w};
 		int scalingID = gl.glGetUniformLocation(activeShader.programId(),"cop_w");
 		gl.glUniform4fv(scalingID, 1, cop_f, 0);
+		
+		float lmin = m.getLambdaMin();
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "LMIN");
+		gl.glUniform1f(id3, lmin);
+		
+		float lmax = m.getLambdaMax();
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "LMAX");
+		gl.glUniform1f(id3, lmax);
+		
+		
+		float dimN = m.getDimN();
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "dimN");
+		gl.glUniform1f(id3, dimN);
+		
+		float dimSmall = m.getDimSmall();
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "dimSmall");
+		gl.glUniform1f(id3, dimSmall);
+		
+		float dimDiff = m.getDimDiff();
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "dimDiff");
+		gl.glUniform1f(id3, dimDiff);
+		
+		float steps = m.getStepCount();
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "approxSteps");
+		gl.glUniform1f(id3, steps);
+		
+		float rep_nn = m.getRepNN();
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "repNN");
+		gl.glUniform1f(id3, rep_nn);
+		
+		int periodCount = m.getPeriodCount();
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "periodCount");
+		gl.glUniform1i(id3, periodCount);
 
 	}
 
