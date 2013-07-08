@@ -1,9 +1,8 @@
-function taylor2PadExp
+function taylor2PadExpComp
 	format long
-	steps=30;
+	steps=30; specStep=16;
     dimN = 100;
-    %dimN = 1024;
-    rep_nn=1;
+    n=1;
     out = 'out/';
     patch_basis_path = '../input_patches/';
     RectPatch1d = '100x100stam1dBump.bmp';
@@ -12,9 +11,9 @@ function taylor2PadExp
     CosinePatch = 'CosineBump.bmp';
     
     patch_file = BlazingPatch;
-    whole_path = strcat(patch_basis_path,patch_file);
-	inputIMG = imread(whole_path);
-    inputIMG = repmat(inputIMG, rep_nn, rep_nn);
+    
+	inputIMG = imread(strcat(patch_basis_path,patch_file));
+    inputIMG = repmat(inputIMG, n, n);
    
 	d_inputIMG = double(inputIMG);
 	d_inputIMG = d_inputIMG./255;
@@ -25,12 +24,11 @@ function taylor2PadExp
 		A = d_inputIMG;
 	end
 	%A = imresize(A, [30,30]);
-    A = imresize(A, [dimN,dimN]);
 	%A = padarray(A,[35, 35], 'both');
     
 	counter = 0;
-	extrema = zeros(steps*4,1);
-	globals = zeros(4,1);
+	extrema = [];
+	globals = [];
 	
 	globalReMin = 1000000;
 	globalReMax = -1000000;
@@ -42,6 +40,7 @@ function taylor2PadExp
 	
 		B = A.^n;
 		C = fftshift(fft2(B));
+		
 		
 		% find real minimum in shifted D matrix.
 		reMin = min(min( real(C) ));
@@ -79,13 +78,17 @@ function taylor2PadExp
 		if(imMin < globalImMin) globalImMin = imMin; end
 		if(imMax > globalImMax) globalImMax = imMax; end
 		
-		outAmp(:,:,1) = reD;
-		outAmp(:,:,2) = imD;
-		outAmp(:,:,3) = zeros(dimN,dimN);
-					
+		outReal(:,:,1) = reD;
+		outReal(:,:,2) = zeros(dimN,dimN);
+		outReal(:,:,3) = zeros(dimN,dimN);
+				
+		outImag(:,:,1) = imD;
+		outImag(:,:,2) = zeros(dimN,dimN);
+		outImag(:,:,3) = zeros(dimN,dimN);	
 				
 		% generate real and imaginary part images.		
-		imwrite(outAmp, strcat(out,'AmpReIm',num2str(n),'.bmp'))
+		imwrite(outReal, strcat(out,'AmpRe',num2str(n),'.bmp'))
+		imwrite(outImag, strcat(out,'AmpIm',num2str(n),'.bmp'))
 		
 		% increment index counter
 		counter = counter + 1;
@@ -111,14 +114,7 @@ function taylor2PadExp
 	% save color weights for CIE_XYZ space
 	getXYZWeights(discretSpectrum);
 	
-	% save important paramters which have been used for calcualtions
-    %parameters = [ num2str(Lmin); num2str(Lmax); num2str(steps); num2str(dimN);num2str(n)]
-    parameters = [Lmin; Lmax; steps; dimN;rep_nn]
-    f = fopen(strcat(out,'paramters.txt'), 'w')
-    for t=1:length(parameters),
-        fprintf(f,'%i \n', parameters(t));
-    end
-    fprintf(f, whole_path);
-    fclose(f);
-	%dlmwrite(strcat(out,'paramters.txt'), parameters, 'delimiter', '\n')
+	% save wavenumbers
+	
+	
 end
