@@ -233,7 +233,10 @@ public class DiffractionCylinder extends DiffractionGeometricObject{
 				counter++;
 			}
 		}
-		
+//		indicesValues = new LinkedList<Integer>();
+//		indicesValues.add(0);
+//		indicesValues.add(1);
+//		indicesValues.add(2);
 		int[] indices = new int[indicesValues.size()];
 		int i = 0;
 		for(Integer value : indicesValues){

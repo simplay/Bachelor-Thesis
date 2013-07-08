@@ -123,10 +123,10 @@ public class DiffractionSceneGraphFabricator {
 //		DiffractionSphere diffDiceObj = new DiffractionSphere(1.20f,3);
 		
 		
-		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(300,2.0f,0.15f);
+//		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(300,2.0f,0.15f);
 		
 //		DiffractionCylinder diffPlaneObj = new DiffractionCylinder(1.0f,1.0f, 600, 600);
-		
+		DiffractionCylinder diffPlaneObj = new DiffractionCylinder(1.0f,1.0f, 3, 2);
 		diffDice = new Shape(diffDiceObj.getVertices());
 		diffPlane = new Shape(diffPlaneObj.getVertices());
 		
