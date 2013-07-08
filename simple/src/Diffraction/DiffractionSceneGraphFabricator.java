@@ -10,6 +10,8 @@ import jrtr.Shape;
 import Constants.ShaderTaskNr;
 import Managers.BumpConstants;
 import Managers.BumpConstantsManager;
+import Managers.CameraSceneConstant;
+import Managers.CameraSceneConstantManager;
 import Managers.LightConstantManager;
 import Managers.ParameterManager;
 import Managers.PreCompDataManager;
@@ -39,12 +41,13 @@ public class DiffractionSceneGraphFabricator {
     private Material mat;
     private BumpConstantsManager bcm;
     private LightConstantManager lcm;
+    private CameraSceneConstantManager cscm;
     
 	private float trackDistance = 2.5f;
 	private TransformGroup rootGroup;
 	private ShapeTask shapeTask = ShapeTask.PLANE;
 	private String parameter_path = "../jrtr/textures/sampleX/experimental/blaze/paramters.txt";
-	
+	private String cameraConstant = "plane1";
 
 	private ShaderTaskNr shaderTask = ShaderTaskNr.EXPERIMENTAL;
 	private boolean useSpecificCam = false;
@@ -53,6 +56,8 @@ public class DiffractionSceneGraphFabricator {
 		this.renderContext = renderContext;
 		this.bcm = new BumpConstantsManager();	
 		this.lcm = new LightConstantManager();
+		this.cscm = new CameraSceneConstantManager();
+		
 		setUpShaderTask();
 		setUpMaterials();
 		setUpShapes();
@@ -115,62 +120,12 @@ public class DiffractionSceneGraphFabricator {
 	}
 	
 	private void setUpCamera(boolean isFar){
-		Point3f cop = null;
-		float distance = 0.0f;
-		if(shapeTask == ShapeTask.PLANE){
-			distance = 1.0f;
-			float aspectRatio = 1.0f;
-			float near = 0.0001f;
-			float far = 5500.0f;
-			float verticalFieldView = 15.0f;
-			Vector3f up = new Vector3f(0, 1, 0); // camera height
-			Point3f look = new Point3f(0, 0, 0); // point camera looks at
-			cop = new Point3f(0.1f, 0.0f, distance); // camera distance
-			sceneManager.getFrustum().setParameter(aspectRatio, near, far, verticalFieldView);
-			sceneManager.getCamera().setParameter(cop, look, up);
-			
-		}else if(shapeTask == ShapeTask.SNAKE){
-//			distance = 160.0f; // teapot
-			distance = 12.0f;
-			float aspectRatio = 1.0f;
-			float near = 0.0001f;
-			float far = 5500.0f;
-			float verticalFieldView = 20.0f;
-			Vector3f up = new Vector3f(0, 1, 0); // camera height
-			Point3f look = new Point3f(1, 0, 0); // point camera looks at
-			cop = new Point3f(0.1f, 0.0f, distance); // camera distance
-			sceneManager.getFrustum().setParameter(aspectRatio, near, far, verticalFieldView);
-			sceneManager.getCamera().setParameter(cop, look, up);
-	
-		}else{
-			distance = 0.1f;
-			float aspectRatio = 1.0f;
-			float near = 0.0001f;
-			float far = 5500.0f;
-			float verticalFieldView = 30f;
-			Vector3f up = new Vector3f(0, 1, 0); // camera height
-			Point3f look = new Point3f(0, 0, 0); // point camera looks at
-			cop = new Point3f(0, 0, distance); // camera distance
-			sceneManager.getFrustum().setParameter(aspectRatio, near, far, verticalFieldView);
-			sceneManager.getCamera().setParameter(cop, look, up);
-			
-			
-			Matrix4f ma = new Matrix4f();
-			float[] a = {0.94874644f, 0.25298318f, -0.18942694f, 0.13349566f};
-			float[] b = {-0.049736004f, 0.7114186f, 0.7010073f, 0.32658237f};
-			float[] c = {0.31210417f, -0.6556542f, 0.6875345f, -10.968632f};
-			float[] d = {0.0f, 0.0f, 0.0f, 1.0f};
-			ma.setRow(0, a);
-			ma.setRow(1, b);
-			ma.setRow(2, c);
-			ma.setRow(3, d);	
-			mat.setDistanceToCamera(distance);	
-			sceneManager.getCamera().setCameraMatrix(ma);
-		}
-		
+		CameraSceneConstant csc = cscm.getCameraSceneConstantByName(cameraConstant);
+		Point3f cop = csc.getCOP();
 		if(useSpecificCam) setSpecificCam();
-		mat.setCOP(cop);
-		
+		sceneManager.getFrustum().setParameter(csc.getAspectRatio(), csc.getNear(), csc.getFar(), csc.getVerticalFieldView());
+		sceneManager.getCamera().setParameter(csc.getCOP(), csc.getLook(), csc.getUp());
+		mat.setCOP(cop);		
 	}
 	
 	private void setSpecificCam(){
