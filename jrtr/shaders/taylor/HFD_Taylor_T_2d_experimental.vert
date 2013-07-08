@@ -332,7 +332,7 @@ void main() {
 	float lambda_iter = 0.0;
 	float t = 0.0;
 	float phi = -PI/2.0;
-	phi = -PI/2.0;
+	phi = 0.0;
     vec3 N = normalize(vec4(normal,0.0)).xyz;
     vec3 T = normalize(vec4(tangent,0.0)).xyz;
     vec3 B = normalize(cross(N, T));
@@ -357,7 +357,7 @@ void main() {
 	vec3 _k1 = normalize(lightDir.xyz); // light direction, same for every point		
 	vec3 V = _k1 - _k2;
 	float u = V.x; float v = V.y; float w = V.z;
-
+//	u = 0.0;
 
 	// compute vector-field rotation
 	//	float phi = computeRotationAngle(vec3(tangent.xyz));
@@ -441,7 +441,7 @@ void main() {
 	
 	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 	
-	float ambient = 0.0;
+	float ambient = 0.1;
 	
 	// remove negative values
 	if(brdf.x < 0.0 ) brdf.x = 0.0;

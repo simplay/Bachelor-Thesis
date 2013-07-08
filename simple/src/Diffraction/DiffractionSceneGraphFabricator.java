@@ -45,12 +45,15 @@ public class DiffractionSceneGraphFabricator {
     
 	private float trackDistance = 2.5f;
 	private TransformGroup rootGroup;
+	
+	
 	private ShapeTask shapeTask = ShapeTask.PLANE;
 	private String parameter_path = "../jrtr/textures/sampleX/experimental/blaze/paramters.txt";
 	private String cameraConstant = "plane1";
-
 	private ShaderTaskNr shaderTask = ShaderTaskNr.EXPERIMENTAL;
 	private boolean useSpecificCam = false;
+	
+	
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
 		this.sceneManager = sceneManager;
 		this.renderContext = renderContext;
