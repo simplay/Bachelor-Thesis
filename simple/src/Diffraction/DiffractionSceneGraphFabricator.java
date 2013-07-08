@@ -21,6 +21,8 @@ import jrtr.Shape;
 import jrtr.Texture;
 import Constants.ShaderPaths;
 import Constants.ShaderTaskNr;
+import Managers.BumpConstants;
+import Managers.ConstantsManager;
 import Managers.ParameterManager;
 import Materials.Material;
 import ReadObjects.VertexFaceData;
@@ -48,6 +50,7 @@ public class DiffractionSceneGraphFabricator {
 	private Matrix4f diffSnakeIMat;
     private Material mat;
     private PreCompDataManager pcdm;
+    private ConstantsManager cm;
     
 	private Light lightSource1;
 	private float trackDistance = 2.5f;
@@ -67,7 +70,7 @@ public class DiffractionSceneGraphFabricator {
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
 		this.sceneManager = sceneManager;
 		this.renderContext = renderContext;
-		
+		this.cm = new ConstantsManager();
 		
 		setUpShaderTask();
 		setUpMaterials();
@@ -93,10 +96,10 @@ public class DiffractionSceneGraphFabricator {
 	private void setUpMaterials(){
 		mat = new Material();
 		ParameterManager pm = new ParameterManager(mat, parameter_path);
-		
+		BumpConstants bc = cm.getByIdentifyer("Stam");
 		mat.setPeriodCount(26);
-		mat.setMaxBumpHeight((float) (2.4623*Math.pow(10.0f, -7.0f)));
-		mat.setPatchSpacing((float) (2.5*Math.pow(10.0f, -6.0f)));
+		mat.setMaxBumpHeight(bc.getMaxHeight());
+		mat.setPatchSpacing(bc.getSpacing());
 		
 		mat.setMaterialColor(new Vector3f(0, 0f, 0f));
 		mat.setShinnyCoefficient(new Vector3f(0f, 0f, 1f));
