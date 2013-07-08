@@ -52,6 +52,7 @@ public class DiffractionSceneGraphFabricator {
 	private String cameraConstant = "plane1";
 	private ShaderTaskNr shaderTask = ShaderTaskNr.EXPERIMENTAL;
 	private boolean useSpecificCam = false;
+	private int periodCount = 26;
 	
 	
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
@@ -86,7 +87,7 @@ public class DiffractionSceneGraphFabricator {
 		mat = new Material();
 		new ParameterManager(mat, parameter_path);
 		BumpConstants bc = bcm.getByIdentifyer("Stam");
-		mat.setPeriodCount(26);
+		mat.setPeriodCount(periodCount);
 		mat.setMaxBumpHeight(bc.getMaxHeight());
 		mat.setPatchSpacing(bc.getSpacing());
 		
@@ -96,7 +97,7 @@ public class DiffractionSceneGraphFabricator {
 		mat.setPhongExponent(64f);
 		mat.setTrackDistance(trackDistance);
 		mat.setLayerCount(108);
-		if(shaderTask == ShaderTaskNr.TAYLOR || shaderTask == ShaderTaskNr.EXPERIMENTAL) mat.setLayerCount(62);
+		if(shaderTask == ShaderTaskNr.TAYLOR || shaderTask == ShaderTaskNr.EXPERIMENTAL) mat.setLayerCount(31);
 		ShaderTaskSetupManager stm = new ShaderTaskSetupManager(renderContext, mat, shaderTask);		
 		mat.setShader(stm.getShader());
 		new PreCompDataManager(renderContext, shaderTask.getValue(), mat); // TODO extend me, i want also the shape task, the shader task and further stuff

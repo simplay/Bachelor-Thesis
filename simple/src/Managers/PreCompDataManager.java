@@ -185,19 +185,33 @@ public class PreCompDataManager {
 //				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/blaze/weights.txt"));
 				
 			}else if(tasknumber == 11){
-				samples = "../jrtr/textures/sampleX/expTaylor/blaze/";
-				extrema = "../jrtr/textures/sampleX/expTaylor/blaze/extrema.txt";
-				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/expTaylor/blaze/globals.txt"));
-				mat.setWeights(readWeights("../jrtr/textures/sampleX/expTaylor/blaze/weights.txt"));
+				samples = "../jrtr/textures/sampleX/experimental/blaze/";
+				extrema = "../jrtr/textures/sampleX/experimental/blaze/extrema.txt";
+				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/experimental/blaze/globals.txt"));
+				mat.setWeights(readWeights("../jrtr/textures/sampleX/experimental/blaze/weights.txt"));
 			}
 			
-			if(tasknumber == 10 || tasknumber == 11) loadTaylorPatches(samples);
+			if(tasknumber == 10 || tasknumber == 11) loadCompositeTaylorPatches(samples);
 			else loadPatches2(samples, false, true);
 			
 			mat.setHeightfieldFactors(loadScalingConstants(extrema));
 		}
 	}
 	
+	
+	
+	private void loadCompositeTaylorPatches(String basisPath){
+		String path = basisPath;
+		String ext = ".bmp";
+		int counter = 0;
+		
+		for(int iter = 0; iter < 31; iter++){
+			ext = "AmpReIm"+Integer.toString(iter)+extension;
+			this.textures[iter] = renderContext.makeTexture();
+			mat.setTextureAt(path+ext, textures[iter], iter);
+			counter++;
+		}
+	}
 	
 	// TODO again check this method - for santy's sake!!!
 		private void loadTaylorPatches(String basisPath){
@@ -378,7 +392,42 @@ public class PreCompDataManager {
 			return weights;
 		}
 		
+		
+		private void loadPatchesAmp(String basisPath, boolean Lfolders, boolean bigSample){
+			int L = 350;
+			int step = 50;
+			if(bigSample){
+				L = 0;
+				step = 1;
+			}
 
+
+			String path = basisPath;
+
+			for(int iter = 0; iter < 492; iter++){
+				String ext = "";
+				if(iter%82 == 0) L+=step;
+				if(Lfolders) ext+=Integer.toString(L)+"/";
+				if(iter%82 < 41) ext+="imL"+L;
+				else ext+="reL"+L;
+				
+				int p = iter%41;
+				float t = -2.0f + p*0.1f;
+				t = (float)Math.round(t * 100000) / 100000;
+				if(t==-2.0f || t==-1.0f || t == 0.0f || t == 1.0f || t==2.0f){
+					if(t==-2.0f) ext += "w"+"-2"+"BH"+extension;
+					else if(t==-1.0f) ext += "w"+"-1"+"BH"+extension;
+					else if( t == 0.0f) ext += "w"+"0"+"BH"+extension;
+					else if(t == 1.0f)ext += "w"+"1"+"BH"+extension;
+					else ext += "w"+"2"+"BH"+extension;
+						
+				}else ext += "w"+t+"BH"+extension;
+				
+				this.textures[iter] = renderContext.makeTexture();
+				mat.setTextureAt(path+ext, textures[iter], iter);
+			}
+		}
+		
 		//String extension = ".bmp";
 		private void loadPatches2(String basisPath, boolean Lfolders, boolean bigSample){
 			int L = 350;

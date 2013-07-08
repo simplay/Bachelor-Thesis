@@ -254,11 +254,11 @@ vec2 taylorApproximation(vec2 coords, float k, float w){
 	// approximation till iteration 30 of fourier coefficient
 	for(int n = lower; n <= upper; n++){
 		
-		int index_re = n;
-		int index_im = (n + upper);
+//		int index_re = n;
+//		int index_im = (n + upper);
 		
-		reHeight = texture2DArray(TexArray, vec3(coords, index_re) ).x;
-		imHeight = texture2DArray(TexArray, vec3(coords, index_im) ).x;
+		reHeight = texture2DArray(TexArray, vec3(coords, n) ).x;
+		imHeight = texture2DArray(TexArray, vec3(coords, n) ).y;
 		int extremaIndex = n;
 		
 		precomputedFourier = getRescaledHeight(reHeight, imHeight, extremaIndex);
@@ -441,7 +441,7 @@ void main() {
 	
 	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 	
-	float ambient = 0.1;
+	float ambient = 0.0;
 	
 	// remove negative values
 	if(brdf.x < 0.0 ) brdf.x = 0.0;
