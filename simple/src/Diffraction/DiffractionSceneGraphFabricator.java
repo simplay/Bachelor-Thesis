@@ -16,18 +16,15 @@ import javax.vecmath.Vector4f;
 
 import jrtr.Light;
 import jrtr.RenderContext;
-import jrtr.Shader;
 import jrtr.Shape;
-import jrtr.Texture;
-import Constants.ShaderPaths;
 import Constants.ShaderTaskNr;
 import Managers.BumpConstants;
 import Managers.ConstantsManager;
 import Managers.ParameterManager;
 import Managers.PreCompDataManager;
 import Managers.ShaderTaskSetupManager;
+import Managers.ShapeManager;
 import Materials.Material;
-import ReadObjects.VertexFaceData;
 import SceneGraph.GraphSceneManager;
 import SceneGraph.INode;
 import SceneGraph.LightNode;
@@ -38,18 +35,17 @@ import ShaderLogic.ExpTaylorShaderTask;
 import ShaderLogic.MultiTexturesTAShaderTask;
 import ShaderLogic.MultiTexturesTaylorShaderTask;
 import ShaderLogic.ShaderTask;
+import Constants.ShapeTask;
+
 
 public class DiffractionSceneGraphFabricator {
 	private GraphSceneManager sceneManager;
 	private RenderContext renderContext;
 	private INode root;
 	private ShaderTask activeShaderTask;
-	private Shape diffDice;
-	private Shape diffPlane;
-	private Shape diffSnake;
-	private Matrix4f diffDiceIMat;
-	private Matrix4f diffPlaneIMat;
-	private Matrix4f diffSnakeIMat;
+
+	private Shape targetShape;
+	private Matrix4f targetIMat;
     private Material mat;
     private PreCompDataManager pcdm;
     private ConstantsManager cm;
@@ -57,23 +53,16 @@ public class DiffractionSceneGraphFabricator {
 	private Light lightSource1;
 	private float trackDistance = 2.5f;
 	private TransformGroup rootGroup;
-	
-	private String obj_file = "../models/snake_test_piece.obj";
-	private String extension = ".bmp";
+	private ShapeTask shapeTask = ShapeTask.PLANE;
 	private String parameter_path = "../jrtr/textures/sampleX/experimental/blaze/paramters.txt";
-	// stam 4
-	// grid 9
-	// taylor 10
-	// experimental: adaptive taylor series 11
+	
+
 	private ShaderTaskNr shaderTask = ShaderTaskNr.EXPERIMENTAL;
 	private boolean useSpecificCam = false;
-	private boolean isPlane = true;
-	private boolean isSnake = false && !isPlane;
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
 		this.sceneManager = sceneManager;
 		this.renderContext = renderContext;
-		this.cm = new ConstantsManager();
-		
+		this.cm = new ConstantsManager();		
 		setUpShaderTask();
 		setUpMaterials();
 		setUpShapes();
@@ -116,8 +105,6 @@ public class DiffractionSceneGraphFabricator {
 	}
 	
 	
-	
-	
 	private void setUpLight(){
 		Vector3f radiance = new Vector3f(1,1,1); 
 		Vector4f lightDirection = new Vector4f(-0.1f, 0.0f, (float) -Math.sqrt(0.99f), 0.0f);  //directional light source
@@ -127,66 +114,24 @@ public class DiffractionSceneGraphFabricator {
 		rootGroup.putChild(diceLightNode);
 	}
 	
-	private void setUpShapes(){
-		// care some numbers for segment count are buggy due to rounding error
-		// segment count = 45 seems to look enough smooth in order to represent
-		// a compact disc shape (i.e. dice)
-		// 45, 120, 240, 480
-//		DiffractionDiceSimple diffDiceObj = new DiffractionDiceSimple(960, 25, trackDistance);
-		
-		
-		DiffractionDice diffDiceObj = new DiffractionDice(1.20f, 0.15f, 900, 50);
-//		DiffractionSphere diffDiceObj = new DiffractionSphere(1.20f,3);
-		
-		
-		DiffractionPlane2 diffPlaneObj = new DiffractionPlane2(300,2.0f,0.15f);
-		
-//		DiffractionCylinder diffPlaneObj = new DiffractionCylinder(1.0f,1.0f, 600, 600);
-//		DiffractionCylinder diffPlaneObj = new DiffractionCylinder(1.0f,1.0f, 3, 2);
-		diffDice = new Shape(diffDiceObj.getVertices());
-		diffPlane = new Shape(diffPlaneObj.getVertices());
-		
-		if(this.isSnake){
-		    VertexFaceData vd = null;
-		    try {
-				ReadObjects.ObjReader reader = new ReadObjects.ObjReader(obj_file);
-//				ReadObjects.ObjReader reader = new ReadObjects.ObjReader("../models/snake_test_piece.obj");
-				vd = reader.getVFData();
-				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		    diffSnake = new Shape(vd.getVetexData());
-			diffSnake.setShaderTask(activeShaderTask);
-			diffSnake.setMaterial(mat);
-			this.diffSnakeIMat = diffSnake.getTransformation();
-		}
-
-		diffDice.setShaderTask(activeShaderTask);
-		diffDice.setMaterial(mat);
-		
-		diffPlane.setShaderTask(activeShaderTask);
-		diffPlane.setMaterial(mat);
-		
-		this.diffDiceIMat = diffDice.getTransformation();	
-		this.diffPlaneIMat = diffPlane.getTransformation();
+	private void setUpShapes(){	
+		ShapeManager sm = new ShapeManager(shapeTask);
+		this.targetShape = sm.getShape();
+		this.targetIMat = sm.getTransformation();
+		targetShape.setShaderTask(activeShaderTask);
+		targetShape.setMaterial(mat);	
 	}
 	
 	private void setUpSceneGraph(){
 		rootGroup = new TransformGroup("root");
-		this.root = rootGroup;
-		
-		if(isPlane) rootGroup.putChild(new ShapeNode(diffPlane, "plane shape"));
-		else if(isSnake) rootGroup.putChild(new ShapeNode(diffSnake, "snake shape"));
-		else rootGroup.putChild(new ShapeNode(diffDice, "dice shape"));
-	
+		this.root = rootGroup;	
+		rootGroup.putChild(new ShapeNode(targetShape, "target shape"));
 	}
 	
 	private void setUpCamera(boolean isFar){
 		Point3f cop = null;
 		float distance = 0.0f;
-		if(isPlane){
+		if(shapeTask == ShapeTask.PLANE){
 			distance = 1.0f;
 			float aspectRatio = 1.0f;
 			float near = 0.0001f;
@@ -198,7 +143,7 @@ public class DiffractionSceneGraphFabricator {
 			sceneManager.getFrustum().setParameter(aspectRatio, near, far, verticalFieldView);
 			sceneManager.getCamera().setParameter(cop, look, up);
 			
-		}else if(isSnake){
+		}else if(shapeTask == ShapeTask.SNAKE){
 //			distance = 160.0f; // teapot
 			distance = 12.0f;
 			float aspectRatio = 1.0f;
@@ -277,11 +222,11 @@ public class DiffractionSceneGraphFabricator {
 	}
 	
 	public Matrix4f getDiffDiceIMat(){
-		return this.diffDiceIMat;
+		return this.targetIMat;
 	}
 	
 	public Matrix4f getDiffPlane(){
-		return this.diffPlaneIMat;
+		return this.targetIMat;
 	}
 	
 	public LightNode getLight(){
