@@ -48,39 +48,27 @@ public class ExpTaylorShaderTask extends ShaderTask{
 		// TODO invoke a call in material, where factors are preloaded instead.
 		float[] scalingFactors = m.getHeightfieldFactors();
 		int paramFactorCount = scalingFactors.length/4; // TODO setup correctly
-		
-		if(paramFactorCount >= 1000){
-			
-//			float[] scalingFactors1 = m.getLeftHFFactors();
-//			float[] scalingFactors2 = m.getRightHFFactors();
-//			
-//			int scalingID1 = gl.glGetUniformLocation(activeShader.programId(),"scalingFactors1");
-//			gl.glUniform4fv(scalingID1, paramFactorCount/2, scalingFactors1, 0);
-//			
-//			int scalingID2 = gl.glGetUniformLocation(activeShader.programId(),"scalingFactors2");
-//			gl.glUniform4fv(scalingID2, paramFactorCount/2, scalingFactors2, 0);
-		}else{
-			int scalingID = gl.glGetUniformLocation(activeShader.programId(),"scalingFactors");
-			gl.glUniform4fv(scalingID, paramFactorCount, scalingFactors, 0);
-		}
+		int scalingID = gl.glGetUniformLocation(activeShader.programId(),"scalingFactors");
+		gl.glUniform4fv(scalingID, paramFactorCount, scalingFactors, 0);
+	
 		
 		// handle weights stuff
 		if(m.getWeights() != null){
 			System.out.println("WEIGHT COUNT " + m.getWeights().length);
-			int scalingID = gl.glGetUniformLocation(activeShader.programId(),"brdf_weights");
+			scalingID = gl.glGetUniformLocation(activeShader.programId(),"brdf_weights");
 			gl.glUniform3fv(scalingID, m.getWeights().length/3, m.getWeights(), 0);
 		}
 		
 		// handle globals
 		
 		if(m.getGlobals() != null){
-			int scalingID = gl.glGetUniformLocation(activeShader.programId(),"global_extrema");
+			scalingID = gl.glGetUniformLocation(activeShader.programId(),"global_extrema");
 			gl.glUniform4fv(scalingID, m.getGlobals().length/4, m.getGlobals(), 0);
 		}
 		
 		Vector4f t_cop = m.getCOP();
 		float[] cop_f = {t_cop.x, t_cop.y, t_cop.z, t_cop.w};
-		int scalingID = gl.glGetUniformLocation(activeShader.programId(),"cop_w");
+		scalingID = gl.glGetUniformLocation(activeShader.programId(),"cop_w");
 		gl.glUniform4fv(scalingID, 1, cop_f, 0);
 		
 		float lmin = m.getLambdaMin();
