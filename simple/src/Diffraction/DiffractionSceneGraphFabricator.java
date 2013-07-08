@@ -21,6 +21,7 @@ import jrtr.Shape;
 import jrtr.Texture;
 import Constants.ShaderPaths;
 import Constants.ShaderTaskNr;
+import Managers.ParameterManager;
 import Materials.Material;
 import ReadObjects.VertexFaceData;
 import SceneGraph.GraphSceneManager;
@@ -51,8 +52,10 @@ public class DiffractionSceneGraphFabricator {
 	private Light lightSource1;
 	private float trackDistance = 2.5f;
 	private TransformGroup rootGroup;
+	
 	private String obj_file = "../models/snake_test_piece.obj";
-	String extension = ".bmp";
+	private String extension = ".bmp";
+	private String parameter_path = "../jrtr/textures/sampleX/experimental/blaze/paramters.txt";
 	// stam 4
 	// grid 9
 	// taylor 10
@@ -64,6 +67,8 @@ public class DiffractionSceneGraphFabricator {
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
 		this.sceneManager = sceneManager;
 		this.renderContext = renderContext;
+		
+		
 		setUpShaderTask();
 		setUpMaterials();
 		setUpShapes();
@@ -87,6 +92,7 @@ public class DiffractionSceneGraphFabricator {
 	
 	private void setUpMaterials(){
 		mat = new Material();
+		ParameterManager pm = new ParameterManager(mat, parameter_path);
 		mat.setMaterialColor(new Vector3f(0, 0f, 0f));
 		mat.setShinnyCoefficient(new Vector3f(0f, 0f, 1f));
 		mat.setAmbientCoefficient(new Vector3f(0.0f, 0.0f, 1.0f));

@@ -35,7 +35,11 @@ public class Material {
 	private float phongExponent;
 	private float trackDistance;
     private int layerCount;
-
+    private float lambdaMin;
+    private float lambdaMax;
+    private int stepCount;
+    private int dimN;
+    private int repNN;
     
     public Material(){
 
@@ -48,6 +52,46 @@ public class Material {
     
     public Vector4f getCOP(){
     	return this.cop;
+    }
+    
+    public void setLambdaMin(float lambdaMin){
+    	this.lambdaMin = lambdaMin;
+    }
+    
+    public float getLambdaMin(){
+    	return this.lambdaMin;
+    }
+    
+    public void setLambdaMax(float lambdaMax){
+    	this.lambdaMax = lambdaMax;
+    }
+    
+    public float getLambdaMax(){
+    	return this.lambdaMax;
+    }
+    
+    public void setStepCount(int stepCount){
+    	this.stepCount = stepCount;
+    }
+    
+    public int getStepCount(){
+    	return this.stepCount;
+    }
+    
+    public void setDimN(int dimN){
+    	this.dimN = dimN;
+    }
+    
+    public int getDimN(){
+    	return this.dimN;
+    }
+    
+    public void setRepNN(int repNN){
+    	this.repNN = repNN;
+    }
+    
+    public int getRepNN(){
+    	return this.repNN;
     }
     
     public Point3f getDistanceToCamera(){
