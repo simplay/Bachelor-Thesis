@@ -44,9 +44,43 @@ public class Material {
     private int repNN;
     private int periodCount;
     
+    private float patchDimX; //in microns  
+    private float patchDimY; //in microns 
+    private float patchSpacing; //in meters
+    private float maxBumpHeight;
     
-    public Material(){
-
+    public Material(){}
+    
+    public void setPatchDimX(float patchDimX){
+    	this.patchDimX = patchDimX;
+    }
+    
+    public float getPatchDimX(){
+    	return this.patchDimX;
+    }
+    
+    public void setPatchDimY(float patchDimY){
+    	this.patchDimY = patchDimY;
+    }
+    
+    public float getPatchDimY(){
+    	return this.patchDimY;
+    } 
+    
+    public void setPatchSpacing(float patchSpacing){
+    	this.patchSpacing = patchSpacing;
+    }
+    
+    public float getPatchSpacing(){
+    	return this.patchSpacing;
+    }
+    
+    public void setMaxBumpHeight(float maxBumpHeight){
+    	this.maxBumpHeight = maxBumpHeight;
+    }
+    
+    public float getMaxBumpHeight(){
+    	return this.maxBumpHeight;
     }
     
     public void setPeriodCount(int periodCount){

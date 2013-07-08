@@ -115,6 +115,14 @@ public class ExpTaylorShaderTask extends ShaderTask{
 		int periodCount = m.getPeriodCount();
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "periodCount");
 		gl.glUniform1i(id3, periodCount);
+		
+		float maxHeight = m.getMaxBumpHeight();
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "maxBumpHeight");
+		gl.glUniform1f(id3, maxHeight);
+		
+		float patchSpacing = m.getPatchSpacing();
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "patchSpacing");
+		gl.glUniform1f(id3, patchSpacing);
 
 	}
 

@@ -93,7 +93,11 @@ public class DiffractionSceneGraphFabricator {
 	private void setUpMaterials(){
 		mat = new Material();
 		ParameterManager pm = new ParameterManager(mat, parameter_path);
+		
 		mat.setPeriodCount(26);
+		mat.setMaxBumpHeight((float) (2.4623*Math.pow(10.0f, -7.0f)));
+		mat.setPatchSpacing((float) (2.5*Math.pow(10.0f, -6.0f)));
+		
 		mat.setMaterialColor(new Vector3f(0, 0f, 0f));
 		mat.setShinnyCoefficient(new Vector3f(0f, 0f, 1f));
 		mat.setAmbientCoefficient(new Vector3f(0.0f, 0.0f, 1.0f));

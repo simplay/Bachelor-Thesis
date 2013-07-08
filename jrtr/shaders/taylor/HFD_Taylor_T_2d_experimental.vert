@@ -36,6 +36,9 @@ uniform float dimSmall; // not used right now
 uniform float dimDiff; // not used right now
 uniform float repNN; // not used right now
 uniform int periodCount;
+uniform float maxBumpHeight;
+uniform float patchSpacing;
+
 
 in vec3 normal;
 in vec4 position;
@@ -59,8 +62,8 @@ float l_max = LMAX;
 float lambda_min = l_min*pow(10.0, -9.0);
 float lambda_max = l_max*pow(10.0, -9.0);
 const float rescale = pow(10.0, 9.0);
-const float dx = 2.5*pow(10.0, -6.0); // -6 // distance between two patches (from center to center), make me parametric too
-const float s = 2.4623*pow(10,-7.0); // -7 // max height of a bump, make me parametric
+float dx = patchSpacing;// 2.5*pow(10.0, -6.0); // -6 // distance between two patches (from center to center), make me parametric too
+float s = maxBumpHeight;// 2.4623*pow(10,-7.0); // -7 // max height of a bump, make me parametric
 
 // error constants
 const float eps_pq = 1.0*pow(10.0, -5.0); 
