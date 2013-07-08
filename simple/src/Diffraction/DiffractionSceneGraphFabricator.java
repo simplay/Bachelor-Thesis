@@ -24,6 +24,8 @@ import Constants.ShaderTaskNr;
 import Managers.BumpConstants;
 import Managers.ConstantsManager;
 import Managers.ParameterManager;
+import Managers.PreCompDataManager;
+import Managers.ShaderTaskSetupManager;
 import Materials.Material;
 import ReadObjects.VertexFaceData;
 import SceneGraph.GraphSceneManager;

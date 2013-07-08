@@ -1,4 +1,4 @@
-package Diffraction;
+package Managers;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
