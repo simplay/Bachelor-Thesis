@@ -185,6 +185,7 @@ float getFressnelFactor(vec3 _k1, vec3 _k2){
 	vec3 V = -_k1;
 	vec3 H = normalize(L + V);
 	float cos_teta = dot(H,V);
+	cos_teta = (cos_teta > tolerance)? tolerance : ((cos_teta < -tolerance) ? -cos_teta :  cos_teta);
 //	return (R0 + (1.0 - R0) * pow(1.0 - cos_teta, 5.0));
 	// faster than above - see GLSL specs
 	return mix(R0, 1.0, pow(1.0 - cos_teta, 5.0));

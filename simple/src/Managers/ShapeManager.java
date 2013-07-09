@@ -15,7 +15,6 @@ public class ShapeManager {
 	private ShapeTask task;
 	private String snake_file = "../models/snake_test_piece.obj";
 	private String teapot_file = "../models/Teapot_33K.obj";
-	
 	public ShapeManager(ShapeTask task){
 		this.task = task;
 		buildShape();
