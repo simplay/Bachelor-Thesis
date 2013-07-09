@@ -382,7 +382,7 @@ void main() {
 				}
 			}
 		}
-	
+
 		float fac2 = 1.0 / 2000.0;
 		brdf.xyz = M_Adobe_XR*brdf.xyz;
 		

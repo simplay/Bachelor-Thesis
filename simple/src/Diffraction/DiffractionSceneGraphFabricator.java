@@ -49,7 +49,7 @@ public class DiffractionSceneGraphFabricator {
 	private float trackDistance = 2.5f;
 	private TransformGroup rootGroup;
 	private SceneConfiguration sceneConfig;
-	private String configName = "sandbox";
+	private String configName = "testcase1_2";
 	private boolean useSpecificCam = false;
 	
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
