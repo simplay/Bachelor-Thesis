@@ -15,6 +15,8 @@ import Managers.CameraSceneConstantManager;
 import Managers.LightConstantManager;
 import Managers.ParameterManager;
 import Managers.PreCompDataManager;
+import Managers.SceneConfiguration;
+import Managers.SceneConfigurationManager;
 import Managers.ShaderTaskSetupManager;
 import Managers.ShapeManager;
 import Materials.Material;
@@ -39,25 +41,22 @@ public class DiffractionSceneGraphFabricator {
 	private Shape targetShape;
 	private Matrix4f targetIMat;
     private Material mat;
+    private SceneConfigurationManager scm;
     private BumpConstantsManager bcm;
     private LightConstantManager lcm;
     private CameraSceneConstantManager cscm;
     
 	private float trackDistance = 2.5f;
 	private TransformGroup rootGroup;
-	
-	
-	private ShapeTask shapeTask = ShapeTask.CYLINDER;
-	private String parameter_path = "../jrtr/textures/sampleX/experimental/blaze/paramters.txt";
-	private String cameraConstant = "plane1";
-	private ShaderTaskNr shaderTask = ShaderTaskNr.EXPERIMENTAL;
+	private SceneConfiguration sceneConfig;
+	private String configName = "sandbox";
 	private boolean useSpecificCam = false;
-	private int periodCount = 26;
-	
 	
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
 		this.sceneManager = sceneManager;
 		this.renderContext = renderContext;
+		this.scm = new SceneConfigurationManager();
+		this.sceneConfig = scm.getSceneConfigurationConstantByName(configName);
 		this.bcm = new BumpConstantsManager();	
 		this.lcm = new LightConstantManager();
 		this.cscm = new CameraSceneConstantManager();
@@ -72,22 +71,22 @@ public class DiffractionSceneGraphFabricator {
 	
 	private void setUpShaderTask(){
 
-		if(shaderTask == ShaderTaskNr.GRID){
+		if(sceneConfig.getShaderTask() == ShaderTaskNr.GRID){
 			activeShaderTask = new MultiTexturesTAShaderTask();
-		}else if(shaderTask == ShaderTaskNr.TAYLOR){
+		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.TAYLOR){
 			activeShaderTask = new MultiTexturesTaylorShaderTask();
-		}else if(shaderTask == ShaderTaskNr.EXPERIMENTAL){
+		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.EXPERIMENTAL){
 			activeShaderTask = new ExpTaylorShaderTask();
-		}else if(shaderTask == ShaderTaskNr.STAM){
+		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.STAM){
 		    activeShaderTask = new DiffractionShaderTask();
 		}
 	}
 	
 	private void setUpMaterials(){
 		mat = new Material();
-		new ParameterManager(mat, parameter_path);
-		BumpConstants bc = bcm.getByIdentifyer("Stam");
-		mat.setPeriodCount(periodCount);
+		new ParameterManager(mat, sceneConfig.getParamter_path());
+		BumpConstants bc = bcm.getByIdentifyer(sceneConfig.getBumpConstant());
+		mat.setPeriodCount(sceneConfig.getPeriodCount());
 		mat.setMaxBumpHeight(bc.getMaxHeight());
 		mat.setPatchSpacing(bc.getSpacing());
 		
@@ -97,20 +96,20 @@ public class DiffractionSceneGraphFabricator {
 		mat.setPhongExponent(64f);
 		mat.setTrackDistance(trackDistance);
 		mat.setLayerCount(108);
-		if(shaderTask == ShaderTaskNr.TAYLOR || shaderTask == ShaderTaskNr.EXPERIMENTAL) mat.setLayerCount(31);
-		ShaderTaskSetupManager stm = new ShaderTaskSetupManager(renderContext, mat, shaderTask);		
+		if(sceneConfig.getShaderTask() == ShaderTaskNr.TAYLOR || sceneConfig.getShaderTask() == ShaderTaskNr.EXPERIMENTAL) mat.setLayerCount(31);
+		ShaderTaskSetupManager stm = new ShaderTaskSetupManager(renderContext, mat, sceneConfig.getShaderTask());		
 		mat.setShader(stm.getShader());
-		new PreCompDataManager(renderContext, shaderTask.getValue(), mat); // TODO extend me, i want also the shape task, the shader task and further stuff
+		new PreCompDataManager(renderContext, sceneConfig.getShaderTask().getValue(), mat); // TODO extend me, i want also the shape task, the shader task and further stuff
 	}
 	
 	private void setUpLight(){
-		Light light = lcm.getLightConstantByName("light1");
+		Light light = lcm.getLightConstantByName(sceneConfig.getLightConstant());
 		LightNode diceLightNode = new LightNode(light, sceneManager.getCamera().getCameraMatrix(), light.getName());
 		rootGroup.putChild(diceLightNode);
 	}
 	
 	private void setUpShapes(){	
-		ShapeManager sm = new ShapeManager(shapeTask);
+		ShapeManager sm = new ShapeManager(sceneConfig.getShapeTask());
 		this.targetShape = sm.getShape();
 		this.targetIMat = sm.getTransformation();
 		targetShape.setShaderTask(activeShaderTask);
@@ -124,7 +123,7 @@ public class DiffractionSceneGraphFabricator {
 	}
 	
 	private void setUpCamera(boolean isFar){
-		CameraSceneConstant csc = cscm.getCameraSceneConstantByName(cameraConstant);
+		CameraSceneConstant csc = cscm.getCameraSceneConstantByName(sceneConfig.getCameraConstant());
 		Point3f cop = csc.getCOP();
 		if(useSpecificCam) setSpecificCam();
 		sceneManager.getFrustum().setParameter(csc.getAspectRatio(), csc.getNear(), csc.getFar(), csc.getVerticalFieldView());
