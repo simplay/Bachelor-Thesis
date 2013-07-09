@@ -102,7 +102,7 @@ public class DiffractionSceneGraphFabricator {
 				sceneConfig.getShaderTask() == ShaderTaskNr.EXPERIMENTAL_F) mat.setLayerCount(31);
 		ShaderTaskSetupManager stm = new ShaderTaskSetupManager(renderContext, mat, sceneConfig.getShaderTask());		
 		mat.setShader(stm.getShader());
-		new PreCompDataManager(renderContext, sceneConfig.getShaderTask().getValue(), mat); // TODO extend me, i want also the shape task, the shader task and further stuff
+		new PreCompDataManager(renderContext, sceneConfig.getShaderTask(), sceneConfig.getPatchName(), mat); // TODO extend me, i want also the shape task, the shader task and further stuff
 	}
 	
 	private void setUpLight(){

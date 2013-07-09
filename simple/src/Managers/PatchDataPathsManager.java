@@ -3,7 +3,6 @@ package Managers;
 import java.util.LinkedList;
 
 import Constants.ShaderTaskNr;
-import Materials.Material;
 
 public class PatchDataPathsManager {
 	private LinkedList<PatchDataPaths> constants;
@@ -15,16 +14,48 @@ public class PatchDataPathsManager {
 	
 	private void defineConstant(){
 		PatchDataPaths sc = null;
+		
+		// Taylor series based experimental fragment/vertex shader patches
 		sc = new PatchDataPaths(ShaderTaskNr.EXPERIMENTAL_F, "blaze");
 		constants.add(sc);
 		sc = new PatchDataPaths(ShaderTaskNr.EXPERIMENTAL_V, "blaze");
 		constants.add(sc);
+		
+		// Taylor precomp patches
+		sc = new PatchDataPaths(ShaderTaskNr.TAYLOR, "blaze");
+		constants.add(sc);
+		sc = new PatchDataPaths(ShaderTaskNr.TAYLOR, "cos");
+		constants.add(sc);
+		sc = new PatchDataPaths(ShaderTaskNr.TAYLOR, "newA");
+		constants.add(sc);
+		sc = new PatchDataPaths(ShaderTaskNr.TAYLOR, "pewpew");
+		constants.add(sc);
+		sc = new PatchDataPaths(ShaderTaskNr.TAYLOR, "w10");
+		constants.add(sc);
+		sc = new PatchDataPaths(ShaderTaskNr.TAYLOR, "w20");
+		constants.add(sc);
+		sc = new PatchDataPaths(ShaderTaskNr.TAYLOR, "w30");
+		constants.add(sc);
+		
+		// grid precomp patches
+		sc = new PatchDataPaths(ShaderTaskNr.GRID, "1dspec");
+		constants.add(sc);
+		sc = new PatchDataPaths(ShaderTaskNr.GRID, "1dw10");
+		constants.add(sc);
+		sc = new PatchDataPaths(ShaderTaskNr.GRID, "1dw20");
+		constants.add(sc);
+		sc = new PatchDataPaths(ShaderTaskNr.GRID, "1dw30");
+		constants.add(sc);
+		sc = new PatchDataPaths(ShaderTaskNr.GRID, "blaze");
+		constants.add(sc);
+		sc = new PatchDataPaths(ShaderTaskNr.GRID, "cos");
+		constants.add(sc);	
 	}
 	
-	public PatchDataPaths getSceneConfigurationConstantByName(ShaderTaskNr task, String patchName){
+	public PatchDataPaths getPathsByIdentifiers(ShaderTaskNr task, String patchName){
 		PatchDataPaths pa= null;
 		for(PatchDataPaths path : constants){
-			if(path.getShaderTaskNr().equals(task) && path.getPatchName().equals(patchName)){
+			if(path.getShaderTaskNr() ==task && path.getPatchName().equals(patchName+"/")){
 				pa = path;
 				break;
 			}

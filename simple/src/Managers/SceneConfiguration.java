@@ -12,10 +12,11 @@ public class SceneConfiguration {
 	private String bumpConstant;
 	private String lightConstant;
 	private ShaderTaskNr shaderTask;
+	private String patchName;
 	private int periodCount;
 	
 	public SceneConfiguration(String id, String parameter_path, ShapeTask shapeTask, String cameraConstant, 
-			String bumpConstant, String lightConstant, ShaderTaskNr shaderTask, int periodCount){
+			String bumpConstant, String lightConstant, ShaderTaskNr shaderTask, int periodCount, String patchName){
 		this.id = id;
 		this.parameter_path = parameter_path;
 		this.shapeTask = shapeTask;
@@ -24,6 +25,7 @@ public class SceneConfiguration {
 		this.lightConstant = lightConstant;
 		this.shaderTask = shaderTask;
 		this.periodCount = periodCount;
+		this.patchName = patchName;
 	}
 	
 	public String getId(){
@@ -56,5 +58,9 @@ public class SceneConfiguration {
 	
 	public int getPeriodCount(){
 		return this.periodCount;
+	}
+	
+	public String getPatchName(){
+		return this.patchName;
 	}
 }

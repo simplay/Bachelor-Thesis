@@ -35,6 +35,7 @@ public class PatchDataPaths {
 		this.extremaPath = samplesPath+"extrema.txt";
 		this.globalsPath = samplesPath+"globals.txt";
 		this.weightsPath = samplesPath+"weights.txt";
+		
 	}
 	
 

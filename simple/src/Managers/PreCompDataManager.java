@@ -10,6 +10,7 @@ import java.util.List;
 import jrtr.RenderContext;
 import jrtr.Texture;
 
+import Constants.ShaderTaskNr;
 import Materials.Material;
 
 public class PreCompDataManager {
@@ -17,188 +18,30 @@ public class PreCompDataManager {
 	private Material mat;
 	private Texture[] textures = new Texture[2624];
 	private RenderContext renderContext;
+	private PatchDataPathsManager pdpm;
 	
-	
-	public PreCompDataManager(RenderContext rc, int tasknumber, Material mat){
+	public PreCompDataManager(RenderContext rc, ShaderTaskNr tasknumber, String patchName, Material mat){
 		this.renderContext = rc;
 		this.mat = mat;
-		perfromTask(tasknumber);
+		pdpm = new PatchDataPathsManager();
+		perfromTask(tasknumber, patchName);
 	}
 	
-	private void perfromTask(int tasknumber){
-		String samples = null;
-		String extrema = null;
+	private void perfromTask(ShaderTaskNr tasknumber, String patchName){
+		PatchDataPaths patchPaths = pdpm.getPathsByIdentifiers(tasknumber, patchName);
+		// this is not used anymore for most of the latest shaders.
+		mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/pewpew/kvalues.txt")); 
+		mat.setGlobals(loadglobals(patchPaths.getGlobalsPath()));
+		mat.setWeights(readWeights(patchPaths.getWeightsPath()));
+		loadPatches(tasknumber.getValue(), patchPaths.getSamplesPath());
+		mat.setHeightfieldFactors(loadScalingConstants(patchPaths.getExtremaPath()));
+	}
+	
+	private void loadPatches(int tasknumber, String samples){
+		if(tasknumber == 10 || tasknumber == 11 || tasknumber == 12) loadCompositeTaylorPatches(samples);
+		else loadPatches2(samples, false, true);
+	}	
 		
-		if(tasknumber == 9 || tasknumber == 10 || tasknumber == 11 || tasknumber == 12){
-			if(tasknumber==1){
-
-				
-			// using bmp rgb	
-			}else if(tasknumber == 9){
-				// basis
-//				samples = "../jrtr/textures/sampleX/rgb1/";;
-//				extrema = "../jrtr/textures/sampleX/rgb1/extrema.txt";;
-//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/rgb1/kvalues.txt"));
-//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/rgb1/globals.txt"));
-//				mat.setWeights(readWeights("../jrtr/textures/sampleX/rgb1/weights.txt"));
-//				
-				
-				
-//				samples = "../jrtr/textures/sampleX/milestone/1dw10/";
-//				extrema = "../jrtr/textures/sampleX/milestone/1dw10/extrema.txt";
-//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/1dw10/kvalues.txt"));
-//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/1dw10/globals.txt"));
-//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/1dw10/weights.txt"));
-				
-				// basis comparision
-				samples = "../jrtr/textures/sampleX/milestone/1dw20/";
-				extrema = "../jrtr/textures/sampleX/milestone/1dw20/extrema.txt";
-				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/1dw20/kvalues.txt"));
-				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/1dw20/globals.txt"));
-				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/1dw20/weights.txt"));
-//				
-				
-				
-//				samples = "../jrtr/textures/sampleX/2dStam_1/";
-//				extrema = "../jrtr/textures/sampleX/2dStam_1/extrema.txt";
-//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/2dStam_1/kvalues.txt"));
-//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/2dStam_1/globals.txt"));
-//				mat.setWeights(readWeights("../jrtr/textures/sampleX/2dStam_1/weights.txt"));
-				
-
-				
-				
-//				samples = "../jrtr/textures/sampleX/milestone/1dw30/";
-//				extrema = "../jrtr/textures/sampleX/milestone/1dw30/extrema.txt";
-//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/1dw30/kvalues.txt"));
-//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/1dw30/globals.txt"));
-//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/1dw30/weights.txt"));
-				
-				
-//				samples = "../jrtr/textures/sampleX/milestone/1dspec/";
-//				extrema = "../jrtr/textures/sampleX/milestone/1dspec/extrema.txt";
-//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/1dspec/kvalues.txt"));
-//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/1dspec/globals.txt"));
-//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/1dspec/weights.txt"));
-				
-				
-//				samples = "../jrtr/textures/sampleX/milestone/tri/";
-//				extrema = "../jrtr/textures/sampleX/milestone/tri/extrema.txt";
-//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/tri/kvalues.txt"));
-//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/tri/globals.txt"));
-//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/tri/weights.txt"));
-				
-				
-//				samples = "../jrtr/textures/sampleX/milestone/sin/";
-//				extrema = "../jrtr/textures/sampleX/milestone/sin/extrema.txt";
-//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/sin/kvalues.txt"));
-//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/sin/globals.txt"));
-//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/sin/weights.txt"));
-				
-//				samples = "../jrtr/textures/sampleX/milestone/crossw20/";
-//				extrema = "../jrtr/textures/sampleX/milestone/crossw20/extrema.txt";
-//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/crossw20/kvalues.txt"));
-//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/crossw20/globals.txt"));
-//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/crossw20/weights.txt"));
-				
-//				samples = "../jrtr/textures/sampleX/milestone/C/";
-//				extrema = "../jrtr/textures/sampleX/milestone/C/extrema.txt";
-//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/C/kvalues.txt"));
-//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/C/globals.txt"));
-//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/C/weights.txt"));
-				
-				
-//				samples = "../jrtr/textures/sampleX/milestone/cos/";
-//				extrema = "../jrtr/textures/sampleX/milestone/cos/extrema.txt";
-//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/cos/kvalues.txt"));
-//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/cos/globals.txt"));
-//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/cos/weights.txt"));
-				
-
-				
-//				samples = "../jrtr/textures/sampleX/milestone/pew/";
-//				extrema = "../jrtr/textures/sampleX/milestone/pew/extrema.txt";
-//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/pew/kvalues.txt"));
-//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/pew/globals.txt"));
-//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/pew/weights.txt"));
-
-				String s_name1 = "1dStam";
-				String s_name2 = "2dStam";
-				String s_name3 = "blaze";
-				String s_name4 = "cos";
-				String s_name = s_name1;
-				samples = "../jrtr/textures/sampleX/padded/"+ s_name +"/";
-				extrema = "../jrtr/textures/sampleX/padded/"+ s_name +"/extrema.txt";
-				mat.setKValues(loadKValues("../jrtr/textures/sampleX/padded/"+ s_name +"/kvalues.txt"));
-				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/padded/"+ s_name +"/globals.txt"));
-				mat.setWeights(readWeights("../jrtr/textures/sampleX/padded/"+ s_name +"/weights.txt"));
-
-//				
-				
-//				samples = "../jrtr/textures/sampleX/milestone/blaze/";
-//				extrema = "../jrtr/textures/sampleX/milestone/blaze/extrema.txt";
-//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/milestone/blaze/kvalues.txt"));
-//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/milestone/blaze/globals.txt"));
-//				mat.setWeights(readWeights("../jrtr/textures/sampleX/milestone/blaze/weights.txt"));
-				
-			}else if(tasknumber == 10){
-//				samples = "../jrtr/textures/sampleX/taylor/w10/";
-//				extrema = "../jrtr/textures/sampleX/taylor/w10/extrema.txt";
-//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/w10/kvalues.txt"));
-//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/w10/globals.txt"));
-//				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/w10/weights.txt"));
-//				
-//				samples = "../jrtr/textures/sampleX/taylor/w20/";
-//				extrema = "../jrtr/textures/sampleX/taylor/w20/extrema.txt";
-//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/w20/kvalues.txt"));
-//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/w20/globals.txt"));
-//				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/w20/weights.txt"));
-				
-				samples = "../jrtr/textures/sampleX/taylor/pewpew/";
-				extrema = "../jrtr/textures/sampleX/taylor/pewpew/extrema.txt";
-				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/pewpew/kvalues.txt"));
-				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/pewpew/globals.txt"));
-				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/pewpew/weights.txt"));
-				
-//				samples = "../jrtr/textures/sampleX/taylor/newA/";
-//				extrema = "../jrtr/textures/sampleX/taylor/newA/extrema.txt";
-//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/newA/kvalues.txt"));
-//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/newA/globals.txt"));
-//				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/newA/weights.txt"));
-//				
-//				samples = "../jrtr/textures/sampleX/taylor/w30/";
-//				extrema = "../jrtr/textures/sampleX/taylor/w30/extrema.txt";
-//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/w30/kvalues.txt"));
-//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/w30/globals.txt"));
-//				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/w30/weights.txt"));
-//				
-//				samples = "../jrtr/textures/sampleX/taylor/cos/";
-//				extrema = "../jrtr/textures/sampleX/taylor/cos/extrema.txt";
-//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/cos/kvalues.txt"));
-//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/cos/globals.txt"));
-//				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/cos/weights.txt"));
-//				
-//				samples = "../jrtr/textures/sampleX/taylor/blaze/";
-//				extrema = "../jrtr/textures/sampleX/taylor/blaze/extrema.txt";
-//				mat.setKValues(loadKValues("../jrtr/textures/sampleX/taylor/blaze/kvalues.txt"));
-//				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/blaze/globals.txt"));
-//				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/blaze/weights.txt"));
-				
-			}else if(tasknumber == 11 || tasknumber == 12){
-				samples = "../jrtr/textures/sampleX/experimental/blaze/";
-				extrema = "../jrtr/textures/sampleX/experimental/blaze/extrema.txt";
-				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/experimental/blaze/globals.txt"));
-				mat.setWeights(readWeights("../jrtr/textures/sampleX/experimental/blaze/weights.txt"));
-			}
-			
-			if(tasknumber == 10 || tasknumber == 11 || tasknumber == 12) loadCompositeTaylorPatches(samples);
-			else loadPatches2(samples, false, true);
-			
-			mat.setHeightfieldFactors(loadScalingConstants(extrema));
-		}
-	}
-	
-	
 	
 	private void loadCompositeTaylorPatches(String basisPath){
 		String path = basisPath;
