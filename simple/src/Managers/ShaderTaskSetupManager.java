@@ -32,11 +32,13 @@ public class ShaderTaskSetupManager {
 //				shader.load(ShaderPaths.taylor_T_1d_Vert.toString(), ShaderPaths.taylor_T_1d_Frag.toString());
 				shader.load(ShaderPaths.taylor_T_2d_Vert.toString(), ShaderPaths.taylor_T_2d_Frag.toString());
 				
-			}else if(shaderTask == ShaderTaskNr.EXPERIMENTAL){
-//				shader.load(ShaderPaths.expTaylor_2d_Vert.toString(), ShaderPaths.expTaylor_2d_Frag.toString());
-				shader.load(ShaderPaths.test_Vert.toString(), ShaderPaths.test_Frag.toString());
+			}else if(shaderTask == ShaderTaskNr.EXPERIMENTAL_V){
+				shader.load(ShaderPaths.expTaylor_2d_Vert.toString(), ShaderPaths.expTaylor_2d_Frag.toString());
+//				shader.load(ShaderPaths.test_Vert.toString(), ShaderPaths.test_Frag.toString());
 //				test_Vert
 //				shader.load(ShaderPaths.defaultVert.toString(), ShaderPaths.defaultFrag.toString());
+			}else if(shaderTask == ShaderTaskNr.EXPERIMENTAL_F){
+				shader.load(ShaderPaths.test_Vert.toString(), ShaderPaths.test_Frag.toString());
 			}
 			
 

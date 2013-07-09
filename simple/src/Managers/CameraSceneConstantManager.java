@@ -17,7 +17,7 @@ public class CameraSceneConstantManager {
 		constants.add(cs);
 		cs = new CameraSceneConstant("cylinder1", 15.0f, 15.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0));
 		constants.add(cs);
-		cs = new CameraSceneConstant("snake1", 12.0f, 20.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0));
+		cs = new CameraSceneConstant("snake1", 2.0f, 20.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0));
 		constants.add(cs);
 		cs = new CameraSceneConstant("teapot1", 160.0f, 20.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0));
 		constants.add(cs);

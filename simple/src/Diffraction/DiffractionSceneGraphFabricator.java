@@ -60,7 +60,6 @@ public class DiffractionSceneGraphFabricator {
 		this.bcm = new BumpConstantsManager();	
 		this.lcm = new LightConstantManager();
 		this.cscm = new CameraSceneConstantManager();
-		
 		setUpShaderTask();
 		setUpMaterials();
 		setUpShapes();
@@ -75,7 +74,9 @@ public class DiffractionSceneGraphFabricator {
 			activeShaderTask = new MultiTexturesTAShaderTask();
 		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.TAYLOR){
 			activeShaderTask = new MultiTexturesTaylorShaderTask();
-		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.EXPERIMENTAL){
+		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.EXPERIMENTAL_V){
+			activeShaderTask = new ExpTaylorShaderTask();
+		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.EXPERIMENTAL_F){
 			activeShaderTask = new ExpTaylorShaderTask();
 		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.STAM){
 		    activeShaderTask = new DiffractionShaderTask();
@@ -96,7 +97,9 @@ public class DiffractionSceneGraphFabricator {
 		mat.setPhongExponent(64f);
 		mat.setTrackDistance(trackDistance);
 		mat.setLayerCount(108);
-		if(sceneConfig.getShaderTask() == ShaderTaskNr.TAYLOR || sceneConfig.getShaderTask() == ShaderTaskNr.EXPERIMENTAL) mat.setLayerCount(31);
+		if(sceneConfig.getShaderTask() == ShaderTaskNr.TAYLOR || 
+				sceneConfig.getShaderTask() == ShaderTaskNr.EXPERIMENTAL_V || 
+				sceneConfig.getShaderTask() == ShaderTaskNr.EXPERIMENTAL_F) mat.setLayerCount(31);
 		ShaderTaskSetupManager stm = new ShaderTaskSetupManager(renderContext, mat, sceneConfig.getShaderTask());		
 		mat.setShader(stm.getShader());
 		new PreCompDataManager(renderContext, sceneConfig.getShaderTask().getValue(), mat); // TODO extend me, i want also the shape task, the shader task and further stuff

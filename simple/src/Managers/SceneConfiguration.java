@@ -14,7 +14,8 @@ public class SceneConfiguration {
 	private ShaderTaskNr shaderTask;
 	private int periodCount;
 	
-	public SceneConfiguration(String id, String parameter_path, ShapeTask shapeTask, String cameraConstant, String bumpConstant, String lightConstant, ShaderTaskNr shaderTask, int periodCount){
+	public SceneConfiguration(String id, String parameter_path, ShapeTask shapeTask, String cameraConstant, 
+			String bumpConstant, String lightConstant, ShaderTaskNr shaderTask, int periodCount){
 		this.id = id;
 		this.parameter_path = parameter_path;
 		this.shapeTask = shapeTask;

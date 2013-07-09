@@ -29,7 +29,7 @@ public class PreCompDataManager {
 		String samples = null;
 		String extrema = null;
 		
-		if(tasknumber == 9 || tasknumber == 10 || tasknumber == 11){
+		if(tasknumber == 9 || tasknumber == 10 || tasknumber == 11 || tasknumber == 12){
 			if(tasknumber==1){
 
 				
@@ -184,14 +184,14 @@ public class PreCompDataManager {
 //				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/taylor/blaze/globals.txt"));
 //				mat.setWeights(readWeights("../jrtr/textures/sampleX/taylor/blaze/weights.txt"));
 				
-			}else if(tasknumber == 11){
+			}else if(tasknumber == 11 || tasknumber == 12){
 				samples = "../jrtr/textures/sampleX/experimental/blaze/";
 				extrema = "../jrtr/textures/sampleX/experimental/blaze/extrema.txt";
 				mat.setGlobals(loadglobals("../jrtr/textures/sampleX/experimental/blaze/globals.txt"));
 				mat.setWeights(readWeights("../jrtr/textures/sampleX/experimental/blaze/weights.txt"));
 			}
 			
-			if(tasknumber == 10 || tasknumber == 11) loadCompositeTaylorPatches(samples);
+			if(tasknumber == 10 || tasknumber == 11 || tasknumber == 12) loadCompositeTaylorPatches(samples);
 			else loadPatches2(samples, false, true);
 			
 			mat.setHeightfieldFactors(loadScalingConstants(extrema));

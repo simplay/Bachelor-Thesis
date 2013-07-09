@@ -5,7 +5,8 @@ public enum ShapeTask {
 	CYLINDER(2),
 	SNAKE(3),
 	TEAPOT(4),
-	DICE(5);
+	DICE(5), 
+	CYLINDER2(6);
 	
 	private final int value;
 	

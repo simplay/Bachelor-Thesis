@@ -26,13 +26,6 @@ uniform float repNN; // not used right now
 uniform int periodCount;
 uniform float maxBumpHeight;
 uniform float patchSpacing;
-
-
-
-
-
-
-
 uniform sampler2DArray lookupText;
 // Variables passed in from the vertex shader
 in vec2 frag_texcoord;
@@ -47,13 +40,6 @@ in vec3 o_tangent;
 
 // Output variable, will be written to framebuffer automatically
 out vec4 frag_shaded;
-
-
-
-
-
-
-
 
 //material and math constants
 const float PI = 3.14159265358979323846264;
@@ -189,6 +175,7 @@ float getFressnelFactor(vec3 _k1, vec3 _k2){
 	vec3 V = -_k1;
 	vec3 H = normalize(L + V);
 	float cos_teta = dot(H,V);
+	cos_teta = (cos_teta > tolerance)? tolerance : ((cos_teta < -tolerance) ? -cos_teta :  cos_teta);
 //	return (R0 + (1.0 - R0) * pow(1.0 - cos_teta, 5.0));
 	// faster than above - see GLSL specs
 	return mix(R0, 1.0, pow(1.0 - cos_teta, 5.0));
@@ -317,24 +304,6 @@ vec2 compute_N_min_max(float t){
 	return vec2(N_min, N_max);
 }
 
-
-
-
-
-
-
-
-
-//in vec3 o_pos;
-//in vec3 o_light;
-//in vec3 o_normal;
-//in vec3 o_tangent;
-
-
-
-
-
-
 void main() {
 	
 	vec4 brdf = vec4(0.0, 0.0, 0.0, 1.0);
@@ -364,9 +333,6 @@ void main() {
 	float u = V.x; float v = V.y; float w = V.z;
 	float F = getFressnelFactor(_k1, _k2); // issue G may cause nan
 	float G = computeGFactor(o_normal, _k1, _k2); // 
-	
-	F = 1.0;
-//	G = 1.0;
 	
 	// get iteration bounds for given (u,v)
 	vec2 N_u = compute_N_min_max(u);
@@ -417,12 +383,12 @@ void main() {
 			}
 		}
 	
-		float fac2 = 1.0 / 5000.0;
+		float fac2 = 1.0 / 2000.0;
 		brdf.xyz = M_Adobe_XR*brdf.xyz;
 		
 		brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 		
-		float ambient = 0.1;
+		float ambient = 0.0;
 		
 		// remove negative values
 		if(brdf.x < 0.0 ) brdf.x = 0.0;
@@ -435,5 +401,5 @@ void main() {
 		else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) o_col = vec4(0.0, 1.0, 0.0, 1.0);
 		else o_col = brdf+vec4(ambient,ambient,ambient,0.0);
 //		else o_col = vec4(ambient,ambient,ambient,0.0);
-	frag_shaded	= o_col;
+		frag_shaded	= o_col;
 }
