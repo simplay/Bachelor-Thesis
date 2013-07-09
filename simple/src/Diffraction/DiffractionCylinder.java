@@ -37,8 +37,12 @@ public class DiffractionCylinder extends DiffractionGeometricObject{
 		
 		for(int t = 0; t < circleCount; t++){
 			for(int k = 0; k < circlePointCount; k++){
-				float x = (float) -(radius*Math.sin(phiStep*k));
-				float y = (float) (radius*Math.cos(phiStep*k));
+//				float x = (float) -(radius*Math.sin(phiStep*k));
+//				float y = (float) (radius*Math.cos(phiStep*k));
+//				float z = 0.0f;
+				
+				float x = 1.0f;
+				float y = 0.0f;
 				float z = 0.0f;
 				
 				Vector3f a = new Vector3f(x,y,z);
@@ -72,9 +76,9 @@ public class DiffractionCylinder extends DiffractionGeometricObject{
 		
 		for(int t = 0; t < circleCount; t++){
 			for(int k = 0; k < circlePointCount; k++){
-				float x = (float) (radius*Math.cos(phiStep*k));
-				float y = (float) (radius*Math.sin(phiStep*k));
-				float z = t*heightStep;
+				float z = (float) (radius*Math.cos(phiStep*k))-radius;
+				float x = (float) (radius*Math.sin(phiStep*k));
+				float y = t*heightStep-(height/2.0f);
 				
 				vertices.add(x);
 				vertices.add(y);

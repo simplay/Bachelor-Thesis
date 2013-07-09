@@ -47,7 +47,7 @@ public class DiffractionSceneGraphFabricator {
 	private TransformGroup rootGroup;
 	
 	
-	private ShapeTask shapeTask = ShapeTask.PLANE;
+	private ShapeTask shapeTask = ShapeTask.CYLINDER;
 	private String parameter_path = "../jrtr/textures/sampleX/experimental/blaze/paramters.txt";
 	private String cameraConstant = "plane1";
 	private ShaderTaskNr shaderTask = ShaderTaskNr.EXPERIMENTAL;

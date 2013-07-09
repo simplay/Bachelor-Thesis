@@ -362,19 +362,23 @@ void main() {
 	vec3 _k1 = normalize(o_light); // light direction, same for every point		
 	vec3 V = _k1 - _k2;
 	float u = V.x; float v = V.y; float w = V.z;
-	float F = getFressnelFactor(_k1, _k2);
-	float G = computeGFactor(o_normal, _k1, _k2);
+	float F = getFressnelFactor(_k1, _k2); // issue G may cause nan
+	float G = computeGFactor(o_normal, _k1, _k2); // 
+	
+	F = 1.0;
+//	G = 1.0;
 	
 	// get iteration bounds for given (u,v)
 	vec2 N_u = compute_N_min_max(u);
 	vec2 N_v = compute_N_min_max(v);
 	vec2 N_uv[2] = vec2[2](N_u, N_v);
-	vec2 modUV = getRotation(u,v,-phi);
+	vec2 modUV = getRotation(u,v,phi);
 	
 	
 	// only specular contribution within epsilon range: i.e. fixed number of lambdas
 		if(abs(u) < eps && abs(v) < eps){
-			for(int iter = 0; iter < 0; iter++){		
+			for(int iter = 0; iter < 0; iter++){	
+				brdf += vec4(1.0, 1.0, 1.0, 0.0);
 			}
 		}else{
 			// iterate twice: once for N_u and once for N_v lower,upper
@@ -413,12 +417,12 @@ void main() {
 			}
 		}
 	
-		float fac2 = 1.0 / 200.0;
+		float fac2 = 1.0 / 5000.0;
 		brdf.xyz = M_Adobe_XR*brdf.xyz;
 		
 		brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 		
-		float ambient = 0.0;
+		float ambient = 0.1;
 		
 		// remove negative values
 		if(brdf.x < 0.0 ) brdf.x = 0.0;

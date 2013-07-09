@@ -31,7 +31,7 @@ public class ShapeManager {
 			this.targetShape = new Shape(diffDice.getVertices());
 			
 		}else if(task == ShapeTask.CYLINDER){
-			DiffractionCylinder diffcylinder = new DiffractionCylinder(1.0f,1.0f, 600, 600);
+			DiffractionCylinder diffcylinder = new DiffractionCylinder(.05f,0.015f, 600, 600);
 			this.targetShape = new Shape(diffcylinder.getVertices());
 			
 		}else if(task == ShapeTask.TEAPOT){
