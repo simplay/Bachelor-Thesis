@@ -13,7 +13,7 @@ function taylor2PadExp
     BlazingPatch = 'BlazingBump.bmp';
     CosinePatch = 'CosineBump.bmp';
     
-    patch_file = RectPatch1d;
+    patch_file = BlazingPatch;
     whole_path = strcat(patch_basis_path,patch_file);
 	inputIMG = imread(whole_path);
     inputIMG = repmat(inputIMG, rep_nn, rep_nn);

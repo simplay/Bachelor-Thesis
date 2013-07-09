@@ -49,7 +49,12 @@ in vec4 color;
 
 //Output variables for fragment shader
 out vec2 frag_texcoord;
-out vec4 col;
+//out vec4 col;
+
+out vec3 o_pos;
+out vec3 o_light;
+out vec3 o_normal;
+out vec3 o_tangent;
 
 // material and math constants
 const float PI = 3.14159265358979323846264;
@@ -353,6 +358,11 @@ void main() {
 	Pos.y = dot(Pos, B);
 	Pos.z = dot(Pos, N);
 	
+	o_pos = Pos;
+	o_light = lightDir.xyz;
+	o_normal = N;
+	o_tangent = T;
+	
 	vec3 _k2 = normalize(Pos); //vector from point P to camera
 	vec3 _k1 = normalize(lightDir.xyz); // light direction, same for every point		
 	vec3 V = _k1 - _k2;
@@ -450,12 +460,11 @@ void main() {
 	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.2);
 	
 	// Debug mode
-	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) col = vec4(1.0, 0.0, 0.0, 1.0);
-	else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) col = vec4(0.0, 1.0, 0.0, 1.0);
-	else col = brdf+vec4(ambient,ambient,ambient,0.0);
+//	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) col = vec4(1.0, 0.0, 0.0, 1.0);
+//	else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) col = vec4(0.0, 1.0, 0.0, 1.0);
+//	else col = brdf+vec4(ambient,ambient,ambient,0.0);
 //	else col = vec4(ambient,ambient,ambient,0.0);
 		
-
 	frag_texcoord = texcoord;
 	gl_Position = projection * modelview * position;
 }

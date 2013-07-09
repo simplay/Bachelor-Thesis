@@ -1,7 +1,7 @@
 function getXYZWeights(lamdas)
 
-	load X2deg.dat
-	A = X2deg;
+	load X10deg.dat
+	A = X10deg;
     out = 'out/';
 	% matrix A has stored data [nm,x,y,z] with index-range: 1-4401
 	% i.e. A(4401,;) == [830.0	1.762465E-06	7.053860E-07	0.000000E+00]

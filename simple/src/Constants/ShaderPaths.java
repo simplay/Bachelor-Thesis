@@ -33,6 +33,9 @@ public enum ShaderPaths {
 	expFrag("../jrtr/shaders/fft2d/experimental.frag"),
 	
 	// taylor
+	test_Vert("../jrtr/shaders/taylor/testFrag.vert"),
+	test_Frag("../jrtr/shaders/taylor/testFrag.frag"),
+	
 	taylor1Vert("../jrtr/shaders/taylor/HeighfieldDiffractionTaylor1.vert"),
 	taylor1Frag("../jrtr/shaders/taylor/HeighfieldDiffractionTaylor1.frag"),
 	
