@@ -12,7 +12,7 @@
 
 // substitutes
 #define MAX_LIGHTS 1
-#define MAX_FACTORS 656
+#define MAX_FACTORS 31
 #define MAX_WEIGHTS 311
 
 //Uniform variables, passed in from host program via suitable 

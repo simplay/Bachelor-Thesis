@@ -1,27 +1,12 @@
 #version 150
 #extension GL_EXT_gpu_shader4 : enable
-// GLSL version 1.50
-// Fragment shader for diffuse shading in combination with a texture map
-
-// Uniform variables passed in from host program
-
-
-uniform vec3 k_a;
-
-
-uniform float p;
-
-
-
-
-
 
 //substitutes
 #define MAX_LIGHTS 1
 #define MAX_FACTORS 31
 #define MAX_WEIGHTS 311
 //Uniform variables, passed in from host program via suitable 
-//variants of glUniform*
+
 uniform sampler2DArray TexArray;
 uniform vec4 cop_w;
 uniform vec3 radianceArray[MAX_LIGHTS];
@@ -428,7 +413,7 @@ void main() {
 			}
 		}
 	
-		float fac2 = 1.0 / 2000.0;
+		float fac2 = 1.0 / 200.0;
 		brdf.xyz = M_Adobe_XR*brdf.xyz;
 		
 		brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
