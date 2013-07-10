@@ -313,6 +313,8 @@ void main() {
 	vec4 brdf = vec4(0.0, 0.0, 0.0, 1.0);
 	vec4 maxBRDF = vec4(0.0, 0.0, 0.0, 1.0);
 	vec2 P = vec2(0.0, 0.0);
+	
+	float neighborRadius = 2.0;
 	float abs_P_Sq = 0.0;
 	float real_part = 0.0;
 	float imag_part = 0.0;
@@ -325,7 +327,8 @@ void main() {
 	float c = global_extrema[0].z; float d = global_extrema[0].w;
 	float brdfMax = pow((b-a),2.0)+pow((d-c),2.0);
 	float lambda_iter = 0.0;
-	float t = 0.0;
+	float t1 = 0.0;
+	float t2 = 0.0;
 	float phi = -PI/2.0;
 	phi = 0.0;
 	vec4 o_col = vec4(0.0, 0.0, 0.0, 0.0);
@@ -356,32 +359,60 @@ void main() {
 				int lower = int(N_uv[variant].x);
 				int upper = int(N_uv[variant].y);
 				
-				if(variant == 0) t = u;
-				else t = v;
+				if(variant == 0){
+					t1 = u;
+					t2 = v;
+				}
+				else{
+					t1 = v;
+					t2 = u;
+				}
 				
 				for(float iter = lower; iter <= upper; iter++){
-					
 					if(iter == 0.0) continue;
-					lambda_iter = (dx*t)/iter;
+					lambda_iter = (dx*t1)/iter;
 					k = 2.0*PI / lambda_iter;
-					vec2 coords = vec2((k*modUV.x/Omega) + bias, (k*modUV.y/Omega) + bias); //2d
+					
+					float uv_N_n_hat = (k*dx*t2)/(2.0*PI);
+					float uv_N_n = floor(uv_N_n_hat);
+					float uu_N_n = (k*dx*t1)/(2.0*PI);
+					
+					float uu_N_base = uu_N_n - neighborRadius;
+					float uv_N_base = uv_N_n - neighborRadius;
+					
+					
+					
+					for(float ind1 = uu_N_base; ind1 <= uu_N_base + 2.0*neighborRadius; ind1 = ind1 + 1.0){
+						for(float ind2 = uv_N_base; ind2 <= uv_N_base + 2.0*neighborRadius; ind2 = ind2 + 1.0){
+							float dist = pow(ind1-uu_N_base, 2.0) + pow(ind2-uv_N_base, 2.0);
+							vec2 coords = vec2((k*ind1/Omega) + bias, (k*ind2.y/Omega) + bias); //2d
 
-					if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
+							if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
+							
+							float w_u = k*ind1;
+							float w_v = k*ind2;
 					
-					float w_u = k*modUV.x;
-					float w_v = k*modUV.y;
-			
-					P = taylorApproximation(coords, k, w);
-					float pq_scale = compute_pq_scale_factor(w_u,w_v);
-					P *= pq_scale;
+							P = taylorApproximation(coords, k, w);
+							float w_ij = exp(0.0);
+//							float pq_scale = compute_pq_scale_factor(w_u,w_v);
+//							P *= pq_scale;
+							
+							P *= w_ij;
+							
+							float abs_P_Sq = P.x*P.x + P.y*P.y;
+							
+							float diffractionCoeff = getFactor(k, F, G, w);
+							vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
+							brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 0.0);
+							
+							maxBRDF += vec4(diffractionCoeff * 1.0 * waveColor, 0.0);
+							
+							
+						}
+					}
+					
+					
 
-					float abs_P_Sq = P.x*P.x + P.y*P.y;
-					
-					float diffractionCoeff = getFactor(k, F, G, w);
-					vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
-					brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 0.0);
-					
-					maxBRDF += vec4(diffractionCoeff * 1.0 * waveColor, 0.0);
 				}
 			}
 		}
