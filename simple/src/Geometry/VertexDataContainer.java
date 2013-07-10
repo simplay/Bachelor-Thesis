@@ -7,6 +7,7 @@ public class VertexDataContainer {
 	private float colors[];
 	private float textureCoordinates[];
 	private int indices[];
+	private float avgEdgeLenght = 1.0f;
 	
 	public VertexDataContainer(float[] vertices, float[] normals, 
 			float[] tangents, float[] colors, 
@@ -18,6 +19,19 @@ public class VertexDataContainer {
 		this.colors = colors;
 		this.textureCoordinates = textureCoordinates;
 		this.indices = indices;
+	}
+	
+	public VertexDataContainer(float[] vertices, float[] normals, 
+			float[] tangents, float[] colors, 
+			float[] textureCoordinates, int[] indices, float avgEdgeLenght){
+		
+		this.vertices = vertices;
+		this.normals = normals;
+		this.tangents = tangents;
+		this.colors = colors;
+		this.textureCoordinates = textureCoordinates;
+		this.indices = indices;
+		this.avgEdgeLenght = avgEdgeLenght;
 	}
 	
 	public float[] getVertices(){
@@ -42,5 +56,9 @@ public class VertexDataContainer {
 	
 	public int[] getIndices(){
 		return this.indices;
+	}
+	
+	public float getAvgEdgeLength(){
+		return this.avgEdgeLenght;
 	}
 }

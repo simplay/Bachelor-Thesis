@@ -4,6 +4,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.vecmath.Vector3f;
+
 public class ObjReader {
 	private VertexFaceData vfData;
 	
@@ -48,6 +50,11 @@ public class ObjReader {
 				n[0] = Float.valueOf(s[1]).floatValue();
 				n[1] = Float.valueOf(s[2]).floatValue();
 				n[2] = Float.valueOf(s[3]).floatValue();
+				Vector3f tmp = new Vector3f(n[0], n[1], n[2]);
+				tmp.normalize();
+				n[0] = tmp.x;
+				n[1] = tmp.y;
+				n[2] = tmp.z;
 				normals.add(n);
 				
 			}else if(s[0].compareTo("vp")==0){

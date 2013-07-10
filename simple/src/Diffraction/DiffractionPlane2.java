@@ -3,6 +3,9 @@ package Diffraction;
 import java.util.LinkedList;
 import java.util.List;
 
+import Geometry.VertexDataContainer;
+import ReadObjects.WriteBackMonkey;
+
 import jrtr.VertexData;
 
 public class DiffractionPlane2 extends DiffractionGeometricObject{
@@ -29,6 +32,10 @@ public class DiffractionPlane2 extends DiffractionGeometricObject{
 		this.setupObject();
 		this.tangentVectors = this.getTangentVectors();
 		this.vertexData.addElement(this.tangentVectors, VertexData.Semantic.TANGENT, 3);
+		
+		VertexDataContainer data = new VertexDataContainer(vetices, normals, tangentVectors, colors, textureCoordinates, indices);
+		WriteBackMonkey monkey = new WriteBackMonkey(data);
+		monkey.writeAll();
 	}
 
 	@Override

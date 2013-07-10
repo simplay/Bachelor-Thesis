@@ -1,5 +1,7 @@
 package Diffraction;
 
+import Geometry.VertexDataContainer;
+import ReadObjects.WriteBackMonkey;
 import jrtr.VertexData;
 
 public abstract class GeometricObject2 {

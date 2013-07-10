@@ -23,7 +23,7 @@ public class VertexFaceData {
 	private float TextureCoordinates_f[];
 	private int indices_i[];
 	private WriteBackMonkey monkey;
-	
+	private float avgEdgeLength;
 	private VertexData vertexData;
 	
 	private float getNorm(Vector3f v){
@@ -43,7 +43,7 @@ public class VertexFaceData {
 				Vector3f main_v = new Vector3f(vMain12.x/norm_vMain12, vMain12.y/norm_vMain12, vMain12.z/norm_vMain12);
 				
 				
-				float avgEdgeLength = 0.0f;
+				avgEdgeLength = 0.0f;
 				int faceCounter = 0;
 				for(Face face : this.faces){
 					Vector3f pos12 = new Vector3f();
@@ -272,7 +272,7 @@ public class VertexFaceData {
 		this.vertexData.addElement(tangents_f, VertexData.Semantic.TANGENT, 3);
 		this.vertexData.addIndices(indices_i);	
 		
-		VertexDataContainer data = new VertexDataContainer(vertices_f, normals_f, tangents_f, colors_f, TextureCoordinates_f, indices_i);
+		VertexDataContainer data = new VertexDataContainer(vertices_f, normals_f, tangents_f, colors_f, TextureCoordinates_f, indices_i, avgEdgeLength);
 		WriteBackMonkey monkey = new WriteBackMonkey(data);
 		monkey.writeAll();
 	}

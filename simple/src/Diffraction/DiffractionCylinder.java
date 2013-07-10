@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.vecmath.Vector3f;
 
+import Geometry.VertexDataContainer;
+import ReadObjects.WriteBackMonkey;
+
 import jrtr.VertexData;
 
 public class DiffractionCylinder extends DiffractionGeometricObject{
@@ -27,6 +30,10 @@ public class DiffractionCylinder extends DiffractionGeometricObject{
 		this.setupObject();
 		this.tangentVectors = this.getTangentVectors();
 		this.vertexData.addElement(this.tangentVectors, VertexData.Semantic.TANGENT, 3);
+		
+		VertexDataContainer data = new VertexDataContainer(vetices, normals, tangentVectors, colors, textureCoordinates, indices);
+		WriteBackMonkey monkey = new WriteBackMonkey(data);
+		monkey.writeAll();
 	}
 	
 	@Override

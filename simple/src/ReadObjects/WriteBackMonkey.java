@@ -23,6 +23,7 @@ public class WriteBackMonkey {
 	}
 	
 	public void writeAll(){
+		out.println("ael" + " " + vd.getAvgEdgeLength());
 		float[] vert = vd.getVertices();
 		for(int t = 0; t < vert.length; t += 3){
 			out.println("v" + " " + vert[t] + " " + vert[t+1] + " " + vert[t+2]);
@@ -30,17 +31,17 @@ public class WriteBackMonkey {
 		
 		float[] norm = vd.getNormals();
 		for(int t = 0; t < norm.length; t += 3){
-			out.println("n" + " " + norm[t] + " " + norm[t+1] + " " + norm[t+2]);
+			out.println("vn" + " " + norm[t] + " " + norm[t+1] + " " + norm[t+2]);
 		}
 		
 		float[] tan = vd.getTangents();
 		for(int t = 0; t < tan.length; t += 3){
-			out.println("t" + " " + tan[t] + " " + tan[t+1] + " " + tan[t+2]);
+			out.println("vp" + " " + tan[t] + " " + tan[t+1] + " " + tan[t+2]);
 		}
 		
 		int[] ind = vd.getIndices();
 		for(int t = 0; t < ind.length; t += 3){
-			out.println("i" + " " + ind[t] + " " + ind[t+1] + " " + ind[t+2]);
+			out.println("f" + " " + (ind[t]-1) + " " + (ind[t+1]-1) + " " + (ind[t+2]-1));
 		}
 		
 		out.close();
