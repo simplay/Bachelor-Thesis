@@ -52,7 +52,11 @@ public enum ShaderPaths {
 	taylor_T_2d_Frag("../jrtr/shaders/taylor/HFD_Taylor.frag"),
 	
 	expTaylor_2d_Vert("../jrtr/shaders/taylor/HFD_Taylor_T_2d_experimental.vert"),
-	expTaylor_2d_Frag("../jrtr/shaders/taylor/HFD_Taylor.frag");
+	expTaylor_2d_Frag("../jrtr/shaders/taylor/HFD_Taylor.frag"),
+	
+	//taylor Gauss
+	tg_Vert("../jrtr/shaders/taylorGaussian/testFrag.vert"),
+	tg_Frag("../jrtr/shaders/taylorGaussian/testFrag.frag");
 	
 	private final String value;
 		 

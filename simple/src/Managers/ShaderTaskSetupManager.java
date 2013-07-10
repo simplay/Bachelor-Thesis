@@ -39,6 +39,10 @@ public class ShaderTaskSetupManager {
 //				shader.load(ShaderPaths.defaultVert.toString(), ShaderPaths.defaultFrag.toString());
 			}else if(shaderTask == ShaderTaskNr.EXPERIMENTAL_F){
 				shader.load(ShaderPaths.test_Vert.toString(), ShaderPaths.test_Frag.toString());
+			
+			}else if(shaderTask == ShaderTaskNr.TAYLORGAUSSIAN){
+				shader.load(ShaderPaths.tg_Vert.toString(), ShaderPaths.tg_Frag.toString());
+//				shader.load(ShaderPaths.test_Vert.toString(), ShaderPaths.test_Frag.toString());
 			}
 			
 

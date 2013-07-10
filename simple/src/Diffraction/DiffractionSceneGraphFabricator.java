@@ -78,6 +78,8 @@ public class DiffractionSceneGraphFabricator {
 			activeShaderTask = new ExpTaylorShaderTask();
 		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.STAM){
 		    activeShaderTask = new DiffractionShaderTask();
+		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.TAYLORGAUSSIAN){
+			activeShaderTask = new ExpTaylorShaderTask();
 		}
 	}
 	
@@ -96,6 +98,7 @@ public class DiffractionSceneGraphFabricator {
 		mat.setLayerCount(108);
 		if(sceneConfig.getShaderTask() == ShaderTaskNr.TAYLOR || 
 				sceneConfig.getShaderTask() == ShaderTaskNr.EXPERIMENTAL_V || 
+				sceneConfig.getShaderTask() == ShaderTaskNr.TAYLORGAUSSIAN || 
 				sceneConfig.getShaderTask() == ShaderTaskNr.EXPERIMENTAL_F) mat.setLayerCount(31);
 		ShaderTaskSetupManager stm = new ShaderTaskSetupManager(renderContext, mat, sceneConfig.getShaderTask());		
 		mat.setShader(stm.getShader());

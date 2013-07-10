@@ -39,7 +39,7 @@ public class PreCompDataManager {
 	}
 	
 	private void loadPatches(int tasknumber, String samples){
-		if(tasknumber == 10 || tasknumber == 11 || tasknumber == 12) loadCompositeTaylorPatches(samples);
+		if(tasknumber == 10 || tasknumber == 11 || tasknumber == 12 || tasknumber == 13) loadCompositeTaylorPatches(samples);
 		else loadPatches2(samples, false, true);
 	}	
 		
