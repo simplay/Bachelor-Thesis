@@ -382,8 +382,10 @@ void main() {
 					
 					for(float ind1 = uu_N_base; ind1 <= uu_N_base + 2.0*neighborRadius; ind1 = ind1 + 1.0){
 						for(float ind2 = uv_N_base; ind2 <= uv_N_base + 2.0*neighborRadius; ind2 = ind2 + 1.0){
-							float dist = pow(ind1-uu_N_base, 2.0) + pow(ind2-uv_N_base, 2.0);
-							vec2 coords = vec2( (k*ind1/Omega) + bias, (k*ind2/Omega) + bias); //2d
+							float dist2 = pow(ind1-uu_N_base, 2.0) + pow(ind2-uv_N_base, 2.0);
+							
+			
+							vec2 coords = vec2( (ind1/Omega) + bias, (ind2/Omega) + bias); //2d
 
 							if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
 							
@@ -391,14 +393,15 @@ void main() {
 							float w_v = k*ind2;
 					
 							P = taylorApproximation(coords, k, w);
-							float w_ij = exp(0.0);
+							float sigma = 1.0/(8.0*PI)*65.0*pow(10.0, -6.0);
+							float w_ij = exp(-dist2/(sigma*sigma));
 //							float pq_scale = compute_pq_scale_factor(w_u,w_v);
 //							P *= pq_scale;
 							
-							P *= w_ij;
+				
 							
 							float abs_P_Sq = P.x*P.x + P.y*P.y;
-							
+							abs_P_Sq *= w_ij;
 							float diffractionCoeff = getFactor(k, F, G, w);
 							vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
 							brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 0.0);
@@ -419,12 +422,12 @@ void main() {
 //		if(maxBRDF.x <= 0.0) maxBRDF.x = 1.0;
 //		brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
 		float fac2 = 1.0 / 42.0;
-		fac2 = 1.0 / 6000.0;
+		fac2 = 1.0 / 10000.0;
 		brdf.xyz = M_Adobe_XR*brdf.xyz;
 		
 		brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 		
-		float ambient = 0.1;
+		float ambient = 0.0;
 		
 		// remove negative values
 		if(brdf.x < 0.0 ) brdf.x = 0.0;
