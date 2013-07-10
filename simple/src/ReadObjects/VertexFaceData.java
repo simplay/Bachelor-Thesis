@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import javax.vecmath.Vector2f;
 import javax.vecmath.Vector3f;
 
+import Geometry.VertexDataContainer;
+
 import jrtr.VertexData;
 
 public class VertexFaceData {
@@ -20,6 +22,7 @@ public class VertexFaceData {
 	private float colors_f[];
 	private float TextureCoordinates_f[];
 	private int indices_i[];
+	private WriteBackMonkey monkey;
 	
 	private VertexData vertexData;
 	
@@ -268,6 +271,10 @@ public class VertexFaceData {
 		this.vertexData.addElement(normals_f, VertexData.Semantic.NORMAL, 3);
 		this.vertexData.addElement(tangents_f, VertexData.Semantic.TANGENT, 3);
 		this.vertexData.addIndices(indices_i);	
+		
+		VertexDataContainer data = new VertexDataContainer(vertices_f, normals_f, tangents_f, colors_f, TextureCoordinates_f, indices_i);
+		WriteBackMonkey monkey = new WriteBackMonkey(data);
+		monkey.writeAll();
 	}
 	
 	public VertexData getVetexData(){
