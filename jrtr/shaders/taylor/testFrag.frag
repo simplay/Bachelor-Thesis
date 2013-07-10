@@ -331,7 +331,6 @@ void main() {
 	phi = 0.0;
 	vec4 o_col = vec4(0.0, 0.0, 0.0, 0.0);
 	
-	
 	vec3 _k2 = normalize(o_pos); //vector from point P to camera
 	vec3 _k1 = normalize(o_light); // light direction, same for every point		
 	vec3 V = _k1 - _k2;
@@ -339,7 +338,6 @@ void main() {
 	float F = getAbsFressnelFactor(_k1, _k2); // issue G may cause nan
 	float G = computeGFactor(o_normal, _k1, _k2); // 
 
-//	F = 1.0;
 	// get iteration bounds for given (u,v)
 	vec2 N_u = compute_N_min_max(u);
 	vec2 N_v = compute_N_min_max(v);
@@ -388,9 +386,11 @@ void main() {
 				}
 			}
 		}
-		if(maxBRDF.y <= 0.0) maxBRDF.y = 1.0;
-		brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
-		float fac2 = 1.0 / 6000.0;
+//		if(maxBRDF.y <= 0.0) maxBRDF.y = 1.0;
+//		if(maxBRDF.x <= 0.0) maxBRDF.x = 1.0;
+//		brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
+		float fac2 = 1.0 / 42.0;
+		fac2 = 1.0 / 6000.0;
 		brdf.xyz = M_Adobe_XR*brdf.xyz;
 		
 		brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
