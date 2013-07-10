@@ -236,14 +236,14 @@ float compute_pq_scale_factor(float w_u, float w_v){
 //perform taylor approximation
 vec2 taylorApproximation(vec2 coords, float k, float w){
 	vec2 precomputedFourier = vec2(0.0, 0.0);
-	int lower = 0; int upper = 10;
+	int lower = 0; int upper = int(approxSteps)+1;
 	float reHeight = 0.0; float imHeight = 0.0;
 	float real_part = 0.0; float imag_part = 0.0;
 	float fourier_coefficients = 1.0;
 	
 	
 	// approximation till iteration 30 of fourier coefficient
-	for(int n = 0; n <= 0; n++){
+	for(int n = lower; n <= upper; n++){
 		
 //		int index_re = n;
 //		int index_im = (n + upper);
@@ -383,12 +383,12 @@ void main() {
 			}
 		}
 
-		float fac2 = 1.0 / 2000.0;
+		float fac2 = 1.0 / 6000.0;
 		brdf.xyz = M_Adobe_XR*brdf.xyz;
 		
 		brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 		
-		float ambient = 0.0;
+		float ambient = 0.1;
 		
 		// remove negative values
 		if(brdf.x < 0.0 ) brdf.x = 0.0;
@@ -399,7 +399,7 @@ void main() {
 		brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.2);
 		if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) o_col = vec4(1.0, 0.0, 0.0, 1.0);
 		else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) o_col = vec4(0.0, 1.0, 0.0, 1.0);
-		else o_col = brdf+vec4(ambient,ambient,ambient,0.0);
-//		else o_col = vec4(ambient,ambient,ambient,0.0);
+//		else o_col = brdf+vec4(ambient,ambient,ambient,0.0);
+		else o_col = vec4(ambient,ambient,ambient,0.0);
 		frag_shaded	= o_col;
 }
