@@ -380,12 +380,10 @@ void main() {
 					float uu_N_base = uu_N_n - neighborRadius;
 					float uv_N_base = uv_N_n - neighborRadius;
 					
-					
-					
 					for(float ind1 = uu_N_base; ind1 <= uu_N_base + 2.0*neighborRadius; ind1 = ind1 + 1.0){
 						for(float ind2 = uv_N_base; ind2 <= uv_N_base + 2.0*neighborRadius; ind2 = ind2 + 1.0){
 							float dist = pow(ind1-uu_N_base, 2.0) + pow(ind2-uv_N_base, 2.0);
-							vec2 coords = vec2((k*ind1/Omega) + bias, (k*ind2.y/Omega) + bias); //2d
+							vec2 coords = vec2( (k*ind1/Omega) + bias, (k*ind2/Omega) + bias); //2d
 
 							if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
 							
