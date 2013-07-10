@@ -366,6 +366,9 @@ void main() {
 	float F = getFressnelFactor(_k1, _k2);
 	float G = computeGFactor(N, _k1, _k2);
 	
+	
+	
+	
 	// get iteration bounds for given (u,v)
 	vec2 N_u = compute_N_min_max(u);
 	vec2 N_v = compute_N_min_max(v);

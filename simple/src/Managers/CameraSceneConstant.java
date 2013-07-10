@@ -21,7 +21,8 @@ public class CameraSceneConstant {
 		this.verticalFieldView = verticalFieldView;
 		this.up = up;
 		this.look = look;
-		this.cop = new Point3f(0.1f, 0.0f, distance); // camera distance
+		this.cop = new Point3f(0.108211061708319f, 0.0f, distance); // camera distance
+//		this.cop = new Point3f(0.0f, 0.0f, distance); // camera distance
 	}
 	
 	public String getId(){

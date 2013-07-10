@@ -34,8 +34,13 @@ public class ShapeManager {
 			this.targetShape = new Shape(diffcylinder.getVertices());
 			
 		}else if(task == ShapeTask.CYLINDER2){
-			DiffractionCylinder diffcylinder = new DiffractionCylinder(1.00f,1.0f, 600, 600);
+			
+			DiffractionCylinder diffcylinder = new DiffractionCylinder(0.025f,1.0f, 600, 600);
 			this.targetShape = new Shape(diffcylinder.getVertices());
+			
+//		}else if(task == ShapeTask.CYLINDER2){
+//			DiffractionCylinder diffcylinder = new DiffractionCylinder(1.00f,1.0f, 600, 600);
+//			this.targetShape = new Shape(diffcylinder.getVertices());
 			
 		}else if(task == ShapeTask.TEAPOT){
 			readExternalShape(teapot_file);

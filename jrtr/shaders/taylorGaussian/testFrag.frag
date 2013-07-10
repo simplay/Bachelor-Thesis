@@ -314,7 +314,7 @@ void main() {
 	vec4 maxBRDF = vec4(0.0, 0.0, 0.0, 1.0);
 	vec2 P = vec2(0.0, 0.0);
 	
-	float neighborRadius = 2.0;
+	float neighborRadius = 1.0;
 	float abs_P_Sq = 0.0;
 	float real_part = 0.0;
 	float imag_part = 0.0;
@@ -330,6 +330,7 @@ void main() {
 	float t1 = 0.0;
 	float t2 = 0.0;
 	float phi = -PI/2.0;
+
 	phi = 0.0;
 	vec4 o_col = vec4(0.0, 0.0, 0.0, 0.0);
 	
@@ -339,7 +340,10 @@ void main() {
 	float u = V.x; float v = V.y; float w = V.z;
 	float F = getAbsFressnelFactor(_k1, _k2); // issue G may cause nan
 	float G = computeGFactor(o_normal, _k1, _k2); // 
-
+	
+	if(dot(o_normal, -_k1) < 0.0) F = 0.0; ;
+	
+	
 	// get iteration bounds for given (u,v)
 	vec2 N_u = compute_N_min_max(u);
 	vec2 N_v = compute_N_min_max(v);
@@ -382,21 +386,33 @@ void main() {
 					
 					for(float ind1 = uu_N_base; ind1 <= uu_N_base + 2.0*neighborRadius; ind1 = ind1 + 1.0){
 						for(float ind2 = uv_N_base; ind2 <= uv_N_base + 2.0*neighborRadius; ind2 = ind2 + 1.0){
-							float dist2 = pow(ind1-uu_N_base, 2.0) + pow(ind2-uv_N_base, 2.0);
+							float dist2 = pow(ind1-uu_N_base, 2.0) + pow(ind2-uv_N_n_hat, 2.0);
+							vec2 coords = vec2(0.0); 
+							if(variant == 0.0){
+								coords = vec2( (ind1/(dimN-1)) + bias, (ind2/(dimN-1)) + bias); //2d
+							}else{
+								coords = vec2( (ind2/(dimN-1)) + bias, (ind1/(dimN-1)) + bias); //2d
+							}
 							
-			
-							vec2 coords = vec2( (ind1/Omega) + bias, (ind2/Omega) + bias); //2d
 
 							if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
 							
-							float w_u = k*ind1;
-							float w_v = k*ind2;
+							float w_u = k*u;
+							float w_v = k*v;
 					
 							P = taylorApproximation(coords, k, w);
-							float sigma = 1.0/(8.0*PI)*65.0*pow(10.0, -6.0);
-							float w_ij = exp(-dist2/(sigma*sigma));
-//							float pq_scale = compute_pq_scale_factor(w_u,w_v);
-//							P *= pq_scale;
+
+							float sigma_f_pix = (2.0 / PI*65.0)*dx*pow(10.0, 6.0);
+							sigma_f_pix *= sigma_f_pix;
+							sigma_f_pix *= 2.0;
+							
+							
+							float norm_fact = sigma_f_pix*PI;
+							
+							float w_ij = exp(-dist2/(sigma_f_pix));
+							w_ij /= norm_fact;
+							float pq_scale = compute_pq_scale_factor(w_u,w_v);
+							P *= pq_scale;
 							
 				
 							
@@ -422,12 +438,12 @@ void main() {
 //		if(maxBRDF.x <= 0.0) maxBRDF.x = 1.0;
 //		brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
 		float fac2 = 1.0 / 42.0;
-		fac2 = 1.0 / 10000.0;
+		fac2 = 1.0 / 8000.0;
 		brdf.xyz = M_Adobe_XR*brdf.xyz;
 		
 		brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 		
-		float ambient = 0.0;
+		float ambient = 0.1;
 		
 		// remove negative values
 		if(brdf.x < 0.0 ) brdf.x = 0.0;

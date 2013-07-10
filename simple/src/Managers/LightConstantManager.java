@@ -21,6 +21,9 @@ public class LightConstantManager {
 		
 		lc = new LightConstants("light2", new Vector4f(-0.09284766f, 0.37139064f, -0.92382264f, 0.0f));
 		constants.add(lc);
+		
+		lc = new LightConstants("light3", new Vector4f(0.0f, 0.0f, -1.0f, 0.0f));
+		constants.add(lc);
 	}
 	
 	public Light getLightConstantByName(String id){

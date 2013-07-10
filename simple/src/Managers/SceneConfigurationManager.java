@@ -17,8 +17,8 @@ public class SceneConfigurationManager {
 	
 	private void defineConstant(){
 		SceneConfiguration sc = null;		
-		sc = new SceneConfiguration("sandbox", ShapeTask.PLANE, "plane1", 
-				"Stam", "light1", ShaderTaskNr.TAYLORGAUSSIAN, 26, "blaze");
+		sc = new SceneConfiguration("sandbox", ShapeTask.CYLINDER2, "cylinder1", 
+				"Stam", "light1", ShaderTaskNr.EXPERIMENTAL_F, 26, "blaze");
 		constants.add(sc);
 		
 		sc = new SceneConfiguration("snake", ShapeTask.SNAKE, "snake1", 
@@ -28,7 +28,7 @@ public class SceneConfigurationManager {
 		
 		// tast case 1: plane equal long cylinder
 		sc = new SceneConfiguration("testcase1_1", ShapeTask.CYLINDER, "plane1", 
-				"Stam", "light1", ShaderTaskNr.EXPERIMENTAL_F, 26, "blaze");
+				"Stam", "light1", ShaderTaskNr.TAYLORGAUSSIAN, 26, "blaze");
 		constants.add(sc);
 		
 		// tast case 1: plane equal long cylinder
