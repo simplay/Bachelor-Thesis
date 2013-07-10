@@ -168,17 +168,22 @@ float getFactor(float k, float F, float G, float w){
 }
 
 
-float getFressnelFactor(vec3 _k1, vec3 _k2){
+float getAbsFressnelFactor(vec3 _k1, vec3 _k2){
 	float n_t = SMOOTH; // material constant
 	float R0 = pow( (n_t - 1.0) / (n_t + 1.0) , 2.0); 
 	vec3 L = _k2; 
 	vec3 V = -_k1;
 	vec3 H = normalize(L + V);
 	float cos_teta = dot(H,V);
-	cos_teta = (cos_teta > tolerance)? tolerance : ((cos_teta < -tolerance) ? -cos_teta :  cos_teta);
-//	return (R0 + (1.0 - R0) * pow(1.0 - cos_teta, 5.0));
+	cos_teta = (cos_teta > tolerance)? tolerance : ((cos_teta < -tolerance) ? -tolerance :  cos_teta);
+	
+	float ret_value = (R0 + (1.0 - R0) * pow(1.0 - cos_teta, 5.0));
+	ret_value = abs(ret_value);
+	if(ret_value < 1.0*pow(10.0, -18.0)) ret_value = 0.0;
+	return ret_value;
+
 	// faster than above - see GLSL specs
-	return mix(R0, 1.0, pow(1.0 - cos_teta, 5.0));
+//	return mix(R0, 1.0, pow(1.0 - cos_teta, 5.0));
 }
 
 
@@ -331,9 +336,10 @@ void main() {
 	vec3 _k1 = normalize(o_light); // light direction, same for every point		
 	vec3 V = _k1 - _k2;
 	float u = V.x; float v = V.y; float w = V.z;
-	float F = getFressnelFactor(_k1, _k2); // issue G may cause nan
+	float F = getAbsFressnelFactor(_k1, _k2); // issue G may cause nan
 	float G = computeGFactor(o_normal, _k1, _k2); // 
-	
+
+//	F = 1.0;
 	// get iteration bounds for given (u,v)
 	vec2 N_u = compute_N_min_max(u);
 	vec2 N_v = compute_N_min_max(v);
@@ -378,17 +384,18 @@ void main() {
 					vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
 					brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 0.0);
 					
-					maxBRDF += vec4(diffractionCoeff * brdfMax * waveColor, 0.0);
+					maxBRDF += vec4(diffractionCoeff * 1.0 * waveColor, 0.0);
 				}
 			}
 		}
-
+		if(maxBRDF.y <= 0.0) maxBRDF.y = 1.0;
+		brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
 		float fac2 = 1.0 / 6000.0;
 		brdf.xyz = M_Adobe_XR*brdf.xyz;
 		
 		brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 		
-		float ambient = 0.1;
+		float ambient = 0.0;
 		
 		// remove negative values
 		if(brdf.x < 0.0 ) brdf.x = 0.0;
@@ -396,10 +403,12 @@ void main() {
 		if(brdf.z < 0.0 ) brdf.z = 0.0;
 		brdf.w = 1.0;
 		
+//		if(brdf.x != 0.0 && brdf.y != 0.0 && brdf.z != 0.0)
 		brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.2);
+		
 		if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) o_col = vec4(1.0, 0.0, 0.0, 1.0);
 		else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) o_col = vec4(0.0, 1.0, 0.0, 1.0);
-//		else o_col = brdf+vec4(ambient,ambient,ambient,0.0);
-		else o_col = vec4(ambient,ambient,ambient,0.0);
+		else o_col = brdf+vec4(ambient,ambient,ambient,0.0);
+//		else o_col = vec4(ambient,ambient,ambient,0.0);
 		frag_shaded	= o_col;
 }

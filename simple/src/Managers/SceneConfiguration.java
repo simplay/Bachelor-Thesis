@@ -6,7 +6,6 @@ import Constants.ShapeTask;
 public class SceneConfiguration {
 	
 	private String id;
-	private String parameter_path;
 	private ShapeTask shapeTask;
 	private String cameraConstant;
 	private String bumpConstant;
@@ -15,10 +14,9 @@ public class SceneConfiguration {
 	private String patchName;
 	private int periodCount;
 	
-	public SceneConfiguration(String id, String parameter_path, ShapeTask shapeTask, String cameraConstant, 
+	public SceneConfiguration(String id, ShapeTask shapeTask, String cameraConstant, 
 			String bumpConstant, String lightConstant, ShaderTaskNr shaderTask, int periodCount, String patchName){
 		this.id = id;
-		this.parameter_path = parameter_path;
 		this.shapeTask = shapeTask;
 		this.cameraConstant = cameraConstant;
 		this.bumpConstant = bumpConstant;
@@ -30,10 +28,6 @@ public class SceneConfiguration {
 	
 	public String getId(){
 		return this.id;
-	}
-	
-	public String getParamter_path(){
-		return this.parameter_path;
 	}
 	
 	public ShapeTask getShapeTask(){

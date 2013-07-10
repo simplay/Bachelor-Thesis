@@ -20,6 +20,10 @@ public class PatchDataPathsManager {
 		constants.add(sc);
 		sc = new PatchDataPaths(ShaderTaskNr.EXPERIMENTAL_V, "blaze");
 		constants.add(sc);
+		sc = new PatchDataPaths(ShaderTaskNr.EXPERIMENTAL_F, "bump1d");
+		constants.add(sc);	
+		sc = new PatchDataPaths(ShaderTaskNr.EXPERIMENTAL_V, "bump1d");
+		constants.add(sc);
 		
 		// Taylor precomp patches
 		sc = new PatchDataPaths(ShaderTaskNr.TAYLOR, "blaze");

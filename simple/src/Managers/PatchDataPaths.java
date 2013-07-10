@@ -10,6 +10,8 @@ public class PatchDataPaths {
 	private String globalsPath; //mat.setGlobals(loadglobals("../jrtr/textures/sampleX/experimental/blaze/globals.txt"));
 	private String weightsPath; //mat.setWeights(readWeights("../jrtr/textures/sampleX/experimental/blaze/weights.txt"));
 	private String base_path = "../jrtr/textures/sampleX/";
+	private String parameter_path;
+	private String kValues;
 	
 	public PatchDataPaths(ShaderTaskNr shaderTaskNr, String patchName){
 		this.shaderTaskNr = shaderTaskNr;
@@ -35,7 +37,8 @@ public class PatchDataPaths {
 		this.extremaPath = samplesPath+"extrema.txt";
 		this.globalsPath = samplesPath+"globals.txt";
 		this.weightsPath = samplesPath+"weights.txt";
-		
+		this.parameter_path = samplesPath + "paramters.txt";
+		this.kValues = samplesPath + "kvalues.txt";
 	}
 	
 
@@ -61,6 +64,14 @@ public class PatchDataPaths {
 	
 	public String getWeightsPath(){
 		return this.weightsPath;
+	}
+	
+	public String getParamtersPath(){
+		return this.parameter_path;
+	}
+	
+	public String getKValuesPath(){
+		return this.kValues;
 	}
 	
 }

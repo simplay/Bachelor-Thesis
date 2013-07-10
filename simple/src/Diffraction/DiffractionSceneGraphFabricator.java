@@ -13,7 +13,6 @@ import Managers.BumpConstantsManager;
 import Managers.CameraSceneConstant;
 import Managers.CameraSceneConstantManager;
 import Managers.LightConstantManager;
-import Managers.ParameterManager;
 import Managers.PreCompDataManager;
 import Managers.SceneConfiguration;
 import Managers.SceneConfigurationManager;
@@ -30,7 +29,6 @@ import ShaderLogic.ExpTaylorShaderTask;
 import ShaderLogic.MultiTexturesTAShaderTask;
 import ShaderLogic.MultiTexturesTaylorShaderTask;
 import ShaderLogic.ShaderTask;
-import Constants.ShapeTask;
 
 public class DiffractionSceneGraphFabricator {
 	private GraphSceneManager sceneManager;
@@ -85,7 +83,6 @@ public class DiffractionSceneGraphFabricator {
 	
 	private void setUpMaterials(){
 		mat = new Material();
-		new ParameterManager(mat, sceneConfig.getParamter_path());
 		BumpConstants bc = bcm.getByIdentifyer(sceneConfig.getBumpConstant());
 		mat.setPeriodCount(sceneConfig.getPeriodCount());
 		mat.setMaxBumpHeight(bc.getMaxHeight());
