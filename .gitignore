@@ -35,4 +35,4 @@ matlab/out/*
 #models
 models/*
 #output_files
-output_files/*
+out_files/*.txt
