@@ -18,7 +18,7 @@ public class SceneConfigurationManager {
 	private void defineConstant(){
 		SceneConfiguration sc = null;		
 		sc = new SceneConfiguration("sandbox", "../jrtr/textures/sampleX/experimental/blaze/paramters.txt", 
-				ShapeTask.SNAKE, "snake1", "Stam", "light1", ShaderTaskNr.EXPERIMENTAL_F, 26, "blaze");
+				ShapeTask.TEAPOT, "teapot1", "Stam", "light1", ShaderTaskNr.EXPERIMENTAL_F, 26, "blaze");
 		constants.add(sc);
 		
 		sc = new SceneConfiguration("snake", "../jrtr/textures/sampleX/experimental/blaze/paramters.txt", 

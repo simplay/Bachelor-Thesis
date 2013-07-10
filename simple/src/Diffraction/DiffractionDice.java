@@ -34,6 +34,20 @@ public class DiffractionDice extends DiffractionGeometricObject{
 		monkey.writeAll();
 	}
 	
+	/**
+	 * use parametrization we used in order to calculate 
+	 * our surface vertices f(r,phi) - see getVertices.
+	 * for a parameterization f:R^2->R^3 there are
+	 * two tangent vectors: if f(r,phi) is used for this dice them
+	 * the tangent vectors are:
+	 * df(r,phi)/dr = (cos(phi), sin(phi), 0) AND
+	 * df(r,phi)/d(phi) = (-r*sin(phi), r*cos(phi), 0)
+	 * since the tangent vectors supply the 
+	 * local direction of the narrow bands on the surface.
+	 * For a compact disc, they are in the direction of the tracks.
+	 * therefore we use df(r,phi)/d(phi) as our tangent
+	 * vectors for our vetices for our diffraction shader
+	 */
 	@Override
 	protected float[] getTangentVectors() {
 		int counter = 0;
@@ -67,7 +81,13 @@ public class DiffractionDice extends DiffractionGeometricObject{
 		System.out.println(counter + " tangents");
 		return tan;
 	}
-
+	
+	/**
+	 * parametrization of surface is dependent on a radius r and and a angle phi
+	 * (r,phi) |-> (r cos(phi), r(sin(phi), height) = f(r,phi) and height is a constant  
+	 * so (r,phi) in R^2 -> f(r,phi) in R^3 and f(r,phi) is our parametrization of 
+	 * the surface of this dice.
+	 */
 	@Override
 	protected float[] getVertexPositions() {
 		int counter = 0;
