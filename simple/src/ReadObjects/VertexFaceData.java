@@ -22,7 +22,6 @@ public class VertexFaceData {
 	private float colors_f[];
 	private float TextureCoordinates_f[];
 	private int indices_i[];
-	private WriteBackMonkey monkey;
 	private float avgEdgeLength;
 	private VertexData vertexData;
 	
@@ -71,12 +70,12 @@ public class VertexFaceData {
 					float face_normal = getNorm(faceNormal);
 					faceNormal.scale(1.0f/face_normal);
 					
-					float scale_pro = vMain12.x*faceNormal.x + vMain12.y*faceNormal.y + vMain12.z*faceNormal.z;
+					float scale_pro = main_v.x*faceNormal.x + main_v.y*faceNormal.y + main_v.z*faceNormal.z;
 					Vector3f vMainOnN = new Vector3f(faceNormal.x, faceNormal.y, faceNormal.z);
 					vMainOnN.scale(scale_pro);
 					
 					Vector3f vMainOnTri = new Vector3f();
-					vMainOnTri.sub(vMain12, vMainOnN);
+					vMainOnTri.sub(main_v, vMainOnN);
 					float norm_vMainOnTri = getNorm(vMainOnTri);
 					vMainOnTri.scale(1.0f / norm_vMainOnTri);
 									
