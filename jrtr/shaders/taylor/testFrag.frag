@@ -175,7 +175,7 @@ float getAbsFressnelFactor(vec3 _k1, vec3 _k2){
 	vec3 V = -_k1;
 	vec3 H = normalize(L + V);
 	float cos_teta = dot(H,V);
-	cos_teta = (cos_teta > tolerance)? tolerance : ((cos_teta < -tolerance) ? -tolerance :  cos_teta);
+	cos_teta = (cos_teta > tolerance)? tolerance : ((cos_teta < 0.0) ? 0.0 :  cos_teta);
 	
 	float ret_value = (R0 + (1.0 - R0) * pow(1.0 - cos_teta, 5.0));
 	ret_value = abs(ret_value);

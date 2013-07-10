@@ -56,13 +56,13 @@ out vec3 o_tangent;
 
 void main() {
 
-    vec3 N = normalize(modelview*vec4(normal,0.0)).xyz;
-    vec3 T = normalize(modelview*vec4(tangent,0.0)).xyz;
+    vec3 N = normalize(vec4(normal,0.0)).xyz;
+    vec3 T = normalize(vec4(tangent,0.0)).xyz;
     vec3 B = normalize(cross(N, T));
     
 	// directional light source
-	vec3 Pos =  (modelview*(cop_w-position)).xyz; // point in camera space
-	vec4 lightDir = (modelview*directionArray[0]); // light direction in camera space
+	vec3 Pos =  ((cop_w-position)).xyz; // point in camera space
+	vec4 lightDir = (directionArray[0]); // light direction in camera space
 	lightDir = normalize(lightDir);
 	
 	// light direction: from camera space to tangent space

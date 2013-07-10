@@ -175,8 +175,7 @@ float getAbsFressnelFactor(vec3 _k1, vec3 _k2){
 	vec3 V = -_k1;
 	vec3 H = normalize(L + V);
 	float cos_teta = dot(H,V);
-	cos_teta = (cos_teta > tolerance)? tolerance : ((cos_teta < -tolerance) ? -tolerance :  cos_teta);
-	
+	cos_teta = (cos_teta > tolerance)? tolerance : ((cos_teta < 0.0) ? 0.0 :  cos_teta);
 	float ret_value = (R0 + (1.0 - R0) * pow(1.0 - cos_teta, 5.0));
 	ret_value = abs(ret_value);
 	if(ret_value < 1.0*pow(10.0, -18.0)) ret_value = 0.0;
@@ -386,7 +385,8 @@ void main() {
 				}
 			}
 		}
-//		if(maxBRDF.y <= 0.0) maxBRDF.y = 1.0;
+
+//		
 //		if(maxBRDF.x <= 0.0) maxBRDF.x = 1.0;
 //		brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
 		float fac2 = 1.0 / 42.0;
@@ -395,7 +395,7 @@ void main() {
 		
 		brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 		
-		float ambient = 0.0;
+		float ambient = 0.1;
 		
 		// remove negative values
 		if(brdf.x < 0.0 ) brdf.x = 0.0;
