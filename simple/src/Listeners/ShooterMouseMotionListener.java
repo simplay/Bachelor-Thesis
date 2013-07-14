@@ -11,11 +11,11 @@ import SceneGraph.GraphSceneManager;
 
 public class ShooterMouseMotionListener implements MouseMotionListener{
 	
-	int width, height;
-	Vector3f v1,v2;
-	float theta;
-	GraphSceneManager sceneManager;
-	RenderPanel renderPanel;
+	private int width, height;
+	private Vector3f v1,v2;
+	private float theta;
+	private GraphSceneManager sceneManager;
+	private RenderPanel renderPanel;
 	
 	
 	private float deltaX, deltaY;
@@ -30,11 +30,6 @@ public class ShooterMouseMotionListener implements MouseMotionListener{
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-
-		
-		
-		
-		
 	}
 
 	@Override

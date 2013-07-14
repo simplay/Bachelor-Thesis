@@ -8,9 +8,9 @@ import javax.vecmath.Vector3f;
 
 public class SimpleMouseListener implements MouseListener{
 	
-	Vector3f v1,v2;
-	int width, height;
-	Storage s;
+	private Vector3f v1,v2;
+	private int width, height;
+	private Storage s;
 	
 	public SimpleMouseListener(Storage s, int height, int width){
 		this.s = s;

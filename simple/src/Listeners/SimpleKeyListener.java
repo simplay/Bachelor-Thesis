@@ -14,16 +14,12 @@ import SceneGraph.GraphSceneManager;
 import SceneGraph.LightNode;
 
 public class SimpleKeyListener implements KeyListener{
-	Storage s;
-	int width, height;
-	Vector3f v1,v2;
-	float theta;
-	GraphSceneManager sceneManager;
-	RenderPanel renderPanel;
-	float speed = 1.0f;
+	private Storage s;
+	private GraphSceneManager sceneManager;
+	private RenderPanel renderPanel;
+	private float speed = 1.0f;
 	private DiffractionSceneGraphFabricator fabric;
 	private float normDiv = 1.0f;
-	private Vector3f prevDir = new Vector3f(0.0f, 0.0f, 0.0f);
 	private float delta_eps = (float) Math.pow(10, -7);
 	
 	public SimpleKeyListener(Storage s, GraphSceneManager sceneManager, RenderPanel renderPanel){
@@ -47,14 +43,14 @@ public class SimpleKeyListener implements KeyListener{
 	@Override
 	public void keyTyped(KeyEvent e) {
 		
-    	LightNode light;
-    	Vector3f radiance;   	
-    	Vector4f oldLightDir;
-    	Vector4f newLightDir;
-    	Vector3f tmpLightDir;
-		LightNode newlight;
-		Light newlightSource;
-		float eps;
+    	LightNode light = null;;
+    	Vector3f radiance = null;;   	
+    	Vector4f oldLightDir = null;;
+    	Vector4f newLightDir = null;;
+    	Vector3f tmpLightDir = null;;
+		LightNode newlight = null;
+		Light newlightSource = null;;
+		float eps = 0.0f;
 		
 		switch (e.getKeyChar()) {
 		    case 'w':

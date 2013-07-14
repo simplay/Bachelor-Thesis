@@ -14,8 +14,8 @@ public class MainView {
 	public MainView(MainModel model){
 		this.model = model;
 		renderPanel = new MyRenderPanel(model);
-		ks = new SimpleKeyListener(model.getStorage(), model.getSceneManager(), renderPanel);
-		renderPanel.setKeys(ks);
+		
+		
 		this.WindowDim = 800;
 		setUpGui();
 	}
@@ -26,11 +26,17 @@ public class MainView {
 		jframe.setLocationRelativeTo(null); // center of screen
 		jframe.getContentPane().add(renderPanel.getCanvas());// put the canvas into a JFrame window
 		
-		renderPanel.getCanvas().addKeyListener(ks);
-		renderPanel.getCanvas().addMouseListener(new SimpleMouseListener(model.getStorage(), WindowDim,WindowDim));
-		renderPanel.getCanvas().addMouseMotionListener(new SimpleMouseMotionListener(model.getStorage(), model.getSceneManager(), renderPanel, WindowDim, WindowDim)); 
+
 
 	    jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    jframe.setVisible(true); // show window
+	}
+	
+	public MyRenderPanel getRenderPanel(){
+		return this.renderPanel;
+	}
+	
+	public int getWindowDim(){
+		return this.WindowDim;
 	}
 }

@@ -15,12 +15,12 @@ import SceneGraph.GraphSceneManager;
 
 
 public class SimpleMouseMotionListener implements MouseMotionListener{
-	Storage s;
-	int width, height;
-	Vector3f v1,v2;
-	float theta;
-	GraphSceneManager sceneManager;
-	RenderPanel renderPanel;
+	private Storage s;
+	private int width, height;
+	private Vector3f v1,v2;
+	private float theta;
+	private GraphSceneManager sceneManager;
+	private RenderPanel renderPanel;
 	
 	public SimpleMouseMotionListener(Storage s, GraphSceneManager sceneManager, RenderPanel renderPanel, int width, int height){
 		this.s = s;
