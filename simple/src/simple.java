@@ -49,7 +49,6 @@ public class simple{
 		public void init(RenderContext r){
 			renderContext = r;
 			renderContext.setSceneManager(sceneManager);
-
 		    Timer timer = new Timer();
 		    angle = 0.01f;
 		    
