@@ -29,8 +29,7 @@ public class ShooterMouseMotionListener implements MouseMotionListener{
 	}
 	
 	@Override
-	public void mouseDragged(MouseEvent e) {
-	}
+	public void mouseDragged(MouseEvent e) {}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
@@ -44,10 +43,6 @@ public class ShooterMouseMotionListener implements MouseMotionListener{
 		this.oldYPos = newYPos;
 		
 		System.out.println(" shiftX " + (deltaX) + " shiftY " + (deltaY));
-		
-
-		
-		
 		Matrix4f camera = sceneManager.getCamera().getCameraMatrix();
 		
 		Matrix4f rotY = new Matrix4f();
@@ -60,10 +55,6 @@ public class ShooterMouseMotionListener implements MouseMotionListener{
 		sceneManager.getCamera().setCameraMatrix(camera);
 
 		// Trigger redrawing of the render window
-		renderPanel.getCanvas().repaint();
-		
-		
-		
+		renderPanel.getCanvas().repaint();	
 	}
-
 }
