@@ -32,6 +32,10 @@ matlab/out/*
 models/*
 #output_files
 out_files/*.txt
+
+scene/.classpath
+scene/.cvsignore
+scene/.project
 scene/bin/*
 scene/bin/**/
 scene/bin/**/*.class
