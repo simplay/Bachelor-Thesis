@@ -23,19 +23,15 @@ jrtr/bin/**/*
 jrtr/doc
 jrtr/textures/*
 jrtr/textures/**/*
-#ba FILES
-ba/bin
-ba/bin/
-ba/bin/**/*
-ba/bin/*
-ba/doc
-ba/*.log
-ba/.cvsignore
-ba/.classpath
-ba/.project
+
+
 #matlab FILES
 matlab/out/*
+
 #models
 models/*
 #output_files
 out_files/*.txt
+scene/bin/*
+scene/bin/**/
+scene/bin/**/*.class
