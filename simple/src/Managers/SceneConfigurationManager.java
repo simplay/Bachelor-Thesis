@@ -22,7 +22,7 @@ public class SceneConfigurationManager {
 		constants.add(sc);
 		
 		sc = new SceneConfiguration("extreme_case", ShapeTask.SNAKE, "snake1", 
-				"Stam", "light1", ShaderTaskNr.TAYLORGAUSSIAN, 26, "test");
+				"Stam", "light1", ShaderTaskNr.TAYLORGAUSSIAN, -1, "test");
 		constants.add(sc);
 		
 		sc = new SceneConfiguration("snake", ShapeTask.SNAKE, "snake1", 

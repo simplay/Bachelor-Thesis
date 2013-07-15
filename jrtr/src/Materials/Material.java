@@ -43,7 +43,6 @@ public class Material {
     private int dimDiff;
     private int repNN;
     private int periodCount;
-    
     private float patchDimX; //in microns  
     private float patchDimY; //in microns 
     private float patchSpacing; //in meters

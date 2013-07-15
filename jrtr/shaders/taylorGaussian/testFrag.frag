@@ -26,6 +26,9 @@ uniform float repNN; // not used right now
 uniform int periodCount;
 uniform float maxBumpHeight;
 uniform float patchSpacing;
+uniform float dimX;
+uniform float dimY;
+
 uniform sampler2DArray lookupText;
 // Variables passed in from the vertex shader
 in vec2 frag_texcoord;
@@ -59,6 +62,9 @@ float s = maxBumpHeight;// 2.4623*pow(10,-7.0); // -7 // max height of a bump, m
 const float eps_pq = 1.0*pow(10.0, -5.0); 
 const float eps = 1.0*pow(10.0, -4.0);
 const float tolerance = 0.999999; 
+
+// flags
+bool userSetPeriodFlag = (periodCount <= 0) ? true : false;
 
 //period constants
 float N_1 = dimN; // number of pixels of downsized patch 
@@ -227,11 +233,17 @@ vec3 avgWeighted_XYZ_weight(float lambda){
 }
 
 float compute_pq_scale_factor(float w_u, float w_v){
-	float p1 = get_p_factor(w_u, T_1, periods);
-	float p2 = get_p_factor(w_v, T_2, periods);
+	float in_periods = periods;
 	
-	float q1 = get_q_factor(w_u, T_1, periods);
-	float q2 = get_q_factor(w_v, T_2, periods);
+	if(userSetPeriodFlag){
+		in_periods = ceil(dimX/patchSpacing)-1.0;
+	}
+	
+	float p1 = get_p_factor(w_u, T_1, in_periods);
+	float p2 = get_p_factor(w_v, T_2, in_periods);
+	
+	float q1 = get_q_factor(w_u, T_1, in_periods);
+	float q2 = get_q_factor(w_v, T_2, in_periods);
 
 	return pow(p1*p1 + q1*q1 , 0.5)*pow(p2*p2 + q2*q2 , 0.5);
 }
@@ -389,9 +401,9 @@ void main() {
 							float dist2 = pow(ind1-uu_N_base, 2.0) + pow(ind2-uv_N_n_hat, 2.0);
 							vec2 coords = vec2(0.0); 
 							if(variant == 0.0){
-								coords = vec2( (ind1/(dimN-1)) + bias, (ind2/(dimN-1)) + bias); //2d
+								coords = vec2( (ind1/(dimN-1)) + bias, (ind2/(dimN-1)) + bias); //2d case
 							}else{
-								coords = vec2( (ind2/(dimN-1)) + bias, (ind1/(dimN-1)) + bias); //2d
+								coords = vec2( (ind2/(dimN-1)) + bias, (ind1/(dimN-1)) + bias); //2d case
 							}
 							
 
@@ -405,31 +417,23 @@ void main() {
 							float sigma_f_pix = (2.0 / PI*65.0)*dx*pow(10.0, 6.0);
 							sigma_f_pix *= sigma_f_pix;
 							sigma_f_pix *= 2.0;
-							
-							
+														
 							float norm_fact = sigma_f_pix*PI;
 							
 							float w_ij = exp(-dist2/(sigma_f_pix));
 							w_ij /= norm_fact;
 							float pq_scale = compute_pq_scale_factor(w_u,w_v);
 							P *= pq_scale;
-							
-				
-							
+												
 							float abs_P_Sq = P.x*P.x + P.y*P.y;
 							abs_P_Sq *= w_ij;
 							float diffractionCoeff = getFactor(k, F, G, w);
 							vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
 							brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 0.0);
 							
-							maxBRDF += vec4(diffractionCoeff * 1.0 * waveColor, 0.0);
-							
-							
+							maxBRDF += vec4(diffractionCoeff * 1.0 * waveColor, 0.0);					
 						}
 					}
-					
-					
-
 				}
 			}
 		}
@@ -438,12 +442,12 @@ void main() {
 //		if(maxBRDF.x <= 0.0) maxBRDF.x = 1.0;
 //		brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
 		float fac2 = 1.0 / 42.0;
-		fac2 = 1.0 / 8000.0;
+		fac2 = 1.0 / 800.0;
 		brdf.xyz = M_Adobe_XR*brdf.xyz;
 		
 		brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 		
-		float ambient = 0.1;
+		float ambient = 0.0;
 		
 		// remove negative values
 		if(brdf.x < 0.0 ) brdf.x = 0.0;

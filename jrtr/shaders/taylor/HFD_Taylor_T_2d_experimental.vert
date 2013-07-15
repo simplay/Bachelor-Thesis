@@ -28,6 +28,7 @@ uniform vec4 global_extrema[1];
 uniform sampler2DArray TexArray;
 uniform vec4 camPos;
 
+
 uniform float LMIN;
 uniform float LMAX;
 uniform float approxSteps;
@@ -38,6 +39,8 @@ uniform float repNN; // not used right now
 uniform int periodCount;
 uniform float maxBumpHeight;
 uniform float patchSpacing;
+uniform float dimX;
+uniform float dimY;
 
 
 in vec3 normal;
@@ -69,6 +72,10 @@ float s = maxBumpHeight;// 2.4623*pow(10,-7.0); // -7 // max height of a bump, m
 const float eps_pq = 1.0*pow(10.0, -5.0); 
 const float eps = 1.0*pow(10.0, -4.0);
 const float tolerance = 0.999999; 
+
+
+bool userSetPeriodFlag = (periodCount <= 0) ? true : false;
+
 
 // period constants
 float N_1 = dimN; // number of pixels of downsized patch 
@@ -234,11 +241,17 @@ vec3 avgWeighted_XYZ_weight(float lambda){
 }
 
 float compute_pq_scale_factor(float w_u, float w_v){
-	float p1 = get_p_factor(w_u, T_1, periods);
-	float p2 = get_p_factor(w_v, T_2, periods);
+	float in_periods = periods;
 	
-	float q1 = get_q_factor(w_u, T_1, periods);
-	float q2 = get_q_factor(w_v, T_2, periods);
+	if(userSetPeriodFlag){
+		in_periods = ceil(dimX/patchSpacing)-1.0;
+	}
+	
+	float p1 = get_p_factor(w_u, T_1, in_periods);
+	float p2 = get_p_factor(w_v, T_2, in_periods);
+	
+	float q1 = get_q_factor(w_u, T_1, in_periods);
+	float q2 = get_q_factor(w_v, T_2, in_periods);
 
 	return pow(p1*p1 + q1*q1 , 0.5)*pow(p2*p2 + q2*q2 , 0.5);
 }
@@ -374,7 +387,7 @@ void main() {
 	vec2 N_u = compute_N_min_max(u);
 	vec2 N_v = compute_N_min_max(v);
 	vec2 N_uv[2] = vec2[2](N_u, N_v);
-	vec2 modUV = getRotation(u,v,-phi);
+	vec2 modUV = getRotation(u,v,phi);
 	
 	// only specular contribution within epsilon range: i.e. fixed number of lambdas
 	if(abs(u) < eps && abs(v) < eps){
@@ -385,13 +398,14 @@ void main() {
 
 			if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
 			
-			float w_u = k*modUV.x;
-			float w_v = k*modUV.y;
+			float w_u = abs(k*u);
+			float w_v = max(abs(k*v),0.01);
 			
 			P = taylorApproximation(coords, k, w);
-			float pq_scale = compute_pq_scale_factor(w_u,w_v);
-			P *= pq_scale;
 			
+			float pq_scale = compute_pq_scale_factor(w_u, w_v);
+	
+			P *= pq_scale;
 			float abs_P_Sq = P.x*P.x + P.y*P.y;
 			
 			float diffractionCoeff = getFactor(k, F, G, w);
@@ -408,10 +422,11 @@ void main() {
 			
 			if(variant == 0) t = u;
 			else t = v;
-			
+			isCenter = false;
 			for(float iter = lower; iter <= upper; iter++){
-				if (abs(u) < 0.1) isCenter = true;
-				if(isCenter) break;
+				if (variant == 0 && v == 0.0 && abs(u) > 0.0) isCenter = true;
+				if (variant == 1 && u == 0.0 && abs(v) > 0.0) isCenter = true;
+
 				if(iter == 0.0) continue;
 				lambda_iter = (dx*t)/iter;
 				k = 2.0*PI / lambda_iter;
@@ -424,8 +439,7 @@ void main() {
 		
 				P = taylorApproximation(coords, k, w);
 				float pq_scale = compute_pq_scale_factor(w_u,w_v);
-				P *= pq_scale;
-
+				if(!isCenter) P *= pq_scale;
 				float abs_P_Sq = P.x*P.x + P.y*P.y;
 				
 				float diffractionCoeff = getFactor(k, F, G, w);
@@ -433,6 +447,7 @@ void main() {
 				brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 0.0);
 				
 				maxBRDF += vec4(diffractionCoeff * brdfMax * waveColor, 0.0);
+				
 			}
 		}
 	}
@@ -445,7 +460,7 @@ void main() {
 	
 	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 	
-	float ambient = 0.0;
+	float ambient = 0.1;
 	
 	// remove negative values
 	if(brdf.x < 0.0 ) brdf.x = 0.0;
@@ -455,16 +470,16 @@ void main() {
 	
 	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.2);
 	
-	if(isCenter){
-		col = vec4(1.0,0.0,0.0,1.0);
-	}else{
+//	if(isCenter){
+//		col = vec4(1.0,0.0,0.0,1.0);
+//	}else{
 		// Debug mode
-		if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) col = vec4(1.0, 0.0, 0.0, 1.0);
-		else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) col = vec4(0.0, 1.0, 0.0, 1.0);
-//		else col = brdf+vec4(ambient,ambient,ambient,0.0);
-		else col = vec4(ambient,ambient,ambient,1.0);
+		if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) col = vec4(0.0, 0.0, 0.0, 1.0);
+		else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) col = vec4(0.0, 0.0, 0.0, 1.0);
+		else col = brdf+vec4(ambient,ambient,ambient,0.0);
+//		else col = vec4(ambient,ambient,ambient,1.0);
 		
-	}
+//	}
 
 		
 

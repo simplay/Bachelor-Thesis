@@ -111,6 +111,14 @@ public class ExpTaylorShaderTask extends ShaderTask{
 		float patchSpacing = m.getPatchSpacing();
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "patchSpacing");
 		gl.glUniform1f(id3, patchSpacing);
+		
+		float dimX = m.getPatchDimX();
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "dimX");
+		gl.glUniform1f(id3, dimX);
+		
+		float dimY = m.getPatchDimY();
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "dimY");
+		gl.glUniform1f(id3, dimY);
 
 	}
 

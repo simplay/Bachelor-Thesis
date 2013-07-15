@@ -10,14 +10,39 @@ public class BumpConstantsManager {
 		defineConstant();
 	}
 	
+	/*
+	 * BumpConstants(String identifyerName, float maxHeight, float dimX, float dimY, float spacing){
+	 */
 	private void defineConstant(){
 		BumpConstants bc = null;
 		
 		bc = new BumpConstants("Stam", 
-				(float) (2.4623*Math.pow(10.0f, -7.0f)), 
-				(float) (2.5*Math.pow(10.0f, -6.0f)), 
-				(float) (2.5*Math.pow(10.0f, -6.0f)), 
-				(float) (2.5*Math.pow(10.0f, -6.0f)));
+				(float) (2.4623f*Math.pow(10.0f, -7.0f)), 
+				(float) (65.0f*Math.pow(10.0f, -6.0f)), 
+				(float) (65.0f*Math.pow(10.0f, -6.0f)), 
+				(float) (2.5f*Math.pow(10.0f, -6.0f)));
+		constants.add(bc);
+		
+		
+		bc = new BumpConstants("elaph", 
+				(float) (3.75f*Math.pow(10.0f, -7.0f)), 
+				(float) (9.2f*Math.pow(10.0f, -6.0f)), 
+				(float) (9.2f*Math.pow(10.0f, -6.0f)), 
+				(float) (2.5f*Math.pow(10.0f, -6.0f)));
+		constants.add(bc);
+		
+		bc = new BumpConstants("xeno", 
+				(float) (4.4345f*Math.pow(10.0f, -7.0f)), 
+				(float) (8.5f*Math.pow(10.0f, -6.0f)), 
+				(float) (8.5f*Math.pow(10.0f, -6.0f)), 
+				(float) (2.5f*Math.pow(10.0f, -6.0f)));
+		constants.add(bc);
+		
+		bc = new BumpConstants("SingleFingerElaphIdeal", 
+				(float) (3.75f*Math.pow(10.0f, -7.0f)), 
+				(float) (((30.0f*72.0f)/512.0f)*Math.pow(10.0f, -6.0f)), 
+				(float) (((30.0f*28.0f)/512.0f)*Math.pow(10.0f, -6.0f)), 
+				(float) (2.5f*Math.pow(10.0f, -6.0f)));
 		constants.add(bc);
 	}
 	

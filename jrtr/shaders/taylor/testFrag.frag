@@ -26,6 +26,9 @@ uniform float repNN; // not used right now
 uniform int periodCount;
 uniform float maxBumpHeight;
 uniform float patchSpacing;
+uniform float dimX;
+uniform float dimY;
+
 uniform sampler2DArray lookupText;
 // Variables passed in from the vertex shader
 in vec2 frag_texcoord;
@@ -59,6 +62,9 @@ float s = maxBumpHeight;// 2.4623*pow(10,-7.0); // -7 // max height of a bump, m
 const float eps_pq = 1.0*pow(10.0, -5.0); 
 const float eps = 1.0*pow(10.0, -4.0);
 const float tolerance = 0.999999; 
+
+//flags
+bool userSetPeriodFlag = (periodCount <= 0) ? true : false;
 
 //period constants
 float N_1 = dimN; // number of pixels of downsized patch 
@@ -228,11 +234,17 @@ vec3 avgWeighted_XYZ_weight(float lambda){
 }
 
 float compute_pq_scale_factor(float w_u, float w_v){
-	float p1 = get_p_factor(w_u, T_1, periods);
-	float p2 = get_p_factor(w_v, T_2, periods);
+	float in_periods = periods;
 	
-	float q1 = get_q_factor(w_u, T_1, periods);
-	float q2 = get_q_factor(w_v, T_2, periods);
+	if(userSetPeriodFlag){
+		in_periods = ceil(dimX/patchSpacing)-1.0;
+	}
+	
+	float p1 = get_p_factor(w_u, T_1, in_periods);
+	float p2 = get_p_factor(w_v, T_2, in_periods);
+	
+	float q1 = get_q_factor(w_u, T_1, in_periods);
+	float q2 = get_q_factor(w_v, T_2, in_periods);
 
 	return pow(p1*p1 + q1*q1 , 0.5)*pow(p2*p2 + q2*q2 , 0.5);
 }
