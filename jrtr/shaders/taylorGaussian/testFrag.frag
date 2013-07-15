@@ -167,7 +167,8 @@ float getFactor(float k, float F, float G, float w){
 	
 	// area of CD with d=30cm
 	float d = 0.3;
-	float A = 1.0;
+	float A = dimX*pow(10.0, 6.0);
+	A *= A;
 	
 	float kk_ww = (k*k)/(w*w);
 	return kk_ww*(F*F*G)/(4.0*PI*PI*A);
@@ -184,7 +185,7 @@ float getAbsFressnelFactor(vec3 _k1, vec3 _k2){
 	cos_teta = (cos_teta > tolerance)? tolerance : ((cos_teta < 0.0) ? 0.0 :  cos_teta);
 	float ret_value = (R0 + (1.0 - R0) * pow(1.0 - cos_teta, 5.0));
 	ret_value = abs(ret_value);
-	if(ret_value < 1.0*pow(10.0, -18.0)) ret_value = 0.0;
+	if(ret_value < 1.0*pow(10.0, -12.0)) ret_value = 0.0;
 	return ret_value;
 
 	// faster than above - see GLSL specs
@@ -352,9 +353,8 @@ void main() {
 	float u = V.x; float v = V.y; float w = V.z;
 	float F = getAbsFressnelFactor(_k1, _k2); // issue G may cause nan
 	float G = computeGFactor(o_normal, _k1, _k2); // 
-	
-	if(dot(o_normal, -_k1) < 0.0) F = 0.0; ;
-	
+
+	if(dot(o_normal, -_k1) < 0.0) F = 0.0;
 	
 	// get iteration bounds for given (u,v)
 	vec2 N_u = compute_N_min_max(u);
@@ -420,7 +420,17 @@ void main() {
 														
 							float norm_fact = sigma_f_pix*PI;
 							
-							float w_ij = exp(-dist2/(sigma_f_pix));
+							float exponent = -dist2/(sigma_f_pix);
+							float w_ij = exp(exponent);
+							
+							
+							if(abs(exponent) < 1.0*pow(10.0, -18.0) ){
+								w_ij = 1.0;
+							}else if(exponent > -1.0*pow(10.0, -18.0) ){
+								w_ij = 0.0;
+							}
+							
+							if(abs(norm_fact) < 1.0*pow(10.0, -10.0)) norm_fact = 1.0;
 							w_ij /= norm_fact;
 							float pq_scale = compute_pq_scale_factor(w_u,w_v);
 							P *= pq_scale;
@@ -442,7 +452,7 @@ void main() {
 //		if(maxBRDF.x <= 0.0) maxBRDF.x = 1.0;
 //		brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
 		float fac2 = 1.0 / 42.0;
-		fac2 = 1.0 / 800.0;
+		fac2 = 1.0 / 80.0;
 		brdf.xyz = M_Adobe_XR*brdf.xyz;
 		
 		brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
