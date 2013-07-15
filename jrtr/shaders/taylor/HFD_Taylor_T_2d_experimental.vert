@@ -80,6 +80,7 @@ float periods = periodCount-1.0; // 26 // number of patch periods along surface
 float Omega = ((N_1/N_2)*2.0*PI)/t_0; // (N_1/N_2)*2*PI/t_0, before 8.0*PI*pow(10.0,7.0);
 float bias = (N_2/2.0)/(N_2-1.0); // old: 50.0/99.0;
 
+
 // transformation constant
 const mat3 M_Adobe_XR = mat3(
 		2.0414, -0.5649, -0.3447,
@@ -367,7 +368,7 @@ void main() {
 	float G = computeGFactor(N, _k1, _k2);
 	
 	
-	
+	bool isCenter = false;
 	
 	// get iteration bounds for given (u,v)
 	vec2 N_u = compute_N_min_max(u);
@@ -409,7 +410,8 @@ void main() {
 			else t = v;
 			
 			for(float iter = lower; iter <= upper; iter++){
-				
+				if (abs(u) < 0.1) isCenter = true;
+				if(isCenter) break;
 				if(iter == 0.0) continue;
 				lambda_iter = (dx*t)/iter;
 				k = 2.0*PI / lambda_iter;
@@ -453,11 +455,17 @@ void main() {
 	
 	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.2);
 	
-	// Debug mode
-	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) col = vec4(1.0, 0.0, 0.0, 1.0);
-	else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) col = vec4(0.0, 1.0, 0.0, 1.0);
-	else col = brdf+vec4(ambient,ambient,ambient,0.0);
-//	else col = vec4(ambient,ambient,ambient,0.0);
+	if(isCenter){
+		col = vec4(1.0,0.0,0.0,1.0);
+	}else{
+		// Debug mode
+		if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) col = vec4(1.0, 0.0, 0.0, 1.0);
+		else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) col = vec4(0.0, 1.0, 0.0, 1.0);
+//		else col = brdf+vec4(ambient,ambient,ambient,0.0);
+		else col = vec4(ambient,ambient,ambient,1.0);
+		
+	}
+
 		
 
 	frag_texcoord = texcoord;
