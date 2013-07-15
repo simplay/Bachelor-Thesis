@@ -57,3 +57,8 @@ try to start the app
 
 the precomputed texutures are are not in this github repository, but the necessary matlab code in order to precompute those images.
 nevertheless im going to send you a link, when im at home with same precomputed images.
+
+
+## Precomputation:
+
+## How to use the program:
