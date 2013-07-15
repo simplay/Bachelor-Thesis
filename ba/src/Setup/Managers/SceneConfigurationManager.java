@@ -1,6 +1,8 @@
-package Managers;
+package Setup.Managers;
 
 import java.util.LinkedList;
+
+import Setup.Constants.SceneConfiguration;
 
 
 import Constants.ShaderTaskNr;

@@ -1,4 +1,4 @@
-package Managers;
+package Setup.Managers;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -12,6 +12,7 @@ import jrtr.Texture;
 
 import Constants.ShaderTaskNr;
 import Materials.Material;
+import Setup.Constants.PatchDataPaths;
 
 public class PreCompDataManager {
 	private String extension = ".bmp";

@@ -1,4 +1,4 @@
-package Managers;
+package Setup.Constants;
 
 import Constants.ShaderTaskNr;
 

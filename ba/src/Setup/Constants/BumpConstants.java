@@ -1,4 +1,4 @@
-package Managers;
+package Setup.Constants;
 
 public class BumpConstants {
 	private String identifyerName;

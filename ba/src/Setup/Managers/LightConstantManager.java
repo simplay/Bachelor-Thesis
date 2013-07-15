@@ -1,8 +1,10 @@
-package Managers;
+package Setup.Managers;
 
 import java.util.LinkedList;
 
 import javax.vecmath.Vector4f;
+
+import Setup.Constants.LightConstants;
 
 import jrtr.Light;
 

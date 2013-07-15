@@ -1,8 +1,10 @@
-package Managers;
+package Setup.Managers;
 
 import java.util.LinkedList;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
+
+import Setup.Constants.CameraSceneConstant;
 
 public class CameraSceneConstantManager {
 	private LinkedList<CameraSceneConstant> constants;

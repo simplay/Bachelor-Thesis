@@ -1,6 +1,7 @@
-package Managers;
+package Setup.Managers;
 
 import java.util.LinkedList;
+import Setup.Constants.BumpConstants;
 
 public class BumpConstantsManager {
 	

@@ -1,4 +1,4 @@
-package Managers;
+package Setup.Managers;
 import java.io.IOException;
 
 import javax.vecmath.Matrix4f;

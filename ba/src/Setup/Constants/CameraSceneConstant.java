@@ -1,4 +1,4 @@
-package Managers;
+package Setup.Constants;
 
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
