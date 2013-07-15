@@ -60,7 +60,7 @@ float s = maxBumpHeight;// 2.4623*pow(10,-7.0); // -7 // max height of a bump, m
 
 //error constants
 const float eps_pq = 1.0*pow(10.0, -5.0); 
-const float eps = 1.0*pow(10.0, -4.0);
+const float eps = 1.0*pow(10.0, -2.0);
 const float tolerance = 0.999999; 
 
 // flags
@@ -164,13 +164,9 @@ vec2 getRescaledHeight(float reHeight, float imHeight, int index){
 //do some kind of normalization of returned value
 //divide by maximal amount
 float getFactor(float k, float F, float G, float w){
-	
-	// area of CD with d=30cm
-	float d = 0.3;
-	float A = dimX*pow(10.0, 6.0);
-	A *= A;
-	
+	float A = dimX*dimX;
 	float kk_ww = (k*k)/(w*w);
+	kk_ww *= pow(t_0, 4.0);
 	return kk_ww*(F*F*G)/(4.0*PI*PI*A);
 }
 
@@ -365,9 +361,7 @@ void main() {
 	
 	// only specular contribution within epsilon range: i.e. fixed number of lambdas
 		if(abs(u) < eps && abs(v) < eps){
-			for(int iter = 0; iter < 0; iter++){	
-				brdf += vec4(1.0, 1.0, 1.0, 0.0);
-			}
+			brdf = vec4(1.0, 1.0, 1.0, 1.0);
 		}else{
 			// iterate twice: once for N_u and once for N_v lower,upper
 			for(int variant = 0; variant < 2; variant++){
@@ -452,12 +446,12 @@ void main() {
 //		if(maxBRDF.x <= 0.0) maxBRDF.x = 1.0;
 //		brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
 		float fac2 = 1.0 / 42.0;
-		fac2 = 1.0 / 80.0;
+		fac2 = 200.0 / 1.0;
 		brdf.xyz = M_Adobe_XR*brdf.xyz;
 		
 		brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 		
-		float ambient = 0.0;
+		float ambient = 0.1;
 		
 		// remove negative values
 		if(brdf.x < 0.0 ) brdf.x = 0.0;

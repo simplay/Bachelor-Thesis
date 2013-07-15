@@ -15,14 +15,20 @@ public class CameraSceneConstant {
 	private Vector3f up;
 	private Point3f look;
 	
-	public CameraSceneConstant(String id, float distance, float verticalFieldView, Vector3f up, Point3f look){
+	
+	public CameraSceneConstant(String id, float distance, float verticalFieldView, Vector3f up, Point3f look, boolean orthCam){
 		this.id = id;
 		this.distance = distance;
 		this.verticalFieldView = verticalFieldView;
 		this.up = up;
 		this.look = look;
-		this.cop = new Point3f(0.108211061708319f, 0.0f, distance); // camera distance
-//		this.cop = new Point3f(0.0f, 0.0f, distance); // camera distance
+		
+		if(orthCam){
+			this.cop = new Point3f(0.0f, 0.0f, distance); // camera distance
+		}else{
+			this.cop = new Point3f(0.108211061708319f, 0.0f, distance); // camera distance
+		}
+		
 	}
 	
 	public String getId(){

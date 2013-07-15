@@ -2,6 +2,8 @@ package Setup.Managers;
 
 import java.util.LinkedList;
 
+import javax.vecmath.Point3f;
+import javax.vecmath.Vector3f;
 import javax.vecmath.Vector4f;
 
 import Setup.Constants.LightConstants;
@@ -15,6 +17,7 @@ public class LightConstantManager {
 		defineConstant();
 	}
 	
+
 	private void defineConstant(){
 		LightConstants lc = null;
 		

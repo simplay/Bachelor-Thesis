@@ -8,7 +8,6 @@ import Setup.Constants.SceneConfiguration;
 import Constants.ShaderTaskNr;
 import Constants.ShapeTask;
 
-
 public class SceneConfigurationManager {
 	
 	private LinkedList<SceneConfiguration> constants;
@@ -19,10 +18,10 @@ public class SceneConfigurationManager {
 	
 	private void defineConstant(){
 		SceneConfiguration sc = null;		
-		sc = new SceneConfiguration("sandbox", ShapeTask.PLANE, "plane1", 
-				"Stam", "light1", ShaderTaskNr.TAYLORGAUSSIAN, 26, "blaze");
+		sc = new SceneConfiguration("sandbox", ShapeTask.PLANE, "plane1_o", 
+				"Stam", "light1", ShaderTaskNr.EXPERIMENTAL_V, 26, "blaze");
 		constants.add(sc);
-		
+	
 		sc = new SceneConfiguration("extreme_case", ShapeTask.SNAKE, "snake1", 
 				"Stam", "light1", ShaderTaskNr.TAYLORGAUSSIAN, -1, "test");
 		constants.add(sc);
@@ -31,15 +30,19 @@ public class SceneConfigurationManager {
 				"Stam", "light1", ShaderTaskNr.EXPERIMENTAL_F, 26, "blaze");
 		constants.add(sc);
 		
-		
-		// tast case 1: plane equal long cylinder
+		// test case 1: plane equal long cylinder
 		sc = new SceneConfiguration("testcase1_1", ShapeTask.CYLINDER, "plane1", 
 				"Stam", "light1", ShaderTaskNr.TAYLORGAUSSIAN, 26, "blaze");
 		constants.add(sc);
 		
-		// tast case 1: plane equal long cylinder
+		// test case 1: plane equal long cylinder
 		sc = new SceneConfiguration("testcase1_2", ShapeTask.PLANE, "plane1", 
 				"Stam", "light1", ShaderTaskNr.EXPERIMENTAL_F, 26, "blaze");
+		constants.add(sc);
+		
+		// test case for specular reflection.
+		sc = new SceneConfiguration("spec_tc1", ShapeTask.PLANE, "plane1_o", 
+				"Stam", "light1", ShaderTaskNr.TAYLORGAUSSIAN, 26, "blaze");
 		constants.add(sc);
 	}
 	

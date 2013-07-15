@@ -23,8 +23,10 @@ jrtr/bin/**/*
 jrtr/doc
 jrtr/textures/*
 jrtr/textures/**/*
-#simple FILES
+#ba FILES
 ba/bin
+ba/bin/
+ba/bin/**/*
 ba/bin/*
 ba/doc
 ba/*.log
