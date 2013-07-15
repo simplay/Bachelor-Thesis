@@ -24,12 +24,13 @@ jrtr/doc
 jrtr/textures/*
 jrtr/textures/**/*
 #simple FILES
-simple/bin
-simple/doc
-simple/*.log
-simple/.cvsignore
-simple/.classpath
-simple/.project
+ba/bin
+ba/bin/*
+ba/doc
+ba/*.log
+ba/.cvsignore
+ba/.classpath
+ba/.project
 #matlab FILES
 matlab/out/*
 #models
