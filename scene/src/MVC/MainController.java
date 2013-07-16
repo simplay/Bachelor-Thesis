@@ -36,5 +36,6 @@ public class MainController implements Subscriber{
 	@Override
 	public void handleEvent() {
 		wm.notifyObservers();
+		view.getHistory().setText(model.getCam());
 	}
 }
