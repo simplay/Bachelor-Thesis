@@ -419,8 +419,13 @@ void main() {
 			sigma_f_pix *= 2.0;
 			float norm_fact = sigma_f_pix*PI;
 			float delta_N_min_max = upper-lower;
-			if(delta_N_min_max < 2.0*sigma_f_pix){
-				stepSize /= (delta_N_min_max*4.0);
+			if(delta_N_min_max < 2.0*sigma_f_pix){	
+				if(delta_N_min_max < 1.0){
+					float donwscaler = 1.0 / delta_N_min_max;
+					stepSize /= donwscaler;	
+				}else{
+					stepSize /= (delta_N_min_max*1.0);	
+				}	
 			}
 			
 			for(float iter = lower; iter <= upper; iter = iter + stepSize){
