@@ -41,6 +41,7 @@ public class MainModel extends Observer implements Subscriber{
 	public MainModel(){
 		super();
 		this.watchman = new Watchman();
+		watchman.subscribe(this);
 		this.s = new Storage();
 		this.sceneManager = new GraphSceneManager();
 	}
@@ -58,42 +59,16 @@ public class MainModel extends Observer implements Subscriber{
 		return this.s;
 	}
 	
-	public Watchman getWatchman(){
-		return this.watchman;
+	public void notfyWatchman(){
+		this.watchman.notifyObservers();
 	}
 	
-	private Camera getCamera(){
-		return this.sceneManager.getCamera();
+	public String getWatchmanString(){
+		return this.watchman.getCam();
 	}
 
 	@Override
 	public void handleEvent() {
-		counter++;
-		camString = getCamera().getCameraMatrix();
-		System.out.println("outcamstring AAAA " +camString);
-		System.out.println("handle watchmen event " + counter);
-		
-	}
-	
-	private String printedMatrix(Matrix4f mat, String id){
-		String out = null;
-		
-		String line1 = mat.m00 + " " + mat.m01 + " " + mat.m02 + " " + mat.m03;
-		String line2 = mat.m10 + " " + mat.m11 + " " + mat.m12 + " " + mat.m13;
-		String line3 = mat.m20 + " " + mat.m21 + " " + mat.m22 + " " + mat.m23;
-		String line4 = mat.m30 + " " + mat.m31 + " " + mat.m32 + " " + mat.m33;
-		
-		out = id + "\n";
-		out += line1 + "\n";
-		out += line2 + "\n";
-		out += line3 + "\n";
-		out += line4;
-		return out;
-	}
-	
-	private Matrix4f camString;
-	
-	public String getCam(){
-		return printedMatrix(camString, "camera Matrix");
+		watchman.computeData(sceneManager);
 	}
 }

@@ -8,7 +8,6 @@ public class MainController implements Subscriber{
 	
 	private MainModel model;
 	private MainView view;
-	private Watchman wm;
 	
 	public MainController(MainModel model, MainView view){
 		this.model = model;
@@ -19,23 +18,15 @@ public class MainController implements Subscriber{
 		rp.setKeys(ks);
 		int dim = view.getWindowDim();
 		
-		
-		
 		rp.getCanvas().addKeyListener(ks);
 		rp.getCanvas().addMouseListener(new SimpleMouseListener(model.getStorage(), dim, dim, this));
 		rp.getCanvas().addMouseMotionListener(new SimpleMouseMotionListener(model.getStorage(), model.getSceneManager(), rp, dim, dim, this)); 
-		
-		
-		wm = model.getWatchman();
-		wm.subscribe(model);
-		//setup listeners
-		
 	}
 
 
 	@Override
 	public void handleEvent() {
-		wm.notifyObservers();
-		view.getHistory().setText(model.getCam());
+		model.notfyWatchman();
+		view.getHistory().setText(model.getWatchmanString());
 	}
 }
