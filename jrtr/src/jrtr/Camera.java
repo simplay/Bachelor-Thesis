@@ -145,7 +145,6 @@ public class Camera {
 	 */
 	protected void updateCameraMatrix(){
 		Point3f e = new Point3f(getProjectionCenterPoint());
-		System.out.println("my e value" + e );
 		Point3f d = new Point3f(getLookAtPointPoint());
 		Vector3f up = new Vector3f(getUpVector());
 		Matrix4f tmpCamera = new Matrix4f();
@@ -181,7 +180,7 @@ public class Camera {
 		
 		System.out.println();
 		System.out.println("inv cam matrix" );
-		System.out.println(invC());
+		System.out.println(getInvC());
 	}
 	
 	public void setCameraMatrix(Matrix4f ma){
@@ -189,19 +188,17 @@ public class Camera {
 	}
 	
 	
-	private Matrix4f invC(){
+	public Matrix4f getInvC(){
 		Matrix4f tmp = new Matrix4f(this.cameraMatrix);
 		tmp.invert();
 		return tmp;
 	}
 	
-	public Point3f getCOP(){
+	public Point3f getCOPbyInv(){
 		Vector4f cop = new Vector4f();
-		invC().getColumn(3, cop);
-		
-
-		
-		Point3f cop_point = new Point3f(cop.x, cop.y, cop.z);
+		getInvC().getColumn(3, cop);
+		Point3f cop_point = getProjectionCenterPoint();
+		cop_point = new Point3f(cop_point.x, cop_point.y, cop_point.z);
 		System.out.println("computed cop " + cop_point);
 		return cop_point;
 	}

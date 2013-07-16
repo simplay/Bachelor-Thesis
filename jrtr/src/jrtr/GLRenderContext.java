@@ -203,7 +203,8 @@ public class GLRenderContext implements RenderContext {
 		Material mat = renderItem.getShape().getMaterial();
 		
 		setMaterial(mat);
-		mat.setCOP(sceneManager.getCamera().getCOP());
+		mat.setCOP(sceneManager.getCamera().getCOPbyInv());
+//		mat.setCOP(sceneManager.getCamera().getProjectionCenterPoint());
 		// Compute the modelview matrix by multiplying the camera matrix and the 
 		// transformation matrix of the object
 		Matrix4f t = new Matrix4f();

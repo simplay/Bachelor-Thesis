@@ -48,7 +48,7 @@ public class MyRenderPanel extends GLRenderPanel{
 			sceneManager.setRoot(dgsf.getRoot());
 		    timer.scheduleAtFixedRate(new DiffractionAnimationTask(dgsf, renderPanel), 0, 10);
 	    }
-		
+	    
 	}
 
 }

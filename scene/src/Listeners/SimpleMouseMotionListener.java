@@ -81,7 +81,7 @@ public class SimpleMouseMotionListener implements MouseMotionListener{
 	    
 //	    // Get current orientation
 	    Matrix4f camera = sceneManager.getCamera().getCameraMatrix();
-	    camera.invert();
+//	    camera.invert();
 	    Quat4f current = new Quat4f();
 	    camera.get(current);
 	    
@@ -96,14 +96,14 @@ public class SimpleMouseMotionListener implements MouseMotionListener{
 	    
 	    
 	    //sceneManager.getCamera().getCameraMatrix().mul(deltaMatrix);
-	    camera.invert();
 	    sceneManager.getCamera().setCameraMatrix(camera);
 	    
 	    Vector4f pos = new Vector4f();
 	    sceneManager.getCamera().getCameraMatrix().getColumn(3, pos);
 	    
-//	    System.out.println(sceneManager.getCamera().getCameraMatrix());
-	    
+	    System.out.println();
+	    System.out.println("Trackball inverse C_c_w: " + sceneManager.getCamera().getInvC());
+	    System.out.println();
 	    
 	    // redraw render window (canvas)
 	    renderPanel.getCanvas().repaint();
