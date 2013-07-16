@@ -93,19 +93,10 @@ const mat3 CIE_XYZ = mat3(
 -0.0911689639090227,	0.252431442139465,	0.0157075217695576,
 0.000920898625343664,	-0.00254981254686328,	0.178598913921520);
 
-
-const float[16] fixed_lambdas = float[](
-	390.0000,  410.6667,  431.3333,  452.0000,  
-	472.6667,  493.3333,  514.0000,  534.6667,  
-	555.3333,  576.0000,  596.6667,  617.3333,  
-	638.0000,  658.6667,  679.3333,  700.0000
-);
-
 const mat3 CIE_RGB = mat3(
 2.3706743, -0.9000405, -0.4706338,
 -0.5138850,  1.4253036,  0.0885814,
 0.0052982, -0.0146949,  1.009396);
-
 
 
 //FUNCTIONS
@@ -487,9 +478,9 @@ void main() {
 
 //		
 	if(maxBRDF.y < 1.0*pow(10.0, -20.0)) maxBRDF.y = 1.0;
-	brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
+//	brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
 	float fac2 = 1.0 / 42.0;
-	fac2 = 4.0 / 1.0;
+	fac2 = 10.0 / 1.0;
 		
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XR, brdf.xyz);
 		
