@@ -412,8 +412,16 @@ void main() {
 				t1 = v;
 				t2 = u;
 			}
-				
-			for(float iter = lower; iter <= upper; iter++){
+			
+			float stepSize = 1.0;
+			float sigma_f_pix = ((2.0*dx) / (PI*dimY));
+			sigma_f_pix *= sigma_f_pix;
+			sigma_f_pix *= 2.0;
+			if(upper-lower < 2.0*sigma_f_pix){
+				stepSize /= 8.0;
+			}
+			
+			for(float iter = lower; iter <= upper; iter = iter + stepSize){
 				if(iter == 0.0) continue;
 				lambda_iter = (dx*t1)/iter;
 				k = 2.0*PI / lambda_iter;
@@ -444,9 +452,8 @@ void main() {
 					
 						P = taylorApproximation(coords, k, w);
 
-						float sigma_f_pix = ((2.0*dx) / (PI*dimY));
-						sigma_f_pix *= sigma_f_pix;
-						sigma_f_pix *= 2.0;
+						
+
 														
 						float norm_fact = sigma_f_pix*PI;
 							
@@ -499,7 +506,7 @@ void main() {
 		
 	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) o_col = vec4(1.0, 0.0, 0.0, 1.0);
 	else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) o_col = vec4(0.0, 0.0, 1.0, 1.0);
-//	else o_col = brdf+vec4(ambient,ambient,ambient,0.0);
-	else o_col = vec4(ambient,ambient,ambient,0.0);
+	else o_col = brdf+vec4(ambient,ambient,ambient,0.0);
+//	else o_col = vec4(ambient,ambient,ambient,0.0);
 	frag_shaded	= o_col;
 }
