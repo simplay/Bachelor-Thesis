@@ -327,6 +327,21 @@ vec2 compute_N_min_max(float t){
 }
 
 
+vec3 getBRDF_RGB_T_D65(mat3 T, vec3 brdf_xyz){
+	vec3 D65 = vec3(0.95047, 1.0, 1.08883);
+
+	vec3 output = vec3(0.0);
+	vec3 D65BRDF = vec3(brdf_xyz.x*D65.x, brdf_xyz.y*D65.y, brdf_xyz.z*D65.z);
+	
+	output.x = dot(D65BRDF, T[0]);
+	output.y = dot(D65BRDF, T[1]);
+	output.z = dot(D65BRDF, T[2]);
+	
+	return output;
+}
+
+
+
 void main() {
 	
 	// INITIALIZATION
@@ -456,11 +471,12 @@ void main() {
 //	brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
 
 	float fac2 = 50.0 / 1.0;
-	brdf.xyz = M_Adobe_XR*brdf.xyz;
-	
+//	brdf.xyz = M_Adobe_XR*brdf.xyz;
+	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XR, brdf.xyz);
 	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 	
-	float ambient = 0.1;
+	
+	float ambient = 0.0;
 	
 	// remove negative values
 	if(brdf.x < 0.0 ) brdf.x = 0.0;
