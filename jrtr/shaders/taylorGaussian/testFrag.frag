@@ -379,7 +379,7 @@ void main() {
 	float uv_sqr = pow(u*u+v*v, 0.5);
 //	uv_sqr = 0.0;
 	
-	float iterMax = 200.0;
+	float iterMax = 100.0;
 	float step = (lambda_max - lambda_min)/iterMax;
 	
 	if(uv_sqr < eps){
@@ -507,8 +507,8 @@ void main() {
 	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.2);
 		
 	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) o_col = vec4(1.0, 0.0, 0.0, 1.0);
-	else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) o_col = vec4(0.0, 1.0, 0.0, 1.0);
-	else o_col = brdf+vec4(ambient,ambient,ambient,0.0);
-//	else o_col = vec4(ambient,ambient,ambient,0.0);
+	else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) o_col = vec4(0.0, 0.0, 1.0, 1.0);
+//	else o_col = brdf+vec4(ambient,ambient,ambient,0.0);
+	else o_col = vec4(ambient,ambient,ambient,0.0);
 	frag_shaded	= o_col;
 }
