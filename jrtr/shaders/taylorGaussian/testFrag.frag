@@ -376,9 +376,35 @@ void main() {
 	vec2 modUV = getRotation(u,v,phi);
 	
 	
-	// only specular contribution within epsilon range: i.e. fixed number of lambdas
-		if(abs(u) < eps && abs(v) < eps){
-			brdf = vec4(1.0, 1.0, 1.0, 1.0);
+	float uv_sqr = pow(u*u+v*v, 0.5);
+//	uv_sqr = 0.0;
+	
+	float iterMax = 200.0;
+	float step = (lambda_max - lambda_min)/iterMax;
+	if(uv_sqr < eps){
+		for(int iter = 0; iter < iterMax; iter++){
+			
+			float lambda_iter = iter*step+lambda_min;
+			k = 2.0*PI / lambda_iter;
+			vec2 coords = vec2((k*modUV.x/Omega) + bias, (k*modUV.y/Omega) + bias); //2d
+
+			if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
+			
+			float w_u = abs(k*u);
+			float w_v = max(abs(k*v),0.01);
+			
+			P = taylorApproximation(coords, k, w);
+			
+			float pq_scale = compute_pq_scale_factor(w_u, w_v);
+	
+			P *= pq_scale;
+			float abs_P_Sq = P.x*P.x + P.y*P.y;
+			
+			float diffractionCoeff = getFactor(k, F, G, w);
+			vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
+			brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 1.0);
+			maxBRDF += vec4(waveColor, 1.0);		
+		}
 		}else{
 			// iterate twice: once for N_u and once for N_v lower,upper
 			for(int variant = 0; variant < 2; variant++){
@@ -452,7 +478,7 @@ void main() {
 							vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
 							brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 0.0);
 							
-							maxBRDF += vec4(diffractionCoeff * 1.0 * waveColor, 0.0);					
+							maxBRDF += vec4(waveColor, 0.0);					
 						}
 					}
 				}
@@ -460,10 +486,10 @@ void main() {
 		}
 
 //		
-//		if(maxBRDF.x <= 0.0) maxBRDF.x = 1.0;
-//		brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
+		if(maxBRDF.y < 1.0*pow(10.0, -20.0)) maxBRDF.y = 1.0;
+		brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
 		float fac2 = 1.0 / 42.0;
-		fac2 = 300.0 / 1.0;
+		fac2 = 20.0 / 1.0;
 		
 //		brdf.xyz = wd65*brdf.xyz;
 		brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XR, brdf.xyz);

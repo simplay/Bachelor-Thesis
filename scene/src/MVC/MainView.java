@@ -29,7 +29,7 @@ public class MainView {
 	private int WindowDim;
 	private MainModel model;
 	private JTextArea history;
-	
+	private Component canvas;
 	
 	public MainView(MainModel model){
 		this.model = model;
@@ -45,7 +45,7 @@ public class MainView {
 		Container container = window.getContentPane();
 		container.setLayout(experimentLayout);
 
-		Component canvas = renderPanel.getCanvas();
+		canvas = renderPanel.getCanvas();
 		history = new JTextArea("Some Swing Component");
 		history.setText("camera matrix");
 		history.setEditable(false);
@@ -73,5 +73,9 @@ public class MainView {
 	
 	public JTextArea getHistory(){
 		return this.history;
+	}
+	
+	public Component getCanvas(){
+		return renderPanel.getCanvas();
 	}
 }

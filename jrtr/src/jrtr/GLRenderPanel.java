@@ -74,10 +74,8 @@ public abstract class GLRenderPanel implements RenderPanel {
 	 */
 	private	GLCanvas canvas;
 
-	public GLRenderPanel()
-	{
+	public GLRenderPanel(){
 	    canvas = new GLCanvas();
-	    
 		GLEventListener eventListener = new GLRenderContextEventListener(this);
 		canvas.addGLEventListener(eventListener);
 	}
@@ -88,8 +86,7 @@ public abstract class GLRenderPanel implements RenderPanel {
 	 * window.
 	 */
 	@Override
-	public final Component getCanvas() 
-	{
+	public final Component getCanvas(){
 		return canvas;
 	}
 

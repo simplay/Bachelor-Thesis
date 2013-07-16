@@ -18,8 +18,8 @@ public class SceneConfigurationManager {
 	
 	private void defineConstant(){
 		SceneConfiguration sc = null;		
-		sc = new SceneConfiguration("sandbox", ShapeTask.PLANE, "plane1", 
-				"Stam", "light1", ShaderTaskNr.EXPERIMENTAL_V, -1, "blaze");
+		sc = new SceneConfiguration("sandbox", ShapeTask.PLANE, "plane1_o", 
+				"Stam", "light1", ShaderTaskNr.TAYLORGAUSSIAN, -1, "test");
 		constants.add(sc);
 	
 		sc = new SceneConfiguration("extreme_case", ShapeTask.SNAKE, "snake1", 

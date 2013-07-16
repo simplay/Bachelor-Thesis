@@ -70,7 +70,7 @@ float s = maxBumpHeight;// 2.4623*pow(10,-7.0); // -7 // max height of a bump, m
 
 // error constants
 const float eps_pq = 1.0*pow(10.0, -5.0); 
-const float eps = 1.0*pow(10.0, -2.0);
+const float eps = 1.0*pow(10.0, -2.5);
 const float tolerance = 0.999999; 
 
 
@@ -329,7 +329,6 @@ vec2 compute_N_min_max(float t){
 
 vec3 getBRDF_RGB_T_D65(mat3 T, vec3 brdf_xyz){
 	vec3 D65 = vec3(0.95047, 1.0, 1.08883);
-
 	vec3 output = vec3(0.0);
 	vec3 D65BRDF = vec3(brdf_xyz.x*D65.x, brdf_xyz.y*D65.y, brdf_xyz.z*D65.z);
 	
@@ -405,9 +404,15 @@ void main() {
 	vec2 modUV = getRotation(u,v,phi);
 	
 	// only specular contribution within epsilon range: i.e. fixed number of lambdas
-	if(abs(u) < eps && abs(v) < eps){
-		for(int iter = 0; iter < 15; iter++){
-			float lambda_iter = fixed_lambdas[iter]*pow(10.0,-9.0);
+	float uv_sqr = pow(u*u+v*v, 0.5);
+	uv_sqr = 0.0;
+	
+	float iterMax = 100.0;
+	float step = (lambda_max - lambda_min)/iterMax;
+	if(uv_sqr < eps){
+		for(int iter = 0; iter < iterMax; iter++){
+			
+			float lambda_iter = iter*step+lambda_min;
 			k = 2.0*PI / lambda_iter;
 			vec2 coords = vec2((k*modUV.x/Omega) + bias, (k*modUV.y/Omega) + bias); //2d
 
@@ -426,7 +431,7 @@ void main() {
 			float diffractionCoeff = getFactor(k, F, G, w);
 			vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
 			brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 1.0);
-			maxBRDF += vec4(diffractionCoeff * brdfMax * waveColor, 1.0);		
+			maxBRDF += vec4(waveColor, 1.0);		
 		}
 	}else{
 		// iterate twice: once for N_u and once for N_v lower,upper
@@ -461,16 +466,17 @@ void main() {
 				vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
 				brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 0.0);
 				
-				maxBRDF += vec4(diffractionCoeff * brdfMax * waveColor, 0.0);
+				maxBRDF += vec4(waveColor, 0.0);
 				
 			}
 		}
 	}
 
 	// normalization - find a stabler approach
-//	brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
+	if(maxBRDF.y < 1.0*pow(10.0, -20.0)) maxBRDF.y = 1.0;
+	brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
 
-	float fac2 = 50.0 / 1.0;
+	float fac2 = 20.0 / 1.0;
 //	brdf.xyz = M_Adobe_XR*brdf.xyz;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XR, brdf.xyz);
 	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
@@ -490,8 +496,8 @@ void main() {
 //		col = vec4(1.0,0.0,0.0,1.0);
 //	}else{
 		// Debug mode
-		if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) col = vec4(0.0, 0.0, 0.0, 1.0);
-		else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) col = vec4(0.0, 0.0, 0.0, 1.0);
+		if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) col = vec4(1.0, 0.0, 0.0, 1.0);
+		else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) col = vec4(0.0, 1.0, 0.0, 1.0);
 		else col = brdf+vec4(ambient,ambient,ambient,0.0);
 //		else col = vec4(ambient,ambient,ambient,1.0);
 		
