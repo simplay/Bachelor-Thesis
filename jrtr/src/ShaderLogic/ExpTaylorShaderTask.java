@@ -71,6 +71,8 @@ public class ExpTaylorShaderTask extends ShaderTask{
 		scalingID = gl.glGetUniformLocation(activeShader.programId(),"cop_w");
 		gl.glUniform4fv(scalingID, 1, cop_f, 0);
 		
+		System.out.println("assigned cop value: " + t_cop);
+		
 		float lmin = m.getLambdaMin();
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "LMIN");
 		gl.glUniform1f(id3, lmin);

@@ -199,8 +199,11 @@ public class GLRenderContext implements RenderContext {
 //			this.sceneManager.getLightSources().get(0).setLightDirection(this.sceneManager.getRootLight().getLightSource().getLightDirection());
 		
 		// Set the material
-		setMaterial(renderItem.getShape().getMaterial());
-
+		
+		Material mat = renderItem.getShape().getMaterial();
+		
+		setMaterial(mat);
+		mat.setCOP(sceneManager.getCamera().getCOP());
 		// Compute the modelview matrix by multiplying the camera matrix and the 
 		// transformation matrix of the object
 		Matrix4f t = new Matrix4f();
@@ -216,6 +219,7 @@ public class GLRenderContext implements RenderContext {
 		
 		float[] cpos = {-cameraPosition.x, -cameraPosition.y, -cameraPosition.z, cameraPosition.w};
 		System.out.println("cop: \n" + cpos[0] + " " +cpos[1] + " " + cpos[2] + " " + cpos[3]);
+		
 //		int scalingID = gl.glGetUniformLocation(activeShader.programId(),"cop_w");
 //		gl.glUniform4fv(scalingID, 1, cpos, 0);
 		
