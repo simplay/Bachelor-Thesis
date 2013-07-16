@@ -34,45 +34,8 @@ public class MainView {
 	public MainView(MainModel model){
 		this.model = model;
 		renderPanel = new MyRenderPanel(model);
-		
-		
 		this.WindowDim = 800;
 		setUpGui();
-	}
-	
-	private void setUpGuiO(){
-		JFrame jframe = new JFrame("ba - diffraction shader");
-		jframe.setSize(WindowDim, WindowDim);
-		jframe.setLocationRelativeTo(null); // center of screen
-		jframe.getContentPane().add(renderPanel.getCanvas());// put the canvas into a JFrame window
-
-		
-
-	    jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    jframe.setVisible(true); // show window
-	}
-	
-	private void setUpGui2(){
-		JFrame jframe = new JFrame("ba - diffraction shader");
-		jframe.setSize(WindowDim, WindowDim);
-		jframe.setLocationRelativeTo(null); // center of screen
-		
-		
-		JLabel label = new JLabel("Hello World", JLabel.CENTER);
-		
-		
-		Container container = jframe.getContentPane();
-		
-		Component canvas = renderPanel.getCanvas();
-//		canvas.setVisible(true);
-		
-		container.add(label);
-		container.add(canvas);// put the canvas into a JFrame window
-		
-		
-		
-	    jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    jframe.setVisible(true); // show window
 	}
 	
 	public void setUpGui(){
