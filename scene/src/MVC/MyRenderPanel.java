@@ -41,9 +41,11 @@ public class MyRenderPanel extends GLRenderPanel{
 
 	    if(simulate){
 		    SimulationFabricator simulator = new SimulationFabricator(sceneManager, r);
+		    model.setSimFab(simulator);
 		    sceneManager.setRoot(simulator.getRoot());
 	    }else{
 		    DiffractionSceneGraphFabricator dgsf = new DiffractionSceneGraphFabricator(sceneManager, r);
+		    model.setDiffFab(dgsf);
 		    ks.setFabric(dgsf);
 			sceneManager.setRoot(dgsf.getRoot());
 		    timer.scheduleAtFixedRate(new DiffractionAnimationTask(dgsf, renderPanel), 0, 10);

@@ -5,15 +5,19 @@ import java.awt.event.MouseListener;
 import javax.vecmath.Point2f;
 import javax.vecmath.Vector3f;
 
+import MVC.MainController;
+
 
 public class SimpleMouseListener implements MouseListener{
 	
 	private Vector3f v1,v2;
 	private int width, height;
 	private Storage s;
+	private MainController controller;
 	
-	public SimpleMouseListener(Storage s, int height, int width){
+	public SimpleMouseListener(Storage s, int height, int width, MainController controller){
 		this.s = s;
+		this.controller = controller;
 		this.height = height;
 		this.width = width;
 	}

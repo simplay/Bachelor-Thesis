@@ -27,7 +27,7 @@ public abstract class Observer {
 		return success;
 	}
 	
-	protected void notifyObservers() {
+	public void notifyObservers() {
 		for(Subscriber s : this.subscriber){
 			s.handleEvent();
 		}

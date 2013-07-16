@@ -10,6 +10,7 @@ import javax.vecmath.Vector3f;
 import javax.vecmath.Vector4f;
 
 import jrtr.RenderPanel;
+import MVC.MainController;
 import SceneGraph.GraphSceneManager;
 
 
@@ -21,11 +22,13 @@ public class SimpleMouseMotionListener implements MouseMotionListener{
 	private float theta;
 	private GraphSceneManager sceneManager;
 	private RenderPanel renderPanel;
+	private MainController controller;
 	
-	public SimpleMouseMotionListener(Storage s, GraphSceneManager sceneManager, RenderPanel renderPanel, int width, int height){
+	public SimpleMouseMotionListener(Storage s, GraphSceneManager sceneManager, RenderPanel renderPanel, int width, int height, MainController controller){
 		this.s = s;
 		this.sceneManager = sceneManager;
 		this.renderPanel = renderPanel;
+		this.controller = controller;
 		this.width = width;
 		this.height = height;
 	}
@@ -109,6 +112,7 @@ public class SimpleMouseMotionListener implements MouseMotionListener{
 	    renderPanel.getCanvas().repaint();
 		s.setV1(v1);
 		s.setV2(v2);
+		controller.handleEvent();
 	}
 
 	@Override

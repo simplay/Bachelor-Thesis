@@ -12,6 +12,7 @@ import jrtr.Camera;
 import jrtr.Light;
 import jrtr.RenderPanel;
 import Diffraction.DiffractionSceneGraphFabricator;
+import MVC.MainController;
 import SceneGraph.GraphSceneManager;
 import SceneGraph.LightNode;
 
@@ -23,11 +24,13 @@ public class SimpleKeyListener implements KeyListener{
 	private DiffractionSceneGraphFabricator fabric;
 	private float normDiv = 1.0f;
 	private float delta_eps = (float) Math.pow(10, -7);
+	private MainController controller;
 	
-	public SimpleKeyListener(Storage s, GraphSceneManager sceneManager, RenderPanel renderPanel){
+	public SimpleKeyListener(Storage s, GraphSceneManager sceneManager, RenderPanel renderPanel, MainController controller){
 		this.s = s;
 		this.sceneManager = sceneManager;
 		this.renderPanel = renderPanel;
+		this.controller = controller;
 	}
 	
 	@Override
@@ -289,8 +292,8 @@ public class SimpleKeyListener implements KeyListener{
 		    	
 		    	if(speed > 0.10f) this.speed -= 0.05;
 				break;
-
 		}
+		controller.handleEvent();
 	}
 	
 	public void setFabric(DiffractionSceneGraphFabricator fabric){

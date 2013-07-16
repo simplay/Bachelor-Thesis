@@ -7,7 +7,7 @@ import Listeners.SimpleMouseMotionListener;
 
 public class MainView {
 	private MyRenderPanel renderPanel;
-	private SimpleKeyListener ks;
+//	private SimpleKeyListener ks;
 	private int WindowDim;
 	private MainModel model;
 	
