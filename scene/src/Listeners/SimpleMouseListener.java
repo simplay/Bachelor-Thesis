@@ -66,7 +66,7 @@ public class SimpleMouseListener implements MouseListener{
 		v1.normalize();	
 		
 		s.setV1(v1);
-		//s.setV2(v2);
+//		s.setV2(v2);
 		
 	}
 

@@ -44,6 +44,7 @@ public class ShooterMouseMotionListener implements MouseMotionListener{
 		
 		System.out.println(" shiftX " + (deltaX) + " shiftY " + (deltaY));
 		Matrix4f camera = sceneManager.getCamera().getCameraMatrix();
+		camera.invert();
 		
 		Matrix4f rotY = new Matrix4f();
 		Matrix4f rotZ = new Matrix4f();
@@ -52,6 +53,7 @@ public class ShooterMouseMotionListener implements MouseMotionListener{
 		
 		camera.mul(rotY);
 		camera.mul(rotZ);
+//		camera.invert();
 		sceneManager.getCamera().setCameraMatrix(camera);
 
 		// Trigger redrawing of the render window
