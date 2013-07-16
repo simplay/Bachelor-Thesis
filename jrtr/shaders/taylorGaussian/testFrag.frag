@@ -417,6 +417,7 @@ void main() {
 			float sigma_f_pix = ((2.0*dx) / (PI*dimY));
 			sigma_f_pix *= sigma_f_pix;
 			sigma_f_pix *= 2.0;
+			float norm_fact = sigma_f_pix*PI;
 			if(upper-lower < 2.0*sigma_f_pix){
 				stepSize /= 8.0;
 			}
@@ -451,12 +452,7 @@ void main() {
 						float w_v = k*v;
 					
 						P = taylorApproximation(coords, k, w);
-
-						
-
-														
-						float norm_fact = sigma_f_pix*PI;
-							
+	
 						float exponent = -dist2/(sigma_f_pix);
 						float w_ij = exp(exponent);
 							
@@ -490,12 +486,11 @@ void main() {
 	fac2 = 10.0 / 1.0;
 		
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XR, brdf.xyz);
-		
 	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 		
 	float ambient = 0.0;
 		
-		// remove negative values
+	// remove negative values
 	if(brdf.x < 0.0 ) brdf.x = 0.0;
 	if(brdf.y < 0.0 ) brdf.y = 0.0;
 	if(brdf.z < 0.0 ) brdf.z = 0.0;
