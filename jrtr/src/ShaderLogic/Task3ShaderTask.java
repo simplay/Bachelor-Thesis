@@ -39,7 +39,7 @@ public class Task3ShaderTask extends ShaderTask{
 		gl.glUniform4f(id, 0, 0, 1, 0);		// Set light direction
 		gl.glActiveTexture(0);	// Work with texture unit 0
 		gl.glEnable(GL.GL_TEXTURE_2D);
-		gl.glBindTexture(GL.GL_TEXTURE_2D, ((GLTexture) m.getTexture()).getId());
+		gl.glBindTexture(GL.GL_TEXTURE_2D, ((GLTexture) m.getBodyTexture()).getId());
 		gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
 		gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
 		id = gl.glGetUniformLocation(activeShader.programId(), "myTexture");

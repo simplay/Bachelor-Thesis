@@ -7,6 +7,7 @@ import javax.vecmath.Vector3f;
 import jrtr.Light;
 import jrtr.RenderContext;
 import jrtr.Shape;
+import jrtr.Texture;
 import Constants.ShaderTaskNr;
 import Materials.Material;
 import SceneGraph.GraphSceneManager;
@@ -14,9 +15,11 @@ import SceneGraph.INode;
 import SceneGraph.LightNode;
 import SceneGraph.ShapeNode;
 import SceneGraph.TransformGroup;
+import Setup.Constants.BodyConstants;
 import Setup.Constants.BumpConstants;
 import Setup.Constants.CameraSceneConstant;
 import Setup.Constants.SceneConfiguration;
+import Setup.Managers.BodyConstantsManager;
 import Setup.Managers.BumpConstantsManager;
 import Setup.Managers.CameraSceneConstantManager;
 import Setup.Managers.LightConstantManager;
@@ -43,6 +46,7 @@ public class DiffractionSceneGraphFabricator {
     private BumpConstantsManager bcm;
     private LightConstantManager lcm;
     private CameraSceneConstantManager cscm;
+    private BodyConstantsManager bocm;
     
 	private float trackDistance = 2.5f;
 	private TransformGroup rootGroup;
@@ -58,6 +62,7 @@ public class DiffractionSceneGraphFabricator {
 		this.bcm = new BumpConstantsManager();	
 		this.lcm = new LightConstantManager();
 		this.cscm = new CameraSceneConstantManager();
+		this.bocm = new BodyConstantsManager();
 		setUpShaderTask();
 		setUpMaterials();
 		setUpShapes();
@@ -86,6 +91,9 @@ public class DiffractionSceneGraphFabricator {
 	private void setUpMaterials(){
 		mat = new Material();
 		BumpConstants bc = bcm.getByIdentifyer(sceneConfig.getBumpConstant());
+		BodyConstants bodyC = bocm.getByIdentifyer(sceneConfig.getTextureId());
+		Texture text = renderContext.makeTexture();
+		mat.setBodyTexture(bodyC.getTexturePath(), text);
 		mat.setPeriodCount(sceneConfig.getPeriodCount());
 		mat.setNeighborhoodRadius(sceneConfig.getNeighborhoodRadius());
 		mat.setMaxBumpHeight(bc.getMaxHeight());

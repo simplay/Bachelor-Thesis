@@ -38,6 +38,17 @@ public class ExpTaylorShaderTask extends ShaderTask{
 			gl.glTexSubImage3D(GL.GL_TEXTURE_2D_ARRAY, 0, 0, 0, iter, width, height, 1, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, t.getByteBuffer());
 		}
 		
+		
+		// load body texture into shader
+		gl.glActiveTexture(GL.GL_TEXTURE0);	// Work with texture unit 0
+		gl.glBindTexture(GL.GL_TEXTURE_2D, ((GLTexture) m.getBodyTexture()).getId());
+		gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
+		gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
+		int id_body = gl.glGetUniformLocation(activeShader.programId(), "bodyTexture");
+		gl.glUniform1i(id_body, 0);
+		
+		
+		
 		// load scaling constants
 		
 		

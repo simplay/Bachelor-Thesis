@@ -18,7 +18,7 @@ import jrtr.Texture;
 public class Material {
 	private int N = 2624; // w=0.1, k=32, re,im
 	private Shader shader;
-    private Texture texture;
+    private Texture bodyTexture;
     private Texture[] textures = new Texture[N];
     private Texture glossmapTexture;
     private Vector3f materialColor;
@@ -197,8 +197,8 @@ public class Material {
     	return this.ambientCoefficient;
     }
     
-    public Texture getTexture(){
-    	return this.texture;
+    public Texture getBodyTexture(){
+    	return this.bodyTexture;
     }
     
     public Texture getTextureAt(int at){
@@ -303,13 +303,14 @@ public class Material {
      * e.g. "../jrtr/textures/wood.jpg"
      * @param path path of the to be assigned texture.
      */
-	public void setTexture(String path, Texture texture){
+	public void setBodyTexture(String path, Texture texture){
     	try {
     	    texture.load(path);
     	} catch (IOException e) {
     		System.out.println("could not load this texture with given path: " + path);
     	}
-    	this.texture = texture;
+
+    	this.bodyTexture = texture;
     }
 	
 	public void setTextureAt(String path, Texture texture, int at){

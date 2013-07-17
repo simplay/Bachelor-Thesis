@@ -14,10 +14,11 @@ public class SceneConfiguration {
 	private String patchName;
 	private int periodCount;
 	private int neighborhoodRadius;
+	private String textureId;
 	
 	public SceneConfiguration(String id, ShapeTask shapeTask, String cameraConstant, 
 			String bumpConstant, String lightConstant, ShaderTaskNr shaderTask, 
-			int periodCount, String patchName, int neighborhoodRadius){
+			int periodCount, String patchName, int neighborhoodRadius, String textureId){
 		this.id = id;
 		this.shapeTask = shapeTask;
 		this.cameraConstant = cameraConstant;
@@ -27,6 +28,7 @@ public class SceneConfiguration {
 		this.periodCount = periodCount;
 		this.patchName = patchName;
 		this.neighborhoodRadius = neighborhoodRadius;
+		this.textureId = textureId;
 	}
 	
 	public String getId(){
@@ -63,5 +65,9 @@ public class SceneConfiguration {
 	
 	public int getNeighborhoodRadius(){
 		return this.neighborhoodRadius;
+	}
+	
+	public String getTextureId(){
+		return this.textureId;
 	}
 }

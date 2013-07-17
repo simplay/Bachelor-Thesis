@@ -8,6 +8,7 @@
 //Uniform variables, passed in from host program via suitable 
 
 uniform sampler2DArray TexArray;
+uniform sampler2D bodyTexture;
 uniform vec4 cop_w;
 uniform vec3 radianceArray[MAX_LIGHTS];
 uniform vec3 brdf_weights[MAX_WEIGHTS];
@@ -543,7 +544,9 @@ void main() {
 //		
 	if(maxBRDF.y < 1.0*pow(10.0, -20.0)) maxBRDF.y = 1.0;
 //	brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
-	float ambient = 0.0;
+	
+	
+	float ambient = 0.1;
 	float fac2 = 1.0;
 	if(was_in_eps){	
 	}else{
@@ -570,9 +573,14 @@ void main() {
 		
 	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.2);
 		
-	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) o_col = vec4(0.0, 0.0, 0.0, 1.0);
-	else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) o_col = vec4(1.0, 0.0, 0.0, 1.0);
+	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) o_col = vec4(1.0, 0.0, 0.0, 1.0);
+	else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) o_col = vec4(0.0, 1.0, 0.0, 1.0);
 	else o_col = brdf+vec4(ambient,ambient,ambient,0.0);
 //	else o_col = vec4(ambient,ambient,ambient,0.0);
-	frag_shaded	= o_col;
+	
+//	vec4 tex = texture2D(bodyTexture, frag_texcoord);
+	vec4 tex = texture2D(bodyTexture, frag_texcoord);
+	
+//	frag_shaded	= o_col;
+	frag_shaded	= tex;
 }
