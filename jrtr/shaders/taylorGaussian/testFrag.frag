@@ -326,11 +326,11 @@ vec3 getBRDF_RGB_T_D65(mat3 T, vec3 brdf_xyz){
 }
 
 void main() {
-	
+	vec4 o_col = vec4(0.0, 0.0, 0.0, 0.0);
 	vec4 brdf = vec4(0.0, 0.0, 0.0, 1.0);
 	vec4 maxBRDF = vec4(0.0, 0.0, 0.0, 1.0);
 	vec2 P = vec2(0.0, 0.0);
-	
+	vec2 coords = vec2(0.0);
 	float neighborRadius = 2.0;
 	float abs_P_Sq = 0.0;
 	float real_part = 0.0;
@@ -340,16 +340,15 @@ void main() {
 	float factor1 = 0.0;
 	float k = 0.0;
 	float fourier_coefficients = 1.0;
-	float a = global_extrema[0].x; float b = global_extrema[0].y;
-	float c = global_extrema[0].z; float d = global_extrema[0].w;
-	float brdfMax = pow((b-a),2.0)+pow((d-c),2.0);
+//	float a = global_extrema[0].x; float b = global_extrema[0].y;
+//	float c = global_extrema[0].z; float d = global_extrema[0].w;
+//	float brdfMax = pow((b-a),2.0)+pow((d-c),2.0);
 	float lambda_iter = 0.0;
 	float t1 = 0.0;
 	float t2 = 0.0;
 	float phi = -PI/2.0;
-
 	phi = 0.0;
-	vec4 o_col = vec4(0.0, 0.0, 0.0, 0.0);
+	
 	
 	vec3 _k2 = normalize(o_pos); //vector from point P to camera
 	vec3 _k1 = normalize(o_light); // light direction, same for every point		
@@ -371,12 +370,12 @@ void main() {
 //	uv_sqr = 0.0;
 	
 	float iterMax = 100.0;
-	float step = (lambda_max - lambda_min)/iterMax;
+	float lambdaStep = (lambda_max - lambda_min)/iterMax;
 	
 	if(uv_sqr < eps){
 		for(int iter = 0; iter < iterMax; iter++){
 			
-			float lambda_iter = iter*step+lambda_min;
+			float lambda_iter = iter*lambdaStep+lambda_min;
 			k = 2.0*PI / lambda_iter;
 			vec2 coords = vec2((k*modUV.x/Omega) + bias, (k*modUV.y/Omega) + bias); //2d
 
@@ -398,17 +397,18 @@ void main() {
 			maxBRDF += vec4(waveColor, 1.0);		
 		}
 	}else{
-			// iterate twice: once for N_u and once for N_v lower,upper
+		// iterate twice: once for N_u and once for N_v lower,upper
 		for(int variant = 0; variant < 2; variant++){
-				
+			
+			// get N_min and N_max for sampling
 			int lower = int(N_uv[variant].x);
 			int upper = int(N_uv[variant].y);
-				
+			
+			// handle case t in {u,v}
 			if(variant == 0){
 				t1 = u;
 				t2 = v;
-			}
-			else{
+			}else{
 				t1 = v;
 				t2 = u;
 			}
@@ -419,17 +419,28 @@ void main() {
 			sigma_f_pix *= 2.0;
 			float norm_fact = sigma_f_pix*PI;
 			float delta_N_min_max = upper-lower;
+			
+			
+			// adaptively change stepSize for adaptive sampling.
 			if(delta_N_min_max < 2.0*sigma_f_pix){	
 				if(delta_N_min_max < 1.0){
-					float donwscaler = 1.0 / delta_N_min_max;
-					stepSize /= donwscaler;	
+					// very small difference
+					if(delta_N_min_max < 1.0*pow(10.0, -1.0)){
+						stepSize = (1.0 + delta_N_min_max);
+					// tolerateable difference
+					}else{
+						stepSize = (delta_N_min_max);
+					}
 				}else{
-					stepSize /= (delta_N_min_max*1.0);	
+					stepSize /= delta_N_min_max;	
 				}	
 			}
 			
+			// iterate over line for fixed t in {u,v}
 			for(float iter = lower; iter <= upper; iter = iter + stepSize){
 				if(iter == 0.0) continue;
+				
+				// current wavelength
 				lambda_iter = (dx*t1)/iter;
 				k = 2.0*PI / lambda_iter;
 					
@@ -439,26 +450,38 @@ void main() {
 					
 				float uu_N_base = uu_N_n - neighborRadius;
 				float uv_N_base = uv_N_n - neighborRadius;
-					
+				
+				// xyz value of color for current wavelength.
+				vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
+				
+				
+				// iterte over neighbor winodw of size (2*neighborRadius+1)x(2*neighborRadius+1)
 				for(float ind1 = uu_N_base; ind1 <= uu_N_base + 2.0*neighborRadius; ind1 = ind1 + 1.0){
 					for(float ind2 = uv_N_base; ind2 <= uv_N_base + 2.0*neighborRadius; ind2 = ind2 + 1.0){
 						
-						float dist2 = pow(ind1-uu_N_base, 2.0) + pow(ind2-uv_N_n_hat, 2.0);
-						vec2 coords = vec2(0.0); 
 						
+						// get L1 distance to neighbor
+						float dist2 = pow(ind1-uu_N_base, 2.0) + pow(ind2-uv_N_n_hat, 2.0);
+						 
+						// case distinction: depending on value of t, i.e. value of variance
 						if(variant == 0.0){
 							coords = vec2( (ind1/(dimN-1)) + bias, (ind2/(dimN-1)) + bias); //2d case
 						}else{
 							coords = vec2( (ind2/(dimN-1)) + bias, (ind1/(dimN-1)) + bias); //2d case
 						}
 
+						
+						// clip if coordiantes are not within bound [0,1]x[0,1]
 						if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
-	
+						
+						// compute omega small
 						float w_u = k*u;
 						float w_v = k*v;
-					
+						
+						// complex valued frequency contribution of current pixel.
 						P = taylorApproximation(coords, k, w);
-	
+						
+						// compute gaussion weight of current pixel
 						float exponent = -dist2/(sigma_f_pix);
 						float w_ij = exp(exponent);
 							
@@ -469,14 +492,19 @@ void main() {
 						if(abs(norm_fact) < 1.0*pow(10.0, -10.0)) norm_fact = 1.0;
 						w_ij /= norm_fact;
 						
+						// phaser of current pixel contribution.
 						float pq_scale = compute_pq_scale_factor(w_u,w_v);
 						P *= pq_scale;
-												
+											
+						// amplitute of current pixel contribution
 						float abs_P_Sq = P.x*P.x + P.y*P.y;
 						abs_P_Sq *= w_ij;
 						
+						// brdf coefficient after squaring them. 
 						float diffractionCoeff = getFactor(k, F, G, w);
-						vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
+						
+
+						// summation of brdf over all wavelengths under consideration.
 						brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 0.0);	
 						maxBRDF += vec4(waveColor, 0.0);					
 					}
