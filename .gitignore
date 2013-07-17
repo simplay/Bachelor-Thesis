@@ -39,3 +39,6 @@ scene/.project
 scene/bin/*
 scene/bin/**/
 scene/bin/**/*.class
+
+#snapshots
+screenshots/*

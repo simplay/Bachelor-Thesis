@@ -33,6 +33,10 @@ public class MyRenderPanel extends GLRenderPanel{
 	}
 	
 	
+	public RenderContext getRenderContext(){
+		return this.renderContext;
+	}
+	
 	@Override
 	public void init(RenderContext r) {
 		renderContext = r;

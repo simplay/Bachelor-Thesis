@@ -39,6 +39,11 @@ public class GLRenderContext implements RenderContext {
 	 * 					directed to this object.
 	 */
 	
+	
+	public GL3 getGL3(){
+		return this.gl;
+	}
+	
 	public GLRenderContext(GLAutoDrawable drawable){
 		
 		gl = drawable.getGL().getGL3();

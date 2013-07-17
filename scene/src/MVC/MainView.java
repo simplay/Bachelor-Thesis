@@ -30,6 +30,7 @@ public class MainView {
 	private MainModel model;
 	private JTextArea history;
 	private Component canvas;
+	private JButton snapshotButton;
 	
 	public MainView(MainModel model){
 		this.model = model;
@@ -51,13 +52,15 @@ public class MainView {
 		history.setEditable(false);
 		Dimension dim1 = new Dimension(300, 100);
 		history.setPreferredSize(dim1);
-		
 		Dimension dim = new Dimension(WindowDim, WindowDim);
 		canvas.setPreferredSize(dim);
+		snapshotButton = new JButton("snapshot");
+		
 		
 		container.add(canvas, BorderLayout.PAGE_START);
 		container.add(history, BorderLayout.LINE_START);
-
+		container.add(snapshotButton, BorderLayout.AFTER_LAST_LINE);
+		
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    window.pack();
 	    window.setVisible(true);
@@ -77,5 +80,9 @@ public class MainView {
 	
 	public Component getCanvas(){
 		return renderPanel.getCanvas();
+	}
+	
+	public JButton getSnapshotButton(){
+		return this.snapshotButton;
 	}
 }

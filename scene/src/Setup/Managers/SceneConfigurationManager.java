@@ -20,13 +20,13 @@ public class SceneConfigurationManager {
 	/*
 	 * 	public SceneConfiguration(String id, ShapeTask shapeTask, String cameraConstant, 
 			String bumpConstant, String lightConstant, ShaderTaskNr shaderTask, 
-			int periodCount, String patchName, int neihborhoodRadius){
+			int periodCount, String patchName, int neighborhoodRadius){
 	 */
 	
 	private void defineConstant(){
 		SceneConfiguration sc = null;		
 		sc = new SceneConfiguration("sandbox", ShapeTask.PLANE, "plane1", 
-				"xeno", "light1", ShaderTaskNr.TAYLORGAUSSIAN, -1, "xeno100", 2);
+				"Stam", "light1", ShaderTaskNr.EXPERIMENTAL_F, -1, "blaze", 2);
 		constants.add(sc);
 	
 		sc = new SceneConfiguration("extreme_case", ShapeTask.SNAKE, "snake1", 
