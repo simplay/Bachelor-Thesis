@@ -43,12 +43,22 @@ public class Material {
     private int dimDiff;
     private int repNN;
     private int periodCount;
+    private int neighborhoodRadius;
     private float patchDimX; //in microns  
     private float patchDimY; //in microns 
     private float patchSpacing; //in meters
     private float maxBumpHeight;
     
     public Material(){}
+    
+    
+    public void setNeighborhoodRadius(int neighborhoodRadius){
+    	this.neighborhoodRadius = neighborhoodRadius;
+    }
+    
+    public int getNeighborhoodRadius(){
+    	return this.neighborhoodRadius;
+    }
     
     public void setPatchDimX(float patchDimX){
     	this.patchDimX = patchDimX;

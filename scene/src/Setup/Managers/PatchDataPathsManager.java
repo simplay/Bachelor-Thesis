@@ -39,6 +39,22 @@ public class PatchDataPathsManager {
 		constants.add(sc);
 		
 		
+		sc = new PatchDataPaths(ShaderTaskNr.EXPERIMENTAL_V, "xeno100");
+		constants.add(sc);
+		sc = new PatchDataPaths(ShaderTaskNr.EXPERIMENTAL_F, "xeno100");
+		constants.add(sc);
+		sc = new PatchDataPaths(ShaderTaskNr.TAYLORGAUSSIAN, "xeno100");
+		constants.add(sc);
+		
+		
+		sc = new PatchDataPaths(ShaderTaskNr.EXPERIMENTAL_V, "elaph100");
+		constants.add(sc);
+		sc = new PatchDataPaths(ShaderTaskNr.EXPERIMENTAL_F, "elaph100");
+		constants.add(sc);
+		sc = new PatchDataPaths(ShaderTaskNr.TAYLORGAUSSIAN, "elaph100");
+		constants.add(sc);
+		
+		
 		// Taylor precomp patches
 		sc = new PatchDataPaths(ShaderTaskNr.TAYLOR, "blaze");
 		constants.add(sc);

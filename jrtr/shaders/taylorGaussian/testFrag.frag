@@ -24,6 +24,7 @@ uniform float dimSmall; // not used right now
 uniform float dimDiff; // not used right now
 uniform float repNN; // not used right now
 uniform int periodCount;
+uniform int neigh_rad;
 uniform float maxBumpHeight;
 uniform float patchSpacing;
 uniform float dimX;
@@ -76,6 +77,7 @@ float T_2 = t_0 * N_1;
 float periods = periodCount-1.0; // 26 // number of patch periods along surface
 float Omega = ((N_1/N_2)*2.0*PI)/t_0; // (N_1/N_2)*2*PI/t_0, before 8.0*PI*pow(10.0,7.0);
 float bias = (N_2/2.0)/(N_2-1.0); // old: 50.0/99.0;
+float neighborRadius = (neigh_rad < 5 && neigh_rad > -1) ? float(neigh_rad) : 0.0;
 
 //transformation constant
 const mat3 M_Adobe_XR = mat3(
@@ -83,6 +85,7 @@ const mat3 M_Adobe_XR = mat3(
 		-0.9693,  1.8760,  0.0416,
 		 0.0134, -0.01184,  1.0154
 );	
+
 const mat3 wd65 = mat3(
 3.240479, -1.537150, -0.498535,
 -0.969256,  1.875992,  0.041556,
@@ -328,7 +331,7 @@ void main() {
 	vec4 maxBRDF = vec4(0.0, 0.0, 0.0, 1.0);
 	vec2 P = vec2(0.0, 0.0);
 	vec2 coords = vec2(0.0);
-	float neighborRadius = 2.0;
+	
 	float abs_P_Sq = 0.0;
 	float real_part = 0.0;
 	float imag_part = 0.0;
@@ -524,7 +527,7 @@ void main() {
 	}else if(uv_sqr == 1.0){
 		fac2 = 12.0 / 1.0;
 	}else{
-		fac2 = 12.0 / 1.0;
+		fac2 = 7.0 / 1.0;
 	}
 		
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XR, brdf.xyz);

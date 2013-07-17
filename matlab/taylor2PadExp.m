@@ -4,7 +4,7 @@ function taylor2PadExp
     dimN = 100;
     dimSmall = 30;
     dimDiff = (dimN-dimSmall)/2;
-    dimN = 1024;
+    dimN = 100;
     rep_nn=1;
     out = 'out/';
     patch_basis_path = '../input_patches/';
@@ -13,8 +13,11 @@ function taylor2PadExp
     BlazingPatch = 'BlazingBump.bmp';
     CosinePatch = 'CosineBump.bmp';
     hugePatch = 'huge.png';
+    Elaph100x100 = 'Elaph100x100.png'
+    Xeno100x100 = 'Xeno100x100.png'
+    SingleFingerElaphIdeal = 'SingleFingerElaphIdeal.bmp'
     
-    patch_file = hugePatch;
+    patch_file = Xeno100x100;
     whole_path = strcat(patch_basis_path,patch_file);
 	inputIMG = imread(whole_path);
     inputIMG = repmat(inputIMG, rep_nn, rep_nn);

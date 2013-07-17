@@ -121,6 +121,10 @@ public class ExpTaylorShaderTask extends ShaderTask{
 		float dimY = m.getPatchDimY();
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "dimY");
 		gl.glUniform1f(id3, dimY);
+		
+		int neighr = m.getNeighborhoodRadius();
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "neigh_rad");
+		gl.glUniform1i(id3, neighr);
 
 	}
 

@@ -87,6 +87,7 @@ public class DiffractionSceneGraphFabricator {
 		mat = new Material();
 		BumpConstants bc = bcm.getByIdentifyer(sceneConfig.getBumpConstant());
 		mat.setPeriodCount(sceneConfig.getPeriodCount());
+		mat.setNeighborhoodRadius(sceneConfig.getNeighborhoodRadius());
 		mat.setMaxBumpHeight(bc.getMaxHeight());
 		mat.setPatchSpacing(bc.getSpacing());
 		mat.setPatchDimX(bc.getDimX());

@@ -13,9 +13,11 @@ public class SceneConfiguration {
 	private ShaderTaskNr shaderTask;
 	private String patchName;
 	private int periodCount;
+	private int neighborhoodRadius;
 	
 	public SceneConfiguration(String id, ShapeTask shapeTask, String cameraConstant, 
-			String bumpConstant, String lightConstant, ShaderTaskNr shaderTask, int periodCount, String patchName){
+			String bumpConstant, String lightConstant, ShaderTaskNr shaderTask, 
+			int periodCount, String patchName, int neighborhoodRadius){
 		this.id = id;
 		this.shapeTask = shapeTask;
 		this.cameraConstant = cameraConstant;
@@ -24,6 +26,7 @@ public class SceneConfiguration {
 		this.shaderTask = shaderTask;
 		this.periodCount = periodCount;
 		this.patchName = patchName;
+		this.neighborhoodRadius = neighborhoodRadius;
 	}
 	
 	public String getId(){
@@ -56,5 +59,9 @@ public class SceneConfiguration {
 	
 	public String getPatchName(){
 		return this.patchName;
+	}
+	
+	public int getNeighborhoodRadius(){
+		return this.neighborhoodRadius;
 	}
 }
