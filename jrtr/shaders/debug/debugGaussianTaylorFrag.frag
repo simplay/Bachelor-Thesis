@@ -364,32 +364,38 @@ void main() {
 	
 	float uv_sqr = pow(u*u+v*v, 0.5);
 	bool non_adaptive = false;
-	bool was_in_eps = false;
-	
-	
 	float iterMax = 45.0;
-	int failCounter = 0;
+	
 	
 	if(non_adaptive){
 		uv_sqr = 1.0;
 		iterMax = 200.0;
 	}
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
-	float F2 = F*F;
-	
-	
-	float stepSize = 1.0;
-	float sigma_f_pix = ((2.0*dx) / (PI*dimY));
-	float comp_sigma = sigma_f_pix;
-	sigma_f_pix *= sigma_f_pix;
-	sigma_f_pix *= 2.0;
-	float norm_fact = sigma_f_pix*PI;
-	
-	
 	
 	if(uv_sqr < eps){
-		brdf = vec4(F, F, F, 1.0);
-		was_in_eps = true;
+		for(float iter = 0; iter < iterMax; iter = iter + 1.0){
+			
+			float lambda_iter = iter*lambdaStep + lambda_min;
+			k = (2.0*PI) / lambda_iter;
+			vec2 coords = vec2((k*modUV.x/Omega) + bias, (k*modUV.y/Omega) + bias); //2d
+
+			if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
+			
+			float w_u = k*u;
+			float w_v = k*v;
+			
+			P = taylorApproximation(coords, k, w);
+			
+			float pq_scale = compute_pq_scale_factor(w_u, w_v);
+			P *= pq_scale;
+			
+			float abs_P_Sq = P.x*P.x + P.y*P.y;
+			float diffractionCoeff = getFactor(k, F, G, w);
+			vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
+			brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 1.0);
+			maxBRDF += vec4(waveColor, 1.0);	
+		}
 	}else{
 		// iterate twice: once for N_u and once for N_v lower,upper
 		for(int variant = 0; variant < 2; variant++){
@@ -397,14 +403,6 @@ void main() {
 			// get N_min and N_max for sampling
 			int lower = int(N_uv[variant].x);
 			int upper = int(N_uv[variant].y);
-			float delta_N_min_max = upper-lower;
-			
-			// count for too slow for treshold - if so skip current loop.
-			if(delta_N_min_max < 4.0*comp_sigma){
-				failCounter++;
-				continue;
-			}
-			
 			
 			// handle case t in {u,v}
 			if(variant == 0){
@@ -415,24 +413,28 @@ void main() {
 				t2 = u;
 			}
 			
-
+			float stepSize = 1.0;
+			float sigma_f_pix = ((2.0*dx) / (PI*dimY));
+			sigma_f_pix *= sigma_f_pix;
+			sigma_f_pix *= 2.0;
+			float norm_fact = sigma_f_pix*PI;
+			float delta_N_min_max = upper-lower;
 			
 			
-			
-//			// adaptively change stepSize for adaptive sampling.
-//			if(delta_N_min_max < 2.0*sigma_f_pix){	
-//				if(delta_N_min_max < 1.0){
-//					// very small difference
-//					if(delta_N_min_max < 1.0*pow(10.0, -1.0)){
-//						stepSize = (1.0 + delta_N_min_max);
-//					// tolerateable difference
-//					}else{
-//						stepSize = (delta_N_min_max);
-//					}
-//				}else{
-//					stepSize /= delta_N_min_max;	
-//				}	
-//			}
+			// adaptively change stepSize for adaptive sampling.
+			if(delta_N_min_max < 2.0*sigma_f_pix){	
+				if(delta_N_min_max < 1.0){
+					// very small difference
+					if(delta_N_min_max < 1.0*pow(10.0, -1.0)){
+						stepSize = (1.0 + delta_N_min_max);
+					// tolerateable difference
+					}else{
+						stepSize = (delta_N_min_max);
+					}
+				}else{
+					stepSize /= delta_N_min_max;	
+				}	
+			}
 			
 			// iterate over line for fixed t in {u,v}
 			for(float iter = lower; iter <= upper; iter = iter + stepSize){
@@ -514,53 +516,24 @@ void main() {
 			}
 		}
 	}
-	
-	if(failCounter == 2){
-		for(float iter = 0; iter < iterMax; iter = iter + 1.0){
-			
-			float lambda_iter = iter*lambdaStep + lambda_min;
-			k = (2.0*PI) / lambda_iter;
-			vec2 coords = vec2((k*modUV.x/Omega) + bias, (k*modUV.y/Omega) + bias); //2d
-
-			if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
-			
-			float w_u = k*u;
-			float w_v = k*v;
-			
-			P = taylorApproximation(coords, k, w);
-			
-			float pq_scale = compute_pq_scale_factor(w_u, w_v);
-			P *= pq_scale;
-			
-			float abs_P_Sq = P.x*P.x + P.y*P.y;
-			float diffractionCoeff = getFactor(k, F, G, w);
-			vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
-			brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 1.0);
-			maxBRDF += vec4(waveColor, 1.0);	
-		}
-	}
 
 //		
 	if(maxBRDF.y < 1.0*pow(10.0, -20.0)) maxBRDF.y = 1.0;
 //	brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
-	float ambient = 0.0;
-	float fac2 = 1.0;
-	if(was_in_eps){	
+	float fac2 = 1.0 / 42.0;
+	
+	if(non_adaptive && uv_sqr != 1.0){
+		fac2 = 20.0 / 1.0;
+	}else if(uv_sqr == 1.0){
+		fac2 = 12.0 / 1.0;
 	}else{
-		if(non_adaptive && uv_sqr != 1.0){
-			fac2 = 20.0 / 1.0;
-		}else if(uv_sqr == 1.0){
-			fac2 = 12.0 / 1.0;
-		}else{
-			fac2 = 10.0 / 1.0;
-		}
+		fac2 = 7.0 / 1.0;
 	}
-
 		
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XR, brdf.xyz);
 	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 		
-	
+	float ambient = 0.0;
 		
 	// remove negative values
 	if(brdf.x < 0.0 ) brdf.x = 0.0;

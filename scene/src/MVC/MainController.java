@@ -54,6 +54,7 @@ public class MainController implements Subscriber{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				saveSnapshot();
+				System.out.println("snapshot taken...");
 			}
 		});
 	
