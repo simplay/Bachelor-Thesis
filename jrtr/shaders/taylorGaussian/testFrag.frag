@@ -55,12 +55,13 @@ float l_max = LMAX;
 float lambda_min = l_min*pow(10.0, -9.0);
 float lambda_max = l_max*pow(10.0, -9.0);
 const float rescale = pow(10.0, 9.0);
+const float i_rescale = pow(10.0, -9.0);
 float dx = patchSpacing;// 2.5*pow(10.0, -6.0); // -6 // distance between two patches (from center to center), make me parametric too
 float s = maxBumpHeight;// 2.4623*pow(10,-7.0); // -7 // max height of a bump, make me parametric
 
 //error constants
 const float eps_pq = 1.0*pow(10.0, -5.0); 
-const float eps = 1.0*pow(10.0, -2.0);
+const float eps = 1.0*pow(10.0, -2.2);
 const float tolerance = 0.999999; 
 
 // flags
@@ -269,7 +270,7 @@ vec2 taylorApproximation(vec2 coords, float k, float w){
 		// PRODUCT_n=0^N { pow(k*w*s,n)/n! }
 		
 		if(n == 0) fourier_coefficients = 1.0;
-		else fourier_coefficients *= ((k*w*s)/n);
+		else fourier_coefficients *= ((k*w*s)/float(n));
 		
 		float fourier_re = fourier_coefficients*precomputedFourier.x;
 		float fourier_im = fourier_coefficients*precomputedFourier.y;
@@ -365,36 +366,39 @@ void main() {
 	vec2 N_uv[2] = vec2[2](N_u, N_v);
 	vec2 modUV = getRotation(u,v,phi);
 	
-	
 	float uv_sqr = pow(u*u+v*v, 0.5);
-//	uv_sqr = 0.0;
+	bool non_adaptive = false;
+	float iterMax = 45.0;
 	
-	float iterMax = 100.0;
-	float lambdaStep = (lambda_max - lambda_min)/iterMax;
+	
+	if(non_adaptive){
+		uv_sqr = 1.0;
+		iterMax = 200.0;
+	}
+	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	
 	if(uv_sqr < eps){
-		for(int iter = 0; iter < iterMax; iter++){
+		for(float iter = 0; iter < iterMax; iter = iter + 1.0){
 			
-			float lambda_iter = iter*lambdaStep+lambda_min;
-			k = 2.0*PI / lambda_iter;
+			float lambda_iter = iter*lambdaStep + lambda_min;
+			k = (2.0*PI) / lambda_iter;
 			vec2 coords = vec2((k*modUV.x/Omega) + bias, (k*modUV.y/Omega) + bias); //2d
 
 			if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
 			
-			float w_u = abs(k*u);
-			float w_v = max(abs(k*v),0.01);
+			float w_u = k*u;
+			float w_v = k*v;
 			
 			P = taylorApproximation(coords, k, w);
 			
 			float pq_scale = compute_pq_scale_factor(w_u, w_v);
-	
 			P *= pq_scale;
-			float abs_P_Sq = P.x*P.x + P.y*P.y;
 			
+			float abs_P_Sq = P.x*P.x + P.y*P.y;
 			float diffractionCoeff = getFactor(k, F, G, w);
 			vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
 			brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 1.0);
-			maxBRDF += vec4(waveColor, 1.0);		
+			maxBRDF += vec4(waveColor, 1.0);	
 		}
 	}else{
 		// iterate twice: once for N_u and once for N_v lower,upper
@@ -443,7 +447,11 @@ void main() {
 				// current wavelength
 				lambda_iter = (dx*t1)/iter;
 				k = 2.0*PI / lambda_iter;
-					
+				
+				// compute omega small
+				float w_u = k*u;
+				float w_v = k*v;
+				
 				float uv_N_n_hat = (k*dx*t2)/(2.0*PI);
 				float uv_N_n = floor(uv_N_n_hat);
 				float uu_N_n = (k*dx*t1)/(2.0*PI);
@@ -474,9 +482,6 @@ void main() {
 						// clip if coordiantes are not within bound [0,1]x[0,1]
 						if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
 						
-						// compute omega small
-						float w_u = k*u;
-						float w_v = k*v;
 						
 						// complex valued frequency contribution of current pixel.
 						P = taylorApproximation(coords, k, w);
@@ -494,8 +499,11 @@ void main() {
 						
 						// phaser of current pixel contribution.
 						float pq_scale = compute_pq_scale_factor(w_u,w_v);
+						if(isinf(pq_scale)) pq_scale = 1.0;
+						if(isnan(pq_scale)) pq_scale = 1.0;
+						
 						P *= pq_scale;
-											
+							
 						// amplitute of current pixel contribution
 						float abs_P_Sq = P.x*P.x + P.y*P.y;
 						abs_P_Sq *= w_ij;
@@ -517,7 +525,14 @@ void main() {
 	if(maxBRDF.y < 1.0*pow(10.0, -20.0)) maxBRDF.y = 1.0;
 //	brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
 	float fac2 = 1.0 / 42.0;
-	fac2 = 10.0 / 1.0;
+	
+	if(non_adaptive && uv_sqr != 1.0){
+		fac2 = 20.0 / 1.0;
+	}else if(uv_sqr == 1.0){
+		fac2 = 12.0 / 1.0;
+	}else{
+		fac2 = 12.0 / 1.0;
+	}
 		
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XR, brdf.xyz);
 	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
@@ -530,11 +545,10 @@ void main() {
 	if(brdf.z < 0.0 ) brdf.z = 0.0;
 	brdf.w = 1.0;
 		
-//	if(brdf.x != 0.0 && brdf.y != 0.0 && brdf.z != 0.0)
 	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.2);
 		
-	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) o_col = vec4(1.0, 0.0, 0.0, 1.0);
-	else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) o_col = vec4(0.0, 0.0, 1.0, 1.0);
+	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) o_col = vec4(0.0, 0.0, 0.0, 1.0);
+	else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) o_col = vec4(1.0, 0.0, 0.0, 1.0);
 	else o_col = brdf+vec4(ambient,ambient,ambient,0.0);
 //	else o_col = vec4(ambient,ambient,ambient,0.0);
 	frag_shaded	= o_col;
