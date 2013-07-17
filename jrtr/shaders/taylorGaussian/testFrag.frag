@@ -175,12 +175,14 @@ float getAbsFressnelFactor(vec3 _k1, vec3 _k2){
 	vec3 H = normalize(L + V);
 	float cos_teta = dot(H,V);
 	cos_teta = (cos_teta > tolerance)? tolerance : ((cos_teta < 0.0) ? 0.0 :  cos_teta);
-	float ret_value = (R0 + (1.0 - R0) * pow(1.0 - cos_teta, 5.0));
+//	float ret_value = (R0 + (1.0 - R0) * pow(1.0 - cos_teta, 5.0));
+	// faster than above - see GLSL specs
+	float ret_value = mix(R0, 1.0, pow(1.0 - cos_teta, 5.0));
 	ret_value = abs(ret_value);
 	if(ret_value < 1.0*pow(10.0, -12.0)) ret_value = 0.0;
 	return ret_value;
 
-	// faster than above - see GLSL specs
+	
 //	return mix(R0, 1.0, pow(1.0 - cos_teta, 5.0));
 }
 
@@ -253,12 +255,6 @@ vec2 taylorApproximation(vec2 coords, float k, float w){
 	
 	// approximation till iteration 30 of fourier coefficient
 	for(int n = lower; n <= upper; n++){
-		
-//		int index_re = n;
-//		int index_im = (n + upper);
-//		vec4 tex = texture2DArray(TexArray, vec3(frag_texcoord, 10));
-		
-		
 		reHeight = texture2DArray(TexArray, vec3(coords, n) ).x;
 		imHeight = texture2DArray(TexArray, vec3(coords, n) ).y;
 		int extremaIndex = n;
@@ -341,9 +337,6 @@ void main() {
 	float factor1 = 0.0;
 	float k = 0.0;
 	float fourier_coefficients = 1.0;
-//	float a = global_extrema[0].x; float b = global_extrema[0].y;
-//	float c = global_extrema[0].z; float d = global_extrema[0].w;
-//	float brdfMax = pow((b-a),2.0)+pow((d-c),2.0);
 	float lambda_iter = 0.0;
 	float t1 = 0.0;
 	float t2 = 0.0;
