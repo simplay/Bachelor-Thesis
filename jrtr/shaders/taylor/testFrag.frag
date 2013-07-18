@@ -414,7 +414,7 @@ void main() {
 //		if(maxBRDF.x <= 0.0) maxBRDF.x = 1.0;
 //		brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
 		float fac2 = 1.0 / 42.0;
-		fac2 = 52.0 / 1.0;
+		fac2 = 3.0 / 1.0;
 //		brdf.xyz = M_Adobe_XR*brdf.xyz;
 		brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XR, brdf.xyz);
 		brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;

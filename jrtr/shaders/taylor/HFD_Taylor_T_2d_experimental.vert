@@ -328,7 +328,8 @@ vec2 compute_N_min_max(float t){
 
 
 vec3 getBRDF_RGB_T_D65(mat3 T, vec3 brdf_xyz){
-	vec3 D65 = vec3(0.95047, 1.0, 1.08883);
+//	vec3 D65 = vec3(0.95047, 1.0, 1.08883);
+	vec3 D65 = vec3(1.0, 1.0, 1.0);
 	vec3 output = vec3(0.0);
 	vec3 D65BRDF = vec3(brdf_xyz.x*D65.x, brdf_xyz.y*D65.y, brdf_xyz.z*D65.z);
 	
@@ -478,7 +479,7 @@ void main() {
 
 	float fac2 = 20.0 / 1.0;
 //	brdf.xyz = M_Adobe_XR*brdf.xyz;
-	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XR, brdf.xyz);
+	brdf.xyz = getBRDF_RGB_T_D65(CIE_RGB, brdf.xyz);
 	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
 	
 	

@@ -164,7 +164,7 @@ vec2 getRescaledHeight(float reHeight, float imHeight, int index){
 //do some kind of normalization of returned value
 //divide by maximal amount
 float getFactor(float k, float F, float G, float w){
-	float A = dimX*dimX;
+	float A = PI*(dimX/2.0)*(dimX/2.0);
 	float kk_ww = (k*k)/(w*w);
 	kk_ww *= pow(t_0, 4.0);
 	return kk_ww*(F*F*G)/(4.0*PI*PI*A);
@@ -235,7 +235,8 @@ float compute_pq_scale_factor(float w_u, float w_v){
 	float in_periods = periods;
 	
 	if(userSetPeriodFlag){
-		in_periods = ceil(dimX/patchSpacing)-1.0;
+		in_periods = ceil(dimX/patchSpacing);
+		if(in_periods < 1.0) in_periods = 1.0;
 	}
 	
 	float p1 = get_p_factor(w_u, T_1, in_periods);
@@ -380,7 +381,7 @@ void main() {
 	
 	
 	float stepSize = 1.0;
-	float sigma_f_pix = ((2.0*dx) / (PI*dimY));
+	float sigma_f_pix = ((2.0*dx) / (PI*dimX));
 	float comp_sigma = sigma_f_pix;
 	sigma_f_pix *= sigma_f_pix;
 	sigma_f_pix *= 2.0;
@@ -401,9 +402,8 @@ void main() {
 			float delta_N_min_max = upper-lower;
 			
 			// count for too slow for treshold - if so skip current loop.
-			if(delta_N_min_max < 4.0*comp_sigma){
+			if(delta_N_min_max < 0.0){
 				failCounter++;
-				continue;
 			}
 			
 			
@@ -489,7 +489,7 @@ void main() {
 							w_ij = 1.0;
 						}
 								
-						if(abs(norm_fact) < 1.0*pow(10.0, -10.0)) norm_fact = 1.0;
+//						if(abs(norm_fact) < 1.0*pow(10.0, -10.0)) norm_fact = 1.0;
 						w_ij /= norm_fact;
 						
 						// phaser of current pixel contribution.
@@ -516,7 +516,9 @@ void main() {
 		}
 	}
 	
-	if(failCounter == 2){
+	if(failCounter == 3){
+		maxBRDF.xyz = vec3(0.0, 0.0, 0.0);
+		brdf.xyz = vec3(0.0, 0.0, 0.0);
 		for(float iter = 0; iter < iterMax; iter = iter + 1.0){
 			
 			float lambda_iter = iter*lambdaStep + lambda_min;
@@ -546,7 +548,7 @@ void main() {
 //	brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
 	
 	
-	float ambient = 0.1;
+	float ambient = 0.0;
 	float fac2 = 1.0;
 	if(was_in_eps){	
 	}else{
@@ -555,7 +557,7 @@ void main() {
 		}else if(uv_sqr == 1.0){
 			fac2 = 12.0 / 1.0;
 		}else{
-			fac2 = 200.0 / 1.0;
+			fac2 = 2.0 / 1.0;
 		}
 	}
 
@@ -571,7 +573,7 @@ void main() {
 	if(brdf.z < 0.0 ) brdf.z = 0.0;
 	brdf.w = 1.0;
 		
-	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.2);
+	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.4);
 		
 	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) o_col = vec4(1.0, 0.0, 0.0, 1.0);
 	else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) o_col = vec4(0.0, 1.0, 0.0, 1.0);
@@ -580,6 +582,6 @@ void main() {
 	
 
 	vec4 tex = texture2D(bodyTexture, frag_texcoord);
-//	frag_shaded	= o_col;
-	frag_shaded	= (1.0-F2)*tex+(F2*o_col);
+	frag_shaded	= o_col;
+//	frag_shaded	= (1.0-F2)*tex+(o_col);
 }
