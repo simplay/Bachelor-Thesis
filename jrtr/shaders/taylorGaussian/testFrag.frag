@@ -9,6 +9,8 @@
 
 uniform sampler2DArray TexArray;
 uniform sampler2D bodyTexture;
+uniform sampler2D bumpMapTexture;
+
 uniform vec4 cop_w;
 uniform vec3 radianceArray[MAX_LIGHTS];
 uniform vec3 brdf_weights[MAX_WEIGHTS];
@@ -349,6 +351,10 @@ void main() {
 	phi = 0.0;
 	
 	
+	vec3 BumpNorm = vec3(texture2D(bumpMapTexture, frag_texcoord));
+	BumpNorm = (BumpNorm -0.5) * 2.0;
+	float NdotL = max(dot(BumpNorm, o_light.xyz), 0.0);
+	
 	vec3 _k2 = normalize(o_pos); //vector from point P to camera
 	vec3 _k1 = normalize(o_light); // light direction, same for every point		
 	vec3 V = _k1 - _k2;
@@ -548,7 +554,7 @@ void main() {
 //	brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
 	
 	
-	float ambient = 0.0;
+	float ambient = 0.1;
 	float fac2 = 1.0;
 	if(was_in_eps){	
 	}else{
@@ -557,7 +563,7 @@ void main() {
 		}else if(uv_sqr == 1.0){
 			fac2 = 12.0 / 1.0;
 		}else{
-			fac2 = 2.0 / 1.0;
+			fac2 = 10.0 / 1.0;
 		}
 	}
 
@@ -580,8 +586,9 @@ void main() {
 	else o_col = brdf+vec4(ambient,ambient,ambient,0.0);
 //	else o_col = vec4(ambient,ambient,ambient,0.0);
 	
-
 	vec4 tex = texture2D(bodyTexture, frag_texcoord);
-	frag_shaded	= o_col;
-//	frag_shaded	= (1.0-F2)*tex+(o_col);
+//	frag_shaded	= o_col;
+	vec4 passcolor = (1.0-F2)*tex+(o_col);
+	
+	frag_shaded	= vec4(passcolor.xyz*NdotL, 1.0) + vec4(ambient,ambient,ambient,0.0);
 }

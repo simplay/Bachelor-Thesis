@@ -16,6 +16,9 @@ public class BodyConstantsManager {
 		
 		bc = new BodyConstants("random1", "bmp");
 		constants.add(bc);
+		
+		bc = new BodyConstants("brick", "jpg");
+		constants.add(bc);
 	}
 	
 	public BodyConstants getByIdentifyer(String id){
