@@ -39,19 +39,16 @@ public class ExpTaylorShaderTask extends ShaderTask{
 		}
 		
 		
-		// load body texture into shader
-		gl.glActiveTexture(GL.GL_TEXTURE0);	// Work with texture unit 0
-		gl.glBindTexture(GL.GL_TEXTURE_2D, ((GLTexture) m.getBodyTexture()).getId());
-		gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-		gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
-		int id_body = gl.glGetUniformLocation(activeShader.programId(), "bodyTexture");
-		gl.glUniform1i(id_body, 0);
+		// use texture channel >=1 (not 0) since the texure array is already using channel 0.
+        gl.glUniform1i(gl.glGetUniformLocation(activeShader.programId(), "bodyTexture"), 1);
+        int id_body = ((GLTexture) m.getBodyTexture()).getId();
+        gl.glActiveTexture(GL3.GL_TEXTURE1);
+        gl.glBindTexture(GL3.GL_TEXTURE_2D, id_body);
+        gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
+        gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
 		
-		
-		
+        
 		// load scaling constants
-		
-		
 		// note that the param format is
 		// foreach t, foreach w, 
 		// [realMin_(nm(t),w), realMax_(nm(t),w), imagMin_(nm(t),w), imagMax_(nm(t),w)]

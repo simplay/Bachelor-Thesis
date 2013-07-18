@@ -25,8 +25,16 @@ public class ShapeManager {
 			DiffractionPlane2 diffPlane = new DiffractionPlane2(300,2.0f,0.15f);
 			this.targetShape = new Shape(diffPlane.getVertices());
 			
+		}else if(task == ShapeTask.PLANE2){
+			DiffractionPlane2 diffPlane = new DiffractionPlane2(20,2.0f,0.15f);
+			this.targetShape = new Shape(diffPlane.getVertices());
+			
 		}else if(task == ShapeTask.DICE){
 			DiffractionDice diffDice = new DiffractionDice(1.20f, 0.15f, 900, 50);
+			this.targetShape = new Shape(diffDice.getVertices());
+			
+		}else if(task == ShapeTask.DICE2){
+			DiffractionDice diffDice = new DiffractionDice(1.20f, 0.15f, 200, 2);
 			this.targetShape = new Shape(diffDice.getVertices());
 			
 		}else if(task == ShapeTask.CYLINDER){
@@ -38,9 +46,9 @@ public class ShapeManager {
 			DiffractionCylinder diffcylinder = new DiffractionCylinder(0.025f,1.0f, 600, 600);
 			this.targetShape = new Shape(diffcylinder.getVertices());
 			
-//		}else if(task == ShapeTask.CYLINDER2){
-//			DiffractionCylinder diffcylinder = new DiffractionCylinder(1.00f,1.0f, 600, 600);
-//			this.targetShape = new Shape(diffcylinder.getVertices());
+		}else if(task == ShapeTask.CYLINDER3){
+			DiffractionCylinder diffcylinder = new DiffractionCylinder(1.00f,1.0f, 600, 600);
+			this.targetShape = new Shape(diffcylinder.getVertices());
 			
 		}else if(task == ShapeTask.TEAPOT){
 			readExternalShape(teapot_file);

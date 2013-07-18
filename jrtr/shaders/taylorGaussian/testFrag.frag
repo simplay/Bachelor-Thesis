@@ -555,7 +555,7 @@ void main() {
 		}else if(uv_sqr == 1.0){
 			fac2 = 12.0 / 1.0;
 		}else{
-			fac2 = 10.0 / 1.0;
+			fac2 = 200.0 / 1.0;
 		}
 	}
 
@@ -578,9 +578,8 @@ void main() {
 	else o_col = brdf+vec4(ambient,ambient,ambient,0.0);
 //	else o_col = vec4(ambient,ambient,ambient,0.0);
 	
-//	vec4 tex = texture2D(bodyTexture, frag_texcoord);
+
 	vec4 tex = texture2D(bodyTexture, frag_texcoord);
-	
 //	frag_shaded	= o_col;
-	frag_shaded	= tex;
+	frag_shaded	= (1.0-F2)*tex+(F2*o_col);
 }

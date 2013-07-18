@@ -307,7 +307,7 @@ public class Material {
     	try {
     	    texture.load(path);
     	} catch (IOException e) {
-    		System.out.println("could not load this texture with given path: " + path);
+    		System.err.println("could not load this texture with given path: " + path);
     	}
 
     	this.bodyTexture = texture;
