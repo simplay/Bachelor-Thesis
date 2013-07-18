@@ -93,7 +93,10 @@ public class DiffractionSceneGraphFabricator {
 		BumpConstants bc = bcm.getByIdentifyer(sceneConfig.getBumpConstant());
 		BodyConstants bodyC = bocm.getByIdentifyer(sceneConfig.getTextureId());
 		Texture text = renderContext.makeTexture();
-		mat.setBodyTexture(bodyC.getTexturePath(), text);
+		mat.setBodyTexture(bodyC.getBodyTexturePath(), text);
+		text = renderContext.makeTexture();
+		mat.setBumpMapTexture(bodyC.getBumpMapTexturePath(), text);
+		
 		mat.setPeriodCount(sceneConfig.getPeriodCount());
 		mat.setNeighborhoodRadius(sceneConfig.getNeighborhoodRadius());
 		mat.setMaxBumpHeight(bc.getMaxHeight());

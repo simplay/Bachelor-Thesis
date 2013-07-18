@@ -46,6 +46,14 @@ public class ExpTaylorShaderTask extends ShaderTask{
         gl.glBindTexture(GL3.GL_TEXTURE_2D, id_body);
         gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
         gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
+        
+        
+        gl.glUniform1i(gl.glGetUniformLocation(activeShader.programId(), "bumpMapTexture"), 2);
+        int id_bumpMap = ((GLTexture) m.getBumpMapTexture()).getId();
+        gl.glActiveTexture(GL3.GL_TEXTURE2);
+        gl.glBindTexture(GL3.GL_TEXTURE_2D, id_bumpMap);
+        gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
+        gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
 		
         
 		// load scaling constants

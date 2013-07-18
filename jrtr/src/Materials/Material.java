@@ -18,25 +18,24 @@ import jrtr.Texture;
 public class Material {
 	private int N = 2624; // w=0.1, k=32, re,im
 	private Shader shader;
-    private Texture bodyTexture;
+    
+	private Texture bodyTexture;
     private Texture[] textures = new Texture[N];
-    private Texture glossmapTexture;
+    private Texture bumpMapTexture;
+    
+    private Vector4f cop;
     private Vector3f materialColor;
     private Vector3f shinnyCoefficient;
     private Vector3f ambientCoefficient;
-	private float[] heightfieldFactors;
+	
+    private float[] heightfieldFactors;
 	private float[] leftHF = new float[2624];
 	private float[] rightHF = new float[2624]; 
 	private float[] weights;
 	private float[] globals;
 	private float[] kValues;
-	private float distanceToCamera;
-	private Vector4f cop;
-	private float phongExponent;
-	private float trackDistance;
+	
     private int layerCount;
-    private float lambdaMin;
-    private float lambdaMax;
     private int stepCount;
     private int dimN;
     private int dimSmall;
@@ -44,13 +43,21 @@ public class Material {
     private int repNN;
     private int periodCount;
     private int neighborhoodRadius;
+    
     private float patchDimX; //in microns  
     private float patchDimY; //in microns 
     private float patchSpacing; //in meters
     private float maxBumpHeight;
+    private float lambdaMin;
+    private float lambdaMax;
+	private float phongExponent;
+	private float trackDistance;
     
     public Material(){}
     
+    public Texture getBumpMapTexture(){
+    	return this.bumpMapTexture;
+    }
     
     public void setNeighborhoodRadius(int neighborhoodRadius){
     	this.neighborhoodRadius = neighborhoodRadius;
@@ -167,10 +174,6 @@ public class Material {
     
     public Point3f getDistanceToCamera(){
     	return this.getDistanceToCamera();
-    }
-    
-    public void setDistanceToCamera(float dist){
-    	this.distanceToCamera = dist;
     }
     
     public int getLayerCount(){
@@ -297,20 +300,29 @@ public class Material {
   
     }
     
-
     /**
      * set a texture by a path 
      * e.g. "../jrtr/textures/wood.jpg"
      * @param path path of the to be assigned texture.
      */
-	public void setBodyTexture(String path, Texture texture){
+	public void setBodyTexture(String path, Texture bodyTexture){
     	try {
-    	    texture.load(path);
+    	    bodyTexture.load(path);
+    	} catch (IOException e) {
+    		System.err.println("could not load texture with given path: " + path);
+    	}
+
+    	this.bodyTexture = bodyTexture;
+    }
+	
+	public void setBumpMapTexture(String path, Texture bumpMaxpTexture){
+    	try {
+    	    bumpMaxpTexture.load(path);
     	} catch (IOException e) {
     		System.err.println("could not load this texture with given path: " + path);
     	}
 
-    	this.bodyTexture = texture;
+    	this.bumpMapTexture = bumpMaxpTexture;
     }
 	
 	public void setTextureAt(String path, Texture texture, int at){
