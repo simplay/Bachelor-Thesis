@@ -7,6 +7,8 @@ public enum ShaderTaskNr {
 	EXPERIMENTAL_V(11),
 	EXPERIMENTAL_F(12),
 	TAYLORGAUSSIAN(13),
+	DEBUG_ANNOTATION(14),
+	DEBUG_SPECULAR(15),
 	ELSE(200);
 	
 	private final int value;

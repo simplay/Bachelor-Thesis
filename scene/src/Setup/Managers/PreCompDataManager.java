@@ -30,7 +30,6 @@ public class PreCompDataManager {
 	
 	private void perfromTask(ShaderTaskNr tasknumber, String patchName){
 		PatchDataPaths patchPaths = pdpm.getPathsByIdentifiers(tasknumber, patchName);
-		// this is not used anymore for most of the latest shaders.
 		mat.setKValues(loadKValues(patchPaths.getKValuesPath())); 
 		mat.setGlobals(loadglobals(patchPaths.getGlobalsPath()));
 		mat.setWeights(readWeights(patchPaths.getWeightsPath()));
@@ -40,21 +39,25 @@ public class PreCompDataManager {
 	}
 	
 	private void loadPatches(int tasknumber, String samples){
-		if(tasknumber == 10 || tasknumber == 11 || tasknumber == 12 || tasknumber == 13) loadCompositeTaylorPatches(samples);
+		if(tasknumber == 10 
+				|| tasknumber == 11 
+				|| tasknumber == 12 
+				|| tasknumber == 13 
+				|| tasknumber == 14
+				|| tasknumber == 15){
+			loadCompositeTaylorPatches(samples);
+		}
 		else loadPatches2(samples, false, true);
 	}	
 		
 	
 	private void loadCompositeTaylorPatches(String basisPath){
 		String path = basisPath;
-		String ext = ".bmp";
-		int counter = 0;
-		
+		String ext = ".bmp";	
 		for(int iter = 0; iter < 31; iter++){
 			ext = "AmpReIm"+Integer.toString(iter)+extension;
 			this.textures[iter] = renderContext.makeTexture();
 			mat.setTextureAt(path+ext, textures[iter], iter);
-			counter++;
 		}
 	}
 	
@@ -91,27 +94,6 @@ public class PreCompDataManager {
 		mat.setRepNN(rep_nn);
 	}
 	
-	// TODO again check this method - for santy's sake!!!
-		private void loadTaylorPatches(String basisPath){
-			String path = basisPath;
-			String ext = ".bmp";
-			int counter = 0;
-			
-			for(int iter = 0; iter < 31; iter++){
-				ext = "AmpRe"+Integer.toString(iter)+extension;
-				this.textures[iter] = renderContext.makeTexture();
-				mat.setTextureAt(path+ext, textures[iter], iter);
-				counter++;
-			}
-			
-			for(int iter = 0; iter < 31; iter++){
-				ext = "AmpIm"+Integer.toString(iter)+extension;
-				this.textures[counter] = renderContext.makeTexture();
-				mat.setTextureAt(path+ext, textures[counter], counter);
-				counter++;
-			}
-		}
-		
 		
 		private float[] loadKValues(String kValues_path){
 			List<Float> scalingFactors = new LinkedList<Float>();
@@ -270,42 +252,6 @@ public class PreCompDataManager {
 			return weights;
 		}
 		
-		
-		private void loadPatchesAmp(String basisPath, boolean Lfolders, boolean bigSample){
-			int L = 350;
-			int step = 50;
-			if(bigSample){
-				L = 0;
-				step = 1;
-			}
-
-
-			String path = basisPath;
-
-			for(int iter = 0; iter < 492; iter++){
-				String ext = "";
-				if(iter%82 == 0) L+=step;
-				if(Lfolders) ext+=Integer.toString(L)+"/";
-				if(iter%82 < 41) ext+="imL"+L;
-				else ext+="reL"+L;
-				
-				int p = iter%41;
-				float t = -2.0f + p*0.1f;
-				t = (float)Math.round(t * 100000) / 100000;
-				if(t==-2.0f || t==-1.0f || t == 0.0f || t == 1.0f || t==2.0f){
-					if(t==-2.0f) ext += "w"+"-2"+"BH"+extension;
-					else if(t==-1.0f) ext += "w"+"-1"+"BH"+extension;
-					else if( t == 0.0f) ext += "w"+"0"+"BH"+extension;
-					else if(t == 1.0f)ext += "w"+"1"+"BH"+extension;
-					else ext += "w"+"2"+"BH"+extension;
-						
-				}else ext += "w"+t+"BH"+extension;
-				
-				this.textures[iter] = renderContext.makeTexture();
-				mat.setTextureAt(path+ext, textures[iter], iter);
-			}
-		}
-		
 		//String extension = ".bmp";
 		private void loadPatches2(String basisPath, boolean Lfolders, boolean bigSample){
 			int L = 350;
@@ -314,7 +260,6 @@ public class PreCompDataManager {
 				L = 0;
 				step = 1;
 			}
-
 
 			String path = basisPath;
 

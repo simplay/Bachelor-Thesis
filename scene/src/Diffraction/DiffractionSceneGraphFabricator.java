@@ -85,6 +85,10 @@ public class DiffractionSceneGraphFabricator {
 		    activeShaderTask = new DiffractionShaderTask();
 		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.TAYLORGAUSSIAN){
 			activeShaderTask = new ExpTaylorShaderTask();
+		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.DEBUG_ANNOTATION){
+			activeShaderTask = new ExpTaylorShaderTask();
+		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.DEBUG_SPECULAR){
+			activeShaderTask = new ExpTaylorShaderTask();
 		}
 	}
 	
@@ -111,8 +115,12 @@ public class DiffractionSceneGraphFabricator {
 		mat.setLayerCount(108);
 		if(sceneConfig.getShaderTask() == ShaderTaskNr.TAYLOR || 
 				sceneConfig.getShaderTask() == ShaderTaskNr.EXPERIMENTAL_V || 
-				sceneConfig.getShaderTask() == ShaderTaskNr.TAYLORGAUSSIAN || 
-				sceneConfig.getShaderTask() == ShaderTaskNr.EXPERIMENTAL_F) mat.setLayerCount(31);
+				sceneConfig.getShaderTask() == ShaderTaskNr.TAYLORGAUSSIAN ||
+				sceneConfig.getShaderTask() == ShaderTaskNr.DEBUG_ANNOTATION ||
+				sceneConfig.getShaderTask() == ShaderTaskNr.DEBUG_SPECULAR ||
+				sceneConfig.getShaderTask() == ShaderTaskNr.EXPERIMENTAL_F){
+			mat.setLayerCount(31);
+		}
 		ShaderTaskSetupManager stm = new ShaderTaskSetupManager(renderContext, mat, sceneConfig.getShaderTask());		
 		mat.setShader(stm.getShader());
 		new PreCompDataManager(renderContext, sceneConfig.getShaderTask(), sceneConfig.getPatchName(), mat); // TODO extend me, i want also the shape task, the shader task and further stuff

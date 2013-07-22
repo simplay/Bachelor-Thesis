@@ -56,7 +56,15 @@ public enum ShaderPaths {
 	
 	//taylor Gauss
 	tg_Vert("../jrtr/shaders/taylorGaussian/testFrag.vert"),
-	tg_Frag("../jrtr/shaders/taylorGaussian/testFrag.frag");
+	tg_Frag("../jrtr/shaders/taylorGaussian/testFrag.frag"),
+	
+	// debug
+	
+	specular_Vert("../jrtr/shaders/debug/full_specular.vert"),
+	specular_Frag("../jrtr/shaders/debug/full_specular.frag"),
+	
+	tg_da_Vert("../jrtr/shaders/debug/TG_F_a.vert"),
+	tg_da_Frag("../jrtr/shaders/debug/TG_F_a.frag");
 	
 	private final String value;
 		 

@@ -84,6 +84,12 @@ public class PatchDataPathsManager {
 		constants.add(sc);
 		sc = new PatchDataPaths(ShaderTaskNr.GRID, "cos");
 		constants.add(sc);	
+		
+		
+		sc = new PatchDataPaths(ShaderTaskNr.DEBUG_ANNOTATION, "blaze");
+		constants.add(sc);
+		sc = new PatchDataPaths(ShaderTaskNr.DEBUG_SPECULAR, "blaze");
+		constants.add(sc);
 	}
 	
 	public PatchDataPaths getPathsByIdentifiers(ShaderTaskNr task, String patchName){

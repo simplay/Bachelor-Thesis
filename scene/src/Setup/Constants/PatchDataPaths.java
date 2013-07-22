@@ -28,6 +28,10 @@ public class PatchDataPaths {
 			prefix = "experimental/";
 		}else if(shaderTaskNr == ShaderTaskNr.TAYLORGAUSSIAN){
 			prefix = "experimental/";
+		}else if(shaderTaskNr == ShaderTaskNr.DEBUG_ANNOTATION){
+			prefix = "experimental/";
+		}else if(shaderTaskNr == ShaderTaskNr.DEBUG_SPECULAR){
+			prefix = "experimental/";	
 		}else if(shaderTaskNr == ShaderTaskNr.TAYLOR){
 			prefix = "taylor/";
 		}else if(shaderTaskNr == ShaderTaskNr.STAM){

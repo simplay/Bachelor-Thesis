@@ -25,16 +25,22 @@ public class SceneConfigurationManager {
 	
 	private void defineConstant(){
 		SceneConfiguration sc = null;		
-		sc = new SceneConfiguration("sandbox", ShapeTask.SNAKE, "snake1", 
+		
+		
+		sc = new SceneConfiguration("sandbox", ShapeTask.PLANE2, "plane1", 
+				"stam", "light1", ShaderTaskNr.DEBUG_SPECULAR, -1, "blaze", 1, "random1");
+		constants.add(sc);
+		
+		sc = new SceneConfiguration("sandbox2", ShapeTask.SNAKE, "snake1", 
 				"xeno", "light1", ShaderTaskNr.TAYLORGAUSSIAN, -1, "xeno100", 2, "brick");
 		constants.add(sc);
 	
 		sc = new SceneConfiguration("extreme_case", ShapeTask.SNAKE, "snake1", 
-				"Stam", "light1", ShaderTaskNr.TAYLORGAUSSIAN, -1, "test", 1, "random1");
+				"stam", "light1", ShaderTaskNr.TAYLORGAUSSIAN, -1, "test", 1, "random1");
 		constants.add(sc);
 		
 		sc = new SceneConfiguration("snake", ShapeTask.SNAKE, "snake1", 
-				"Stam", "light1", ShaderTaskNr.EXPERIMENTAL_F, 26, "blaze", 1, "random1");
+				"stam", "light1", ShaderTaskNr.EXPERIMENTAL_F, 26, "blaze", 1, "random1");
 		constants.add(sc);
 		
 		
@@ -50,17 +56,17 @@ public class SceneConfigurationManager {
 		
 		// test case 1: plane equal long cylinder
 		sc = new SceneConfiguration("testcase1_1", ShapeTask.CYLINDER, "plane1", 
-				"Stam", "light1", ShaderTaskNr.TAYLORGAUSSIAN, 26, "blaze", 2, "random1");
+				"stam", "light1", ShaderTaskNr.TAYLORGAUSSIAN, 26, "blaze", 2, "random1");
 		constants.add(sc);
 		
 		// test case 1: plane equal long cylinder
 		sc = new SceneConfiguration("testcase1_2", ShapeTask.PLANE, "plane1", 
-				"Stam", "light1", ShaderTaskNr.EXPERIMENTAL_F, 26, "blaze", 2, "random1");
+				"stam", "light1", ShaderTaskNr.EXPERIMENTAL_F, 26, "blaze", 2, "random1");
 		constants.add(sc);
 		
 		// test case for specular reflection.
 		sc = new SceneConfiguration("spec_tc1", ShapeTask.PLANE, "plane1_o", 
-				"Stam", "light1", ShaderTaskNr.TAYLORGAUSSIAN, 26, "blaze", 2, "random1");
+				"stam", "light1", ShaderTaskNr.TAYLORGAUSSIAN, 26, "blaze", 2, "random1");
 		constants.add(sc);
 	}
 	
