@@ -362,7 +362,7 @@ void main() {
 	vec3 _k1 = normalize(o_light); // light direction, same for every point		
 	
 	
-	float in_angle_deg = 0.0;
+	float in_angle_deg = 45.0;
 	
 	float alpha_deg = (90.0-in_angle_deg)/2.0;
 	float alpha_rad = (PI*alpha_deg)/180.0;	
@@ -372,7 +372,7 @@ void main() {
 	_k1.x = dot(_k1, o_tangent);
 	_k1.y = dot(_k1, o_bitangent);
 	_k1.z = dot(_k1, o_normal);
-	
+	_k1 = normalize(_k1);
 	
 	
 	vec3 V = _k1 - _k2;
@@ -389,12 +389,12 @@ void main() {
 	vec2 modUV = getRotation(u,v,phi);
 	
 	float uv_sqr = pow(u*u+v*v, 0.5);
-	bool non_adaptive = false;
-	float iterMax = 45.0;
-	
+	bool non_adaptive = true;
+	float iterMax = 200.0;
+
 	
 	if(non_adaptive){
-		uv_sqr = 1.0;
+		uv_sqr = 0.0;
 		iterMax = 200.0;
 	}
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
@@ -419,8 +419,15 @@ void main() {
 			float abs_P_Sq = P.x*P.x + P.y*P.y;
 			float diffractionCoeff = getFactor(k, F, G, w);
 			vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
-//			brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 1.0);
-//			maxBRDF += vec4(waveColor, 1.0);	
+			
+			
+			
+			current_annotation = diffractionCoeff * abs_P_Sq;
+			if(current_annotation > current_max_annotation){
+				current_max_annotation = current_annotation;
+				current_max_lambda = lambda_iter;
+			}
+
 		}
 	}else{
 		// iterate twice: once for N_u and once for N_v lower,upper
@@ -541,11 +548,7 @@ void main() {
 							current_max_annotation = current_annotation;
 							current_max_lambda = lambda_iter;
 						}
-						
-						
-						
-//						brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 0.0);	
-//						maxBRDF += vec4(waveColor, 0.0);					
+				
 					}
 				}
 			}
@@ -554,5 +557,5 @@ void main() {
 	
 	float l_col = (current_max_lambda-lambda_min)/(lambda_max-lambda_min);
 
-	frag_shaded	= 1.0*vec4(l_col,l_col,l_col,1.0);
+	frag_shaded	= 1.0*vec4(l_col,0.5,0.5,1.0);
 }
