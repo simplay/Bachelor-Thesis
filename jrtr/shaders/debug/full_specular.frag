@@ -13,16 +13,18 @@ out vec4 frag_shaded;
 
 void main() {
 	
-	
+	vec3 _k2 = normalize(o_pos); //vector from point P to camera
+	vec3 _k1 = normalize(o_light); // light direction, same for every point		
+	vec3 V = _k1 - _k2;
 	
 	float attenuation = 1.0; 
     vec3 specularReflection;
-    if (dot(o_normal, -o_light) < 0.0){
+    if (dot(o_normal, -_k1) < 0.0){
     	specularReflection = vec3(1.0, 0.0, 0.0); // no specular reflection
     }else{
     	// reflect(I,N) == I - 2.0 * dot(N, I) * N.
-    	vec3 ref = reflect(o_light, o_normal);
-    	float dotRL = dot(ref,  o_pos);
+    	vec3 ref = reflect(-_k1, o_normal);
+    	float dotRL = -dot(ref,  _k2);
         specularReflection = attenuation * pow(max(0.0, dotRL), 5.0) * vec3(1.0);
     }
     

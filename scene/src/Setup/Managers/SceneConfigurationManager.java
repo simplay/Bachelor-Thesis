@@ -27,7 +27,7 @@ public class SceneConfigurationManager {
 		SceneConfiguration sc = null;		
 		
 		
-		sc = new SceneConfiguration("sandbox", ShapeTask.PLANE2, "plane1_o", 
+		sc = new SceneConfiguration("sandbox", ShapeTask.PLANE2, "plane1", 
 				"stam", "light3", ShaderTaskNr.DEBUG_SPECULAR, -1, "blaze", 1, "random1");
 		constants.add(sc);
 		

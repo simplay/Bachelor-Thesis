@@ -347,6 +347,9 @@ void main() {
 	phi = 0.0;
 	
 	
+	// for debugging
+
+	
 	vec3 _k2 = normalize(o_pos); //vector from point P to camera
 	vec3 _k1 = normalize(o_light); // light direction, same for every point		
 	vec3 V = _k1 - _k2;
