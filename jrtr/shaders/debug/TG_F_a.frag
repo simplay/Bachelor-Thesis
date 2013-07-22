@@ -348,9 +348,16 @@ void main() {
 	
 	
 	// for debugging
-
+	float current_max_annotation = 0.0;
+	float current_annotation = 0.0;
+	float current_max_lambda = 0.0;
 	
-	vec3 _k2 = normalize(o_pos); //vector from point P to camera
+	vec3 _k2 = vec3(0.0); //vector from point P to camera
+	_k2.x = sin(o_pos.x);
+	_k2.y = 0.0;
+	_k2.z = cos(o_pos.z);
+	_k2 = normalize(_k2);
+	
 	vec3 _k1 = normalize(o_light); // light direction, same for every point		
 	vec3 V = _k1 - _k2;
 	float u = V.x; float v = V.y; float w = V.z;
@@ -396,8 +403,8 @@ void main() {
 			float abs_P_Sq = P.x*P.x + P.y*P.y;
 			float diffractionCoeff = getFactor(k, F, G, w);
 			vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
-			brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 1.0);
-			maxBRDF += vec4(waveColor, 1.0);	
+//			brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 1.0);
+//			maxBRDF += vec4(waveColor, 1.0);	
 		}
 	}else{
 		// iterate twice: once for N_u and once for N_v lower,upper
@@ -512,43 +519,24 @@ void main() {
 						
 
 						// summation of brdf over all wavelengths under consideration.
-						brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 0.0);	
-						maxBRDF += vec4(waveColor, 0.0);					
+						
+						current_annotation = diffractionCoeff * abs_P_Sq;
+						if(current_annotation > current_max_annotation){
+							current_max_annotation = current_annotation;
+							current_max_lambda = lambda_iter;
+						}
+						
+						
+						
+//						brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 0.0);	
+//						maxBRDF += vec4(waveColor, 0.0);					
 					}
 				}
 			}
 		}
 	}
-
-//		
-	if(maxBRDF.y < 1.0*pow(10.0, -20.0)) maxBRDF.y = 1.0;
-//	brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
-	float fac2 = 1.0 / 42.0;
 	
-	if(non_adaptive && uv_sqr != 1.0){
-		fac2 = 20.0 / 1.0;
-	}else if(uv_sqr == 1.0){
-		fac2 = 12.0 / 1.0;
-	}else{
-		fac2 = 7.0 / 1.0;
-	}
-		
-	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XR, brdf.xyz);
-	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
-		
-	float ambient = 0.0;
-		
-	// remove negative values
-	if(brdf.x < 0.0 ) brdf.x = 0.0;
-	if(brdf.y < 0.0 ) brdf.y = 0.0;
-	if(brdf.z < 0.0 ) brdf.z = 0.0;
-	brdf.w = 1.0;
-		
-	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.2);
-		
-	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) o_col = vec4(0.0, 0.0, 0.0, 1.0);
-	else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) o_col = vec4(1.0, 0.0, 0.0, 1.0);
-	else o_col = brdf+vec4(ambient,ambient,ambient,0.0);
-//	else o_col = vec4(ambient,ambient,ambient,0.0);
-	frag_shaded	= o_col;
+	float l_col = (current_max_lambda-lambda_min)/(lambda_max-lambda_min);
+
+	frag_shaded	= 1.0*vec4(l_col,l_col,l_col,1.0);
 }

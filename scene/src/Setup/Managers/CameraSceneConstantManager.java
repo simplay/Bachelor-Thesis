@@ -20,6 +20,8 @@ public class CameraSceneConstantManager {
 		CameraSceneConstant cs = null;		
 		cs = new CameraSceneConstant("plane1", 1.0f, 15.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
 		constants.add(cs);
+		cs = new CameraSceneConstant("plane1_far", 20.0f, 5.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
+		constants.add(cs);
 		cs = new CameraSceneConstant("plane1_o", 1.0f, 15.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), true);
 		constants.add(cs);
 		cs = new CameraSceneConstant("plane1_w", 20.0f, 2.5f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), true);

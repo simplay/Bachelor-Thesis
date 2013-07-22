@@ -30,7 +30,7 @@ public class SceneConfigurationManager {
 		sc = new SceneConfiguration("sandbox", ShapeTask.PLANE2, "plane1", 
 				"stam", "light3", ShaderTaskNr.DEBUG_SPECULAR, -1, "blaze", 1, "random1");
 		constants.add(sc);
-		
+			
 		sc = new SceneConfiguration("sandbox2", ShapeTask.SNAKE, "snake1", 
 				"xeno", "light1", ShaderTaskNr.TAYLORGAUSSIAN, -1, "xeno100", 2, "brick");
 		constants.add(sc);
@@ -42,7 +42,10 @@ public class SceneConfigurationManager {
 		sc = new SceneConfiguration("snake", ShapeTask.SNAKE, "snake1", 
 				"stam", "light1", ShaderTaskNr.EXPERIMENTAL_F, 26, "blaze", 1, "random1");
 		constants.add(sc);
-		
+			
+		sc = new SceneConfiguration("grayscale", ShapeTask.PLANE3, "plane1_far", 
+				"stam", "light3", ShaderTaskNr.DEBUG_ANNOTATION, -1, "blaze", 1, "random1");
+		constants.add(sc);
 		
 		// test case 1: plane equal long cylinder
 		sc = new SceneConfiguration("xeno100", ShapeTask.SNAKE, "snake1", 
