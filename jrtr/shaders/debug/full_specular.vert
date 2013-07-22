@@ -48,14 +48,15 @@ in vec4 color;
 
 //Output variables for fragment shader
 out vec2 frag_texcoord;
+out vec4 o_color;
 out vec3 o_pos;
 out vec3 o_light;
 out vec3 o_normal;
 out vec3 o_tangent;
 
-
 void main() {
-
+	
+	
     vec3 N = normalize(vec4(normal,0.0)).xyz;
     vec3 T = normalize(vec4(tangent,0.0)).xyz;
     vec3 B = normalize(cross(N, T));
@@ -82,7 +83,20 @@ void main() {
 	o_tangent = T;
 	
 	
-		
+	
+	float attenuation = 1.0; 
+    vec3 lightDirection = lightDir.xyz;
+    vec3 mv_normal = (modelview*vec4(normal, 0.0)).xyz;
+    vec3 specularReflection;
+    if (dot(N, lightDirection) < 0.0){
+    	specularReflection = vec3(0.0, 0.0, 0.0); // no specular reflection
+    }else{
+    	vec3 ref = reflect(-lightDirection, N);
+    	float dotRL = dot(ref,  Pos);
+        specularReflection = attenuation * pow(max(0.0, dotRL), 5.0) * vec3(1.0);
+    }
+    
+    o_color = vec4(specularReflection,1.0);
 	frag_texcoord = texcoord;
 	gl_Position = projection * modelview * position;
 }
