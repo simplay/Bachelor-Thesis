@@ -41,6 +41,7 @@ in vec3 o_pos;
 in vec3 o_light;
 in vec3 o_normal;
 in vec3 o_tangent;
+in vec3 o_bitangent;
 
 // Output variable, will be written to framebuffer automatically
 out vec4 frag_shaded;
@@ -359,6 +360,21 @@ void main() {
 	_k2 = normalize(_k2);
 	
 	vec3 _k1 = normalize(o_light); // light direction, same for every point		
+	
+	
+	float in_angle_deg = 0.0;
+	
+	float alpha_deg = (90.0-in_angle_deg)/2.0;
+	float alpha_rad = (PI*alpha_deg)/180.0;	
+	vec3 kk1 = vec3(cos(alpha_rad), sin(alpha_rad), 1.0);
+	_k1 = normalize(-kk1);
+	
+	_k1.x = dot(_k1, o_tangent);
+	_k1.y = dot(_k1, o_bitangent);
+	_k1.z = dot(_k1, o_normal);
+	
+	
+	
 	vec3 V = _k1 - _k2;
 	float u = V.x; float v = V.y; float w = V.z;
 	float F = getAbsFressnelFactor(_k1, _k2); // issue G may cause nan

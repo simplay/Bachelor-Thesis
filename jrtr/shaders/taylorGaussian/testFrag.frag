@@ -590,5 +590,6 @@ void main() {
 //	frag_shaded	= o_col;
 	vec4 passcolor = (1.0-F2)*tex+(o_col);
 	
-	frag_shaded	= vec4(passcolor.xyz*NdotL, 1.0) + vec4(ambient,ambient,ambient,0.0);
+//	frag_shaded	= vec4(passcolor.xyz*NdotL, 1.0) + vec4(ambient,ambient,ambient,0.0);
+	frag_shaded	= o_col;
 }

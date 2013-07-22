@@ -52,6 +52,7 @@ out vec3 o_pos;
 out vec3 o_light;
 out vec3 o_normal;
 out vec3 o_tangent;
+out vec3 o_bitangent;
 
 
 void main() {
@@ -80,7 +81,7 @@ void main() {
 	o_light = lightDir.xyz;
 	o_normal = N;
 	o_tangent = T;
-	
+	o_bitangent = B;
 	
 		
 	frag_texcoord = texcoord;
