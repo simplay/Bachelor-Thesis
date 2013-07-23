@@ -28,7 +28,7 @@ import Setup.Managers.SceneConfigurationManager;
 import Setup.Managers.ShaderTaskSetupManager;
 import Setup.Managers.ShapeManager;
 import ShaderLogic.DiffractionShaderTask;
-import ShaderLogic.ExpTaylorShaderTask;
+import ShaderLogic.TaylorGaussianShaderTask;
 import ShaderLogic.MultiTexturesTAShaderTask;
 import ShaderLogic.MultiTexturesTaylorShaderTask;
 import ShaderLogic.ShaderTask;
@@ -78,17 +78,17 @@ public class DiffractionSceneGraphFabricator {
 		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.TAYLOR){
 			activeShaderTask = new MultiTexturesTaylorShaderTask();
 		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.EXPERIMENTAL_V){
-			activeShaderTask = new ExpTaylorShaderTask();
+			activeShaderTask = new TaylorGaussianShaderTask();
 		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.EXPERIMENTAL_F){
-			activeShaderTask = new ExpTaylorShaderTask();
+			activeShaderTask = new TaylorGaussianShaderTask();
 		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.STAM){
 		    activeShaderTask = new DiffractionShaderTask();
 		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.TAYLORGAUSSIAN){
-			activeShaderTask = new ExpTaylorShaderTask();
+			activeShaderTask = new TaylorGaussianShaderTask();
 		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.DEBUG_ANNOTATION){
-			activeShaderTask = new ExpTaylorShaderTask();
+			activeShaderTask = new TaylorGaussianShaderTask();
 		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.DEBUG_SPECULAR){
-			activeShaderTask = new ExpTaylorShaderTask();
+			activeShaderTask = new TaylorGaussianShaderTask();
 		}
 	}
 	

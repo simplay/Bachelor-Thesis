@@ -353,22 +353,23 @@ void main() {
 	float current_annotation = 0.0;
 	float current_max_lambda = 0.0;
 	
+	// camera 
 	vec3 _k2 = vec3(0.0); //vector from point P to camera
 	_k2.x = sin(o_pos.x);
 	_k2.y = 0.0;
 	_k2.z = cos(o_pos.z);
 	_k2 = normalize(_k2);
 	
-	vec3 _k1 = normalize(o_light); // light direction, same for every point		
-	
-	
-	float in_angle_deg = 45.0;
-	
-	float alpha_deg = (90.0-in_angle_deg)/2.0;
+	float alpha_deg = 30.0;
+	float beta_deg = 0.0;
 	float alpha_rad = (PI*alpha_deg)/180.0;	
-	vec3 kk1 = vec3(cos(alpha_rad), sin(alpha_rad), 1.0);
-	_k1 = normalize(-kk1);
+	float beta_rad = (PI*beta_deg)/180.0;
 	
+	// use spherical coordinates: light, determined by (alpha, beta) angles.
+	vec3 _k1 = -vec3(sin(alpha_rad)*sin(beta_rad), sin(alpha_rad)*cos(beta_rad), cos(alpha_rad));
+	_k1 = normalize(_k1);
+	
+	// projection onto tangent space
 	_k1.x = dot(_k1, o_tangent);
 	_k1.y = dot(_k1, o_bitangent);
 	_k1.z = dot(_k1, o_normal);
@@ -395,7 +396,7 @@ void main() {
 	
 	if(non_adaptive){
 		uv_sqr = 0.0;
-		iterMax = 200.0;
+		iterMax = 310.0;
 	}
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	

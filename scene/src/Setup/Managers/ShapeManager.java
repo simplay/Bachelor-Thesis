@@ -30,7 +30,7 @@ public class ShapeManager {
 			this.targetShape = new Shape(diffPlane.getVertices());
 			
 		}else if(task == ShapeTask.PLANE3){
-			DiffractionPlane2 diffPlane = new DiffractionPlane2(20, 10.0f, (float) Math.PI);
+			DiffractionPlane2 diffPlane = new DiffractionPlane2(20, (float) Math.PI, 10.0f);
 			this.targetShape = new Shape(diffPlane.getVertices());	
 			
 		}else if(task == ShapeTask.DICE){
