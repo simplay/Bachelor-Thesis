@@ -24,6 +24,12 @@ public class BumpConstantsManager {
 				(float) (2.5f*Math.pow(10.0f, -6.0f)));
 		constants.add(bc);
 		
+		bc = new BumpConstants("debug", 
+				(float) (2.4623f*Math.pow(10.0f, -7.0f)), 
+				(float) (65.0f*Math.pow(10.0f, -6.0f)), 
+				(float) (65.0f*Math.pow(10.0f, -6.0f)), 
+				(float) (0.8f*Math.pow(10.0f, -6.0f)));
+		constants.add(bc);
 		
 		bc = new BumpConstants("elaph", 
 				(float) (3.75f*Math.pow(10.0f, -7.0f)), 

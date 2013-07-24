@@ -8,6 +8,9 @@
 //Uniform variables, passed in from host program via suitable 
 
 uniform sampler2DArray TexArray;
+uniform sampler2D bodyTexture;
+uniform sampler2D bumpMapTexture;
+
 uniform vec4 cop_w;
 uniform vec3 radianceArray[MAX_LIGHTS];
 uniform vec3 brdf_weights[MAX_WEIGHTS];
@@ -164,7 +167,7 @@ vec2 getRescaledHeight(float reHeight, float imHeight, int index){
 //do some kind of normalization of returned value
 //divide by maximal amount
 float getFactor(float k, float F, float G, float w){
-	float A = dimX*dimX;
+	float A = PI*(dimX/2.0)*(dimX/2.0);
 	float kk_ww = (k*k)/(w*w);
 	kk_ww *= pow(t_0, 4.0);
 	return kk_ww*(F*F*G)/(4.0*PI*PI*A);
@@ -235,7 +238,8 @@ float compute_pq_scale_factor(float w_u, float w_v){
 	float in_periods = periods;
 	
 	if(userSetPeriodFlag){
-		in_periods = ceil(dimX/patchSpacing)-1.0;
+		in_periods = ceil(dimX/patchSpacing);
+		if(in_periods < 1.0) in_periods = 1.0;
 	}
 	
 	float p1 = get_p_factor(w_u, T_1, in_periods);
@@ -357,11 +361,17 @@ void main() {
 	vec3 _k2 = vec3(0.0); //vector from point P to camera
 	_k2.x = sin(o_pos.x);
 	_k2.y = 0.0;
-	_k2.z = cos(o_pos.z);
+	_k2.z = cos(o_pos.x);
 	_k2 = normalize(_k2);
 	
-	float alpha_deg = 30.0;
-	float beta_deg = 0.0;
+//	_k2.x = dot(_k2, o_tangent);
+//	_k2.y = dot(_k2, o_bitangent);
+//	_k2.z = dot(_k2, o_normal);
+//	_k2 = normalize(_k2);
+	
+	
+	float alpha_deg = 10.0;
+	float beta_deg = 180.0;
 	float alpha_rad = (PI*alpha_deg)/180.0;	
 	float beta_rad = (PI*beta_deg)/180.0;
 	
@@ -423,7 +433,7 @@ void main() {
 			
 			
 			
-			current_annotation = diffractionCoeff * abs_P_Sq;
+			current_annotation = abs_P_Sq;
 			if(current_annotation > current_max_annotation){
 				current_max_annotation = current_annotation;
 				current_max_lambda = lambda_iter;
