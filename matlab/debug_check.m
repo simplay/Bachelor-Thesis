@@ -1,6 +1,6 @@
 l_min = 390.0;
 l_max = 700.0;
-im0 = imread('../screenshots/C.png');
+im0 = imread('../screenshots/debug.png');
 im = double(im0);
 im = im./255;
 dim = size(im);

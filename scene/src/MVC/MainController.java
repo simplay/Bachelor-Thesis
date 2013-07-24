@@ -27,9 +27,11 @@ import com.sun.image.codec.jpeg.JPEGEncodeParam;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import com.sun.jmx.snmp.Timestamp;
 
+import Constants.ShaderTaskNr;
 import Listeners.SimpleKeyListener;
 import Listeners.SimpleMouseListener;
 import Listeners.SimpleMouseMotionListener;
+import ShaderLogic.ShaderTask;
 import Util.Subscriber;
 
 public class MainController implements Subscriber{
@@ -71,7 +73,14 @@ public class MainController implements Subscriber{
 		gl.getContext().makeCurrent();
 		Timestamp tstamp = new Timestamp(System.currentTimeMillis()); 
 		BufferedImage tScreenshot = Screenshot.readToBufferedImage(0,0, 800, 800, false);
-		File tScreenCaptureImageFile = new File("../screenshots/sn_"+ tstamp.getDateTime()+ ".png");
+		
+		
+		String img_title = "../screenshots/sn_"+ tstamp.getDateTime();
+		if(model.getDiffFact().getShaderTask() == ShaderTaskNr.DEBUG_ANNOTATION){
+			img_title = "../screenshots/debug";
+		}
+		
+		File tScreenCaptureImageFile = new File(img_title + ".png");
 		try {
 			ImageIO.write(tScreenshot, "png", tScreenCaptureImageFile);
 		} catch (IOException e) {} 

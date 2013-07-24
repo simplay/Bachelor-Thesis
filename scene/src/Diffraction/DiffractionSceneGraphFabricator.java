@@ -209,4 +209,7 @@ public class DiffractionSceneGraphFabricator {
 		return answer;
 	}
 	
+	public ShaderTaskNr getShaderTask(){
+		return this.sceneConfig.getShaderTask();
+	}
 }
