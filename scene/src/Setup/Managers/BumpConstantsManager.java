@@ -25,7 +25,7 @@ public class BumpConstantsManager {
 		constants.add(bc);
 		
 		bc = new BumpConstants("debug", 
-				(float) (2.4623f*Math.pow(10.0f, -7.0f)), 
+				(float) (1.4623f*Math.pow(10.0f, -7.0f)), 
 				(float) (65.0f*Math.pow(10.0f, -6.0f)), 
 				(float) (65.0f*Math.pow(10.0f, -6.0f)), 
 				(float) (0.8f*Math.pow(10.0f, -6.0f)));

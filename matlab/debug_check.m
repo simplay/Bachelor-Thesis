@@ -50,7 +50,7 @@ for k=1:size(im2,2),
     im2(1,k) = delta*im2(1,k)+l_min;
 end
 
-angle_axis = linspace(-90,90,361);
+angle_axis = linspace(-90,90,size(im2,2));
 angle_wavelength = [angle_axis; im2(1,:)];
 
 hold on
@@ -71,11 +71,13 @@ lambdaMax = 700;
 
 d = 0.8 ; % in micrometers
 k = 1;
-for m = -10:1:10
+m_lower = -10;
+m_upper = 10;
+for m = m_lower:1:m_upper
   if m == 0
     continue;
   end
-  temp = d*1000*(sin(ti)+sin(to))/m; % wavelenght in nanometers
+  temp = (d*1000)*(sin(ti)+sin(to))/m; % wavelenght in nanometers
   temp = temp.*(temp > lambdaMin);
   temp = temp.*(temp < lambdaMax);
   
