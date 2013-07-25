@@ -370,8 +370,8 @@ void main() {
 //	_k2 = normalize(_k2);
 	
 	
-	float alpha_deg = 10.0;
-	float beta_deg = 180.0;
+	float alpha_deg = 20.0;
+	float beta_deg = 00.0;
 	float alpha_rad = (PI*alpha_deg)/180.0;	
 	float beta_rad = (PI*beta_deg)/180.0;
 	
@@ -408,11 +408,11 @@ void main() {
 	bool was_in_eps = false;
 	
 	
-	float iterMax = 45.0;
+	float iterMax = 310.0;
 	int failCounter = 0;
 	
 	if(non_adaptive){
-		uv_sqr = 1.0;
+		uv_sqr = 0.0;
 		iterMax = 200.0;
 	}
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);

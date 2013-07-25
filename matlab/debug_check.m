@@ -65,11 +65,11 @@ clear all;
 
 sp_2 = subplot(2,1,2);
 to = -pi/2:pi/1000:pi/2;
-ti = 10*pi/180
+ti = 20*pi/180
 lambdaMin = 390;
 lambdaMax = 700;
 
-d = 0.8 ; % in micrometers
+d = 1.0 ; % in micrometers
 k = 1;
 m_lower = -10;
 m_upper = 10;
