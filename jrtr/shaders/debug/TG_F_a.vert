@@ -67,15 +67,29 @@ void main() {
 	lightDir = normalize(lightDir);
 	
 	// light direction: from camera space to tangent space
-	lightDir.x = dot(lightDir.xyz, T); 
-	lightDir.y = dot(lightDir.xyz, B);
-	lightDir.z = dot(lightDir.xyz, N);
-	lightDir.w = 0.0;
 	
+	int lx = dot(lightDir.xyz, T);
+	int ly = dot(lightDir.xyz, B);
+	int lz = dot(lightDir.xyz, N);
+	
+//	lightDir.x = dot(lightDir.xyz, T); 
+//	lightDir.y = dot(lightDir.xyz, B);
+//	lightDir.z = dot(lightDir.xyz, N);
+	
+	lightDir.w = 0.0;
+	lightDir.xyz = new vec3(lx, ly, lz);
 	// position: from camera space to tangent space
-	Pos.x = dot(Pos, T);
-	Pos.y = dot(Pos, B);
-	Pos.z = dot(Pos, N);
+	
+	
+	int px = dot(Pos, T);
+	int py = dot(Pos, B);
+	int pz = dot(Pos, N);
+	
+//	Pos.x = dot(Pos, T);
+//	Pos.y = dot(Pos, B);
+//	Pos.z = dot(Pos, N);
+	
+	Pos.xyz = new vec3(px, py, pz);
 	
 	o_pos = Pos;
 	o_light = lightDir.xyz;

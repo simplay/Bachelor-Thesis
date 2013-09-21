@@ -27,8 +27,8 @@ public class SceneConfigurationManager {
 		SceneConfiguration sc = null;		
 		
 		
-		sc = new SceneConfiguration("sandbox", ShapeTask.PLANE3, "plane1_far", 
-				"debug", "light1", ShaderTaskNr.DEBUG_ANNOTATION, 10, "blaze", 3, "random1");
+		sc = new SceneConfiguration("sandbox", ShapeTask.SNAKE, "snake1", 
+				"stam", "light1", ShaderTaskNr.TAYLORGAUSSIAN, 10, "blaze", 1, "random1");
 		constants.add(sc);
 			
 		sc = new SceneConfiguration("sandbox2", ShapeTask.SNAKE, "snake1", 
