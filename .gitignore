@@ -39,6 +39,6 @@ scene/.project
 scene/bin/*
 scene/bin/**/
 scene/bin/**/*.class
-
+scene/*.png
 #snapshots
 screenshots/*
