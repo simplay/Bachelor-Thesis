@@ -734,21 +734,6 @@ void runEvaluation(){
 			
 			
 			
-//			// adaptively change stepSize for adaptive sampling.
-//			if(delta_N_min_max < 2.0*sigma_f_pix){	
-//				if(delta_N_min_max < 1.0){
-//					// very small difference
-//					if(delta_N_min_max < 1.0*pow(10.0, -1.0)){
-//						stepSize = (1.0 + delta_N_min_max);
-//					// tolerateable difference
-//					}else{
-//						stepSize = (delta_N_min_max);
-//					}
-//				}else{
-//					stepSize /= delta_N_min_max;	
-//				}	
-//			}
-			
 			// iterate over line for fixed t in {u,v}
 			for(float iter = lower; iter <= upper; iter = iter + stepSize){
 				if(iter == 0.0) continue;
@@ -898,8 +883,8 @@ void runEvaluation(){
 //	frag_shaded	= o_col;
 	vec4 passcolor = (1.0-F2)*tex+(o_col);
 	
-	frag_shaded	= vec4(passcolor.xyz*NdotL, 1.0) + vec4(ambient,ambient,ambient,0.0);
-//	frag_shaded	= o_col;
+//	frag_shaded	= vec4(passcolor.xyz*NdotL, 1.0) + vec4(ambient,ambient,ambient,0.0);
+	frag_shaded	= o_col;
 //	frag_shaded	= vec4(0,1,0,1);
 }
 
