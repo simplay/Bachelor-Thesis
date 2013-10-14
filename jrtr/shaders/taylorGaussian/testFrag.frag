@@ -34,12 +34,20 @@ uniform float dimX;
 uniform float dimY;
 
 uniform sampler2DArray lookupText;
+
+
+uniform float thetaI;
+uniform float phiI;
+
+
+
 // Variables passed in from the vertex shader
 in vec2 frag_texcoord;
 in vec4 light_direction[MAX_LIGHTS];
 in vec4 normal_out;
 in vec4 eyeVector;
-//in vec4 col;
+
+in vec3 o_org_pos;
 in vec3 o_pos;
 in vec3 o_light;
 in vec3 o_normal;
@@ -329,7 +337,10 @@ vec3 getBRDF_RGB_T_D65(mat3 T, vec3 brdf_xyz){
 	return output;
 }
 
-void main() {
+
+
+
+void runShader() {
 	vec4 o_col = vec4(0.0, 0.0, 0.0, 0.0);
 	vec4 brdf = vec4(0.0, 0.0, 0.0, 1.0);
 	vec4 maxBRDF = vec4(0.0, 0.0, 0.0, 1.0);
@@ -593,4 +604,306 @@ void main() {
 //	frag_shaded	= vec4(passcolor.xyz*NdotL, 1.0) + vec4(ambient,ambient,ambient,0.0);
 	frag_shaded	= o_col;
 	frag_shaded	= vec4(0,1,0,1);
+}
+
+void runEvaluation(){
+	
+	
+	float abs_P_Sq = 0.0;
+	float real_part = 0.0;
+	float imag_part = 0.0;
+	float reHeight = 0.0;
+	float imHeight = 0.0;
+	float factor1 = 0.0;
+	float k = 0.0;
+	float fourier_coefficients = 1.0;
+	float lambda_iter = 0.0;
+	float t1 = 0.0;
+	float t2 = 0.0;
+	float phi = -PI/2.0;
+	phi = 0.0;
+	
+	// okay from here on
+	float thetaR = asin(sqrt(o_org_pos.x * o_org_pos.x + o_org_pos.y * o_org_pos.y ));
+	float phiR = atan(o_org_pos.y, o_org_pos.x);
+
+	vec3 _k1 = vec3(0.0f);
+	vec3 _k2 = vec3(0.0f);
+	
+	
+	_k1.x = - sin(thetaI)*cos(phiI);
+	_k1.y = - sin(thetaI)*sin(phiI);
+	_k1.z = - cos(thetaI);
+	
+	_k2.x = sin(thetaR)*cos(phiR);
+	_k2.y = sin(thetaR)*sin(phiR);
+	_k2.z = cos(thetaR);
+
+	
+	float uu0 = _k1.x - _k2.x;
+	float vv0 = _k1.y - _k2.y;
+	float ww = _k1.z - _k2.z;	
+	
+	// new code
+	
+	vec4 o_col = vec4(0.0, 0.0, 0.0, 0.0);
+	vec4 brdf = vec4(0.0, 0.0, 0.0, 1.0);
+	vec4 maxBRDF = vec4(0.0, 0.0, 0.0, 1.0);
+	vec2 P = vec2(0.0, 0.0);
+	vec2 coords = vec2(0.0);
+	
+
+	
+	
+	vec3 BumpNorm = vec3(texture2D(bumpMapTexture, frag_texcoord));
+	BumpNorm = (BumpNorm -0.5) * 2.0;
+	float NdotL = max(dot(BumpNorm, o_light.xyz), 0.0);
+	
+//	vec3 _k2 = normalize(o_pos); //vector from point P to camera
+//	vec3 _k1 = normalize(o_light); // light direction, same for every point		
+	
+	
+
+	
+	vec3 V = vec3(uu0, vv0, ww);
+	float u = V.x; float v = V.y; float w = V.z;
+	float F = getAbsFressnelFactor(_k1, _k2); // issue G may cause nan
+	float G = computeGFactor(o_normal, _k1, _k2); // 
+
+	if(dot(o_normal, -_k1) < 0.0) F = 0.0;
+	
+	// get iteration bounds for given (u,v)
+	vec2 N_u = compute_N_min_max(u);
+	vec2 N_v = compute_N_min_max(v);
+	vec2 N_uv[2] = vec2[2](N_u, N_v);
+	vec2 modUV = getRotation(u,v,phi);
+	
+	float uv_sqr = pow(u*u+v*v, 0.5);
+	bool non_adaptive = false;
+	bool was_in_eps = false;
+	
+	
+	float iterMax = 45.0;
+	int failCounter = 0;
+	
+	if(non_adaptive){
+		uv_sqr = 1.0;
+		iterMax = 200.0;
+	}
+	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
+	float F2 = F*F;
+	
+	
+	float stepSize = 1.0;
+	float sigma_f_pix = ((2.0*dx) / (PI*dimX));
+	float comp_sigma = sigma_f_pix;
+	sigma_f_pix *= sigma_f_pix;
+	sigma_f_pix *= 2.0;
+	float norm_fact = sigma_f_pix*PI;
+	
+	
+	
+	if(uv_sqr < eps){
+		brdf = vec4(F, F, F, 1.0);
+		was_in_eps = true;
+	}else{
+		// iterate twice: once for N_u and once for N_v lower,upper
+		for(int variant = 0; variant < 2; variant++){
+			
+			// get N_min and N_max for sampling
+			int lower = int(N_uv[variant].x);
+			int upper = int(N_uv[variant].y);
+			float delta_N_min_max = upper-lower;
+			
+			// count for too slow for treshold - if so skip current loop.
+			if(delta_N_min_max < 0.0){
+				failCounter++;
+			}
+			
+			
+			// handle case t in {u,v}
+			if(variant == 0){
+				t1 = u;
+				t2 = v;
+			}else{
+				t1 = v;
+				t2 = u;
+			}
+			
+
+			
+			
+			
+//			// adaptively change stepSize for adaptive sampling.
+//			if(delta_N_min_max < 2.0*sigma_f_pix){	
+//				if(delta_N_min_max < 1.0){
+//					// very small difference
+//					if(delta_N_min_max < 1.0*pow(10.0, -1.0)){
+//						stepSize = (1.0 + delta_N_min_max);
+//					// tolerateable difference
+//					}else{
+//						stepSize = (delta_N_min_max);
+//					}
+//				}else{
+//					stepSize /= delta_N_min_max;	
+//				}	
+//			}
+			
+			// iterate over line for fixed t in {u,v}
+			for(float iter = lower; iter <= upper; iter = iter + stepSize){
+				if(iter == 0.0) continue;
+				
+				// current wavelength
+				lambda_iter = (dx*t1)/iter;
+				k = 2.0*PI / lambda_iter;
+				
+				// compute omega small
+				float w_u = k*u;
+				float w_v = k*v;
+				
+				float uv_N_n_hat = (k*dx*t2)/(2.0*PI);
+				float uv_N_n = floor(uv_N_n_hat);
+				float uu_N_n = (k*dx*t1)/(2.0*PI);
+					
+				float uu_N_base = uu_N_n - neighborRadius;
+				float uv_N_base = uv_N_n - neighborRadius;
+				
+				// xyz value of color for current wavelength.
+				vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
+				
+				
+				// iterte over neighbor winodw of size (2*neighborRadius+1)x(2*neighborRadius+1)
+				for(float ind1 = uu_N_base; ind1 <= uu_N_base + 2.0*neighborRadius; ind1 = ind1 + 1.0){
+					for(float ind2 = uv_N_base; ind2 <= uv_N_base + 2.0*neighborRadius; ind2 = ind2 + 1.0){
+						
+						
+						// get L1 distance to neighbor
+						float dist2 = pow(ind1-uu_N_base, 2.0) + pow(ind2-uv_N_n_hat, 2.0);
+						 
+						// case distinction: depending on value of t, i.e. value of variance
+						if(variant == 0.0){
+							coords = vec2( (ind1/(dimN-1)) + bias, (ind2/(dimN-1)) + bias); //2d case
+						}else{
+							coords = vec2( (ind2/(dimN-1)) + bias, (ind1/(dimN-1)) + bias); //2d case
+						}
+
+						
+						// clip if coordiantes are not within bound [0,1]x[0,1]
+						if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
+						
+						
+						// complex valued frequency contribution of current pixel.
+						P = taylorApproximation(coords, k, w);
+						
+						// compute gaussion weight of current pixel
+						float exponent = -dist2/(sigma_f_pix);
+						float w_ij = exp(exponent);
+							
+						if(abs(exponent) < 1.0*pow(10.0, -18.0) ){
+							w_ij = 1.0;
+						}
+								
+//						if(abs(norm_fact) < 1.0*pow(10.0, -10.0)) norm_fact = 1.0;
+						w_ij /= norm_fact;
+						
+						// phaser of current pixel contribution.
+						float pq_scale = compute_pq_scale_factor(w_u,w_v);
+						if(isinf(pq_scale)) pq_scale = 1.0;
+						if(isnan(pq_scale)) pq_scale = 1.0;
+						
+						P *= pq_scale;
+							
+						// amplitute of current pixel contribution
+						float abs_P_Sq = P.x*P.x + P.y*P.y;
+						abs_P_Sq *= w_ij;
+						
+						// brdf coefficient after squaring them. 
+						float diffractionCoeff = getFactor(k, F, G, w);
+						
+
+						// summation of brdf over all wavelengths under consideration.
+						brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 0.0);	
+						maxBRDF += vec4(waveColor, 0.0);					
+					}
+				}
+			}
+		}
+	}
+	
+	if(failCounter == 3){
+		maxBRDF.xyz = vec3(0.0, 0.0, 0.0);
+		brdf.xyz = vec3(0.0, 0.0, 0.0);
+		for(float iter = 0; iter < iterMax; iter = iter + 1.0){
+			
+			float lambda_iter = iter*lambdaStep + lambda_min;
+			k = (2.0*PI) / lambda_iter;
+			vec2 coords = vec2((k*modUV.x/Omega) + bias, (k*modUV.y/Omega) + bias); //2d
+
+			if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
+			
+			float w_u = k*u;
+			float w_v = k*v;
+			
+			P = taylorApproximation(coords, k, w);
+			
+			float pq_scale = compute_pq_scale_factor(w_u, w_v);
+			P *= pq_scale;
+			
+			float abs_P_Sq = P.x*P.x + P.y*P.y;
+			float diffractionCoeff = getFactor(k, F, G, w);
+			vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
+			brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 1.0);
+			maxBRDF += vec4(waveColor, 1.0);	
+		}
+	}
+
+//		
+	if(maxBRDF.y < 1.0*pow(10.0, -20.0)) maxBRDF.y = 1.0;
+//	brdf = vec4(brdf.x/maxBRDF.y, brdf.y/maxBRDF.y, brdf.z/maxBRDF.y, 1.0) ; //  relative scaling
+	
+	
+	float ambient = 0.1;
+	float fac2 = 1.0;
+	if(was_in_eps){	
+	}else{
+		if(non_adaptive && uv_sqr != 1.0){
+			fac2 = 20.0 / 1.0;
+		}else if(uv_sqr == 1.0){
+			fac2 = 12.0 / 1.0;
+		}else{
+			fac2 = 10.0 / 1.0;
+		}
+	}
+
+		
+	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XR, brdf.xyz);
+	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
+		
+	
+		
+	// remove negative values
+	if(brdf.x < 0.0 ) brdf.x = 0.0;
+	if(brdf.y < 0.0 ) brdf.y = 0.0;
+	if(brdf.z < 0.0 ) brdf.z = 0.0;
+	brdf.w = 1.0;
+		
+	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.4);
+		
+	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) o_col = vec4(1.0, 0.0, 0.0, 1.0);
+	else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) o_col = vec4(0.0, 1.0, 0.0, 1.0);
+	else o_col = brdf+vec4(ambient,ambient,ambient,0.0);
+//	else o_col = vec4(ambient,ambient,ambient,0.0);
+	
+	vec4 tex = texture2D(bodyTexture, frag_texcoord);
+//	frag_shaded	= o_col;
+	vec4 passcolor = (1.0-F2)*tex+(o_col);
+	
+	frag_shaded	= vec4(passcolor.xyz*NdotL, 1.0) + vec4(ambient,ambient,ambient,0.0);
+//	frag_shaded	= o_col;
+//	frag_shaded	= vec4(0,1,0,1);
+}
+
+void main(){
+	runEvaluation();
+//	runShader();
 }
