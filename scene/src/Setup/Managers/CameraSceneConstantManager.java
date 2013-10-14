@@ -34,6 +34,8 @@ public class CameraSceneConstantManager {
 		constants.add(cs);
 		cs = new CameraSceneConstant("dice1", 10.0f, 30.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
 		constants.add(cs);
+		cs = new CameraSceneConstant("diceBRDF", 10.0f, 12.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), true);
+		constants.add(cs);
 	}
 	
 	public CameraSceneConstant getCameraSceneConstantByName(String id){

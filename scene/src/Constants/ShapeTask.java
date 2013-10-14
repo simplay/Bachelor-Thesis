@@ -10,7 +10,8 @@ public enum ShapeTask {
 	CYLINDER3(7),
 	PLANE2(8),
 	DICE2(9),
-	PLANE3(10);
+	PLANE3(10), 
+	DICE_BRDF(11);
 	
 	private final int value;
 	

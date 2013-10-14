@@ -75,7 +75,7 @@ void main() {
 //	lightDir.z = dot(lightDir.xyz, N);
 	
 	lightDir.w = 0.0;
-	lightDir.xyz = new vec3(lx, ly, lz);
+	lightDir.xyz = vec3(lx, ly, lz);
 	// position: from camera space to tangent space
 	
 	
@@ -87,7 +87,7 @@ void main() {
 //	Pos.y = dot(Pos, B);
 //	Pos.z = dot(Pos, N);
 	
-	Pos.xyz = new vec3(px, py, pz);
+	Pos.xyz = vec3(px, py, pz);
 
 	o_pos = Pos;
 	o_light = lightDir.xyz;

@@ -8,8 +8,8 @@ public class BodyConstants {
 	
 	public BodyConstants(String identifyerName, String extenstion){
 		this.identifyerName = identifyerName;
-		this.bodyTexturePath = base_path+"/body/"+identifyerName+"."+extenstion;
-		this.bumpMapTexturePath = base_path+"/bumpmap/"+"bm_"+identifyerName+"."+extenstion;
+		this.bodyTexturePath = base_path+"body/"+identifyerName+"."+extenstion;
+		this.bumpMapTexturePath = base_path+"bumpmap"+"/"+identifyerName+"."+extenstion;
 	}
 	
 	public String getIdentifyerName(){

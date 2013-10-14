@@ -44,6 +44,12 @@ public class ShapeManager {
 		}else if(task == ShapeTask.CYLINDER){
 			DiffractionCylinder diffcylinder = new DiffractionCylinder(1.00f,0.015f, 600, 600);
 			this.targetShape = new Shape(diffcylinder.getVertices());
+		
+		// for evaluation purposes
+		}else if(task == ShapeTask.DICE_BRDF){
+			DiffractionDice diffDice = new DiffractionDice(1.00f, 0.000001f, 500, 30);
+			this.targetShape = new Shape(diffDice.getVertices());
+			
 			
 		}else if(task == ShapeTask.CYLINDER2){
 			

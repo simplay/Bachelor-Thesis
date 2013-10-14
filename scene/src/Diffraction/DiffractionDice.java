@@ -53,7 +53,7 @@ public class DiffractionDice extends DiffractionGeometricObject{
 		int counter = 0;
 		List<Float> tangents = new LinkedList<Float>();
 		float phiStep = (float) (2.0f*Math.PI/pointsPerCircle);
-		float setpR = deltaR/innerCircleCount;
+		float setpR = deltaR/(innerCircleCount-1);
 		for(int k = 0; k < innerCircleCount; k++){
 			float currDist = setpR*k + wholeR;
 			for(int t = 0; t < pointsPerCircle; t++){
@@ -93,7 +93,7 @@ public class DiffractionDice extends DiffractionGeometricObject{
 		int counter = 0;
 		List<Float> vertices = new LinkedList<Float>();
 		float phiStep = (float) (2.0f*Math.PI/pointsPerCircle);
-		float setpR = deltaR/innerCircleCount;
+		float setpR = deltaR/(innerCircleCount-1);
 		for(int k = 0; k < innerCircleCount; k++){
 			float currDist = setpR*k + wholeR;
 			for(int t = 0; t < pointsPerCircle; t++){
@@ -124,12 +124,37 @@ public class DiffractionDice extends DiffractionGeometricObject{
 		int counter = 0;
 		List<Float> textureCoordiantes = new LinkedList<Float>();
 		float phiStep = (float) (2.0f*Math.PI/pointsPerCircle);
-		float setpR = deltaR/innerCircleCount;
-		
+		float setpR = deltaR/(innerCircleCount-1);
+
+		/*
 		for(int t = 0; t < innerCircleCount; t++){
 			for(int k = 0; k < pointsPerCircle; k++){
 				float u = t*setpR;
 				float v = k*phiStep;
+				textureCoordiantes.add(u);
+				textureCoordiantes.add(v);
+				counter++;
+			}
+		}*/
+
+		/* Cut into a Square
+		for(int t = 0; t < innerCircleCount; t++){
+			for(int k = 0; k < pointsPerCircle; k++){
+				
+				float rTemp = (this.wholeR + t*setpR)/this.totalR;
+				float u = (float) (0.5f + 0.5f*rTemp*Math.cos(k*phiStep));
+				float v = (float) (0.5f + 0.5f*rTemp*Math.sin(k*phiStep));
+				textureCoordiantes.add(u);
+				textureCoordiantes.add(v);
+				counter++;
+			}
+		}*/
+		
+		for(int t = 0; t < innerCircleCount; t++){
+			for(int k = 0; k < pointsPerCircle; k++){
+				
+				float u = (float) t/(float)(innerCircleCount-1.0);
+				float v = (float) k/(float)(pointsPerCircle-1.0);
 				textureCoordiantes.add(u);
 				textureCoordiantes.add(v);
 				counter++;
@@ -153,7 +178,7 @@ public class DiffractionDice extends DiffractionGeometricObject{
 		int counter = 0;
 		List<Float> normals = new LinkedList<Float>();
 		float phiStep = (float) (2.0f*Math.PI/pointsPerCircle);
-		float setpR = deltaR/innerCircleCount;
+		float setpR = deltaR/(innerCircleCount-1);
 		for(int k = 0; k < innerCircleCount; k++){
 			float currDist = setpR*k + wholeR;
 			for(int t = 0; t < pointsPerCircle; t++){
@@ -172,9 +197,12 @@ public class DiffractionDice extends DiffractionGeometricObject{
 				c.cross(a, b);
 				c.normalize();
 				
-				normals.add(c.x);
-				normals.add(c.y);
-				normals.add(c.z);	
+				//normals.add(c.x);
+				//normals.add(c.y);
+				//normals.add(c.z);	
+				normals.add(0.0f);
+				normals.add(0.0f);
+				normals.add(1.0f);	
 				counter++;							
 			}
 		}
