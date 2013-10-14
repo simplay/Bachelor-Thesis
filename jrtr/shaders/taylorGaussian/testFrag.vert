@@ -4,9 +4,6 @@
 // which have been precalculated.
 // Michael Single
 
-// NB: find relative weighting s.t. no huge rescale fac2 is necessary anymore.
-// NB: Write better documentation.
-
 #version 150
 #extension GL_EXT_gpu_shader4 : enable
 
@@ -19,6 +16,7 @@
 //variants of glUniform*
 uniform mat4 projection;
 uniform mat4 modelview;
+uniform mat4 modelM;
 uniform vec4 cop_w;
 uniform vec3 radianceArray[MAX_LIGHTS];
 uniform vec3 brdf_weights[MAX_WEIGHTS];
@@ -39,7 +37,6 @@ uniform int periodCount;
 uniform float maxBumpHeight;
 uniform float patchSpacing;
 
-
 in vec3 normal;
 in vec4 position;
 in vec2 texcoord;
@@ -52,48 +49,72 @@ out vec3 o_pos;
 out vec3 o_light;
 out vec3 o_normal;
 out vec3 o_tangent;
+out vec3 o_org_pos;
+
+const float PI = 3.14159265358979323846264;
+// rotate around 90deg
+const float phi = PI/2.0;
+
+
+// rotate given vector v around given axis with angle phi ccw
+// by perfroming a rodrigues rotation - see wikipedia
+vec3 rotateRodrigues(vec3 v, vec3 axis, float phi){
+	vec3 rotatedV = vec3(0.0, 0.0, 0.0);
+	vec3 axisCrossV = cross(axis, v);
+	
+	float axisDotV = axis.x *v.x + axis.y * v.y + axis.z * v.z; 
+	float dotScale = axisDotV * (1 - cos(phi));
+	
+	rotatedV.x = v.x * cos(phi) + axisCrossV.x * sin (phi) + axis.x * dotScale;
+	rotatedV.y = v.y * cos(phi) + axisCrossV.y * sin (phi) + axis.y * dotScale;
+	rotatedV.z = v.z * cos(phi) + axisCrossV.z * sin (phi) + axis.z * dotScale;
+	
+	return rotatedV;
+}
 
 
 void main() {
-    vec3 N = normalize(vec4(normal,0.0)).xyz;
-    vec3 T = normalize(vec4(tangent,0.0)).xyz;
+	
+	// Initialize Tangentspace=span{T,B,N}
+    vec3 N = normalize(modelM * vec4(normal,0.0)).xyz;
+    vec3 T = normalize(modelM * vec4(tangent,0.0)).xyz;
+    N = normalize(N);
+    T = normalize(T);
+    T = rotateRodrigues(T, N, phi);
+    T = normalize(T);
     vec3 B = normalize(cross(N, T));
+    
     
 	// directional light source
 	vec3 Pos =  ((cop_w-position)).xyz; // point in camera space
 	vec4 lightDir = (directionArray[0]); // light direction in camera space
 	lightDir = normalize(lightDir);
+
 	
+	// new lightDir in tangent space
 	// light direction: from camera space to tangent space
-	
+	vec3 lit2 = vec3(0.0);
 	float lx = dot(lightDir.xyz, T);
 	float ly = dot(lightDir.xyz, B);
 	float lz = dot(lightDir.xyz, N);
+	lit2 = vec3(lx, ly, lz);
 	
-//	lightDir.x = dot(lightDir.xyz, T); 
-//	lightDir.y = dot(lightDir.xyz, B);
-//	lightDir.z = dot(lightDir.xyz, N);
 	
-	lightDir.w = 0.0;
-	lightDir.xyz = vec3(lx, ly, lz);
+	// new position in tangent space
 	// position: from camera space to tangent space
-	
-	
+	vec3 Pos2 = vec3(0.0);
 	float px = dot(Pos, T);
 	float py = dot(Pos, B);
 	float pz = dot(Pos, N);
+	Pos2 = vec3(px, py, pz);
 	
-//	Pos.x = dot(Pos, T);
-//	Pos.y = dot(Pos, B);
-//	Pos.z = dot(Pos, N);
 	
-	Pos.xyz = vec3(px, py, pz);
-
-	o_pos = Pos;
-	o_light = lightDir.xyz;
+	// stream output
+	o_org_pos = position.xyz;
+	o_pos = Pos2;
+	o_light = normalize(lit2.xyz);
 	o_normal = N;
 	o_tangent = T;
-		
 	frag_texcoord = texcoord;
 	gl_Position = projection * modelview * position;
 }

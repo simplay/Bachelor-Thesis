@@ -19,6 +19,12 @@ public class BodyConstantsManager {
 		
 		bc = new BodyConstants("brick", "jpg");
 		constants.add(bc);
+		
+		bc = new BodyConstants("ElapheFront", "bmp");
+		constants.add(bc);
+		
+		bc = new BodyConstants("ProcessedElapheFrontSmall", "bmp");
+		constants.add(bc);
 	}
 	
 	public BodyConstants getByIdentifyer(String id){

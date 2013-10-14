@@ -19,6 +19,18 @@ public class GraphSceneManager implements SceneManagerInterface{
     private Frustum frustum;
 	private ArrayList<Light> lightSources;
 	
+	//TODO: MOVE US SOMEWHERE ELSE
+	private int thetaI = 0;
+	private int phiI   = 180;
+	
+	public int getThetaI(){
+		return this.thetaI;
+	}
+	
+	public int getPhiI(){
+		return this.phiI;
+	}
+	
 	public GraphSceneManager(){
 		this.lightSources = new ArrayList<Light>();
 		this.camera = new Camera();
