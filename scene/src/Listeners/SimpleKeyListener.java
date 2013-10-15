@@ -116,7 +116,23 @@ public class SimpleKeyListener implements KeyListener{
 		    case 'q':
 		    	moveLAP(3, speed, true);
 				break;
-				
+			
+		    case 't':
+		    	this.sceneManager.incPhiI();
+		    	renderPanel.getCanvas().repaint();
+				break;
+		    case 'g':
+		    	this.sceneManager.decPhiI();
+		    	renderPanel.getCanvas().repaint();
+				break;
+		    case 'z':
+		    	this.sceneManager.incThetaI();
+		    	renderPanel.getCanvas().repaint();
+				break;
+		    case 'h':
+		    	this.sceneManager.decThetaI();
+		    	renderPanel.getCanvas().repaint();
+				break;
 				
 		    case 'u':
 		    	eps = 0.2f;

@@ -23,6 +23,22 @@ public class GraphSceneManager implements SceneManagerInterface{
 	private int thetaI = 0;
 	private int phiI   = 180;
 	
+	public void incThetaI(){
+		this.thetaI = (this.thetaI+1)%360;
+	}
+	
+	public void incPhiI(){
+		this.phiI = (this.phiI+1)%360;
+	}
+	
+	public void decThetaI(){
+		this.thetaI = (this.thetaI-1)%360;
+	}
+	
+	public void decPhiI(){
+		this.phiI = (this.phiI-1)%360;
+	}
+	
 	public int getThetaI(){
 		return this.thetaI;
 	}
