@@ -53,7 +53,7 @@ out vec3 o_org_pos;
 
 const float PI = 3.14159265358979323846264;
 // rotate around 90deg
-const float phi = PI/2.0;
+const float phi = -PI/2.0;
 
 
 // rotate given vector v around given axis with angle phi ccw
