@@ -71,6 +71,11 @@ const float i_rescale = pow(10.0, -9.0);
 float dx = patchSpacing;// 2.5*pow(10.0, -6.0); // -6 // distance between two patches (from center to center), make me parametric too
 float s = maxBumpHeight;// 2.4623*pow(10,-7.0); // -7 // max height of a bump, make me parametric
 
+
+
+float thetaR;
+
+
 //error constants
 const float eps_pq = 1.0*pow(10.0, -5.0); 
 const float eps = 1.0*pow(10.0, -2.2);
@@ -88,6 +93,7 @@ float T_2 = t_0 * N_1;
 float periods = periodCount-1.0; // 26 // number of patch periods along surface
 float Omega = ((N_1/N_2)*2.0*PI)/t_0; // (N_1/N_2)*2*PI/t_0, before 8.0*PI*pow(10.0,7.0);
 float bias = (N_2/2.0)/(N_2-1.0); // old: 50.0/99.0;
+//float bias = (1.0/(N_1-1.0))*((N_1-1.0)/2.0); // old: 50.0/99.0;
 float neighborRadius = (neigh_rad < 5 && neigh_rad > -1) ? float(neigh_rad) : 0.0;
 
 //transformation constant
@@ -122,10 +128,10 @@ const mat3 M_Adobe_XRNew = mat3(
 //FUNCTIONS
 
 //gamma correction
-vec3 getGammaCorrection(vec3 rgb, float t, float f, float s, float gamma){
-	float q = (1.0+f);
-	return q*pow(rgb, vec3(gamma))-f;
-}
+//vec3 getGammaCorrection(vec3 rgb, float t, float f, float s, float gamma){
+//	float q = (1.0+f);
+//	return q*pow(rgb, vec3(gamma))-f;
+//}
 
 
 //see derivations: T_i*w_i is a multiple of 2*PI
@@ -268,6 +274,7 @@ float compute_pq_scale_factor(float w_u, float w_v){
 vec2 taylorApproximation(vec2 coords, float k, float w){
 	vec2 precomputedFourier = vec2(0.0, 0.0);
 	int lower = 0; int upper = int(approxSteps)+1;
+//	upper = 0;
 	float reHeight = 0.0; float imHeight = 0.0;
 	float real_part = 0.0; float imag_part = 0.0;
 	float fourier_coefficients = 1.0;
@@ -345,9 +352,7 @@ vec3 getBRDF_RGB_T_D65(mat3 T, vec3 brdf_xyz){
 
 float getShadowMaskFactor(vec3 K1, vec3 K2){
 	vec3 N = normalize(o_normal);
-	
 	vec3 hVec = -K1 + K2;
-	 
 	hVec = normalize(hVec);
 	
 	float eDotH =  dot(hVec,K2);
@@ -360,13 +365,11 @@ float getShadowMaskFactor(vec3 K1, vec3 K2){
 
 	f1 = min(f1, f2);
 	return min(1.0f, f1);
-
 }
 
 
 float getFresnelFactorAbsolute(vec3 K1, vec3 K2){
 	float nSkin = 1.5;
-	// float nSkin = 1.0015;
 	float nK = 0.0;
 	
 	vec3 hVec = -K1 + K2;
@@ -409,32 +412,35 @@ vec3 rescaleXYZ(float X, float Y, float Z, int index){
 
 float fFByR0;
 float gainF(vec3 K1, vec3 K2){
-	float gF = 1 - dot(K1,K2);
 	
-	 gF = gF*gF;
+	// This side is not visible
+	if (K1.z > 0.0 || K2.z < 0.0){
+		 return 0.0; 
+	}
+	
+	// relative Fresnel Factor
+	float F = getFresnelFactorAbsolute(K1, K2);
+	F = F*F;
+	float cosNumNumSamples = cos(thetaR)*dimN*dimN;
+	
+	// compute G part
+	float G = pow(1 - dot(K1,K2), 2.0); 
+	
+	// since (0,0) for spec
+	float ww = K1.z - K2.z;
+	ww = ww * ww;
 	 
-	 float ww = K1.z - K2.z;
-	 
-	 
-	 if (K1.z > 0.0 || K2.z < 0.0)
-	 {
-		 return 0.0; // This side is not visible
+	 if (ww < pow(10.0,-4.0)){
+		 return 0.0; // Shadowing Function
 	 }
 	 
-	 ww = ww * ww;
-	 
-	 if (ww < pow(10.0,-4.0))
-	 {
-		 // return 0.0; // Shadowing Function
-	 }
-	 
-	 gF = gF / K2.z;
+//	 gF = gF / K2.z;
 	 // Dont do the following division if Shadoing function is used
-	 gF = gF / ww; 
+//	 gF = gF / ww; 
 	 
 	 //float fFac = getFresnelFactor(K1, K2); 
 
-	 return fFByR0*gF;
+	 return (F*G)/(ww*cosNumNumSamples);
 }
 
 vec3 gammaCorrect(vec3 inRGB, float gamma){
@@ -483,9 +489,35 @@ vec3 gammaCorrect(vec3 inRGB, float gamma){
 	return inRGB;
 		
 }
+// get weight of gaussian window
+float getGaussianWeight(float dist2, float sigma_f_pix){
+	// sigma_f_pix = 2*sigma^2
+	float norm_fact = sigma_f_pix*PI;
+	float exponent = -dist2/(sigma_f_pix);
+	float w_ij = exp(exponent);
+		
+	if(abs(exponent) < 1.0*pow(10.0, -18.0)){
+		return w_ij = 1.0;
+	}
+	w_ij /= norm_fact;
+	return w_ij;
+}
+
+
+// get looup coordinates
+vec2 getLookupCoordinates(float variant, float ind1, float ind2){
+	vec2 lookup = vec2(0.0, 0.0);
+	if(variant == 0.0){
+		lookup = vec2((ind1/(dimN-1)) + bias, (ind2/(dimN-1)) + bias);
+	}else{
+		lookup = vec2((ind2/(dimN-1)) + bias, (ind1/(dimN-1)) + bias);
+	}
+	return lookup;
+}
+
+
 
 void runEvaluation(){
-	
 	
 	float abs_P_Sq = 0.0;
 	float real_part = 0.0;
@@ -501,8 +533,15 @@ void runEvaluation(){
 	float phi = -PI/2.0;
 	phi = 0.0;
 	
+	vec4 o_col = vec4(0.0, 0.0, 0.0, 0.0);
+	vec4 brdf = vec4(0.0, 0.0, 0.0, 1.0);
+	vec4 maxBRDF = vec4(0.0, 0.0, 0.0, 1.0);
+	vec2 P = vec2(0.0, 0.0);
+	vec2 coords = vec2(0.0);
+	
+	
 	// okay from here on
-	float thetaR = asin(sqrt(o_org_pos.x * o_org_pos.x + o_org_pos.y * o_org_pos.y ));
+	thetaR = asin(sqrt(o_org_pos.x * o_org_pos.x + o_org_pos.y * o_org_pos.y ));
 	float phiR = atan(o_org_pos.y, o_org_pos.x);
 
 	vec3 _k1 = vec3(0.0f);
@@ -517,65 +556,31 @@ void runEvaluation(){
 	_k2.y = sin(thetaR)*sin(phiR);
 	_k2.z = cos(thetaR);
 
-	
 	float uu0 = _k1.x - _k2.x;
 	float vv0 = _k1.y - _k2.y;
 	float ww = _k1.z - _k2.z;	
 	
-	// new code
-	
-	vec4 o_col = vec4(0.0, 0.0, 0.0, 0.0);
-	vec4 brdf = vec4(0.0, 0.0, 0.0, 1.0);
-	vec4 maxBRDF = vec4(0.0, 0.0, 0.0, 1.0);
-	vec2 P = vec2(0.0, 0.0);
-	vec2 coords = vec2(0.0);
-	
-
 	float fF = getFresnelFactorAbsolute(_k1, _k2);
 	float nSkin = 1.5;
 	float R0 = pow( (nSkin - 1.0) / (nSkin + 1.0) , 2.0); 
+	
 	fFByR0 = fF/R0;
 	float shadowF = getShadowMaskFactor(_k1, _k2);
-	
-	
-	
-	vec3 BumpNorm = vec3(texture2D(bumpMapTexture, frag_texcoord));
-	BumpNorm = (BumpNorm -0.5) * 2.0;
-	float NdotL = max(dot(BumpNorm, o_light.xyz), 0.0);
-	
-//	vec3 _k2 = normalize(o_pos); //vector from point P to camera
-//	vec3 _k1 = normalize(o_light); // light direction, same for every point		
-	
-	
 
-	
 	vec3 V = vec3(uu0, vv0, ww);
 	float u = V.x; float v = V.y; float w = V.z;
-	float F = getAbsFressnelFactor(_k1, _k2); // issue G may cause nan
-	float G = computeGFactor(o_normal, _k1, _k2); // 
-
-	if(dot(o_normal, -_k1) < 0.0) F = 0.0;
 	
 	// get iteration bounds for given (u,v)
 	vec2 N_u = compute_N_min_max(u);
 	vec2 N_v = compute_N_min_max(v);
 	vec2 N_uv[2] = vec2[2](N_u, N_v);
-	vec2 modUV = getRotation(u,v,phi);
+//	vec2 modUV = getRotation(u,v,phi);
 	
 	float uv_sqr = pow(u*u+v*v, 0.5);
-	bool non_adaptive = false;
-	bool was_in_eps = false;
-	
-	
+
 	float iterMax = 100.0;
-	int failCounter = 0;
-	non_adaptive = true;
-	if(non_adaptive){
-		uv_sqr = 1.0;
-		iterMax = 200.0;
-	}
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
-//	float F2 = fFByR0*fFByR0;
+	float F2 = fFByR0*fFByR0;
 	
 	
 	float stepSize = 1.0;
@@ -583,13 +588,11 @@ void runEvaluation(){
 	float comp_sigma = sigma_f_pix;
 	sigma_f_pix *= sigma_f_pix;
 	sigma_f_pix *= 2.0;
-	float norm_fact = sigma_f_pix*PI;
 	
 	
-	
+	// case: specular
 	if(uv_sqr < eps){
-		brdf = vec4(F, F, F, 1.0);
-		was_in_eps = true;
+		brdf = vec4(F2, F2, F2, 1.0);
 	}else{
 		// iterate twice: once for N_u and once for N_v lower,upper
 		for(int variant = 0; variant < 2; variant++){
@@ -597,13 +600,7 @@ void runEvaluation(){
 			// get N_min and N_max for sampling
 			int lower = int(N_uv[variant].x);
 			int upper = int(N_uv[variant].y);
-			float delta_N_min_max = upper-lower;
-			
-			// count for too slow for treshold - if so skip current loop.
-			if(delta_N_min_max < 0.0){
-				failCounter++;
-			}
-			
+			float delta_N_min_max = upper-lower;		
 			
 			// handle case t in {u,v}
 			if(variant == 0){
@@ -614,11 +611,9 @@ void runEvaluation(){
 				t2 = u;
 			}
 			
-
-			
-			
-			
 			// iterate over line for fixed t in {u,v}
+			// sampling process along given direction - either u or v
+			// sample uniformly for wavenumber k and hance nonuniformly for lambda
 			for(float iter = lower; iter <= upper; iter = iter + stepSize){
 				if(iter == 0.0) continue;
 				
@@ -637,74 +632,46 @@ void runEvaluation(){
 				float uu_N_base = uu_N_n - neighborRadius;
 				float uv_N_base = uv_N_n - neighborRadius;
 				
-				// xyz value of color for current wavelength.
+				// xyz value of color for current wavelength (regarding current wavenumber k).
 				vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
-				
 				
 				// iterte over neighbor winodw of size (2*neighborRadius+1)x(2*neighborRadius+1)
 				for(float ind1 = uu_N_base; ind1 <= uu_N_base + 2.0*neighborRadius; ind1 = ind1 + 1.0){
 					for(float ind2 = uv_N_base; ind2 <= uv_N_base + 2.0*neighborRadius; ind2 = ind2 + 1.0){
-						
-						
-						// get L1 distance to neighbor
+							
+						// get L1 distance to neighbor from current pixel
 						float dist2 = pow(ind1-uu_N_base, 2.0) + pow(ind2-uv_N_n_hat, 2.0);
-						 
-						// case distinction: depending on value of t, i.e. value of variance
-						if(variant == 0.0){
-							coords = vec2( (ind1/(dimN-1)) + bias, (ind2/(dimN-1)) + bias); //2d case
-						}else{
-							coords = vec2( (ind2/(dimN-1)) + bias, (ind1/(dimN-1)) + bias); //2d case
-						}
-
+						
+						// get lookup coordinates for current pixel
+						coords = getLookupCoordinates(variant, ind1, ind2);
 						
 						// clip if coordiantes are not within bound [0,1]x[0,1]
 						if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
-						
 						
 						// complex valued frequency contribution of current pixel.
 						P = taylorApproximation(coords, k, w);
 						
 						// compute gaussion weight of current pixel
-						float exponent = -dist2/(sigma_f_pix);
-						float w_ij = exp(exponent);
-							
-						if(abs(exponent) < 1.0*pow(10.0, -18.0) ){
-							w_ij = 1.0;
-						}
-								
-//						if(abs(norm_fact) < 1.0*pow(10.0, -10.0)) norm_fact = 1.0;
-						w_ij /= norm_fact;
+						float w_ij = getGaussianWeight(dist2, sigma_f_pix);
 						
 						// phaser of current pixel contribution.
 						float pq_scale = compute_pq_scale_factor(w_u,w_v);
-						if(isinf(pq_scale)) pq_scale = 1.0;
-						if(isnan(pq_scale)) pq_scale = 1.0;
-						
 						P *= pq_scale;
-							
+						
 						// amplitute of current pixel contribution
 						float abs_P_Sq = P.x*P.x + P.y*P.y;
-						abs_P_Sq *= w_ij;
 						
-						// brdf coefficient after squaring them. 
-						float diffractionCoeff = getFactor(k, F, G, w);
-						diffractionCoeff = 1.0;
+						// weight with window
+						abs_P_Sq *= w_ij;
 
 						// summation of brdf over all wavelengths under consideration.
-						brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 0.0);	
-						maxBRDF += vec4(waveColor, 0.0);					
+						brdf += vec4(abs_P_Sq * waveColor, 0.0);					
 					}
 				}
 			}
 		}
 	}
-	
 
-
-
-//	brdf.xyz = fac2*fac2*fac2*fac2*brdf.xyz;
-		
-	
 	float ambient = 0.0;	
 	// remove negative values
 	if(brdf.x < 0.0 ) brdf.x = 0.0;
@@ -713,7 +680,7 @@ void runEvaluation(){
 	brdf.w = 1.0;
 	
 	
-	brdf.xyz = brdf.xyz * gainF(_k1, _k2) * shadowF * (1.0/(cos(thetaR)*dimN*dimN*2000));	
+	brdf.xyz = brdf.xyz * gainF(_k1, _k2) * shadowF;	
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	
@@ -729,6 +696,9 @@ void runEvaluation(){
 //	vec4 passcolor = (1.0-F2)*tex+(o_col);
 	
 //	frag_shaded	= vec4(passcolor.xyz*NdotL, 1.0) + vec4(ambient,ambient,ambient,0.0);
+//	frag_shaded	= o_col;
+//	o_col = vec4(maxBRDF.xyz,1.0);
+//	if(dot(maxBRDF.xyz,maxBRDF.xyz) < eps) o_col = vec4(1.0, 1.0, 1.0, 1.0);
 	frag_shaded	= o_col;
 //	frag_shaded	= vec4(0,1,0,1);
 }
