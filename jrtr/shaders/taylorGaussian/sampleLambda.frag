@@ -578,7 +578,7 @@ void runEvaluation(){
 	
 	float uv_sqr = pow(u*u+v*v, 0.5);
 
-	float iterMax = 100.0;
+	float iterMax = 200.0;
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	float F2 = fFByR0*fFByR0;
 	
@@ -619,8 +619,8 @@ void runEvaluation(){
 	if(brdf.z < 0.0 ) brdf.z = 0.0;
 	brdf.w = 1.0;
 	
-	
-	brdf.xyz = brdf.xyz * gainF(_k1, _k2) * shadowF;	
+//	brdf.xyz =  brdf.xyz * gainF(_k1, _k2);
+	brdf.xyz = brdf.xyz * gainF(_k1, _k2) * shadowF*1000.0;	
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	

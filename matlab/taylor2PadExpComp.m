@@ -39,7 +39,7 @@ function taylor2PadExpComp
 	for n=0:1:steps,
 	
 		B = A.^n;
-		C = fftshift(fft2(B));
+		C = fftshift(ifft2(B));
 		
 		
 		% find real minimum in shifted D matrix.
