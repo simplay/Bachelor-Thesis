@@ -92,9 +92,14 @@ float T_1 = t_0 * N_1;
 float T_2 = t_0 * N_1;
 float periods = periodCount-1.0; // 26 // number of patch periods along surface
 float Omega = ((N_1/N_2)*2.0*PI)/t_0; // (N_1/N_2)*2*PI/t_0, before 8.0*PI*pow(10.0,7.0);
+
+
 //float bias = (N_2/2.0)/(N_2-1.0); // old: 50.0/99.0;
-float bias = (1.0/(N_1-1.0))*((N_1-1.0)/2.0); // old: 50.0/99.0;
-//float bias = 0.5; // old: 50.0/99.0;
+
+
+// for 99 works fine
+//float bias = (1.0/(N_1-1.0))*((N_1-1.0)/2.0); // old: 50.0/99.0;
+float bias = 0.5; // old: 50.0/99.0;
 
 
 float neighborRadius = (neigh_rad < 5 && neigh_rad > -1) ? float(neigh_rad) : 0.0;
@@ -375,7 +380,7 @@ float getShadowMaskFactor(vec3 K1, vec3 K2){
 }
 
 
-float getFresnelFactorAbsolute(vec3 K1, vec3 K2){
+float getFresnelFactorAbsoluteRelative(vec3 K1, vec3 K2){
 	float nSkin = 1.5;
 	float nK = 0.0;
 	
@@ -426,7 +431,7 @@ float gainF(vec3 K1, vec3 K2){
 	}
 	
 	// relative Fresnel Factor
-	float F = getFresnelFactorAbsolute(K1, K2);
+	float F = fFByR0;
 	F = F*F;
 //	float cosNumNumSamples = cos(thetaR)*dimN*dimN;
 	float cosNumNumSamples = 1.0;
@@ -567,11 +572,7 @@ void runEvaluation(){
 	float vv0 = _k1.y - _k2.y;
 	float ww = _k1.z - _k2.z;	
 	
-	float fF = getFresnelFactorAbsolute(_k1, _k2);
-	float nSkin = 1.5;
-	float R0 = pow( (nSkin - 1.0) / (nSkin + 1.0) , 2.0); 
-	
-	fFByR0 = fF/R0;
+	fFByR0 = getFresnelFactorAbsoluteRelative(_k1, _k2);
 	float shadowF = getShadowMaskFactor(_k1, _k2);
 
 	vec3 V = vec3(uu0, vv0, ww);
@@ -583,9 +584,8 @@ void runEvaluation(){
 	vec2 N_uv[2] = vec2[2](N_u, N_v);
 	vec2 modUV = getRotation(u,v,phi);
 	
-	float uv_sqr = pow(u*u+v*v, 0.5);
 
-	float iterMax = 300.0;
+	float iterMax = 500.0;
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	float F2 = fFByR0*fFByR0;
 	
