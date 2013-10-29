@@ -92,8 +92,11 @@ float T_1 = t_0 * N_1;
 float T_2 = t_0 * N_1;
 float periods = periodCount-1.0; // 26 // number of patch periods along surface
 float Omega = ((N_1/N_2)*2.0*PI)/t_0; // (N_1/N_2)*2*PI/t_0, before 8.0*PI*pow(10.0,7.0);
-float bias = (N_2/2.0)/(N_2-1.0); // old: 50.0/99.0;
-//float bias = (1.0/(N_1-1.0))*((N_1-1.0)/2.0); // old: 50.0/99.0;
+//float bias = (N_2/2.0)/(N_2-1.0); // old: 50.0/99.0;
+float bias = (1.0/(N_1-1.0))*((N_1-1.0)/2.0); // old: 50.0/99.0;
+//float bias = 0.5; // old: 50.0/99.0;
+
+
 float neighborRadius = (neigh_rad < 5 && neigh_rad > -1) ? float(neigh_rad) : 0.0;
 
 //transformation constant
@@ -298,22 +301,26 @@ vec2 taylorApproximation(vec2 coords, float k, float w){
 		float fourier_re = fourier_coefficients*precomputedFourier.x;
 		float fourier_im = fourier_coefficients*precomputedFourier.y;
 		
-		if(n % 4 == 0){
-			real_part += fourier_re;
-			imag_part += fourier_im;
-			
-		}else if(n % 4 == 1){
-			real_part -= fourier_im;
-			imag_part += fourier_re;
-			
-		}else if(n % 4 == 2){
-			real_part -= fourier_re;
-			imag_part -= fourier_im;
-			
-		}else{
-			real_part += fourier_im;
-			imag_part -= fourier_re;
-		}
+		
+		real_part += fourier_re;
+		imag_part += fourier_im;
+		
+//		if(n % 4 == 0){
+//			real_part += fourier_re;
+//			imag_part += fourier_im;
+//			
+//		}else if(n % 4 == 1){
+//			real_part -= fourier_im;
+//			imag_part += fourier_re;
+//			
+//		}else if(n % 4 == 2){
+//			real_part -= fourier_re;
+//			imag_part -= fourier_im;
+//			
+//		}else{
+//			real_part += fourier_im;
+//			imag_part -= fourier_re;
+//		}
 	}
 	
 	return vec2(real_part, imag_part);
@@ -389,9 +396,9 @@ float getFresnelFactorAbsolute(vec3 K1, vec3 K2){
 		fF = fF + 4*nSkin*pow(1- cosTheta,5.0) + nK*nK;
 	
 	// do this division if its not on relative scale
-	fF = fF/ ((nSkin + 1.0)* (nSkin + 1.0) + nK*nK);
+	fF = fF / ((nSkin + 1.0)* (nSkin + 1.0) + nK*nK);
 	
-	return fF;
+	return fF/R0;
 }
 
 vec3 rescaleXYZ(float X, float Y, float Z, int index){
@@ -421,8 +428,8 @@ float gainF(vec3 K1, vec3 K2){
 	// relative Fresnel Factor
 	float F = getFresnelFactorAbsolute(K1, K2);
 	F = F*F;
-	float cosNumNumSamples = cos(thetaR)*dimN*dimN;
-	
+//	float cosNumNumSamples = cos(thetaR)*dimN*dimN;
+	float cosNumNumSamples = 1.0;
 	// compute G part
 	float G = pow(1 - dot(K1,K2), 2.0); 
 	
@@ -578,7 +585,7 @@ void runEvaluation(){
 	
 	float uv_sqr = pow(u*u+v*v, 0.5);
 
-	float iterMax = 200.0;
+	float iterMax = 300.0;
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	float F2 = fFByR0*fFByR0;
 	
@@ -594,33 +601,35 @@ void runEvaluation(){
 		
 		float lambda_iter = iter*lambdaStep + lambda_min;
 		k = (2.0*PI) / lambda_iter;
-		vec2 coords = vec2((k*modUV.x/Omega) + bias, (k*modUV.y/Omega) + bias); //2d
+//		k = (1.0*PI) / lambda_iter;
+		
+		vec2 coords = vec2((k*u/(Omega)) + bias, (k*v/(Omega)) + bias); //2d
+//		vec2 coords = vec2((k*modUV.x/Omega) + bias, (k*modUV.y/Omega) + bias); //2d
 
 		if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
+		float kk = (1.0) / lambda_iter;
 		
 		float w_u = k*u;
 		float w_v = k*v;
 		
-		P = taylorApproximation(coords, k, w);
+		P = taylorApproximation(coords, kk, w);
 		
 		float pq_scale = compute_pq_scale_factor(w_u, w_v);
 		P *= pq_scale;
 		
 		float abs_P_Sq = P.x*P.x + P.y*P.y;
-		float diffractionCoeff = 1.0;
 		vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
-		brdf += vec4(diffractionCoeff * abs_P_Sq * waveColor, 1.0);	
+		brdf += vec4(abs_P_Sq * waveColor, 1.0);	
 	}
 
-	float ambient = 0.0;	
+	float ambient = 0.1;	
 	// remove negative values
 	if(brdf.x < 0.0 ) brdf.x = 0.0;
 	if(brdf.y < 0.0 ) brdf.y = 0.0;
 	if(brdf.z < 0.0 ) brdf.z = 0.0;
 	brdf.w = 1.0;
 	
-//	brdf.xyz =  brdf.xyz * gainF(_k1, _k2);
-	brdf.xyz = brdf.xyz * gainF(_k1, _k2) * shadowF*1000.0;	
+	brdf =  brdf*10000.0*gainF(_k1, _k2);
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	
