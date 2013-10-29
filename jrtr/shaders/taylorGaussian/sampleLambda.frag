@@ -97,9 +97,20 @@ float Omega = ((N_1/N_2)*2.0*PI)/t_0; // (N_1/N_2)*2*PI/t_0, before 8.0*PI*pow(1
 //float bias = (N_2/2.0)/(N_2-1.0); // old: 50.0/99.0;
 
 
+float getBias(){
+	float tmp_bias = 0.0;
+	if(int(N_2)%2 == 0){
+		tmp_bias = (N_2/2.0)/(N_2-1.0);
+	}else{
+		tmp_bias = 0.5; // old: 50.0/99.0;
+	}
+	return tmp_bias;
+}
+float bias = getBias();
+
 // for 99 works fine
 //float bias = (1.0/(N_1-1.0))*((N_1-1.0)/2.0); // old: 50.0/99.0;
-float bias = 0.5; // old: 50.0/99.0;
+//float bias = 0.5; // old: 50.0/99.0;
 
 
 float neighborRadius = (neigh_rad < 5 && neigh_rad > -1) ? float(neigh_rad) : 0.0;
@@ -579,13 +590,11 @@ void runEvaluation(){
 	float u = V.x; float v = V.y; float w = V.z;
 	
 	// get iteration bounds for given (u,v)
-	vec2 N_u = compute_N_min_max(u);
-	vec2 N_v = compute_N_min_max(v);
-	vec2 N_uv[2] = vec2[2](N_u, N_v);
-	vec2 modUV = getRotation(u,v,phi);
-	
+//	vec2 N_u = compute_N_min_max(u);
+//	vec2 N_v = compute_N_min_max(v);
+//	vec2 N_uv[2] = vec2[2](N_u, N_v);
 
-	float iterMax = 500.0;
+	float iterMax = 100.0;
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	float F2 = fFByR0*fFByR0;
 	
