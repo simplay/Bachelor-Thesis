@@ -531,9 +531,13 @@ float getGaussianWeight(float dist2, float sigma_f_pix){
 vec2 getLookupCoordinates(float variant, float ind1, float ind2){
 	vec2 lookup = vec2(0.0, 0.0);
 	if(variant == 0.0){
-		lookup = vec2((ind1/(dimN-1)) + bias, (ind2/(dimN-1)) + bias);
+//		lookup = vec2((ind1/(dimN-1)) + bias, (ind2/(dimN-1)) + bias);
 	}else{
-		lookup = vec2((ind2/(dimN-1)) + bias, (ind1/(dimN-1)) + bias);
+		lookup = vec2((ind1/(dimN-1)) + bias, (ind2/(dimN-1)) + bias);
+//		float left = (ind2)/(dimN-1);
+//		float right = 1.0-(ind1)/(dimN-1);
+//		
+//		lookup = vec2(right + bias, left + bias);
 	}
 	return lookup;
 }
@@ -554,7 +558,7 @@ void runEvaluation(){
 	float t1 = 0.0;
 	float t2 = 0.0;
 	float phi = -PI/2.0;
-	phi = 0.0;
+//	phi = 0.0;
 	
 	vec4 o_col = vec4(0.0, 0.0, 0.0, 0.0);
 	vec4 brdf = vec4(0.0, 0.0, 0.0, 1.0);
@@ -597,7 +601,7 @@ void runEvaluation(){
 	vec2 N_u = compute_N_min_max(u);
 	vec2 N_v = compute_N_min_max(v);
 	vec2 N_uv[2] = vec2[2](N_u, N_v);
-//	vec2 modUV = getRotation(u,v,phi);
+	vec2 modUV = getRotation(u,v,phi);
 	
 	float uv_sqr = pow(u*u+v*v, 0.5);
 
@@ -632,6 +636,11 @@ void runEvaluation(){
 			}else{
 				t1 = v;
 				t2 = u;
+				
+				
+//				t2 = modUV.x;
+//				t1 = modUV.y;
+				
 			}
 			
 			// iterate over line for fixed t in {u,v}
@@ -672,7 +681,7 @@ void runEvaluation(){
 						
 						// get lookup coordinates for current pixel
 						coords = getLookupCoordinates(variant, ind1, ind2);
-						
+
 						// clip if coordiantes are not within bound [0,1]x[0,1]
 						if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
 						
@@ -700,6 +709,7 @@ void runEvaluation(){
 		}
 	}
 
+
 	float ambient = 0.1;	
 	// remove negative values
 	if(brdf.x < 0.0 ) brdf.x = 0.0;
@@ -707,7 +717,11 @@ void runEvaluation(){
 	if(brdf.z < 0.0 ) brdf.z = 0.0;
 	brdf.w = 1.0;
 	
-	brdf =  brdf*100.0*gainF(_k1, _k2);
+	if(brdf.x < 1e-6) brdf.x = 0.0;
+	if(brdf.y < 1e-6) brdf.y = 0.0;
+	if(brdf.z < 1e-6) brdf.z = 0.0;
+	
+	brdf =  brdf*1000000.0*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	

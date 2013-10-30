@@ -657,7 +657,7 @@ void runEvaluation(){
 				
 				// amplitute of current pixel contribution
 				float abs_P_Sq = P.x*P.x + P.y*P.y;
-				
+
 				// weight with window
 				abs_P_Sq *= w_ij;
 
@@ -666,25 +666,6 @@ void runEvaluation(){
 			}
 		}
 		
-		
-		
-		
-		
-//		vec2 coords = vec2((k*u/(Omega)) + bias, (k*v/(Omega)) + bias); //2d
-//		if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
-//		
-//		
-//		float w_u = k*u;
-//		float w_v = k*v;
-//		
-//		P = taylorApproximation(coords, kk, w);
-//		
-//		float pq_scale = compute_pq_scale_factor(w_u, w_v);
-//		P *= pq_scale;
-//		
-//		float abs_P_Sq = P.x*P.x + P.y*P.y;
-//		vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
-//		brdf += vec4(abs_P_Sq * waveColor, 1.0);	
 	}
 
 	float ambient = 0.1;	
@@ -693,6 +674,10 @@ void runEvaluation(){
 	if(brdf.y < 0.0 ) brdf.y = 0.0;
 	if(brdf.z < 0.0 ) brdf.z = 0.0;
 	brdf.w = 1.0;
+	
+	if(brdf.x < 1e-7) brdf.x = 0.0;
+	if(brdf.y < 1e-7) brdf.y = 0.0;
+	if(brdf.z < 1e-7) brdf.z = 0.0;
 	
 	brdf =  brdf*100.0*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
