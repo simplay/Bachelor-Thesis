@@ -604,7 +604,8 @@ void runEvaluation(){
 	float comp_sigma = sigma_f_pix;
 	sigma_f_pix *= sigma_f_pix;
 	sigma_f_pix *= 2.0;
-	
+	t1 = u;
+	t2 = v;
 	
 	for(float iter = 0; iter < iterMax; iter = iter + 1.0){
 		
@@ -619,8 +620,11 @@ void runEvaluation(){
 		
 		float uv_N_n_hat = (kk*dx*t2);
 		float uv_N_n = floor(uv_N_n_hat);
-		float uu_N_n = (kk*dx*t1);
-			
+		
+		
+		float uu_N_n_hat = (kk*dx*t1);
+		float uu_N_n = floor(uu_N_n_hat);
+
 		float uu_N_base = uu_N_n - neighborRadius;
 		float uv_N_base = uv_N_n - neighborRadius;
 		
@@ -642,7 +646,7 @@ void runEvaluation(){
 				if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
 				
 				// complex valued frequency contribution of current pixel.
-				P = taylorApproximation(coords, k, w);
+				P = taylorApproximation(coords, kk, w);
 				
 				// compute gaussion weight of current pixel
 				float w_ij = getGaussianWeight(dist2, sigma_f_pix);
@@ -690,7 +694,7 @@ void runEvaluation(){
 	if(brdf.z < 0.0 ) brdf.z = 0.0;
 	brdf.w = 1.0;
 	
-	brdf =  brdf*10000.0*gainF(_k1, _k2);
+	brdf =  brdf*10000.0*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	
