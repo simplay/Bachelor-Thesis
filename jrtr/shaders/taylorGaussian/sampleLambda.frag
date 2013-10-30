@@ -594,7 +594,7 @@ void runEvaluation(){
 //	vec2 N_v = compute_N_min_max(v);
 //	vec2 N_uv[2] = vec2[2](N_u, N_v);
 
-	float iterMax = 100.0;
+	float iterMax = 20.0;
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	float F2 = fFByR0*fFByR0;
 	
@@ -638,7 +638,7 @@ void runEvaluation(){
 	if(brdf.z < 0.0 ) brdf.z = 0.0;
 	brdf.w = 1.0;
 	
-	brdf =  brdf*10000.0*gainF(_k1, _k2);
+	brdf =  brdf*100.0*gainF(_k1, _k2);
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	

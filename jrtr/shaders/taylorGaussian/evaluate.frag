@@ -92,8 +92,27 @@ float T_1 = t_0 * N_1;
 float T_2 = t_0 * N_1;
 float periods = periodCount-1.0; // 26 // number of patch periods along surface
 float Omega = ((N_1/N_2)*2.0*PI)/t_0; // (N_1/N_2)*2*PI/t_0, before 8.0*PI*pow(10.0,7.0);
-float bias = (N_2/2.0)/(N_2-1.0); // old: 50.0/99.0;
+
+
+//float bias = (N_2/2.0)/(N_2-1.0); // old: 50.0/99.0;
+
+
+float getBias(){
+	float tmp_bias = 0.0;
+	if(int(N_2)%2 == 0){
+		tmp_bias = (N_2/2.0)/(N_2-1.0);
+	}else{
+		tmp_bias = 0.5; // old: 50.0/99.0;
+	}
+	return tmp_bias;
+}
+float bias = getBias();
+
+// for 99 works fine
 //float bias = (1.0/(N_1-1.0))*((N_1-1.0)/2.0); // old: 50.0/99.0;
+//float bias = 0.5; // old: 50.0/99.0;
+
+
 float neighborRadius = (neigh_rad < 5 && neigh_rad > -1) ? float(neigh_rad) : 0.0;
 
 //transformation constant
@@ -298,22 +317,26 @@ vec2 taylorApproximation(vec2 coords, float k, float w){
 		float fourier_re = fourier_coefficients*precomputedFourier.x;
 		float fourier_im = fourier_coefficients*precomputedFourier.y;
 		
-		if(n % 4 == 0){
-			real_part += fourier_re;
-			imag_part += fourier_im;
-			
-		}else if(n % 4 == 1){
-			real_part -= fourier_im;
-			imag_part += fourier_re;
-			
-		}else if(n % 4 == 2){
-			real_part -= fourier_re;
-			imag_part -= fourier_im;
-			
-		}else{
-			real_part += fourier_im;
-			imag_part -= fourier_re;
-		}
+		
+		real_part += fourier_re;
+		imag_part += fourier_im;
+		
+//		if(n % 4 == 0){
+//			real_part += fourier_re;
+//			imag_part += fourier_im;
+//			
+//		}else if(n % 4 == 1){
+//			real_part -= fourier_im;
+//			imag_part += fourier_re;
+//			
+//		}else if(n % 4 == 2){
+//			real_part -= fourier_re;
+//			imag_part -= fourier_im;
+//			
+//		}else{
+//			real_part += fourier_im;
+//			imag_part -= fourier_re;
+//		}
 	}
 	
 	return vec2(real_part, imag_part);
@@ -368,7 +391,7 @@ float getShadowMaskFactor(vec3 K1, vec3 K2){
 }
 
 
-float getFresnelFactorAbsolute(vec3 K1, vec3 K2){
+float getFresnelFactorAbsoluteRelative(vec3 K1, vec3 K2){
 	float nSkin = 1.5;
 	float nK = 0.0;
 	
@@ -389,9 +412,9 @@ float getFresnelFactorAbsolute(vec3 K1, vec3 K2){
 		fF = fF + 4*nSkin*pow(1- cosTheta,5.0) + nK*nK;
 	
 	// do this division if its not on relative scale
-	fF = fF/ ((nSkin + 1.0)* (nSkin + 1.0) + nK*nK);
+	fF = fF / ((nSkin + 1.0)* (nSkin + 1.0) + nK*nK);
 	
-	return fF;
+	return fF/R0;
 }
 
 vec3 rescaleXYZ(float X, float Y, float Z, int index){
@@ -419,10 +442,10 @@ float gainF(vec3 K1, vec3 K2){
 	}
 	
 	// relative Fresnel Factor
-	float F = getFresnelFactorAbsolute(K1, K2);
+	float F = fFByR0;
 	F = F*F;
-	float cosNumNumSamples = cos(thetaR)*dimN*dimN;
-	
+//	float cosNumNumSamples = cos(thetaR)*dimN*dimN;
+	float cosNumNumSamples = 1.0;
 	// compute G part
 	float G = pow(1 - dot(K1,K2), 2.0); 
 	
@@ -560,11 +583,11 @@ void runEvaluation(){
 	float vv0 = _k1.y - _k2.y;
 	float ww = _k1.z - _k2.z;	
 	
-	float fF = getFresnelFactorAbsolute(_k1, _k2);
+	float fF = getFresnelFactorAbsoluteRelative(_k1, _k2);
 	float nSkin = 1.5;
 	float R0 = pow( (nSkin - 1.0) / (nSkin + 1.0) , 2.0); 
 	
-	fFByR0 = fF/R0;
+	fFByR0 = getFresnelFactorAbsoluteRelative(_k1, _k2);
 	float shadowF = getShadowMaskFactor(_k1, _k2);
 
 	vec3 V = vec3(uu0, vv0, ww);
@@ -620,15 +643,20 @@ void runEvaluation(){
 				// current wavelength
 				lambda_iter = (dx*t1)/iter;
 				k = 2.0*PI / lambda_iter;
+				float kk = (1.0) / lambda_iter;
+				
 				
 				// compute omega small
 				float w_u = k*u;
 				float w_v = k*v;
 				
-				float uv_N_n_hat = (k*dx*t2)/(2.0*PI);
+				float uv_N_n_hat = (kk*dx*t2);
 				float uv_N_n = floor(uv_N_n_hat);
-				float uu_N_n = (k*dx*t1)/(2.0*PI);
-					
+				
+				
+				float uu_N_n_hat = (kk*dx*t1);
+				float uu_N_n = (uu_N_n_hat);
+
 				float uu_N_base = uu_N_n - neighborRadius;
 				float uv_N_base = uv_N_n - neighborRadius;
 				
@@ -649,7 +677,7 @@ void runEvaluation(){
 						if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
 						
 						// complex valued frequency contribution of current pixel.
-						P = taylorApproximation(coords, k, w);
+						P = taylorApproximation(coords, kk, w);
 						
 						// compute gaussion weight of current pixel
 						float w_ij = getGaussianWeight(dist2, sigma_f_pix);
@@ -672,15 +700,14 @@ void runEvaluation(){
 		}
 	}
 
-	float ambient = 0.0;	
+	float ambient = 0.1;	
 	// remove negative values
 	if(brdf.x < 0.0 ) brdf.x = 0.0;
 	if(brdf.y < 0.0 ) brdf.y = 0.0;
 	if(brdf.z < 0.0 ) brdf.z = 0.0;
 	brdf.w = 1.0;
 	
-	
-	brdf.xyz = brdf.xyz * gainF(_k1, _k2) * shadowF;	
+	brdf =  brdf*100.0*gainF(_k1, _k2);
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	

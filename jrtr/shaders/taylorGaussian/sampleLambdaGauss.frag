@@ -623,7 +623,7 @@ void runEvaluation(){
 		
 		
 		float uu_N_n_hat = (kk*dx*t1);
-		float uu_N_n = floor(uu_N_n_hat);
+		float uu_N_n = (uu_N_n_hat);
 
 		float uu_N_base = uu_N_n - neighborRadius;
 		float uv_N_base = uv_N_n - neighborRadius;
@@ -694,7 +694,7 @@ void runEvaluation(){
 	if(brdf.z < 0.0 ) brdf.z = 0.0;
 	brdf.w = 1.0;
 	
-	brdf =  brdf*10000.0*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*100.0*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	
