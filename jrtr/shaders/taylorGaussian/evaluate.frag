@@ -531,7 +531,7 @@ float getGaussianWeight(float dist2, float sigma_f_pix){
 vec2 getLookupCoordinates(float variant, float ind1, float ind2){
 	vec2 lookup = vec2(0.0, 0.0);
 	if(variant == 0.0){
-//		lookup = vec2((ind1/(dimN-1)) + bias, (ind2/(dimN-1)) + bias);
+		lookup = vec2((ind1/(dimN-1)) + bias, (ind2/(dimN-1)) + bias);
 	}else{
 		lookup = vec2((ind1/(dimN-1)) + bias, (ind2/(dimN-1)) + bias);
 //		float left = (ind2)/(dimN-1);
@@ -622,7 +622,7 @@ void runEvaluation(){
 		brdf = vec4(F2, F2, F2, 1.0);
 	}else{
 		// iterate twice: once for N_u and once for N_v lower,upper
-		for(int variant = 0; variant < 2; variant++){
+		for(int variant = 0; variant < 1; variant++){
 			
 			// get N_min and N_max for sampling
 			int lower = int(N_uv[variant].x);
@@ -710,7 +710,7 @@ void runEvaluation(){
 	}
 
 
-	float ambient = 0.1;	
+	float ambient = 0.0;	
 	// remove negative values
 	if(brdf.x < 0.0 ) brdf.x = 0.0;
 	if(brdf.y < 0.0 ) brdf.y = 0.0;

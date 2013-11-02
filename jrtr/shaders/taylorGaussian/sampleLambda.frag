@@ -610,13 +610,21 @@ void runEvaluation(){
 		
 		float lambda_iter = iter*lambdaStep + lambda_min;
 		k = (2.0*PI) / lambda_iter;
+		float kk = (1.0) / lambda_iter;
 //		k = (1.0*PI) / lambda_iter;
 		
 		vec2 coords = vec2((k*u/(Omega)) + bias, (k*v/(Omega)) + bias); //2d
+		
+		
+		float omega = (30.0/100.0)*8.0*PI*pow(10.0,7.0);
+		
+//		coords = vec2((k*u/(Omega)) + bias, (k*v/(Omega)) + bias); //2d
+//		coords = vec2(0.5, (k*v/(omega))+0.5); //2d
+//		coords = vec2((k*v/(Omega)) + bias,  bias); //2d
 //		vec2 coords = vec2((k*modUV.x/Omega) + bias, (k*modUV.y/Omega) + bias); //2d
 
 		if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
-		float kk = (1.0) / lambda_iter;
+		
 		
 		float w_u = k*u;
 		float w_v = k*v;
@@ -631,14 +639,18 @@ void runEvaluation(){
 		brdf += vec4(abs_P_Sq * waveColor, 1.0);	
 	}
 
-	float ambient = 0.1;	
+	float ambient = 0.0;	
 	// remove negative values
 	if(brdf.x < 0.0 ) brdf.x = 0.0;
 	if(brdf.y < 0.0 ) brdf.y = 0.0;
 	if(brdf.z < 0.0 ) brdf.z = 0.0;
 	brdf.w = 1.0;
 	
-	brdf =  brdf*100.0*gainF(_k1, _k2);
+	if(brdf.x < 1e-7) brdf.x = 0.0;
+	if(brdf.y < 1e-7) brdf.y = 0.0;
+	if(brdf.z < 1e-7) brdf.z = 0.0;
+	
+	brdf =  brdf*10000000.0*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	
@@ -648,7 +660,7 @@ void runEvaluation(){
 	else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) o_col = vec4(0.0, 1.0, 0.0, 1.0);
 	else o_col = brdf+vec4(ambient,ambient,ambient,0.0);
 //	else o_col = vec4(ambient,ambient,ambient,1.0);
-	o_col = vec4(gammaCorrect(o_col.xyz, 1.1), 1.0f);
+	o_col = vec4(gammaCorrect(o_col.xyz, 1.3), 1.0f);
 //	vec4 tex = texture2D(bodyTexture, frag_texcoord);
 //	frag_shaded	= o_col;
 //	vec4 passcolor = (1.0-F2)*tex+(o_col);
@@ -658,7 +670,6 @@ void runEvaluation(){
 //	o_col = vec4(maxBRDF.xyz,1.0);
 //	if(dot(maxBRDF.xyz,maxBRDF.xyz) < eps) o_col = vec4(1.0, 1.0, 1.0, 1.0);
 	frag_shaded	= o_col;
-//	frag_shaded	= vec4(0,1,0,1);
 }
 
 void main(){

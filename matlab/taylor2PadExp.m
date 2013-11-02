@@ -1,23 +1,28 @@
 function taylor2PadExp
 	format long
 	steps=30;
-    dimN = 100;
-    dimSmall = 30;
-    dimDiff = (dimN-dimSmall)/2;
-    dimN = 100;
-    rep_nn=1;
-    out = 'out/';
-    patch_basis_path = '../input_patches/';
-    RectPatch1d = '100x100stam1dBump.bmp';
-    RectPatch2d = '100x100stamBump.bmp';
-    BlazingPatch = 'BlazingBump.bmp';
-    CosinePatch = 'CosineBump.bmp';
-    hugePatch = 'huge.png';
-    Elaph100x100 = 'Elaph100x100.png'
-    Xeno100x100 = 'Xeno100x100.png'
-    SingleFingerElaphIdeal = 'SingleFingerElaphIdeal.bmp'
     
-    patch_file = Xeno100x100;
+    dimSmall = 30;
+    
+    %dimN =  99;
+    rep_nn=1;
+    out = "out/";
+    %patch_basis_path = "../input_patches/";
+	patch_basis_path = "E:/Program Files (x86)/Octave-3.6.2/input_patches/";
+	
+	
+	
+    RectPatch1d = "100x100stam1dBump.bmp";
+    RectPatch2d = "100x100stamBump.bmp";
+    BlazingPatch = "BlazingBump.bmp";
+	BlazingPatch99 = "BlazingBump99.bmp";
+    CosinePatch = "CosineBump.bmp";
+    hugePatch = "huge.png";
+    Elaph100x100 = "Elaph100x100.png"
+    Xeno100x100 = "Xeno100x100.png"
+    SingleFingerElaphIdeal = "SingleFingerElaphIdeal.bmp"
+    
+    patch_file = Elaph100x100;
     whole_path = strcat(patch_basis_path,patch_file);
 	inputIMG = imread(whole_path);
     inputIMG = repmat(inputIMG, rep_nn, rep_nn);
@@ -34,6 +39,10 @@ function taylor2PadExp
     %A = imresize(A, [dimN,dimN]);
 	%A = padarray(A,[dimDiff, dimDiff], 'both');
     
+	
+	dimN = size(A, 1);
+	dimDiff = (dimN-dimSmall)/2;
+	
 	counter = 0;
 	extrema = zeros(steps*4,1);
 	globals = zeros(4,1);
@@ -42,13 +51,18 @@ function taylor2PadExp
 	globalReMax = -1000000;
 	globalImMin = 1000000;
 	globalImMax = -1000000;
-
+	
+	
+	eps_teshold = 1e-10;
+	
+	angleA = -90;
+	A = imrotate(A, angleA);
 	
 	for n=0:1:steps,
-	
-		B = A.^n;
-		C = fftshift(fft2(B));
-		
+		B = power(1j*A, n);
+		%B = A.^(n);
+		C = fftshift(ifft2(B));
+		C = imrotate(C, -angleA);
 		% find real minimum in shifted D matrix.
 		reMin = min(min( real(C) ));
 		imMin = min(min( imag(C) ));
@@ -66,8 +80,8 @@ function taylor2PadExp
 		% we have to care about dividing by zero.
 		%reMax = max(abs(reMax),1);
 		%imMax = max(abs(imMax),1);
-        if(reMax == 0) reMax = 1; end
-		if(imMax == 0) imMax = 1; end
+        if(reMax < eps_teshold) reMax = 1; end
+		if(imMax < eps_teshold) imMax = 1; end
 				
 		% scale entries of shifted D towards range [0,1]
 		reD = reC / reMax;
@@ -85,13 +99,15 @@ function taylor2PadExp
 		if(imMin < globalImMin) globalImMin = imMin; end
 		if(imMax > globalImMax) globalImMax = imMax; end
 		
+		
+		
 		outAmp(:,:,1) = reD;
 		outAmp(:,:,2) = imD;
 		outAmp(:,:,3) = zeros(dimN,dimN);
 					
 				
 		% generate real and imaginary part images.		
-		imwrite(outAmp, strcat(out,'AmpReIm',num2str(n),'.bmp'))
+		imwrite(outAmp, strcat(out,"AmpReIm",num2str(n),".bmp"))
 		
 		% increment index counter
 		counter = counter + 1;
@@ -105,8 +121,8 @@ function taylor2PadExp
 	globals(4) = globalImMax;
 
 	% save extrema  and globals in a txt file.
-	dlmwrite(strcat(out,'extrema.txt'), extrema, 'delimiter', '\n')
-	dlmwrite(strcat(out,'globals.txt'), globals, 'delimiter', '\n')
+	dlmwrite(strcat(out,"extrema.txt"), extrema, 'delimiter', '\n')
+	dlmwrite(strcat(out,"globals.txt"), globals, 'delimiter', '\n')
 	
 	
 	% spectrum
@@ -120,7 +136,7 @@ function taylor2PadExp
 	% save important paramters which have been used for calcualtions
     %parameters = [ num2str(Lmin); num2str(Lmax); num2str(steps); num2str(dimN);num2str(n)]
     parameters = [Lmin; Lmax; steps; dimN;dimSmall;dimDiff;rep_nn]
-    f = fopen(strcat(out,'paramters.txt'), 'w')
+    f = fopen(strcat(out,"paramters.txt"), 'w')
     for t=1:length(parameters),
         fprintf(f,'%i \n', parameters(t));
     end
