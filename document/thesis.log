@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.6)  5 NOV 2013 11:17
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.6)  5 NOV 2013 12:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -255,32 +255,32 @@ Overfull \hbox (6.88013pt too wide) in paragraph at lines 106--108
 Box-function.
  []
 
-[6] [7]) [8]
+[6] [7] [8] [9]) [10]
 \openout2 = `Chapters/chap3.aux'.
 
- (./Chapters/chap3.tex) [9
+ (./Chapters/chap3.tex) [11
 
 
 
 ]
 \openout2 = `Chapters/chap4.aux'.
 
- (./Chapters/chap4.tex) [10
+ (./Chapters/chap4.tex)
+[12
 
 
 
 ]
 \openout2 = `Chapters/chap5.aux'.
 
-
-(./Chapters/chap5.tex) [11
+ (./Chapters/chap5.tex) [13
 
 
 
 ]
 \openout2 = `Chapters/chap6.aux'.
 
- (./Chapters/chap6.tex) [12
+ (./Chapters/chap6.tex) [14
 
 
 
@@ -288,11 +288,11 @@ Box-function.
 (./Chapters/chap1.aux) (./Chapters/chap2.aux) (./Chapters/chap3.aux)
 (./Chapters/chap4.aux) (./Chapters/chap5.aux) (./Chapters/chap6.aux)) ) 
 Here is how much of TeX's memory you used:
- 1880 strings out of 493315
- 22511 string characters out of 6137904
- 83303 words of memory out of 5000000
+ 1887 strings out of 493315
+ 22552 string characters out of 6137904
+ 85303 words of memory out of 5000000
  5271 multiletter control sequences out of 15000+600000
- 32167 words of font info for 93 fonts, out of 8000000 for 9000
+ 34925 words of font info for 100 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  27i,9n,26p,718b,202s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/lo
@@ -305,10 +305,10 @@ ist/fonts/type1/public/mathpazo/fplmri.pfb></usr/local/texlive/2013/texmf-dist/
 fonts/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/t
 ype1/urw/palatino/uplr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/ur
 w/palatino/uplri8a.pfb>
-Output written on thesis.pdf (12 pages, 102692 bytes).
+Output written on thesis.pdf (14 pages, 107483 bytes).
 PDF statistics:
- 76 PDF objects out of 1000 (max. 8388607)
- 53 compressed objects within 1 object stream
+ 83 PDF objects out of 1000 (max. 8388607)
+ 58 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
