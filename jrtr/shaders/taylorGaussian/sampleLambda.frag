@@ -290,7 +290,7 @@ float compute_pq_scale_factor(float w_u, float w_v){
 	float uuu = p1*p2 - q1*q2;
 	float vvv = p1*p2 + q1*q2;
 	
-	return pow(uuu*uuu, 0.5) + pow(vvv*vvv, 0.5);
+	return pow(uuu*uuu + vvv*vvv, 0.5);
 }
 
 
@@ -651,7 +651,7 @@ void runEvaluation(){
 		
 		float abs_P_Sq = P.x*P.x + P.y*P.y;
 		vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
-		brdf += vec4(abs_P_Sq * waveColor, 1.0);	
+		brdf += vec4(abs_P_Sq * waveColor, 0.0);	
 		
 //		brdf += vec4(vec3(abs_P_Sq,abs_P_Sq,abs_P_Sq), 1.0);
 	}
@@ -667,7 +667,7 @@ void runEvaluation(){
 	if(brdf.y < 1e-7) brdf.y = 0.0;
 	if(brdf.z < 1e-7) brdf.z = 0.0;
 	
-	brdf =  brdf*1000.0*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*100000.0*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	
