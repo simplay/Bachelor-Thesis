@@ -1,7 +1,205 @@
 \section{Theoretical Background}
+Explain that this thesis has deep theoretical background, some derivations
+show derivation roadmap
 \subsection{The Effect Of Diffraction}
+
 \subsection{BRDF - Spectral Rendering}
+
 \subsection{Stams derivation}
+
+In his Paper Diffraction Shader, Jos Stam derives a an BRDF modeling the effect of diffraction for various analytical anistropic reflaction models using the scalar Kirchof theory and the theory of random processes. By emplyong the so called wave theory of diffraction [source 5 in stams paper] in which a wave is assumed to be a complex valued scalar. It's noteworthy, that stam's BRDF formulation does not take into account the polarization of the light. Nevertheless, light sources like sunlight and light bulbs are unpilarizaed. In our simulations we will always assume we have given i directional light source, i.e. sunlight. Hence, we can use stam's model for our derivations
+
+A further assumption in Stam's Paper is, the emanated waves from the source are stationary - sunlight once again.
+Which implies the wave is a superposition of independent monochromatic waves. This implies that each wave is associated to a definite wavelangth lambda.
+
+Mention Helmolth equation, which has the solution $k = \frac{2\pi}{\lambda}$ which is the wavenumber
+
+Stams starts his derviations by above's assumptions and by applying the Kirchhoff integral, which descirbes the reflected field and the Huygen's principle, which states, when somebody knows the wavefront at a given moment, the wave at a later time can be deducted by considering each point on the first wave as the source of a new disturbance.
+
+\begin{equation}
+  \psi_2 = \frac{i k e^{i K R}}{4 \pi R}(F\mathbf{v}-\mathbf{p}) \cdot \int_{S} \hat{\mathbf{n}} e^{ik\mathbf{v} \cdot \mathbf{s} d\mathbf{s}}
+\end{equation}
+
+
+In optics, when dealing with scattered waves, one does use differential scattering cross-section rather than a BRDF which has the following identitiy: 
+
+\begin{equation}
+    \sigma^0 = 4 \pi \lim_{R \to \infty} R^2 \frac{\langle \left|\psi_2\right|^2\rangle}{\langle \left|\psi_1\right|^2\rangle}
+\end{equation}
+
+Relationship between the BRDF and the scattering cross section is the follwing:
+
+\begin{equation}
+    BRDF = \frac{1}{4\pi}\frac{1}{A}\frac{\sigma^0}{cos(\theta_1)cos(\theta_2)}
+\end{equation}
+
+Wheras $\theta_1a$ and $\theta_2$ are the angles that the vectors $\hat{k_1}$
+and $\hat{k_2}$ make with the vertical direction.
+ 
+ADD FIGURE for k1, k2
+
+where R is the disance from the center of the patch to the receiving point $x_p$, $\hat{\mathbf{n}}$ is the normal of the surface at s and the vectors:
+
+\begin{equation*}
+    \mathbf{v} = \hat{\mathbf{k_1}} - \hat{\mathbf{k_1}}
+               = (u,v,w)
+\end{equation*}
+
+\begin{equation*}
+    \mathbf{p} = \hat{\mathbf{k_1}} + \hat{\mathbf{k_1}}
+\end{equation*}
+
+During his derivations, Stam provides a analytical representation for the Kirchhoff integral by using his assumptions. He restricts himself to the reflaction of waves from height fields $h(x,y)$ with the assumption that the surface is defined as an elevation over the (x,y) plane using the surface plane approximation.
+Which will lead him to the follwoing identity for the Kirchhoff integral
+
+\begin{equation}
+    \mathbf{I}(ku, kv) = \int \int \frac{1}{ikw}(-p_x, -p_y, ikwp) 
+\end{equation}
+
+wheras 
+
+\begin{equation}
+    p(x,y) = e^{ikwh(x,y)}
+\end{equation}
+
+We the observation that the integral is a Fourier transform by $-iku$ and $-ikv$
+which will lead us to his final derivation, using the identity of BRDF, and computing the limes:
+
+\begin{equation}
+    BRDF = \frac{k^2 F^2 G}{4\pi A w^2} \langle \left|P(ku, kv)\right|^2\rangle
+\end{equation}
+
+Where 
+
+\begin{equation}
+    G = \frac{1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}}}{cos(\theta_1)cos(\theta_2)}
+\end{equation}
+
+and P(x,y) is the Fourier transform of the function p(x,y) from above.
+
+This identitiy for the BRDF is the starting point for our derivations.
+ 
 \subsection{Taylor Series Approximation}
 \subsection{Sampling: Gaussian Window}
-\subsection{Our derivation}
+\subsection{Our derivations}
+\subsection{Aplitude smooting}
+Let us consider the so called 1-dimensional Box-function with length $T$ which is defined as the following: 
+ADD AN IMAGE OF BOXFUNCTION
+
+$
+Box(x) =
+\left\{
+	\begin{array}{ll}
+		1  & \mbox{if } x \leq T \\
+		0 & \mbox{if } else
+	\end{array}
+\right.
+$
+
+We assume, that our given heighfield can be represented as a 2-dimensional box-function. 
+Note that we can use any explicit given constrainted 2-dimensional function and will get some identities like
+we get from the box-function.
+ 
+Further we are assuming that we can model the overall surface be assuming this heighfield being distributed in a periodic manor.
+Therfore, the whole surface can be represented like this $f(x) = \sum_{n=0}^{N} Box(x-nT_1, y-mT_2)$ assuming the given heighfield has the dimensions $T_1$ by $T_2$. But let us first consider the 1-dimensional Box-function case before deriving an identity for the Fourier transform of our 2-dimensional Box-function, i.e. the fourier transform of our heighfield. 
+
+A so called bump can be represented by our 1-dimensional Box-function. We assume periodicity which is equaivalent to:   
+$f(x) = \sum_{n=0}^{N} Box(x-nT)$
+
+We are insterested in the 1-dimensional Fourier transform of the 1-dimensional Box-function:
+
+\begin{align*}
+\mathcal{F}\{f\}(w)
+& =\int f(x) e^{-iwx}dx\\
+& =\int_{-\infty}^{\infty} \sum_{n=0}^{N} Box(x-nT) e^{-iwx}dx\\
+& =\sum_{n=0}^{N} \int_{-\infty}^{\infty} Box(x-nT) e^{-iwx}dx
+\end{align*}
+
+Next, apply the following substituation $x-nT = y$ which will lead us to:
+
+\begin{gather*}
+x=y+nT\\
+dx=dy
+\end{gather*} 
+
+Plugging this substituation back to the equation from above we will get 
+
+\begin{align*}
+\mathcal{F}\{f\}(w)
+& =\int f(x) e^{-iwx}dx\\
+& =\sum_{n=0}^{N} \int_{-\infty}^{\infty} Box(y) e^{-iw(y+nT)}dy \\
+& =\sum_{n=0}^{N} e^{-iwnT} \int_{-\infty}^{\infty} Box(y) e^{-iwy}dy \\
+& =\sum_{n=0}^{N} e^{-iwnT} \mathcal{F}\{f\}(w) \\
+& =\mathcal{F}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT}  
+\end{align*}
+
+We used the fact that the term $e^{-iwnT}$ is a constant when integrating along $dy$ and the identity for the Fourier transform of the Box function. Next, let us consider $\sum_{n=0}^N e^{-uwnT}$ further:
+
+\begin{align*}
+\sum_{n=0}^N e^{-uwnT}
+& =\sum_{n=0}^N (e^{-uwT})^n \\
+& =\frac{1-e^{iwT(N+1)}}{1-e^{-iwT}}
+\end{align*}
+
+We recognize the geometric series identity for the left-handside of this equation. Since our series is bounded we can derive our right-handside.
+
+Since $e^{-ix}$ is a complex number and every complex number can be written in its polar form, i.e. $e^{-ix} = cos(x) + i sin(x)$ we can go even further, using the trigonometric idententities that $cos(-x) = cos(x)$ and $sin(-x) = -sin(x)$:
+
+\begin{align*}
+\frac{1-e^{iwT(N+1)}}{1-e^{-iwT}}
+& =\frac{1-cos(wT(N+1)) + i sin(wT(N+1)) }{1-cos(wT) + i sin(wT)}
+\end{align*}
+
+Which is still a complex number $(p+iq)$. Every complex number can be written as a fraction of two complex numbers. This means that the complex number $(p+iq)$ can be written as $(p+iq) = \frac{(a+ib)}{(c+id)}$ for any $(a+ib), (c+id) \neq 0$. 
+For our case, let us use the follwoing substituations: 
+
+\begin{align}
+a& := 1 - cos(wT(N+1))&
+b& =sin(wT(N+1))\\
+c& =1-cos(wT)&
+d& =sin(wT)
+\end{align}
+
+hence it follows $\frac{1-e^{iwT(N+1)}}{1-e^{-iwT}} = \frac{(a+ib)}{(c+id)}$.
+By rearanging the terms it follows $(a+ib) = (c+id)(p+iq)$ and multiplying the right handside out we get the follwing system of equations:
+
+\begin{align}
+(cp-dq)& =a\\
+(dp + cq)& =b
+\end{align}
+
+Which gives lead us we some further math (trick: mult first eq. by $c$ and 2nd by $d$, then adding them together. using distributivity and we have the identity for p for example, similar for q) to 
+
+\begin{align}
+p& =\frac{(ac+bd)}{c^2 + d^2}\\
+q& =\frac{(bc+ad)}{c^2 + d^2}
+\end{align}
+
+
+Putting our substituation for $a, b, c, d$ back into the current representatio for $p$ and $q$ and using some trigonometric identites, this we then get:
+
+\begin{align}
+p& =\frac{1}{2}+\frac{1}{2}\left(\frac{cos(wTN)-cos(wT(N+1))}{1-cos(wT)}\right)\\
+q& =\frac{sin(wT(N+1))-sin(wTN)-sin(wT)}{2(1-cos(wT))}
+\end{align}
+
+Since we have seen, that $\sum_{n=0}^N e^{-uwnT}$ is a complex number and can be written as $(p+iq)$ and we know now the explicit identity for those $p$ and $q$ we get for the 1-dimensional Fourier transform of the 1-dimensional Box-function the following final identity:
+
+\begin{align*}
+\mathcal{F}\{f\}(w)
+& =\mathcal{F}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT} \\
+& = (p+iq) \mathcal{F}\{f\}(w)  
+\end{align*}
+
+In oder to derive next a identity for the Fourier transform for our 2-dim heighfield, we can proceed similarly, the only fact which changes is, that we are now in a 2-dimensional domain, i.e. we are about to compute a two-dimensional Fourier transform:
+Let us again us again a Box-function, this time a 2-dimensional Box-function $Box(x,y)$ just for the sake of convenience.
+
+\begin{align*}
+\mathcal{F}\{f\}(w_1,w_2)
+& =\sum_{n=0}^{N} \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} Box(y_1,y_2) e^{-iw(y+nT)}dy \\
+& =\sum_{n=0}^{N} e^{-iwnT} \int_{-\infty}^{\infty} Box(y) e^{-iwy}dy \\
+& =\sum_{n=0}^{N} e^{-iwnT} \mathcal{F}\{f\}(w) \\
+& =\mathcal{F}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT}  
+\end{align*}
+
+We applied the 
