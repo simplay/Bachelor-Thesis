@@ -188,7 +188,7 @@ Since we have seen, that $\sum_{n=0}^N e^{-uwnT}$ is a complex number and can be
 \begin{align*}
 \mathcal{F}\{f\}(w)
 & =\mathcal{F}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT} \\
-& = (p+iq) \mathcal{F}\{f\}(w)  
+& = (p+iq) \mathcal{F}\{Box\}(w)  
 \end{align*}
 
 In oder to derive next a identity for the Fourier transform for our 2-dim heighfield, we can proceed similarly, the only fact which changes is, that we are now in a 2-dimensional domain, i.e. we are about to compute a two-dimensional Fourier transform:
@@ -196,10 +196,19 @@ Let us again us again a Box-function, this time a 2-dimensional Box-function $Bo
 
 \begin{align*}
 \mathcal{F}\{f\}(w_1,w_2)
-& =\sum_{n=0}^{N} \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} Box(y_1,y_2) e^{-iw(y+nT)}dy \\
-& =\sum_{n=0}^{N} e^{-iwnT} \int_{-\infty}^{\infty} Box(y) e^{-iwy}dy \\
-& =\sum_{n=0}^{N} e^{-iwnT} \mathcal{F}\{f\}(w) \\
-& =\mathcal{F}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT}  
+& = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} Box(x_1 - n_1 T_1, x_2 - n_2 T_2) e^{-iw(x_1 + x_2)}dx_1 dx_2 \\
+& = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} Box(y_1, y_2) e^{-iw((y_1 + n_1 T_1) + (y_2 + n_2 T_2))}dx_1 dx_2 \\
+& =\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} Box(y_1, y_2) e^{-iw(y_1 + y_2)} e^{-iw(n_1 T_1 + n_2 T_2)}dy_1 dy_2 \\
+& =\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} e^{-iw(n_1 T_1 + n_2 T_2)} \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} Box(y_1, y_2) e^{-iw(y_1 + y_2)} dy_1 dy_2 \\
+& =\left(\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} e^{-iw(n_1 T_1 + n_2 T_2)}\right) \mathcal{F}\{Box\}(w_1,w_2) \\
+& =\left(\sum_{n_2=0}^{N_1} e^{-iw n_1 T_1}\right) \left(\sum_{n_2=0}^{N_2} e^{-iw n_2 T_2}\right) \mathcal{F}\{Box\}(w_1,w_2) \\
+& =(p_1 + i q_1)(p_2 + i q_2) \mathcal{F}\{Box\}(w_1,w_2) \\
+& =((p_1 p_2 - q_1 q_2) + i(p_1 p_2 + q_1 q_2)) \mathcal{F}\{Box\}(w_1,w_2) \\
+& =(u + iv) \mathcal{F}\{Box\}(w_1,w_2)
 \end{align*}
+
+Where we define $u := (p_1 p_2 - q_1 q_2) $ and $v := (p_1 p_2 + q_1 q_2)$. For this identity we used green's integration rule which allowed us to split the double integral to the product of two single integrations. Also, we used the definition of the 2-dimensional Fourer transform of the Box-function. We applied the same substituation like we did in for the 1 dimensional case, but this time twice, once for each variable seperately. The last step, substituting with $u$ and $v$ will be useful later in the implementation. The insight should be, that the product of two complex numbers is again a complex number. We will have to compute the absolute value of $\mathcal{F}\{f\}(w_1,w_2)$ which will then be equal $(u^2 + v^2)^{\frac{1}{2}}\left|\mathcal{F}\{Box\}(w_1,w_2)\right|$
+
+
 
 We applied the 
