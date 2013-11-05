@@ -285,7 +285,12 @@ float compute_pq_scale_factor(float w_u, float w_v){
 	float q1 = get_q_factor(w_u, T_1, in_periods);
 	float q2 = get_q_factor(w_v, T_2, in_periods);
 
-	return pow(p1*p1 + q1*q1 , 0.5)*pow(p2*p2 + q2*q2 , 0.5);
+//	return pow(p1*p1 + q1*q1 , 0.5)*pow(p2*p2 + q2*q2 , 0.5);
+	
+	float uuu = p1*p2 - q1*q2;
+	float vvv = p1*p2 + q1*q2;
+	
+	return pow(uuu*uuu, 0.5) + pow(vvv*vvv, 0.5);
 }
 
 
@@ -293,7 +298,7 @@ float compute_pq_scale_factor(float w_u, float w_v){
 vec2 taylorApproximation(vec2 coords, float k, float w){
 	vec2 precomputedFourier = vec2(0.0, 0.0);
 	int lower = 0; int upper = int(approxSteps)+1;
-//	upper = 0;
+//	upper = 6;
 	float reHeight = 0.0; float imHeight = 0.0;
 	float real_part = 0.0; float imag_part = 0.0;
 	float fourier_coefficients = 1.0;
@@ -383,8 +388,8 @@ float getShadowMaskFactor(vec3 K1, vec3 K2){
 	float hDotN =  dot(hVec,N);// normal is (0,0,1);
 	float lDotN =  dot(-K1, N); // normal is (0,0,1);
 	
-	float f1 = 2 * hDotN * eDotN / eDotH;
-	float f2 = 2 * hDotN * lDotN / eDotH;
+	float f1 = 2.0 * hDotN * eDotN / eDotH;
+	float f2 = 2.0 * hDotN * lDotN / eDotH;
 
 	f1 = min(f1, f2);
 	return min(1.0f, f1);
@@ -409,7 +414,7 @@ float getFresnelFactorAbsoluteRelative(vec3 K1, vec3 K2){
 	if (cosTheta > 0.999999)
 		fF = R0;
 	else
-		fF = fF + 4*nSkin*pow(1- cosTheta,5.0) + nK*nK;
+		fF = fF + 4*nSkin*pow(1.0- cosTheta,5.0) + nK*nK;
 	
 	// do this division if its not on relative scale
 	fF = fF / ((nSkin + 1.0)* (nSkin + 1.0) + nK*nK);
@@ -569,7 +574,13 @@ void runEvaluation(){
 
 	vec3 _k1 = vec3(0.0f);
 	vec3 _k2 = vec3(0.0f);
+	float angle = 50.0;
+	float radI= (angle*PI)/180.0;
 	
+	
+//	_k1.x = - sin(radI)*cos(phiI);
+//	_k1.y = - sin(radI)*sin(phiI);
+//	_k1.z = - cos(radI);
 	
 	_k1.x = - sin(thetaI)*cos(phiI);
 	_k1.y = - sin(thetaI)*sin(phiI);
@@ -594,7 +605,7 @@ void runEvaluation(){
 //	vec2 N_v = compute_N_min_max(v);
 //	vec2 N_uv[2] = vec2[2](N_u, N_v);
 
-	float iterMax = 20.0;
+	float iterMax = 1000.0;
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	float F2 = fFByR0*fFByR0;
 	
@@ -611,12 +622,16 @@ void runEvaluation(){
 		float lambda_iter = iter*lambdaStep + lambda_min;
 		k = (2.0*PI) / lambda_iter;
 		float kk = (1.0) / lambda_iter;
+		float omega = (30.0/100.0)*8.0*PI*pow(10.0,7.0);
 //		k = (1.0*PI) / lambda_iter;
 		
-		vec2 coords = vec2((k*u/(Omega)) + bias, (k*v/(Omega)) + bias); //2d
 		
+//		vec2 coords = vec2((k*u/(Omega)) + bias, (k*v/(Omega)) + bias); //2d
 		
-		float omega = (30.0/100.0)*8.0*PI*pow(10.0,7.0);
+		vec2 coords = vec2((k*v/(Omega)) + bias, (k*u/(Omega)) + bias); //2d
+//		vec2 coords = vec2((k*v/(Omega)) + bias, bias); //2d
+		
+
 		
 //		coords = vec2((k*u/(Omega)) + bias, (k*v/(Omega)) + bias); //2d
 //		coords = vec2(0.5, (k*v/(omega))+0.5); //2d
@@ -626,8 +641,8 @@ void runEvaluation(){
 		if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
 		
 		
-		float w_u = k*u;
-		float w_v = k*v;
+		float w_u = k*v;
+		float w_v = k*u;
 		
 		P = taylorApproximation(coords, kk, w);
 		
@@ -637,6 +652,8 @@ void runEvaluation(){
 		float abs_P_Sq = P.x*P.x + P.y*P.y;
 		vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
 		brdf += vec4(abs_P_Sq * waveColor, 1.0);	
+		
+//		brdf += vec4(vec3(abs_P_Sq,abs_P_Sq,abs_P_Sq), 1.0);
 	}
 
 	float ambient = 0.0;	
@@ -650,7 +667,7 @@ void runEvaluation(){
 	if(brdf.y < 1e-7) brdf.y = 0.0;
 	if(brdf.z < 1e-7) brdf.z = 0.0;
 	
-	brdf =  brdf*10000000.0*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*1000.0*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	

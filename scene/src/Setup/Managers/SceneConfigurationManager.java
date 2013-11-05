@@ -36,7 +36,7 @@ public class SceneConfigurationManager {
 //						
 						
 						sc = new SceneConfiguration("evaluation", ShapeTask.DICE_BRDF, "diceBRDF", 
-								"elaph", "lightZ", ShaderTaskNr.TAYLORGAUSSIAN, -1,  "blaze", 1, "random1");
+								"stam", "lightZ", ShaderTaskNr.TAYLORGAUSSIAN, -1,  "blaze", 1, "random1");
 								constants.add(sc);
 		
 		sc = new SceneConfiguration("sandbox", ShapeTask.SNAKE, "snake1", 

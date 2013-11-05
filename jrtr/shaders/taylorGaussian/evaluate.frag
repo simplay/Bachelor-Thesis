@@ -529,11 +529,14 @@ float getGaussianWeight(float dist2, float sigma_f_pix){
 
 // get looup coordinates
 vec2 getLookupCoordinates(float variant, float ind1, float ind2){
+	float phi = -PI/2.0;
 	vec2 lookup = vec2(0.0, 0.0);
 	if(variant == 0.0){
+//		lookup = vec2((ind1/(dimN-1)) + bias, (ind2/(dimN-1)) + bias);
 		lookup = vec2((ind1/(dimN-1)) + bias, (ind2/(dimN-1)) + bias);
 	}else{
 		lookup = vec2((ind1/(dimN-1)) + bias, (ind2/(dimN-1)) + bias);
+//		lookup = getRotation(lookup.x,lookup.y,-phi);
 //		float left = (ind2)/(dimN-1);
 //		float right = 1.0-(ind1)/(dimN-1);
 //		
@@ -622,7 +625,7 @@ void runEvaluation(){
 		brdf = vec4(F2, F2, F2, 1.0);
 	}else{
 		// iterate twice: once for N_u and once for N_v lower,upper
-		for(int variant = 0; variant < 1; variant++){
+		for(int variant = 1; variant < 2; variant++){
 			
 			// get N_min and N_max for sampling
 			int lower = int(N_uv[variant].x);
@@ -638,8 +641,8 @@ void runEvaluation(){
 				t2 = u;
 				
 				
-//				t2 = modUV.x;
-//				t1 = modUV.y;
+//				t2 = modUV.y;
+//				t1 = modUV.x;
 				
 			}
 			
@@ -679,9 +682,13 @@ void runEvaluation(){
 						// get L1 distance to neighbor from current pixel
 						float dist2 = pow(ind1-uu_N_base, 2.0) + pow(ind2-uv_N_n_hat, 2.0);
 						
-						// get lookup coordinates for current pixel
-						coords = getLookupCoordinates(variant, ind1, ind2);
-
+						// get lookup coordinates for current pixel - case 1
+//						coords = getLookupCoordinates(variant, ind2, ind1);
+						
+						coords = getLookupCoordinates(variant, ind2, ind1);
+	
+						
+						
 						// clip if coordiantes are not within bound [0,1]x[0,1]
 						if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
 						
@@ -717,11 +724,11 @@ void runEvaluation(){
 	if(brdf.z < 0.0 ) brdf.z = 0.0;
 	brdf.w = 1.0;
 	
-	if(brdf.x < 1e-6) brdf.x = 0.0;
-	if(brdf.y < 1e-6) brdf.y = 0.0;
-	if(brdf.z < 1e-6) brdf.z = 0.0;
+	if(brdf.x < 1e-4) brdf.x = 0.0;
+	if(brdf.y < 1e-4) brdf.y = 0.0;
+	if(brdf.z < 1e-4) brdf.z = 0.0;
 	
-	brdf =  brdf*1000000.0*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*1000.0*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	

@@ -18,11 +18,11 @@ function taylor2PadExp
 	BlazingPatch99 = "BlazingBump99.bmp";
     CosinePatch = "CosineBump.bmp";
     hugePatch = "huge.png";
-    Elaph100x100 = "Elaph100x100.png"
-    Xeno100x100 = "Xeno100x100.png"
-    SingleFingerElaphIdeal = "SingleFingerElaphIdeal.bmp"
+    Elaph100x100 = "Elaph100x100.png";
+    Xeno100x100 = "Xeno100x100.png";
+    SingleFingerElaphIdeal = "SingleFingerElaphIdeal.bmp";
     
-    patch_file = Elaph100x100;
+    patch_file = BlazingPatch99;
     whole_path = strcat(patch_basis_path,patch_file);
 	inputIMG = imread(whole_path);
     inputIMG = repmat(inputIMG, rep_nn, rep_nn);

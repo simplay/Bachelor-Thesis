@@ -285,7 +285,12 @@ float compute_pq_scale_factor(float w_u, float w_v){
 	float q1 = get_q_factor(w_u, T_1, in_periods);
 	float q2 = get_q_factor(w_v, T_2, in_periods);
 
-	return pow(p1*p1 + q1*q1 , 0.5)*pow(p2*p2 + q2*q2 , 0.5);
+//	return pow(p1*p1 + q1*q1 , 0.5)*pow(p2*p2 + q2*q2 , 0.5);
+	
+	float uuu = p1*p2 - q1*q2;
+	float vvv = p1*p2 + q1*q2;
+	
+	return pow(uuu*uuu, 0.5) + pow(vvv*vvv, 0.5);
 }
 
 
@@ -532,6 +537,10 @@ vec2 getLookupCoordinates(float variant, float ind1, float ind2){
 	vec2 lookup = vec2(0.0, 0.0);
 	if(variant == 0.0){
 		lookup = vec2((ind1/(dimN-1)) + bias, (ind2/(dimN-1)) + bias);
+//		lookup = vec2((ind1/(dimN-1)) + bias, bias);
+		
+		
+//		vec2 lookup = vec2((k*v/(Omega)) + bias, (k*u/(Omega)) + bias); //2d
 	}else{
 		lookup = vec2((ind2/(dimN-1)) + bias, (ind1/(dimN-1)) + bias);
 	}
@@ -594,7 +603,7 @@ void runEvaluation(){
 //	vec2 N_v = compute_N_min_max(v);
 //	vec2 N_uv[2] = vec2[2](N_u, N_v);
 
-	float iterMax = 1000.0;
+	float iterMax = 300.0;
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	float F2 = fFByR0*fFByR0;
 	
@@ -640,7 +649,7 @@ void runEvaluation(){
 				float dist2 = pow(ind1-uu_N_base, 2.0) + pow(ind2-uv_N_n_hat, 2.0);
 				
 				// get lookup coordinates for current pixel
-				coords = getLookupCoordinates(0, ind1, ind2);
+				coords = getLookupCoordinates(0, ind2, ind1);
 				// clip if coordiantes are not within bound [0,1]x[0,1]
 				if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
 				
@@ -652,7 +661,7 @@ void runEvaluation(){
 				
 				// phaser of current pixel contribution.
 				float pq_scale = compute_pq_scale_factor(w_u,w_v);
-//				P *= pq_scale;
+				P *= pq_scale;
 				
 				// amplitute of current pixel contribution
 				float abs_P_Sq = P.x*P.x + P.y*P.y;
@@ -661,7 +670,8 @@ void runEvaluation(){
 				abs_P_Sq *= w_ij;
 
 				// summation of brdf over all wavelengths under consideration.
-				brdf += vec4(abs_P_Sq * waveColor, 0.0);					
+				brdf += vec4(abs_P_Sq * waveColor, 0.0);	
+//				brdf += vec4(vec3(abs_P_Sq,abs_P_Sq,abs_P_Sq), 0.0);
 			}
 		}
 		
@@ -674,11 +684,11 @@ void runEvaluation(){
 	if(brdf.z < 0.0 ) brdf.z = 0.0;
 	brdf.w = 1.0;
 	
-	if(brdf.x < 1e-7) brdf.x = 0.0;
-	if(brdf.y < 1e-7) brdf.y = 0.0;
-	if(brdf.z < 1e-7) brdf.z = 0.0;
+	if(brdf.x < 1e-5) brdf.x = 0.0;
+	if(brdf.y < 1e-5) brdf.y = 0.0;
+	if(brdf.z < 1e-5) brdf.z = 0.0;
 	
-	brdf =  brdf*1000.0*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*10.0*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	
@@ -697,7 +707,7 @@ void runEvaluation(){
 //	frag_shaded	= o_col;
 //	o_col = vec4(maxBRDF.xyz,1.0);
 //	if(dot(maxBRDF.xyz,maxBRDF.xyz) < eps) o_col = vec4(1.0, 1.0, 1.0, 1.0);
-	frag_shaded	= o_col;
+	frag_shaded	= o_col/1.0;
 //	frag_shaded	= vec4(0,1,0,1);
 }
 
