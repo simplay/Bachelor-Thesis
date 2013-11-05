@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.6)  5 NOV 2013 02:21
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.6)  5 NOV 2013 11:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -237,60 +237,78 @@ LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <14.4> not available
 
 
 
-] [5]) [6]
+] [5]
+Overfull \hbox (20.93388pt too wide) in paragraph at lines 99--102
+[]\OT1/ppl/m/n/12 We as-s-u-me, that our gi-ven heigh-field can be re-pre-sen-t
+ed as a 2-dimensional
+ []
+
+
+Overfull \hbox (32.81923pt too wide) in paragraph at lines 99--102
+\OT1/ppl/m/n/12 box-function. No-te that we can use any ex-pli-cit gi-ven cons-
+train-ted 2-dimensional
+ []
+
+
+Overfull \hbox (6.88013pt too wide) in paragraph at lines 106--108
+[]\OT1/ppl/m/n/12 A so cal-led bump can be re-pre-sen-ted by our 1-dimensional 
+Box-function.
+ []
+
+[6] [7]) [8]
 \openout2 = `Chapters/chap3.aux'.
 
- (./Chapters/chap3.tex) [7
+ (./Chapters/chap3.tex) [9
 
 
 
 ]
 \openout2 = `Chapters/chap4.aux'.
 
-
-(./Chapters/chap4.tex) [8
+ (./Chapters/chap4.tex) [10
 
 
 
 ]
 \openout2 = `Chapters/chap5.aux'.
 
- (./Chapters/chap5.tex) [9
+
+(./Chapters/chap5.tex) [11
 
 
 
 ]
 \openout2 = `Chapters/chap6.aux'.
 
- (./Chapters/chap6.tex)
-[10
+ (./Chapters/chap6.tex) [12
 
 
 
-] (./thesis.aux (./Chapters/chap1.aux) (./Chapters/chap2.aux)
-(./Chapters/chap3.aux) (./Chapters/chap4.aux) (./Chapters/chap5.aux)
-(./Chapters/chap6.aux)) ) 
+] (./thesis.aux
+(./Chapters/chap1.aux) (./Chapters/chap2.aux) (./Chapters/chap3.aux)
+(./Chapters/chap4.aux) (./Chapters/chap5.aux) (./Chapters/chap6.aux)) ) 
 Here is how much of TeX's memory you used:
  1880 strings out of 493315
  22511 string characters out of 6137904
- 82303 words of memory out of 5000000
+ 83303 words of memory out of 5000000
  5271 multiletter control sequences out of 15000+600000
  32167 words of font info for 93 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 27i,6n,26p,718b,202s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/ba
-se/8r.enc}</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-ex10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
-10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
-0.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb
-></usr/local/texlive/2013/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb></u
-sr/local/texlive/2013/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/loca
-l/texlive/2013/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texli
-ve/2013/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on thesis.pdf (10 pages, 95432 bytes).
+ 27i,9n,26p,718b,202s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/lo
+cal/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/201
+3/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2013
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2013/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013/te
+xmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></usr/local/texlive/2013/texmf-d
+ist/fonts/type1/public/mathpazo/fplmri.pfb></usr/local/texlive/2013/texmf-dist/
+fonts/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/t
+ype1/urw/palatino/uplr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/ur
+w/palatino/uplri8a.pfb>
+Output written on thesis.pdf (12 pages, 102692 bytes).
 PDF statistics:
- 70 PDF objects out of 1000 (max. 8388607)
- 49 compressed objects within 1 object stream
+ 76 PDF objects out of 1000 (max. 8388607)
+ 53 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

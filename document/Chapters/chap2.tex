@@ -83,4 +83,72 @@ This identitiy for the BRDF is the starting point for our derivations.
 \subsection{Sampling: Gaussian Window}
 \subsection{Our derivations}
 \subsection{Aplitude smooting}
+Let us consider the so called 1-dimensional Box-function with length $T$ which is defined as the following: 
+ADD AN IMAGE OF BOXFUNCTION
+
+$
+Box(x) =
+\left\{
+	\begin{array}{ll}
+		1  & \mbox{if } x \leq T \\
+		0 & \mbox{if } else
+	\end{array}
+\right.
+$
+
+We assume, that our given heighfield can be represented as a 2-dimensional box-function. 
+Note that we can use any explicit given constrainted 2-dimensional function and will get some identities like
+we get from the box-function.
+ 
+Further we are assuming that we can model the overall surface be assuming this heighfield being distributed in a periodic manor.
+Therfore, the whole surface can be represented like this $f(x) = \sum_{n=0}^{N} Box(x-nT_1, y-mT_2)$ assuming the given heighfield has the dimensions $T_1$ by $T_2$. But let us first consider the 1-dimensional Box-function case before deriving an identity for the Fourier transform of our 2-dimensional Box-function, i.e. the fourier transform of our heighfield. 
+
+A so called bump can be represented by our 1-dimensional Box-function. We assume periodicity which is equaivalent to:   
+$f(x) = \sum_{n=0}^{N} Box(x-nT)$
+
+We are insterested in the 1-dimensional Fourier transform of the 1-dimensional Box-function:
+
+\begin{align*}
+\mathcal{F}\{f\}(w)
+& =\int f(x) e^{-iwx}dx\\
+& =\int_{-\infty}^{\infty} \sum_{n=0}^{N} Box(x-nT) e^{-iwx}dx\\
+& =\sum_{n=0}^{N} \int_{-\infty}^{\infty} Box(x-nT) e^{-iwx}dx
+\end{align*}
+
+Next, apply the following substituation $x-nT = y$ which will lead us to:
+
+\begin{gather*}
+x=y+nT\\
+dx=dy
+\end{gather*} 
+
+Plugging this substituation back to the equation from above we will get 
+
+\begin{align*}
+\mathcal{F}\{f\}(w)
+& =\int f(x) e^{-iwx}dx\\
+& =\sum_{n=0}^{N} \int_{-\infty}^{\infty} Box(y) e^{-iw(y+nT)}dy \\
+& =\sum_{n=0}^{N} e^{-iwnT} \int_{-\infty}^{\infty} Box(y) e^{-iwy}dy \\
+& =\sum_{n=0}^{N} e^{-iwnT} \mathcal{F}\{f\}(w) \\
+& =\mathcal{F}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT}  
+\end{align*}
+
+We used the fact that the term $e^{-iwnT}$ is a constant when integrating along $dy$ and the identity for the Fourier transform of the Box function. Next, let us consider $\sum_{n=0}^N e^{-uwnT}$ further:
+
+\begin{align*}
+\sum_{n=0}^N e^{-uwnT}
+& =\sum_{n=0}^N (e^{-uwT})^n \\
+& =\frac{1-e^{iwT(N+1)}}{1-e^{-iwT}}
+\end{align*}
+
+We recognize the geometric series identity for the left-handside of this equation. Since our series is bounded we can derive our right-handside.
+
+Since $e^{-ix}$ is a complex number and every complex number can be written in its polar form, i.e. $e^{-ix} = cos(x) + i sin(x)$ we can go even further, using the trigonometric idententities that $cos(-x) = cos(x)$ and $sin(-x) = -sin(x)$:
+
+\begin{align*}
+\frac{1-e^{iwT(N+1)}}{1-e^{-iwT}}
+& =\frac{1-cos(wT(N+1)) + i sin(wT(N+1)) }{1-cos(wT) + i sin(wT)}
+\end{align*}
+
+Let 
 
