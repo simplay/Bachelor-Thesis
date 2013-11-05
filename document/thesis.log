@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.6)  5 NOV 2013 16:01
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.6)  5 NOV 2013 18:40
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -238,39 +238,97 @@ LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <14.4> not available
 
 
 ] [5]
-Overfull \hbox (20.93388pt too wide) in paragraph at lines 99--102
+Overfull \hbox (48.68889pt too wide) in paragraph at lines 107--109
+\OT1/ppl/m/n/12 Let us now com-pu-te the Fou-ri-er Trans-for-ma-ti-on of p(x,y)
+ form above:$\OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 u\OT1/pp
+l/m/n/12 , \OML/zplm/m/it/12 v\OT1/zplm/m/n/12 ) =
+ []
+
+
+Overfull \hbox (57.71169pt too wide) in paragraph at lines 107--109
+\OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 =[] [][] \OMS/zplm/m/n/12 F [] \OT1/zplm
+/m/n/12 = [][] []\OMS/zplm/m/n/12 F []$\OT1/ppl/m/n/12 .
+ []
+
+[6]
+LaTeX Font Info:    Try loading font information for U+fplmbb on input line 118
+.
+ (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ufplmbb.fd
+File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
+)
+Overfull \hbox (12.4447pt too wide) in paragraph at lines 129--132
+\OT1/ppl/m/n/12 By the \OT1/ppl/b/n/12 ra-tio test \OT1/ppl/m/n/12 (see \OT1/pp
+l/b/n/12 [1]\OT1/ppl/m/n/12 ) we can show that the se-ries $[][] []\OMS/zplm/m/
+n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 \OT1/ppl/m/n/12 , \OML/zplm/m/it
+/12 ^^L\OT1/zplm/m/n/12 )$
+ []
+
+
+Overfull \hbox (24.27707pt too wide) in paragraph at lines 143--159
+\OT1/ppl/m/n/12 Let $\OML/zplm/m/it/12 f\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 x\O
+T1/zplm/m/n/12 ) = \OML/zplm/m/it/12 e[]$\OT1/ppl/m/n/12 . We can for-mu-la-te 
+its Taylor-Series, stated abo-ve. Let $\OML/zplm/m/it/12 P[]\OT1/zplm/m/n/12 (\
+OML/zplm/m/it/12 x\OT1/zplm/m/n/12 )$\OT1/ppl/m/n/12 denote
+ []
+
+[7]
+LaTeX Font Info:    Try loading font information for OMS+ppl on input line 162.
+
+ (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/omsppl.fd
+File: omsppl.fd 
+)
+LaTeX Font Info:    Font shape `OMS/ppl/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 162.
+
+Overfull \hbox (48.70432pt too wide) in paragraph at lines 172--181
+\OMS/zplm/m/n/12 j\OML/zplm/m/it/12 f[]\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 x\OT
+1/zplm/m/n/12 )\OMS/zplm/m/n/12 j ^^T \OML/zplm/m/it/12 M$ \OT1/ppl/m/n/12 hold
+s. With $\OMS/zplm/m/n/12 j\OML/zplm/m/it/12 E[]\OT1/zplm/m/n/12 (\OML/zplm/m/i
+t/12 x[]\OT1/zplm/m/n/12 )\OMS/zplm/m/n/12 j ^^T []j\OML/zplm/m/it/12 x[] \OMS/
+zplm/m/n/12 ^^@ \OML/zplm/m/it/12 a\OMS/zplm/m/n/12 j[] \OT1/zplm/m/n/12 = []$\
+OT1/ppl/m/n/12 we
+ []
+
+[8]
+Overfull \hbox (74.25032pt too wide) in paragraph at lines 204--204
+[] []\OT1/ppl/b/n/12 [2] \OT1/ppl/m/n/12 http://math.jasonbhill.com/courses/fal
+l-2010-math-2300-005/lectures/taylor-
+ []
+
+
+Overfull \hbox (20.93388pt too wide) in paragraph at lines 236--239
 []\OT1/ppl/m/n/12 We as-s-u-me, that our gi-ven heigh-field can be re-pre-sen-t
 ed as a 2-dimensional
  []
 
 
-Overfull \hbox (32.81923pt too wide) in paragraph at lines 99--102
+Overfull \hbox (32.81923pt too wide) in paragraph at lines 236--239
 \OT1/ppl/m/n/12 box-function. No-te that we can use any ex-pli-cit gi-ven cons-
 train-ted 2-dimensional
  []
 
-
-Overfull \hbox (6.88013pt too wide) in paragraph at lines 106--108
+[9]
+Overfull \hbox (6.88013pt too wide) in paragraph at lines 243--245
 []\OT1/ppl/m/n/12 A so cal-led bump can be re-pre-sen-ted by our 1-dimensional 
 Box-function.
  []
 
-[6] [7] [8]
-Overfull \hbox (21.81639pt too wide) in paragraph at lines 208--208
+[10] [11]
+Overfull \hbox (21.81639pt too wide) in paragraph at lines 345--345
 [] 
  []
 
-[9]) [10]
+[12]) [13]
 \openout2 = `Chapters/chap3.aux'.
 
- (./Chapters/chap3.tex) [11
+ (./Chapters/chap3.tex) [14
 
 
 
 ]
 \openout2 = `Chapters/chap4.aux'.
 
- (./Chapters/chap4.tex) [12
+ (./Chapters/chap4.tex) [15
 
 
 
@@ -278,14 +336,14 @@ Overfull \hbox (21.81639pt too wide) in paragraph at lines 208--208
 \openout2 = `Chapters/chap5.aux'.
 
 
-(./Chapters/chap5.tex) [13
+(./Chapters/chap5.tex) [16
 
 
 
 ]
 \openout2 = `Chapters/chap6.aux'.
 
- (./Chapters/chap6.tex) [14
+ (./Chapters/chap6.tex) [17
 
 
 
@@ -293,27 +351,29 @@ Overfull \hbox (21.81639pt too wide) in paragraph at lines 208--208
 (./Chapters/chap1.aux) (./Chapters/chap2.aux) (./Chapters/chap3.aux)
 (./Chapters/chap4.aux) (./Chapters/chap5.aux) (./Chapters/chap6.aux)) ) 
 Here is how much of TeX's memory you used:
- 1887 strings out of 493315
- 22552 string characters out of 6137904
+ 1916 strings out of 493315
+ 23098 string characters out of 6137904
  87303 words of memory out of 5000000
- 5271 multiletter control sequences out of 15000+600000
- 34925 words of font info for 100 fonts, out of 8000000 for 9000
+ 5293 multiletter control sequences out of 15000+600000
+ 35533 words of font info for 104 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  27i,9n,26p,826b,202s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/lo
 cal/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/201
 3/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2013
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2013/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013/te
-xmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></usr/local/texlive/2013/texmf-d
-ist/fonts/type1/public/mathpazo/fplmri.pfb></usr/local/texlive/2013/texmf-dist/
-fonts/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/t
-ype1/urw/palatino/uplr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/ur
-w/palatino/uplri8a.pfb>
-Output written on thesis.pdf (14 pages, 109499 bytes).
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2013/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2013/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013/tex
+mf-dist/fonts/type1/public/mathpazo/fplmbb.pfb></usr/local/texlive/2013/texmf-d
+ist/fonts/type1/public/mathpazo/fplmr.pfb></usr/local/texlive/2013/texmf-dist/f
+onts/type1/public/mathpazo/fplmri.pfb></usr/local/texlive/2013/texmf-dist/fonts
+/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/
+urw/palatino/uplr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/pal
+atino/uplri8a.pfb>
+Output written on thesis.pdf (17 pages, 134637 bytes).
 PDF statistics:
- 83 PDF objects out of 1000 (max. 8388607)
- 58 compressed objects within 1 object stream
+ 100 PDF objects out of 1000 (max. 8388607)
+ 70 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

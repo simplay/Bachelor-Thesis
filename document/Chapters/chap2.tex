@@ -80,6 +80,143 @@ and P(x,y) is the Fourier transform of the function p(x,y) from above.
 This identitiy for the BRDF is the starting point for our derivations.
  
 \subsection{Taylor Series Approximation}
+
+Based on J. Stam's Paper about Diffraction shaders we will show that
+there is an approximation of his equation (5), \textbf{p(x,y)}, for
+a explicitly given heightfield \textbf{h(x,y)}. This approximation
+is achieved by using Taylor-Series and using this identity we will
+further be able to approximate the Fourier-Transformation of p(x,y),
+denoted as \textbf{P(u,v)}. Finally we will give an error bound for
+this approximation.
+
+\section*{Taylor Series of p}
+
+Given $p(x,y)=e^{ikwh(x,y)}$form Stam's Paper where h(x,y) is here
+a given heightfield. Also given the definition $e^{y}=1+y+\frac{y^{2}}{2!}+\frac{y^{3}}{3!}+...=\sum_{n=0}^{\infty}\frac{y^{n}}{n!}$where
+y can be real or even complex valued - note this identity can either
+be derieved by power series or by Taylor-Series(using the derivatives
+of the exp-function and developing the Taylor-Series around the point
+a=0). Let us now set $y=ikwh(x,y)$where $i$ is the imaginary number.
+For simplification, let us denote h(x,y) as h. It follows by our previous
+stated identities: $e^{y}=1+(ikwh)+\frac{1}{2!}(ikwh)^{2}+\frac{1}{3!}(ikwh)^{3}+...=\sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}$.
+Hence it holds $p(x,y)=\sum_{n=0}^{\infty}\frac{(ikwh(x,y))^{n}}{n!}.$
+
+
+\section*{Fourier Transformation of function p}
+
+Let us now compute the Fourier Transformation of p(x,y) form above:$\mathcal{F}\left\{ p\right\} (u,v)=\mathcal{F}\left\{ \sum_{n=0}^{\infty}\frac{(ikwh(x,y))^{n}}{n!}.\right\} =^{\mathcal{F}\, lin\, Operator}\sum_{n=0}^{\infty}\mathcal{F}\left\{ \frac{(ikwh(x,y))^{n}}{n!}\right\} =\sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h(x,y){}^{n}\right\} $.
+Hence it follows: $P(\alpha,\beta)=\sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$.
+
+\textbf{NB}: $\mathcal{F}\left\{ h{}^{n}\right\} (u,v)$ denotes the
+two dimensional Fourier Transformation of p(x,y) and can be nummerically
+computed by the two dimensional \textbf{DFT} or rather by the two
+dimensional \textbf{FFT} over h(x,y). 
+
+
+\section*{Approximation of function P}
+
+Next we are going to look for an $N\mathbb{\in N}$s.t. $\sum_{n=0}^{N}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)\approx P(\alpha,\beta)$.
+is a good approximation. We have to prove two things:
+\begin{enumerate}
+\item Show that there exist such an $N\mathbb{\in N}$s.t the approximation
+holds true.
+\item Find a value for B s.t. this approximation is below a certain error
+bound, for example machine precision $\epsilon$. 
+\end{enumerate}
+
+\section*{Proof Sketch of 1.}
+
+By the \textbf{ratio test} (see \textbf{{[}1{]}}) we can show that
+the series $\sum_{n=0}^{N}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$
+converges absolutely:
+
+\textbf{Proof}: Consider $\sum_{k=0}^{\infty}\frac{y^{n}}{n!}$where
+$a_{k}=\frac{y^{k}}{k!}$. By the definition of the ratio test for
+series it follows: $\forall y:$$limsup_{k\rightarrow\infty}|\frac{a_{k+1}}{a_{k}}|=limsup_{k\rightarrow\infty}\frac{y}{k+1}=0$ 
+
+Thus this series converges absolutely, no matter what value we will
+pick for y.
+
+
+\section*{Part 2: Find such an N}
+
+Let $f(x)=e^{x}$. We can formulate its Taylor-Series, stated above.
+Let $P_{n}(x)$denote the n-th Taylor-Polinomial, $P_{n}(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^{k},$where
+a is our developing point (here, in this case a=0). We can define
+the error of the n-th Taylor-Polinomial to be $E_{n}(x)=f(x)-P_{n}(x)$.
+That error is the actual value minus the Taylor polinomial. It holds
+true: $|E_{n}(x)|=|f(x)-P_{n}(x)|$. By using the Lagrangien Error
+Bound - (see source \textbf{{[}2{]}}) it follows: $|E_{n}(x)|\leq\frac{M}{(n+1)!}|x-a|^{n+1}$
+with a=0, where \textbf{M }is some value satisfying $|f^{(n+1)}(x)|\leq M$
+on the interval $I=[a,x]$.Since we are interested in an upper bound
+of the error and since \textbf{a} is known, we can reformulate the
+interval as $I=[0,x_{max}]$, where $x_{max}=|i|*k_{max}*w_{max}*h_{max}$,
+since we are interested in computing an error bound for $e^{ikwh(x,y)}$.
+From Stam's Paper about diffraction shader we know some paramters
+for the length, width and height for a given sample patch, i.e. heightfield
+h(x,y) and when using those parameters are able to find a explicit
+number for $x_{max}$.
+
+Facts we are using from Stam's Paper:
+\begin{itemize}
+\item Height of bump: 0.15micro meters
+\item Width of a bump: 0.5micro meters
+\item Length of a bump: 1micro meters
+\item $k=\frac{2\pi}{\lambda}$ is the wavenumber and $\lambda\in[\lambda_{min,}\lambda_{max}]$its
+wavelength hence $k_{max}=\frac{2\pi}{\lambda_{min}}$ 
+\item $w$~is a component of the vector $\vec{v}=\vec{k_{1}}-\vec{k_{2}}=(u,v,w)$,
+where $\vec{k_{1}}$ and $\vec{k_{2}}$ are \textbf{normalized} direction
+vectors and this each component can have a value in range {[}-2, 2{]}.
+\item for simplification, assume$[\lambda_{min,}\lambda_{max}]=[400nm,700nm].$
+\end{itemize}
+Hence $x_{max}=|i|*k_{max}*w_{max}*h_{max}=$$k_{max}*w_{max}*h_{max}=2*(\frac{2\pi}{4*10^{-7}m})*1.5*10^{-7}=1.5\pi$and
+it follows for our intervall $I=[0,1.5\pi]$. Next we are going to
+find the value for M. Since the exponential function is monoton growing
+(on the interval I) and and the derivative of the \textbf{exp} function
+is the exp function itself, we can find such an M: $M=e^{x_{max}}=exp(1.5\pi)$and
+$|f^{(n+1)}(x)|\leq M$ holds. With $|E_{n}(x_{max})|\leq\frac{M}{(n+1)!}|x_{max}-a|^{n+1}=\frac{exp(1.5\pi)*(1.5\pi)^{n+1}}{(n+1)!}$we
+now can find a value of n for a given bound, i.e. we can find an value
+of $N\mathbb{\in N}$ s.t. $\frac{exp(1.5\pi)*(1.5\pi)^{N+1}}{(N+1)!}\leq\epsilon$.
+With Octave/Matlab we can see: 
+\begin{itemize}
+\item if N=20 then $\epsilon\approx2.9950*10^{-4}$
+\item if N=25 then $\epsilon\approx8.8150*10^{-8}$
+\item if N=30 then $\epsilon\approx1.0050*10^{-11}$
+\end{itemize}
+
+\section*{Conclusion}
+
+With this approach we have that$\sum_{n=0}^{25}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$is
+an approximation of P(u,v) with error$\epsilon\approx8.8150*10^{-8}$.
+This means we can precompute 25 Fourier Transformations (for example
+via FFT2) and then sum them up in order to approximate P(u,v) and
+$\epsilon\approx8.8150*10^{-8}$. This approach will allow us to speed
+up our shader. Furthermore we see that when we just take 5 more iterations,
+we will reduce the error bound to the dimension of $10^{-11}$.
+
+\textbf{NB}: More explanation about how the shader itself works during
+our discussion.
+
+
+\section*{Sources}
+\begin{itemize}
+\item \textbf{{[}1{]}} http://en.wikipedia.org/wiki/Ratio\_test
+\item \textbf{{[}2{]}} http://math.jasonbhill.com/courses/fall-2010-math-2300-005/lectures/taylor-polynomial-error-bounds\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \subsection{Sampling: Gaussian Window}
 \subsection{Our derivations}
 \subsection{Aplitude smooting}
@@ -208,7 +345,3 @@ Let us again us again a Box-function, this time a 2-dimensional Box-function $Bo
 \end{align*}
 
 Where we define $u := (p_1 p_2 - q_1 q_2) $ and $v := (p_1 p_2 + q_1 q_2)$. For this identity we used green's integration rule which allowed us to split the double integral to the product of two single integrations. Also, we used the definition of the 2-dimensional Fourer transform of the Box-function. We applied the same substituation like we did in for the 1 dimensional case, but this time twice, once for each variable seperately. The last step, substituting with $u$ and $v$ will be useful later in the implementation. The insight should be, that the product of two complex numbers is again a complex number. We will have to compute the absolute value of $\mathcal{F}\{f\}(w_1,w_2)$ which will then be equal $(u^2 + v^2)^{\frac{1}{2}}\left|\mathcal{F}\{Box\}(w_1,w_2)\right|$
-
-
-
-We applied the 
