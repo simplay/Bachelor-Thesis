@@ -1,7 +1,86 @@
 \section{Theoretical Background}
+Explain that this thesis has deep theoretical background, some derivations
+show derivation roadmap
 \subsection{The Effect Of Diffraction}
+
 \subsection{BRDF - Spectral Rendering}
+
 \subsection{Stams derivation}
+
+In his Paper Diffraction Shader, Jos Stam derives a an BRDF modeling the effect of diffraction for various analytical anistropic reflaction models using the scalar Kirchof theory and the theory of random processes. By emplyong the so called wave theory of diffraction [source 5 in stams paper] in which a wave is assumed to be a complex valued scalar. It's noteworthy, that stam's BRDF formulation does not take into account the polarization of the light. Nevertheless, light sources like sunlight and light bulbs are unpilarizaed. In our simulations we will always assume we have given i directional light source, i.e. sunlight. Hence, we can use stam's model for our derivations
+
+A further assumption in Stam's Paper is, the emanated waves from the source are stationary - sunlight once again.
+Which implies the wave is a superposition of independent monochromatic waves. This implies that each wave is associated to a definite wavelangth lambda.
+
+Mention Helmolth equation, which has the solution $k = \frac{2\pi}{\lambda}$ which is the wavenumber
+
+Stams starts his derviations by above's assumptions and by applying the Kirchhoff integral, which descirbes the reflected field and the Huygen's principle, which states, when somebody knows the wavefront at a given moment, the wave at a later time can be deducted by considering each point on the first wave as the source of a new disturbance.
+
+\begin{equation}
+  \psi_2 = \frac{i k e^{i K R}}{4 \pi R}(F\mathbf{v}-\mathbf{p}) \cdot \int_{S} \hat{\mathbf{n}} e^{ik\mathbf{v} \cdot \mathbf{s} d\mathbf{s}}
+\end{equation}
+
+
+In optics, when dealing with scattered waves, one does use differential scattering cross-section rather than a BRDF which has the following identitiy: 
+
+\begin{equation}
+    \sigma^0 = 4 \pi \lim_{R \to \infty} R^2 \frac{\langle \left|\psi_2\right|^2\rangle}{\langle \left|\psi_1\right|^2\rangle}
+\end{equation}
+
+Relationship between the BRDF and the scattering cross section is the follwing:
+
+\begin{equation}
+    BRDF = \frac{1}{4\pi}\frac{1}{A}\frac{\sigma^0}{cos(\theta_1)cos(\theta_2)}
+\end{equation}
+
+Wheras $\theta_1a$ and $\theta_2$ are the angles that the vectors $\hat{k_1}$
+and $\hat{k_2}$ make with the vertical direction.
+ 
+ADD FIGURE for k1, k2
+
+where R is the disance from the center of the patch to the receiving point $x_p$, $\hat{\mathbf{n}}$ is the normal of the surface at s and the vectors:
+
+\begin{equation*}
+    \mathbf{v} = \hat{\mathbf{k_1}} - \hat{\mathbf{k_1}}
+               = (u,v,w)
+\end{equation*}
+
+\begin{equation*}
+    \mathbf{p} = \hat{\mathbf{k_1}} + \hat{\mathbf{k_1}}
+\end{equation*}
+
+During his derivations, Stam provides a analytical representation for the Kirchhoff integral by using his assumptions. He restricts himself to the reflaction of waves from height fields $h(x,y)$ with the assumption that the surface is defined as an elevation over the (x,y) plane using the surface plane approximation.
+Which will lead him to the follwoing identity for the Kirchhoff integral
+
+\begin{equation}
+    \mathbf{I}(ku, kv) = \int \int \frac{1}{ikw}(-p_x, -p_y, ikwp) 
+\end{equation}
+
+wheras 
+
+\begin{equation}
+    p(x,y) = e^{ikwh(x,y)}
+\end{equation}
+
+We the observation that the integral is a Fourier transform by $-iku$ and $-ikv$
+which will lead us to his final derivation, using the identity of BRDF, and computing the limes:
+
+\begin{equation}
+    BRDF = \frac{k^2 F^2 G}{4\pi A w^2} \langle \left|P(ku, kv)\right|^2\rangle
+\end{equation}
+
+Where 
+
+\begin{equation}
+    G = \frac{1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}}}{cos(\theta_1)cos(\theta_2)}
+\end{equation}
+
+and P(x,y) is the Fourier transform of the function p(x,y) from above.
+
+This identitiy for the BRDF is the starting point for our derivations.
+ 
 \subsection{Taylor Series Approximation}
 \subsection{Sampling: Gaussian Window}
-\subsection{Our derivation}
+\subsection{Our derivations}
+\subsection{Aplitude smooting}
+
