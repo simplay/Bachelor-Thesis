@@ -8,6 +8,13 @@
 \contentsline {subsection}{\numberline {2.2}BRDF - Spectral Rendering}{4}
 \contentsline {subsection}{\numberline {2.3}Stams derivation}{4}
 \contentsline {subsection}{\numberline {2.4}Taylor Series Approximation}{6}
+\contentsline {subsubsection}{\numberline {2.4.1}Taylor Series of p}{6}
+\contentsline {subsubsection}{\numberline {2.4.2}Fourier Transformation of function p}{6}
+\contentsline {subsubsection}{\numberline {2.4.3}Approximation of function P}{7}
+\contentsline {subsubsection}{\numberline {2.4.4}Proof Sketch of 1.}{7}
+\contentsline {subsubsection}{\numberline {2.4.5}Part 2: Find such an N}{7}
+\contentsline {subsubsection}{\numberline {2.4.6}Conclusion}{8}
+\contentsline {subsubsection}{\numberline {2.4.7}Sources}{9}
 \contentsline {subsection}{\numberline {2.5}Sampling: Gaussian Window}{9}
 \contentsline {subsection}{\numberline {2.6}Our derivations}{9}
 \contentsline {subsection}{\numberline {2.7}Aplitude smooting}{9}

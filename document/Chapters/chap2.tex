@@ -89,7 +89,7 @@ further be able to approximate the Fourier-Transformation of p(x,y),
 denoted as \textbf{P(u,v)}. Finally we will give an error bound for
 this approximation.
 
-\section*{Taylor Series of p}
+\subsubsection{Taylor Series of p}
 
 Given $p(x,y)=e^{ikwh(x,y)}$form Stam's Paper where h(x,y) is here
 a given heightfield. Also given the definition $e^{y}=1+y+\frac{y^{2}}{2!}+\frac{y^{3}}{3!}+...=\sum_{n=0}^{\infty}\frac{y^{n}}{n!}$where
@@ -102,7 +102,7 @@ stated identities: $e^{y}=1+(ikwh)+\frac{1}{2!}(ikwh)^{2}+\frac{1}{3!}(ikwh)^{3}
 Hence it holds $p(x,y)=\sum_{n=0}^{\infty}\frac{(ikwh(x,y))^{n}}{n!}.$
 
 
-\section*{Fourier Transformation of function p}
+\subsubsection{Fourier Transformation of function p}
 
 Let us now compute the Fourier Transformation of p(x,y) form above:$\mathcal{F}\left\{ p\right\} (u,v)=\mathcal{F}\left\{ \sum_{n=0}^{\infty}\frac{(ikwh(x,y))^{n}}{n!}.\right\} =^{\mathcal{F}\, lin\, Operator}\sum_{n=0}^{\infty}\mathcal{F}\left\{ \frac{(ikwh(x,y))^{n}}{n!}\right\} =\sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h(x,y){}^{n}\right\} $.
 Hence it follows: $P(\alpha,\beta)=\sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$.
@@ -113,7 +113,7 @@ computed by the two dimensional \textbf{DFT} or rather by the two
 dimensional \textbf{FFT} over h(x,y). 
 
 
-\section*{Approximation of function P}
+\subsubsection{Approximation of function P}
 
 Next we are going to look for an $N\mathbb{\in N}$s.t. $\sum_{n=0}^{N}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)\approx P(\alpha,\beta)$.
 is a good approximation. We have to prove two things:
@@ -124,7 +124,7 @@ holds true.
 bound, for example machine precision $\epsilon$. 
 \end{enumerate}
 
-\section*{Proof Sketch of 1.}
+\subsubsection{Proof Sketch of 1.}
 
 By the \textbf{ratio test} (see \textbf{{[}1{]}}) we can show that
 the series $\sum_{n=0}^{N}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$
@@ -138,7 +138,7 @@ Thus this series converges absolutely, no matter what value we will
 pick for y.
 
 
-\section*{Part 2: Find such an N}
+\subsubsection{Part 2: Find such an N}
 
 Let $f(x)=e^{x}$. We can formulate its Taylor-Series, stated above.
 Let $P_{n}(x)$denote the n-th Taylor-Polinomial, $P_{n}(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^{k},$where
@@ -158,6 +158,7 @@ h(x,y) and when using those parameters are able to find a explicit
 number for $x_{max}$.
 
 Facts we are using from Stam's Paper:
+
 \begin{itemize}
 \item Height of bump: 0.15micro meters
 \item Width of a bump: 0.5micro meters
@@ -169,6 +170,7 @@ where $\vec{k_{1}}$ and $\vec{k_{2}}$ are \textbf{normalized} direction
 vectors and this each component can have a value in range {[}-2, 2{]}.
 \item for simplification, assume$[\lambda_{min,}\lambda_{max}]=[400nm,700nm].$
 \end{itemize}
+
 Hence $x_{max}=|i|*k_{max}*w_{max}*h_{max}=$$k_{max}*w_{max}*h_{max}=2*(\frac{2\pi}{4*10^{-7}m})*1.5*10^{-7}=1.5\pi$and
 it follows for our intervall $I=[0,1.5\pi]$. Next we are going to
 find the value for M. Since the exponential function is monoton growing
@@ -184,7 +186,7 @@ With Octave/Matlab we can see:
 \item if N=30 then $\epsilon\approx1.0050*10^{-11}$
 \end{itemize}
 
-\section*{Conclusion}
+\subsubsection{Conclusion}
 
 With this approach we have that$\sum_{n=0}^{25}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$is
 an approximation of P(u,v) with error$\epsilon\approx8.8150*10^{-8}$.
@@ -198,27 +200,27 @@ we will reduce the error bound to the dimension of $10^{-11}$.
 our discussion.
 
 
-\section*{Sources}
+\subsubsection{Sources}
 \begin{itemize}
 \item \textbf{{[}1{]}} http://en.wikipedia.org/wiki/Ratio\_test
 \item \textbf{{[}2{]}} http://math.jasonbhill.com/courses/fall-2010-math-2300-005/lectures/taylor-polynomial-error-bounds\end{itemize}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 \subsection{Sampling: Gaussian Window}
 \subsection{Our derivations}
+
+Radiance reflected by given surface in given directio,:
+$L_{\lambda}(w_i)$ is the incomming radiance, $L_{\lambda}(w_r)$ is the reflected radiance, 
+
+\begin{equation}
+    L_{\lambda}(w_r) = \int_{\Omega} BRDF_{\lambda}(w_i, w_r) L_{\lambda}(w_i) cos(\theta_i) dw_i
+\end{equation}
+
+where $w_i$ is the solid angle for the incoming light, $\theta{_i}$ is the angle of incidence,
+$w_r$ is the solid angle for the reflected light, $\lambda$ wavelength, $\Omega$ is the hemisphre we of integration for the incomming light.
+
+
 \subsection{Aplitude smooting}
 Let us consider the so called 1-dimensional Box-function with length $T$ which is defined as the following: 
 ADD AN IMAGE OF BOXFUNCTION

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.6)  5 NOV 2013 18:40
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.6)  5 NOV 2013 19:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -250,12 +250,11 @@ Overfull \hbox (57.71169pt too wide) in paragraph at lines 107--109
 /m/n/12 = [][] []\OMS/zplm/m/n/12 F []$\OT1/ppl/m/n/12 .
  []
 
-[6]
 LaTeX Font Info:    Try loading font information for U+fplmbb on input line 118
 .
- (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ufplmbb.fd
+(/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
-)
+) [6]
 Overfull \hbox (12.4447pt too wide) in paragraph at lines 129--132
 \OT1/ppl/m/n/12 By the \OT1/ppl/b/n/12 ra-tio test \OT1/ppl/m/n/12 (see \OT1/pp
 l/b/n/12 [1]\OT1/ppl/m/n/12 ) we can show that the se-ries $[][] []\OMS/zplm/m/
@@ -271,16 +270,25 @@ its Taylor-Series, stated abo-ve. Let $\OML/zplm/m/it/12 P[]\OT1/zplm/m/n/12 (\
 OML/zplm/m/it/12 x\OT1/zplm/m/n/12 )$\OT1/ppl/m/n/12 denote
  []
 
-[7]
-LaTeX Font Info:    Try loading font information for OMS+ppl on input line 162.
+LaTeX Font Info:    Try loading font information for OMS+ppl on input line 163.
 
- (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/omsppl.fd
+(/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/omsppl.fd
 File: omsppl.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ppl/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 162.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 163.
+ [7]
+Overfull \hbox (11.30933pt too wide) in paragraph at lines 174--183
+[]\OT1/ppl/m/n/12 Hence $\OML/zplm/m/it/12 x[] \OT1/zplm/m/n/12 = \OMS/zplm/m/n
+/12 j\OML/zplm/m/it/12 i\OMS/zplm/m/n/12 j ^^C \OML/zplm/m/it/12 k[] \OMS/zplm/
+m/n/12 ^^C \OML/zplm/m/it/12 w[] \OMS/zplm/m/n/12 ^^C \OML/zplm/m/it/12 h[] \OT
+1/zplm/m/n/12 =$$\OML/zplm/m/it/12 k[] \OMS/zplm/m/n/12 ^^C \OML/zplm/m/it/12 w
+[] \OMS/zplm/m/n/12 ^^C \OML/zplm/m/it/12 h[] \OT1/zplm/m/n/12 = \OT1/ppl/m/n/1
+2 2 \OMS/zplm/m/n/12 ^^C \OT1/zplm/m/n/12 ([]) \OMS/zplm/m/n/12 ^^C
+ []
 
-Overfull \hbox (48.70432pt too wide) in paragraph at lines 172--181
+
+Overfull \hbox (48.70432pt too wide) in paragraph at lines 174--183
 \OMS/zplm/m/n/12 j\OML/zplm/m/it/12 f[]\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 x\OT
 1/zplm/m/n/12 )\OMS/zplm/m/n/12 j ^^T \OML/zplm/m/it/12 M$ \OT1/ppl/m/n/12 hold
 s. With $\OMS/zplm/m/n/12 j\OML/zplm/m/it/12 E[]\OT1/zplm/m/n/12 (\OML/zplm/m/i
@@ -290,31 +298,31 @@ OT1/ppl/m/n/12 we
  []
 
 [8]
-Overfull \hbox (74.25032pt too wide) in paragraph at lines 204--204
+Overfull \hbox (74.25032pt too wide) in paragraph at lines 206--206
 [] []\OT1/ppl/b/n/12 [2] \OT1/ppl/m/n/12 http://math.jasonbhill.com/courses/fal
 l-2010-math-2300-005/lectures/taylor-
  []
 
 
-Overfull \hbox (20.93388pt too wide) in paragraph at lines 236--239
+Overfull \hbox (20.93388pt too wide) in paragraph at lines 238--241
 []\OT1/ppl/m/n/12 We as-s-u-me, that our gi-ven heigh-field can be re-pre-sen-t
 ed as a 2-dimensional
  []
 
 
-Overfull \hbox (32.81923pt too wide) in paragraph at lines 236--239
+Overfull \hbox (32.81923pt too wide) in paragraph at lines 238--241
 \OT1/ppl/m/n/12 box-function. No-te that we can use any ex-pli-cit gi-ven cons-
 train-ted 2-dimensional
  []
 
-[9]
-Overfull \hbox (6.88013pt too wide) in paragraph at lines 243--245
+
+Overfull \hbox (6.88013pt too wide) in paragraph at lines 245--247
 []\OT1/ppl/m/n/12 A so cal-led bump can be re-pre-sen-ted by our 1-dimensional 
 Box-function.
  []
 
-[10] [11]
-Overfull \hbox (21.81639pt too wide) in paragraph at lines 345--345
+[9] [10] [11]
+Overfull \hbox (21.81639pt too wide) in paragraph at lines 347--347
 [] 
  []
 
@@ -370,7 +378,7 @@ onts/type1/public/mathpazo/fplmri.pfb></usr/local/texlive/2013/texmf-dist/fonts
 /type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/
 urw/palatino/uplr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/pal
 atino/uplri8a.pfb>
-Output written on thesis.pdf (17 pages, 134637 bytes).
+Output written on thesis.pdf (17 pages, 135806 bytes).
 PDF statistics:
  100 PDF objects out of 1000 (max. 8388607)
  70 compressed objects within 1 object stream
