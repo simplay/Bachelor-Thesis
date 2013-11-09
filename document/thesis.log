@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.6)  5 NOV 2013 19:02
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.6)  9 NOV 2013 21:23
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -316,13 +316,13 @@ train-ted 2-dimensional
  []
 
 
-Overfull \hbox (6.88013pt too wide) in paragraph at lines 245--247
+Overfull \hbox (6.88013pt too wide) in paragraph at lines 247--249
 []\OT1/ppl/m/n/12 A so cal-led bump can be re-pre-sen-ted by our 1-dimensional 
 Box-function.
  []
 
 [9] [10] [11]
-Overfull \hbox (21.81639pt too wide) in paragraph at lines 347--347
+Overfull \hbox (26.81639pt too wide) in paragraph at lines 349--349
 [] 
  []
 
@@ -365,7 +365,7 @@ Here is how much of TeX's memory you used:
  5293 multiletter control sequences out of 15000+600000
  35533 words of font info for 104 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 27i,9n,26p,826b,202s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,9n,26p,844b,202s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/lo
 cal/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/201
 3/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2013
@@ -378,7 +378,7 @@ onts/type1/public/mathpazo/fplmri.pfb></usr/local/texlive/2013/texmf-dist/fonts
 /type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/
 urw/palatino/uplr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/pal
 atino/uplri8a.pfb>
-Output written on thesis.pdf (17 pages, 135806 bytes).
+Output written on thesis.pdf (17 pages, 136520 bytes).
 PDF statistics:
  100 PDF objects out of 1000 (max. 8388607)
  70 compressed objects within 1 object stream

@@ -240,39 +240,41 @@ Note that we can use any explicit given constrainted 2-dimensional function and 
 we get from the box-function.
  
 Further we are assuming that we can model the overall surface be assuming this heighfield being distributed in a periodic manor.
-Therfore, the whole surface can be represented like this $f(x) = \sum_{n=0}^{N} Box(x-nT_1, y-mT_2)$ assuming the given heighfield has the dimensions $T_1$ by $T_2$. But let us first consider the 1-dimensional Box-function case before deriving an identity for the Fourier transform of our 2-dimensional Box-function, i.e. the fourier transform of our heighfield. 
+Therfore, the whole surface can be represented like this $f(x) = \sum_{n=0}^{N} Box(x+nT_1, y+mT_2)$ assuming the given heighfield has the dimensions $T_1$ by $T_2$. But let us first consider the 1-dimensional Box-function case before deriving an identity for the Fourier transform of our 2-dimensional Box-function, i.e. the fourier transform of our heighfield. 
+
+Note: A function $f$ periodic with periode $T$ means: $\forall x \in \mathcal{R}: Box(x) = Box(x+T)$
 
 A so called bump can be represented by our 1-dimensional Box-function. We assume periodicity which is equaivalent to:   
-$f(x) = \sum_{n=0}^{N} Box(x-nT)$
+$f(x) = \sum_{n=0}^{N} Box(x+nT)$
 
-We are insterested in the 1-dimensional Fourier transform of the 1-dimensional Box-function:
+We are insterested in the 1-dimensional inverse Fourier transform of the 1-dimensional Box-function:
 
 \begin{align*}
-\mathcal{F}\{f\}(w)
-& =\int f(x) e^{-iwx}dx\\
-& =\int_{-\infty}^{\infty} \sum_{n=0}^{N} Box(x-nT) e^{-iwx}dx\\
-& =\sum_{n=0}^{N} \int_{-\infty}^{\infty} Box(x-nT) e^{-iwx}dx
+\mathcal{F}^{-1}\{f\}(w)
+& =\int f(x) e^{iwx}dx\\
+& =\int_{-\infty}^{\infty} \sum_{n=0}^{N} Box(x+nT) e^{iwx}dx\\
+& =\sum_{n=0}^{N} \int_{-\infty}^{\infty} Box(x+nT) e^{iwx}dx
 \end{align*}
 
-Next, apply the following substituation $x-nT = y$ which will lead us to:
+Next, apply the following substituation $x+nT = y$ which will lead us to:
 
 \begin{gather*}
-x=y+nT\\
+x=y-nT\\
 dx=dy
 \end{gather*} 
 
 Plugging this substituation back to the equation from above we will get 
 
 \begin{align*}
-\mathcal{F}\{f\}(w)
-& =\int f(x) e^{-iwx}dx\\
-& =\sum_{n=0}^{N} \int_{-\infty}^{\infty} Box(y) e^{-iw(y+nT)}dy \\
-& =\sum_{n=0}^{N} e^{-iwnT} \int_{-\infty}^{\infty} Box(y) e^{-iwy}dy \\
+\mathcal{F}^{-1}\{f\}(w)
+& =\int f(x) e^{iwx}dx\\
+& =\sum_{n=0}^{N} \int_{-\infty}^{\infty} Box(y) e^{iw(y-nT)}dy \\
+& =\sum_{n=0}^{N} e^{-iwnT} \int_{-\infty}^{\infty} Box(y) e^{iwy}dy \\
 & =\sum_{n=0}^{N} e^{-iwnT} \mathcal{F}\{f\}(w) \\
-& =\mathcal{F}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT}  
+& =\mathcal{F}^{-1}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT}  
 \end{align*}
 
-We used the fact that the term $e^{-iwnT}$ is a constant when integrating along $dy$ and the identity for the Fourier transform of the Box function. Next, let us consider $\sum_{n=0}^N e^{-uwnT}$ further:
+We used the fact that the term $e^{-iwnT}$ is a constant when integrating along $dy$ and the identity for the inverse Fourier transform of the Box function. Next, let us consider $\sum_{n=0}^N e^{-uwnT}$ further:
 
 \begin{align*}
 \sum_{n=0}^N e^{-uwnT}
@@ -325,25 +327,25 @@ q& =\frac{sin(wT(N+1))-sin(wTN)-sin(wT)}{2(1-cos(wT))}
 Since we have seen, that $\sum_{n=0}^N e^{-uwnT}$ is a complex number and can be written as $(p+iq)$ and we know now the explicit identity for those $p$ and $q$ we get for the 1-dimensional Fourier transform of the 1-dimensional Box-function the following final identity:
 
 \begin{align*}
-\mathcal{F}\{f\}(w)
-& =\mathcal{F}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT} \\
-& = (p+iq) \mathcal{F}\{Box\}(w)  
+\mathcal{F}^{-1}\{f\}(w)
+& =\mathcal{F}^{-1}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT} \\
+& = (p+iq) \mathcal{F}^{-1}\{Box\}(w)  
 \end{align*}
 
 In oder to derive next a identity for the Fourier transform for our 2-dim heighfield, we can proceed similarly, the only fact which changes is, that we are now in a 2-dimensional domain, i.e. we are about to compute a two-dimensional Fourier transform:
 Let us again us again a Box-function, this time a 2-dimensional Box-function $Box(x,y)$ just for the sake of convenience.
 
 \begin{align*}
-\mathcal{F}\{f\}(w_1,w_2)
-& = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} Box(x_1 - n_1 T_1, x_2 - n_2 T_2) e^{-iw(x_1 + x_2)}dx_1 dx_2 \\
-& = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} Box(y_1, y_2) e^{-iw((y_1 + n_1 T_1) + (y_2 + n_2 T_2))}dx_1 dx_2 \\
-& =\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} Box(y_1, y_2) e^{-iw(y_1 + y_2)} e^{-iw(n_1 T_1 + n_2 T_2)}dy_1 dy_2 \\
-& =\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} e^{-iw(n_1 T_1 + n_2 T_2)} \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} Box(y_1, y_2) e^{-iw(y_1 + y_2)} dy_1 dy_2 \\
-& =\left(\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} e^{-iw(n_1 T_1 + n_2 T_2)}\right) \mathcal{F}\{Box\}(w_1,w_2) \\
-& =\left(\sum_{n_2=0}^{N_1} e^{-iw n_1 T_1}\right) \left(\sum_{n_2=0}^{N_2} e^{-iw n_2 T_2}\right) \mathcal{F}\{Box\}(w_1,w_2) \\
-& =(p_1 + i q_1)(p_2 + i q_2) \mathcal{F}\{Box\}(w_1,w_2) \\
-& =((p_1 p_2 - q_1 q_2) + i(p_1 p_2 + q_1 q_2)) \mathcal{F}\{Box\}(w_1,w_2) \\
-& =(u + iv) \mathcal{F}\{Box\}(w_1,w_2)
+\mathcal{F}^{-1}\{f\}(w_1,w_2)
+& = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} Box(x_1 + n_1 T_1, x_2 + n_2 T_2) e^{iw(x_1 + x_2)}dx_1 dx_2 \\
+& = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} Box(y_1, y_2) e^{iw((y_1 - n_1 T_1) + (y_2 + n_2 T_2))}dx_1 dx_2 \\
+& =\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} Box(y_1, y_2) e^{iw(y_1 + y_2)} e^{-iw(n_1 T_1 + n_2 T_2)}dy_1 dy_2 \\
+& =\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} e^{-iw(n_1 T_1 + n_2 T_2)} \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} Box(y_1, y_2) e^{iw(y_1 + y_2)} dy_1 dy_2 \\
+& =\left(\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} e^{-iw(n_1 T_1 + n_2 T_2)}\right) \mathcal{F}^{-1}\{Box\}(w_1,w_2) \\
+& =\left(\sum_{n_2=0}^{N_1} e^{-iw n_1 T_1}\right) \left(\sum_{n_2=0}^{N_2} e^{-iw n_2 T_2}\right) \mathcal{F}^{-1}\{Box\}(w_1,w_2) \\
+& =(p_1 + i q_1)(p_2 + i q_2) \mathcal{F}^{-1}\{Box\}(w_1,w_2) \\
+& =((p_1 p_2 - q_1 q_2) + i(p_1 p_2 + q_1 q_2)) \mathcal{F}^{-1}\{Box\}(w_1,w_2) \\
+& =(u + iv) \mathcal{F}^{-1}\{Box\}(w_1,w_2)
 \end{align*}
 
-Where we define $u := (p_1 p_2 - q_1 q_2) $ and $v := (p_1 p_2 + q_1 q_2)$. For this identity we used green's integration rule which allowed us to split the double integral to the product of two single integrations. Also, we used the definition of the 2-dimensional Fourer transform of the Box-function. We applied the same substituation like we did in for the 1 dimensional case, but this time twice, once for each variable seperately. The last step, substituting with $u$ and $v$ will be useful later in the implementation. The insight should be, that the product of two complex numbers is again a complex number. We will have to compute the absolute value of $\mathcal{F}\{f\}(w_1,w_2)$ which will then be equal $(u^2 + v^2)^{\frac{1}{2}}\left|\mathcal{F}\{Box\}(w_1,w_2)\right|$
+Where we define $u := (p_1 p_2 - q_1 q_2) $ and $v := (p_1 p_2 + q_1 q_2)$. For this identity we used green's integration rule which allowed us to split the double integral to the product of two single integrations. Also, we used the definition of the 2-dimensional inverse Fourer transform of the Box-function. We applied the same substituation like we did in for the 1 dimensional case, but this time twice, once for each variable seperately. The last step, substituting with $u$ and $v$ will be useful later in the implementation. The insight should be, that the product of two complex numbers is again a complex number. We will have to compute the absolute value of $\mathcal{F}^{-1}\{f\}(w_1,w_2)$ which will then be equal $(u^2 + v^2)^{\frac{1}{2}}\left|\mathcal{F}^{-1}\{Box\}(w_1,w_2)\right|$
