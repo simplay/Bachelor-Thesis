@@ -210,6 +210,8 @@ our discussion.
 \subsection{Sampling: Gaussian Window}
 \subsection{Our derivations}
 
+EXPLAIN: Why do we want a formulation for $L_{\lambda}(w_r)$ in some words. what does it represent?
+
 Definition of $BRDF(w_i, w_r) := f_r(w_i, w_r) = \frac{dL_r(w_r)}{dE_i(w_i)}=\frac{dL_r(w_r)}{L_i(w_i)cos(\theta_i)dw_i}$  
 Hence, we can dervie the following expression:
 \begin{align*}
@@ -219,16 +221,31 @@ f_r(w_i, w_r) = \frac{dL_r(w_r)}{L_i(w_i)cos(\theta_i)dw_i} \\
 => L_r(w_r) = \int_{\Omega}f_r(w_i, w_r) L_i(w_i)cos(\theta_i)dw_i
 \end{align*}
 
+We assume, that our incident light is a directional light source like sun-light and therefore its radiance is given as $L_{\lambda}(w)=I(\lambda)\delta(w-w_i)$ where $I(\lambda)$ is the intensity of the relative spectral power for the wavelength $\lambda$. Thus we get for our the brdf formulation:
 
-Radiance reflected by given surface in given directio,:
-$L_{\lambda}(w_i)$ is the incomming radiance, $L_{\lambda}(w_r)$ is the reflected radiance, 
-
-\begin{equation}
-    L_{\lambda}(w_r) = \int_{\Omega} BRDF_{\lambda}(w_i, w_r) L_{\lambda}(w_i) cos(\theta_i) dw_i
-\end{equation}
+\begin{align}
+L_{\lambda}(w_r) 
+& = \int_{\Omega} BRDF_{\lambda}(w_i, w_r) L_{\lambda}(w_i) cos(\theta_i) dw_i \\
+& = BRDF_{\lambda}(w_i, w_r) I(\lambda) cos(\theta_i)
+\end{align}
 
 where $w_i$ is the solid angle for the incoming light, $\theta{_i}$ is the angle of incidence,
 $w_r$ is the solid angle for the reflected light, $\lambda$ wavelength, $\Omega$ is the hemisphre we of integration for the incomming light.
+Radiance reflected by given surface in given direction:
+$L_{\lambda}(w_i)$ is the incomming radiance, $L_{\lambda}(w_r)$ is the reflected radiance
+
+For the $BRDF(w_i, w_r)$ we are going to use the formulation dervied by Stam described above which looks like this:
+
+\begin{align}
+ sdfsdf
+\end{align}
+
+this will lead us to the following identiy:
+
+\begin{align}
+sdfsddf
+\end{align}
+
 
 
 \subsection{Aplitude smooting}

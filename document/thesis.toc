@@ -17,7 +17,7 @@
 \contentsline {subsubsection}{\numberline {2.4.7}Sources}{9}
 \contentsline {subsection}{\numberline {2.5}Sampling: Gaussian Window}{9}
 \contentsline {subsection}{\numberline {2.6}Our derivations}{9}
-\contentsline {subsection}{\numberline {2.7}Aplitude smooting}{9}
+\contentsline {subsection}{\numberline {2.7}Aplitude smooting}{10}
 \contentsline {section}{\numberline {3}Implementation}{15}
 \contentsline {subsection}{\numberline {3.1}Setup}{15}
 \contentsline {subsection}{\numberline {3.2}Precomputations in Matlab}{15}
