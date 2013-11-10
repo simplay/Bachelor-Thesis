@@ -66,7 +66,7 @@ We the observation that the integral is a Fourier transform by $-iku$ and $-ikv$
 which will lead us to his final derivation, using the identity of BRDF, and computing the limes:
 
 \begin{equation}
-    BRDF = \frac{k^2 F^2 G}{4\pi A w^2} \langle \left|P(ku, kv)\right|^2\rangle
+    BRDF = \frac{k^2 F^2 G}{4\pi^2 A w^2} \langle \left|P(ku, kv)\right|^2\rangle
 \end{equation}
 
 Where 
@@ -207,7 +207,7 @@ our discussion.
 
 
 
-\subsection{Sampling: Gaussian Window}
+
 \subsection{Our derivations}
 
 EXPLAIN: Why do we want a formulation for $L_{\lambda}(w_r)$ in some words. what does it represent?
@@ -234,18 +234,38 @@ $w_r$ is the solid angle for the reflected light, $\lambda$ wavelength, $\Omega$
 Radiance reflected by given surface in given direction:
 $L_{\lambda}(w_i)$ is the incomming radiance, $L_{\lambda}(w_r)$ is the reflected radiance
 
-For the $BRDF(w_i, w_r)$ we are going to use the formulation dervied by Stam described above which looks like this:
+For the $BRDF(w_i, w_r)$ we are going to use the formulation dervied by Stam described above which looks like this using the fact that wavenumber $k=\frac{2\pi}{\lambda}$:
 
-\begin{align}
- sdfsdf
-\end{align}
+\begin{align*}
+BRDF(w_i, w_r) 
+& = \frac{k^2 F^2 G}{4\pi^2 A w^2} \langle \left|P(ku, kv) \right|^2\rangle \\
+& = \frac{k^2 F^2 (1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})}{cos(\theta_1)cos(\theta_2) 4\pi^2 A w^2} \langle \left|P(ku, kv)  \right|^2\rangle \\
+& = \frac{4 \pi^2 F^2 (1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})}{cos(\theta_1)cos(\theta_2) 4\pi^2 A \lambda^2 w^2} \langle \left|P(ku, kv)  \right|^2\rangle \\
+& = \frac{F(w_i, w_r)^2 (1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})}{cos(\theta_1)cos(\theta_2) A \lambda^2 w^2} \langle \left|P(ku, kv)  \right|^2\rangle
+\end{align*}
 
-this will lead us to the following identiy:
+where $\hat{\mathbf{k_t}}$ represents a unit vector whose spherical coordinates are given by the solid angle $t$.
+Since we are going to integrate over a sphere $\Omega$ we can write the component $w=(cos(\theta_i)+cos(\theta_r))$
+SHOW WHY WE ARE ALLOWED TO WRITE IT LIKE THIS => SPHERICAL COORDINATES DIFFERENCE $(k1 - k2) = (u,v,w)$ and so on.
+this our identity for $L_{r}(w_r)$ will lead us to the following identiy using our identity :
 
-\begin{align}
-sdfsddf
-\end{align}
+\begin{align*}
+L_{\lambda}(w_r) 
+& = \frac{F(w_i, w_r)^2 (1-\hat{\mathbf{k_1}}\cdot\hat{ \mathbf{k_2}})}{A \lambda^2 cos(\theta_i)cos(\theta_r)  (cos(\theta_i)+cos(\theta_r))^2} \langle \left|P_{cont}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle cos(\theta_i) I(\lambda) \\
+& = I(\lambda) \frac{F(w_i, w_r)^2 (1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|P_{cont}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle \\
+& = I(\lambda) \frac{F(w_i, w_r)^2 (1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|T_0^2 P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle
+\end{align*}
 
+$P_{cont}$ is the continious inverse Fourier transform for the taylor seies of our hight-field representing the nano structure, i.e. $P(k,l) = \mathcal{F}^{-1}\{p\}(k,l)$ and $P_{dtft}$ is the dicrete-time inverse Fourier Transform for the same problem domain and $T_0$ the sampling distance for the discretization pf $p(x,y)$ assuming equal and uniform sampling in both dimensions $x,y$.
+
+\subsection{Relative BRDF}
+reason why relative brdf: In order to scale the reflactiance such that we are able to texture. 
+convex combination reflectance with texture. Scale illumination.
+
+
+
+\subsection{Sampling: Gaussian Window}
+this is the game in the town we are playing
 
 
 \subsection{Aplitude smooting}
