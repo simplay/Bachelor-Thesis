@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.6)  9 NOV 2013 21:23
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.6)  10 NOV 2013 21:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -304,39 +304,39 @@ l-2010-math-2300-005/lectures/taylor-
  []
 
 
-Overfull \hbox (20.93388pt too wide) in paragraph at lines 238--241
+Overfull \hbox (20.93388pt too wide) in paragraph at lines 248--251
 []\OT1/ppl/m/n/12 We as-s-u-me, that our gi-ven heigh-field can be re-pre-sen-t
 ed as a 2-dimensional
  []
 
 
-Overfull \hbox (32.81923pt too wide) in paragraph at lines 238--241
+Overfull \hbox (32.81923pt too wide) in paragraph at lines 248--251
 \OT1/ppl/m/n/12 box-function. No-te that we can use any ex-pli-cit gi-ven cons-
 train-ted 2-dimensional
  []
 
-
-Overfull \hbox (6.88013pt too wide) in paragraph at lines 247--249
+[9]
+Overfull \hbox (6.88013pt too wide) in paragraph at lines 257--259
 []\OT1/ppl/m/n/12 A so cal-led bump can be re-pre-sen-ted by our 1-dimensional 
 Box-function.
  []
 
-[9] [10] [11]
-Overfull \hbox (26.81639pt too wide) in paragraph at lines 349--349
+[10] [11] [12]
+Overfull \hbox (26.81639pt too wide) in paragraph at lines 359--359
 [] 
  []
 
-[12]) [13]
+) [13] [14]
 \openout2 = `Chapters/chap3.aux'.
 
- (./Chapters/chap3.tex) [14
+ (./Chapters/chap3.tex) [15
 
 
 
 ]
 \openout2 = `Chapters/chap4.aux'.
 
- (./Chapters/chap4.tex) [15
+ (./Chapters/chap4.tex) [16
 
 
 
@@ -344,14 +344,14 @@ Overfull \hbox (26.81639pt too wide) in paragraph at lines 349--349
 \openout2 = `Chapters/chap5.aux'.
 
 
-(./Chapters/chap5.tex) [16
+(./Chapters/chap5.tex) [17
 
 
 
 ]
 \openout2 = `Chapters/chap6.aux'.
 
- (./Chapters/chap6.tex) [17
+ (./Chapters/chap6.tex) [18
 
 
 
@@ -361,7 +361,7 @@ Overfull \hbox (26.81639pt too wide) in paragraph at lines 349--349
 Here is how much of TeX's memory you used:
  1916 strings out of 493315
  23098 string characters out of 6137904
- 87303 words of memory out of 5000000
+ 86303 words of memory out of 5000000
  5293 multiletter control sequences out of 15000+600000
  35533 words of font info for 104 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
@@ -378,10 +378,10 @@ onts/type1/public/mathpazo/fplmri.pfb></usr/local/texlive/2013/texmf-dist/fonts
 /type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/
 urw/palatino/uplr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/pal
 atino/uplri8a.pfb>
-Output written on thesis.pdf (17 pages, 136520 bytes).
+Output written on thesis.pdf (18 pages, 138227 bytes).
 PDF statistics:
- 100 PDF objects out of 1000 (max. 8388607)
- 70 compressed objects within 1 object stream
+ 103 PDF objects out of 1000 (max. 8388607)
+ 72 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

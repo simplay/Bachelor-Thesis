@@ -18,14 +18,14 @@
 \contentsline {subsection}{\numberline {2.5}Sampling: Gaussian Window}{9}
 \contentsline {subsection}{\numberline {2.6}Our derivations}{9}
 \contentsline {subsection}{\numberline {2.7}Aplitude smooting}{9}
-\contentsline {section}{\numberline {3}Implementation}{14}
-\contentsline {subsection}{\numberline {3.1}Setup}{14}
-\contentsline {subsection}{\numberline {3.2}Precomputations in Matlab}{14}
-\contentsline {subsection}{\numberline {3.3}jrtr Framework}{14}
-\contentsline {subsection}{\numberline {3.4}GLSL Diffraction Shader}{14}
-\contentsline {section}{\numberline {4}Data Acquisition and Evaluation}{15}
-\contentsline {subsection}{\numberline {4.1}Diffraction Grating}{15}
-\contentsline {subsection}{\numberline {4.2}Snake Skin Parameters}{15}
-\contentsline {section}{\numberline {5}Results}{16}
-\contentsline {section}{\numberline {6}Conclusion}{17}
-\contentsline {subsection}{\numberline {6.1}Further Work}{17}
+\contentsline {section}{\numberline {3}Implementation}{15}
+\contentsline {subsection}{\numberline {3.1}Setup}{15}
+\contentsline {subsection}{\numberline {3.2}Precomputations in Matlab}{15}
+\contentsline {subsection}{\numberline {3.3}jrtr Framework}{15}
+\contentsline {subsection}{\numberline {3.4}GLSL Diffraction Shader}{15}
+\contentsline {section}{\numberline {4}Data Acquisition and Evaluation}{16}
+\contentsline {subsection}{\numberline {4.1}Diffraction Grating}{16}
+\contentsline {subsection}{\numberline {4.2}Snake Skin Parameters}{16}
+\contentsline {section}{\numberline {5}Results}{17}
+\contentsline {section}{\numberline {6}Conclusion}{18}
+\contentsline {subsection}{\numberline {6.1}Further Work}{18}

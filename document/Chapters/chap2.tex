@@ -210,6 +210,16 @@ our discussion.
 \subsection{Sampling: Gaussian Window}
 \subsection{Our derivations}
 
+Definition of $BRDF(w_i, w_r) := f_r(w_i, w_r) = \frac{dL_r(w_r)}{dE_i(w_i)}=\frac{dL_r(w_r)}{L_i(w_i)cos(\theta_i)dw_i}$  
+Hence, we can dervie the following expression:
+\begin{align*}
+f_r(w_i, w_r) = \frac{dL_r(w_r)}{L_i(w_i)cos(\theta_i)dw_i} \\
+=> f_r(w_i, w_r) L_i(w_i)cos(\theta_i)dw_i = dL_r(w_r) \\
+=> \int_{\Omega}f_r(w_i, w_r) L_i(w_i)cos(\theta_i)dw_i = \int_{\Omega}dL_r(w_r) \\
+=> L_r(w_r) = \int_{\Omega}f_r(w_i, w_r) L_i(w_i)cos(\theta_i)dw_i
+\end{align*}
+
+
 Radiance reflected by given surface in given directio,:
 $L_{\lambda}(w_i)$ is the incomming radiance, $L_{\lambda}(w_r)$ is the reflected radiance, 
 
