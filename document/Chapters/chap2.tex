@@ -72,7 +72,7 @@ which will lead us to his final derivation, using the identity of BRDF, and comp
 Where 
 
 \begin{equation}
-    G = \frac{1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}}}{cos(\theta_1)cos(\theta_2)}
+    G = \frac{(1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})^2}{cos(\theta_1)cos(\theta_2)}
 \end{equation}
 
 and P(x,y) is the Fourier transform of the function p(x,y) from above.
@@ -251,9 +251,9 @@ this our identity for $L_{r}(w_r)$ will lead us to the following identiy using o
 
 \begin{align*}
 L_{\lambda}(w_r) 
-& = \frac{F(w_i, w_r)^2 (1-\hat{\mathbf{k_1}}\cdot\hat{ \mathbf{k_2}})}{A \lambda^2 cos(\theta_i)cos(\theta_r)  (cos(\theta_i)+cos(\theta_r))^2} \langle \left|P_{cont}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle cos(\theta_i) I(\lambda) \\
-& = I(\lambda) \frac{F(w_i, w_r)^2 (1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|P_{cont}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle \\
-& = I(\lambda) \frac{F(w_i, w_r)^2 (1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|T_0^2 P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle
+& = \frac{F(w_i, w_r)^2 (1-\hat{\mathbf{k_1}}\cdot\hat{ \mathbf{k_2}})^2}{A \lambda^2 cos(\theta_i)cos(\theta_r)  (cos(\theta_i)+cos(\theta_r))^2} \langle \left|P_{cont}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle cos(\theta_i) I(\lambda) \\
+& = I(\lambda) \frac{F(w_i, w_r)^2 (1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|P_{cont}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle \\
+& = I(\lambda) \frac{F(w_i, w_r)^2 (1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|T_0^2 P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle
 \end{align*}
 
 $P_{cont}$ is the continious inverse Fourier transform for the taylor seies of our hight-field representing the nano structure, i.e. $P(k,l) = \mathcal{F}^{-1}\{p\}(k,l)$ and $P_{dtft}$ is the dicrete-time inverse Fourier Transform for the same problem domain and $T_0$ the sampling distance for the discretization pf $p(x,y)$ assuming equal and uniform sampling in both dimensions $x,y$.
@@ -262,7 +262,52 @@ $P_{cont}$ is the continious inverse Fourier transform for the taylor seies of o
 reason why relative brdf: In order to scale the reflactiance such that we are able to texture. 
 convex combination reflectance with texture. Scale illumination.
 
+Let us examine what $L_\lambda(w_r)$ will be for $w_r = w_0 := (0,0,*)$ i.e. specular reflection case, denoted as $L_\lambda^{spec}(w_0)$. 
+When we know the expression for $L_\lambda^{spec}(w_0)$ we would be able to compute the relative reflected radiance for our problem by simply dividing $L_\lambda(w_r)$ by $L_\lambda^{spec}(w_0)$, denoted as 
 
+\begin{equation}
+    \rho_\lambda(w_i,w_r) = \frac{L_\lambda(w_r)}{L_\lambda^{spec}(w_0)}
+\end{equation}
+
+But first, let us derive the following expression:
+
+\begin{align*}
+L_\lambda^{spec}(w_0) 
+& = I(\lambda) \frac{F(w_0, w_0)^2 (1-\colvec[0]{0}{1}\cdot\colvec[0]{0}{-1})^2}{\lambda^2 A (cos(0)+cos(0))^2 cos(0)} \langle \left|T_0^2 P_{dtft}(0,0)  \right|^2\rangle \\
+& = I(\lambda) \frac{F(w_0, w_0)^2 (1+1)^2}{\lambda^2 A (1+1)^2 1}\left| T_0^2 N_{sample} \right|^2 \\
+& = I(\lambda) \frac{F(w_0, w_0)^2}{\lambda^2 A}\left| T_0^2 N_{sample} \right|^2 
+\end{align*}
+
+Where $N_{samples}$ is the number of samples of the dtft.
+
+Thus, we can plug our last derived expression into the definition for the relative reflectance radiance in the direction $w_r$ and will get:
+
+\begin{align*}
+\rho_\lambda(w_i,w_r)
+& = \frac{L_\lambda(w_r)}{L_\lambda^{spec}(w_0)} \\
+& = \frac{I(\lambda) \frac{F(w_i, w_r)^2 (1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|T_0^2 P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle}{I(\lambda) \frac{F(w_0, w_0)^2}{\lambda^2 A}\left| T_0^2 N_{sample} \right|^2 } \\
+& = \frac{F^2(w_i,w_r)(1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})^2}{F^2(w_0,w_0)(cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)}  \langle \left|\frac{P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})}{N_{samples}}\right|^2\rangle
+\end{align*}
+
+for simplification and a better overview, let us introduce the following expression, the so called gain factor
+
+\begin{equation}
+    C(w_i,w_r) = \frac{F^2(w_i,w_r)(1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})^2}{F^2(w_0,w_0)(cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r) N_{samples}^2}
+\end{equation}
+
+Using this substitute, we will end up with the following expression for the relative reflectance radiance
+
+\begin{equation}
+\rho_\lambda(w_i,w_r) =  C(w_i,w_r) \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle
+\end{equation}
+
+using the previous definition for the relative reflectance radiance $\rho_\lambda(w_i,w_r) = \frac{L_\lambda(w_r)}{L_\lambda^{spec}(w_0)}$ which we can rearrange to the expression 
+
+\begin{equation}
+L_\lambda(w_r) = \rho_\lambda(w_i,w_r)L_\lambda^{spec}(w_0)
+\end{equation}
+
+Using our last finding 
 
 \subsection{Sampling: Gaussian Window}
 this is the game in the town we are playing
