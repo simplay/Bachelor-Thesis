@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.6)  11 NOV 2013 03:02
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.6)  11 NOV 2013 16:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -315,26 +315,31 @@ c-tan-ce ra-dian-ce $\OML/zplm/m/it/12 ^^Z[]\OT1/zplm/m/n/12 (\OML/zplm/m/it/12
  w[]\OT1/ppl/m/n/12 , \OML/zplm/m/it/12 w[]\OT1/zplm/m/n/12 ) =
  []
 
-[13] [14]
-Overfull \hbox (20.93388pt too wide) in paragraph at lines 379--382
+[13]
+Overfull \hbox (98.11969pt too wide) in paragraph at lines 370--370
+[] 
+ []
+
+[14]
+Overfull \hbox (20.93388pt too wide) in paragraph at lines 388--391
 []\OT1/ppl/m/n/12 We as-s-u-me, that our gi-ven heigh-field can be re-pre-sen-t
 ed as a 2-dimensional
  []
 
 
-Overfull \hbox (32.81923pt too wide) in paragraph at lines 379--382
+Overfull \hbox (32.81923pt too wide) in paragraph at lines 388--391
 \OT1/ppl/m/n/12 box-function. No-te that we can use any ex-pli-cit gi-ven cons-
 train-ted 2-dimensional
  []
 
 
-Overfull \hbox (6.88013pt too wide) in paragraph at lines 388--390
+Overfull \hbox (6.88013pt too wide) in paragraph at lines 397--399
 []\OT1/ppl/m/n/12 A so cal-led bump can be re-pre-sen-ted by our 1-dimensional 
 Box-function.
  []
 
 [15] [16] [17]
-Overfull \hbox (26.81639pt too wide) in paragraph at lines 490--490
+Overfull \hbox (26.81639pt too wide) in paragraph at lines 499--499
 [] 
  []
 
@@ -373,7 +378,7 @@ Overfull \hbox (26.81639pt too wide) in paragraph at lines 490--490
 Here is how much of TeX's memory you used:
  1921 strings out of 493315
  23128 string characters out of 6137904
- 86303 words of memory out of 5000000
+ 87303 words of memory out of 5000000
  5295 multiletter control sequences out of 15000+600000
  36679 words of font info for 107 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
@@ -390,7 +395,7 @@ onts/type1/public/mathpazo/fplmri.pfb></usr/local/texlive/2013/texmf-dist/fonts
 /type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/
 urw/palatino/uplr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/pal
 atino/uplri8a.pfb>
-Output written on thesis.pdf (23 pages, 154847 bytes).
+Output written on thesis.pdf (23 pages, 156015 bytes).
 PDF statistics:
  119 PDF objects out of 1000 (max. 8388607)
  83 compressed objects within 1 object stream
