@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.6)  11 NOV 2013 02:01
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.6)  11 NOV 2013 03:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -214,30 +214,30 @@ LaTeX Font Info:    Font shape `U/msb/m/n' will be
 (Font)              scaled to size 9.37807pt on input line 3.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
 (Font)              scaled to size 7.29405pt on input line 3.
-)
+ [2
+
+])
 \tf@toc=\write3
 \openout3 = `thesis.toc'.
 
- [2
-
-]
+ [3]
 \openout2 = `Chapters/chap1.aux'.
 
  (./Chapters/chap1.tex
 LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <14.4> not available
 (Font)              Font shape `OT1/ppl/b/n' tried instead on input line 2.
-) [3
+) [4
 
 
 ]
 \openout2 = `Chapters/chap2.aux'.
 
 
-(./Chapters/chap2.tex [4
+(./Chapters/chap2.tex [5
 
 
 
-] [5]
+] [6]
 Overfull \hbox (48.68889pt too wide) in paragraph at lines 107--109
 \OT1/ppl/m/n/12 Let us now com-pu-te the Fou-ri-er Trans-for-ma-ti-on of p(x,y)
  form above:$\OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 u\OT1/pp
@@ -254,7 +254,7 @@ LaTeX Font Info:    Try loading font information for U+fplmbb on input line 118
 .
 (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
-) [6]
+) [7]
 Overfull \hbox (12.4447pt too wide) in paragraph at lines 129--132
 \OT1/ppl/m/n/12 By the \OT1/ppl/b/n/12 ra-tio test \OT1/ppl/m/n/12 (see \OT1/pp
 l/b/n/12 [1]\OT1/ppl/m/n/12 ) we can show that the se-ries $[][] []\OMS/zplm/m/
@@ -277,7 +277,7 @@ File: omsppl.fd
 )
 LaTeX Font Info:    Font shape `OMS/ppl/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 163.
- [7]
+ [8]
 Overfull \hbox (11.30933pt too wide) in paragraph at lines 174--183
 []\OT1/ppl/m/n/12 Hence $\OML/zplm/m/it/12 x[] \OT1/zplm/m/n/12 = \OMS/zplm/m/n
 /12 j\OML/zplm/m/it/12 i\OMS/zplm/m/n/12 j ^^C \OML/zplm/m/it/12 k[] \OMS/zplm/
@@ -297,58 +297,58 @@ zplm/m/n/12 ^^@ \OML/zplm/m/it/12 a\OMS/zplm/m/n/12 j[] \OT1/zplm/m/n/12 = []$\
 OT1/ppl/m/n/12 we
  []
 
-[8]
+[9]
 Overfull \hbox (74.25032pt too wide) in paragraph at lines 206--206
 [] []\OT1/ppl/b/n/12 [2] \OT1/ppl/m/n/12 http://math.jasonbhill.com/courses/fal
 l-2010-math-2300-005/lectures/taylor-
  []
 
-[9]
+[10]
 Overfull \hbox (29.16502pt too wide) in paragraph at lines 257--257
 [] 
  []
 
-[10] [11]
+[11] [12]
 Overfull \hbox (32.89223pt too wide) in paragraph at lines 304--305
 []\OT1/ppl/m/n/12 using the pre-vious de-fi-ni-ti-on for the re-la-ti-ve re-fle
 c-tan-ce ra-dian-ce $\OML/zplm/m/it/12 ^^Z[]\OT1/zplm/m/n/12 (\OML/zplm/m/it/12
  w[]\OT1/ppl/m/n/12 , \OML/zplm/m/it/12 w[]\OT1/zplm/m/n/12 ) =
  []
 
-
-Overfull \hbox (20.93388pt too wide) in paragraph at lines 330--333
+[13] [14]
+Overfull \hbox (20.93388pt too wide) in paragraph at lines 379--382
 []\OT1/ppl/m/n/12 We as-s-u-me, that our gi-ven heigh-field can be re-pre-sen-t
 ed as a 2-dimensional
  []
 
 
-Overfull \hbox (32.81923pt too wide) in paragraph at lines 330--333
+Overfull \hbox (32.81923pt too wide) in paragraph at lines 379--382
 \OT1/ppl/m/n/12 box-function. No-te that we can use any ex-pli-cit gi-ven cons-
 train-ted 2-dimensional
  []
 
 
-Overfull \hbox (6.88013pt too wide) in paragraph at lines 339--341
+Overfull \hbox (6.88013pt too wide) in paragraph at lines 388--390
 []\OT1/ppl/m/n/12 A so cal-led bump can be re-pre-sen-ted by our 1-dimensional 
 Box-function.
  []
 
-[12] [13] [14]
-Overfull \hbox (26.81639pt too wide) in paragraph at lines 441--441
+[15] [16] [17]
+Overfull \hbox (26.81639pt too wide) in paragraph at lines 490--490
 [] 
  []
 
-[15]) [16]
+[18]) [19]
 \openout2 = `Chapters/chap3.aux'.
 
- (./Chapters/chap3.tex) [17
+ (./Chapters/chap3.tex) [20
 
 
 
 ]
 \openout2 = `Chapters/chap4.aux'.
 
- (./Chapters/chap4.tex) [18
+ (./Chapters/chap4.tex) [21
 
 
 
@@ -356,14 +356,14 @@ Overfull \hbox (26.81639pt too wide) in paragraph at lines 441--441
 \openout2 = `Chapters/chap5.aux'.
 
 
-(./Chapters/chap5.tex) [19
+(./Chapters/chap5.tex) [22
 
 
 
 ]
 \openout2 = `Chapters/chap6.aux'.
 
- (./Chapters/chap6.tex) [20
+ (./Chapters/chap6.tex) [23
 
 
 
@@ -373,11 +373,11 @@ Overfull \hbox (26.81639pt too wide) in paragraph at lines 441--441
 Here is how much of TeX's memory you used:
  1921 strings out of 493315
  23128 string characters out of 6137904
- 87303 words of memory out of 5000000
+ 86303 words of memory out of 5000000
  5295 multiletter control sequences out of 15000+600000
  36679 words of font info for 107 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 27i,15n,26p,844b,202s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,15n,26p,844b,229s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/lo
 cal/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/201
 3/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2013
@@ -390,10 +390,10 @@ onts/type1/public/mathpazo/fplmri.pfb></usr/local/texlive/2013/texmf-dist/fonts
 /type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/
 urw/palatino/uplr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/pal
 atino/uplri8a.pfb>
-Output written on thesis.pdf (20 pages, 148653 bytes).
+Output written on thesis.pdf (23 pages, 154847 bytes).
 PDF statistics:
- 110 PDF objects out of 1000 (max. 8388607)
- 77 compressed objects within 1 object stream
+ 119 PDF objects out of 1000 (max. 8388607)
+ 83 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

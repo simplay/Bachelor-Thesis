@@ -1,32 +1,34 @@
 \select@language {ngerman}
-\contentsline {section}{\numberline {1}Introduction}{3}
-\contentsline {subsection}{\numberline {1.1}Motivation}{3}
-\contentsline {subsection}{\numberline {1.2}Related Work}{3}
-\contentsline {subsection}{\numberline {1.3}Thesis Outline}{3}
-\contentsline {section}{\numberline {2}Theoretical Background}{4}
-\contentsline {subsection}{\numberline {2.1}The Effect Of Diffraction}{4}
-\contentsline {subsection}{\numberline {2.2}BRDF - Spectral Rendering}{4}
-\contentsline {subsection}{\numberline {2.3}Stams derivation}{4}
-\contentsline {subsection}{\numberline {2.4}Taylor Series Approximation}{6}
-\contentsline {subsubsection}{\numberline {2.4.1}Taylor Series of p}{6}
-\contentsline {subsubsection}{\numberline {2.4.2}Fourier Transformation of function p}{6}
-\contentsline {subsubsection}{\numberline {2.4.3}Approximation of function P}{7}
-\contentsline {subsubsection}{\numberline {2.4.4}Proof Sketch of 1.}{7}
-\contentsline {subsubsection}{\numberline {2.4.5}Part 2: Find such an N}{7}
-\contentsline {subsubsection}{\numberline {2.4.6}Conclusion}{8}
-\contentsline {subsubsection}{\numberline {2.4.7}Sources}{9}
-\contentsline {subsection}{\numberline {2.5}Our derivations}{9}
-\contentsline {subsection}{\numberline {2.6}Relative BRDF}{10}
-\contentsline {subsection}{\numberline {2.7}Sampling: Gaussian Window}{12}
-\contentsline {subsection}{\numberline {2.8}Aplitude smooting}{12}
-\contentsline {section}{\numberline {3}Implementation}{17}
-\contentsline {subsection}{\numberline {3.1}Setup}{17}
-\contentsline {subsection}{\numberline {3.2}Precomputations in Matlab}{17}
-\contentsline {subsection}{\numberline {3.3}jrtr Framework}{17}
-\contentsline {subsection}{\numberline {3.4}GLSL Diffraction Shader}{17}
-\contentsline {section}{\numberline {4}Data Acquisition and Evaluation}{18}
-\contentsline {subsection}{\numberline {4.1}Diffraction Grating}{18}
-\contentsline {subsection}{\numberline {4.2}Snake Skin Parameters}{18}
-\contentsline {section}{\numberline {5}Results}{19}
-\contentsline {section}{\numberline {6}Conclusion}{20}
-\contentsline {subsection}{\numberline {6.1}Further Work}{20}
+\contentsline {section}{\numberline {1}Introduction}{4}
+\contentsline {subsection}{\numberline {1.1}Motivation}{4}
+\contentsline {subsection}{\numberline {1.2}Related Work}{4}
+\contentsline {subsection}{\numberline {1.3}Thesis Outline}{4}
+\contentsline {section}{\numberline {2}Theoretical Background}{5}
+\contentsline {subsection}{\numberline {2.1}The Effect Of Diffraction}{5}
+\contentsline {subsection}{\numberline {2.2}BRDF - Spectral Rendering}{5}
+\contentsline {subsection}{\numberline {2.3}Stams derivation}{5}
+\contentsline {subsection}{\numberline {2.4}Taylor Series Approximation}{7}
+\contentsline {subsubsection}{\numberline {2.4.1}Taylor Series of p}{7}
+\contentsline {subsubsection}{\numberline {2.4.2}Fourier Transformation of function p}{7}
+\contentsline {subsubsection}{\numberline {2.4.3}Approximation of function P}{8}
+\contentsline {subsubsection}{\numberline {2.4.4}Proof Sketch of 1.}{8}
+\contentsline {subsubsection}{\numberline {2.4.5}Part 2: Find such an N}{8}
+\contentsline {subsubsection}{\numberline {2.4.6}Conclusion}{9}
+\contentsline {subsubsection}{\numberline {2.4.7}Sources}{10}
+\contentsline {subsection}{\numberline {2.5}Our derivations}{10}
+\contentsline {subsection}{\numberline {2.6}Relative BRDF}{11}
+\contentsline {subsection}{\numberline {2.7}Taylour approximation for BRDF}{14}
+\contentsline {subsection}{\numberline {2.8}Sampling: Gaussian Window}{14}
+\contentsline {subsection}{\numberline {2.9}Aplitude smooting}{15}
+\contentsline {subsection}{\numberline {2.10}Final Expression}{19}
+\contentsline {section}{\numberline {3}Implementation}{20}
+\contentsline {subsection}{\numberline {3.1}Setup}{20}
+\contentsline {subsection}{\numberline {3.2}Precomputations in Matlab}{20}
+\contentsline {subsection}{\numberline {3.3}jrtr Framework}{20}
+\contentsline {subsection}{\numberline {3.4}GLSL Diffraction Shader}{20}
+\contentsline {section}{\numberline {4}Data Acquisition and Evaluation}{21}
+\contentsline {subsection}{\numberline {4.1}Diffraction Grating}{21}
+\contentsline {subsection}{\numberline {4.2}Snake Skin Parameters}{21}
+\contentsline {section}{\numberline {5}Results}{22}
+\contentsline {section}{\numberline {6}Conclusion}{23}
+\contentsline {subsection}{\numberline {6.1}Further Work}{23}

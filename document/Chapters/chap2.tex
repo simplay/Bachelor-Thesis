@@ -307,10 +307,59 @@ using the previous definition for the relative reflectance radiance $\rho_\lambd
 L_\lambda(w_r) = \rho_\lambda(w_i,w_r)L_\lambda^{spec}(w_0)
 \end{equation}
 
-Using our last finding 
+Let us choose $L_\lambda^{spec}(w_0) = S(\lambda)$ such that is has the same pforifle as the relative spectral power distribuation of CIE Standard Illuminant $D65$. Further, when integration over $\lambda$ for a specular surface we should get $CIE_XYZ$ values corresponding to the white point for $D65$ 
+
+the corresponding tristimulus values using CIE colormatching functions for the $CIE_XYZ$ values look like:
+
+SEE HOW THIS DEFINITION DIFFERS FROM THE WIKIDEF AND HOW WE COULD END UP WITH A SIMILAR DEFINITION.
+
+\begin{equation}
+X = \int_{\lambda}L_\lambda(w_r)\overline{x}(\lambda)d\lambda
+\end{equation} 
+
+\begin{equation}
+Y = \int_{\lambda}L_\lambda(w_r)\overline{y}(\lambda)d\lambda
+\end{equation}
+
+\begin{equation}
+Z = \int_{\lambda}L_\lambda(w_r)\overline{z}(\lambda)d\lambda
+\end{equation}
+
+where $\overline{x}$, $\overline{y}$, $\overline{z}$ are the color matching functions
+
+Using our last finding for $L_\lambda(w_r)$ and the definition for the tristimulus values we can actually derive an expression for computing the colors for our brdf model. Since X, Y, Z are defined similarly, it satisfies to derive an explicit expression for just one tristimulus term, for example X. The other two will look the same, except the we have to replace all X with Y or Z respectively. Therefore, we get:
+
+\begin{align*}
+X 
+& =\int_{\lambda}L_\lambda(w_r)\overline{x}(\lambda)d\lambda \\
+& =\int_{\lambda}\rho_\lambda(w_i,w_r)L_\lambda^{spec}(w_0) \overline{x}(\lambda)d\lambda \\
+& =\int_{\lambda}\rho_\lambda(w_i,w_r) S(\lambda) \overline{x}(\lambda)d\lambda \\
+& =\int_{\lambda} C(w_i,w_r) \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S(\lambda) \overline{x}(\lambda)d\lambda \\
+& = C(w_i,w_r) \int_{\lambda} \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S(\lambda) \overline{x}(\lambda)d\lambda \\
+& = C(w_i,w_r) \int_{\lambda} \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S_x(\lambda)d\lambda
+\end{align*}
+
+Where we used the definition $S_x(\lambda)\overline{x}(\lambda)$ in the last step.
+
+\subsection{Taylour approximation for BRDF}
+Using $P_{dtft} = \mathcal{F}^{-1}\{p\}(u,v)$ definied in the section of the taylor approximationwe get for the tristumulus value X, we will get:
+
+\begin{align*}
+X 
+& = C(w_i,w_r) \int_{\lambda} \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S_x(\lambda)d\lambda \\
+& = C(w_i,w_r) \int_{\lambda} \left| \sum_{n=0}^N \frac{(wk)^n}{n!} \mathcal{F}^{-1}\{i^n h^n\}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2 S_x(\lambda)d\lambda
+\end{align*}
+
 
 \subsection{Sampling: Gaussian Window}
-this is the game in the town we are playing
+
+
+Let $window_g$ denote the gaussian window with $4\sigma_s$ $\mu m$ where $\sigma_f = \frac{1}{2\pi\sigma_s}$
+let us further substitute $\mathbf{t(x,y)}=i^n h(x,y)^n$
+
+\begin{equation}
+\mathcal{F}_{dtft}^{-1}\{\mathbf{t}\}(u,v) = \mathcal{F}_{fft}^{-1}\{\mathbf{t}\}(u,v)window_g(\sigma_f)
+\end{equation} 
 
 
 \subsection{Aplitude smooting}
@@ -441,3 +490,6 @@ Let us again us again a Box-function, this time a 2-dimensional Box-function $Bo
 \end{align*}
 
 Where we define $u := (p_1 p_2 - q_1 q_2) $ and $v := (p_1 p_2 + q_1 q_2)$. For this identity we used green's integration rule which allowed us to split the double integral to the product of two single integrations. Also, we used the definition of the 2-dimensional inverse Fourer transform of the Box-function. We applied the same substituation like we did in for the 1 dimensional case, but this time twice, once for each variable seperately. The last step, substituting with $u$ and $v$ will be useful later in the implementation. The insight should be, that the product of two complex numbers is again a complex number. We will have to compute the absolute value of $\mathcal{F}^{-1}\{f\}(w_1,w_2)$ which will then be equal $(u^2 + v^2)^{\frac{1}{2}}\left|\mathcal{F}^{-1}\{Box\}(w_1,w_2)\right|$
+
+\subsection{Final Expression}
+using brdf,taylor,gaussian, amplitude
