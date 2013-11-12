@@ -26,9 +26,9 @@
 \contentsline {subsection}{\numberline {3.2}Precomputations in Matlab}{21}
 \contentsline {subsection}{\numberline {3.3}jrtr Framework}{21}
 \contentsline {subsection}{\numberline {3.4}GLSL Diffraction Shader}{21}
-\contentsline {section}{\numberline {4}Data Acquisition and Evaluation}{22}
-\contentsline {subsection}{\numberline {4.1}Diffraction Grating}{22}
-\contentsline {subsection}{\numberline {4.2}Snake Skin Parameters}{22}
-\contentsline {section}{\numberline {5}Results}{23}
-\contentsline {section}{\numberline {6}Conclusion}{24}
-\contentsline {subsection}{\numberline {6.1}Further Work}{24}
+\contentsline {section}{\numberline {4}Data Acquisition and Evaluation}{23}
+\contentsline {subsection}{\numberline {4.1}Diffraction Grating}{23}
+\contentsline {subsection}{\numberline {4.2}Snake Skin Parameters}{23}
+\contentsline {section}{\numberline {5}Results}{24}
+\contentsline {section}{\numberline {6}Conclusion}{25}
+\contentsline {subsection}{\numberline {6.1}Further Work}{25}

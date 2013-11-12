@@ -27,6 +27,29 @@ can we do better?
   \caption{Fragment diffraction shader}
   \begin{algorithmic}
     \ForAll{$Pixel \thinspace p \in Fragment$}
+      \State $BRDF_{XYZ}, BRDF_{RGB} = vec4(0.0)$
+      \State $(u,v,w) = \hat{\mathbf{k_1}}-\hat{\mathbf{k_2}}$
+      \For{$(\lambda = \lambda_{min};\thinspace \lambda \leq \lambda_{max};\thinspace \lambda = \lambda + \lambda_{step})$}
+        \State $k = \frac{2\pi}{\lambda}$
+        \State $(w_u, w_v) = (ku, kv)$
+        \State $w_{color} = (S_x(\lambda), S_y(\lambda), S_z(\lambda))$
+        \For{$(r)$}
+          \For{$(s)$}
+            \State $coords = getLookUpCoord(r, s)$
+            \State $P = taylorApprox(coords, k, w)$
+            \State $w_{r,s} = gaussianWeight(dist)$
+            \State $scale_{pq} = pqFactor(w_u, w_v)$
+            \State $P *= scale_{pq}$
+            \State $P_{abs} = \left|P\right|^2$
+            \State $P_{abs} *= w_{r,s}$
+            \State $BRDF_{XYZ} += vec4(P_{abs}*w_{color}, 0.0)$
+          \EndFor
+        \EndFor
+      \EndFor
+      \State $BRDF_{XYZ} = BRDF_{XYZ}*C(\hat{\mathbf{k_1}},\hat{\mathbf{k_2}})*shadowF$
+      \State $BRDF_{XYZ}.xyz = D_{65}*M_{XYZ-RGB}*BRDF_{XYZ}.xyz$
+      \State $BRDF_{RGB}.xyz = D_{65}*M_{XYZ-RGB}*BRDF_{XYZ}.xyz$
+      \State $BRDF_{RGB}= gammaCorrect(BRDF_{RGB})$
     \EndFor
   \end{algorithmic}
 \end{algorithm}
