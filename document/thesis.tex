@@ -5,10 +5,15 @@
 \usepackage{amssymb}
 \usepackage{mathpazo}
 \usepackage[ngerman]{babel}
+\usepackage{fontspec}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
 
+\renewcommand{\algorithmicforall}{\textbf{foreach}}
 \newcommand*\colvec[3][]{
     \begin{pmatrix}\ifx\relax#1\relax\else#1\\\fi#2\\#3\end{pmatrix}
 }
+
 
 \begin{document}
 
