@@ -9,6 +9,16 @@ how gamma correction
 how texturing 
 can we do better?
 
+
+shader
+
+In computergraphics, we are interested in rendering a given scene containing our 3d geometries by using so called shader programs. 
+The purpose of such programs, which run directly on the gpu hardware device, is to compute the colorization and illumination of the objects living in our scene. This computation happens in several stages and depends on the provided input paramteters like the camera, light sources, objects material constants and the desired rendering effect one is interested in to model. The shader stages are also modeled as small little programs, the so called vertex-, geometry- and fragment-shaders. Those stages are applied within the rendering pipeline sequencially. It's noteworthy that all the vertices are processed within the vertex-shader, whereas the fragement shader's responsibility is to perfrom pixelwise rendering, using the input from the vertex shader. Just remember, fragements are determined by a triple of vertices. hence 
+
+
+
+
+
 \subsection{Setup}
 \subsection{Precomputations in Matlab}
 \subsection{jrtr Framework}
