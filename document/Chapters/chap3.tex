@@ -9,6 +9,7 @@ how gamma correction
 how texturing 
 can we do better?
 
+TODO: explain that there is the jrtr and the scene code - what are their responsibilities.
 
 shader
 
@@ -20,18 +21,35 @@ Our shaders are written in GLSL, developed for OpenGl. The decission for using O
 It's noteworthy that all the vertices are processed within the vertex-shader, whereas the fragement shader's responsibility is to perfrom pixelwise rendering, using the input from the vertex shader. Just remember, fragements are determined by a triple of vertices. hence each pixel has assigned a trilinear interpolated value of all input parameters of its spanning vertices.
 Usually, all necessary transformations are applied vertex-wise, considering the vertex-shader as the precomputation stage for the later rendering within the rendering pipeline, in the fragment-shader. In the geometry shader, new vertices around a considered vertex can be created. this is useful for debugging - displaying normals graphically for example.
 
-In this section we are going to explain how to get a fragment-shader from our findings for our brdf formultion from the last section.  this fragment-shader will render the effect of diffraction on our given geometry pixelwise. Therefore, the quality of diffraction depends on the number of pixels we are going to use for the rendering process and this is directly determined by the resolution of the canvas in which the rendered images are being displayed. 
+In this section we are going to explain how to get a fragment-shader from our findings for our BRDF formultion from the last section.  this fragment-shader will render the effect of diffraction on our given geometry pixelwise. Therefore, the quality of diffraction depends on the number of pixels we are going to use for the rendering process and this is directly determined by the resolution of the canvas in which the rendered images are being displayed. 
 But, before we can start formulating our fragment-shader we first have to write our vertex shader which does all the precomputations. 
  
+By the end of the day we will end up with two different shaders, one which basically samples the whole lambda space using a gaussian window. This shader will be modeling the effect of diffraction completely but will also be rather slow. The other shader will use a gaussian window too but will just use a few wavenumber for the sampling process. Furthermore, this shader will thread specularity seperatly as a special case which will be more like an approximation. 
 
+
+tell how we are going to sample - uniformly along lambda - explain draw-back of this approach - explain possible solutions for this issue. maybe refer to reference shader or leave this for the disscusion part.
 
 
 
 \subsection{Setup}
+explain geometry computation
+explain light(source) setup
+explain factories
+explain camera setup
+explain how materials are stored
+explain how assigned to jrtr
+explain how passed to glsl shader - see computer graphics slides
+maybe show schematically the architecture
 \subsection{Precomputations in Matlab}
-\subsection{jrtr Framework}
-\subsection{GLSL Diffraction Shader}
+explain matlab code
+explain shifts
+explain what will be outputed
 
+\subsection{jrtr Framework}
+explain how this will work
+\subsection{GLSL Diffraction Shader}
+start using the final findings from chapter 2 and substitute
+explain how all the components are computed and why they are computed like this.
 
 \begin{algorithm}
   \caption{Vertex diffraction shader}
