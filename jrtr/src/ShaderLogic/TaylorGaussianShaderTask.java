@@ -38,6 +38,11 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 			gl.glTexSubImage3D(GL.GL_TEXTURE_2D_ARRAY, 0, 0, 0, iter, width, height, 1, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, t.getByteBuffer());
 		}
 		
+		int dimIDx = gl.glGetUniformLocation(activeShader.programId(),"fftHH");
+		gl.glUniform1i(dimIDx, height);
+		
+		dimIDx = gl.glGetUniformLocation(activeShader.programId(),"fftWW");
+		gl.glUniform1i(dimIDx, width);
 		
 		// use texture channel >=1 (not 0) since the texure array is already using channel 0.
         gl.glUniform1i(gl.glGetUniformLocation(activeShader.programId(), "bodyTexture"), 1);
@@ -56,6 +61,9 @@ public class TaylorGaussianShaderTask extends ShaderTask{
         gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
 		
         
+
+		
+        
 		// load scaling constants
 		// note that the param format is
 		// foreach t, foreach w, 
@@ -64,16 +72,23 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		// TODO invoke a call in material, where factors are preloaded instead.
 		float[] scalingFactors = m.getHeightfieldFactors();
 		int paramFactorCount = scalingFactors.length/4; // TODO setup correctly
+		
+		
 		int scalingID = gl.glGetUniformLocation(activeShader.programId(),"scalingFactors");
 		gl.glUniform4fv(scalingID, paramFactorCount, scalingFactors, 0);
 	
+		//for (int iii=0; iii < scalingFactors.length; iii = iii+4)
+			//System.out.println("Scaling Factor for " + iii/4 + " : " + scalingFactors[iii] + ", " +  scalingFactors[iii+1] + ", " +  scalingFactors[iii+2] +"\n");
 		
 		// handle weights stuff
 		if(m.getWeights() != null){
 			System.out.println("WEIGHT COUNT " + m.getWeights().length);
 			scalingID = gl.glGetUniformLocation(activeShader.programId(),"brdf_weights");
-			gl.glUniform3fv(scalingID, m.getWeights().length/3, m.getWeights(), 0);
+			gl.glUniform4fv(scalingID, m.getWeights().length/4, m.getWeights(), 0);
 		}
+		
+		float lambdaSteps = m.getWeights().length/4 - 1;
+		gl.glUniform1f(gl.glGetUniformLocation(activeShader.programId(),"delLamda"),  (m.getLambdaMax() - m.getLambdaMin())/lambdaSteps);
 		
 		// handle globals
 		
