@@ -559,8 +559,8 @@ void directBRDF()
 	
 	vec3 totalXYZ  = getRawXYZFromTaylorSeries( uu, vv, ww);
 
-	totalXYZ = totalXYZ * gainF(k1, k2)*shadowF/1000.0;
-	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
+//	totalXYZ = totalXYZ * gainF(k1, k2)*shadowF/1000.0;
+//	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
 	
 	if (isnan(totalXYZ.x *totalXYZ.y *totalXYZ.z))
 	{
@@ -568,8 +568,8 @@ void directBRDF()
 		totalXYZ.y  = 1.0;
 		totalXYZ.z  = 0.0;
 	}
-//	frag_shaded = vec4(totalXYZ,1.0);
-	frag_shaded = vec4(gammaCorrect(totalXYZ,1.1), 1.0);
+	frag_shaded = vec4(totalXYZ,1.0)/1000.0;
+//	frag_shaded = vec4(gammaCorrect(totalXYZ,1.1), 1.0);
 }
 
 
