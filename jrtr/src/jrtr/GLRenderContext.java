@@ -397,5 +397,9 @@ public class GLRenderContext implements RenderContext {
 	public Texture makeTexture(){
 		return new GLTexture(gl);
 	}
+	
+	public Texture makeTextureFloat(){
+		return new GLTextureFloat(gl);
+	}
 }
 	

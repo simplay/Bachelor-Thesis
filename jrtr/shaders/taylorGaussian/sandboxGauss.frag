@@ -36,7 +36,7 @@ uniform int nanoStep;
 
 uniform int renderBRDF;
 uniform int renderDirect;
-uniform int TaylorTermCnt;
+uniform int approxSteps;
 uniform int LookupTermCnt;
 uniform int lightRU;
 
@@ -179,54 +179,8 @@ vec3 getBRDF_RGB_T_D65(mat3 T, vec3 brdf_xyz){
 	return output;
 }
 
-vec3 rotateRodrigues(vec3 vecV, vec3 axisV, float phi)
-{
-	vec3 vecR = vec3(0.0);
-	vec3 crossV = cross(axisV, vecV);
-	
-	float dotScale = axisV.x *vecV.x + axisV.y * vecV.y + axisV.z * vecV.z; 
-	
-	dotScale = dotScale * (1 - cos(phi));
-	
-	vecR.x = vecV.x * cos(phi) + crossV.x * sin (phi) + axisV.x * dotScale;
-	vecR.y = vecV.y * cos(phi) + crossV.y * sin (phi) + axisV.y * dotScale;
-	vecR.z = vecV.z * cos(phi) + crossV.z * sin (phi) + axisV.z * dotScale;
-	
-	return vecR;
-}
 
-/*
-float getFresnelFactor(vec3 K1, vec3 K2)
-{
-	float nSkin = 1.5;
-	//float nSkin = 1.0015;
-	float nK = 0.0;
-	
-	vec3 hVec = -K1 + K2;
-		 
-	hVec = normalize(hVec);
-	 
-	float cosTheta = dot(hVec,K2);	
-	
-	float fF = (nSkin - 1.0);
-	
-	fF = fF * fF;
-	
-	float R0 = fF + nK*nK;
-	if (cosTheta > 0.999)
-		fF = R0;
-	else
-		fF = fF + 4*nSkin*pow(1- cosTheta,5.0) + nK*nK;
-	
-	// do this division if its not on relative scale
-	//fF = fF/ ((nSkin + 1.0)* (nSkin + 1.0) + nK*nK);
-	
-	return fF/R0; // This one is correct. trying other one for effects
-	//return fF*fF/R0/R0;
-}*/
 
-//const float nSkin = 1.5f;
-//const float nK = 0.0f;
 
 float R0 = (nSkin - 1.0)*(nSkin - 1.0) + nK*nK;
 float fFByR0 = 0.0f;
@@ -522,16 +476,10 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww)
 	
 	float lIncr = nanoStep;
 	
-	/*
-	if (0 == drawTexture)
-		lIncr = 10.0;
-		//lIncr = 5.0 * debugTxtIdx;
-	else
-		lIncr = 40.0;
-		
-	*/
 	
-	for(float lVal = LMIN; lVal <= LMAX; lVal = lVal+lIncr)
+	float step = 1.0;
+	
+	for(float lVal = LMIN; lVal <= LMAX; lVal = lVal+step)
 	{
 		
 		vec4 clrFn = getClrMatchingFnWeights(lVal);
@@ -547,7 +495,7 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww)
 		
 		vec2 tempFFTScale = vec2(0.0f);
 		
-		for(int tIdx = 0; tIdx < TaylorTermCnt; ++tIdx)
+		for(int tIdx = 0; tIdx < 30; ++tIdx)
 		{
 			if(0 == tIdx) {
 				preScale = 1.0f;
@@ -574,119 +522,8 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww)
 }
 
 
-void directShade() 
-{
-	// setsF();
-	setVarXY();
-	 
-    vec3 N = normalize(o_normal);
-    vec3 T = normalize(o_tangent);
-
-    
-	// directional light source
-	vec3 Pos =  normalize(o_pos); 
-	vec3 lightDir =  normalize(o_light); 
-	
-	float uu = lightDir.x - Pos.x;
-	float vv = lightDir.y - Pos.y;
-	float ww = lightDir.z - Pos.z;
-
-	// uu = uu/10;
-	// vv = vv/10;
-	
-	fF = getFresnelFactorAbsolute(lightDir,Pos);
-	fFByR0 = fF/R0;
-	shadowF = getShadowMaskFactor(lightDir, Pos);
-	
-	
-	vec3 totalXYZ = getRawXYZFromTaylorSeries( uu, vv, ww);
-	
-	
-	totalXYZ = totalXYZ * gainF(lightDir,Pos)* shadowF*lightRU;
-	// totalXYZ = totalXYZ * 10.0;
-	
-	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
-	
-	
-	if (isnan(totalXYZ.x *totalXYZ.y *totalXYZ.z))
-	{
-		totalXYZ.x  = 1.0;
-		totalXYZ.y  = 1.0;
-		totalXYZ.z  = 0.0;
-	}
 
 
-	/*
-	 * vec3 texIdx = vec3(0.0); texIdx.x = frag_texcoord.x; texIdx.y =
-	 * frag_texcoord.y; texIdx.z = debugTxtIdx;
-	 * 
-	 * totalXYZ.x = float(texture2DArray(TexArray, texIdx).x)/1.0; totalXYZ.y =
-	 * float(texture2DArray(TexArray, texIdx).y)/1.0; totalXYZ.z =
-	 * float(texture2DArray(TexArray, texIdx).z)/1.0;
-	 * 
-	 */
-	
-	float diffuseL = 0.0f;
-	
-	
-	if (Pos.z < 0.0  || dot(-lightDir, N) < 0.0)
-		diffuseL = 0.0;
-	else 
-		diffuseL = dot(-lightDir, N);
-
-	vec3 clrBF = vec3(0.0f);
-	
-	if (ww < 0.0f) {
-		clrBF.x  = 0.5f;
-		clrBF.y  = 0.0f;
-		clrBF.z  = 0.0f;
-	}	else	{
-		clrBF.x  = 0.0f;
-		clrBF.y  = 0.5f;
-		clrBF.z  = 0.0f;
-	}//*/
-	
-
-	vec4 tex = vec4(0.1f);
-	
-	if(drawTexture > 0)
-		tex = texture2D(bodyTexture, frag_texcoord);
-	
-		
-	float alpha = fF;
-	
-	if (alpha > 0.0f)
-		alpha = 0.0f;
-	else if (alpha > 1.0f)
-		alpha = 1.0f;
-		
-	//float diffW = 0.1f;
-	float gamma = 2.2;
-	
-	
-	tex.xyz = gammaCorrect(tex.xyz , 1.0f/1.1);
-	
-	//if (debugTxtIdx == 1)
-	//	totalXYZ = totalXYZ*0;
-	
-	diffuseL = txtScale*diffuseL;
-	//vec3 finClr = gammaCorrect((1-diffW)*(totalXYZ + (1-alpha) * tex.xyz * diffuseL) + tex.xyz * diffW, 2.2);
-	vec3 finClr = gammaCorrect((totalXYZ + (1-alpha) * tex.xyz * diffuseL) + tex.xyz * diffW, 2.2);
-	
-	frag_shaded = vec4(finClr, 1.0);
-
-}
-
-
-float rotU(float uu, float vv, float ang)
-{
-	return uu*cos(ang) - vv*sin(ang);
-}
-
-float rotV(float uu, float vv, float ang)
-{
-	return uu*sin(ang) + vv*cos(ang);
-}
 
 //BRDF
 void directBRDF() 
@@ -716,25 +553,13 @@ void directBRDF()
 	float ww = k1.z - k2.z;
 
 
-	// uu = o_org_pos.x;
-	// vv = o_org_pos.y;
-	// ww = - abs(thetaI *2* 2)/PI;
-	
 	fF = getFresnelFactorAbsolute(k1, k2);
 	fFByR0 = fF/R0;
 	shadowF = getShadowMaskFactor(k1, k2);
 	
-	// vec3 totalXYZ = getRawXYZFromTaylorSeries( rotU(uu, vv, phiRect),
-	// rotU(uu, vv, phiRect), ww);
-	
 	vec3 totalXYZ  = getRawXYZFromTaylorSeries( uu, vv, ww);
-	// vec3 totalXYZ2 = getRawXYZFromTaylorSeries( uu, vv, -2.0f);
-	
-	
-	 //totalXYZ = totalXYZ * gainF(k1, k2)*shadowF*1000;
-	 totalXYZ = totalXYZ * gainF(k1, k2)*shadowF*lightRU;
-	//totalXYZ = totalXYZ *100;
-	
+
+	totalXYZ = totalXYZ * gainF(k1, k2)*shadowF/1000.0;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
 	
 	if (isnan(totalXYZ.x *totalXYZ.y *totalXYZ.z))
@@ -743,7 +568,7 @@ void directBRDF()
 		totalXYZ.y  = 1.0;
 		totalXYZ.z  = 0.0;
 	}
-
+//	frag_shaded = vec4(totalXYZ,1.0);
 	frag_shaded = vec4(gammaCorrect(totalXYZ,1.1), 1.0);
 }
 
@@ -751,25 +576,9 @@ void directBRDF()
 /////////////////////////////////////////////////////////////////////////////////////////
 
 const float powerUV = 5.0;
-//const float powerUV = 1.0;
-
-
 const float uvSampleGap = 0.01f;
-
-
-
-
-
-
 
 void main()
 {
-//	directShade();
-	directBRDF();
-	
-			
+	directBRDF();			
 }
-
-
-
-
