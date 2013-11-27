@@ -9,6 +9,7 @@ import javax.vecmath.Vector4f;
 
 import jrtr.GLShader;
 import jrtr.GLTexture;
+import jrtr.GLTextureFloat;
 import jrtr.Light;
 import Materials.Material;
 
@@ -25,17 +26,19 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		
 		// load texture array storing all our Fourier transformed patches.
 		gl.glUniform1i(gl.glGetUniformLocation(activeShader.programId(), "TexArray"), 0);
-		GLTexture t = (GLTexture) m.getTextureAt(0);
+		GLTextureFloat t = (GLTextureFloat) m.getTextureAt(0);
 		int width = t.getImWidth();
 		int height = t.getImHeight();
-		gl.glTexImage3D(GL.GL_TEXTURE_2D_ARRAY, 0, GL.GL_RGBA, width, height, m.getLayerCount(), 0, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, null);
+		
+		System.out.println("Loading textures with eidth = " +width + " and height "+ height);
+		gl.glTexImage3D(GL.GL_TEXTURE_2D_ARRAY, 0, GL.GL_RGB32F, width, height, m.getLayerCount(), 0, GL.GL_RGB, GL.GL_FLOAT, null);
 		for(int iter = 0; iter < m.getLayerCount(); iter++){
-			t = (GLTexture) m.getTextureAt(iter);
+			t = (GLTextureFloat) m.getTextureAt(iter);
 			gl.glTexParameteri(GL.GL_TEXTURE_2D_ARRAY, GL.GL_TEXTURE_WRAP_S, GL.GL_CLAMP_TO_EDGE);
 			gl.glTexParameteri(GL.GL_TEXTURE_2D_ARRAY, GL.GL_TEXTURE_WRAP_T, GL.GL_CLAMP_TO_EDGE);
 			gl.glTexParameteri(GL.GL_TEXTURE_2D_ARRAY, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
 			gl.glTexParameteri(GL.GL_TEXTURE_2D_ARRAY, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
-			gl.glTexSubImage3D(GL.GL_TEXTURE_2D_ARRAY, 0, 0, 0, iter, width, height, 1, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, t.getByteBuffer());
+			gl.glTexSubImage3D(GL.GL_TEXTURE_2D_ARRAY, 0, 0, 0, iter, width, height, 1, GL.GL_RGB, GL.GL_FLOAT, t.getByteBuffer());
 		}
 		
 		

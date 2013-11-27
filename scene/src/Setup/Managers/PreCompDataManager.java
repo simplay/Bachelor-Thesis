@@ -53,10 +53,11 @@ public class PreCompDataManager {
 	
 	private void loadCompositeTaylorPatches(String basisPath){
 		String path = basisPath;
-		String ext = ".bmp";	
+		String ext = ".txt";	
 		for(int iter = 0; iter < 31; iter++){
-			ext = "AmpReIm"+Integer.toString(iter)+extension;
-			this.textures[iter] = renderContext.makeTexture();
+			ext = "AmpReIm"+Integer.toString(iter)+".txt";
+//			this.textures[iter] = renderContext.makeTexture();
+			this.textures[iter] = renderContext.makeTextureFloat();
 			mat.setTextureAt(path+ext, textures[iter], iter);
 		}
 	}

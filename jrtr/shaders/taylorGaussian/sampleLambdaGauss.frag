@@ -604,7 +604,7 @@ void runEvaluation(){
 //	vec2 N_v = compute_N_min_max(v);
 //	vec2 N_uv[2] = vec2[2](N_u, N_v);
 
-	float iterMax = 1000.0;
+	float iterMax = 500.0;
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	float F2 = fFByR0*fFByR0;
 	
@@ -662,7 +662,7 @@ void runEvaluation(){
 				
 				// phaser of current pixel contribution.
 				float pq_scale = compute_pq_scale_factor(w_u,w_v);
-				P *= pq_scale;
+//				P *= pq_scale;
 				
 				// amplitute of current pixel contribution
 				float abs_P_Sq = P.x*P.x + P.y*P.y;
@@ -689,7 +689,7 @@ void runEvaluation(){
 	if(brdf.y < 1e-5) brdf.y = 0.0;
 	if(brdf.z < 1e-5) brdf.z = 0.0;
 	
-	brdf =  brdf*100.0*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*0.1*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	
@@ -699,7 +699,7 @@ void runEvaluation(){
 	else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) o_col = vec4(0.0, 1.0, 0.0, 1.0);
 	else o_col = brdf+vec4(ambient,ambient,ambient,0.0);
 //	else o_col = vec4(ambient,ambient,ambient,1.0);
-	o_col = vec4(gammaCorrect(o_col.xyz, 1.3), 1.0f);
+	brdf = vec4(gammaCorrect(brdf.xyz, 1.3), 1.0f);
 //	vec4 tex = texture2D(bodyTexture, frag_texcoord);
 //	frag_shaded	= o_col;
 //	vec4 passcolor = (1.0-F2)*tex+(o_col);
@@ -708,7 +708,7 @@ void runEvaluation(){
 //	frag_shaded	= o_col;
 //	o_col = vec4(maxBRDF.xyz,1.0);
 //	if(dot(maxBRDF.xyz,maxBRDF.xyz) < eps) o_col = vec4(1.0, 1.0, 1.0, 1.0);
-	frag_shaded	= o_col/1.0;
+	frag_shaded	= o_col;
 //	frag_shaded	= vec4(0,1,0,1);
 }
 

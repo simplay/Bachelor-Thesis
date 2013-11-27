@@ -97,4 +97,10 @@ public class SWRenderContext implements RenderContext {
 	{
 		return new SWTexture();
 	}
+
+	@Override
+	public Texture makeTextureFloat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
