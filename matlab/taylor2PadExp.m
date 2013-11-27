@@ -38,8 +38,7 @@ function taylor2PadExp
 	%A = imresize(A, [dimSmall,dimSmall]);
     %A = imresize(A, [dimN,dimN]);
 	%A = padarray(A,[dimDiff, dimDiff], 'both');
-    
-	
+    %A = imresize(A, 4);
 	dimN = size(A, 1);
 	dimDiff = (dimN-dimSmall)/2;
 	
@@ -53,16 +52,17 @@ function taylor2PadExp
 	globalImMax = -1000000;
 	
 	
-	eps_teshold = 1e-10;
+	eps_teshold = 1e-16;
 	
 	angleA = -90;
 	A = imrotate(A, angleA);
 	
 	for n=0:1:steps,
+	outAmp = [];
 		B = power(1j*A, n);
 		%B = A.^(n);
 		C = fftshift(ifft2(B));
-		C = imrotate(C, -angleA);
+	%	C = imrotate(C, -angleA);
 		% find real minimum in shifted D matrix.
 		reMin = min(min( real(C) ));
 		imMin = min(min( imag(C) ));
@@ -101,13 +101,33 @@ function taylor2PadExp
 		
 		
 		
+		reD = imrotate(reD, -angleA);	
+		imD = imrotate(imD, -angleA);	
+		
 		outAmp(:,:,1) = reD;
 		outAmp(:,:,2) = imD;
 		outAmp(:,:,3) = zeros(dimN,dimN);
-					
+		
+				
 				
 		% generate real and imaginary part images.		
 		imwrite(outAmp, strcat(out,"AmpReIm",num2str(n),".bmp"))
+
+
+		fpData = fopen(sprintf("out/AmpReIm%d.txt",n),'wb');
+		fwrite(fpData,size(outAmp,2),'int',0,'b');
+		fwrite(fpData,size(outAmp,1),'int',0,'b');
+  
+		outAmp(:,:,1) = outAmp(end:-1:1,:,1);
+		outAmp(:,:,2) = outAmp(end:-1:1,:,2);
+		outAmp(:,:,3) = outAmp(end:-1:1,:,3);
+	
+		outAmp = permute(outAmp, [ 3,2,1]);
+  
+		fwrite(fpData,outAmp(:),'float32',0,'b');
+		fclose(fpData);
+		
+		
 		
 		% increment index counter
 		counter = counter + 1;
