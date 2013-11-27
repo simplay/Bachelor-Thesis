@@ -517,31 +517,7 @@ vec3 gammaCorrect(vec3 inRGB, float gamma){
 	return inRGB;
 		
 }
-// get weight of gaussian window
-float getGaussianWeight(float dist2, float sigma_f_pix){
-	// sigma_f_pix = 2*sigma^2
-	float norm_fact = sigma_f_pix*PI;
-	float exponent = -dist2/(sigma_f_pix);
-	float w_ij = exp(exponent);
-		
-	if(abs(exponent) < 1.0*pow(10.0, -18.0)){
-		return w_ij = 1.0;
-	}
-	w_ij /= norm_fact;
-	return w_ij;
-}
 
-
-// get looup coordinates
-vec2 getLookupCoordinates(float variant, float ind1, float ind2){
-	vec2 lookup = vec2(0.0, 0.0);
-	if(variant == 0.0){
-		lookup = vec2((ind1/(dimN-1)) + bias, (ind2/(dimN-1)) + bias);
-	}else{
-		lookup = vec2((ind2/(dimN-1)) + bias, (ind1/(dimN-1)) + bias);
-	}
-	return lookup;
-}
 
 
 
@@ -574,13 +550,7 @@ void runEvaluation(){
 
 	vec3 _k1 = vec3(0.0f);
 	vec3 _k2 = vec3(0.0f);
-	float angle = 50.0;
-	float radI= (angle*PI)/180.0;
-	
-	
-//	_k1.x = - sin(radI)*cos(phiI);
-//	_k1.y = - sin(radI)*sin(phiI);
-//	_k1.z = - cos(radI);
+
 	
 	_k1.x = - sin(thetaI)*cos(phiI);
 	_k1.y = - sin(thetaI)*sin(phiI);
@@ -600,12 +570,9 @@ void runEvaluation(){
 	vec3 V = vec3(uu0, vv0, ww);
 	float u = V.x; float v = V.y; float w = V.z;
 	
-	// get iteration bounds for given (u,v)
-//	vec2 N_u = compute_N_min_max(u);
-//	vec2 N_v = compute_N_min_max(v);
-//	vec2 N_uv[2] = vec2[2](N_u, N_v);
 
-	float iterMax = 100.0;
+
+	float iterMax = 1000.0;
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	float F2 = fFByR0*fFByR0;
 	
@@ -622,29 +589,14 @@ void runEvaluation(){
 		float lambda_iter = iter*lambdaStep + lambda_min;
 		k = (2.0*PI) / lambda_iter;
 		float kk = (1.0) / lambda_iter;
-		float omega = (30.0/100.0)*8.0*PI*pow(10.0,7.0);
-//		k = (1.0*PI) / lambda_iter;
-		
-		
-//		vec2 coords = vec2((k*u/(Omega)) + bias, (k*v/(Omega)) + bias); //2d
-		
+
 		vec2 coords = vec2((k*v/(Omega)) + bias, (k*u/(Omega)) + bias); //2d
-//		vec2 coords = vec2((k*v/(Omega)) + bias, bias); //2d
-		
 
-		
-//		coords = vec2((k*u/(Omega)) + bias, (k*v/(Omega)) + bias); //2d
-//		coords = vec2(0.5, (k*v/(omega))+0.5); //2d
-//		coords = vec2((k*v/(Omega)) + bias,  bias); //2d
-//		vec2 coords = vec2((k*modUV.x/Omega) + bias, (k*modUV.y/Omega) + bias); //2d
-
-		if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
-		
 		
 		float w_u = k*v;
 		float w_v = k*u;
 		
-		P = taylorApproximation(coords, kk, w);
+		P = taylorApproximation(coords, k, w);
 		
 		float pq_scale = compute_pq_scale_factor(w_u, w_v);
 		P *= pq_scale;
@@ -652,8 +604,6 @@ void runEvaluation(){
 		float abs_P_Sq = P.x*P.x + P.y*P.y;
 		vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
 		brdf += vec4(abs_P_Sq * waveColor, 0.0);	
-		
-//		brdf += vec4(vec3(abs_P_Sq,abs_P_Sq,abs_P_Sq), 1.0);
 	}
 
 	float ambient = 0.0;	
@@ -663,29 +613,18 @@ void runEvaluation(){
 	if(brdf.z < 0.0 ) brdf.z = 0.0;
 	brdf.w = 1.0;
 	
-	if(brdf.x < 1e-7) brdf.x = 0.0;
-	if(brdf.y < 1e-7) brdf.y = 0.0;
-	if(brdf.z < 1e-7) brdf.z = 0.0;
+	if(brdf.x < 1e-3) brdf.x = 0.0;
+	if(brdf.y < 1e-3) brdf.y = 0.0;
+	if(brdf.z < 1e-3) brdf.z = 0.0;
 	
-	brdf =  brdf*100000.0*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*1000.0*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
-	
-	
-//	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.4);
-		
+
 	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) o_col = vec4(1.0, 0.0, 0.0, 1.0);
 	else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) o_col = vec4(0.0, 1.0, 0.0, 1.0);
 	else o_col = brdf+vec4(ambient,ambient,ambient,0.0);
 //	else o_col = vec4(ambient,ambient,ambient,1.0);
 	o_col = vec4(gammaCorrect(o_col.xyz, 1.3), 1.0f);
-//	vec4 tex = texture2D(bodyTexture, frag_texcoord);
-//	frag_shaded	= o_col;
-//	vec4 passcolor = (1.0-F2)*tex+(o_col);
-	
-//	frag_shaded	= vec4(passcolor.xyz*NdotL, 1.0) + vec4(ambient,ambient,ambient,0.0);
-//	frag_shaded	= o_col;
-//	o_col = vec4(maxBRDF.xyz,1.0);
-//	if(dot(maxBRDF.xyz,maxBRDF.xyz) < eps) o_col = vec4(1.0, 1.0, 1.0, 1.0);
 	frag_shaded	= o_col;
 }
 

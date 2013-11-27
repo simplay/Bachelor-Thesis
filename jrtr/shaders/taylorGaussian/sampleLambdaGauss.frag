@@ -521,7 +521,7 @@ vec3 gammaCorrect(vec3 inRGB, float gamma){
 // get weight of gaussian window
 float getGaussianWeight(float dist2, float sigma_f_pix){
 	// sigma_f_pix = 2*sigma^2
-	float norm_fact = sigma_f_pix*PI;
+	float norm_fact = sigma_f_pix;
 	float exponent = -dist2/(sigma_f_pix);
 	float w_ij = exp(exponent);
 		
@@ -604,7 +604,7 @@ void runEvaluation(){
 //	vec2 N_v = compute_N_min_max(v);
 //	vec2 N_uv[2] = vec2[2](N_u, N_v);
 
-	float iterMax = 500.0;
+	float iterMax = 600.0;
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	float F2 = fFByR0*fFByR0;
 	
@@ -651,8 +651,6 @@ void runEvaluation(){
 				
 				// get lookup coordinates for current pixel
 				coords = getLookupCoordinates(0, ind2, ind1);
-				// clip if coordiantes are not within bound [0,1]x[0,1]
-				if(coords.x < 0.0 || coords.x > 1.0 || coords.y < 0.0 || coords.y > 1.0) continue;
 				
 				// complex valued frequency contribution of current pixel.
 				P = taylorApproximation(coords, kk, w);
@@ -689,7 +687,7 @@ void runEvaluation(){
 	if(brdf.y < 1e-5) brdf.y = 0.0;
 	if(brdf.z < 1e-5) brdf.z = 0.0;
 	
-	brdf =  brdf*0.1*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*0.01*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	
@@ -708,7 +706,7 @@ void runEvaluation(){
 //	frag_shaded	= o_col;
 //	o_col = vec4(maxBRDF.xyz,1.0);
 //	if(dot(maxBRDF.xyz,maxBRDF.xyz) < eps) o_col = vec4(1.0, 1.0, 1.0, 1.0);
-	frag_shaded	= o_col;
+	frag_shaded	= brdf;
 //	frag_shaded	= vec4(0,1,0,1);
 }
 
