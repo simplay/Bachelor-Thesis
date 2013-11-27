@@ -642,7 +642,6 @@ void runEvaluation(){
 		vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
 		
 		
-		
 		for(float ind1 = uu_N_base; ind1 <= uu_N_base + 2.0*neighborRadius; ind1 = ind1 + 1.0){
 			for(float ind2 = uv_N_base; ind2 <= uv_N_base + 2.0*neighborRadius; ind2 = ind2 + 1.0){
 					
@@ -653,13 +652,13 @@ void runEvaluation(){
 				coords = getLookupCoordinates(0, ind2, ind1);
 				
 				// complex valued frequency contribution of current pixel.
-				P = taylorApproximation(coords, kk, w);
+				P = taylorApproximation(coords, k, w);
 				
 				// compute gaussion weight of current pixel
 				float w_ij = getGaussianWeight(dist2, sigma_f_pix);
 				
 				// phaser of current pixel contribution.
-				float pq_scale = compute_pq_scale_factor(w_u,w_v);
+//				float pq_scale = compute_pq_scale_factor(w_u,w_v);
 //				P *= pq_scale;
 				
 				// amplitute of current pixel contribution
@@ -687,7 +686,7 @@ void runEvaluation(){
 	if(brdf.y < 1e-5) brdf.y = 0.0;
 	if(brdf.z < 1e-5) brdf.z = 0.0;
 	
-	brdf =  brdf*0.01*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*1.0*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	
