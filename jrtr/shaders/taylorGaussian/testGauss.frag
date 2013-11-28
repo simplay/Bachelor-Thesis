@@ -161,6 +161,51 @@ vec2 getRescaledHeight(float reHeight, float imHeight, int index){
 }
 
 
+float varX_InTxtUnits;
+float varY_InTxtUnits;
+float orgU;
+float orgV;
+void setVarXY(){
+
+	// scalingFactors[0].w = 15e-6/256;
+	
+	float sigSpatial = 65e-6/4.0f;
+	// float sigSpatial = 15e-6/4.0f;
+	/*
+	if(debugTxtIdx != 0)
+		sigSpatial = sigSpatial*debugTxtIdx;
+	*/
+	
+	// temporary sigma
+	float sigTemp;
+	
+	sigTemp = 0.5 / PI ;
+	// sigTemp = 1.0;
+	sigTemp = sigTemp /sigSpatial;
+	// sigTemp = 1.0f / sigSpatial;
+	
+	// sigTemp = sigTemp / GetLightNormalCos();
+	
+	sigTemp = sigTemp * dH;
+	
+	varX_InTxtUnits = sigTemp * sigTemp * dimN * dimN ; 
+	varY_InTxtUnits = sigTemp * sigTemp * dimN * dimN;
+	
+	// Set coordinates for the Origin
+	if (int(dimN) % 2 == 0)
+		orgU = float(dimN )/ 2.0f  ; // -2 dur to rotational lochay
+	else
+		orgU = float(dimN - 1.0) / 2.0f  ;
+		
+	if (int(dimN) % 2 == 0)
+		orgV = float(dimN  )/2.0f  ;
+	else
+		orgV = float(dimN - 1.0)/2.0f ;
+	
+}
+
+
+
 float getAbsFressnelFactor(vec3 _k1, vec3 _k2){
 	float n_t = SMOOTH; // material constant
 	float R0 = pow( (n_t - 1.0) / (n_t + 1.0) , 2.0); 
@@ -395,11 +440,84 @@ float getGaussianWeight(float dist2, float sigma_f_pix){
 
 
 // get looup coordinates
-vec2 getLookupCoordinates(float variant, float ind1, float ind2){
-	vec2 lookup = vec2(0.0, 0.0);
-	lookup = vec2((ind1/(dimN-1)) + bias, (ind2/(dimN-1)) + bias);
-	return lookup;
+vec2 getLookupCoord(float uu, float vv, float lambda){
+	vec2 coord = vec2(0.0f);
+	coord.x = uu * 1e9 *dH / lambda ;
+	coord.y = vv * 1e9 *dH / lambda ;
+	return coord;
 }
+
+float getGaussWeightAtDistance(float distU, float distV){
+	// note that distU and distV are in textureCoordinateUnits
+	
+	distU = distU * distU / varX_InTxtUnits;
+	distV = distV * distV / varY_InTxtUnits;
+	
+	return exp((-distU - distV)/2.0f);
+}
+
+vec2 getFFTAt(vec2 lookupCoord, int tIdx){
+	const int winW = 2;
+	//const int normF = (2*winW + 2)*(2*winW + 2);
+	const float normF = 1.0f;
+
+	// These are frequency increments
+	int anchorX = int(floor(bias + lookupCoord.x * (dimN - 0)));
+	int anchorY = int(floor(bias + lookupCoord.y * (dimN - 0)));
+	
+	vec2 fftMag = vec2(0.0f);
+	
+	// the following is a work around to have fixed number of operations
+	// for each pixel
+	if (anchorX < winW)
+		anchorX = winW;
+	
+	if (anchorY < winW)
+		anchorY = winW;
+	
+	if (anchorX + winW + 1 >  dimN - 1)
+		anchorX = int(dimN) - 1 - int(winW) - 1;
+	
+	if (anchorY + winW + 1 >  dimN - 1)
+		anchorY = int(dimN) - 1 - winW - 1;
+	
+	
+	for (float i = (anchorX-winW); i <= (anchorX + winW + 1.0 ); ++i) {
+		for (float j = (anchorY - winW); j <= (anchorY + winW + 1.0); ++j){
+
+			vec3 texIdx = vec3(0.0f);
+			
+
+			float distU = float(i) - orgU - lookupCoord.x *dimN;
+			float distV = float(j) - orgV - lookupCoord.y *dimN;
+		
+		
+			texIdx.x = float(i)/ float(dimN - 1.0);
+			texIdx.y = float(j)/float(dimN - 1.0);
+			texIdx.z = float(tIdx);
+
+			
+			vec3 tmp = texture2DArray(TexArray, texIdx).xyz;
+			
+//			vec2 fftVal = getRescaledHeight(tmp.x, tmp.y, tIdx);
+			vec2 fftVal = vec2(tmp.x, tmp.y);
+			
+			
+			fftVal = fftVal * getGaussWeightAtDistance(distU, distV);
+//			fftVal;
+			
+			
+			fftMag = fftMag + fftVal;
+		}
+	}
+	
+	// onlt real and imaginary part are required. Third term is a waste
+	return (fftMag.xy/normF); 
+	// return 0.25f;
+	
+}
+
+
 
 
 
@@ -425,7 +543,7 @@ void runEvaluation(){
 	vec2 P = vec2(0.0, 0.0);
 	vec2 coords = vec2(0.0);
 	
-	
+	setVarXY();
 	// okay from here on
 	thetaR = asin(sqrt(o_org_pos.x * o_org_pos.x + o_org_pos.y * o_org_pos.y ));
 	float phiR = atan(o_org_pos.y, o_org_pos.x);
@@ -453,70 +571,63 @@ void runEvaluation(){
 	float u = V.x; float v = V.y; float w = V.z;
 	
 
-	float iterMax = 100.0;
+	float iterMax = 700.0;
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	float F2 = fFByR0*fFByR0;
 	
 	
-	float stepSize = 1.0;
+	float stepSize = 50.0;
 	float sigma_f_pix = ((2.0*dx) / (PI*dimX));
 	float comp_sigma = sigma_f_pix;
 	sigma_f_pix *= sigma_f_pix;
 	sigma_f_pix *= 2.0;
 
-	for(float iter = 0; iter < iterMax; iter = iter + 1.0){
+	for(float iter = 0; iter < iterMax; iter = iter + stepSize){
 		
 		float lambda_iter = iter*lambdaStep + lambda_min;
 		k = (2.0*PI) / lambda_iter;
 		float kk = (1.0) / lambda_iter;
 
 		
-		float w_u = k*u;
-		float w_v = k*v;
-		
-		float uv_N_n_hat = (kk*dx*v);
-		float uv_N_n = floor(uv_N_n_hat);
-		
-		float uu_N_n_hat = (kk*dx*u);
-		float uu_N_n = (uu_N_n_hat);
 
-		float uu_N_base = uu_N_n - neighborRadius;
-		float uv_N_base = uv_N_n - neighborRadius;
-		
 		// xyz value of color for current wavelength (regarding current wavenumber k).
 		vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
+		vec2 lookupCoord = getLookupCoord(u, v, lambda_iter*rescale);
 		
 		
-		for(float ind1 = uu_N_base; ind1 <= uu_N_base + 2.0*neighborRadius; ind1 = ind1 + 1.0){
-			for(float ind2 = uv_N_base; ind2 <= uv_N_base + 2.0*neighborRadius; ind2 = ind2 + 1.0){
-					
-				// get L1 distance to neighbor from current pixel
-				float dist2 = pow(ind1-uu_N_base, 2.0) + pow(ind2-uv_N_n_hat, 2.0);
-				
-				// get lookup coordinates for current pixel
-				coords = getLookupCoordinates(0, ind2, ind1);
-				
-				// complex valued frequency contribution of current pixel.
-				P = taylorApproximation(coords, k, w);
-				
-				// compute gaussion weight of current pixel
-				float w_ij = getGaussianWeight(dist2, sigma_f_pix);
-				
-				// amplitute of current pixel contribution
-				float abs_P_Sq = P.x*P.x + P.y*P.y;
+		vec2 precomputedFourier = vec2(0.0, 0.0);
+		int lower = 0; int upper = int(approxSteps)+1;
+		float reHeight = 0.0; float imHeight = 0.0;
+		float real_part = 0.0; float imag_part = 0.0;
+		float fourier_coefficients = 1.0;
+		vec2 sum = vec2(0);
+		
+		
+		// approximation till iteration 30 of fourier coefficient
+		for(int n = lower; n <= upper; n++){
+			reHeight = texture2DArray(TexArray, vec3(lookupCoord, n) ).x;
+			imHeight = texture2DArray(TexArray, vec3(lookupCoord, n) ).y;
+			
+			vec2 fftCoef = getFFTAt(lookupCoord, n);
+	
+			int extremaIndex = n;
 
-				// weight with window
-				abs_P_Sq *= w_ij;
-
-				// summation of brdf over all wavelengths under consideration.
-				brdf += vec4(abs_P_Sq * waveColor, 0.0);	
-//				brdf += vec4(vec3(abs_P_Sq,abs_P_Sq,abs_P_Sq), 0.0);
-			}
+			// develope factorial and pow like this since 
+			// otherwise we could get numerical rounding errors.
+			// PRODUCT_n=0^N { pow(k*w*s,n)/n! }
+			
+			if(n == 0) fourier_coefficients = 1.0;
+			else fourier_coefficients *= ((k*w*s)/float(n));
+			
+//			sum = sum + fourier_coefficients*vec2(1.0, 1.0);
+			sum = sum + fourier_coefficients*fftCoef;
 		}
-		
+		float abs_P_Sq = sum.x * sum.x + sum.y * sum.y;
+		brdf += vec4(abs_P_Sq * waveColor, 0.0);	
+	
 	}
 
-	float ambient = 0.0;	
+	float ambient = 0.1;	
 	// remove negative values
 	if(brdf.x < 0.0 ) brdf.x = 0.0;
 	if(brdf.y < 0.0 ) brdf.y = 0.0;
@@ -527,30 +638,19 @@ void runEvaluation(){
 	if(brdf.y < 1e-5) brdf.y = 0.0;
 	if(brdf.z < 1e-5) brdf.z = 0.0;
 	
-	brdf =  brdf*10.0*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*1000.0*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
-	
-//	brdf.xyz = getGammaCorrection(brdf.xyz, 1.0, 0.0, 1.0, 1.0 / 2.4);
-		
+
 	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) o_col = vec4(1.0, 0.0, 0.0, 1.0);
 	else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) o_col = vec4(0.0, 1.0, 0.0, 1.0);
 	else o_col = brdf+vec4(ambient,ambient,ambient,0.0);
-//	else o_col = vec4(ambient,ambient,ambient,1.0);
-	brdf = vec4(gammaCorrect(brdf.xyz, 1.3), 1.0f);
-//	vec4 tex = texture2D(bodyTexture, frag_texcoord);
-//	frag_shaded	= o_col;
-//	vec4 passcolor = (1.0-F2)*tex+(o_col);
-	
-//	frag_shaded	= vec4(passcolor.xyz*NdotL, 1.0) + vec4(ambient,ambient,ambient,0.0);
-//	frag_shaded	= o_col;
-//	o_col = vec4(maxBRDF.xyz,1.0);
-//	if(dot(maxBRDF.xyz,maxBRDF.xyz) < eps) o_col = vec4(1.0, 1.0, 1.0, 1.0);
-	frag_shaded	= brdf;
-//	frag_shaded	= vec4(0,1,0,1);
+
+	o_col = vec4(gammaCorrect(o_col.xyz, 1.3), 1.0f);
+	frag_shaded	= o_col;
+
 }
 
 void main(){
 	runEvaluation();
-//	runShader();
 }
