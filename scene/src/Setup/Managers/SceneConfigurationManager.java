@@ -39,12 +39,16 @@ public class SceneConfigurationManager {
 								"stam", "lightZ", ShaderTaskNr.TAYLORGAUSSIAN, -1,  "blaze", 1, "random1");
 								constants.add(sc);
 		
-		sc = new SceneConfiguration("sandbox", ShapeTask.SNAKE, "snake1", 
-				"stam", "light1", ShaderTaskNr.TAYLORGAUSSIAN, 10, "blaze", 1, "random1");
+		sc = new SceneConfiguration("sandbox", ShapeTask.DICE_BRDF, "diceBRDF", 
+				"elaph", "light1", ShaderTaskNr.TAYLORGAUSSIAN, 10, "elaph100", 1, "random1");
+		constants.add(sc);
+		
+		sc = new SceneConfiguration("sandbox3", ShapeTask.DICE_BRDF, "diceBRDF", 
+				"xeno", "light1", ShaderTaskNr.TAYLORGAUSSIAN, -1, "xeno100", 1, "random1");
 		constants.add(sc);
 			
 		sc = new SceneConfiguration("sandbox2", ShapeTask.SNAKE, "snake1", 
-				"xeno", "light1", ShaderTaskNr.TAYLORGAUSSIAN, -1, "xeno100", 2, "brick");
+				"xeno", "light1", ShaderTaskNr.TAYLORGAUSSIAN, -1, "xeno100", 1, "brick");
 		constants.add(sc);
 	
 		sc = new SceneConfiguration("extreme_case", ShapeTask.SNAKE, "snake1", 

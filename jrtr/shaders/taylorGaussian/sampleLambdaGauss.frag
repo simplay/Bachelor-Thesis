@@ -146,47 +146,6 @@ const mat3 M_Adobe_XRNew = mat3(
 
 //FUNCTIONS
 
-//gamma correction
-//vec3 getGammaCorrection(vec3 rgb, float t, float f, float s, float gamma){
-//	float q = (1.0+f);
-//	return q*pow(rgb, vec3(gamma))-f;
-//}
-
-
-//see derivations: T_i*w_i is a multiple of 2*PI
-float get_p_factor(float w_i, float T_i, float N_i){
-	float tmp = 1.0;
-	if (abs(1.0-cos(T_i*w_i)) < eps_pq){
-		tmp = N_i;
-	}else{
-		tmp = cos(w_i*T_i*N_i)-cos(w_i*T_i*(N_i + 1.0));
-		tmp /= (1.0 - cos(w_i*T_i));
-		tmp = 0.5 + 0.5*(tmp);
-	}
-	return tmp/N_i;
-}
-
-
-//is this correct: T_i*w_i is a multiple of 2*PI
-float get_q_factor(float w_i, float T_i, float N_i){
-	float tmp = N_i;
-	if (abs(1.0-cos(T_i*w_i)) < eps_pq){
-		tmp = 0.0;
-	}else{
-		tmp = sin(w_i*T_i*(N_i+1.0))-sin(w_i*T_i*N_i)-sin(w_i*T_i);
-		tmp /= 2.0*(1.0 - cos(w_i*T_i));
-	}
-	return tmp/N_i;
-}
-
-
-//use tangent in oder to consider the vector field.
-vec2 getRotation(float u, float v, float phi){
-	float uu = u*cos(phi) - v*sin(phi);
-	float vv = u*sin(phi) + v*cos(phi);
-	return vec2(uu, vv);
-}
-
 
 //returns correct scaling factor
 vec2 getRescaledHeight(float reHeight, float imHeight, int index){
@@ -198,16 +157,6 @@ vec2 getRescaledHeight(float reHeight, float imHeight, int index){
 	float imC = imMin + imHeight*(imMax);
 	
 	return vec2(reC, imC); 
-}
-
-
-//do some kind of normalization of returned value
-//divide by maximal amount
-float getFactor(float k, float F, float G, float w){
-	float A = PI*(dimX/2.0)*(dimX/2.0);
-	float kk_ww = (k*k)/(w*w);
-	kk_ww *= pow(t_0, 4.0);
-	return kk_ww*(F*F*G)/(4.0*PI*PI*A);
 }
 
 
@@ -230,28 +179,6 @@ float getAbsFressnelFactor(vec3 _k1, vec3 _k2){
 //	return mix(R0, 1.0, pow(1.0 - cos_teta, 5.0));
 }
 
-
-float computeRotationAngle(vec3 tangent){
-	vec3 ntangent = normalize(tangent);
-	float dTemp = dot(ntangent,vec3(1.0,0.0,0.0) );
-	dTemp = (dTemp > tolerance)? tolerance : ((dTemp < -tolerance) ? -tolerance :  dTemp);
-	float phi = acos(dTemp);
-	vec3 tempV = cross(vec3(1.0,0,0), ntangent);
-	if(tempV.z < 0.0) phi = -phi;
-	return 0.0;
-}
-
-
-float computeGFactor(vec3 camNormal, vec3 _k1, vec3 _k2){
-	float dominator = pow(1.0 - dot(_k1,_k2), 2.0);
-	float leftNom = dot(-_k1, camNormal);
-	leftNom = (leftNom > tolerance)? tolerance : ((leftNom < -tolerance) ? -tolerance :  leftNom);
-	float rightNom = dot(_k2, camNormal);
-	rightNom = (rightNom > tolerance)? tolerance : ((rightNom < -tolerance) ? -tolerance :  rightNom);
-	float nominator = leftNom*rightNom;
-	return (dominator / nominator);
-}
-
 //assuming we have weigths given foreach lambda in [380nm,700nm] with delta 1nm steps.
 vec3 avgWeighted_XYZ_weight(float lambda){
 	
@@ -271,39 +198,15 @@ vec3 avgWeighted_XYZ_weight(float lambda){
 	return cie_XYZ_lambda_weight;
 }
 
-float compute_pq_scale_factor(float w_u, float w_v){
-	float in_periods = periods;
-	
-	if(userSetPeriodFlag){
-		in_periods = ceil(dimX/patchSpacing);
-		if(in_periods < 1.0) in_periods = 1.0;
-	}
-	
-	float p1 = get_p_factor(w_u, T_1, in_periods);
-	float p2 = get_p_factor(w_v, T_2, in_periods);
-	
-	float q1 = get_q_factor(w_u, T_1, in_periods);
-	float q2 = get_q_factor(w_v, T_2, in_periods);
-	
-	// is the same as below
-//	return pow(p1*p1 + q1*q1 , 0.5)*pow(p2*p2 + q2*q2 , 0.5);
-	
-	float uuu = p1*p2 - q1*q2;
-	float vvv = p1*p2 + q1*q2;
-	
-	return pow(uuu*uuu + vvv*vvv, 0.5);
-}
-
 
 //perform taylor approximation
 vec2 taylorApproximation(vec2 coords, float k, float w){
 	vec2 precomputedFourier = vec2(0.0, 0.0);
 	int lower = 0; int upper = int(approxSteps)+1;
-//	upper = 0;
 	float reHeight = 0.0; float imHeight = 0.0;
 	float real_part = 0.0; float imag_part = 0.0;
 	float fourier_coefficients = 1.0;
-	
+	vec2 sum = vec2(0);
 	
 	// approximation till iteration 30 of fourier coefficient
 	for(int n = lower; n <= upper; n++){
@@ -320,50 +223,13 @@ vec2 taylorApproximation(vec2 coords, float k, float w){
 		if(n == 0) fourier_coefficients = 1.0;
 		else fourier_coefficients *= ((k*w*s)/float(n));
 		
-		float fourier_re = fourier_coefficients*precomputedFourier.x;
-		float fourier_im = fourier_coefficients*precomputedFourier.y;
-		
-		
-		real_part += fourier_re;
-		imag_part += fourier_im;
-		
-//		if(n % 4 == 0){
-//			real_part += fourier_re;
-//			imag_part += fourier_im;
-//			
-//		}else if(n % 4 == 1){
-//			real_part -= fourier_im;
-//			imag_part += fourier_re;
-//			
-//		}else if(n % 4 == 2){
-//			real_part -= fourier_re;
-//			imag_part -= fourier_im;
-//			
-//		}else{
-//			real_part += fourier_im;
-//			imag_part -= fourier_re;
-//		}
+		sum = sum + fourier_coefficients*precomputedFourier;
 	}
-	
-	return vec2(real_part, imag_part);
+
+	return vec2(sum.x, sum.y);
 }
 
 
-//first component N_min, second compontent N_max
-vec2 compute_N_min_max(float t){
-	// default case if t == 0 otherwise override it.
-	float N_min = 0.0;
-	float N_max = 0.0;
-	
-	if(t > 0.0){
-		N_min = ceil((dx*t) / lambda_max);
-		N_max = floor((dx*t) / lambda_min);
-	}else if(t < 0.0){
-		N_min = ceil((dx*t) / lambda_min);
-		N_max = floor((dx*t) / lambda_max);
-	}
-	return vec2(N_min, N_max);
-}
 
 vec3 getBRDF_RGB_T_D65(mat3 T, vec3 brdf_xyz){
 //	vec3 D65 = vec3(0.95047, 1.0, 1.08883);
@@ -459,17 +325,11 @@ float gainF(vec3 K1, vec3 K2){
 	float ww = K1.z - K2.z;
 	ww = ww * ww;
 	 
-	 if (ww < pow(10.0,-4.0)){
-		 return 0.0; // Shadowing Function
-	 }
+	if (ww < pow(10.0,-4.0)){
+		return 0.0; // Shadowing Function
+	}
 	 
-//	 gF = gF / K2.z;
-	 // Dont do the following division if Shadoing function is used
-//	 gF = gF / ww; 
-	 
-	 //float fFac = getFresnelFactor(K1, K2); 
-
-	 return (F*G)/(ww*cosNumNumSamples);
+	return (F*G)/(ww*cosNumNumSamples);
 }
 
 vec3 gammaCorrect(vec3 inRGB, float gamma){
@@ -604,7 +464,7 @@ void runEvaluation(){
 //	vec2 N_v = compute_N_min_max(v);
 //	vec2 N_uv[2] = vec2[2](N_u, N_v);
 
-	float iterMax = 600.0;
+	float iterMax = 100.0;
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	float F2 = fFByR0*fFByR0;
 	
@@ -621,9 +481,8 @@ void runEvaluation(){
 		
 		float lambda_iter = iter*lambdaStep + lambda_min;
 		k = (2.0*PI) / lambda_iter;
-//		k = (1.0*PI) / lambda_iter;
 		float kk = (1.0) / lambda_iter;
-//		kk = (2.0*PI) / lambda_iter;
+
 		
 		float w_u = k*u;
 		float w_v = k*v;
@@ -657,10 +516,6 @@ void runEvaluation(){
 				// compute gaussion weight of current pixel
 				float w_ij = getGaussianWeight(dist2, sigma_f_pix);
 				
-				// phaser of current pixel contribution.
-//				float pq_scale = compute_pq_scale_factor(w_u,w_v);
-//				P *= pq_scale;
-				
 				// amplitute of current pixel contribution
 				float abs_P_Sq = P.x*P.x + P.y*P.y;
 
@@ -686,7 +541,7 @@ void runEvaluation(){
 	if(brdf.y < 1e-5) brdf.y = 0.0;
 	if(brdf.z < 1e-5) brdf.z = 0.0;
 	
-	brdf =  brdf*1.0*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*10.0*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	

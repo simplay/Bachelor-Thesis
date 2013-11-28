@@ -39,10 +39,10 @@ public class BumpConstantsManager {
 		constants.add(bc);
 		
 		bc = new BumpConstants("xeno", 
-				(float) (4.4345f*Math.pow(10.0f, -7.0f)), 
+				(float) (8.1869f*Math.pow(10.0f, -7.0f)), 
 				(float) (65.0*Math.pow(10.0f, -6.0f)), 
 				(float) (65.0*Math.pow(10.0f, -6.0f)), 
-				(float) (8.5f*Math.pow(10.0f, -6.0f)));
+				(float) (1.5f*Math.pow(10.0f, -6.0f)));
 		constants.add(bc);
 		
 		bc = new BumpConstants("SingleFingerElaphIdeal", 

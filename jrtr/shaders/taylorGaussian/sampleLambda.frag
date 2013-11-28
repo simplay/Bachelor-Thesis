@@ -617,7 +617,7 @@ void runEvaluation(){
 	if(brdf.y < 1e-3) brdf.y = 0.0;
 	if(brdf.z < 1e-3) brdf.z = 0.0;
 	
-	brdf =  brdf*1000.0*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*0.1*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 
 	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) o_col = vec4(1.0, 0.0, 0.0, 1.0);
