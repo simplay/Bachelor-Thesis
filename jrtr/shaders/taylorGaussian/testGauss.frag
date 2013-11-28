@@ -83,7 +83,9 @@ const float tolerance = 0.999999;
 
 // flags
 bool userSetPeriodFlag = (periodCount <= 0) ? true : false;
-float dH = dimX/float(dimN); // pixelsize how many microns does one pixel cover
+float dH = float(dimX)/float(dimN); // pixelsize how many microns does one pixel cover
+
+//float dH = 65e-6/50.0;
 
 //period constants
 float N_1 = dimN; // number of pixels of downsized patch 
@@ -442,8 +444,8 @@ float getGaussianWeight(float dist2, float sigma_f_pix){
 // get looup coordinates
 vec2 getLookupCoord(float uu, float vv, float lambda){
 	vec2 coord = vec2(0.0f);
-	coord.x = uu * 1e9 *dH / lambda ;
-	coord.y = vv * 1e9 *dH / lambda ;
+	coord.x = uu * dH / lambda ;
+	coord.y = vv * dH / lambda ;
 	return coord;
 }
 
@@ -462,8 +464,8 @@ vec2 getFFTAt(vec2 lookupCoord, int tIdx){
 	const float normF = 1.0f;
 
 	// These are frequency increments
-	int anchorX = int(floor(bias + lookupCoord.x * (dimN - 0)));
-	int anchorY = int(floor(bias + lookupCoord.y * (dimN - 0)));
+	int anchorX = int(floor(orgU + lookupCoord.x * (dimN - 0)));
+	int anchorY = int(floor(orgV + lookupCoord.y * (dimN - 0)));
 	
 	vec2 fftMag = vec2(0.0f);
 	
@@ -576,7 +578,7 @@ void runEvaluation(){
 	float F2 = fFByR0*fFByR0;
 	
 	
-	float stepSize = 50.0;
+	float stepSize = 20.0;
 	float sigma_f_pix = ((2.0*dx) / (PI*dimX));
 	float comp_sigma = sigma_f_pix;
 	sigma_f_pix *= sigma_f_pix;
@@ -592,7 +594,7 @@ void runEvaluation(){
 
 		// xyz value of color for current wavelength (regarding current wavenumber k).
 		vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
-		vec2 lookupCoord = getLookupCoord(u, v, lambda_iter*rescale);
+		vec2 lookupCoord = getLookupCoord(u, v, lambda_iter);
 		
 		
 		vec2 precomputedFourier = vec2(0.0, 0.0);
@@ -600,7 +602,7 @@ void runEvaluation(){
 		float reHeight = 0.0; float imHeight = 0.0;
 		float real_part = 0.0; float imag_part = 0.0;
 		float fourier_coefficients = 1.0;
-		vec2 sum = vec2(0);
+		vec2 sum = vec2(0.0, 0.0);
 		
 		
 		// approximation till iteration 30 of fourier coefficient
@@ -609,8 +611,8 @@ void runEvaluation(){
 			imHeight = texture2DArray(TexArray, vec3(lookupCoord, n) ).y;
 			
 			vec2 fftCoef = getFFTAt(lookupCoord, n);
-	
-			int extremaIndex = n;
+			fftCoef = getRescaledHeight(fftCoef.x, fftCoef.y, n);
+
 
 			// develope factorial and pow like this since 
 			// otherwise we could get numerical rounding errors.
@@ -638,7 +640,7 @@ void runEvaluation(){
 	if(brdf.y < 1e-5) brdf.y = 0.0;
 	if(brdf.z < 1e-5) brdf.z = 0.0;
 	
-	brdf =  brdf*1000.0*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*10.0*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 

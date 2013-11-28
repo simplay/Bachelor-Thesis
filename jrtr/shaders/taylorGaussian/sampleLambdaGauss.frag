@@ -453,7 +453,7 @@ void runEvaluation(){
 	float u = V.x; float v = V.y; float w = V.z;
 	
 
-	float iterMax = 100.0;
+	float iterMax = 200.0;
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	float F2 = fFByR0*fFByR0;
 	
@@ -463,8 +463,30 @@ void runEvaluation(){
 	float comp_sigma = sigma_f_pix;
 	sigma_f_pix *= sigma_f_pix;
 	sigma_f_pix *= 2.0;
+	
+	
+	float sigSpatial = 65e-6/4.0f;
+	// float sigSpatial = 15e-6/4.0f;
+	/*
+	if(debugTxtIdx != 0)
+		sigSpatial = sigSpatial*debugTxtIdx;
+	*/
+	
+	// temporary sigma
+	float sigTemp;
+	
+	sigTemp = 0.5 / PI ;
+	// sigTemp = 1.0;
+	sigTemp = sigTemp /sigSpatial;
+	// sigTemp = 1.0f / sigSpatial;
+	
+	// sigTemp = sigTemp / GetLightNormalCos();
+	
+	sigTemp = sigTemp * dH;
+	sigma_f_pix = sigTemp;
+	
 
-	for(float iter = 0; iter < iterMax; iter = iter + 1.0){
+	for(float iter = 0; iter < iterMax; iter = iter + stepSize){
 		
 		float lambda_iter = iter*lambdaStep + lambda_min;
 		k = (2.0*PI) / lambda_iter;
@@ -474,10 +496,10 @@ void runEvaluation(){
 		float w_u = k*u;
 		float w_v = k*v;
 		
-		float uv_N_n_hat = (kk*dx*v);
+		float uv_N_n_hat = (k*dimN*v);
 		float uv_N_n = floor(uv_N_n_hat);
 		
-		float uu_N_n_hat = (kk*dx*u);
+		float uu_N_n_hat = (k*dimN*u);
 		float uu_N_n = (uu_N_n_hat);
 
 		float uu_N_base = uu_N_n - neighborRadius;
@@ -527,7 +549,7 @@ void runEvaluation(){
 	if(brdf.y < 1e-5) brdf.y = 0.0;
 	if(brdf.z < 1e-5) brdf.z = 0.0;
 	
-	brdf =  brdf*10.0*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*1.0*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	
