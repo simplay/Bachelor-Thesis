@@ -74,7 +74,7 @@ float s = maxBumpHeight;// 2.4623*pow(10,-7.0); // -7 // max height of a bump, m
 
 
 float thetaR;
-
+float sigma_f_pix;
 
 //error constants
 const float eps_pq = 1.0*pow(10.0, -5.0); 
@@ -100,12 +100,23 @@ float sigTemp;
 
 
 float getBias(){
+	
 	float tmp_bias = 0.0;
-	if(int(N_2)%2 == 0){
-		tmp_bias = (N_2/2.0)/(N_2-1.0);
-	}else{
-		tmp_bias = 0.5; // old: 50.0/99.0;
-	}
+	// Set coordinates for the Origin
+	if (int(dimN) % 2 == 0)
+		tmp_bias = float(dimN )/ 2.0f  ; // -2 dur to rotational lochay
+	else
+		tmp_bias = float(dimN - 1.0) / 2.0f  ;
+		
+
+	
+	
+//	float tmp_bias = 0.0;
+//	if(int(N_2)%2 == 0){
+//		tmp_bias = (N_2/2.0)/(N_2-1.0);
+//	}else{
+//		tmp_bias = 0.5; // old: 50.0/99.0;
+//	}
 	return tmp_bias;
 }
 float bias = getBias();
@@ -209,7 +220,7 @@ vec2 taylorApproximation(vec2 coords, float k, float w){
 	float reHeight = 0.0; float imHeight = 0.0;
 	float real_part = 0.0; float imag_part = 0.0;
 	float fourier_coefficients = 1.0;
-	vec2 sum = vec2(0);
+	vec2 sum = vec2(0.0, 0.0);
 	
 	// approximation till iteration 30 of fourier coefficient
 	for(int n = lower; n <= upper; n++){
@@ -242,8 +253,8 @@ float getGaussWeightAtDistance(float distU, float distV){
 	distU = distU * distU / varX_InTxtUnits;
 	distV = distV * distV / varY_InTxtUnits;
 	
-	return exp((-distU - distV)/2.0f);
-	//return 1.0f;
+	return exp((-distU - distV)/2.0f)/sigma_f_pix;
+
 }
 
 vec2 taylorGaussWindow(vec2 coords, float k, float w){
@@ -558,7 +569,7 @@ void runEvaluation(){
 	
 	
 	float stepSize = 1.0;
-	float sigma_f_pix = ((2.0*dx) / (PI*dimX));
+	sigma_f_pix = ((2.0*dx) / (PI*dimX));
 	float comp_sigma = sigma_f_pix;
 	sigma_f_pix *= sigma_f_pix;
 	sigma_f_pix *= 2.0;
@@ -595,14 +606,14 @@ void runEvaluation(){
 
 			vec2 coord22 = vec2(0.0f);
 			
-			coord22.x = v *dH / lambda_iter ;
+			coord22.x = v * dH/ lambda_iter ;
 			coord22.y = u *dH / lambda_iter ;
 
 
 		// xyz value of color for current wavelength (regarding current wavenumber k).
-//		vec2 coords = vec2((k*v/(Omega)) + bias, (k*u/(Omega)) + bias);
+//		vec2 coords = vec2((k*v/(Omega)) + bias/dimN, (k*u/(Omega)) + bias/dimN);
 		
-		P = taylorGaussWindow(coord22, kk, w);
+		P = taylorGaussWindow(coord22, k, w);
 		
 		
 		float abs_P_Sq = P.x*P.x + P.y*P.y;
@@ -621,7 +632,7 @@ void runEvaluation(){
 	if(brdf.y < 1e-5) brdf.y = 0.0;
 	if(brdf.z < 1e-5) brdf.z = 0.0;
 	
-	brdf =  brdf*1000.0*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*1.0*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	
@@ -640,7 +651,7 @@ void runEvaluation(){
 //	frag_shaded	= o_col;
 //	o_col = vec4(maxBRDF.xyz,1.0);
 //	if(dot(maxBRDF.xyz,maxBRDF.xyz) < eps) o_col = vec4(1.0, 1.0, 1.0, 1.0);
-	frag_shaded	= o_col;
+	frag_shaded	= brdf;
 //	frag_shaded	= vec4(0,1,0,1);
 }
 
