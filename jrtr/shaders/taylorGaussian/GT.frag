@@ -98,25 +98,32 @@ float sigTemp;
 
 //float bias = (N_2/2.0)/(N_2-1.0); // old: 50.0/99.0;
 
-
+float orgIm;
 float getBias(){
 	
-	float tmp_bias = 0.0;
-	// Set coordinates for the Origin
-	if (int(dimN) % 2 == 0)
-		tmp_bias = float(dimN )/ 2.0f  ; // -2 dur to rotational lochay
-	else
-		tmp_bias = float(dimN - 1.0) / 2.0f  ;
+//	float tmp_bias = 0.0;
+//	// Set coordinates for the Origin
+//	if (int(dimN) % 2 == 0)
+//		tmp_bias = float(dimN )/ 2.0f  ; // -2 dur to rotational lochay
+//	else
+//		tmp_bias = float(dimN - 1.0) / 2.0f  ;
+//		
+//
+//	
+	
+
+		
 		
 
 	
-	
-//	float tmp_bias = 0.0;
-//	if(int(N_2)%2 == 0){
-//		tmp_bias = (N_2/2.0)/(N_2-1.0);
-//	}else{
-//		tmp_bias = 0.5; // old: 50.0/99.0;
-//	}
+	float tmp_bias = 0.0;
+	if(int(N_2)%2 == 0){
+		orgIm = float(dimN )/ 2.0f  ; // -2 dur to rotational lochay
+		tmp_bias = (N_2/2.0)/(N_2-1.0);
+	}else{
+		orgIm = float(dimN - 1.0) / 2.0f  ;
+		tmp_bias = 0.5; // old: 50.0/99.0;
+	}
 	return tmp_bias;
 }
 float bias = getBias();
@@ -261,7 +268,7 @@ vec2 taylorGaussWindow(vec2 coords, float k, float w){
 	vec2 precomputedFourier = vec2(0.0, 0.0);
 	vec2 susum = vec2(0.0, 0.0);
 	int lower = 0; int upper = int(approxSteps)+1;
-//	upper = 10;
+	upper = 10;
 	float reHeight = 0.0; float imHeight = 0.0;
 	float real_part = 0.0; float imag_part = 0.0;
 	float fourier_coefficients = 1.0;
@@ -273,8 +280,8 @@ vec2 taylorGaussWindow(vec2 coords, float k, float w){
 	const float normF = 1.0f;
 
 	// These are frequency increments
-	int anchorX = int(floor(bias + coords.x * (dimN - 0)));
-	int anchorY = int(floor(bias + coords.y * (dimN - 0)));
+	int anchorX = int(floor(orgIm + coords.x * (dimN - 0)));
+	int anchorY = int(floor(orgIm + coords.y * (dimN - 0)));
 	
 	vec3 fftMag = vec3(0.0f);
 	
@@ -300,8 +307,8 @@ vec2 taylorGaussWindow(vec2 coords, float k, float w){
 		for (float i = (anchorX-winW); i <= (anchorX + winW + 1 ); ++i) {
 			for (float j = (anchorY - winW); j <= (anchorY + winW + 1); ++j){
 				vec3 texIdx = vec3(0.0f);
-				float distU = float(i) - bias - coords.x *float(dimN - 0);
-				float distV = float(j) - bias - coords.y *float(dimN - 0);
+				float distU = float(i) - orgIm - coords.x *float(dimN - 0);
+				float distV = float(j) - orgIm - coords.y *float(dimN - 0);
 				
 				texIdx.x = float(i)/ float(dimN - 1);
 				texIdx.y = float(j)/float(dimN - 1);
@@ -563,12 +570,12 @@ void runEvaluation(){
 	float u = V.x; float v = V.y; float w = V.z;
 	
 
-	float iterMax = 300.0;
+	float iterMax = 700.0;
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	float F2 = fFByR0*fFByR0;
 	
 	
-	float stepSize = 1.0;
+	float stepSize = 50.0;
 	sigma_f_pix = ((2.0*dx) / (PI*dimX));
 	float comp_sigma = sigma_f_pix;
 	sigma_f_pix *= sigma_f_pix;
@@ -611,7 +618,7 @@ void runEvaluation(){
 
 
 		// xyz value of color for current wavelength (regarding current wavenumber k).
-//		vec2 coords = vec2((k*v/(Omega)) + bias/dimN, (k*u/(Omega)) + bias/dimN);
+//		vec2 coords = vec2((k*v/(Omega)) + bias, (k*u/(Omega)) + bias);
 		
 		P = taylorGaussWindow(coord22, k, w);
 		
@@ -632,7 +639,7 @@ void runEvaluation(){
 	if(brdf.y < 1e-5) brdf.y = 0.0;
 	if(brdf.z < 1e-5) brdf.z = 0.0;
 	
-	brdf =  brdf*1.0*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*0.1*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	
@@ -651,7 +658,7 @@ void runEvaluation(){
 //	frag_shaded	= o_col;
 //	o_col = vec4(maxBRDF.xyz,1.0);
 //	if(dot(maxBRDF.xyz,maxBRDF.xyz) < eps) o_col = vec4(1.0, 1.0, 1.0, 1.0);
-	frag_shaded	= brdf;
+	frag_shaded	= o_col;
 //	frag_shaded	= vec4(0,1,0,1);
 }
 
