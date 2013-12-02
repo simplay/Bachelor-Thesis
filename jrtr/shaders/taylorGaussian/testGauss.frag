@@ -640,7 +640,7 @@ void runEvaluation(){
 	if(brdf.y < 1e-5) brdf.y = 0.0;
 	if(brdf.z < 1e-5) brdf.z = 0.0;
 	
-	brdf =  brdf*10.0*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*0.01*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 

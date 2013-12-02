@@ -197,7 +197,7 @@ vec2 getRescaledHeight(float reHeight, float imHeight, int index){
 	float reC = reMin + reHeight*(reMax);
 	float imC = imMin + imHeight*(imMax);
 	
-	return vec2(reC, imC); 
+	return vec2(reHeight, imHeight); 
 }
 
 
@@ -298,7 +298,6 @@ float compute_pq_scale_factor(float w_u, float w_v){
 vec2 taylorApproximation(vec2 coords, float k, float w){
 	vec2 precomputedFourier = vec2(0.0, 0.0);
 	int lower = 0; int upper = int(approxSteps)+1;
-//	upper = 6;
 	float reHeight = 0.0; float imHeight = 0.0;
 	float real_part = 0.0; float imag_part = 0.0;
 	float fourier_coefficients = 1.0;
@@ -590,7 +589,7 @@ void runEvaluation(){
 		k = (2.0*PI) / lambda_iter;
 		float kk = (1.0) / lambda_iter;
 
-		vec2 coords = vec2((k*v/(Omega)) + bias, (k*u/(Omega)) + bias); //2d
+		vec2 coords = vec2((k*u/(Omega)) + bias, (k*v/(Omega)) + bias); //2d
 
 		
 		float w_u = k*v;
@@ -617,7 +616,7 @@ void runEvaluation(){
 	if(brdf.y < 1e-3) brdf.y = 0.0;
 	if(brdf.z < 1e-3) brdf.z = 0.0;
 	
-	brdf =  brdf*0.1*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*1.0*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 
 	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) o_col = vec4(1.0, 0.0, 0.0, 1.0);

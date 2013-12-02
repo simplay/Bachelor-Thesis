@@ -88,11 +88,11 @@ float dH = dimX/float(dimN); // pixelsize how many microns does one pixel cover
 //period constants
 float N_1 = dimN; // number of pixels of downsized patch 
 float N_2 = dimN; // number of pixels padded patch - see matlab
-float t_0 = dx / N_1;
+float t_0 = float(dimX)/float(dimN);
 float T_1 = t_0 * N_1;
 float T_2 = t_0 * N_1;
 float periods = periodCount-1.0; // 26 // number of patch periods along surface
-float Omega = ((N_1/N_2)*2.0*PI)/t_0; // (N_1/N_2)*2*PI/t_0, before 8.0*PI*pow(10.0,7.0);
+float Omega = (2.0*PI)/t_0; // (N_1/N_2)*2*PI/t_0, before 8.0*PI*pow(10.0,7.0);
 
 
 //float bias = (N_2/2.0)/(N_2-1.0); // old: 50.0/99.0;
@@ -230,6 +230,86 @@ vec2 taylorApproximation(vec2 coords, float k, float w){
 
 	return vec2(sum.x, sum.y);
 }
+
+vec2 taylorGaussWindow(vec2 coords, float k, float w){
+	vec2 precomputedFourier = vec2(0.0, 0.0);
+	vec2 susum = vec2(0.0, 0.0);
+	int lower = 0; int upper = int(approxSteps)+1;
+	upper = 10;
+	float reHeight = 0.0; float imHeight = 0.0;
+	float real_part = 0.0; float imag_part = 0.0;
+	float fourier_coefficients = 1.0;
+	vec2 sum = vec2(0);
+	
+	
+	const int winW = 2;
+	//const int normF = (2*winW + 2)*(2*winW + 2);
+	const float normF = 1.0f;
+
+	// These are frequency increments
+	int anchorX = int(floor(bias + coords.x * (dimN - 0)));
+	int anchorY = int(floor(bias + coords.y * (dimN - 0)));
+	
+	vec3 fftMag = vec3(0.0f);
+	
+	// the following is a work around to have fixed number of operations
+	// for each pixel
+	if (anchorX < winW)
+		anchorX = winW;
+	
+	if (anchorY < winW)
+		anchorY = winW;
+	
+	if (anchorX + winW + 1 >  dimN - 1)
+		anchorX = dimN - 1 - winW - 1;
+	
+	if (anchorY + winW + 1 >  dimN - 1)
+		anchorY = dimN - 1 - winW - 1;
+	
+	
+	// approximation till iteration 30 of fourier coefficient
+	for(int n = lower; n <= upper; n++){
+		susum = vec2(0.0,0.0);
+		
+		for (float i = (anchorX-winW); i <= (anchorX + winW + 1 ); ++i) {
+			for (float j = (anchorY - winW); j <= (anchorY + winW + 1); ++j){
+				vec3 texIdx = vec3(0.0f);
+				float distU = float(i) - bias - coords.x *float(dimN - 0);
+				float distV = float(j) - bias - coords.y *float(dimN - 0);
+				
+				texIdx.x = float(i)/ float(dimN - 1);
+				texIdx.y = float(j)/float(dimN - 1);
+				texIdx.z = float(n);
+				vec3 fftVal = texture2DArray(TexArray, n).xyz;
+				
+
+				
+				precomputedFourier = getRescaledHeight(reHeight, imHeight, n);
+				precomputedFourier = precomputedFourier * getGaussWeightAtDistance(distU, distV);
+				// develope factorial and pow like this since 
+				// otherwise we could get numerical rounding errors.
+				// PRODUCT_n=0^N { pow(k*w*s,n)/n! }
+				
+
+				susum = susum + precomputedFourier;
+				
+			}
+			
+			if(n == 0) fourier_coefficients = 1.0;
+			else fourier_coefficients *= ((k*w*s)/float(n));
+			
+			sum = sum + fourier_coefficients*susum;
+		}
+			
+		
+		
+		
+
+	}
+
+	return vec2(sum.x, sum.y);
+}
+
 
 
 
@@ -494,49 +574,17 @@ void runEvaluation(){
 		float kk = (1.0) / lambda_iter;
 
 		
-		float w_u = k*u;
-		float w_v = k*v;
-		
-		float uv_N_n_hat = (k*dimN*v);
-		float uv_N_n = floor(uv_N_n_hat);
-		
-		float uu_N_n_hat = (k*dimN*u);
-		float uu_N_n = (uu_N_n_hat);
 
-		float uu_N_base = uu_N_n - neighborRadius;
-		float uv_N_base = uv_N_n - neighborRadius;
-		
 		// xyz value of color for current wavelength (regarding current wavenumber k).
 		vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
-		neighborRadius = 1.0;
+		vec2 coords = vec2((k*v/(Omega)) + bias, (k*u/(Omega)) + bias);
 		
-		for(float ind1 = uu_N_base; ind1 <= uu_N_base + 2.0*neighborRadius; ind1 = ind1 + 1.0){
-			for(float ind2 = uv_N_base; ind2 <= uv_N_base + 2.0*neighborRadius; ind2 = ind2 + 1.0){
-					
-				// get L1 distance to neighbor from current pixel
-				float dist2 = pow(ind1-uu_N_base, 2.0) + pow(ind2-uv_N_n_hat, 2.0);
-				
-				// get lookup coordinates for current pixel
-				coords = getLookupCoordinates(0, ind2, ind1);
-				
-				// complex valued frequency contribution of current pixel.
-				//P = taylorApproximation(coords, k, w);
-				P = vec2(1.0, 1.0);
-				// compute gaussion weight of current pixel
-				float w_ij = getGaussianWeight(dist2, sigma_f_pix);
-				
-				// amplitute of current pixel contribution
-				float abs_P_Sq = P.x*P.x + P.y*P.y;
-
-				// weight with window
-				abs_P_Sq *= w_ij;
-
-				// summation of brdf over all wavelengths under consideration.
-				brdf += vec4(abs_P_Sq * waveColor, 0.0);	
-//				brdf += vec4(vec3(abs_P_Sq,abs_P_Sq,abs_P_Sq), 0.0);
-			}
-		}
+		P = taylorGaussWindow(coords, k, w);
 		
+		
+		float abs_P_Sq = P.x*P.x + P.y*P.y;
+		vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
+		brdf += vec4(abs_P_Sq * waveColor, 0.0);	
 	}
 
 	float ambient = 0.0;	
