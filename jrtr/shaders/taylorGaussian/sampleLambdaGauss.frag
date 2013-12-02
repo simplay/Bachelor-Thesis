@@ -88,7 +88,8 @@ float dH = dimX/float(dimN); // pixelsize how many microns does one pixel cover
 //period constants
 float N_1 = dimN; // number of pixels of downsized patch 
 float N_2 = dimN; // number of pixels padded patch - see matlab
-float t_0 = dx / N_1;
+//float t_0 = dx / N_1;
+float t_0 = dimX / dimN;
 float T_1 = t_0 * N_1;
 float T_2 = t_0 * N_1;
 float periods = periodCount-1.0; // 26 // number of patch periods along surface
@@ -454,12 +455,12 @@ void runEvaluation(){
 	float u = V.x; float v = V.y; float w = V.z;
 	
 
-	float iterMax = 100.0;
+	float iterMax = 300.0;
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	float F2 = fFByR0*fFByR0;
 	
 	
-	float stepSize = 50.0;
+	float stepSize = 20.0;
 	float sigma_f_pix = ((2.0*dx) / (PI*dimX));
 	float comp_sigma = sigma_f_pix;
 	sigma_f_pix *= sigma_f_pix;
@@ -497,14 +498,14 @@ void runEvaluation(){
 		float w_u = k*u;
 		float w_v = k*v;
 		
-		float uv_N_n_hat = (k*dimN*v);
+		float uv_N_n_hat = (k*dH*v);
 		float uv_N_n = floor(uv_N_n_hat);
 		
-		float uu_N_n_hat = (k*dimN*u);
+		float uu_N_n_hat = (k*dH*u);
 		float uu_N_n = (uu_N_n_hat);
 
-		float uu_N_base = uu_N_n - neighborRadius;
-		float uv_N_base = uv_N_n - neighborRadius;
+		float uu_N_base = uu_N_n - neighborRadius*dH;
+		float uv_N_base = uv_N_n - neighborRadius*dH;
 		
 		// xyz value of color for current wavelength (regarding current wavenumber k).
 		vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);

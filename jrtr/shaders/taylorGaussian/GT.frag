@@ -591,12 +591,18 @@ void runEvaluation(){
 		k = (2.0*PI) / lambda_iter;
 		float kk = (1.0) / lambda_iter;
 
-		
+
+
+			vec2 coord22 = vec2(0.0f);
+			
+			coord22.x = v *dH / lambda_iter ;
+			coord22.y = u *dH / lambda_iter ;
+
 
 		// xyz value of color for current wavelength (regarding current wavenumber k).
-		vec2 coords = vec2((k*v/(Omega)) + bias, (k*u/(Omega)) + bias);
+//		vec2 coords = vec2((k*v/(Omega)) + bias, (k*u/(Omega)) + bias);
 		
-		P = taylorGaussWindow(coords, k, w);
+		P = taylorGaussWindow(coord22, kk, w);
 		
 		
 		float abs_P_Sq = P.x*P.x + P.y*P.y;
@@ -615,7 +621,7 @@ void runEvaluation(){
 	if(brdf.y < 1e-5) brdf.y = 0.0;
 	if(brdf.z < 1e-5) brdf.z = 0.0;
 	
-	brdf =  brdf*0.00000001*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*1000.0*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	
