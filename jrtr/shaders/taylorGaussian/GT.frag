@@ -89,11 +89,12 @@ float dH = dimX/float(dimN); // pixelsize how many microns does one pixel cover
 float N_1 = dimN; // number of pixels of downsized patch 
 float N_2 = dimN; // number of pixels padded patch - see matlab
 float t_0 = float(dimX)/float(dimN);
+//float t_0 = dx / N_1;
 float T_1 = t_0 * N_1;
 float T_2 = t_0 * N_1;
 float periods = periodCount-1.0; // 26 // number of patch periods along surface
 float Omega = (2.0*PI)/t_0; // (N_1/N_2)*2*PI/t_0, before 8.0*PI*pow(10.0,7.0);
-
+float sigTemp;
 
 //float bias = (N_2/2.0)/(N_2-1.0); // old: 50.0/99.0;
 
@@ -231,11 +232,25 @@ vec2 taylorApproximation(vec2 coords, float k, float w){
 	return vec2(sum.x, sum.y);
 }
 
+float varX_InTxtUnits; 
+float varY_InTxtUnits;
+float getGaussWeightAtDistance(float distU, float distV){
+	// note that distU and distV are in textureCoordinateUnits
+	varX_InTxtUnits = sigTemp * sigTemp * float(dimN * dimN); 
+	varY_InTxtUnits = sigTemp * sigTemp * float(dimN * dimN);
+	
+	distU = distU * distU / varX_InTxtUnits;
+	distV = distV * distV / varY_InTxtUnits;
+	
+	return exp((-distU - distV)/2.0f);
+	//return 1.0f;
+}
+
 vec2 taylorGaussWindow(vec2 coords, float k, float w){
 	vec2 precomputedFourier = vec2(0.0, 0.0);
 	vec2 susum = vec2(0.0, 0.0);
 	int lower = 0; int upper = int(approxSteps)+1;
-	upper = 10;
+//	upper = 10;
 	float reHeight = 0.0; float imHeight = 0.0;
 	float real_part = 0.0; float imag_part = 0.0;
 	float fourier_coefficients = 1.0;
@@ -261,10 +276,10 @@ vec2 taylorGaussWindow(vec2 coords, float k, float w){
 		anchorY = winW;
 	
 	if (anchorX + winW + 1 >  dimN - 1)
-		anchorX = dimN - 1 - winW - 1;
+		anchorX = int(dimN) - 1 - winW - 1;
 	
 	if (anchorY + winW + 1 >  dimN - 1)
-		anchorY = dimN - 1 - winW - 1;
+		anchorY = int(dimN) - 1 - winW - 1;
 	
 	
 	// approximation till iteration 30 of fourier coefficient
@@ -280,9 +295,12 @@ vec2 taylorGaussWindow(vec2 coords, float k, float w){
 				texIdx.x = float(i)/ float(dimN - 1);
 				texIdx.y = float(j)/float(dimN - 1);
 				texIdx.z = float(n);
-				vec3 fftVal = texture2DArray(TexArray, n).xyz;
 				
-
+	
+				
+				vec3 fftVal = texture2DArray(TexArray, texIdx).xyz;
+				reHeight = fftVal.x;
+				imHeight = fftVal.y;
 				
 				precomputedFourier = getRescaledHeight(reHeight, imHeight, n);
 				precomputedFourier = precomputedFourier * getGaussWeightAtDistance(distU, distV);
@@ -534,12 +552,12 @@ void runEvaluation(){
 	float u = V.x; float v = V.y; float w = V.z;
 	
 
-	float iterMax = 100.0;
+	float iterMax = 300.0;
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	float F2 = fFByR0*fFByR0;
 	
 	
-	float stepSize = 50.0;
+	float stepSize = 1.0;
 	float sigma_f_pix = ((2.0*dx) / (PI*dimX));
 	float comp_sigma = sigma_f_pix;
 	sigma_f_pix *= sigma_f_pix;
@@ -554,7 +572,7 @@ void runEvaluation(){
 	*/
 	
 	// temporary sigma
-	float sigTemp;
+
 	
 	sigTemp = 0.5 / PI ;
 	// sigTemp = 1.0;
@@ -567,7 +585,7 @@ void runEvaluation(){
 	sigma_f_pix = sigTemp;
 	
 
-	for(float iter = 0; iter < 100.0; iter = iter + 50.0){
+	for(float iter = 0; iter < iterMax; iter = iter + stepSize){
 		
 		float lambda_iter = iter*lambdaStep + lambda_min;
 		k = (2.0*PI) / lambda_iter;
@@ -576,7 +594,6 @@ void runEvaluation(){
 		
 
 		// xyz value of color for current wavelength (regarding current wavenumber k).
-		vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
 		vec2 coords = vec2((k*v/(Omega)) + bias, (k*u/(Omega)) + bias);
 		
 		P = taylorGaussWindow(coords, k, w);
@@ -587,7 +604,7 @@ void runEvaluation(){
 		brdf += vec4(abs_P_Sq * waveColor, 0.0);	
 	}
 
-	float ambient = 0.0;	
+	float ambient = 0.1;	
 	// remove negative values
 	if(brdf.x < 0.0 ) brdf.x = 0.0;
 	if(brdf.y < 0.0 ) brdf.y = 0.0;
@@ -598,7 +615,7 @@ void runEvaluation(){
 	if(brdf.y < 1e-5) brdf.y = 0.0;
 	if(brdf.z < 1e-5) brdf.z = 0.0;
 	
-	brdf =  brdf*1.0*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*0.00000001*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	
@@ -608,7 +625,7 @@ void runEvaluation(){
 	else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) o_col = vec4(0.0, 1.0, 0.0, 1.0);
 	else o_col = brdf+vec4(ambient,ambient,ambient,0.0);
 //	else o_col = vec4(ambient,ambient,ambient,1.0);
-	brdf = vec4(gammaCorrect(brdf.xyz, 1.3), 1.0f);
+	o_col = vec4(gammaCorrect(o_col.xyz, 1.3), 1.0f);
 //	vec4 tex = texture2D(bodyTexture, frag_texcoord);
 //	frag_shaded	= o_col;
 //	vec4 passcolor = (1.0-F2)*tex+(o_col);
@@ -617,7 +634,7 @@ void runEvaluation(){
 //	frag_shaded	= o_col;
 //	o_col = vec4(maxBRDF.xyz,1.0);
 //	if(dot(maxBRDF.xyz,maxBRDF.xyz) < eps) o_col = vec4(1.0, 1.0, 1.0, 1.0);
-	frag_shaded	= brdf;
+	frag_shaded	= o_col;
 //	frag_shaded	= vec4(0,1,0,1);
 }
 

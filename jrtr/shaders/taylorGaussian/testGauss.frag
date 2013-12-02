@@ -90,7 +90,8 @@ float dH = float(dimX)/float(dimN); // pixelsize how many microns does one pixel
 //period constants
 float N_1 = dimN; // number of pixels of downsized patch 
 float N_2 = dimN; // number of pixels padded patch - see matlab
-float t_0 = dx / N_1;
+//float t_0 = dx / N_1;
+float t_0 = float(dimX)/float(dimN);
 float T_1 = t_0 * N_1;
 float T_2 = t_0 * N_1;
 float periods = periodCount-1.0; // 26 // number of patch periods along surface
@@ -578,7 +579,7 @@ void runEvaluation(){
 	float F2 = fFByR0*fFByR0;
 	
 	
-	float stepSize = 20.0;
+	float stepSize = 10.0;
 	float sigma_f_pix = ((2.0*dx) / (PI*dimX));
 	float comp_sigma = sigma_f_pix;
 	sigma_f_pix *= sigma_f_pix;
@@ -607,8 +608,11 @@ void runEvaluation(){
 		
 		// approximation till iteration 30 of fourier coefficient
 		for(int n = lower; n <= upper; n++){
-			reHeight = texture2DArray(TexArray, vec3(lookupCoord, n) ).x;
-			imHeight = texture2DArray(TexArray, vec3(lookupCoord, n) ).y;
+			
+			vec3 image = texture2DArray(TexArray, vec3(lookupCoord, n) ).xyz;
+			reHeight = image.x;
+			imHeight = image.y;
+			
 			
 			vec2 fftCoef = getFFTAt(lookupCoord, n);
 			fftCoef = getRescaledHeight(fftCoef.x, fftCoef.y, n);
@@ -640,7 +644,7 @@ void runEvaluation(){
 	if(brdf.y < 1e-5) brdf.y = 0.0;
 	if(brdf.z < 1e-5) brdf.z = 0.0;
 	
-	brdf =  brdf*0.01*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*10.0*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 

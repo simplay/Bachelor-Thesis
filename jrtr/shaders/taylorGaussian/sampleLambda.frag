@@ -197,7 +197,7 @@ vec2 getRescaledHeight(float reHeight, float imHeight, int index){
 	float reC = reMin + reHeight*(reMax);
 	float imC = imMin + imHeight*(imMax);
 	
-	return vec2(reHeight, imHeight); 
+	return vec2(reC, imC); 
 }
 
 
@@ -589,7 +589,7 @@ void runEvaluation(){
 		k = (2.0*PI) / lambda_iter;
 		float kk = (1.0) / lambda_iter;
 
-		vec2 coords = vec2((k*u/(Omega)) + bias, (k*v/(Omega)) + bias); //2d
+		vec2 coords = vec2((k*v/(Omega)) + bias, (k*u/(Omega)) + bias); //2d
 
 		
 		float w_u = k*v;
@@ -616,7 +616,7 @@ void runEvaluation(){
 	if(brdf.y < 1e-3) brdf.y = 0.0;
 	if(brdf.z < 1e-3) brdf.z = 0.0;
 	
-	brdf =  brdf*1.0*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*1000.0*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 
 	if(isnan(brdf.x) ||isnan(brdf.y) ||isnan(brdf.z)) o_col = vec4(1.0, 0.0, 0.0, 1.0);
