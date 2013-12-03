@@ -205,7 +205,7 @@ vec3 avgWeighted_XYZ_weight(float lambda){
 vec2 taylorApproximation(vec2 coords, float k, float w){
 	vec2 precomputedFourier = vec2(0.0, 0.0);
 	int lower = 0; int upper = int(approxSteps)+1;
-	upper = 10;
+//	upper = 10;
 	float reHeight = 0.0; float imHeight = 0.0;
 	float real_part = 0.0; float imag_part = 0.0;
 	float fourier_coefficients = 1.0;
@@ -399,7 +399,7 @@ float getGaussianWeight(float dist2, float sigma_f_pix){
 // get looup coordinates
 vec2 getLookupCoordinates(float variant, float ind1, float ind2){
 	vec2 lookup = vec2(0.0, 0.0);
-	lookup = vec2((ind1/(dimN-1)) + bias, (ind2/(dimN-1)) + bias);
+	lookup = vec2((ind1/(dimN-1.0)) + bias, (ind2/(dimN-1.0)) + bias);
 	return lookup;
 }
 
@@ -455,17 +455,13 @@ void runEvaluation(){
 	float u = V.x; float v = V.y; float w = V.z;
 	
 
-	float iterMax = 300.0;
+	float iterMax = 700.0;
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	float F2 = fFByR0*fFByR0;
 	
 	
-	float stepSize = 20.0;
-	float sigma_f_pix = ((2.0*dx) / (PI*dimX));
-	float comp_sigma = sigma_f_pix;
-	sigma_f_pix *= sigma_f_pix;
-	sigma_f_pix *= 2.0;
-	
+	float stepSize = 1.0;
+
 	
 	float sigSpatial = 65e-6/4.0f;
 	// float sigSpatial = 15e-6/4.0f;
@@ -485,10 +481,10 @@ void runEvaluation(){
 	// sigTemp = sigTemp / GetLightNormalCos();
 	
 	sigTemp = sigTemp * dH;
-	sigma_f_pix = sigTemp;
+	float sigma_f_pix = sigTemp;
 	
 
-	for(float iter = 0; iter < 100.0; iter = iter + 50.0){
+	for(float iter = 0; iter < iterMax; iter = iter + stepSize){
 		
 		float lambda_iter = iter*lambdaStep + lambda_min;
 		k = (2.0*PI) / lambda_iter;
@@ -518,7 +514,7 @@ void runEvaluation(){
 				float dist2 = pow(ind1-uu_N_base, 2.0) + pow(ind2-uv_N_n_hat, 2.0);
 				
 				// get lookup coordinates for current pixel
-				coords = getLookupCoordinates(0, ind2, ind1);
+				coords = getLookupCoordinates(0, ind1, ind2);
 				
 				// complex valued frequency contribution of current pixel.
 				//P = taylorApproximation(coords, k, w);
