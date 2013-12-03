@@ -119,7 +119,6 @@ void setVarXY()
 	
 	
 	dH = scalingFactors[0].w;
-	dH = 2.5e-6/200;
 	// scalingFactors[0].w = 
 	
 	float sigSpatial = 65e-6/4.0f;
@@ -559,7 +558,7 @@ void directBRDF()
 	
 	vec3 totalXYZ  = getRawXYZFromTaylorSeries( uu, vv, ww);
 
-	totalXYZ = totalXYZ * gainF(k1, k2)*shadowF*0.0001;
+	totalXYZ = totalXYZ * gainF(k1, k2)*shadowF*1000.01;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
 	
 	if (isnan(totalXYZ.x *totalXYZ.y *totalXYZ.z))
