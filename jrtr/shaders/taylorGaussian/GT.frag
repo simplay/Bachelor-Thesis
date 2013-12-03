@@ -5,6 +5,7 @@
 #define MAX_LIGHTS 1
 #define MAX_FACTORS 31
 #define MAX_WEIGHTS 311
+#define MAX_WFACTORS 160
 //Uniform variables, passed in from host program via suitable 
 
 uniform sampler2DArray TexArray;
@@ -13,9 +14,10 @@ uniform sampler2D bumpMapTexture;
 
 uniform vec4 cop_w;
 uniform vec3 radianceArray[MAX_LIGHTS];
+uniform vec4 brdf_weights_Dal[MAX_WEIGHTS];
 uniform vec3 brdf_weights[MAX_WEIGHTS];
 uniform vec4 directionArray[MAX_LIGHTS];
-uniform vec4 scalingFactors[31];
+uniform vec4 scalingFactors[MAX_WFACTORS];
 uniform vec4 global_extrema[1];
 uniform vec4 camPos;
 
@@ -32,6 +34,7 @@ uniform float maxBumpHeight;
 uniform float patchSpacing;
 uniform float dimX;
 uniform float dimY;
+uniform float delLamda;
 
 uniform sampler2DArray lookupText;
 
@@ -83,12 +86,13 @@ const float tolerance = 0.999999;
 
 // flags
 bool userSetPeriodFlag = (periodCount <= 0) ? true : false;
-float dH = dimX/float(dimN); // pixelsize how many microns does one pixel cover
+
 
 //period constants
 float N_1 = dimN; // number of pixels of downsized patch 
 float N_2 = dimN; // number of pixels padded patch - see matlab
 float t_0 = float(dimX)/float(dimN);
+float dH = t_0*10.0; // pixelsize how many microns does one pixel cover
 //float t_0 = dx / N_1;
 float T_1 = t_0 * N_1;
 float T_2 = t_0 * N_1;
@@ -98,7 +102,7 @@ float sigTemp;
 
 //float bias = (N_2/2.0)/(N_2-1.0); // old: 50.0/99.0;
 
-float orgIm;
+float ImageCenterPos;
 float getBias(){
 	
 //	float tmp_bias = 0.0;
@@ -118,10 +122,10 @@ float getBias(){
 	
 	float tmp_bias = 0.0;
 	if(int(N_2)%2 == 0){
-		orgIm = float(dimN )/ 2.0f  ; // -2 dur to rotational lochay
+		ImageCenterPos = float(dimN )/ 2.0f  ; // -2 dur to rotational lochay
 		tmp_bias = (N_2/2.0)/(N_2-1.0);
 	}else{
-		orgIm = float(dimN - 1.0) / 2.0f  ;
+		ImageCenterPos = float(dimN - 1.0) / 2.0f  ;
 		tmp_bias = 0.5; // old: 50.0/99.0;
 	}
 	return tmp_bias;
@@ -179,6 +183,23 @@ vec2 getRescaledHeight(float reHeight, float imHeight, int index){
 	return vec2(reC, imC); 
 }
 
+vec3 avgWeighted_XYZ_weight(float lambda){
+	
+	float lambda_a = floor(lambda*rescale); // lower bound current lambda
+	float lambda_b = ceil(lambda*rescale); // upper bound current lambda
+	
+	// convex combination of a,b gives us the nearest weight for current:
+	// (L_b-L)f(L_b) + (L-L_a)f(L_a)
+	
+	// find index by wavelength
+	int index_a = int(lambda_a - l_min);
+	int index_b = int(lambda_b - l_min);
+	float weight_b = (lambda_b - lambda*rescale);
+	float weight_a = (lambda*rescale - lambda_a);
+	
+	vec3 cie_XYZ_lambda_weight = weight_b*brdf_weights[index_b] + weight_a*brdf_weights[index_a];
+	return cie_XYZ_lambda_weight;
+}
 
 float getAbsFressnelFactor(vec3 _k1, vec3 _k2){
 	float n_t = SMOOTH; // material constant
@@ -200,7 +221,7 @@ float getAbsFressnelFactor(vec3 _k1, vec3 _k2){
 }
 
 //assuming we have weigths given foreach lambda in [380nm,700nm] with delta 1nm steps.
-vec3 avgWeighted_XYZ_weight(float lambda){
+vec4 getClrMatchingFnWeights(float lambda){
 	
 	float lambda_a = floor(lambda*rescale); // lower bound current lambda
 	float lambda_b = ceil(lambda*rescale); // upper bound current lambda
@@ -214,7 +235,7 @@ vec3 avgWeighted_XYZ_weight(float lambda){
 	float weight_b = (lambda_b - lambda*rescale);
 	float weight_a = (lambda*rescale - lambda_a);
 	
-	vec3 cie_XYZ_lambda_weight = weight_b*brdf_weights[index_b] + weight_a*brdf_weights[index_a];
+	vec4 cie_XYZ_lambda_weight = weight_b*brdf_weights_Dal[index_b] + weight_a*brdf_weights_Dal[index_a];
 	return cie_XYZ_lambda_weight;
 }
 
@@ -234,15 +255,43 @@ float getGaussWeightAtDistance(float distU, float distV){
 
 }
 
+vec3 rescaleXYZ2(float X, float Y, float Z, int index){
+	vec4 vMin = scalingFactors[index*2];
+	vec4 vMax = scalingFactors[index*2 + 1];
+	
+	X = X * vMax.x;
+	X = X + vMin.x;
+
+	Y = Y * vMax.y;
+	Y = Y + vMin.y;
+
+	Z = Z * vMax.z;
+	Z = Z + vMin.z;
+
+	return vec3(X, Y, Z); 
+}
+
+vec3 rescaleXYZ(float X, float Y, float Z, int index){
+	vec4 f = scalingFactors[index];
+	
+	X = X * f.y;
+	X = X + f.x;
+
+	Y = Y * f.w;
+	Y = Y + f.z;
+
+	return vec3(X, Y, Z); 
+}
+
 vec2 taylorGaussWindow(vec2 coords, float k, float w){
-	vec2 precomputedFourier = vec2(0.0, 0.0);
-	vec2 susum = vec2(0.0, 0.0);
+	vec3 precomputedFourier = vec3(0.0, 0.0, 0.0);
+	vec3 susum = vec3(0.0, 0.0, 0.0);
 	int lower = 0; int upper = int(approxSteps)+1;
-	upper = 10;
+//	upper = 10;
 	float reHeight = 0.0; float imHeight = 0.0;
 	float real_part = 0.0; float imag_part = 0.0;
 	float fourier_coefficients = 1.0;
-	vec2 sum = vec2(0);
+	vec3 sum = vec3(0.0, 0.0, 0.0);
 	
 	
 	const int winW = 2;
@@ -250,8 +299,12 @@ vec2 taylorGaussWindow(vec2 coords, float k, float w){
 	const float normF = 1.0f;
 
 	// These are frequency increments
-	int anchorX = int(floor(orgIm + coords.x * float(dimN - 0)));
-	int anchorY = int(floor(orgIm + coords.y * float(dimN - 0)));
+	float parentImagePixelXIndex = ImageCenterPos+coords.x * float(dimN);
+	float parentImagePixelYIndex = ImageCenterPos+coords.y * float(dimN);
+
+	
+	int anchorX = int(floor(parentImagePixelXIndex));
+	int anchorY = int(floor(parentImagePixelYIndex));
 	
 	vec3 fftMag = vec3(0.0f);
 	
@@ -272,25 +325,31 @@ vec2 taylorGaussWindow(vec2 coords, float k, float w){
 	
 	// approximation till iteration 30 of fourier coefficient
 	for(int n = lower; n <= upper; n++){
-		susum = vec2(0.0,0.0);
+		susum = vec3(0.0,0.0, 0.0);
 		
-		for (float i = (anchorX-winW); i <= (anchorX + winW + 1 ); ++i) {
-			for (float j = (anchorY - winW); j <= (anchorY + winW + 1); ++j){
+		// iterate over 1-neighborhood around (anchorX,anchorY)
+		for (float pixelXIndex = (anchorX-winW); pixelXIndex <= (anchorX + winW + 1 ); ++pixelXIndex) {
+			for (float pixelYIndex = (anchorY - winW); pixelYIndex <= (anchorY + winW + 1); ++pixelYIndex){
 				vec3 texIdx = vec3(0.0f);
-				float distU = float(i) - orgIm - coords.x *float(dimN - 0);
-				float distV = float(j) - orgIm - coords.y *float(dimN - 0);
+				float distU = float(pixelXIndex) - parentImagePixelXIndex;
+				float distV = float(pixelYIndex) - parentImagePixelYIndex;
 				
-				texIdx.x = float(i)/ float(dimN - 1);
-				texIdx.y = float(j)/float(dimN - 1);
+				texIdx.x = float(pixelXIndex)/ float(dimN - 1.0);
+				texIdx.y = float(pixelYIndex)/float(dimN - 1.0);
 				texIdx.z = float(n);
 				
-	
+				if(n == 22220){
+					reHeight = 0.0;
+					imHeight = 0.0;
+				}else{
+					vec3 fftVal = texture2DArray(TexArray, texIdx).xyz;
+					reHeight = fftVal.x;
+					imHeight = fftVal.y;
+				}
+
 				
-				vec3 fftVal = texture2DArray(TexArray, texIdx).xyz;
-				reHeight = fftVal.x;
-				imHeight = fftVal.y;
-				
-				precomputedFourier = getRescaledHeight(reHeight, imHeight, n);
+//				precomputedFourier = getRescaledHeight(reHeight, imHeight, n);
+				precomputedFourier = rescaleXYZ(reHeight, imHeight, 0.0, n);
 				precomputedFourier = precomputedFourier * getGaussWeightAtDistance(distU, distV);
 				// develope factorial and pow like this since 
 				// otherwise we could get numerical rounding errors.
@@ -377,21 +436,7 @@ float getFresnelFactorAbsoluteRelative(vec3 K1, vec3 K2){
 	return fF/R0;
 }
 
-vec3 rescaleXYZ(float X, float Y, float Z, int index){
-	vec4 vMin = scalingFactors[index*2];
-	vec4 vMax = scalingFactors[index*2 + 1];
 
-	X = X * vMax.x;
-	X = X + vMin.x;
-
-	Y = Y * vMax.y;
-	Y = Y + vMin.y;
-
-	Z = Z * vMax.z;
-	Z = Z + vMin.z;
-
-	return vec3(X, Y, Z); 
-}
 
 float fFByR0;
 float gainF(vec3 K1, vec3 K2){
@@ -488,7 +533,24 @@ vec2 getLookupCoordinates(float variant, float ind1, float ind2){
 	return lookup;
 }
 
+vec4 getClrMatchingFnWeights2(float lVal)
+{
 
+	if (lVal < LMIN)
+		lVal = LMIN;
+	
+	if (lVal >= LMAX)
+		lVal = LMAX - delLamda/100000.0f; // just to ensure that the flooring
+											// latches to the lower value
+	
+	float alpha  = (lVal - LMIN)/delLamda;
+	
+	int lIdx = int(floor(alpha));
+	
+	alpha = alpha - lIdx;
+
+	return (brdf_weights_Dal[lIdx] * (1.0-alpha) + brdf_weights_Dal[lIdx+1] * alpha); 
+}
 
 void runEvaluation(){
 	
@@ -542,35 +604,68 @@ void runEvaluation(){
 	float iterMax = 700.0;
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	float F2 = fFByR0*fFByR0;
-	float stepSize = 10.0;
+	float stepSize = 20.0;
 
 	float sigSpatial = dimX/4.0f;
 	sigTemp = 0.5 / PI ;
 	sigTemp = sigTemp /sigSpatial;
 	sigTemp = sigTemp * dH;
 	sigma_f_pix = sigTemp;
-
-	for(float iter = 0; iter < iterMax; iter = iter + stepSize){
+	
+	float xNorm = 0.0;
+	float yNorm = 0.0;
+	float zNorm = 0.0;
+	
+	for(float lambdaIter = LMIN; lambdaIter < LMAX; lambdaIter = lambdaIter + stepSize){
 		
-		float lambda_iter = iter*lambdaStep + lambda_min;
+//		float lambda_iter = iter*lambdaStep + lambda_min;
+		lambda_iter = lambdaIter*i_rescale;
+		vec4 waveColor = getClrMatchingFnWeights2(lambdaIter);
+		float specV = waveColor.w;
+//		float specV = 1.0;
+//		xNorm = xNorm + specV*waveColor.x;
+//		yNorm = yNorm + specV*waveColor.y;
+//		zNorm = zNorm + specV*waveColor.z;
+		
+		
 		k = (2.0*PI) / lambda_iter;
 		float kk = (1.0) / lambda_iter;
 
 		vec2 coord22 = vec2(0.0f);
-		coord22.x = k*u * dH/ (1.0) ;
-		coord22.y = k*v * dH / (1.0) ;
+//		coord22.x = u * dH/ (lambda_iter) ;
+//		coord22.y = v * dH / (lambda_iter) ;
+//		
+		coord22.x = u *dH / (lambda_iter) ;
+		coord22.y = v *dH / (lambda_iter) ;
 
 		// xyz value of color for current wavelength (regarding current wavenumber k).
-//		vec2 coords = vec2((k*v/(Omega)) , (k*u/(Omega)) );
+		vec2 coords = vec2((k*u/(Omega) + bias ) , (k*v/(Omega) + bias));
 		
-		P = taylorGaussWindow(coord22, k, w);
+		P = taylorGaussWindow(coord22, kk, w);
 		
 		float abs_P_Sq = P.x*P.x + P.y*P.y;
-		vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
-		brdf += vec4(abs_P_Sq * waveColor, 0.0);	
-	}
+		vec3 waveColor2 = avgWeighted_XYZ_weight(lambda_iter);
+//		xNorm += waveColor.x;
+//		yNorm += waveColor.y;
+//		zNorm += waveColor.z;
+		
+		
+		brdf.x = (brdf.x + waveColor.x*abs_P_Sq*specV);
+		brdf.y = (brdf.y + waveColor.y*abs_P_Sq*specV);
+		brdf.z = (brdf.z + waveColor.z*abs_P_Sq*specV);
 
-	float ambient = 0.1;	
+//		brdf.x = (brdf.x + waveColor2.x*abs_P_Sq);
+//		brdf.y = (brdf.y + waveColor2.y*abs_P_Sq);
+//		brdf.z = (brdf.z + waveColor2.z*abs_P_Sq);
+		
+//		brdf += vec4(abs_P_Sq * waveColor, 0.0);	
+	}
+	
+//	brdf.x = (brdf.x / xNorm);
+//	brdf.y = (brdf.y / yNorm);
+//	brdf.z = (brdf.z / zNorm);
+	
+	float ambient = 0.02;	
 	// remove negative values
 	if(brdf.x < 0.0 ) brdf.x = 0.0;
 	if(brdf.y < 0.0 ) brdf.y = 0.0;
@@ -581,7 +676,7 @@ void runEvaluation(){
 	if(brdf.y < 1e-5) brdf.y = 0.0;
 	if(brdf.z < 1e-5) brdf.z = 0.0;
 	
-	brdf =  brdf*1.001*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*10000.0*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	
@@ -591,7 +686,7 @@ void runEvaluation(){
 	else if(isinf(brdf.x) ||isinf(brdf.y) ||isinf(brdf.z)) o_col = vec4(0.0, 1.0, 0.0, 1.0);
 	else o_col = brdf+vec4(ambient,ambient,ambient,0.0);
 //	else o_col = vec4(ambient,ambient,ambient,1.0);
-	o_col = vec4(gammaCorrect(o_col.xyz, 1.3), 1.0f);
+	o_col = vec4(gammaCorrect(o_col.xyz, 2.2), 1.0f);
 //	vec4 tex = texture2D(bodyTexture, frag_texcoord);
 //	frag_shaded	= o_col;
 //	vec4 passcolor = (1.0-F2)*tex+(o_col);

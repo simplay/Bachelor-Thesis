@@ -71,12 +71,20 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		gl.glUniform4fv(scalingID, paramFactorCount, scalingFactors, 0);
 	
 		
-		// handle weights stuff
-		if(m.getWeights() != null){
-			System.out.println("WEIGHT COUNT " + m.getWeights().length);
-			scalingID = gl.glGetUniformLocation(activeShader.programId(),"brdf_weights");
-			gl.glUniform3fv(scalingID, m.getWeights().length/3, m.getWeights(), 0);
-		}
+		
+		
+		System.out.println("WEIGHT COUNT " + m.getWeights().length);
+		scalingID = gl.glGetUniformLocation(activeShader.programId(),"brdf_weights");
+		gl.glUniform3fv(scalingID, m.getWeights().length/3, m.getWeights(), 0);
+		
+		System.out.println("WEIGHT COUNT " + m.getWeights().length);
+		scalingID = gl.glGetUniformLocation(activeShader.programId(),"brdf_weights_Dal");
+		gl.glUniform4fv(scalingID, m.getWeights().length/4, m.getWeights(), 0);
+		
+		
+		float lambdaSteps = m.getWeights().length/4 - 1;
+		gl.glUniform1f(gl.glGetUniformLocation(activeShader.programId(),"delLamda"),  (m.getLambdaMax() - m.getLambdaMin())/lambdaSteps);
+		
 		
 		// handle globals
 		
