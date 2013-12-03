@@ -16,7 +16,7 @@ uniform vec3 radianceArray[MAX_LIGHTS];
 uniform vec3 brdf_weights[MAX_WEIGHTS];
 uniform vec4 directionArray[MAX_LIGHTS];
 uniform vec4 scalingFactors[31];
-uniform vec4 global_extrema[1];
+//uniform vec4 global_extrema[1];
 uniform vec4 camPos;
 
 uniform float LMIN;
@@ -87,6 +87,7 @@ bool userSetPeriodFlag = (periodCount <= 0) ? true : false;
 //period constants
 float N_1 = dimN; // number of pixels of downsized patch 
 float N_2 = dimN; // number of pixels padded patch - see matlab
+//float t_0 = dimX / dimN;
 float t_0 = dx / N_1;
 float T_1 = t_0 * N_1;
 float T_2 = t_0 * N_1;
@@ -571,7 +572,7 @@ void runEvaluation(){
 	
 
 
-	float iterMax = 1000.0;
+	float iterMax = 500.0;
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	float F2 = fFByR0*fFByR0;
 	
@@ -589,7 +590,7 @@ void runEvaluation(){
 		k = (2.0*PI) / lambda_iter;
 		float kk = (1.0) / lambda_iter;
 
-		vec2 coords = vec2((k*v/(Omega)) + bias, (k*u/(Omega)) + bias); //2d
+		vec2 coords = vec2((k*u/(Omega)) + bias, (k*v/(Omega)) + bias); //2d
 
 		
 		float w_u = k*v;

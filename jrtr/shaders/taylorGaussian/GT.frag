@@ -219,36 +219,6 @@ vec3 avgWeighted_XYZ_weight(float lambda){
 }
 
 
-//perform taylor approximation
-vec2 taylorApproximation(vec2 coords, float k, float w){
-	vec2 precomputedFourier = vec2(0.0, 0.0);
-	int lower = 0; int upper = int(approxSteps)+1;
-	upper = 10;
-	float reHeight = 0.0; float imHeight = 0.0;
-	float real_part = 0.0; float imag_part = 0.0;
-	float fourier_coefficients = 1.0;
-	vec2 sum = vec2(0.0, 0.0);
-	
-	// approximation till iteration 30 of fourier coefficient
-	for(int n = lower; n <= upper; n++){
-		reHeight = texture2DArray(TexArray, vec3(coords, n) ).x;
-		imHeight = texture2DArray(TexArray, vec3(coords, n) ).y;
-		int extremaIndex = n;
-		
-		precomputedFourier = getRescaledHeight(reHeight, imHeight, extremaIndex);
-
-		// develope factorial and pow like this since 
-		// otherwise we could get numerical rounding errors.
-		// PRODUCT_n=0^N { pow(k*w*s,n)/n! }
-		
-		if(n == 0) fourier_coefficients = 1.0;
-		else fourier_coefficients *= ((k*w*s)/float(n));
-		
-		sum = sum + fourier_coefficients*precomputedFourier;
-	}
-
-	return vec2(sum.x, sum.y);
-}
 
 float varX_InTxtUnits; 
 float varY_InTxtUnits;
@@ -280,8 +250,8 @@ vec2 taylorGaussWindow(vec2 coords, float k, float w){
 	const float normF = 1.0f;
 
 	// These are frequency increments
-	int anchorX = int(floor(orgIm + coords.x * (dimN - 0)));
-	int anchorY = int(floor(orgIm + coords.y * (dimN - 0)));
+	int anchorX = int(floor(orgIm + coords.x * float(dimN - 0)));
+	int anchorY = int(floor(orgIm + coords.y * float(dimN - 0)));
 	
 	vec3 fftMag = vec3(0.0f);
 	
@@ -373,8 +343,8 @@ float getShadowMaskFactor(vec3 K1, vec3 K2){
 	float hDotN =  dot(hVec,N);// normal is (0,0,1);
 	float lDotN =  dot(-K1, N); // normal is (0,0,1);
 	
-	float f1 = 2 * hDotN * eDotN / eDotH;
-	float f2 = 2 * hDotN * lDotN / eDotH;
+	float f1 = 2.0 * hDotN * eDotN / eDotH;
+	float f2 = 2.0 * hDotN * lDotN / eDotH;
 
 	f1 = min(f1, f2);
 	return min(1.0f, f1);
@@ -569,39 +539,16 @@ void runEvaluation(){
 	vec3 V = vec3(uu0, vv0, ww);
 	float u = V.x; float v = V.y; float w = V.z;
 	
-
 	float iterMax = 700.0;
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	float F2 = fFByR0*fFByR0;
-	
-	
-	float stepSize = 50.0;
-	sigma_f_pix = ((2.0*dx) / (PI*dimX));
-	float comp_sigma = sigma_f_pix;
-	sigma_f_pix *= sigma_f_pix;
-	sigma_f_pix *= 2.0;
-	
-	
-	float sigSpatial = 65e-6/4.0f;
-	// float sigSpatial = 15e-6/4.0f;
-	/*
-	if(debugTxtIdx != 0)
-		sigSpatial = sigSpatial*debugTxtIdx;
-	*/
-	
-	// temporary sigma
+	float stepSize = 10.0;
 
-	
+	float sigSpatial = dimX/4.0f;
 	sigTemp = 0.5 / PI ;
-	// sigTemp = 1.0;
 	sigTemp = sigTemp /sigSpatial;
-	// sigTemp = 1.0f / sigSpatial;
-	
-	// sigTemp = sigTemp / GetLightNormalCos();
-	
 	sigTemp = sigTemp * dH;
 	sigma_f_pix = sigTemp;
-	
 
 	for(float iter = 0; iter < iterMax; iter = iter + stepSize){
 		
@@ -609,19 +556,14 @@ void runEvaluation(){
 		k = (2.0*PI) / lambda_iter;
 		float kk = (1.0) / lambda_iter;
 
-
-
-			vec2 coord22 = vec2(0.0f);
-			
-			coord22.x = v * dH/ lambda_iter ;
-			coord22.y = u *dH / lambda_iter ;
-
+		vec2 coord22 = vec2(0.0f);
+		coord22.x = k*u * dH/ (1.0) ;
+		coord22.y = k*v * dH / (1.0) ;
 
 		// xyz value of color for current wavelength (regarding current wavenumber k).
-//		vec2 coords = vec2((k*v/(Omega)) + bias, (k*u/(Omega)) + bias);
+//		vec2 coords = vec2((k*v/(Omega)) , (k*u/(Omega)) );
 		
 		P = taylorGaussWindow(coord22, k, w);
-		
 		
 		float abs_P_Sq = P.x*P.x + P.y*P.y;
 		vec3 waveColor = avgWeighted_XYZ_weight(lambda_iter);
@@ -639,7 +581,7 @@ void runEvaluation(){
 	if(brdf.y < 1e-5) brdf.y = 0.0;
 	if(brdf.z < 1e-5) brdf.z = 0.0;
 	
-	brdf =  brdf*0.1*gainF(_k1, _k2)*shadowF;
+	brdf =  brdf*1.001*gainF(_k1, _k2)*shadowF;
 	brdf.xyz = getBRDF_RGB_T_D65(M_Adobe_XRNew, brdf.xyz);
 	
 	
