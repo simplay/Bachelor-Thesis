@@ -19,8 +19,8 @@ public class BumpConstantsManager {
 		
 		bc = new BumpConstants("stam", 
 				(float) (2.4623f*Math.pow(10.0f, -7.0f)), 
-				(float) (65.0f*Math.pow(10.0f, -6.0f)), 
-				(float) (65.0f*Math.pow(10.0f, -6.0f)), 
+				(float) (2.5f*Math.pow(10.0f, -6.0f)), 
+				(float) (2.5f*Math.pow(10.0f, -6.0f)), 
 				(float) (2.5f*Math.pow(10.0f, -6.0f)));
 		constants.add(bc);
 		

@@ -87,8 +87,8 @@ bool userSetPeriodFlag = (periodCount <= 0) ? true : false;
 //period constants
 float N_1 = dimN; // number of pixels of downsized patch 
 float N_2 = dimN; // number of pixels padded patch - see matlab
-//float t_0 = dimX / dimN;
-float t_0 = dx / N_1;
+float t_0 = float(dimX) / float(dimN);
+//float t_0 = dx / N_1;
 float T_1 = t_0 * N_1;
 float T_2 = t_0 * N_1;
 float periods = periodCount-1.0; // 26 // number of patch periods along surface
@@ -276,10 +276,10 @@ float compute_pq_scale_factor(float w_u, float w_v){
 	float in_periods = periods;
 	
 	if(userSetPeriodFlag){
-		in_periods = ceil(dimX/patchSpacing);
+		in_periods = ceil(65e-6/dimX);
 		if(in_periods < 1.0) in_periods = 1.0;
 	}
-	
+
 	float p1 = get_p_factor(w_u, T_1, in_periods);
 	float p2 = get_p_factor(w_v, T_2, in_periods);
 	
