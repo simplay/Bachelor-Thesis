@@ -119,8 +119,8 @@ void setVarXY()
 	
 	
 	dH = scalingFactors[0].w;
-	
-	// scalingFactors[0].w = 15e-6/256;
+	dH = 2.5e-6/200;
+	// scalingFactors[0].w = 
 	
 	float sigSpatial = 65e-6/4.0f;
 	// float sigSpatial = 15e-6/4.0f;
@@ -337,7 +337,7 @@ vec3 gammaCorrect(vec3 inRGB, float gamma)
 vec2 getLookupCoord(float uu, float vv, float lambda)
 {
 	// every 4th element in scaling Factors in DH
-	float dH = scalingFactors[0].w;
+	//float dH = scalingFactors[0].w;
 	vec2 coord = vec2(0.0f);
 	
 	/*
@@ -477,7 +477,7 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww)
 	float lIncr = nanoStep;
 	
 	
-	float step = 1.0;
+	float step = 20.0;
 	
 	for(float lVal = LMIN; lVal <= LMAX; lVal = lVal+step)
 	{
@@ -495,12 +495,12 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww)
 		
 		vec2 tempFFTScale = vec2(0.0f);
 		
-		for(int tIdx = 0; tIdx < 30; ++tIdx)
+		for(int tIdx = 0; tIdx < 10; ++tIdx)
 		{
 			if(0 == tIdx) {
 				preScale = 1.0f;
 			} else {
-				float currS = ww * 2 * PI * pow(10.0f, 3.0f) / lVal / tIdx;
+				float currS = ww * 2.0 * PI * pow(10.0f, 3.0f) / lVal / tIdx;
 				preScale = preScale * currS;
 			}
 		
@@ -559,8 +559,8 @@ void directBRDF()
 	
 	vec3 totalXYZ  = getRawXYZFromTaylorSeries( uu, vv, ww);
 
-//	totalXYZ = totalXYZ * gainF(k1, k2)*shadowF/1000.0;
-//	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
+	totalXYZ = totalXYZ * gainF(k1, k2)*shadowF*0.0001;
+	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
 	
 	if (isnan(totalXYZ.x *totalXYZ.y *totalXYZ.z))
 	{
@@ -568,7 +568,7 @@ void directBRDF()
 		totalXYZ.y  = 1.0;
 		totalXYZ.z  = 0.0;
 	}
-	frag_shaded = vec4(totalXYZ,1.0)/1000.0;
+	frag_shaded = vec4(totalXYZ,1.0);
 //	frag_shaded = vec4(gammaCorrect(totalXYZ,1.1), 1.0);
 }
 
