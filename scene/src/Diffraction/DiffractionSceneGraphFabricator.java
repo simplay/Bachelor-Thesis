@@ -38,7 +38,7 @@ public class DiffractionSceneGraphFabricator {
 	private RenderContext renderContext;
 	private INode root;
 	private ShaderTask activeShaderTask;
-
+	private int layerCount = 39;
 	private Shape targetShape;
 	private Matrix4f targetIMat;
     private Material mat;
@@ -119,7 +119,7 @@ public class DiffractionSceneGraphFabricator {
 				sceneConfig.getShaderTask() == ShaderTaskNr.DEBUG_ANNOTATION ||
 				sceneConfig.getShaderTask() == ShaderTaskNr.DEBUG_SPECULAR ||
 				sceneConfig.getShaderTask() == ShaderTaskNr.EXPERIMENTAL_F){
-			mat.setLayerCount(46);
+			mat.setLayerCount(layerCount);
 		}
 		ShaderTaskSetupManager stm = new ShaderTaskSetupManager(renderContext, mat, sceneConfig.getShaderTask());		
 		mat.setShader(stm.getShader());

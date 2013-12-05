@@ -3,8 +3,8 @@
 
 //substitutes
 #define MAX_LIGHTS 1
-#define MAX_FACTORS 31
-#define MAX_WEIGHTS 311
+#define MAX_FACTORS 79
+#define MAX_WEIGHTS 79*2
 //Uniform variables, passed in from host program via suitable 
 
 uniform sampler2DArray TexArray;

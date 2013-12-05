@@ -20,7 +20,7 @@ public class PreCompDataManager {
 	private Texture[] textures = new Texture[2624];
 	private RenderContext renderContext;
 	private PatchDataPathsManager pdpm;
-	
+	private int layerCount = 39;
 	public PreCompDataManager(RenderContext rc, ShaderTaskNr tasknumber, String patchName, Material mat){
 		this.renderContext = rc;
 		this.mat = mat;
@@ -54,7 +54,7 @@ public class PreCompDataManager {
 	private void loadCompositeTaylorPatches(String basisPath){
 		String path = basisPath;
 		String ext = "";	
-		for(int iter = 0; iter < 46; iter++){
+		for(int iter = 0; iter < layerCount; iter++){
 			ext = "AmpReIm"+Integer.toString(iter)+".txt";
 			//this.textures[iter] = renderContext.makeTexture();
 			this.textures[iter] = renderContext.makeTextureFloat();

@@ -63,6 +63,7 @@ public enum ShaderPaths {
 	
 //	tg_Frag("../jrtr/shaders/taylorGaussian/sampleLambdaGauss.frag"),
 	tg_Frag("../jrtr/shaders/taylorGaussian/sandboxGauss.frag"),
+//	tg_Frag("../jrtr/shaders/taylorGaussian/GT"),
 	
 	// debug
 	
