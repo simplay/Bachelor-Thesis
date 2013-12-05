@@ -89,11 +89,11 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		
 		System.out.println("WEIGHT COUNT " + m.getWeights().length);
 		scalingID = gl.glGetUniformLocation(activeShader.programId(),"brdf_weights");
-		gl.glUniform3fv(scalingID, m.getWeights().length/3, m.getWeights(), 0);
+		gl.glUniform3fv(scalingID, m.getWeights().length/4, m.getWeights(), 0);
 		
 		System.out.println("WEIGHT COUNT " + m.getWeights().length);
 		scalingID = gl.glGetUniformLocation(activeShader.programId(),"brdf_weights_Dal");
-		gl.glUniform4fv(scalingID, m.getWeights().length/4, m.getWeights(), 0);
+		gl.glUniform4fv(scalingID, m.getWeights().length/3, m.getWeights(), 0);
 		
 		
 		float lambdaSteps = m.getWeights().length/4 - 1;
@@ -157,16 +157,26 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		
 		float dimX = m.getPatchDimX();
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "dimX");
-		gl.glUniform1f(id3, dimX);
+		gl.glUniform1f(id3, width);
 		
 		float dimY = m.getPatchDimY();
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "dimY");
-		gl.glUniform1f(id3, dimY);
+		gl.glUniform1f(id3, height);
 		
 		int neighr = m.getNeighborhoodRadius();
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "neigh_rad");
 		gl.glUniform1i(id3, neighr);
-
+		
+		float to = (dimX/width);
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "t0");
+		gl.glUniform1f(id3, to);
+		
+		
+		System.out.println("com");
+		
+		float dh = scalingFactors[3];
+		System.out.println("dh: " + dh + " vs t0" + to);
+		
 	}
 
 	@Override

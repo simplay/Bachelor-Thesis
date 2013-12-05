@@ -3,7 +3,7 @@
 
 // substitutes
 #define MAX_LIGHTS 1
-#define MAX_TAYLORTERMS 29
+#define MAX_TAYLORTERMS 31
 #define MAX_WFACTORS    78
 
 uniform float LMIN;
@@ -21,7 +21,7 @@ uniform sampler2D bodyTexture;
 
 uniform int fftHH; // height of FFT Image
 uniform int fftWW; // width of FFT Image
-
+uniform int approxSteps;
 uniform vec4 cop_w;
 
 uniform vec3 radianceArray[MAX_LIGHTS];
@@ -32,8 +32,8 @@ uniform vec4 scalingFactors[MAX_WFACTORS];
 // uniform vec4 global_extrema[1];
 uniform vec4 camPos;
 uniform int drawTexture;
-
-
+uniform float dimX;
+uniform float t0;
 uniform sampler2DArray lookupText;
 // Variables passed in from the vertex shader
 in vec2 frag_texcoord;
@@ -85,7 +85,6 @@ float varY_InTxtUnits;
 
 // uniform const float dH = 1.0e-7;
 float dH = 0.0f;
-
 float orgU;
 float orgV;
 
@@ -105,7 +104,7 @@ void setVarXY()
 {
 	
 	
-	dH = scalingFactors[0].w;
+	dH = t0;//scalingFactors[0].w;
 	
 	// scalingFactors[0].w = 15e-6/256;
 	
@@ -333,7 +332,7 @@ vec3 gammaCorrect(vec3 inRGB, float gamma)
 vec2 getLookupCoord(float uu, float vv, float lambda)
 {
 	// every 4th element in scaling Factors in DH
-	float dH = scalingFactors[0].w;
+	float dH = t0; //scalingFactors[0].w;
 	vec2 coord = vec2(0.0f);
 	
 	/*
