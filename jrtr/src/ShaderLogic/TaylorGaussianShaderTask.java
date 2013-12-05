@@ -9,6 +9,7 @@ import javax.vecmath.Vector4f;
 
 import jrtr.GLShader;
 import jrtr.GLTexture;
+import jrtr.GLTextureFloat;
 import jrtr.Light;
 import Materials.Material;
 
@@ -25,17 +26,19 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		
 		// load texture array storing all our Fourier transformed patches.
 		gl.glUniform1i(gl.glGetUniformLocation(activeShader.programId(), "TexArray"), 0);
-		GLTexture t = (GLTexture) m.getTextureAt(0);
+		GLTextureFloat t = (GLTextureFloat) m.getTextureAt(0);
 		int width = t.getImWidth();
 		int height = t.getImHeight();
-		gl.glTexImage3D(GL.GL_TEXTURE_2D_ARRAY, 0, GL.GL_RGBA, width, height, m.getLayerCount(), 0, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, null);
+		
+		System.out.println("Loading textures with eidth = " +width + " and height "+ height);
+		gl.glTexImage3D(GL.GL_TEXTURE_2D_ARRAY, 0, GL.GL_RGB32F, width, height, m.getLayerCount(), 0, GL.GL_RGB, GL.GL_FLOAT, null);
 		for(int iter = 0; iter < m.getLayerCount(); iter++){
-			t = (GLTexture) m.getTextureAt(iter);
+			t = (GLTextureFloat) m.getTextureAt(iter);
 			gl.glTexParameteri(GL.GL_TEXTURE_2D_ARRAY, GL.GL_TEXTURE_WRAP_S, GL.GL_CLAMP_TO_EDGE);
 			gl.glTexParameteri(GL.GL_TEXTURE_2D_ARRAY, GL.GL_TEXTURE_WRAP_T, GL.GL_CLAMP_TO_EDGE);
 			gl.glTexParameteri(GL.GL_TEXTURE_2D_ARRAY, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
 			gl.glTexParameteri(GL.GL_TEXTURE_2D_ARRAY, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
-			gl.glTexSubImage3D(GL.GL_TEXTURE_2D_ARRAY, 0, 0, 0, iter, width, height, 1, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, t.getByteBuffer());
+			gl.glTexSubImage3D(GL.GL_TEXTURE_2D_ARRAY, 0, 0, 0, iter, width, height, 1, GL.GL_RGB, GL.GL_FLOAT, t.getByteBuffer());
 		}
 		
 		
@@ -68,19 +71,27 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		gl.glUniform4fv(scalingID, paramFactorCount, scalingFactors, 0);
 	
 		
-		// handle weights stuff
-		if(m.getWeights() != null){
-			System.out.println("WEIGHT COUNT " + m.getWeights().length);
-			scalingID = gl.glGetUniformLocation(activeShader.programId(),"brdf_weights");
-			gl.glUniform3fv(scalingID, m.getWeights().length/3, m.getWeights(), 0);
-		}
+		
+		
+		System.out.println("WEIGHT COUNT " + m.getWeights().length);
+		scalingID = gl.glGetUniformLocation(activeShader.programId(),"brdf_weights");
+		gl.glUniform3fv(scalingID, m.getWeights().length/3, m.getWeights(), 0);
+		
+		System.out.println("WEIGHT COUNT " + m.getWeights().length);
+		scalingID = gl.glGetUniformLocation(activeShader.programId(),"brdf_weights_Dal");
+		gl.glUniform4fv(scalingID, m.getWeights().length/4, m.getWeights(), 0);
+		
+		
+		float lambdaSteps = m.getWeights().length/4 - 1;
+		gl.glUniform1f(gl.glGetUniformLocation(activeShader.programId(),"delLamda"),  (m.getLambdaMax() - m.getLambdaMin())/lambdaSteps);
+		
 		
 		// handle globals
 		
-		if(m.getGlobals() != null){
-			scalingID = gl.glGetUniformLocation(activeShader.programId(),"global_extrema");
-			gl.glUniform4fv(scalingID, m.getGlobals().length/4, m.getGlobals(), 0);
-		}
+//		if(m.getGlobals() != null){
+//			scalingID = gl.glGetUniformLocation(activeShader.programId(),"global_extrema");
+//			gl.glUniform4fv(scalingID, m.getGlobals().length/4, m.getGlobals(), 0);
+//		}
 		
 		Vector4f t_cop = m.getCOP();
 		float[] cop_f = {t_cop.x, t_cop.y, t_cop.z, t_cop.w};
