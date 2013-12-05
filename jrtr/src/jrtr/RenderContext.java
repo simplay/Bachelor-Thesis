@@ -24,6 +24,5 @@ public interface RenderContext {
 	 * @return the texture
 	 */
 	Texture makeTexture();
-	
 	Texture makeTextureFloat();
 }

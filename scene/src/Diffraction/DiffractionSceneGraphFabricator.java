@@ -51,7 +51,7 @@ public class DiffractionSceneGraphFabricator {
 	private float trackDistance = 2.5f;
 	private TransformGroup rootGroup;
 	private SceneConfiguration sceneConfig;
-	private String configName = "evaluation";
+	private String configName = "sandbox";
 	private boolean useSpecificCam = false;
 	
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
@@ -64,7 +64,7 @@ public class DiffractionSceneGraphFabricator {
 		this.cscm = new CameraSceneConstantManager();
 		this.bocm = new BodyConstantsManager();
 		setUpShaderTask();
-		setUpMaterials();
+		mat = setUpMaterials();
 		setUpShapes();
 		setUpSceneGraph();
 		setUpLight();
@@ -92,8 +92,8 @@ public class DiffractionSceneGraphFabricator {
 		}
 	}
 	
-	private void setUpMaterials(){
-		mat = new Material();
+	private Material setUpMaterials(){
+		Material mat = new Material();
 		BumpConstants bc = bcm.getByIdentifyer(sceneConfig.getBumpConstant());
 		BodyConstants bodyC = bocm.getByIdentifyer(sceneConfig.getTextureId());
 		Texture text = renderContext.makeTexture();
@@ -119,11 +119,13 @@ public class DiffractionSceneGraphFabricator {
 				sceneConfig.getShaderTask() == ShaderTaskNr.DEBUG_ANNOTATION ||
 				sceneConfig.getShaderTask() == ShaderTaskNr.DEBUG_SPECULAR ||
 				sceneConfig.getShaderTask() == ShaderTaskNr.EXPERIMENTAL_F){
-			mat.setLayerCount(31);
+			mat.setLayerCount(46);
 		}
 		ShaderTaskSetupManager stm = new ShaderTaskSetupManager(renderContext, mat, sceneConfig.getShaderTask());		
 		mat.setShader(stm.getShader());
 		new PreCompDataManager(renderContext, sceneConfig.getShaderTask(), sceneConfig.getPatchName(), mat); // TODO extend me, i want also the shape task, the shader task and further stuff
+
+		return mat;
 	}
 	
 	private void setUpLight(){
@@ -152,7 +154,7 @@ public class DiffractionSceneGraphFabricator {
 		if(useSpecificCam) setSpecificCam();
 		sceneManager.getFrustum().setParameter(csc.getAspectRatio(), csc.getNear(), csc.getFar(), csc.getVerticalFieldView());
 		sceneManager.getCamera().setParameter(csc.getCOP(), csc.getLook(), csc.getUp());
-		mat.setCOP(cop);		
+		mat.setCOP(cop);			
 	}
 	
 	private void setSpecificCam(){
