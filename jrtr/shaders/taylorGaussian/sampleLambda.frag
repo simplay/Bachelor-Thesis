@@ -572,7 +572,7 @@ void runEvaluation(){
 	
 
 
-	float iterMax = 500.0;
+	float iterMax = 200.0;
 	float lambdaStep = (lambda_max - lambda_min)/(iterMax-1.0);
 	float F2 = fFByR0*fFByR0;
 	
