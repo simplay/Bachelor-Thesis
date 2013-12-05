@@ -32,6 +32,7 @@ public class GLRenderContext implements RenderContext {
 	private com.jogamp.opengl.util.texture.Texture cubeMapTex;
 	private final static CubeMap map = new CubeMap();
 	private int counter = 2;
+
 	/**
 	 * This constructor is called by {@link GLRenderPanel}.
 	 * 
@@ -140,11 +141,7 @@ public class GLRenderContext implements RenderContext {
 		
 		setLights();
 		endFrame();
-		
-		
-		
-		
-		
+
 		
 	}
 		
@@ -155,6 +152,8 @@ public class GLRenderContext implements RenderContext {
 	private void beginFrame(){
 		setLights(); //TODO care
 		
+        //gl.glClearColor(0.15f, 0.15f, 0.15f, 1.0f);
+        gl.glClearColor(1.00f, 1.00f, 1.00f, 1.0f);
         gl.glClear(GL.GL_COLOR_BUFFER_BIT);
         gl.glClear(GL.GL_DEPTH_BUFFER_BIT);
 	}
@@ -220,24 +219,28 @@ public class GLRenderContext implements RenderContext {
 		sceneManager.getCamera().getCameraMatrix().getColumn(3, cameraPosition);
 
 		
-//		System.out.println("\ncamera position in scene: \n" + sceneManager.getCamera().getCameraMatrix());
-//		System.out.println("\nlight direction in scene: \n" + sceneManager.getRootLight().getLightSource().getLightDirection() );
+		//System.out.println("\ncamera position in scene: \n" + sceneManager.getCamera().getCameraMatrix());
+		//System.out.println("\nlight direction in scene: \n" + sceneManager.getRootLight().getLightSource().getLightDirection() );
 		
 		float[] cpos = {-cameraPosition.x, -cameraPosition.y, -cameraPosition.z, cameraPosition.w};
-//		System.out.println("cop: \n" + cpos[0] + " " +cpos[1] + " " + cpos[2] + " " + cpos[3]);
+		//System.out.println("cop: \n" + cpos[0] + " " +cpos[1] + " " + cpos[2] + " " + cpos[3]);
 		
 //		int scalingID = gl.glGetUniformLocation(activeShader.programId(),"cop_w");
 //		gl.glUniform4fv(scalingID, 1, cpos, 0);
 		
-		
+
+//		gl.glUniform1i(gl.glGetUniformLocation(activeShader.programId(), "drawTexture"), ((GraphSceneManager)sceneManager).getDrawTexture());
+//		gl.glUniform1i(gl.glGetUniformLocation(activeShader.programId(), "debugTxtIdx"), ((GraphSceneManager)sceneManager).getNextImageDebug());
+
+		gl.glUniform1f(gl.glGetUniformLocation(activeShader.programId(), "thetaI"), (float)( ((GraphSceneManager)sceneManager).getThetaI()*Math.PI/180.0) );
+		gl.glUniform1f(gl.glGetUniformLocation(activeShader.programId(), "phiI"), (float)( ((GraphSceneManager)sceneManager).getPhiI()*Math.PI/180.0) );
+
 		// Set modelview and projection matrices in shader
+		gl.glUniformMatrix4fv(gl.glGetUniformLocation(activeShader.programId(), "modelM"), 1, false, matrix4fToFloat16(renderItem.getT()), 0);
 		gl.glUniformMatrix4fv(gl.glGetUniformLocation(activeShader.programId(), "modelview"), 1, false, matrix4fToFloat16(t), 0);
 		gl.glUniformMatrix4fv(gl.glGetUniformLocation(activeShader.programId(), "projection"), 1, false, matrix4fToFloat16(sceneManager.getFrustum().getProjectionMatrix()), 0);
+	     		
 		
-		// TODO: REMEMBER US
-		gl.glUniform1f(gl.glGetUniformLocation(activeShader.programId(), "thetaI"), (float)( ((GraphSceneManager)sceneManager).getThetaI()*Math.PI/180.0) );
-		gl.glUniform1f(gl.glGetUniformLocation(activeShader.programId(), "phiI"), (float)( ((GraphSceneManager)sceneManager).getPhiI()*Math.PI/180.0));		
-		gl.glUniformMatrix4fv(gl.glGetUniformLocation(activeShader.programId(), "modelM"), 1, false, matrix4fToFloat16(renderItem.getT()), 0);
 		// Steps to pass vertex data to OpenGL:
 		// 1. For all vertex attributes (position, normal, etc.)
 			// Copy vertex data into float buffers that can be passed to OpenGL
@@ -397,7 +400,6 @@ public class GLRenderContext implements RenderContext {
 	public Texture makeTexture(){
 		return new GLTexture(gl);
 	}
-	
 	public Texture makeTextureFloat(){
 		return new GLTextureFloat(gl);
 	}

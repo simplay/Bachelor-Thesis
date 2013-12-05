@@ -92,10 +92,10 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		
 		// handle globals
 		
-//		if(m.getGlobals() != null){
-//			scalingID = gl.glGetUniformLocation(activeShader.programId(),"global_extrema");
-//			gl.glUniform4fv(scalingID, m.getGlobals().length/4, m.getGlobals(), 0);
-//		}
+		if(m.getGlobals() != null){
+			scalingID = gl.glGetUniformLocation(activeShader.programId(),"global_extrema");
+			gl.glUniform4fv(scalingID, m.getGlobals().length/4, m.getGlobals(), 0);
+		}
 		
 		Vector4f t_cop = m.getCOP();
 		float[] cop_f = {t_cop.x, t_cop.y, t_cop.z, t_cop.w};

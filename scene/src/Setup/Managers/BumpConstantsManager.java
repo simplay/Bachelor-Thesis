@@ -19,20 +19,13 @@ public class BumpConstantsManager {
 		
 		bc = new BumpConstants("stam", 
 				(float) (2.4623f*Math.pow(10.0f, -7.0f)), 
-				(float) (2.5f*Math.pow(10.0f, -6.0f)), 
-				(float) (2.5f*Math.pow(10.0f, -6.0f)), 
+				(float) (65.0f*Math.pow(10.0f, -6.0f)), 
+				(float) (65.0f*Math.pow(10.0f, -6.0f)), 
 				(float) (2.5f*Math.pow(10.0f, -6.0f)));
 		constants.add(bc);
 		
-		bc = new BumpConstants("stam2", 
-				(float) (2.4623f*Math.pow(10.0f, -7.0f)), 
-				(float) (65.0f*Math.pow(10.0f, -6.0f)), 
-				(float) (65.0f*Math.pow(10.0f, -6.0f)), 
-				(float) (0.5f*Math.pow(10.0f, -6.0f)));
-		constants.add(bc);
-		
 		bc = new BumpConstants("debug", 
-				(float) (1.4623f*Math.pow(10.0f, -7.0f)), 
+				(float) (2.4623f*Math.pow(10.0f, -7.0f)), 
 				(float) (65.0f*Math.pow(10.0f, -6.0f)), 
 				(float) (65.0f*Math.pow(10.0f, -6.0f)), 
 				(float) (0.8f*Math.pow(10.0f, -6.0f)));
@@ -46,10 +39,10 @@ public class BumpConstantsManager {
 		constants.add(bc);
 		
 		bc = new BumpConstants("xeno", 
-				(float) (8.1869f*Math.pow(10.0f, -7.0f)), 
+				(float) (4.4345f*Math.pow(10.0f, -7.0f)), 
 				(float) (65.0*Math.pow(10.0f, -6.0f)), 
 				(float) (65.0*Math.pow(10.0f, -6.0f)), 
-				(float) (1.5f*Math.pow(10.0f, -6.0f)));
+				(float) (8.5f*Math.pow(10.0f, -6.0f)));
 		constants.add(bc);
 		
 		bc = new BumpConstants("SingleFingerElaphIdeal", 

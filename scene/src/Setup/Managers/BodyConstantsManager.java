@@ -19,11 +19,10 @@ public class BodyConstantsManager {
 		
 		bc = new BodyConstants("brick", "jpg");
 		constants.add(bc);
-		
-		bc = new BodyConstants("ElapheFront", "bmp");
+
+		bc = new BodyConstants("ElapheFront", "jpg");
 		constants.add(bc);
-		
-		bc = new BodyConstants("ProcessedElapheFrontSmall", "bmp");
+		bc = new BodyConstants("ProcessedElapheFront", "bmp");
 		constants.add(bc);
 	}
 	

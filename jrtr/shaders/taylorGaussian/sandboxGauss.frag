@@ -1,44 +1,29 @@
-#version 140
+#version 150
 #extension GL_EXT_gpu_shader4 : enable
 
-// substitutes
+//substitutes
 #define MAX_LIGHTS 1
-#define MAX_TAYLORTERMS 39
-#define MAX_WFACTORS    160
-
-uniform float LMIN;
-uniform float LMAX;
-uniform float delLamda;
-
-#define MAX_WEIGHTS 81
-
-// Uniform variables, passed in from host program via suitable
-uniform int debugTxtIdx;
+#define MAX_TAYLORTERMS 79
+//#define MAX_TAYLORTERMS 54
+#define MAX_WFACTORS    79*2
+//#define MAX_WEIGHTS 311
+//Uniform variables, passed in from host program via suitable 
 
 uniform sampler2DArray TexArray;
 uniform sampler2D bodyTexture;
-// uniform sampler2D bumpMapTexture;
-
-uniform int fftHH; // height of FFT Image
-uniform int fftWW; // width of FFT Image
+//uniform sampler2D bumpMapTexture;
 
 uniform vec4 cop_w;
-
 uniform vec3 radianceArray[MAX_LIGHTS];
-uniform vec4 brdf_weights[MAX_WEIGHTS];
+//uniform vec3 brdf_weights[MAX_WEIGHTS];
 uniform vec4 directionArray[MAX_LIGHTS];
 
 uniform vec4 scalingFactors[MAX_WFACTORS];
-// uniform vec4 global_extrema[1];
+//uniform vec4 global_extrema[1];
 uniform vec4 camPos;
-uniform int drawTexture;
-uniform int nanoStep;
 
-uniform int renderBRDF;
-uniform int renderDirect;
-uniform int approxSteps;
-uniform int LookupTermCnt;
-uniform int lightRU;
+uniform int drawTexture;
+
 
 
 uniform sampler2DArray lookupText;
@@ -47,39 +32,26 @@ in vec2 frag_texcoord;
 in vec4 light_direction[MAX_LIGHTS];
 in vec4 normal_out;
 in vec4 eyeVector;
-// in vec4 col;
+//in vec4 col;
 in vec3 o_org_pos;
 in vec3 o_pos;
 in vec3 o_light;
 in vec3 o_normal;
 in vec3 o_tangent;
+
 // Output variable, will be written to framebuffer automatically
 out vec4 frag_shaded;
 
-
 const float PI = 3.14159265358979323846264;
 
-// paramters for BRDF plots
-// const float thetaI = -PI/4.0f;
+const float powerUV = 5.0;
+//const float powerUV = 1.0;
 
-const float phiRect = // 0.87285485835042309f; // For Elaphe650
-	// 0.0f;
-	2.4436511851453195f;  // this one works for Elaphe650with fingers pointing
-							// downwards in the .mat file
-
-// const float phiI = 0.0f;
-
+const int numPTerms = 39;
 uniform float thetaI;
 uniform float phiI;
 
-uniform float txtScale;
-uniform float diffW;
-
-uniform float nSkin;
-uniform float nK;
-
-
-// transformation constant
+//transformation constant
 const mat3 M_Adobe_XR = mat3(
 		2.0414, -0.5649, -0.3447,
 		-0.9693,  1.8760,  0.0416,
@@ -92,84 +64,16 @@ const mat3 M_Adobe_XRNew = mat3(
 		 0.0052, -0.0144,  1.0090
 );
 
-
-float varX_InTxtUnits;
-float varY_InTxtUnits;
-
-// uniform const float dH = 1.0e-7;
-float dH = 0.0f;
-
-float orgU;
-float orgV;
-
-
-float GetLightNormalCos()
-{
-   vec3 N = normalize(o_normal);
-
-   vec3 L =  normalize(o_light); 	
-   
-   return abs( - N.x * L.x - N.y * L.y - N.z * L.z);
-
-}
-
-
-void setVarXY()
-{
-	
-	
-	dH = scalingFactors[0].w;
-	// scalingFactors[0].w = 
-	
-	float sigSpatial = 65e-6/4.0f;
-	// float sigSpatial = 15e-6/4.0f;
-	/*
-	if(debugTxtIdx != 0)
-		sigSpatial = sigSpatial*debugTxtIdx;
-	*/
-	
-	// temporary sigma
-	float sigTemp;
-	
-	sigTemp = 0.5 / PI ;
-	// sigTemp = 1.0;
-	sigTemp = sigTemp /sigSpatial;
-	// sigTemp = 1.0f / sigSpatial;
-	
-	// sigTemp = sigTemp / GetLightNormalCos();
-	
-	sigTemp = sigTemp * dH;
-	
-	varX_InTxtUnits = sigTemp * sigTemp * fftWW * fftWW ; 
-	varY_InTxtUnits = sigTemp * sigTemp * fftHH * fftHH;
-	
-	// Set coordinates for the Origin
-	if (fftWW % 2 == 0)
-		orgU = float(fftWW )/ 2.0f  ; // -2 dur to rotational lochay
-	else
-		orgU = float(fftWW - 1.0) / 2.0f  ;
-		
-	if (fftHH % 2 == 0)
-		orgV = float(fftHH  )/2.0f  ;
-	else
-		orgV = float(fftHH - 1.0)/2.0f ;
-	
-}
-
-
 vec3 getBRDF_RGB_T_D65(mat3 T, vec3 brdf_xyz){
-	// vec3 D65 = vec3(0.95047, 1.0, 1.08883);
+	//vec3 D65 = vec3(0.95047, 1.0, 1.08883);
 	vec3 D65 = vec3(1.0, 1.0, 1.0);
 
 	vec3 output = vec3(0.0);
 	vec3 D65BRDF = vec3(brdf_xyz.x*D65.x, brdf_xyz.y*D65.y, brdf_xyz.z*D65.z);
 	
-	// output.x = D65BRDF.x * T[0][0] + D65BRDF.y * T[0][1] + D65BRDF.z *
-	// T[0][2] ;
-	// output.y = D65BRDF.x * T[1][0] + D65BRDF.y * T[1][1] + D65BRDF.z *
-	// T[1][2] ;
-	// output.z = D65BRDF.x * T[2][0] + D65BRDF.y * T[2][1] + D65BRDF.z *
-	// T[2][2] ;
+	//output.x = D65BRDF.x * T[0][0] + D65BRDF.y * T[0][1] + D65BRDF.z * T[0][2] ;
+	//output.y = D65BRDF.x * T[1][0] + D65BRDF.y * T[1][1] + D65BRDF.z * T[1][2] ;
+	//output.z = D65BRDF.x * T[2][0] + D65BRDF.y * T[2][1] + D65BRDF.z * T[2][2] ;
 	
 	output.x = dot(D65BRDF, T[0]);
 	output.y = dot(D65BRDF, T[1]);
@@ -178,39 +82,55 @@ vec3 getBRDF_RGB_T_D65(mat3 T, vec3 brdf_xyz){
 	return output;
 }
 
-
-
-
-float R0 = (nSkin - 1.0)*(nSkin - 1.0) + nK*nK;
-float fFByR0 = 0.0f;
-float fF = 0.0f;
-float shadowF = 0.0f;
-
-float getShadowMaskFactor(vec3 K1, vec3 K2)
+vec3 rotateRodrigues(vec3 vecV, vec3 axisV, float phi)
 {
-	vec3 N = normalize(o_normal);
+	vec3 vecR = vec3(0.0);
+	vec3 crossV = cross(axisV, vecV);
+	
+	float dotScale = axisV.x *vecV.x + axisV.y * vecV.y + axisV.z * vecV.z; 
+	
+	dotScale = dotScale * (1 - cos(phi));
+	
+	vecR.x = vecV.x * cos(phi) + crossV.x * sin (phi) + axisV.x * dotScale;
+	vecR.y = vecV.y * cos(phi) + crossV.y * sin (phi) + axisV.y * dotScale;
+	vecR.z = vecV.z * cos(phi) + crossV.z * sin (phi) + axisV.z * dotScale;
+	
+	return vecR;
+}
+
+float getFresnelFactor(vec3 K1, vec3 K2)
+{
+	float nSkin = 1.5;
+	//float nSkin = 1.0015;
+	float nK = 0.0;
 	
 	vec3 hVec = -K1 + K2;
-	 
+		 
 	hVec = normalize(hVec);
+	 
+	float cosTheta = dot(hVec,K2);	
 	
-	float eDotH =  dot(hVec,K2);
-	float eDotN =  dot(K2,N); // normal is (0,0,1);
-	float hDotN =  dot(hVec,N);// normal is (0,0,1);
-	float lDotN =  dot(-K1, N); // normal is (0,0,1);
+	float fF = (nSkin - 1.0);
 	
-	float f1 = 2 * hDotN * eDotN / eDotH;
-	float f2 = 2 * hDotN * lDotN / eDotH;
-
-	f1 = min(f1, f2);
-	return min(1.0f, f1);
-
+	fF = fF * fF;
+	
+	float R0 = fF + nK*nK;
+	if (cosTheta > 0.999)
+		fF = R0;
+	else
+		fF = fF + 4*nSkin*pow(1- cosTheta,5.0) + nK*nK;
+	
+	// do this division if its not on relative scale
+	//fF = fF/ ((nSkin + 1.0)* (nSkin + 1.0) + nK*nK);
+	
+	//return fF/R0; // This one is correct. trying other one for effects
+	return fF*fF/R0/R0;
 }
 
 float getFresnelFactorAbsolute(vec3 K1, vec3 K2)
 {
 	float nSkin = 1.5;
-	// float nSkin = 1.0015;
+	//float nSkin = 1.0015;
 	float nK = 0.0;
 	
 	vec3 hVec = -K1 + K2;
@@ -232,18 +152,21 @@ float getFresnelFactorAbsolute(vec3 K1, vec3 K2)
 	// do this division if its not on relative scale
 	fF = fF/ ((nSkin + 1.0)* (nSkin + 1.0) + nK*nK);
 	
-	return fF;
+	//return fF; This one is correct, trying other one for effects
+	return fF*fF;
 }
+
 vec3 rescaleXYZ(float X, float Y, float Z, int index){
 	vec4 vMin = scalingFactors[index*2];
 	vec4 vMax = scalingFactors[index*2 + 1];
 
 	X = X * vMax.x;
 	X = X + vMin.x;
-
+	
 	Y = Y * vMax.y;
+	
 	Y = Y + vMin.y;
-
+	
 	Z = Z * vMax.z;
 	Z = Z + vMin.z;
 
@@ -268,18 +191,18 @@ float gainF(vec3 K1, vec3 K2)
 	 
 	 if (ww < pow(10.0,-4.0))
 	 {
-		 // return 0.0; // Shadowing Function
+		 return 0.0; // Shadowing Function
 	 }
 	 
 	 gF = gF / K2.z;
-	 // Dont do the following division if Shadoing function is used
-	 gF = gF / ww; 
+	 gF = gF / ww;
 	 
-	 //float fFac = getFresnelFactor(K1, K2); 
+	 float fFac = getFresnelFactor(K1, K2); 
 
-	 return fFByR0*gF;
+	 return fFac*gF;
 }
 
+const float uvSampleGap = 0.01f;
 
 vec3 gammaCorrect(vec3 inRGB, float gamma)
 {
@@ -329,208 +252,275 @@ vec3 gammaCorrect(vec3 inRGB, float gamma)
 		
 }
 
-/*
- * return 2D coordinates for given uu vv in 0.0.. 1.0, 0.0.. 1.0 scale i.e in
- * texture Coordniiates..
- */
-vec2 getLookupCoord(float uu, float vv, float lambda)
+
+void Shapemain() 
 {
-	// every 4th element in scaling Factors in DH
-	//float dH = scalingFactors[0].w;
-	vec2 coord = vec2(0.0f);
+	//setsF();
+	 
+    vec3 N = normalize(o_normal);
+    vec3 T = normalize(o_tangent);
+
+    
+    //T = rotateRodrigues(T, N, phi);
+    //T = normalize(vec4(T,0.0)).xyz;
+        
+    //vec3 B = normalize(cross(N, T));
+    
+	// directional light source
+	vec3 Pos =  normalize(o_pos); 
+	vec3 lightDir =  normalize(o_light); 
+	
+	float uu0 = lightDir.x - Pos.x;
+	float vv0 = lightDir.y - Pos.y;
+	float ww = lightDir.z - Pos.z;
+
+	
+	//uu0 = -2*Pos.x;
+	//vv0 = -2*Pos.y;
+	//ww =  -2*Pos.z;
+	
+	/* Follwoing 2 lines are to be used only if FFT was used to create the 
+	 * lookup tables instead of IFFT 
+	 */
+	uu0 = -uu0; 
+	vv0 = -vv0;
+	
+	float uu,vv;
+	
+	//vv0 = 0.0f;
+	vec3 totalXYZCone = vec3(0.0f);
+	vec3 totalXYZ = vec3(0.0f);
+	
+	for(int uuI= 0; uuI < 1 ; ++uuI)
+	{
+		uu = uu0 + uuI * uvSampleGap;
+		for(int vvI=0; vvI < 1 ; ++vvI)
+		{
+			vv = vv0 + vvI*uvSampleGap;
+			
+			float epsiUV = 0.1f;
+			
+			/*
+			if (abs(uu) < epsiUV)
+				uu = 0.0f;
+
+			if (abs(vv)<epsiUV)
+				vv = 0.0f;
+			*/
+			
+			vec3 texIdx = vec3(0.0);
+			
+			if (uu == 0.0)
+				texIdx.x = 0.0;
+			else if (uu < 0)
+				texIdx.x = -pow(-uu/2.0, 1.0/powerUV);
+			else
+				texIdx.x =  pow(uu/2.0, 1.0/powerUV);
+				
+			//texIdx.x = 1 - 0.5 - texIdx.x/2.0;
+			texIdx.x = 0.5 + texIdx.x/2.0;
+			//texIdx.x = 0.5;
+			
+			// Texture has reverse Y direction as compared to uu vv
+			if (vv == 0.0)
+				texIdx.y = 0.0;
+			else if (vv < 0)
+				texIdx.y = - pow(-vv/2.0, 1.0/powerUV);
+			else
+				texIdx.y =   pow(vv/2.0, 1.0/powerUV);
+				
+			//texIdx.y = 0.5 + texIdx.y/2.0;
+			texIdx.y = 0.5 - texIdx.y/2.0;
+			//texIdx.y = 0.5 + texIdx.y/2.0;
+			
+			//texIdx.x = 0.5;
+			//texIdx.y = 0.5;
+			vec3 texRef = vec3(0.75);
+
+			totalXYZ = vec3(0.0);
+			
+			if (texIdx.x >= 0.0f &&  texIdx.y >= 0.0f && texIdx.y <= 1.0f && texIdx.y <= 1.0f)
+			for(int i = 0; i < MAX_TAYLORTERMS; i++)
+			//for(int i = 0; i < 39; i++)
+			{
+				
+				texIdx.z = i;
+
+				float XX = float(texture2DArray(TexArray, texIdx).r)/1.0;
+				float YY = float(texture2DArray(TexArray, texIdx).g)/1.0;
+				float ZZ = float(texture2DArray(TexArray, texIdx).b)/1.0;
+
+				//texRef.z = i;
+				
+				//float rXX = texture2DArray(TexArray, texRef).x;
+				//float rYY = texture2DArray(TexArray, texRef).y;
+				//float rZZ = texture2DArray(TexArray, texRef).z;
+				
+				//vec3 modXYZ = rescaleXYZ(XX - rXX, YY - rYY, ZZ - rZZ, i);
+				vec3 modXYZ = rescaleXYZ(XX, YY, ZZ, i);
+				
+				if (i == 0)
+					totalXYZ =  modXYZ;
+				else if (ww > 0.0)
+				{
+					//break;
+					//totalXYZ = totalXYZ + pow(ww, float(i))*modXYZ;
+				}
+				
+				else if (i%2 == 0)
+					totalXYZ = totalXYZ + pow(-ww, float(i))*modXYZ;
+				else
+					totalXYZ = totalXYZ - pow(-ww, float(i))*modXYZ;
+			}
+			
+			totalXYZ = totalXYZ * gainF(lightDir,Pos)*1000.0;
+			
+			totalXYZCone = totalXYZCone + totalXYZ;
+			//totalXYZ = totalXYZ * 10.0;
+		}
+		
+	}
+	
+	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZCone);
+	
+	
+	
+	//totalXYZ.x  = 0.00000000000000000000000001208;
+	//totalXYZ.y  = 0.00000000000000000000000001208;
+	//totalXYZ.z  = 0.00000000000000000000000001208;
+	//totalXYZ.x  = float(-ww > 1.99);
+	//totalXYZ.y  = float(-ww < 1.99);
+	//totalXYZ.z  = float(-ww > 1.99);
+	
+	//totalXYZ.x  = float(vv > 0);
+	//totalXYZ.y  = float(vv > 0);
+	//totalXYZ.z  = float(vv > 0);
+	
+	
+	//totalXYZ.x = abs(texIdx.x);
+	//totalXYZ.y = abs(texIdx.y);
+	//totalXYZ.z = abs(0.0);
+	
 	
 	/*
-	 * float orgU; float orgV;
-	 *  /* For an even N size Matlab fftshift has origin at 1 + N/2 in MATLAB
-	 * coords i,e, at N/2 in C coords For an odd N size Matlab fftshift has
-	 * origin at (N+1)/2 in MATLAB coords (not sure but need to verify) i,e, at
-	 * (N-1)/2 in C coords /
-	 * 
-	 * 
-	 * if (fftWW % 2 == 0) orgU = float(fftWW )/ 2.0f / float(fftWW - 1); // -2
-	 * dur to rotational lochay else orgU = float(fftWW - 1.0) / 2.0f /
-	 * float(fftWW - 1);
-	 * 
-	 * if (fftHH % 2 == 0) orgV = float(fftHH )/2.0f / float(fftHH - 1); else
-	 * orgV = float(fftHH - 1.0)/2.0f / float(fftHH - 1);
-	 * 
-	 */
-	coord.x = uu * 1e9 *dH / lambda ;
-	coord.y = vv * 1e9 *dH / lambda ;
 	
-	return coord;
-}
-
-float getGaussWeightAtDistance(float distU, float distV)
-{
-	// note that distU and distV are in textureCoordinateUnits
+	texIdx.z = 5.0f;
+	totalXYZ.x = float(texture2DArray(TexArray, texIdx).x)/1.0;
+	totalXYZ.y = float(texture2DArray(TexArray, texIdx).y)/1.0;
+	totalXYZ.z = float(texture2DArray(TexArray, texIdx).z)/1.0;
+	*/
 	
-	distU = distU * distU / varX_InTxtUnits;
-	distV = distV * distV / varY_InTxtUnits;
-	
-	return exp((-distU - distV)/2.0f);
-	//return 1.0f;
-}
-
-
-
-vec2 getFFTAt(vec2 lookupCoord, int tIdx)
-{
-	const int winW = 2;
-	//const int normF = (2*winW + 2)*(2*winW + 2);
-	const float normF = 1.0f;
-
-	// These are frequency increments
-	int anchorX = int(floor(orgU + lookupCoord.x * (fftWW - 0)));
-	int anchorY = int(floor(orgV + lookupCoord.y * (fftHH - 0)));
-	
-	vec3 fftMag = vec3(0.0f);
-	
-	// the following is a work around to have fixed number of operations
-	// for each pixel
-	if (anchorX < winW)
-		anchorX = winW;
-	
-	if (anchorY < winW)
-		anchorY = winW;
-	
-	if (anchorX + winW + 1 >  fftWW - 1)
-		anchorX = fftWW - 1 - winW - 1;
-	
-	if (anchorY + winW + 1 >  fftHH - 1)
-		anchorY = fftHH - 1 - winW - 1;
-	
-	
-	for (float i = (anchorX-winW); i <= (anchorX + winW + 1 ); ++i) {
-		for (float j = (anchorY - winW); j <= (anchorY + winW + 1); ++j)
-		{
-			/*
-			 * if (i < 0 || i >= fftWW || j < 0 || j >= fftHH) { continue; }
-			 */
-			// we have a valid lookup integet index into fft Images.
-			
-			vec3 texIdx = vec3(0.0f);
-			
-			// These distances are in pixel units in range 0 - 1
-			// float distU = float(i) / float(fftWW - 1) - lookupCoord.x;
-			// float distV = float(j) / float(fftHH - 1) - lookupCoord.y;
+	/*
+	texIdx.x = frag_texcoord.x;
+	texIdx.y = frag_texcoord.y;
+	texIdx.z = 5.0;
 		
-			float distU = float(i) - orgU - lookupCoord.x *float(fftWW - 0);
-			float distV = float(j) - orgV - lookupCoord.y *float(fftHH - 0);
-		
-		
-			texIdx.x = float(i)/ float(fftWW - 1);
-			texIdx.y = float(j)/float(fftHH - 1);
-			texIdx.z = float(tIdx);
-			/*
-			 * texIdx.x = float(i)/(fftWW - 1); texIdx.y = float(j)/(fftHH - 1);
-			 * texIdx.z = (tIdx); no diffrence though
-			 */
-			
-			vec3 fftVal = texture2DArray(TexArray, texIdx).xyz;
-			
-			fftVal = rescaleXYZ(fftVal.x, fftVal.y, 0.0, tIdx);
-			fftVal = fftVal * getGaussWeightAtDistance(distU, distV);
-			fftMag = fftMag + fftVal;
-		}
-	}
-	
-	// onlt real and imaginary part are required. Third term is a waste
-	return (fftMag.xy/normF); 
-	// return 0.25f;
-	
-}
-
-vec4 getClrMatchingFnWeights(float lVal)
-{
-	if (lVal < LMIN)
-		lVal = LMIN;
-	
-	if (lVal >= LMAX)
-		lVal = LMAX - delLamda/100000.0f; // just to ensure that the flooring
-											// latches to the lower value
-	
-	float alpha  = (lVal - LMIN)/delLamda;
-	
-	int lIdx = int(floor(alpha));
-	
-	alpha = alpha - lIdx;
-
-	return brdf_weights[lIdx] * (1-alpha) + brdf_weights[lIdx+1] * alpha; 
-}
-
-
-vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww)
-{
-	vec3 opVal = vec3(0.0f);
-	
-	float preScale = 1.0f;
-	float fftMag = 0.0f;
-	
-	float xNorm = 0.0f;
-	float yNorm = 0.0f;
-	float zNorm = 0.0f;
-	
-	float specSum = 0.0f;
-	
-	float lIncr = nanoStep;
+	totalXYZ.x = float(texture2DArray(TexArray, texIdx).x)/1.0;
+	totalXYZ.y = float(texture2DArray(TexArray, texIdx).y)/1.0;
+	totalXYZ.z = float(texture2DArray(TexArray, texIdx).z)/1.0;
+	*/
 	
 	
-	float step = 20.0;
+	float diffuseL = 0.0f;
 	
-	for(float lVal = LMIN; lVal <= LMAX; lVal = lVal+step)
+	
+	if (Pos.z < 0.0  || dot(-lightDir, N) < 0.0)
+		diffuseL = 0.0;
+	else 
+		diffuseL = dot(-lightDir, N);
+	
+	/*
+	if ( dot(Pos, N) < 0.0)
 	{
+		diffuseL = 0.1f;
+		totalXYZ.x = 1.0f;
+		totalXYZ.y = 1.0f;
+		totalXYZ.z = 0.0f;
 		
-		vec4 clrFn = getClrMatchingFnWeights(lVal);
-		
-		float specV = clrFn.w;
-		// specSum = specSum + specV;
-		
-		xNorm = xNorm + specV*clrFn.x;
-		yNorm = yNorm + specV*clrFn.y;
-		zNorm = zNorm + specV*clrFn.z;
-		
-		vec2 lookupCoord = getLookupCoord(uu, vv, lVal);
-		
-		vec2 tempFFTScale = vec2(0.0f);
-		
-		for(int tIdx = 0; tIdx < 10; ++tIdx)
-		{
-			if(0 == tIdx) {
-				preScale = 1.0f;
-			} else {
-				float currS = ww * 2.0 * PI * pow(10.0f, 3.0f) / lVal / tIdx;
-				preScale = preScale * currS;
-			}
-		
-			vec2 fftCoef = getFFTAt(lookupCoord, tIdx);
-			tempFFTScale = tempFFTScale + preScale * fftCoef;
-		}
-		
-		float fftMagSqr = tempFFTScale.x * tempFFTScale.x + tempFFTScale.y * tempFFTScale.y;
-		opVal.x = opVal.x + fftMagSqr * specV * clrFn.x;
-		opVal.y = opVal.y + fftMagSqr * specV * clrFn.y;
-		opVal.z = opVal.z + fftMagSqr * specV * clrFn.z;
-	}
+	}*/
 	
-	opVal.x = opVal.x / xNorm ;
-	opVal.y = opVal.y / yNorm ;
-	opVal.z = opVal.z / zNorm ;
+	
+		
+	//float aaa = dot(-lightDir, N);
+	/*
+	if (abs(uu) < 0.001f) {
+		totalXYZ.x  = 1.0f;
+		totalXYZ.y  = 1.0f;
+		totalXYZ.z  = 1.0f;
+	}	else	{
+		totalXYZ.x  = 0.0f;
+		totalXYZ.y  = 0.0f;
+		totalXYZ.z  = 0.0f;
+	
+	}//*/
+	
+	vec3 clrBF = vec3(0.0f);
+	
+	if (ww < 0.0f) {
+		clrBF.x  = 0.5f;
+		clrBF.y  = 0.0f;
+		clrBF.z  = 0.0f;
+	}	else	{
+		clrBF.x  = 0.0f;
+		clrBF.y  = 0.5f;
+		clrBF.z  = 0.0f;
+	}//*/
+	
+	
+	//vec4 tex = vec4(0.2f);
+	vec4 tex = vec4(0.0f);
+	
+	if(drawTexture > 0)
+		tex = texture2D(bodyTexture, frag_texcoord);
+	
+		
+	float alpha = getFresnelFactorAbsolute(lightDir,Pos);
+	
+	if (alpha > 0.0f)
+		alpha = 0.0f;
+	else if (alpha > 1.0f)
+		alpha = 1.0f;
+		
+	//frag_shaded = vec4(tex*diffuseL + vec3(0.1f,0.1f,0.1f)*diffuseL, 1.0);
+	//frag_shaded = tex;
 
-	return opVal;
+	float diffW = 0.1f;
+	float gamma = 2.2;
+	
+	
+	tex.xyz = gammaCorrect(tex.xyz , 1.0f/1.2);
+	
+	vec3 finClr = gammaCorrect((1-diffW)*(totalXYZ + (1-alpha) * tex.xyz * diffuseL) + tex.xyz * diffW, 2.2);
+	
+	frag_shaded = vec4(finClr, 1.0);
+
+	//frag_shaded = vec4(0.5*totalXYZ + 0.5*diffuseL, 1.0);
+	//frag_shaded = vec4(totalXYZ + 0.75*tex.xyz*diffuseL , 1.0);
+	//frag_shaded = vec4(0.75*tex.xyz*diffuseL , 1.0);
+
+	//frag_shaded	= vec4(totalXYZ + vec3(0.1f,0.1f,0.1f), 1.0);
+	//frag_shaded	= vec4(1.0*diffuseL + vec3(0.1f,0.1f,0.1f), 1.0);
+	//frag_shaded	= vec4(totalXYZ+0.2*diffuseL + clrBF, 1.0);
+	//frag_shaded	= vec4(totalXYZ+vec3(0.1f,0.1f,0.1f), 1.0);
+	//frag_shaded	= vec4(totalXYZ + vec3(0.1f,0.1f,0.1f), 1.0);
+	
+	
+	//frag_shaded	= vec4(totalXYZ+0.2*diffuseL + vec3(0.1f,0.1f,0.1f), 1.0);
+	//frag_shaded	= vec4(vec3(diffuseL), 0.0);
+	//frag_shaded	= vec4(0.1,0.1,0.1, 1.0);
+	//frag_shaded	= vec4(1.0,1.0,1.0, 1.0);
 }
 
 
 
 
 
-//BRDF
-void directBRDF() 
-{
-	// setsF();
-	setVarXY();
-	 
 
+// mainBRDF
+// For BRDF Plot
+void main() 
+{
+	//setsF();
 	float thetaR = asin(sqrt(o_org_pos.x * o_org_pos.x + o_org_pos.y * o_org_pos.y ));
 	float phiR = atan(o_org_pos.y, o_org_pos.x);
 
@@ -547,37 +537,102 @@ void directBRDF()
 	k2.z = cos(thetaR);
 
 	
-	float uu = k1.x - k2.x;
-	float vv = k1.y - k2.y;
-	float ww = k1.z - k2.z;
-
-
-	fF = getFresnelFactorAbsolute(k1, k2);
-	fFByR0 = fF/R0;
-	shadowF = getShadowMaskFactor(k1, k2);
+	float uu0 = k1.x - k2.x;
+	float vv0 = k1.y - k2.y;
+	float ww = k1.z - k2.z;	
+	/* Follwoing 2 lines are to be used only if FFT was used to create the 
+	 * lookup tables instead of IFFT 
+	 */
+	// check for the signs.. for the new lookups neg sign must not be there to make it work
 	
-	vec3 totalXYZ  = getRawXYZFromTaylorSeries( uu, vv, ww);
-
-	totalXYZ = totalXYZ * gainF(k1, k2)*shadowF*1000.01;
-	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
+	uu0 = uu0; 
+	vv0 = vv0;
 	
-	if (isnan(totalXYZ.x *totalXYZ.y *totalXYZ.z))
+	float uu,vv;
+	
+	//vv0 = 0.0f;
+	vec3 totalXYZCone = vec3(0.0f);
+	vec3 totalXYZ = vec3(0.0f);
+	
+	for(int uuI= 0; uuI < 1 ; ++uuI)
 	{
-		totalXYZ.x  = 1.0;
-		totalXYZ.y  = 1.0;
-		totalXYZ.z  = 0.0;
+		uu = uu0 + uuI * uvSampleGap;
+		for(int vvI=0; vvI < 1 ; ++vvI)
+		{
+			vv = vv0 + vvI*uvSampleGap;
+			
+			float epsiUV = 0.1f;
+			
+			/*
+			if (abs(uu) < epsiUV)
+				uu = 0.0f;
+
+			if (abs(vv)<epsiUV)
+				vv = 0.0f;
+			*/
+			
+			vec3 texIdx = vec3(0.0);
+			
+			if (uu == 0.0)
+				texIdx.x = 0.0;
+			else if (uu < 0)
+				texIdx.x = -pow(-uu/2.0, 1.0/powerUV);
+			else
+				texIdx.x =  pow(uu/2.0, 1.0/powerUV);
+				
+			//texIdx.x = 1 - 0.5 - texIdx.x/2.0;
+			texIdx.x = 0.5 + texIdx.x/2.0;
+			//texIdx.x = 0.5;
+			
+			// Texture has reverse Y direction as compared to uu vv
+			if (vv == 0.0)
+				texIdx.y = 0.0;
+			else if (vv < 0)
+				texIdx.y = - pow(-vv/2.0, 1.0/powerUV);
+			else
+				texIdx.y =   pow(vv/2.0, 1.0/powerUV);
+				
+			//texIdx.y = 0.5 + texIdx.y/2.0;
+			texIdx.y = 0.5 - texIdx.y/2.0;
+			//texIdx.y = 0.5 + texIdx.y/2.0;
+			
+
+			totalXYZ = vec3(0.0);
+			
+			if (texIdx.x >= 0.0f &&  texIdx.y >= 0.0f && texIdx.y <= 1.0f && texIdx.y <= 1.0f)
+			for(int i = 0; i < MAX_TAYLORTERMS; i++)
+			//for(int i = 0; i < 39; i++)
+			{
+				
+				texIdx.z = i;
+
+				float XX = float(texture2DArray(TexArray, texIdx).r)/1.0;
+				float YY = float(texture2DArray(TexArray, texIdx).g)/1.0;
+				float ZZ = float(texture2DArray(TexArray, texIdx).b)/1.0;
+
+				vec3 modXYZ = rescaleXYZ(XX, YY, ZZ, i);
+				
+				if (i == 0)
+					totalXYZ =  modXYZ;
+				else if (ww > 0.0)
+				{
+					//break;
+					//totalXYZ = totalXYZ + pow(ww, float(i))*modXYZ;
+				}
+				
+				else if (i%2 == 0)
+					totalXYZ = totalXYZ + pow(-ww, float(i))*modXYZ;
+				else
+					totalXYZ = totalXYZ - pow(-ww, float(i))*modXYZ;
+			}
+			
+			totalXYZ = totalXYZ * gainF(k1, k2) * 100.0;
+			
+			totalXYZCone = totalXYZCone + totalXYZ;
+			//totalXYZ = totalXYZ * 10.0;
+		}
 	}
-	frag_shaded = vec4(totalXYZ,1.0);
-//	frag_shaded = vec4(gammaCorrect(totalXYZ,1.1), 1.0);
-}
-
-
-/////////////////////////////////////////////////////////////////////////////////////////
-
-const float powerUV = 5.0;
-const float uvSampleGap = 0.01f;
-
-void main()
-{
-	directBRDF();			
+	
+	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZCone);
+	frag_shaded = vec4(gammaCorrect(totalXYZ,2.2), 1.0);
 }

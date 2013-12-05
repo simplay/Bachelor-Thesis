@@ -30,8 +30,8 @@ public class PreCompDataManager {
 	
 	private void perfromTask(ShaderTaskNr tasknumber, String patchName){
 		PatchDataPaths patchPaths = pdpm.getPathsByIdentifiers(tasknumber, patchName);
-		mat.setKValues(loadKValues(patchPaths.getKValuesPath())); 
-		mat.setGlobals(loadglobals(patchPaths.getGlobalsPath()));
+//		mat.setKValues(loadKValues(patchPaths.getKValuesPath())); 
+//		mat.setGlobals(loadglobals(patchPaths.getGlobalsPath()));
 		mat.setWeights(readWeights(patchPaths.getWeightsPath()));
 		loadPatches(tasknumber.getValue(), patchPaths.getSamplesPath());
 		mat.setHeightfieldFactors(loadScalingConstants(patchPaths.getExtremaPath()));
@@ -54,8 +54,9 @@ public class PreCompDataManager {
 	private void loadCompositeTaylorPatches(String basisPath){
 		String path = basisPath;
 		String ext = "";	
-		for(int iter = 0; iter < 79; iter++){
+		for(int iter = 0; iter < 46; iter++){
 			ext = "AmpReIm"+Integer.toString(iter)+".txt";
+			//this.textures[iter] = renderContext.makeTexture();
 			this.textures[iter] = renderContext.makeTextureFloat();
 			mat.setTextureAt(path+ext, textures[iter], iter);
 		}
@@ -176,7 +177,7 @@ public class PreCompDataManager {
 		
 		
 		private float[] loadScalingConstants(String filepath){
-			List<Float> scalingFactors = new LinkedList<Float>();
+			List<Double> scalingFactors = new LinkedList<Double>();
 			
 			try {
 				// Open the file that is the first 
@@ -191,7 +192,7 @@ public class PreCompDataManager {
 				//Read File Line By Line
 				while ((strLine = br.readLine()) != null)   {
 					// Print the content on the console
-					float f = Float.valueOf(strLine);
+					double f = Double.valueOf(strLine);
 					scalingFactors.add(f);
 					//System.out.println(f);
 				}
@@ -205,8 +206,8 @@ public class PreCompDataManager {
 			
 			float[] sfactors = new float[scalingFactors.size()];
 			int i = 0;
-			for(Float value : scalingFactors){
-				sfactors[i] = value.floatValue();
+			for(Double value : scalingFactors){
+				sfactors[i] = (float)value.floatValue();
 				i++;
 			}
 			

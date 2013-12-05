@@ -18,9 +18,14 @@ public class CameraSceneConstantManager {
 	 */
 	private void defineConstant(){
 		CameraSceneConstant cs = null;		
-		cs = new CameraSceneConstant("plane1", 1.0f, 15.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
+		//cs = new CameraSceneConstant("plane1", 1.0f, 60.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
+		cs = new CameraSceneConstant("plane1", 1.0f, 15.0f, new Vector3f(0,1, 0), new Point3f(0, 0, 0), false);
 		constants.add(cs);
 		cs = new CameraSceneConstant("plane1_far", 20.0f, 2.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
+		constants.add(cs);
+		cs = new CameraSceneConstant("plane8x8_far", 1.0f, 150.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
+		constants.add(cs);
+		cs = new CameraSceneConstant("planeUV", 10.0f, 30.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), true);
 		constants.add(cs);
 		cs = new CameraSceneConstant("plane1_o", 1.0f, 15.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), true);
 		constants.add(cs);
@@ -30,9 +35,17 @@ public class CameraSceneConstantManager {
 		constants.add(cs);
 		cs = new CameraSceneConstant("snake1", 2.0f, 20.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
 		constants.add(cs);
+		cs = new CameraSceneConstant("snake2", 2.0f, 1.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
+		constants.add(cs);
+		cs = new CameraSceneConstant("snake3", 2.0f, 5.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
+		constants.add(cs);
+		cs = new CameraSceneConstant("snake2far", 200.0f, 0.01f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
+		constants.add(cs);
 		cs = new CameraSceneConstant("teapot1", 67.0f, 20.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
 		constants.add(cs);
 		cs = new CameraSceneConstant("dice1", 10.0f, 30.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
+		constants.add(cs);
+		cs = new CameraSceneConstant("dice2", 1.0f, 75.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
 		constants.add(cs);
 		cs = new CameraSceneConstant("diceBRDF", 10.0f, 12.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), true);
 		constants.add(cs);

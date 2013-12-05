@@ -37,6 +37,8 @@ public class PatchDataPathsManager {
 		constants.add(sc);
 		sc = new PatchDataPaths(ShaderTaskNr.TAYLORGAUSSIAN, "test");
 		constants.add(sc);
+		sc = new PatchDataPaths(ShaderTaskNr.TAYLORGAUSSIAN, "lookupBlaze");
+		constants.add(sc);
 		
 		
 		sc = new PatchDataPaths(ShaderTaskNr.EXPERIMENTAL_V, "xeno100");
