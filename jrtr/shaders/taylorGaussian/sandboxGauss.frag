@@ -574,27 +574,7 @@ void mainMain()
 	else 
 		diffuseL = dot(-lightDir, N);
 	
-	/*
-	 * vec4 tex = vec4(0.0f);
-	 * 
-	 * 
-	 * if(drawTexture > 0) tex = texture2D(bodyTexture, frag_texcoord);
-	 * 
-	 * 
-	 * float alpha = getFresnelFactorAbsolute(lightDir,Pos);
-	 * 
-	 * if (alpha > 0.0f) alpha = 0.0f; else if (alpha > 1.0f) alpha = 1.0f;
-	 * 
-	 * //frag_shaded = vec4(tex*diffuseL + vec3(0.1f,0.1f,0.1f)*diffuseL, 1.0);
-	 * //frag_shaded = tex;
-	 * 
-	 * float diffW = 0.1f; float gamma = 2.2; tex.xyz = gammaCorrect(tex.xyz ,
-	 * 1.0f/1.0);
-	 * 
-	 * vec3 finClr = gammaCorrect((1-diffW)*(totalXYZ + (1-alpha) * tex.xyz *
-	 * diffuseL) + tex.xyz * diffW, 2.2); frag_shaded = vec4(finClr, 1.0);
-	 * 
-	 */
+
 
 	/*
 	 * totalXYZ.x = uu*1; totalXYZ.y = vv*0; totalXYZ.z = 0.0;
