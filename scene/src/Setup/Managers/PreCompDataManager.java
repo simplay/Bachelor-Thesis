@@ -21,6 +21,9 @@ public class PreCompDataManager {
 	private RenderContext renderContext;
 	private PatchDataPathsManager pdpm;
 	private int layerCount = 39;
+	private boolean useTxtFiles = false;
+	
+	
 	public PreCompDataManager(RenderContext rc, ShaderTaskNr tasknumber, String patchName, Material mat){
 		this.renderContext = rc;
 		this.mat = mat;
@@ -55,9 +58,14 @@ public class PreCompDataManager {
 		String path = basisPath;
 		String ext = "";	
 		for(int iter = 0; iter < layerCount; iter++){
-			ext = "AmpReIm"+Integer.toString(iter)+".txt";
-			//this.textures[iter] = renderContext.makeTexture();
-			this.textures[iter] = renderContext.makeTextureFloat();
+			if(useTxtFiles){	
+				ext = "AmpReIm"+Integer.toString(iter)+".txt";
+				this.textures[iter] = renderContext.makeTextureFloat();
+			}else{
+				ext = "AmpReIm"+Integer.toString(iter)+".bmp";
+				this.textures[iter] = renderContext.makeTexture();
+			}
+			
 			mat.setTextureAt(path+ext, textures[iter], iter);
 		}
 	}
