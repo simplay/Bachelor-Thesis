@@ -392,9 +392,6 @@ void main() {
 	float G = computeGFactor(o_normal, _k1, _k2); // 
 
 	if(dot(o_normal, -_k1) < 0.0) F = 0.0;
-	
-
-	
 
 	
 	// get iteration bounds for given (u,v)

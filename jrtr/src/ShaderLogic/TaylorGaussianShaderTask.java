@@ -35,7 +35,7 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 			width = t.getImWidth();
 			height = t.getImHeight();
 			
-			System.out.println("Loading textures with eidth = " +width + " and height "+ height);
+			System.out.println("Loading txt textures with eidth = " +width + " and height "+ height);
 			gl.glTexImage3D(GL.GL_TEXTURE_2D_ARRAY, 0, GL.GL_RGB32F, width, height, m.getLayerCount(), 0, GL.GL_RGB, GL.GL_FLOAT, null);
 			for(int iter = 0; iter < m.getLayerCount(); iter++){
 				t = (GLTextureFloat) m.getTextureAt(iter);
@@ -50,8 +50,8 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 			width = t.getImWidth();
 			height = t.getImHeight();
 			
-			System.out.println("Loading textures with eidth = " +width + " and height "+ height);
-			gl.glTexImage3D(GL.GL_TEXTURE_2D_ARRAY, 0, GL.GL_RGB32F, width, height, m.getLayerCount(), 0, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, null);
+			System.out.println("Loading bmp textures with eidth = " +width + " and height "+ height);
+			gl.glTexImage3D(GL.GL_TEXTURE_2D_ARRAY, 0, GL.GL_RGBA, width, height, m.getLayerCount(), 0, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, null);
 			for(int iter = 0; iter < m.getLayerCount(); iter++){
 				t = (GLTexture) m.getTextureAt(iter);
 				gl.glTexParameteri(GL.GL_TEXTURE_2D_ARRAY, GL.GL_TEXTURE_WRAP_S, GL.GL_CLAMP_TO_EDGE);

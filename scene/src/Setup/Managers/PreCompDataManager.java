@@ -21,7 +21,7 @@ public class PreCompDataManager {
 	private RenderContext renderContext;
 	private PatchDataPathsManager pdpm;
 	private int layerCount = 39;
-	private boolean useTxtFiles = false;
+	private boolean useTxtFiles = true;
 	
 	
 	public PreCompDataManager(RenderContext rc, ShaderTaskNr tasknumber, String patchName, Material mat){
