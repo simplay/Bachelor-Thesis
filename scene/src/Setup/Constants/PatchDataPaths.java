@@ -22,22 +22,15 @@ public class PatchDataPaths {
 	private void assignPaths(){
 		String prefix = null;
 		String composite = null;
-		if(shaderTaskNr == ShaderTaskNr.EXPERIMENTAL_F){
-			prefix = "experimental/";
-		}else if(shaderTaskNr == ShaderTaskNr.EXPERIMENTAL_V){
-			prefix = "experimental/";
-		}else if(shaderTaskNr == ShaderTaskNr.TAYLORGAUSSIAN){
+
+		if(shaderTaskNr == ShaderTaskNr.TAYLORGAUSSIAN){
 			prefix = "experimental/";
 		}else if(shaderTaskNr == ShaderTaskNr.DEBUG_ANNOTATION){
 			prefix = "experimental/";
 		}else if(shaderTaskNr == ShaderTaskNr.DEBUG_SPECULAR){
 			prefix = "experimental/";	
-		}else if(shaderTaskNr == ShaderTaskNr.TAYLOR){
-			prefix = "taylor/";
 		}else if(shaderTaskNr == ShaderTaskNr.STAM){
 			prefix = "stam/";
-		}else if(shaderTaskNr == ShaderTaskNr.GRID){
-			prefix = "grid/";
 		}
 		composite = base_path+prefix;
 		

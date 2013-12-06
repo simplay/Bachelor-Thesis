@@ -63,10 +63,6 @@ public class SceneConfigurationManager {
 		sc = new SceneConfiguration("extreme_case", ShapeTask.SNAKE, "snake1", 
 				"stam", "light1", ShaderTaskNr.TAYLORGAUSSIAN, -1, "test", 1, "random1");
 		constants.add(sc);
-		
-		sc = new SceneConfiguration("snake", ShapeTask.SNAKE, "snake1", 
-				"stam", "light1", ShaderTaskNr.EXPERIMENTAL_F, 26, "blaze", 1, "random1");
-		constants.add(sc);
 			
 		sc = new SceneConfiguration("grayscale", ShapeTask.PLANE3, "plane1_far", 
 				"stam", "light3", ShaderTaskNr.DEBUG_ANNOTATION, -1, "blaze", 1, "random1");
@@ -85,11 +81,6 @@ public class SceneConfigurationManager {
 		// test case 1: plane equal long cylinder
 		sc = new SceneConfiguration("testcase1_1", ShapeTask.CYLINDER, "plane1", 
 				"stam", "light1", ShaderTaskNr.TAYLORGAUSSIAN, 26, "blaze", 2, "random1");
-		constants.add(sc);
-		
-		// test case 1: plane equal long cylinder
-		sc = new SceneConfiguration("testcase1_2", ShapeTask.PLANE, "plane1", 
-				"stam", "light1", ShaderTaskNr.EXPERIMENTAL_F, 26, "blaze", 2, "random1");
 		constants.add(sc);
 		
 		// test case for specular reflection.

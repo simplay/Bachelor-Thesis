@@ -18,76 +18,21 @@ public class PatchDataPathsManager {
 		PatchDataPaths sc = null;
 		
 		// Taylor series based experimental fragment/vertex shader patches
-		sc = new PatchDataPaths(ShaderTaskNr.EXPERIMENTAL_F, "blaze");
-		constants.add(sc);
-		sc = new PatchDataPaths(ShaderTaskNr.EXPERIMENTAL_V, "blaze");
-		constants.add(sc);
-		sc = new PatchDataPaths(ShaderTaskNr.EXPERIMENTAL_F, "bump1d");
-		constants.add(sc);	
-		sc = new PatchDataPaths(ShaderTaskNr.EXPERIMENTAL_V, "bump1d");
-		constants.add(sc);
 		sc = new PatchDataPaths(ShaderTaskNr.TAYLORGAUSSIAN, "blaze");
 		constants.add(sc);
 		sc = new PatchDataPaths(ShaderTaskNr.TAYLORGAUSSIAN, "bump1d");
-		constants.add(sc);
-		
-		sc = new PatchDataPaths(ShaderTaskNr.EXPERIMENTAL_V, "test");
-		constants.add(sc);
-		sc = new PatchDataPaths(ShaderTaskNr.EXPERIMENTAL_F, "test");
-		constants.add(sc);
+		constants.add(sc);	
 		sc = new PatchDataPaths(ShaderTaskNr.TAYLORGAUSSIAN, "test");
 		constants.add(sc);
 		sc = new PatchDataPaths(ShaderTaskNr.TAYLORGAUSSIAN, "lookupBlaze");
-		constants.add(sc);
-		
-		
-		sc = new PatchDataPaths(ShaderTaskNr.EXPERIMENTAL_V, "xeno100");
-		constants.add(sc);
-		sc = new PatchDataPaths(ShaderTaskNr.EXPERIMENTAL_F, "xeno100");
-		constants.add(sc);
+		constants.add(sc);		
 		sc = new PatchDataPaths(ShaderTaskNr.TAYLORGAUSSIAN, "xeno100");
-		constants.add(sc);
-		
-		
-		sc = new PatchDataPaths(ShaderTaskNr.EXPERIMENTAL_V, "elaph100");
-		constants.add(sc);
-		sc = new PatchDataPaths(ShaderTaskNr.EXPERIMENTAL_F, "elaph100");
-		constants.add(sc);
-		sc = new PatchDataPaths(ShaderTaskNr.TAYLORGAUSSIAN, "elaph100");
-		constants.add(sc);
-		
-		
-		// Taylor precomp patches
-		sc = new PatchDataPaths(ShaderTaskNr.TAYLOR, "blaze");
-		constants.add(sc);
-		sc = new PatchDataPaths(ShaderTaskNr.TAYLOR, "cos");
-		constants.add(sc);
-		sc = new PatchDataPaths(ShaderTaskNr.TAYLOR, "newA");
-		constants.add(sc);
-		sc = new PatchDataPaths(ShaderTaskNr.TAYLOR, "pewpew");
-		constants.add(sc);
-		sc = new PatchDataPaths(ShaderTaskNr.TAYLOR, "w10");
-		constants.add(sc);
-		sc = new PatchDataPaths(ShaderTaskNr.TAYLOR, "w20");
-		constants.add(sc);
-		sc = new PatchDataPaths(ShaderTaskNr.TAYLOR, "w30");
-		constants.add(sc);
-		
-		// grid precomp patches
-		sc = new PatchDataPaths(ShaderTaskNr.GRID, "1dspec");
-		constants.add(sc);
-		sc = new PatchDataPaths(ShaderTaskNr.GRID, "1dw10");
-		constants.add(sc);
-		sc = new PatchDataPaths(ShaderTaskNr.GRID, "1dw20");
-		constants.add(sc);
-		sc = new PatchDataPaths(ShaderTaskNr.GRID, "1dw30");
-		constants.add(sc);
-		sc = new PatchDataPaths(ShaderTaskNr.GRID, "blaze");
-		constants.add(sc);
-		sc = new PatchDataPaths(ShaderTaskNr.GRID, "cos");
 		constants.add(sc);	
+		sc = new PatchDataPaths(ShaderTaskNr.TAYLORGAUSSIAN, "elaph100");
+		constants.add(sc);	
+
 		
-		
+		// debug
 		sc = new PatchDataPaths(ShaderTaskNr.DEBUG_ANNOTATION, "blaze");
 		constants.add(sc);
 		sc = new PatchDataPaths(ShaderTaskNr.DEBUG_SPECULAR, "blaze");

@@ -10,19 +10,6 @@ public enum ShaderPaths {
 	stamVert("../jrtr/shaders/stam/HFD_Stam_approx.vert"),
 	stamFrag("../jrtr/shaders/stam/HFD_Stam_approx.frag"),
 	
-	// grid
-	grid_1d_Vert("../jrtr/shaders/grid/HFD_Grid_1d.vert"),
-	grid_1d_Frag("../jrtr/shaders/grid/HFD_Grid.frag"),
-	
-	grid_2d_Vert("../jrtr/shaders/grid/HFD_Grid_2d.vert"),
-	grid_2d_Frag("../jrtr/shaders/grid/HFD_Grid.frag"),
-	
-	grid_T_1dVert("../jrtr/shaders/grid/HFD_Grid_T_1d.vert"),
-	grid_T_1dFrag("../jrtr/shaders/grid/HFD_Grid.frag"),
-	
-	grid_T_2dVert("../jrtr/shaders/grid/HFD_Grid_T_2d.vert"),
-	grid_T_2dFrag("../jrtr/shaders/grid/HFD_Grid.frag"),
-	
 	// taylor Gauss
 	tg_Vert("../jrtr/shaders/taylorGaussian/diffractionVPrecomp.vert"),
 //	tg_Frag("../jrtr/shaders/taylorGaussian/taylorGaussianAllLambda.frag"),

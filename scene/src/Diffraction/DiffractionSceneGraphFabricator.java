@@ -29,8 +29,6 @@ import Setup.Managers.ShaderTaskSetupManager;
 import Setup.Managers.ShapeManager;
 import ShaderLogic.DiffractionShaderTask;
 import ShaderLogic.TaylorGaussianShaderTask;
-import ShaderLogic.MultiTexturesTAShaderTask;
-import ShaderLogic.MultiTexturesTaylorShaderTask;
 import ShaderLogic.ShaderTask;
 
 public class DiffractionSceneGraphFabricator {
@@ -72,16 +70,7 @@ public class DiffractionSceneGraphFabricator {
 	}
 	
 	private void setUpShaderTask(){
-
-		if(sceneConfig.getShaderTask() == ShaderTaskNr.GRID){
-			activeShaderTask = new MultiTexturesTAShaderTask();
-		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.TAYLOR){
-			activeShaderTask = new MultiTexturesTaylorShaderTask();
-		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.EXPERIMENTAL_V){
-			activeShaderTask = new TaylorGaussianShaderTask();
-		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.EXPERIMENTAL_F){
-			activeShaderTask = new TaylorGaussianShaderTask();
-		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.STAM){
+		if(sceneConfig.getShaderTask() == ShaderTaskNr.STAM){
 		    activeShaderTask = new DiffractionShaderTask();
 		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.TAYLORGAUSSIAN){
 			activeShaderTask = new TaylorGaussianShaderTask();
@@ -113,12 +102,10 @@ public class DiffractionSceneGraphFabricator {
 		mat.setPhongExponent(64f);
 		mat.setTrackDistance(trackDistance);
 		mat.setLayerCount(108);
-		if(sceneConfig.getShaderTask() == ShaderTaskNr.TAYLOR || 
-				sceneConfig.getShaderTask() == ShaderTaskNr.EXPERIMENTAL_V || 
+		if( 
 				sceneConfig.getShaderTask() == ShaderTaskNr.TAYLORGAUSSIAN ||
 				sceneConfig.getShaderTask() == ShaderTaskNr.DEBUG_ANNOTATION ||
-				sceneConfig.getShaderTask() == ShaderTaskNr.DEBUG_SPECULAR ||
-				sceneConfig.getShaderTask() == ShaderTaskNr.EXPERIMENTAL_F){
+				sceneConfig.getShaderTask() == ShaderTaskNr.DEBUG_SPECULAR){
 			mat.setLayerCount(layerCount);
 		}
 		ShaderTaskSetupManager stm = new ShaderTaskSetupManager(renderContext, mat, sceneConfig.getShaderTask());		
