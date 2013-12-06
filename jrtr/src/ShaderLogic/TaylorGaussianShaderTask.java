@@ -1,16 +1,13 @@
 package ShaderLogic;
 
 import java.util.ArrayList;
-
 import javax.media.opengl.GL;
 import javax.media.opengl.GL3;
 import javax.vecmath.Vector3f;
 import javax.vecmath.Vector4f;
-
 import jrtr.GLShader;
 import jrtr.GLTextureFloat;
 import jrtr.GLTexture;
-import jrtr.GLTextureFloat;
 import jrtr.Light;
 import Materials.Material;
 
@@ -180,7 +177,6 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "dimX");
 		gl.glUniform1f(id3, width);
 		
-		float dimY = m.getPatchDimY();
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "dimY");
 		gl.glUniform1f(id3, height);
 		
@@ -192,12 +188,9 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "t0");
 		gl.glUniform1f(id3, to);
 		
-		
-		System.out.println("com");
-		
+
 		float dh = scalingFactors[3];
-		System.out.println("dh: " + dh + " vs t0" + to);
-		
+		System.out.println("dh: " + dh + " vs t0" + to);		
 	}
 
 	@Override

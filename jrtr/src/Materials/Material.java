@@ -5,8 +5,6 @@ import java.io.IOException;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 import javax.vecmath.Vector4f;
-
-import jrtr.SWTexture;
 import jrtr.Shader;
 import jrtr.Texture;
 

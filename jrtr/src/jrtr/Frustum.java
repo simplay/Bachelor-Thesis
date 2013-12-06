@@ -1,8 +1,5 @@
 package jrtr;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
@@ -26,7 +23,6 @@ public class Frustum {
 	private float far;
 	private float verticalFieldView;
 	private Vector3f[] planeNormals = new Vector3f[6];
-	private Point3f[] planePoints = new Point3f[6];
 	/**
 	 * Construct a default viewing frustum. The frustum is given by a 
 	 * default 4x4 projection matrix.
@@ -69,6 +65,7 @@ public class Frustum {
 	}
 	
 	public Vector3f[] calculateFrustumPoints(Vector3f up, Point3f look, Point3f cop){
+		@SuppressWarnings("unused")
 		float a,b,c,d;
 		
 		// near plane normal

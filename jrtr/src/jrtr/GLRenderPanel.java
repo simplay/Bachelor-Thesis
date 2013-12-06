@@ -54,18 +54,15 @@ public abstract class GLRenderPanel implements RenderPanel {
 		
 		@Override
 		public void reshape(GLAutoDrawable drawable, int x, int y, int width,
-		    int height)
-		{
+		    int height){
 		}
 		
 		public void displayChanged(GLAutoDrawable drawable, boolean modeChanged,
-		    boolean deviceChanged)
-		{
+		    boolean deviceChanged){
 		}
 		
 		@Override
-		public void dispose(GLAutoDrawable g)
-		{
+		public void dispose(GLAutoDrawable g){
 		}
 	}
 

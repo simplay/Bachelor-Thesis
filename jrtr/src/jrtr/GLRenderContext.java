@@ -14,7 +14,6 @@ import javax.vecmath.*;
 
 import Materials.Material;
 import SceneGraph.GraphSceneManager;
-import SceneGraph.GraphSceneManagerIterator;
 import ShaderLogic.ShaderTask;
 
 /**
@@ -25,13 +24,8 @@ public class GLRenderContext implements RenderContext {
 	private SceneManagerInterface sceneManager;
 	private GL3 gl;
 	private GLShader activeShader;
-	private IntBuffer shadowMapBuffer;
-	private GLTexture shadowMap;
-	private Light light;
-	private boolean shadowDraw = true;
-	private com.jogamp.opengl.util.texture.Texture cubeMapTex;
-	private final static CubeMap map = new CubeMap();
-	private int counter = 2;
+
+
 	/**
 	 * This constructor is called by {@link GLRenderPanel}.
 	 * 
@@ -59,9 +53,7 @@ public class GLRenderContext implements RenderContext {
         
         // Load and use default shader
         GLShader defaultShader = new GLShader(gl);
-        
-        shadowMap = new GLTexture(gl); //x
-        
+  
         
         try {
         	// restore loading default shader later 
@@ -113,32 +105,23 @@ public class GLRenderContext implements RenderContext {
 	 */
 	public void display(GLAutoDrawable drawable){
 		gl = drawable.getGL().getGL3();
-		
-		
-		
-		
-		beginFrame();
-		
+				
+		beginFrame();		
 		SceneManagerIterator iterator = sceneManager.iterator();	
 		while(iterator.hasNext()){
 			RenderItem r = iterator.next();
 			if(r != null)
 				if(r.getShape()!=null) draw(r);
 		}
-
-
 		
 		Iterator<Light> lightIterator = sceneManager.lightIterator();
 		GraphSceneManager manager = (GraphSceneManager) sceneManager;
 		while (lightIterator.hasNext()){
 			Light lightSource = lightIterator.next();
-			light = lightSource;
 			if (lightSource != null) {
 				manager.addLight(lightSource);
 			}
 		}
-		
-		setLights();
 		endFrame();
 		
 	}
@@ -148,9 +131,6 @@ public class GLRenderContext implements RenderContext {
 	 * scene drawing starts.
 	 */
 	private void beginFrame(){
-		setLights(); //TODO care
-		
-        //gl.glClearColor(0.15f, 0.15f, 0.15f, 1.0f);
         gl.glClearColor(1.00f, 1.00f, 1.00f, 1.0f);
         gl.glClear(GL.GL_COLOR_BUFFER_BIT);
         gl.glClear(GL.GL_DEPTH_BUFFER_BIT);
@@ -160,15 +140,7 @@ public class GLRenderContext implements RenderContext {
 	 * This method is called at the end of each frame, i.e., after
 	 * scene drawing is complete.
 	 */
-	private void endFrame(){
-		
-//		gl.glDisable(GL3.GL_TEXTURE_2D);
-//		gl.glDisable(GL3.GL_TEXTURE_CUBE_MAP);
-//		cubeMapTex.disable(gl);
-//		cubeMapTex.destroy(gl);
-//		map.cleaning();
-		
-		
+	private void endFrame(){	
 		gl.glFlush();			
 	}
 	
@@ -197,9 +169,7 @@ public class GLRenderContext implements RenderContext {
 		// Don't draw if there are no indices
 		if(indices == null) return;
 		
-//		if(this.sceneManager.getLightSources().get(0) != null)
-//			this.sceneManager.getLightSources().get(0).setLightDirection(this.sceneManager.getRootLight().getLightSource().getLightDirection());
-		
+
 		// Set the material
 		
 		Material mat = renderItem.getShape().getMaterial();
@@ -215,20 +185,6 @@ public class GLRenderContext implements RenderContext {
 		
 		Vector4f cameraPosition = new Vector4f();
 		sceneManager.getCamera().getCameraMatrix().getColumn(3, cameraPosition);
-
-		
-		//System.out.println("\ncamera position in scene: \n" + sceneManager.getCamera().getCameraMatrix());
-		//System.out.println("\nlight direction in scene: \n" + sceneManager.getRootLight().getLightSource().getLightDirection() );
-		
-		float[] cpos = {-cameraPosition.x, -cameraPosition.y, -cameraPosition.z, cameraPosition.w};
-		//System.out.println("cop: \n" + cpos[0] + " " +cpos[1] + " " + cpos[2] + " " + cpos[3]);
-		
-//		int scalingID = gl.glGetUniformLocation(activeShader.programId(),"cop_w");
-//		gl.glUniform4fv(scalingID, 1, cpos, 0);
-		
-
-//		gl.glUniform1i(gl.glGetUniformLocation(activeShader.programId(), "drawTexture"), ((GraphSceneManager)sceneManager).getDrawTexture());
-//		gl.glUniform1i(gl.glGetUniformLocation(activeShader.programId(), "debugTxtIdx"), ((GraphSceneManager)sceneManager).getNextImageDebug());
 
 		gl.glUniform1f(gl.glGetUniformLocation(activeShader.programId(), "thetaI"), (float)( ((GraphSceneManager)sceneManager).getThetaI()*Math.PI/180.0) );
 		gl.glUniform1f(gl.glGetUniformLocation(activeShader.programId(), "phiI"), (float)( ((GraphSceneManager)sceneManager).getPhiI()*Math.PI/180.0) );
@@ -322,26 +278,6 @@ public class GLRenderContext implements RenderContext {
 		m.getShader().use();
 		this.activeShader = (GLShader) m.getShader();
 		this.setGLTexture(m);
-		
-		// export
-		int cubeTexID = gl.glGetUniformLocation(activeShader.programId(), "cubeTex");
-		if(this.counter == 0){
-			counter++;
-//			map.CubeSetUpGLUT(gl);
-			cubeMapTex = map.getCubeMapTex();
-
-			gl.glActiveTexture(GL3.GL_TEXTURE2);
-			gl.glEnable(GL3.GL_TEXTURE_CUBE_MAP);
-
-//			cubeMapTex.bind(gl);
-//			cubeMapTex.enable(gl);
-//			gl.glUniform1i(cubeTexID, 2);
-		}
-		
-
-		// end to be exported
-		
-		this.setLights(); // one layer up //TODO care
 	}
 	
 	/**
@@ -351,14 +287,7 @@ public class GLRenderContext implements RenderContext {
 	 * 
 	 * @param m material of this shape
 	 */
-	private void setGLTexture(Material m){
-//		for(Shape shape : sceneManager.getShapes() ){
-//			ShaderTask shaderTask = shape.getShaderTask();
-//			shaderTask.setActiveShader(this.activeShader);
-//			shaderTask.setGl(this.gl);
-//			shaderTask.loadShaderGL(m);
-//		}
-		
+	private void setGLTexture(Material m){		
 		SceneManagerIterator iterator = sceneManager.iterator();
 		while(iterator.hasNext()){
 			RenderItem r = iterator.next();
@@ -374,16 +303,7 @@ public class GLRenderContext implements RenderContext {
 		}
 	}
 	
-	/**
-	 * Pass the light properties to OpenGL. This assumes the list of lights in 
-	 * the scene manager is accessible via a method Iterator<Light> lightIterator().
-	 */
-	//TODO export into shader task
-	// rename
-	void setLights(){
-		ArrayList<Light> lightSources = sceneManager.getLightSources();
 
-	}
 
 	/**
 	 * Disable a material.

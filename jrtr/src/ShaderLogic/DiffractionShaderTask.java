@@ -1,16 +1,11 @@
 package ShaderLogic;
 
 import java.util.ArrayList;
-
-import javax.media.opengl.GL;
 import javax.media.opengl.GL3;
 import javax.vecmath.Vector3f;
 import javax.vecmath.Vector4f;
-
 import Materials.Material;
-
 import jrtr.GLShader;
-import jrtr.GLTexture;
 import jrtr.Light;
 
 public class DiffractionShaderTask extends ShaderTask{
@@ -43,13 +38,6 @@ public class DiffractionShaderTask extends ShaderTask{
 		id = gl.glGetUniformLocation(activeShader.programId(), "lightDirection");
 		gl.glUniform4f(id, 0, 0, 1, 0);		// Set light direction
 		
-		
-//		gl.glUniform1i(gl.glGetUniformLocation(activeShader.programId(), "Texture0"), 0);
-//		int idTex1 = ((GLTexture) m.getTexture()).getId();
-//		gl.glActiveTexture(GL3.GL_TEXTURE0+0);
-//		gl.glBindTexture(GL3.GL_TEXTURE_2D, idTex1);
-//		gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-//		gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
 	}
 
 	@Override

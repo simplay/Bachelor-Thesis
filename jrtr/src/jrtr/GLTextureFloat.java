@@ -2,19 +2,12 @@ package jrtr;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL3;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.io.DataInputStream;
 import java.io.BufferedInputStream;
-
-import javax.imageio.ImageIO;
 import java.util.Scanner;
-
-
 import java.awt.image.*;
 import java.nio.*;
 
@@ -27,7 +20,6 @@ public class GLTextureFloat implements Texture {
 	
 	private GL3 gl;			// The OpenGL context that stores the texture
 	private IntBuffer id;	// Stores the OpenGL texture identifier
-	private int w, h;		// Width and height
 	private FloatBuffer bbuffer;
 	private int imWidth;
 	private int imHeight;
@@ -119,8 +111,8 @@ public class GLTextureFloat implements Texture {
 		} catch (Exception e) {
 		}
 	}
-	private void readDataInASCII(String fileName) 
-	{
+	
+	private void readDataInASCII(String fileName) {
 		boolean hasData = true;
 		
 		imWidth = 1;
