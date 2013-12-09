@@ -204,6 +204,24 @@ float getFresnelFactor(vec3 K1, vec3 K2)
 	return fF/R0;
 }
 
+
+float getShadowMaskFactor(vec3 K1, vec3 K2){
+	vec3 N = normalize(o_normal);
+	vec3 hVec = -K1 + K2;
+	hVec = normalize(hVec);
+	
+	float eDotH =  dot(hVec,K2);
+	float eDotN =  dot(K2,N); // normal is (0,0,1);
+	float hDotN =  dot(hVec,N);// normal is (0,0,1);
+	float lDotN =  dot(-K1, N); // normal is (0,0,1);
+	
+	float f1 = 2 * hDotN * eDotN / eDotH;
+	float f2 = 2 * hDotN * lDotN / eDotH;
+
+	f1 = min(f1, f2);
+	return min(1.0f, f1);
+}
+
 float getFresnelFactorAbsolute(vec3 K1, vec3 K2)
 {
 	float nSkin = 1.5;
@@ -606,7 +624,7 @@ void main()
 {
 	// setsF();
 	setVarXY();
-	 
+
 
 	float thetaR = asin(sqrt(o_org_pos.x * o_org_pos.x + o_org_pos.y * o_org_pos.y ));
 	float phiR = atan(o_org_pos.y, o_org_pos.x);
@@ -622,7 +640,8 @@ void main()
 	k2.x = sin(thetaR)*cos(phiR);
 	k2.y = sin(thetaR)*sin(phiR);
 	k2.z = cos(thetaR);
-
+	
+	float shadowF = getShadowMaskFactor(k1, k2);
 	
 	float uu = k1.x - k2.x;
 	float vv = k1.y - k2.y;
@@ -641,7 +660,7 @@ void main()
 	// vec3 totalXYZ2 = getRawXYZFromTaylorSeries( uu, vv, -2.0f);
 	
 	
-	 totalXYZ = totalXYZ * gainF(k1, k2)*100;
+	 totalXYZ = totalXYZ * gainF(k1, k2)*100*shadowF;
 	//totalXYZ = totalXYZ *100;
 	
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);

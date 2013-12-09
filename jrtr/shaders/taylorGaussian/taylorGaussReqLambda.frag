@@ -5,12 +5,11 @@
 #define MAX_LIGHTS 1
 #define MAX_TAYLORTERMS 31
 #define MAX_WFACTORS    78
+#define MAX_WEIGHTS 401
 
 uniform float LMIN;
 uniform float LMAX;
 uniform float delLamda;
-
-#define MAX_WEIGHTS 401
 
 // Uniform variables, passed in from host program via suitable
 uniform int debugTxtIdx;
@@ -87,7 +86,8 @@ float varY_InTxtUnits;
 float dH = 0.0f;
 float orgU;
 float orgV;
-
+float lambda_min = LMIN*pow(10.0, -9.0);
+float lambda_max = LMAX*pow(10.0, -9.0);
 
 float GetLightNormalCos()
 {
@@ -97,6 +97,21 @@ float GetLightNormalCos()
    
    return abs( - N.x * L.x - N.y * L.y - N.z * L.z);
 
+}
+
+vec2 compute_N_min_max(float t){
+	// default case if t == 0 otherwise override it.
+	float N_min = 0.0;
+	float N_max = 0.0;
+	
+	if(t > 0.0){
+		N_min = ceil((dimX*t) / lambda_max);
+		N_max = floor((dimX*t) / lambda_min);
+	}else if(t < 0.0){
+		N_min = ceil((dimX*t) / lambda_min);
+		N_max = floor((dimX*t) / lambda_max);
+	}
+	return vec2(N_min, N_max);
 }
 
 
@@ -467,15 +482,21 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww)
 	
 	float specSum = 0.0f;
 	
-	float lIncr;
+	float lambdaStep = 5.0;
 	
-	if (0 == drawTexture)
-		lIncr = 5.0;
-	else
-		lIncr = 40.0;
-		
+	vec2 N_u = compute_N_min_max(uu);
+	vec2 N_v = compute_N_min_max(vv);
+	vec2 N_uv[2] = vec2[2](N_u, N_v);
+	float lower = N_v.x;
+	float upper = N_v.y;
+	float lambda_lower_a = ((dimX*uu)/upper)*pow(10.0, 9.0);
+	float lambda_upper_a = ((dimX*uu)/lower)*pow(10.0, 9.0);
+//	float exodus = lambda_lower_a-lambda_upper_a;
+	
 
-	for(float lVal = LMIN; lVal <= LMAX; lVal = lVal+lIncr)
+	
+	
+	for(float lVal = lambda_lower_a; lVal <= lambda_upper_a; lVal = lVal+lambdaStep)
 	{
 		
 		vec4 clrFn = getClrMatchingFnWeights(lVal);
@@ -638,6 +659,7 @@ void main()
 	// rotU(uu, vv, phiRect), ww);
 	
 	vec3 totalXYZ  = getRawXYZFromTaylorSeries( uu, vv, ww);
+//	vec3 totalXYZ  = vec3(0);
 	// vec3 totalXYZ2 = getRawXYZFromTaylorSeries( uu, vv, -2.0f);
 	
 	
@@ -661,8 +683,26 @@ void main()
 		totalXYZ.y  = 1.0;
 		totalXYZ.z  = 0.0;
 	}
-
+	
+	// test-case
+	vec2 N_u = compute_N_min_max(uu);
+	vec2 N_v = compute_N_min_max(vv);
+	vec2 N_uv[2] = vec2[2](N_u, N_v);
+	float lower = N_u.x;
+	float upper = N_u.y;
+	float lambda_lower_a = ((dimX*uu)/upper)*pow(10.0, 9.0);
+	float lambda_upper_a = ((dimX*uu)/lower)*pow(10.0, 9.0);
+	float exodus = lambda_lower_a-lambda_upper_a;
+	
+	float col = 0.1;
+	
+	vec3 xyz = vec3(col,col, col);
+	
+	if(abs(exodus) < 300.0){
+		xyz = vec3(1.0,0.0, 0.0);
+	}
+	
 
 	frag_shaded = vec4(gammaCorrect(totalXYZ,2.2), 1.0);
-	// frag_shaded = vec4(totalXYZ , 1.0);
+//	 frag_shaded = vec4(xyz , 1.0);
 }
