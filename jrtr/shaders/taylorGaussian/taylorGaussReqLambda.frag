@@ -486,17 +486,33 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww)
 	
 	vec2 N_u = compute_N_min_max(uu);
 	vec2 N_v = compute_N_min_max(vv);
-	vec2 N_uv[2] = vec2[2](N_u, N_v);
-	float lower = N_v.x;
-	float upper = N_v.y;
-	float lambda_lower_a = ((dimX*uu)/upper)*pow(10.0, 9.0);
-	float lambda_upper_a = ((dimX*uu)/lower)*pow(10.0, 9.0);
+	float lower_u = N_u.x;
+	float upper_u = N_u.y;
+	float lower_v = N_v.x;
+	float upper_v = N_v.y;
+	
+	float lambda_lower_u = ((dimX*uu)/upper_u)*pow(10.0, 9.0);
+	float lambda_upper_u = ((dimX*uu)/lower_u)*pow(10.0, 9.0);
+	if(upper_u < 0.0){
+		lambda_lower_u = ((dimX*uu)/lower_u)*pow(10.0, 9.0);
+		lambda_upper_u = ((dimX*uu)/upper_u)*pow(10.0, 9.0);	
+	}
+	
+	float lambda_lower_v = ((dimX*vv)/upper_v)*pow(10.0, 9.0);
+	float lambda_upper_v = ((dimX*vv)/lower_v)*pow(10.0, 9.0);
+	if(upper_v < 0.0){
+		lambda_lower_v = ((dimX*vv)/lower_v)*pow(10.0, 9.0);
+		lambda_upper_v = ((dimX*vv)/upper_v)*pow(10.0, 9.0);	
+	}
+
+	
+
 //	float exodus = lambda_lower_a-lambda_upper_a;
 	
 
 	
 	
-	for(float lVal = lambda_lower_a; lVal <= lambda_upper_a; lVal = lVal+lambdaStep)
+	for(float lVal = lambda_lower_v; lVal <= lambda_upper_v; lVal = lVal+lambdaStep)
 	{
 		
 		vec4 clrFn = getClrMatchingFnWeights(lVal);
@@ -685,22 +701,27 @@ void main()
 	}
 	
 	// test-case
-	vec2 N_u = compute_N_min_max(uu);
-	vec2 N_v = compute_N_min_max(vv);
-	vec2 N_uv[2] = vec2[2](N_u, N_v);
-	float lower = N_u.x;
-	float upper = N_u.y;
-	float lambda_lower_a = ((dimX*uu)/upper)*pow(10.0, 9.0);
-	float lambda_upper_a = ((dimX*uu)/lower)*pow(10.0, 9.0);
-	float exodus = lambda_lower_a-lambda_upper_a;
-	
-	float col = 0.1;
-	
-	vec3 xyz = vec3(col,col, col);
-	
-	if(abs(exodus) < 300.0){
-		xyz = vec3(1.0,0.0, 0.0);
-	}
+//	vec2 N_u = compute_N_min_max(uu);
+//	vec2 N_v = compute_N_min_max(vv);
+//	float lower_u = N_u.x;
+//	float upper_u = N_u.y;
+//	float lower_v = N_v.x;
+//	float upper_v = N_v.y;
+//	float lambda_lower_u = ((dimX*uu)/upper_u)*pow(10.0, 9.0);
+//	float lambda_upper_u = ((dimX*uu)/lower_u)*pow(10.0, 9.0);
+//	float lambda_lower_v = ((dimX*vv)/upper_v)*pow(10.0, 9.0);
+//	float lambda_upper_v = ((dimX*vv)/lower_v)*pow(10.0, 9.0);
+//	
+//	float exodus_u = lambda_upper_u-lambda_lower_u;
+//	float exodus_v = lambda_upper_v-lambda_lower_v;
+//	
+//	float col = 0.1;
+//	
+//	vec3 xyz = vec3(col,col, col);
+//	
+//	if(abs(exodus_v) < 780.0){
+//		xyz = vec3(1.0,0.0, 0.0);
+//	}
 	
 
 	frag_shaded = vec4(gammaCorrect(totalXYZ,2.2), 1.0);
