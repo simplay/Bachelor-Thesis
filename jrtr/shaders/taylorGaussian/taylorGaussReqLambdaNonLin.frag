@@ -149,12 +149,6 @@ vec3 getBRDF_RGB_T_D65(mat3 T, vec3 brdf_xyz){
 	vec3 output = vec3(0.0);
 	vec3 D65BRDF = vec3(brdf_xyz.x*D65.x, brdf_xyz.y*D65.y, brdf_xyz.z*D65.z);
 	
-	// output.x = D65BRDF.x * T[0][0] + D65BRDF.y * T[0][1] + D65BRDF.z *
-	// T[0][2] ;
-	// output.y = D65BRDF.x * T[1][0] + D65BRDF.y * T[1][1] + D65BRDF.z *
-	// T[1][2] ;
-	// output.z = D65BRDF.x * T[2][0] + D65BRDF.y * T[2][1] + D65BRDF.z *
-	// T[2][2] ;
 	
 	output.x = dot(D65BRDF, T[0]);
 	output.y = dot(D65BRDF, T[1]);
@@ -421,46 +415,52 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 	float specSum = 0.0f;	
 	
 	float lambdaStep = 5.0;	
+	
 	vec2 N_u = compute_N_min_max(uu);
 	vec2 N_v = compute_N_min_max(vv);
-	float lower_u = N_u.x* pow(10.0, -9.0);
-	float upper_u = N_u.y* pow(10.0, -9.0);
+	float lower_u = N_u.x * pow(10.0, -9.0);
+	float upper_u = N_u.y * pow(10.0, -9.0);
 	float lower_v = N_v.x* pow(10.0, -9.0);
 	float upper_v = N_v.y* pow(10.0, -9.0);
-	
-//	float lambda_lower_u = ((dimX*uu)/upper_u)*pow(10.0, 9.0);
-//	float lambda_upper_u = ((dimX*uu)/lower_u)*pow(10.0, 9.0);
-//	if(upper_u < 0.0){
-//		lambda_lower_u = ((dimX*uu)/lower_u)*pow(10.0, 9.0);
-//		lambda_upper_u = ((dimX*uu)/upper_u)*pow(10.0, 9.0);	
-//	}
-//	
-//	float lambda_lower_v = ((dimX*vv)/upper_v)*pow(10.0, 9.0);
-//	float lambda_upper_v = ((dimX*vv)/lower_v)*pow(10.0, 9.0);
-//	if(upper_v < 0.0){
-//		lambda_lower_v = ((dimX*vv)/lower_v)*pow(10.0, 9.0);
-//		lambda_upper_v = ((dimX*vv)/upper_v)*pow(10.0, 9.0);	
-//	}
-	
-	
 	float diff = upper_u - lower_u;
-	
-//	diff = diff * pow(10.0, -9.0);
-	
 	float N_u_step = (upper_u - lower_u)/5.0;
 	N_u_step = abs(N_u_step);
+	N_u_step = 1.0;
+	float upperbound_u = 0.0;
+	float lowerbound_u = 0.0;
+	float upperbound_v = 0.0;
+	float lowerbound_v = 0.0;
 	
-	if(abs(N_u_step) > 100.0){
-		lower_u = 0.0;
-		upper_u = 2.0;	
+	if(uu >= 0.0){
+		lowerbound_u = lower_u;
+		upperbound_u = upper_u;
+	}else{
+		
+		lowerbound_u = -upper_u;
+		upperbound_u = -lower_u;
 	}
-//	N_u_step = 1.0;
-
+	
+	if(vv >= 0.0){
+		lowerbound_v = lower_v;
+		upperbound_v = upper_v;
+	}else{
+		
+		lowerbound_v = -upper_v;
+		upperbound_v = -lower_v;
+	}
 	
 	
-	for(float N_u = lower_u; N_u <= upper_u; N_u = N_u + N_u_step){
-		float lVal = ((dimX*uu)/N_u);
-
+	
+	for(float N_u = lowerbound_u; N_u <= upperbound_u; N_u = N_u + N_u_step){
+		if(abs(N_u) < pow(10.0, -20.0)){
+			continue;
+		}
+		
+		float lVal = ((dimX*abs(uu))/N_u);
+		
+		if(lVal < 380.0 && lVal > 780.0){
+			continue;
+		}
 		
 		vec4 clrFn = getClrMatchingFnWeights(lVal);
 		
@@ -578,20 +578,50 @@ void main(){
 		totalXYZ.z  = 0.0;
 	}
 	
-	
 	vec2 N_u = compute_N_min_max(uu);
 	vec2 N_v = compute_N_min_max(vv);
-	float lower_u = N_u.x;
-	float upper_u = N_u.y;
-	float lower_v = N_v.x;
-	float upper_v = N_v.y;
+	float lower_u = N_u.x * pow(10.0, -9.0);
+	float upper_u = N_u.y * pow(10.0, -9.0);
+	float lower_v = N_v.x* pow(10.0, -9.0);
+	float upper_v = N_v.y* pow(10.0, -9.0);
+	float diff = upper_u - lower_u;
+	float N_u_step = (upper_u - lower_u)/5.0;
+	N_u_step = abs(N_u_step);
+	N_u_step = 1.0;
+	float upperbound_u = 0.0;
+	float lowerbound_u = 0.0;
+	float upperbound_v = 0.0;
+	float lowerbound_v = 0.0;
+	
+	if(uu >= 0.0){
+		lowerbound_u = lower_u;
+		upperbound_u = upper_u;
+	}else{
+		
+		lowerbound_u = -upper_u;
+		upperbound_u = -lower_u;
+	}
+	
+	if(vv >= 0.0){
+		lowerbound_v = lower_v;
+		upperbound_v = upper_v;
+	}else{
+		
+		lowerbound_v = -upper_v;
+		upperbound_v = -lower_v;
+	}
+	
 	
 	float col = 0.1;
 	vec3 xyz = vec3(col,col,col);
 	
-	float diff = upper_u - lower_u;
-	diff = diff * pow(10.0, -9.0);
-	if((diff) > 0.0){
+	if(abs(lowerbound_u) < 0.001){
+		lowerbound_u = 1.0;
+	}
+	
+	float lVal = ((dimX*abs(uu))/upperbound_u);
+
+	if(lVal >= 380.0 && lVal <= 780.0){
 		xyz = vec3(1.0,0,0);
 	}
 	
