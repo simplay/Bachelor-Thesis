@@ -414,8 +414,6 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 	float zNorm = 0.0f;
 	float specSum = 0.0f;	
 	
-	float lambdaStep = 5.0;	
-	
 	vec2 N_u = compute_N_min_max(uu);
 	vec2 N_v = compute_N_min_max(vv);
 	float lower_u = N_u.x * pow(10.0, -9.0);
@@ -424,18 +422,17 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 	float upper_v = N_v.y* pow(10.0, -9.0);
 	float diff = upper_u - lower_u;
 	
-//	N_u_step = abs(N_u_step);
-//	N_u_step = 0.01;
 	float upperbound_u = 0.0;
 	float lowerbound_u = 0.0;
 	float upperbound_v = 0.0;
 	float lowerbound_v = 0.0;
+	float threshold = pow(10.0, -40.0);
+	float eps = 2.0*pow(10.0, -2.0);
 	
 	if(uu >= 0.0){
 		lowerbound_u = lower_u;
 		upperbound_u = upper_u;
 	}else{
-		
 		lowerbound_u = -upper_u;
 		upperbound_u = -lower_u;
 	}
@@ -444,95 +441,100 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 		lowerbound_v = lower_v;
 		upperbound_v = upper_v;
 	}else{
-		
 		lowerbound_v = -upper_v;
 		upperbound_v = -lower_v;
 	}
-	float N_u_step = abs(upperbound_u - lowerbound_u)/5.0;
-	float N_v_step = abs(upperbound_v - lowerbound_v)/5.0;
-//	N_u_step = abs(N_u_step);
-//	N_u_step = 0.05;
 	
-	for(float N_u = lowerbound_u; N_u <= upperbound_u; N_u = N_u + N_u_step){
-		if(abs(N_u) < pow(10.0, -20.0)){
-			continue;
-		}
-		
-		float lVal = ((dimX*(uu))/N_u);
-		
-//		if(lVal < 380.0 && lVal > 780.0){
-//			continue;
-//		}
-		
-		vec4 clrFn = getClrMatchingFnWeights(abs(lVal));
-		
-		float specV = clrFn.w;	
-		xNorm = xNorm + specV*clrFn.x;
-		yNorm = yNorm + specV*clrFn.y;
-		zNorm = zNorm + specV*clrFn.z;
-		
-		vec2 lookupCoord = getLookupCoord(uu, vv, lVal);
-		
-		vec2 tempFFTScale = vec2(0.0f);
-		
-		for(int tIdx = 0; tIdx < MAX_TAYLORTERMS; ++tIdx){
-			if(0 == tIdx) {
-				preScale = 1.0f;
-			} else {
-				float currS = ww * 2.0 * PI * pow(10.0f, 3.0f) / lVal / tIdx;
-				preScale = preScale * currS;
+	float stepSize = 0.02;
+	float N_u_step = stepSize;
+	float N_v_step = stepSize;
+	float uv_sqr = pow(uu*uu+vv*vv, 0.5);
+	if(uv_sqr < eps){
+		return vec3(1,1,1);
+	}else{
+		for(float N_u = lowerbound_u; N_u <= upperbound_u; N_u = N_u + N_u_step){
+			if(abs(N_u) < threshold){
+				continue;
 			}
-		
-			vec2 fftCoef = getFFTAt(lookupCoord, tIdx);
-			tempFFTScale = tempFFTScale + preScale * fftCoef;
+			
+			float lVal = ((dimX*(uu))/N_u);
+			
+			if(lVal < 380.0 && lVal > 780.0){
+				continue;
+			}
+			
+			vec4 clrFn = getClrMatchingFnWeights(abs(lVal));
+			
+			float specV = clrFn.w;	
+			xNorm = xNorm + specV*clrFn.x;
+			yNorm = yNorm + specV*clrFn.y;
+			zNorm = zNorm + specV*clrFn.z;
+			
+			vec2 lookupCoord = getLookupCoord(uu, vv, lVal);
+			
+			vec2 tempFFTScale = vec2(0.0f);
+			
+			for(int tIdx = 0; tIdx < MAX_TAYLORTERMS; ++tIdx){
+				if(0 == tIdx) {
+					preScale = 1.0f;
+				} else {
+					float currS = ww * 2.0 * PI * pow(10.0f, 3.0f) / lVal / tIdx;
+					preScale = preScale * currS;
+				}
+			
+				vec2 fftCoef = getFFTAt(lookupCoord, tIdx);
+				tempFFTScale = tempFFTScale + preScale * fftCoef;
+			}
+			
+			float fftMagSqr = tempFFTScale.x * tempFFTScale.x + tempFFTScale.y * tempFFTScale.y;
+			opVal.x = opVal.x + fftMagSqr * specV * clrFn.x;
+			opVal.y = opVal.y + fftMagSqr * specV * clrFn.y;
+			opVal.z = opVal.z + fftMagSqr * specV * clrFn.z;
 		}
 		
-		float fftMagSqr = tempFFTScale.x * tempFFTScale.x + tempFFTScale.y * tempFFTScale.y;
-		opVal.x = opVal.x + fftMagSqr * specV * clrFn.x;
-		opVal.y = opVal.y + fftMagSqr * specV * clrFn.y;
-		opVal.z = opVal.z + fftMagSqr * specV * clrFn.z;
+		
+		for(float N_v = lowerbound_v; N_v <= upperbound_v; N_v = N_v + N_v_step){
+			if(abs(N_v) < threshold){
+				continue;
+			}
+			
+			float lVal = ((dimX*(vv))/N_v);
+			
+			if(lVal < 380.0 && lVal > 780.0){
+				continue;
+			}
+			
+			vec4 clrFn = getClrMatchingFnWeights(abs(lVal));
+			
+			float specV = clrFn.w;	
+			xNorm = xNorm + specV*clrFn.x;
+			yNorm = yNorm + specV*clrFn.y;
+			zNorm = zNorm + specV*clrFn.z;
+			
+			vec2 lookupCoord = getLookupCoord(uu, vv, lVal);
+			
+			vec2 tempFFTScale = vec2(0.0f);
+			
+			for(int tIdx = 0; tIdx < MAX_TAYLORTERMS; ++tIdx){
+				if(0 == tIdx) {
+					preScale = 1.0f;
+				} else {
+					float currS = ww * 2.0 * PI * pow(10.0f, 3.0f) / lVal / tIdx;
+					preScale = preScale * currS;
+				}
+			
+				vec2 fftCoef = getFFTAt(lookupCoord, tIdx);
+				tempFFTScale = tempFFTScale + preScale * fftCoef;
+			}
+			
+			float fftMagSqr = tempFFTScale.x * tempFFTScale.x + tempFFTScale.y * tempFFTScale.y;
+			opVal.x = opVal.x + fftMagSqr * specV * clrFn.x;
+			opVal.y = opVal.y + fftMagSqr * specV * clrFn.y;
+			opVal.z = opVal.z + fftMagSqr * specV * clrFn.z;
+		}
 	}
 	
-	
-	for(float N_v = lowerbound_v; N_v <= upperbound_v; N_v = N_v + N_v_step){
-		if(abs(N_v) < pow(10.0, -20.0)){
-			continue;
-		}
-		
-		float lVal = ((dimX*(vv))/N_v);
-		
-//		if(lVal < 380.0 && lVal > 780.0){
-//			continue;
-//		}
-		
-		vec4 clrFn = getClrMatchingFnWeights(abs(lVal));
-		
-		float specV = clrFn.w;	
-		xNorm = xNorm + specV*clrFn.x;
-		yNorm = yNorm + specV*clrFn.y;
-		zNorm = zNorm + specV*clrFn.z;
-		
-		vec2 lookupCoord = getLookupCoord(uu, vv, lVal);
-		
-		vec2 tempFFTScale = vec2(0.0f);
-		
-		for(int tIdx = 0; tIdx < MAX_TAYLORTERMS; ++tIdx){
-			if(0 == tIdx) {
-				preScale = 1.0f;
-			} else {
-				float currS = ww * 2.0 * PI * pow(10.0f, 3.0f) / lVal / tIdx;
-				preScale = preScale * currS;
-			}
-		
-			vec2 fftCoef = getFFTAt(lookupCoord, tIdx);
-			tempFFTScale = tempFFTScale + preScale * fftCoef;
-		}
-		
-		float fftMagSqr = tempFFTScale.x * tempFFTScale.x + tempFFTScale.y * tempFFTScale.y;
-		opVal.x = opVal.x + fftMagSqr * specV * clrFn.x;
-		opVal.y = opVal.y + fftMagSqr * specV * clrFn.y;
-		opVal.z = opVal.z + fftMagSqr * specV * clrFn.z;
-	}
+
 	
 	opVal.x = opVal.x / xNorm ;
 	opVal.y = opVal.y / yNorm ;
