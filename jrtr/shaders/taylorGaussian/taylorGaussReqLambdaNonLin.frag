@@ -423,9 +423,9 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 	float lower_v = N_v.x* pow(10.0, -9.0);
 	float upper_v = N_v.y* pow(10.0, -9.0);
 	float diff = upper_u - lower_u;
-	float N_u_step = (upper_u - lower_u)/5.0;
-	N_u_step = abs(N_u_step);
-	N_u_step = 1.0;
+	
+//	N_u_step = abs(N_u_step);
+//	N_u_step = 0.01;
 	float upperbound_u = 0.0;
 	float lowerbound_u = 0.0;
 	float upperbound_v = 0.0;
@@ -448,21 +448,22 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 		lowerbound_v = -upper_v;
 		upperbound_v = -lower_v;
 	}
-	
-	
+	float N_u_step = (upperbound_u - lowerbound_u);
+	N_u_step = abs(N_u_step);
+	N_u_step = 0.1;
 	
 	for(float N_u = lowerbound_u; N_u <= upperbound_u; N_u = N_u + N_u_step){
 		if(abs(N_u) < pow(10.0, -20.0)){
 			continue;
 		}
 		
-		float lVal = ((dimX*abs(uu))/N_u);
+		float lVal = ((dimX*(uu))/N_u);
 		
 		if(lVal < 380.0 && lVal > 780.0){
 			continue;
 		}
 		
-		vec4 clrFn = getClrMatchingFnWeights(lVal);
+		vec4 clrFn = getClrMatchingFnWeights(lVal*pow(10.0, 9.0));
 		
 		float specV = clrFn.w;	
 		xNorm = xNorm + specV*clrFn.x;
@@ -615,16 +616,37 @@ void main(){
 	float col = 0.1;
 	vec3 xyz = vec3(col,col,col);
 	
-	if(abs(lowerbound_u) < 0.001){
+	if(abs(lowerbound_u) < 0.0000001){
 		lowerbound_u = 1.0;
 	}
 	
-	float lVal = ((dimX*abs(uu))/upperbound_u);
-
-	if(lVal >= 380.0 && lVal <= 780.0){
-		xyz = vec3(1.0,0,0);
+	if(abs(upperbound_u) < 0.0000001){
+		upperbound_u = 1.0;
 	}
 	
+	float lVal = ((dimX*(uu))/upperbound_u);
+	float lVal_max = ((dimX*(uu))/lowerbound_u);
+
+//	if(lVal >= 380.0 && lVal <= 780.0){
+//		xyz = vec3(1.0,0,0);
+//	}
+	
+	lVal = abs(lVal);
+	
+	
+//	if(lVal > 0.0){
+//		if(lVal >= 380.0 && lVal <= 780.0){
+//			if((lVal_max-lVal) > 300.0){
+//				xyz = vec3(0.0,0.0,1.0);
+//			}else{
+//				xyz = vec3(0.0,1.0,0);
+//			}
+//			
+//		}else{
+//			xyz = vec3(1.0,0,0);
+//		}
+//		
+//	}
 	
 	
 	frag_shaded = vec4(gammaCorrect(totalXYZ,2.2), 1.0);
