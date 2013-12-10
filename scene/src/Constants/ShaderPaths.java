@@ -15,7 +15,7 @@ public enum ShaderPaths {
 //	tg_Frag("../jrtr/shaders/taylorGaussian/taylorGaussianAllLambda.frag"),
 //	tg_Frag("../jrtr/shaders/taylorGaussian/taylorPQAllLambda.frag"),
 //	tg_Frag("../jrtr/shaders/taylorGaussian/taylorGaussReqLambda.frag"),
-	tg_Frag("../jrtr/shaders/taylorGaussian/taylorGaussReqLambdaNonLin"),
+	tg_Frag("../jrtr/shaders/taylorGaussian/taylorGaussReqLambdaNonLin.frag"),
 	 
 	
 	// debug
