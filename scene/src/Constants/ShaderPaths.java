@@ -14,7 +14,9 @@ public enum ShaderPaths {
 	tg_Vert("../jrtr/shaders/taylorGaussian/diffractionVPrecomp.vert"),
 //	tg_Frag("../jrtr/shaders/taylorGaussian/taylorGaussianAllLambda.frag"),
 //	tg_Frag("../jrtr/shaders/taylorGaussian/taylorPQAllLambda.frag"),
-	tg_Frag("../jrtr/shaders/taylorGaussian/taylorGaussReqLambda.frag"),
+//	tg_Frag("../jrtr/shaders/taylorGaussian/taylorGaussReqLambda.frag"),
+	tg_Frag("../jrtr/shaders/taylorGaussian/taylorGaussReqLambdaNonLin"),
+	 
 	
 	// debug
 	specular_Vert("../jrtr/shaders/debug/full_specular.vert"),
