@@ -53,9 +53,19 @@ where L is radiance, or power per unit solid-angle-in-the-direction-of-a-ray per
 
 The reason the function is defined as a quotient of two differentials and not directly as a quotient between the undifferentiated quantities, is because other irradiating light than $\operatorname dE_{\text{i}}(\omega_{\text{i}})$, which are of no interest for $f_{\text{r}}(\omega_{\text{i}},\, \omega_{\text{r}})$, might illuminate the surface which would unintentionally affect $L_{\text{r}}(\omega_{\text{r}})$, whereas $\operatorname dL_{\text{r}}(\omega_{\text{r}})$ is only affected by $\operatorname dE_{\text{i}}(\omega_{\text{i}})$.
 
+\subsubsection{Taylor Series}
+Taylor series is a representation of a function as an infinite sum of terms that are calculated from the values of the function's derivatives at a single point.
+
+The Taylor series of a real or complex-valued function ƒ(x) that is infinitely differentiable at a real or complex number a is the power series:
+\begin{equation}
+  \mathcal T(f;a)(x) = \sum_{n=0}^{\infty} \frac{f^{n}(a)}{n!}(x-a)^n
+\end{equation}
+
 
 \subsubsection{The Effect Of Diffraction}
++ mention frauenhofer diffraction, fresnel diffraction?
 \subsubsection{BRDF - Spectral Rendering}
+In Computer Graphics, spectral rendering is where a scene's light transport is modeled considering the whole span of wavelengths instead of R,G,B values (still relating on geometric optic, which ignore wave phase). The motivation is that real colors of the physical world are spectrum; trichromatic colors are only inherent to Human Visual System.
 
 \subsection{Derivations}
 \subsubsection{Taylor Series Approximation}
