@@ -1,10 +1,11 @@
-\section{Definitions}
+\section{Theoretical Background}
+\subsection{Definitions}
 
-\subsection{Signal}
+\subsubsection{Signal}
 A signal is a function that conveys information about the behavior or attributes of some phenomenon.
 In the physical world, any quantity exhibiting variation in time or variation in space (such as an image) is potentially a signal that might provide information on the status of a physical system, or convey a message between observers
 
-\subsection{Fourier Transformation}
+\subsubsection{Fourier Transformation}
 The Fourier-Transform is a mathematical tool which allows to transform a given function or rather a given signal from defined over a time- (or spatial-) domain into its corresponding frequency-domain.
  
 Let $f$ an measurable function over $\mathcal{R}^n$. Then, the coninious Fourier Transformation, denoted as FT, $\mathcal{F}\{t\}$ of $f$ is defined as, ignoring all constant factors in the formula:
@@ -31,7 +32,7 @@ we can further discretize the frequency domain and will get then the discrete fo
 \end{equation}
 Where the angular frequency $w_n$ is defined like the following $w_n = \frac{2\pi n}{N}$ and N is the number of samples within an equidistant periode sampling.
 
-\subsection{Convolution}
+\subsubsection{Convolution}
 
 \begin{equation}
   \mathcal (f*g)(t) = \int_{\mathcal{R}^n} f(t)g(t-x) dx
@@ -39,7 +40,7 @@ Where the angular frequency $w_n$ is defined like the following $w_n = \frac{2\p
 
 Note that the Fourier transform of the convolution of two functions is the product of their Fourier transforms. This is equivalent to the fact that Convolution in spatial domain is equivalent to multiplication in frequency domain. Therefore, the inverse Fourier transform of the product of two Fourier transforms is the convolution of the two inverse Fourier transforms
 
-\subsection{BRDF}
+\subsubsection{BRDF}
 The bidirectional reflectance distribution function, in short BRDF, denoted as $f_r(w_i, w_r)$ is a four dimensional function that defines how light is reflected at an opaque surface. The function takes a negative incoming light direction, $\omega_{\text{i}}$, and outgoing direction, $\omega_{\text{r}}$, both defined with respect to the surface normal $\mathbf{n}$ and returns the ratio of reflected radiance exiting along $\omega_{\text{r}}$ to the irradiance incident on the surface from direction $\omega_{\text{i}}$
   
 \begin{align}
@@ -52,88 +53,12 @@ where L is radiance, or power per unit solid-angle-in-the-direction-of-a-ray per
 
 The reason the function is defined as a quotient of two differentials and not directly as a quotient between the undifferentiated quantities, is because other irradiating light than $\operatorname dE_{\text{i}}(\omega_{\text{i}})$, which are of no interest for $f_{\text{r}}(\omega_{\text{i}},\, \omega_{\text{r}})$, might illuminate the surface which would unintentionally affect $L_{\text{r}}(\omega_{\text{r}})$, whereas $\operatorname dL_{\text{r}}(\omega_{\text{r}})$ is only affected by $\operatorname dE_{\text{i}}(\omega_{\text{i}})$.
 
-\section{Theoretical Background}
-Explain that this thesis has deep theoretical background, some derivations
-show derivation roadmap
-\subsection{The Effect Of Diffraction}
 
-\subsection{BRDF - Spectral Rendering}
+\subsubsection{The Effect Of Diffraction}
+\subsubsection{BRDF - Spectral Rendering}
 
-\subsection{Stams derivation}
-
-In his Paper Diffraction Shader, Jos Stam derives a BRDF which modeling the effect of diffraction for various analytical anistropic reflaction models using the scalar Kirchof theory and the theory of random processes. By emplyong the so called wave theory of diffraction [source 5 in stams paper] in which a wave is assumed to be a complex valued scalar. It's noteworthy, that stam's BRDF formulation does not take into account the polarization of the light. Nevertheless, light sources like sunlight and light bulbs are unpilarizaed. In our simulations we will always assume we have given i directional light source, i.e. sunlight. Hence, we can use stam's model for our derivations
-
-A further assumption in Stam's Paper is, the emanated waves from the source are stationary - sunlight once again.
-Which implies the wave is a superposition of independent monochromatic waves. This implies that each wave is associated to a definite wavelangth lambda.
-
-Mention Helmolth equation, which has the solution $k = \frac{2\pi}{\lambda}$ which is the wavenumber
-
-Stams starts his derviations by above's assumptions and by applying the Kirchhoff integral, which descirbes the reflected field and the Huygen's principle, which states, when somebody knows the wavefront at a given moment, the wave at a later time can be deducted by considering each point on the first wave as the source of a new disturbance.
-
-\begin{equation}
-  \psi_2 = \frac{i k e^{i K R}}{4 \pi R}(F\mathbf{v}-\mathbf{p}) \cdot \int_{S} \hat{\mathbf{n}} e^{ik\mathbf{v} \cdot \mathbf{s} d\mathbf{s}}
-\end{equation}
-
-
-In optics, when dealing with scattered waves, one does use differential scattering cross-section rather than a BRDF which has the following identitiy: 
-
-\begin{equation}
-    \sigma^0 = 4 \pi \lim_{R \to \infty} R^2 \frac{\langle \left|\psi_2\right|^2\rangle}{\langle \left|\psi_1\right|^2\rangle}
-\end{equation}
-
-Relationship between the BRDF and the scattering cross section is the follwing:
-
-\begin{equation}
-    BRDF = \frac{1}{4\pi}\frac{1}{A}\frac{\sigma^0}{cos(\theta_1)cos(\theta_2)}
-\end{equation}
-
-Wheras $\theta_1a$ and $\theta_2$ are the angles that the vectors $\hat{k_1}$
-and $\hat{k_2}$ make with the vertical direction.
- 
-ADD FIGURE for k1, k2
-
-where R is the disance from the center of the patch to the receiving point $x_p$, $\hat{\mathbf{n}}$ is the normal of the surface at s and the vectors:
-
-\begin{equation*}
-    \mathbf{v} = \hat{\mathbf{k_1}} - \hat{\mathbf{k_1}}
-               = (u,v,w)
-\end{equation*}
-
-\begin{equation*}
-    \mathbf{p} = \hat{\mathbf{k_1}} + \hat{\mathbf{k_1}}
-\end{equation*}
-
-During his derivations, Stam provides a analytical representation for the Kirchhoff integral by using his assumptions. He restricts himself to the reflaction of waves from height fields $h(x,y)$ with the assumption that the surface is defined as an elevation over the (x,y) plane using the surface plane approximation.
-Which will lead him to the follwoing identity for the Kirchhoff integral
-
-\begin{equation}
-    \mathbf{I}(ku, kv) = \int \int \frac{1}{ikw}(-p_x, -p_y, ikwp) 
-\end{equation}
-
-wheras 
-
-\begin{equation}
-    p(x,y) = e^{ikwh(x,y)}
-\end{equation}
-
-We the observation that the integral is a Fourier transform by $-iku$ and $-ikv$
-which will lead us to his final derivation, using the identity of BRDF, and computing the limes:
-
-\begin{equation}
-    BRDF = \frac{k^2 F^2 G}{4\pi^2 A w^2} \langle \left|P(ku, kv)\right|^2\rangle
-\end{equation}
-
-Where 
-
-\begin{equation}
-    G = \frac{(1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})^2}{cos(\theta_1)cos(\theta_2)}
-\end{equation}
-
-and P(x,y) is the Fourier transform of the function p(x,y) from above.
-
-This identitiy for the BRDF is the starting point for our derivations.
- 
-\subsection{Taylor Series Approximation}
+\subsection{Derivations}
+\subsubsection{Taylor Series Approximation}
 
 Based on J. Stam's Paper about Diffraction shaders we will show that
 there is an approximation of his equation (5), \textbf{p(x,y)}, for
@@ -262,7 +187,7 @@ our discussion.
 
 
 
-\subsection{Our derivations}
+\subsubsection{Our derivations}
 
 EXPLAIN: Why do we want a formulation for $L_{\lambda}(w_r)$ in some words. what does it represent?
 
@@ -395,7 +320,7 @@ X
 
 Where we used the definition $S_x(\lambda)\overline{x}(\lambda)$ in the last step.
 
-\subsection{Taylour approximation for BRDF}
+\subsubsection{Taylour approximation for BRDF}
 Using $P_{dtft} = \mathcal{F}^{-1}\{p\}(u,v)$ definied in the section of the taylor approximationwe get for the tristumulus value X, we will get:
 
 \begin{align*}
@@ -405,7 +330,7 @@ X
 \end{align*}
 
 
-\subsection{Sampling: Gaussian Window}
+\subsubsection{Sampling: Gaussian Window}
 
 
 Let $window_g$ denote the gaussian window with $4\sigma_s$ $\mu m$ where $\sigma_f = \frac{1}{2\pi\sigma_s}$
@@ -427,7 +352,7 @@ Therefore we can deduce the following expression from this:
 
 where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$
 
-\subsection{Aplitude smooting}
+\subsubsection{Aplitude smooting}
 Let us consider the so called 1-dimensional Box-function with length $T$ which is defined as the following: 
 ADD AN IMAGE OF BOXFUNCTION
 
@@ -556,7 +481,7 @@ Let us again us again a Box-function, this time a 2-dimensional Box-function $Bo
 
 Where we define $p := (p_1 p_2 - q_1 q_2) $ and $q := (p_1 p_2 + q_1 q_2)$. For this identity we used green's integration rule which allowed us to split the double integral to the product of two single integrations. Also, we used the definition of the 2-dimensional inverse Fourer transform of the Box-function. We applied the same substituation like we did in for the 1 dimensional case, but this time twice, once for each variable seperately. The last step, substituting with $p$ and $q$ will be useful later in the implementation. The insight should be, that the product of two complex numbers is again a complex number. We will have to compute the absolute value of $\mathcal{F}^{-1}\{f\}(w_1,w_2)$ which will then be equal $(p^2 + q^2)^{\frac{1}{2}}\left|\mathcal{F}^{-1}\{Box\}(w_1,w_2)\right|$
 
-\subsection{Final Expression}
+\subsubsection{Final Expression}
 As the last step of our series of derivations, we plug all our findings together to one big equation in order to compute the colors in the $CIE_XYZ$ colorspace:
 
 For a given heigh-field $h(x,y)$, representing a small patch of the nano-structure of our surface, the resulting $CIE_XYZ$ caused by the effect of diffraction can be computed like the following: 
