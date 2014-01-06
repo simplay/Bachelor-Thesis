@@ -188,15 +188,6 @@ we will reduce the error bound to the dimension of $10^{-11}$.
 \textbf{NB}: More explanation about how the shader itself works during
 our discussion.
 
-
-\subsubsection{Sources}
-\begin{itemize}
-\item \textbf{{[}1{]}} http://en.wikipedia.org/wiki/Ratio\_test
-\item \textbf{{[}2{]}} http://math.jasonbhill.com/courses/fall-2010-math-2300-005/lectures/taylor-polynomial-error-bounds\end{itemize}
-
-
-
-
 \subsubsection{Our derivations}
 
 EXPLAIN: Why do we want a formulation for $L_{\lambda}(w_r)$ in some words. what does it represent?
@@ -496,12 +487,15 @@ As the last step of our series of derivations, we plug all our findings together
 
 For a given heigh-field $h(x,y)$, representing a small patch of the nano-structure of our surface, the resulting $CIE_XYZ$ caused by the effect of diffraction can be computed like the following: 
 
+Let $P(u,v,\lambda) = {F}_{fft}^{-1}\{i^n h^n\}(\frac{2\pi u}{\lambda},\frac{2\pi v}{\lambda})$
+
 \begin{equation}
 \begin{split}
-\colvec[X]{X}{Z}& = C(w_i,w_r) \int_{\lambda} \sum_r \sum_s (p(r,s;T)^2 + q(r,s;T)^2)^{\frac{1}{2}} \\
-& \quad \sum_{n=0}^N  \frac{(wk)^n}{n!} \left| {F}_{fft}^{-1}\{i^n h^n\}(\frac{2\pi u}{\lambda},\frac{2\pi v}{\lambda})\right|^2 \phi(u-w_r, v-w_s) \colvec[S_x(\lambda)]{S_y(\lambda)}{S_z(\lambda)}d\lambda
+\colvec[X]{X}{Z}& = C(w_i,w_r) \int_{\lambda} \sum_{n=0}^N  \frac{(wk)^n}{n!} \sum_r \sum_s \left| P(u-w_r,v-w_s,\lambda) \right|^2 \\
+& \quad \quad  \phi(u-w_r, v-w_s) \colvec[S_x(\lambda)]{S_y(\lambda)}{S_z(\lambda)}d\lambda
 \end{split}
 \end{equation}
 
-where $(p(r,s;T)^2 + q(r,s;T)^2)^{\frac{1}{2}}$ represents the phaser, $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the gaussian window, $\colvec[S_x(\lambda)]{S_y(\lambda)}{S_z(\lambda)}$.
+where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the gaussian window.
+where $w_s$ and $w_r$ are ... explain them
 
