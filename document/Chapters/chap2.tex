@@ -39,8 +39,18 @@ Where the angular frequency $w_n$ is defined like the following $w_n = \frac{2\p
 
 Note that the Fourier transform of the convolution of two functions is the product of their Fourier transforms. This is equivalent to the fact that Convolution in spatial domain is equivalent to multiplication in frequency domain. Therefore, the inverse Fourier transform of the product of two Fourier transforms is the convolution of the two inverse Fourier transforms
 
-+ signals
-+ brdf
+\subsection{BRDF}
+The bidirectional reflectance distribution function, in short BRDF, denoted as $f_r(w_i, w_r)$ is a four dimensional function that defines how light is reflected at an opaque surface. The function takes a negative incoming light direction, $\omega_{\text{i}}$, and outgoing direction, $\omega_{\text{r}}$, both defined with respect to the surface normal $\mathbf{n}$ and returns the ratio of reflected radiance exiting along $\omega_{\text{r}}$ to the irradiance incident on the surface from direction $\omega_{\text{i}}$
+  
+\begin{align}
+  f_r(w_i, w_r)
+  & = \frac{dL_r(w_r)}{dE_i(w_i)} \\
+  & = \frac{dL_r(w_r)}{L_i(w_i)cos(\theta_i)dw_i}
+\end{align}
+
+where L is radiance, or power per unit solid-angle-in-the-direction-of-a-ray per unit projected-area-perpendicular-to-the-ray, E is irradiance, or power per unit surface area, and $\theta_{\text{i}}$ is the angle between $\omega_{\text{i}}$ and the surface normal, $\mathbf n$. The index $\text{i}$ indicates incident light, whereas the index $\text{r}$ indicates reflected light.
+
+The reason the function is defined as a quotient of two differentials and not directly as a quotient between the undifferentiated quantities, is because other irradiating light than $\operatorname dE_{\text{i}}(\omega_{\text{i}})$, which are of no interest for $f_{\text{r}}(\omega_{\text{i}},\, \omega_{\text{r}})$, might illuminate the surface which would unintentionally affect $L_{\text{r}}(\omega_{\text{r}})$, whereas $\operatorname dL_{\text{r}}(\omega_{\text{r}})$ is only affected by $\operatorname dE_{\text{i}}(\omega_{\text{i}})$.
 
 \section{Theoretical Background}
 Explain that this thesis has deep theoretical background, some derivations
