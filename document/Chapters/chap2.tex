@@ -1,21 +1,46 @@
 \section{Definitions}
+
+\subsection{Signal}
+A signal is a function that conveys information about the behavior or attributes of some phenomenon.
+In the physical world, any quantity exhibiting variation in time or variation in space (such as an image) is potentially a signal that might provide information on the status of a physical system, or convey a message between observers
+
 \subsection{Fourier Transformation}
 The Fourier-Transform is a mathematical tool which allows to transform a given function or rather a given signal from defined over a time- (or spatial-) domain into its corresponding frequency-domain.
  
-Let $f$ an measurable function over $\mathcal{R}^n$. Then, the coninious Fourier Transformation, denoted as FT, $\mathcal{F}\{t\}$ of $f$ is defined as:
+Let $f$ an measurable function over $\mathcal{R}^n$. Then, the coninious Fourier Transformation, denoted as FT, $\mathcal{F}\{t\}$ of $f$ is defined as, ignoring all constant factors in the formula:
  
 \begin{equation}
-  \mathcal{F}\{t\} = \frac{1}{(2\pi)^\frac{n}{2}}\int_{\mathcal{R}^n} f(x)e^{-itx}dx
+  \mathcal{F}\{w\}_{FT} = \int_{\mathcal{R}^n} f(x)e^{-iwt} dt
 \end{equation}
 
-whereas its inverse transform is defined like the following:
+whereas its inverse transform is defined like the following which allows us to obtain back the original signal:
 
 \begin{equation}
-  \mathcal{F}\{t\}^-1 = \frac{1}{(2\pi)^\frac{n}{2}}\int_{\mathcal{R}^n} \mathcal{F}\{t\}e^{itx}dx
+  \mathcal{F}\{w\}^{-1}_{FT} = \int_{\mathcal{R}^n} \mathcal{F}\{w\}e^{iwt} dt
 \end{equation}
 
-properties
+By using fourier analysis, which is the approach to approximate any function by sums of simpler trigonometric functions, we gain the so called discrete time fourier transform (in short DTFT). The DTFT operates on a discrete function. Usually, such an input function is often created by diitally sampling a continius function. The DTFT itself is operation on a discretized signal on a continious, periodic frequency domain and looks like the following:
 
+\begin{equation}
+  \mathcal{F}\{w\}_{DFT} = \sum_{-\infty}^{\infty} f(x) e^(-iwk)
+\end{equation}
+
+we can further discretize the frequency domain and will get then the discrete fourier transformation (in short DFT) of the input signal:
+\begin{equation}
+  \mathcal{F}\{w\}_{DFT} = \sum_{n=0}^{N-1} f(x) e^(-iw_{n}k)
+\end{equation}
+Where the angular frequency $w_n$ is defined like the following $w_n = \frac{2\pi n}{N}$ and N is the number of samples within an equidistant periode sampling.
+
+\subsection{Convolution}
+
+\begin{equation}
+  \mathcal (f*g)(t) = \int_{\mathcal{R}^n} f(t)g(t-x) dx
+\end{equation}
+
+Note that the Fourier transform of the convolution of two functions is the product of their Fourier transforms. This is equivalent to the fact that Convolution in spatial domain is equivalent to multiplication in frequency domain. Therefore, the inverse Fourier transform of the product of two Fourier transforms is the convolution of the two inverse Fourier transforms
+
++ signals
++ brdf
 
 \section{Theoretical Background}
 Explain that this thesis has deep theoretical background, some derivations
@@ -26,7 +51,7 @@ show derivation roadmap
 
 \subsection{Stams derivation}
 
-In his Paper Diffraction Shader, Jos Stam derives a an BRDF modeling the effect of diffraction for various analytical anistropic reflaction models using the scalar Kirchof theory and the theory of random processes. By emplyong the so called wave theory of diffraction [source 5 in stams paper] in which a wave is assumed to be a complex valued scalar. It's noteworthy, that stam's BRDF formulation does not take into account the polarization of the light. Nevertheless, light sources like sunlight and light bulbs are unpilarizaed. In our simulations we will always assume we have given i directional light source, i.e. sunlight. Hence, we can use stam's model for our derivations
+In his Paper Diffraction Shader, Jos Stam derives a BRDF which modeling the effect of diffraction for various analytical anistropic reflaction models using the scalar Kirchof theory and the theory of random processes. By emplyong the so called wave theory of diffraction [source 5 in stams paper] in which a wave is assumed to be a complex valued scalar. It's noteworthy, that stam's BRDF formulation does not take into account the polarization of the light. Nevertheless, light sources like sunlight and light bulbs are unpilarizaed. In our simulations we will always assume we have given i directional light source, i.e. sunlight. Hence, we can use stam's model for our derivations
 
 A further assumption in Stam's Paper is, the emanated waves from the source are stationary - sunlight once again.
 Which implies the wave is a superposition of independent monochromatic waves. This implies that each wave is associated to a definite wavelangth lambda.

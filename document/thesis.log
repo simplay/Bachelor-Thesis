@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  5 JAN 2014 18:21
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  6 JAN 2014 16:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -662,49 +662,49 @@ Overfull \hbox (7.17633pt too wide) in paragraph at lines 15--16
 
 
 
-] [8]
-Overfull \hbox (4.99992pt too wide) in paragraph at lines 108--117
+] [8] [9]
+Overfull \hbox (4.99992pt too wide) in paragraph at lines 138--147
 \EU1/lmr/m/n/12 heightfield. Also given the definition $\OML/zplm/m/it/12 e[] \
 OT1/zplm/m/n/12 = \OT1/ppl/m/n/12 1 \OT1/zplm/m/n/12 + \OML/zplm/m/it/12 y \OT1
 /zplm/m/n/12 + [] + [] + \OT1/ppl/m/n/12 ... \OT1/zplm/m/n/12 = [][] []$\EU1/lm
 r/m/n/12 where
  []
 
-[9]
-Overfull \hbox (34.58472pt too wide) in paragraph at lines 121--123
+[10]
+Overfull \hbox (34.58472pt too wide) in paragraph at lines 151--153
 \EU1/lmr/m/n/12 Let us now compute the Fourier Transformation of p(x,y) form ab
 ove:$\OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 u\OT1/ppl/m/n/12
  , \OML/zplm/m/it/12 v\OT1/zplm/m/n/12 ) =
  []
 
 
-Overfull \hbox (57.9757pt too wide) in paragraph at lines 121--123
+Overfull \hbox (57.9757pt too wide) in paragraph at lines 151--153
 \OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 =[] [][] \OMS/zplm/m/n/12 F [] \OT1/zplm
 /m/n/12 = [][] []\OMS/zplm/m/n/12 F []$\EU1/lmr/m/n/12 .
  []
 
-LaTeX Font Info:    Try loading font information for U+fplmbb on input line 132
+LaTeX Font Info:    Try loading font information for U+fplmbb on input line 162
 .
 (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
 )
-Overfull \hbox (13.64314pt too wide) in paragraph at lines 143--146
+Overfull \hbox (13.64314pt too wide) in paragraph at lines 173--176
 \EU1/lmr/m/n/12 By the \EU1/lmr/bx/n/12 ratio test \EU1/lmr/m/n/12 (see \EU1/lm
 r/bx/n/12 [1]\EU1/lmr/m/n/12 ) we can show that the series $[][] []\OMS/zplm/m/
 n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 ^^K\OT1/ppl/m/n/12 , \OML/zplm/m/
 it/12 ^^L\OT1/zplm/m/n/12 )$
  []
 
-
-Overfull \hbox (16.77995pt too wide) in paragraph at lines 157--173
+[11]
+Overfull \hbox (16.77995pt too wide) in paragraph at lines 187--203
 \EU1/lmr/m/n/12 Let $\OML/zplm/m/it/12 f\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 x\O
 T1/zplm/m/n/12 ) = \OML/zplm/m/it/12 e[]$\EU1/lmr/m/n/12 . We can formulate its
  Taylor-Series, stated above. Let $\OML/zplm/m/it/12 P[]\OT1/zplm/m/n/12 (\OML/
 zplm/m/it/12 x\OT1/zplm/m/n/12 )$\EU1/lmr/m/n/12 denote
  []
 
-[10]
-Overfull \hbox (8.84169pt too wide) in paragraph at lines 188--197
+
+Overfull \hbox (8.84169pt too wide) in paragraph at lines 218--227
 []\EU1/lmr/m/n/12 Hence $\OML/zplm/m/it/12 x[] \OT1/zplm/m/n/12 = \OMS/zplm/m/n
 /12 j\OML/zplm/m/it/12 i\OMS/zplm/m/n/12 j ^^C \OML/zplm/m/it/12 k[] \OMS/zplm/
 m/n/12 ^^C \OML/zplm/m/it/12 w[] \OMS/zplm/m/n/12 ^^C \OML/zplm/m/it/12 h[] \OT
@@ -713,53 +713,53 @@ m/n/12 ^^C \OML/zplm/m/it/12 w[] \OMS/zplm/m/n/12 ^^C \OML/zplm/m/it/12 h[] \OT
 2 2 \OMS/zplm/m/n/12 ^^C \OT1/zplm/m/n/12 ([]) \OMS/zplm/m/n/12 ^^C
  []
 
-[11]
-Overfull \hbox (52.8627pt too wide) in paragraph at lines 220--220
+[12]
+Overfull \hbox (52.8627pt too wide) in paragraph at lines 250--250
 [] []\EU1/lmr/bx/n/12 [2] \EU1/lmr/m/n/12 http://math.jasonbhill.com/courses/fa
 ll-2010-math-2300-005/lectures/taylor-
  []
 
-[12]
-Overfull \hbox (29.16502pt too wide) in paragraph at lines 271--271
+[13] [14]
+Overfull \hbox (29.16502pt too wide) in paragraph at lines 301--301
 [] 
  []
 
-[13] [14]
-Overfull \hbox (17.27238pt too wide) in paragraph at lines 318--319
+[15]
+Overfull \hbox (17.27238pt too wide) in paragraph at lines 348--349
 []\EU1/lmr/m/n/12 using the previous definition for the relative reflectance ra
 diance $\OML/zplm/m/it/12 ^^Z[]\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 w[]\OT1/ppl/
 m/n/12 , \OML/zplm/m/it/12 w[]\OT1/zplm/m/n/12 ) =
  []
 
-[15] [16]
-Overfull \hbox (98.11969pt too wide) in paragraph at lines 386--386
+[16] [17]
+Overfull \hbox (98.11969pt too wide) in paragraph at lines 416--416
 [] 
  []
 
-
-Overfull \hbox (1.98618pt too wide) in paragraph at lines 404--407
+[18]
+Overfull \hbox (1.98618pt too wide) in paragraph at lines 434--437
 []\EU1/lmr/m/n/12 We assume, that our given heighfield can be represented as a 
 2-dimensional
  []
 
 
-Overfull \hbox (13.64383pt too wide) in paragraph at lines 404--407
+Overfull \hbox (13.64383pt too wide) in paragraph at lines 434--437
 \EU1/lmr/m/n/12 box-function. Note that we can use any explicit given constrain
 ted 2-dimensional
  []
 
-[17] [18] [19] [20]
-Overfull \hbox (26.81639pt too wide) in paragraph at lines 515--515
+[19] [20] [21]
+Overfull \hbox (26.81639pt too wide) in paragraph at lines 545--545
 [] 
  []
 
-[21]
-Overfull \hbox (3.4283pt too wide) in paragraph at lines 529--529
+[22] [23]
+Overfull \hbox (3.4283pt too wide) in paragraph at lines 559--559
 [] 
  []
 
 
-Overfull \hbox (2.26305pt too wide) in paragraph at lines 531--532
+Overfull \hbox (2.26305pt too wide) in paragraph at lines 561--562
 []\EU1/lmr/m/n/12 where $\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 p\OT1/zplm/m/n/12 
 (\OML/zplm/m/it/12 r\OT1/ppl/m/n/12 , \OML/zplm/m/it/12 s\OT1/ppl/m/n/12 ; \OML
 /zplm/m/it/12 T\OT1/zplm/m/n/12 )[] + \OML/zplm/m/it/12 q\OT1/zplm/m/n/12 (\OML
@@ -769,32 +769,32 @@ Overfull \hbox (2.26305pt too wide) in paragraph at lines 531--532
 lm/m/it/12 y\OT1/zplm/m/n/12 ) = \OML/zplm/m/it/12 ^^Ye[]$
  []
 
-) [22]
+) [24]
 \openout2 = `Chapters/chap3.aux'.
 
- (./Chapters/chap3.tex [23
+ (./Chapters/chap3.tex [25
 
 
 
-] [24]) [25] [26]
+] [26]) [27] [28]
 \openout2 = `Chapters/chap4.aux'.
 
  (./Chapters/chap4.tex)
-[27
+[29
 
 
 
 ]
 \openout2 = `Chapters/chap5.aux'.
 
- (./Chapters/chap5.tex) [28
+ (./Chapters/chap5.tex) [30
 
 
 
 ]
 \openout2 = `Chapters/chap6.aux'.
 
- (./Chapters/chap6.tex) [29
+ (./Chapters/chap6.tex) [31
 
 
 
@@ -804,10 +804,10 @@ lm/m/it/12 y\OT1/zplm/m/n/12 ) = \OML/zplm/m/it/12 ^^Ye[]$
 Here is how much of TeX's memory you used:
  15990 strings out of 493938
  335496 string characters out of 6148857
- 340267 words of memory out of 5000000
+ 339267 words of memory out of 5000000
  19070 multiletter control sequences out of 15000+600000
  20322 words of font info for 81 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  46i,21n,30p,896b,294s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on thesis.pdf (29 pages).
+Output written on thesis.pdf (31 pages).
