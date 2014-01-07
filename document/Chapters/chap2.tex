@@ -332,6 +332,8 @@ X
 
 
 \subsubsection{Sampling: Gaussian Window}
+why this identity works:
+The DFT of a discrete heightfield patch is equivalent to the DTFT of an infinitely periodic function consisting of replicas of the same discrete patch. By windowing with a window function that is zero outside the central replica, the convolution of either the DFT or the DTFT of heightfield with the fourier transfrom of the window becomes equivalent.
 
 
 Let $window_g$ denote the gaussian window with $4\sigma_s$ $\mu m$ where $\sigma_f = \frac{1}{2\pi\sigma_s}$
