@@ -23,6 +23,52 @@ $BRDF_{\lambda}(w_i, w_r)$ is BRDF where wavelength $\lambda$ $w_i$ and $w_r$ ar
 $BRDF_{\lambda}(w_i, w_r) = \frac{F^2 G}{\lambda^2 A w^2}abs(P(\frac{u}{\lambda},\frac{v}{\lambda}))^2$ where F represents the Fresnel term, uv,v,w are derived from the incident and reflected directions as $(u,v,w) = -\omega_i - \omega_r$, abs(P) represents the expected valuess of a random variable X and A is an area of integration on the surface that is considered to contribute to diffraction, G is the geometry term which is $G = \frac{(1+w_r * w_i)^2}{cos(\theta_i)cos(\theta_r)}$
 
 
+reviewer summaries:
+
+rendering diffraction colors caused by coherent (as opposed to statistical) surface micro-geometry.  An algorithm
+for interactive rendering is proposed, based on precomputation of lookup
+tables containing the result of the spectral integration predicted by the
+model of Stam. The theory is applied to render diffraction caused by acquired
+geometric models of the microstructure of snake skin, so as to reproduce the
+irridescent effects displayed by these animals. Results are compared to the
+original model of Stam.
+
+PEWPEW
+
+Summary: The paper suggests an interactive rendering technique for diffraction effects of (biological) nano-structures. The results presented are for biological structures, in particular skin of very particular snake species, which immediately makes the paper feel marginal. After reading it, I feel it could go beyond biological structures, but no such results are presented.
+
+The results I see show some nice colors, but it is hard to say if what I see is correct by and means. The authors could have just provided some photo from some of those snakes showing the effect. But this is omitted. If the teaser was sowing this in an additional column it would be much better. I just put the species name on google and find dozens of images like http://www.jcmnaturalhistory.com/Images/XENOPELTIS2.jpg which really looks a lot like what is rendered. Do the authors assume the average EG attendees to know what a Xenopeltis looks like? I don't.
+
+Other applications could be interactive design of such nano structures (changing the bump map would require one or a couple of FFT or so, not more, I feel. It would be enough to do this interactive, as long as rendering is realtime). No mention of this either.
+
+From the technical side the solution reminds me a lot of polynomial texture maps, which also capture view dependent phenomena as polynomials in the view variable (for you $w$, Eq. 1). Your problem requires combination of FFT etc. but the trick is the same. I am still surprised to see dozens of terms (up to 40) in the series expansion. This would mean a very complicated function (or an unsuitable basis). Have you considered other ways of compressing this function, say Gaussian Mixtures or wavelets?
+
+The analysis in Sec. 6 sounds scientific, but a rendering of a snake and a photo of a snake would have convinced me more than any microscope and light beam.
+
+The comparison to the ground truth in Sec, 7 and the analysis of the approximation error is detailed and good.
+
+PEWPEW
+
+Summary: An algorithm and a representation for rendering diffraction BRDFs from measured nano-scale patterns are presented.
+The paper is based on the theoretical framework presented by Stam in Diffraction Shaders, SIGGRAPH99
+
+The author solve Stam's equation with the same Taylor expansion trick. Since they use measured surfaces instead of statistical surface profiles, they precompute and store in lookup tables what is no more analytically available compared to Stam's method.
+
+I think that the contribution of the paper is too trivial to justify an EG paper.
+Furthermore, the method lacks motivation. It is not shown why using Stam's method as an approximation would not be satisfying.
+Validation is also not satisfying since only the reference shader and the approximate shader are compared. If the purpose of the paper is to render diffraction patterns from measured data, it is important to provide comparisons with the diffraction patterns of the real-world samples.
+
+PEWPEW
+
+Summary: Pictures are produced from a previously published formula for the BRDF of a quasiperiodic nanostructure that can be represented as a heightfield. Whereas the previous work models the heightfield as a probabilistic superposition of bumps and proceeds to derive an analytical expression for the BRDF, this work actually takes the heightfield from measurement. Real time performance is achieved with a representation of the formula as a power series over a variable related to the viewing and lighting directions. Values closely related to the coefficients in that power series are precomputed.
+
+The contribution is that this approach is more broadly applicable than the previous work. Although the previously published formula theoretically has this much flexibility already, there is a novel contribution in demonstrating how such generality can be leveraged in practical implementation. The method applies to some biological structural colors, including that of snakeskin, which could not be rendered with the analytical expression from the previous work.
+
+
+
+
+
+
 $WIKI: http://en.wikipedia.org/wiki/Electromagnetic_radiation$
 
 Electromagnetic radiation (EM radiation or EMR) is one of the fundamental phenomena of electromagnetism, behaving as waves propagating through space, and also as photon particles traveling through space, carrying radiant energy.
