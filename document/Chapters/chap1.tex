@@ -17,6 +17,11 @@ the nanostructures we are interested in exhibits periodicity on the scale of wav
 => stam paper:
 under certain conditions formulate conventional BRDFs for such nanostructures. assumes surface is observed from a large enough distance and then uses the kirchoff integral 
 
+stam formulates for a hightfield auxilary function $p(x,y) = e^{iwkh(x,y)}$ where $w = -(cos(\theta_i)+cos(\theta_r))$ and $\theta_i$ and $\theta_r$ are the angles of incident and reflected directions with the surface normal (ADD picture) and the wavenumber $k=\frac{2\pi}{\lambda}$
+
+$BRDF_{\lambda}(w_i, w_r)$ is BRDF where wavelength $\lambda$ $w_i$ and $w_r$ are incident and reflected normalized directions vectors, pointing away from the given surface. Which can be written, using the fourier transform (FT) $P(u,v) = F(p)(u,v)$, as:
+$BRDF_{\lambda}(w_i, w_r) = \frac{F^2 G}{\lambda^2 A w^2}abs(P(\frac{u}{\lambda},\frac{v}{\lambda}))^2$ where F represents the Fresnel term, uv,v,w are derived from the incident and reflected directions as $(u,v,w) = -\omega_i - \omega_r$, abs(P) represents the expected valuess of a random variable X and A is an area of integration on the surface that is considered to contribute to diffraction, G is the geometry term which is $G = \frac{(1+w_r * w_i)^2}{cos(\theta_i)cos(\theta_r)}$
+
 
 $WIKI: http://en.wikipedia.org/wiki/Electromagnetic_radiation$
 
