@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  8 JAN 2014 22:13
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  9 JAN 2014 12:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -550,74 +550,77 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
 \symrsfs=\mathgroup7
 )
+(/usr/local/texlive/2013/texmf-dist/tex/latex/doublestroke/dsfont.sty
+Package: dsfont 1995/08/01 v0.1 Double stroke roman fonts
+)
 (./thesis.aux (./Chapters/chap1.aux) (./Chapters/chap2.aux)
 (./Chapters/chap3.aux) (./Chapters/chap4.aux) (./Chapters/chap5.aux)
 (./Chapters/chap6.aux))
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for EU1/lmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 19.
-LaTeX Font Info:    Try loading font information for T3+cmr on input line 19.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for EU1/lmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 20.
+LaTeX Font Info:    Try loading font information for T3+cmr on input line 20.
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/tipa/t3cmr.fd
 File: t3cmr.fd 2001/12/31 TIPA font definitions
 )
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Try loading font information for OT1+ppl on input line 23.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Try loading font information for OT1+ppl on input line 24.
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ot1ppl.fd
 File: ot1ppl.fd 2001/06/04 font definitions for OT1/ppl.
 )
-LaTeX Font Info:    Try loading font information for OML+zplm on input line 23.
+LaTeX Font Info:    Try loading font information for OML+zplm on input line 24.
 
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/omlzplm.fd
 File: omlzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OML/zplm.
 )
-LaTeX Font Info:    Try loading font information for OMS+zplm on input line 23.
+LaTeX Font Info:    Try loading font information for OMS+zplm on input line 24.
 
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/omszplm.fd
 File: omszplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMS/zplm.
 )
-LaTeX Font Info:    Try loading font information for OMX+zplm on input line 23.
+LaTeX Font Info:    Try loading font information for OMX+zplm on input line 24.
 
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/omxzplm.fd
 File: omxzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMX/zplm.
 )
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 15.0049pt on input line 23.
+(Font)              scaled to size 15.0049pt on input line 24.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 10.42007pt on input line 23.
+(Font)              scaled to size 10.42007pt on input line 24.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 8.33606pt on input line 23.
+(Font)              scaled to size 8.33606pt on input line 24.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 15.0049pt on input line 23.
+(Font)              scaled to size 15.0049pt on input line 24.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 10.42007pt on input line 23.
+(Font)              scaled to size 10.42007pt on input line 24.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 8.33606pt on input line 23.
-LaTeX Font Info:    Try loading font information for OT1+zplm on input line 23.
+(Font)              scaled to size 8.33606pt on input line 24.
+LaTeX Font Info:    Try loading font information for OT1+zplm on input line 24.
 
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ot1zplm.fd
 File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 23.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 24.
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
@@ -649,63 +652,57 @@ LaTeX Font Info:    Font shape `U/msb/m/n' will be
  (./Chapters/chap1.tex [4
 
 
-] [5] [6] [7] [8]) [9]
+] [5]) [6]
 \openout2 = `Chapters/chap2.aux'.
 
-
-(./Chapters/chap2.tex
+ (./Chapters/chap2.tex
 Overfull \hbox (7.17633pt too wide) in paragraph at lines 15--16
 []\EU1/lmr/m/n/12 In general, EM radiation (the designation $[]\OML/zplm/m/it/1
 2 radiation[]$ \EU1/lmr/m/n/12 excludes static electric
  []
 
-[10
+[7
 
 
 
-] [11] [12] [13]
-Overfull \hbox (4.99992pt too wide) in paragraph at lines 112--121
-\EU1/lmr/m/n/12 heightfield. Also given the definition $\OML/zplm/m/it/12 e[] \
-OT1/zplm/m/n/12 = \OT1/ppl/m/n/12 1 \OT1/zplm/m/n/12 + \OML/zplm/m/it/12 y \OT1
-/zplm/m/n/12 + [] + [] + \OT1/ppl/m/n/12 ... \OT1/zplm/m/n/12 = [][] []$\EU1/lm
-r/m/n/12 where
- []
-
-[14]
-Overfull \hbox (34.58472pt too wide) in paragraph at lines 125--127
-\EU1/lmr/m/n/12 Let us now compute the Fourier Transformation of p(x,y) form ab
-ove:$\OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 u\OT1/ppl/m/n/12
- , \OML/zplm/m/it/12 v\OT1/zplm/m/n/12 ) =
- []
-
-
-Overfull \hbox (57.9757pt too wide) in paragraph at lines 125--127
-\OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 =[] [][] \OMS/zplm/m/n/12 F [] \OT1/zplm
-/m/n/12 = [][] []\OMS/zplm/m/n/12 F []$\EU1/lmr/m/n/12 .
- []
-
-LaTeX Font Info:    Try loading font information for U+fplmbb on input line 136
-.
-(/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ufplmbb.fd
-File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
+] [8]
+LaTeX Font Info:    Try loading font information for U+dsrom on input line 49.
+ (/usr/local/texlive/2013/texmf-dist/tex/latex/doublestroke/Udsrom.fd
+File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
 )
-Overfull \hbox (13.64314pt too wide) in paragraph at lines 147--150
-\EU1/lmr/m/n/12 By the \EU1/lmr/bx/n/12 ratio test \EU1/lmr/m/n/12 (see \EU1/lm
-r/bx/n/12 [1]\EU1/lmr/m/n/12 ) we can show that the series $[][] []\OMS/zplm/m/
-n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 ^^K\OT1/ppl/m/n/12 , \OML/zplm/m/
-it/12 ^^L\OT1/zplm/m/n/12 )$
+[9] [10] [11] [12] [13] [14] [15]
+Overfull \hbox (29.16502pt too wide) in paragraph at lines 275--275
+[] 
+ []
+
+[16] [17]
+Overfull \hbox (17.27238pt too wide) in paragraph at lines 324--325
+[]\EU1/lmr/m/n/12 using the previous definition for the relative reflectance ra
+diance $\OML/zplm/m/it/12 ^^Z[]\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 w[]\OT1/ppl/
+m/n/12 , \OML/zplm/m/it/12 w[]\OT1/zplm/m/n/12 ) =
+ []
+
+[18]
+Overfull \hbox (61.78769pt too wide) in paragraph at lines 387--389
+\EU1/lmr/m/n/12 Transformation of p(x,y) form above:$\OMS/zplm/m/n/12 F [] \OT1
+/zplm/m/n/12 (\OML/zplm/m/it/12 u\OT1/ppl/m/n/12 , \OML/zplm/m/it/12 v\OT1/zplm
+/m/n/12 ) = \OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 =[]
  []
 
 
-Overfull \hbox (16.77995pt too wide) in paragraph at lines 161--177
-\EU1/lmr/m/n/12 Let $\OML/zplm/m/it/12 f\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 x\O
-T1/zplm/m/n/12 ) = \OML/zplm/m/it/12 e[]$\EU1/lmr/m/n/12 . We can formulate its
- Taylor-Series, stated above. Let $\OML/zplm/m/it/12 P[]\OT1/zplm/m/n/12 (\OML/
-zplm/m/it/12 x\OT1/zplm/m/n/12 )$\EU1/lmr/m/n/12 denote
+Overfull \hbox (6.94948pt too wide) in paragraph at lines 387--389
+[][] \OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 = [][] []\OMS/zplm/m/n/12 F []$\EU1
+/lmr/m/n/12 . Hence it follows: $\OML/zplm/m/it/12 P\OT1/zplm/m/n/12 (\OML/zplm
+/m/it/12 ^^K\OT1/ppl/m/n/12 , \OML/zplm/m/it/12 ^^L\OT1/zplm/m/n/12 ) =
  []
 
-[15]
-Overfull \hbox (8.84169pt too wide) in paragraph at lines 192--201
+[19]
+LaTeX Font Info:    Try loading font information for U+fplmbb on input line 398
+.
+ (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ufplmbb.fd
+File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
+) [20]
+Overfull \hbox (8.84169pt too wide) in paragraph at lines 453--462
 []\EU1/lmr/m/n/12 Hence $\OML/zplm/m/it/12 x[] \OT1/zplm/m/n/12 = \OMS/zplm/m/n
 /12 j\OML/zplm/m/it/12 i\OMS/zplm/m/n/12 j ^^C \OML/zplm/m/it/12 k[] \OMS/zplm/
 m/n/12 ^^C \OML/zplm/m/it/12 w[] \OMS/zplm/m/n/12 ^^C \OML/zplm/m/it/12 h[] \OT
@@ -714,59 +711,47 @@ m/n/12 ^^C \OML/zplm/m/it/12 w[] \OMS/zplm/m/n/12 ^^C \OML/zplm/m/it/12 h[] \OT
 2 2 \OMS/zplm/m/n/12 ^^C \OT1/zplm/m/n/12 ([]) \OMS/zplm/m/n/12 ^^C
  []
 
-[16] [17]
-Overfull \hbox (29.16502pt too wide) in paragraph at lines 266--266
+[21]
+Overfull \hbox (98.11969pt too wide) in paragraph at lines 508--508
 [] 
  []
 
-[18] [19]
-Overfull \hbox (17.27238pt too wide) in paragraph at lines 313--314
-[]\EU1/lmr/m/n/12 using the previous definition for the relative reflectance ra
-diance $\OML/zplm/m/it/12 ^^Z[]\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 w[]\OT1/ppl/
-m/n/12 , \OML/zplm/m/it/12 w[]\OT1/zplm/m/n/12 ) =
- []
-
-[20] [21]
-Overfull \hbox (98.11969pt too wide) in paragraph at lines 383--383
-[] 
- []
-
-
-Overfull \hbox (1.98618pt too wide) in paragraph at lines 401--404
+[22]
+Overfull \hbox (1.98618pt too wide) in paragraph at lines 526--529
 []\EU1/lmr/m/n/12 We assume, that our given heighfield can be represented as a 
 2-dimensional
  []
 
 
-Overfull \hbox (13.64383pt too wide) in paragraph at lines 401--404
+Overfull \hbox (13.64383pt too wide) in paragraph at lines 526--529
 \EU1/lmr/m/n/12 box-function. Note that we can use any explicit given constrain
 ted 2-dimensional
  []
 
-[22] [23] [24]
-Overfull \hbox (26.81639pt too wide) in paragraph at lines 512--512
+[23] [24] [25]
+Overfull \hbox (26.81639pt too wide) in paragraph at lines 637--637
 [] 
  []
 
-[25] [26]) [27]
+[26] [27]) [28]
 \openout2 = `Chapters/chap3.aux'.
 
- (./Chapters/chap3.tex [28
+ (./Chapters/chap3.tex [29
 
 
 
-] [29]) [30] [31]
+] [30]) [31] [32]
 \openout2 = `Chapters/chap4.aux'.
 
 
-(./Chapters/chap4.tex) [32
+(./Chapters/chap4.tex) [33
 
 
 
 ]
 \openout2 = `Chapters/chap5.aux'.
 
- (./Chapters/chap5.tex) [33
+ (./Chapters/chap5.tex) [34
 
 
 
@@ -779,7 +764,7 @@ Overfull \hbox (52.8627pt too wide) in paragraph at lines 13--13
 ll-2010-math-2300-005/lectures/taylor-
  []
 
-) [34
+) [35
 
 
 
@@ -787,12 +772,12 @@ ll-2010-math-2300-005/lectures/taylor-
 (./Chapters/chap3.aux) (./Chapters/chap4.aux) (./Chapters/chap5.aux)
 (./Chapters/chap6.aux)) ) 
 Here is how much of TeX's memory you used:
- 15996 strings out of 493938
- 335662 string characters out of 6148857
- 340267 words of memory out of 5000000
- 19072 multiletter control sequences out of 15000+600000
- 20338 words of font info for 83 fonts, out of 8000000 for 9000
+ 16020 strings out of 493938
+ 336204 string characters out of 6148857
+ 338391 words of memory out of 5000000
+ 19086 multiletter control sequences out of 15000+600000
+ 20626 words of font info for 86 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  46i,21n,30p,896b,294s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on thesis.pdf (34 pages).
+Output written on thesis.pdf (35 pages).

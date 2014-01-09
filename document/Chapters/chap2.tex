@@ -46,7 +46,7 @@ Let $f$ an measurable function over $\mathcal{R}^n$. Then, the coninious Fourier
 whereas its inverse transform is defined like the following which allows us to obtain back the original signal:
 
 \begin{equation}
-  \mathcal{F}\{w\}^{-1}_{FT} = \int_{\mathcal{R}^n} \mathcal{F}\{w\}e^{iwt} dt
+  \mathcal{F}\{w\}^{-1}_{FT} = \int_{\mathds{R}} \mathcal{F}\{w\}e^{iwt} dt
 \end{equation}
 
 By using fourier analysis, which is the approach to approximate any function by sums of simpler trigonometric functions, we gain the so called discrete time fourier transform (in short DTFT). The DTFT operates on a discrete function. Usually, such an input function is often created by diitally sampling a continius function. The DTFT itself is operation on a discretized signal on a continious, periodic frequency domain and looks like the following:
@@ -96,128 +96,137 @@ The Taylor series of a real or complex-valued function ƒ(x) that is infinitely 
 \subsubsection{BRDF - Spectral Rendering}
 In Computer Graphics, spectral rendering is where a scene's light transport is modeled considering the whole span of wavelengths instead of R,G,B values (still relating on geometric optic, which ignore wave phase). The motivation is that real colors of the physical world are spectrum; trichromatic colors are only inherent to Human Visual System.
 
+
+\subsubsection{Diffraction}
+
+
+\subsection{Thesis Basis}
+\subsubsection{Basis: J. Stam}
+--------
+stam employee scalar wave theory of diffraction - approximation the light wave is assumed to be a complex valued scalar disturbance $\Phi$
+Theory completely ignores the polarization of light, so its results are therefore restricted to unpolarized light but common light sources such as the sun and light bulbs are totally unpolarized
+
+also assume that the waves emanating from the source are stationary. means that the wave is a superposition of independent monochromatic waves and consequently we can restrict our analysis to a wave having a definite wavelength lambda associated with i
+
+GOAL
+main task in the theory of diffraction is to solve this wave equation for different geometries.
+we are interested in computing the reflected waves from various types of surfaces
+
+More precisely, we want to compute the wave $\Phi_2$ equal to the reflection of an incoming planar monochromatic wave $\phi_2 = e^{ik k_1 * x}$  traveling in the direction $k_1$ from a surface S.
+
+The equation relating the reflected field to the incoming field is known as the Kirchhoff integral. This equation is a formalization of Huygen’s well-known principle that states that if one knows the wavefront at a given moment, the wave at a later time can be deduced by considering each point on the first wave as the source of a new disturbance, i.e. once the field on the surface is known, the field everywhere else away from the surface can be computed. 
+
+which will result in $\phi_2 = \frac{ik e^{ikR}}{Fv - p}*\int_{S} n * e^{ik v * s} ds$ where x is the observing point, k2 is equal to the unit vector pointing from the origin of the surface towards the point x.
+
+ In this paper we will provide in every case the BRDF corresponding to our reflection model. In the applied optics literature, when dealing with scattered waves from a surface, one does not usually define the BRDF but rather the differential scattering cross-section $\sigma^0 = 4\pi limes R to \infty R^2 \frac{abs(\phi_2)^2}{abs(\phi_1)^2}$
+
+The relationship between the BRDF and the scattering cross section can be shown to be equal to $BRDF = \frac{1}{4 \pi A} * \frac{\sigma^0}{cos(\theta_1)cos(\theta_2)}$
+
+
+His derivation he shows that 
+In this section we demonstrate that the Kirchhoff integral of Equation 2 can be computed analyti- cally.
+we restrict ourselves to the reflection of waves from height fields. We assume that the surface is defined as an elevation over the xy-plane using fourier analyis he derives his equation 9 
+$BRDF_{\lambda}(w_i, w_r) = \frac{F^2 G}{\lambda^2 A w^2}abs(P(\frac{u}{\lambda},\frac{v}{\lambda}))^2$ 
+which is our starting point.
+
+------------------
+
+=> stam paper:
+under certain conditions formulate conventional BRDFs for such nanostructures. assumes surface is observed from a large enough distance and then uses the kirchoff integral 
+
+stam formulates for a hightfield auxilary function $p(x,y) = e^{iwkh(x,y)}$ where $w = -(cos(\theta_i)+cos(\theta_r))$ and $\theta_i$ and $\theta_r$ are the angles of incident and reflected directions with the surface normal (ADD picture) and the wavenumber $k=\frac{2\pi}{\lambda}$
+
+$BRDF_{\lambda}(w_i, w_r)$ is BRDF where wavelength $\lambda$ $w_i$ and $w_r$ are incident and reflected normalized directions vectors, pointing away from the given surface. Which can be written, using the fourier transform (FT) $P(u,v) = F(p)(u,v)$, as:
+$BRDF_{\lambda}(w_i, w_r) = \frac{F^2 G}{\lambda^2 A w^2}abs(P(\frac{u}{\lambda},\frac{v}{\lambda}))^2$ where F represents the Fresnel term, uv,v,w are derived from the incident and reflected directions as $(u,v,w) = -\omega_i - \omega_r$, abs(P) represents the expected valuess of a random variable X and A is an area of integration on the surface that is considered to contribute to diffraction, G is the geometry term which is $G = \frac{(1+w_r * w_i)^2}{cos(\theta_i)cos(\theta_r)}$
+
+
+\subsubsection{Stams derivation}
+
+abstract:
+before: most reflection models empirically or based on ray-theory of light.
+now: new reflection model based on wave theory modeling the effect of diffraction
+
+
+In his Paper Diffraction Shader, Jos Stam derives a BRDF which modeling the effect of diffraction for various analytical anistropic reflaction models using the scalar Kirchof theory and the theory of random processes. By emplyong the so called wave theory of diffraction [source 5 in stams paper] in which a wave is assumed to be a complex valued scalar. It's noteworthy, that stam's BRDF formulation does not take into account the polarization of the light. Fortunately, light sources like sunlight and light bulbs are unpilarizaed. In our simulations we will always assume we have given i directional light source, i.e. sunlight. Hence, we can use stam's model for our derivations
+
+A further assumption in Stam's Paper is, the emanated waves from the source are stationary - sunlight once again.
+Which implies the wave is a superposition of independent monochromatic waves. This implies that each wave is associated to a definite wavelangth lambda.
+
+Mention Helmolth equation, which has the solution $k = \frac{2\pi}{\lambda}$ which is the wavenumber
+
+Stams starts his derviations by above's assumptions and by applying the Kirchhoff integral, which descirbes the reflected field and the Huygen's principle, which states, when somebody knows the wavefront at a given moment, the wave at a later time can be deducted by considering each point on the first wave as the source of a new disturbance.
+
+\begin{equation}
+  \psi_2 = \frac{i k e^{i K R}}{4 \pi R}(F\mathbf{v}-\mathbf{p}) \cdot \int_{S} \hat{\mathbf{n}} e^{ik\mathbf{v} \cdot \mathbf{s} d\mathbf{s}}
+\end{equation}
+
+
+In optics, when dealing with scattered waves, one does use differential scattering cross-section rather than a BRDF which has the following identitiy: 
+
+\begin{equation}
+    \sigma^0 = 4 \pi \lim_{R \to \infty} R^2 \frac{\langle \left|\psi_2\right|^2\rangle}{\langle \left|\psi_1\right|^2\rangle}
+\end{equation}
+
+Relationship between the BRDF and the scattering cross section is the follwing:
+
+\begin{equation}
+    BRDF = \frac{1}{4\pi}\frac{1}{A}\frac{\sigma^0}{cos(\theta_1)cos(\theta_2)}
+\end{equation}
+
+Wheras $\theta_1a$ and $\theta_2$ are the angles that the vectors $\hat{k_1}$
+and $\hat{k_2}$ make with the vertical direction.
+ 
+ADD FIGURE for k1, k2
+
+where R is the disance from the center of the patch to the receiving point $x_p$, $\hat{\mathbf{n}}$ is the normal of the surface at s and the vectors:
+
+\begin{equation*}
+    \mathbf{v} = \hat{\mathbf{k_1}} - \hat{\mathbf{k_1}}
+               = (u,v,w)
+\end{equation*}
+
+\begin{equation*}
+    \mathbf{p} = \hat{\mathbf{k_1}} + \hat{\mathbf{k_1}}
+\end{equation*}
+
+During his derivations, Stam provides a analytical representation for the Kirchhoff integral by using his assumptions. He restricts himself to the reflaction of waves from height fields $h(x,y)$ with the assumption that the surface is defined as an elevation over the (x,y) plane using the surface plane approximation.
+Which will lead him to the follwoing identity for the Kirchhoff integral
+
+\begin{equation}
+    \mathbf{I}(ku, kv) = \int \int \frac{1}{ikw}(-p_x, -p_y, ikwp) 
+\end{equation}
+
+wheras 
+
+\begin{equation}
+    p(x,y) = e^{ikwh(x,y)}
+\end{equation}
+
+We the observation that the integral is a Fourier transform by $-iku$ and $-ikv$
+which will lead us to his final derivation, using the identity of BRDF, and computing the limes:
+
+\begin{equation}
+    BRDF = \frac{k^2 F^2 G}{4\pi^2 A w^2} \langle \left|P(ku, kv)\right|^2\rangle
+\end{equation}
+
+Where 
+
+\begin{equation}
+    G = \frac{(1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})^2}{cos(\theta_1)cos(\theta_2)}
+\end{equation}
+
+and P(x,y) is the Fourier transform of the function p(x,y) from above.
+
+This identitiy for the BRDF is the starting point for our derivations.
+
+
+
+
 \subsection{Derivations}
-\subsubsection{Taylor Series Approximation}
-
-Based on J. Stam's Paper about Diffraction shaders we will show that
-there is an approximation of his equation (5), \textbf{p(x,y)}, for
-a explicitly given heightfield \textbf{h(x,y)}. This approximation
-is achieved by using Taylor-Series and using this identity we will
-further be able to approximate the Fourier-Transformation of p(x,y),
-denoted as \textbf{P(u,v)}. Finally we will give an error bound for
-this approximation.
-
-\subsubsection{Taylor Series of p}
-
-Given $p(x,y)=e^{ikwh(x,y)}$form Stam's Paper where h(x,y) is here
-a given heightfield. Also given the definition $e^{y}=1+y+\frac{y^{2}}{2!}+\frac{y^{3}}{3!}+...=\sum_{n=0}^{\infty}\frac{y^{n}}{n!}$where
-y can be real or even complex valued - note this identity can either
-be derieved by power series or by Taylor-Series(using the derivatives
-of the exp-function and developing the Taylor-Series around the point
-a=0). Let us now set $y=ikwh(x,y)$where $i$ is the imaginary number.
-For simplification, let us denote h(x,y) as h. It follows by our previous
-stated identities: $e^{y}=1+(ikwh)+\frac{1}{2!}(ikwh)^{2}+\frac{1}{3!}(ikwh)^{3}+...=\sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}$.
-Hence it holds $p(x,y)=\sum_{n=0}^{\infty}\frac{(ikwh(x,y))^{n}}{n!}.$
 
 
-\subsubsection{Fourier Transformation of function p}
 
-Let us now compute the Fourier Transformation of p(x,y) form above:$\mathcal{F}\left\{ p\right\} (u,v)=\mathcal{F}\left\{ \sum_{n=0}^{\infty}\frac{(ikwh(x,y))^{n}}{n!}.\right\} =^{\mathcal{F}\, lin\, Operator}\sum_{n=0}^{\infty}\mathcal{F}\left\{ \frac{(ikwh(x,y))^{n}}{n!}\right\} =\sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h(x,y){}^{n}\right\} $.
-Hence it follows: $P(\alpha,\beta)=\sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$.
-
-\textbf{NB}: $\mathcal{F}\left\{ h{}^{n}\right\} (u,v)$ denotes the
-two dimensional Fourier Transformation of p(x,y) and can be nummerically
-computed by the two dimensional \textbf{DFT} or rather by the two
-dimensional \textbf{FFT} over h(x,y). 
-
-
-\subsubsection{Approximation of function P}
-
-Next we are going to look for an $N\mathbb{\in N}$s.t. $\sum_{n=0}^{N}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)\approx P(\alpha,\beta)$.
-is a good approximation. We have to prove two things:
-\begin{enumerate}
-\item Show that there exist such an $N\mathbb{\in N}$s.t the approximation
-holds true.
-\item Find a value for B s.t. this approximation is below a certain error
-bound, for example machine precision $\epsilon$. 
-\end{enumerate}
-
-\subsubsection{Proof Sketch of 1.}
-
-By the \textbf{ratio test} (see \textbf{{[}1{]}}) we can show that
-the series $\sum_{n=0}^{N}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$
-converges absolutely:
-
-\textbf{Proof}: Consider $\sum_{k=0}^{\infty}\frac{y^{n}}{n!}$where
-$a_{k}=\frac{y^{k}}{k!}$. By the definition of the ratio test for
-series it follows: $\forall y:$$limsup_{k\rightarrow\infty}|\frac{a_{k+1}}{a_{k}}|=limsup_{k\rightarrow\infty}\frac{y}{k+1}=0$ 
-
-Thus this series converges absolutely, no matter what value we will
-pick for y.
-
-
-\subsubsection{Part 2: Find such an N}
-
-Let $f(x)=e^{x}$. We can formulate its Taylor-Series, stated above.
-Let $P_{n}(x)$denote the n-th Taylor-Polinomial, $P_{n}(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^{k},$where
-a is our developing point (here, in this case a=0). We can define
-the error of the n-th Taylor-Polinomial to be $E_{n}(x)=f(x)-P_{n}(x)$.
-That error is the actual value minus the Taylor polinomial. It holds
-true: $|E_{n}(x)|=|f(x)-P_{n}(x)|$. By using the Lagrangien Error
-Bound - (see source \textbf{{[}2{]}}) it follows: $|E_{n}(x)|\leq\frac{M}{(n+1)!}|x-a|^{n+1}$
-with a=0, where \textbf{M }is some value satisfying $|f^{(n+1)}(x)|\leq M$
-on the interval $I=[a,x]$.Since we are interested in an upper bound
-of the error and since \textbf{a} is known, we can reformulate the
-interval as $I=[0,x_{max}]$, where $x_{max}=|i|*k_{max}*w_{max}*h_{max}$,
-since we are interested in computing an error bound for $e^{ikwh(x,y)}$.
-From Stam's Paper about diffraction shader we know some paramters
-for the length, width and height for a given sample patch, i.e. heightfield
-h(x,y) and when using those parameters are able to find a explicit
-number for $x_{max}$.
-
-Facts we are using from Stam's Paper:
-
-\begin{itemize}
-\item Height of bump: 0.15micro meters
-\item Width of a bump: 0.5micro meters
-\item Length of a bump: 1micro meters
-\item $k=\frac{2\pi}{\lambda}$ is the wavenumber and $\lambda\in[\lambda_{min,}\lambda_{max}]$its
-wavelength hence $k_{max}=\frac{2\pi}{\lambda_{min}}$ 
-\item $w$~is a component of the vector $\vec{v}=\vec{k_{1}}-\vec{k_{2}}=(u,v,w)$,
-where $\vec{k_{1}}$ and $\vec{k_{2}}$ are \textbf{normalized} direction
-vectors and this each component can have a value in range {[}-2, 2{]}.
-\item for simplification, assume$[\lambda_{min,}\lambda_{max}]=[400nm,700nm].$
-\end{itemize}
-
-Hence $x_{max}=|i|*k_{max}*w_{max}*h_{max}=$$k_{max}*w_{max}*h_{max}=2*(\frac{2\pi}{4*10^{-7}m})*1.5*10^{-7}=1.5\pi$and
-it follows for our intervall $I=[0,1.5\pi]$. Next we are going to
-find the value for M. Since the exponential function is monoton growing
-(on the interval I) and and the derivative of the \textbf{exp} function
-is the exp function itself, we can find such an M: $M=e^{x_{max}}=exp(1.5\pi)$and
-$|f^{(n+1)}(x)|\leq M$ holds. With $|E_{n}(x_{max})|\leq\frac{M}{(n+1)!}|x_{max}-a|^{n+1}=\frac{exp(1.5\pi)*(1.5\pi)^{n+1}}{(n+1)!}$we
-now can find a value of n for a given bound, i.e. we can find an value
-of $N\mathbb{\in N}$ s.t. $\frac{exp(1.5\pi)*(1.5\pi)^{N+1}}{(N+1)!}\leq\epsilon$.
-With Octave/Matlab we can see: 
-\begin{itemize}
-\item if N=20 then $\epsilon\approx2.9950*10^{-4}$
-\item if N=25 then $\epsilon\approx8.8150*10^{-8}$
-\item if N=30 then $\epsilon\approx1.0050*10^{-11}$
-\end{itemize}
-
-\subsubsection{Conclusion}
-
-With this approach we have that$\sum_{n=0}^{25}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$is
-an approximation of P(u,v) with error$\epsilon\approx8.8150*10^{-8}$.
-This means we can precompute 25 Fourier Transformations (for example
-via FFT2) and then sum them up in order to approximate P(u,v) and
-$\epsilon\approx8.8150*10^{-8}$. This approach will allow us to speed
-up our shader. Furthermore we see that when we just take 5 more iterations,
-we will reduce the error bound to the dimension of $10^{-11}$.
-
-\textbf{NB}: More explanation about how the shader itself works during
-our discussion.
-
-\subsubsection{Our derivations}
+\subsubsection{BRDF formulation}
 
 EXPLAIN: Why do we want a formulation for $L_{\lambda}(w_r)$ in some words. what does it represent?
 
@@ -267,7 +276,9 @@ L_{\lambda}(w_r)
 
 $P_{cont}$ is the continious inverse Fourier transform for the taylor seies of our hight-field representing the nano structure, i.e. $P(k,l) = \mathcal{F}^{-1}\{p\}(k,l)$ and $P_{dtft}$ is the dicrete-time inverse Fourier Transform for the same problem domain and $T_0$ the sampling distance for the discretization pf $p(x,y)$ assuming equal and uniform sampling in both dimensions $x,y$.
 
-\subsection{Relative BRDF}
+
+
+\subsubsection{Relative BRDF}
 reason why relative brdf: In order to scale the reflactiance such that we are able to texture. 
 convex combination reflectance with texture. Scale illumination.
 
@@ -351,6 +362,120 @@ X
 Where we used the definition $S_x(\lambda)\overline{x}(\lambda)$ in the last step.
 
 \subsubsection{Taylour approximation for BRDF}
+Based on J. Stam's Paper about Diffraction shaders we will show that
+there is an approximation of his equation (5), \textbf{p(x,y)}, for
+a explicitly given heightfield \textbf{h(x,y)}. This approximation
+is achieved by using Taylor-Series and using this identity we will
+further be able to approximate the Fourier-Transformation of p(x,y),
+denoted as \textbf{P(u,v)}. Finally we will give an error bound for
+this approximation. Finally, we will put our new found identity into our so far found relative BRDF representation.
+
+\paragraph {Taylor Series of p}
+Given $p(x,y)=e^{ikwh(x,y)}$form Stam's Paper where h(x,y) is here
+a given heightfield. Also given the definition $e^{y}=1+y+\frac{y^{2}}{2!}+\frac{y^{3}}{3!}+...=\sum_{n=0}^{\infty}\frac{y^{n}}{n!}$where
+y can be real or even complex valued - note this identity can either
+be derieved by power series or by Taylor-Series(using the derivatives
+of the exp-function and developing the Taylor-Series around the point
+a=0). Let us now set $y=ikwh(x,y)$where $i$ is the imaginary number.
+For simplification, let us denote h(x,y) as h. It follows by our previous
+stated identities: $e^{y}=1+(ikwh)+\frac{1}{2!}(ikwh)^{2}+\frac{1}{3!}(ikwh)^{3}+...=\sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}$.
+Hence it holds $p(x,y)=\sum_{n=0}^{\infty}\frac{(ikwh(x,y))^{n}}{n!}.$
+
+
+\paragraph {Fourier Transformation of function p}
+
+Let us now compute the Fourier Transformation of p(x,y) form above:$\mathcal{F}\left\{ p\right\} (u,v)=\mathcal{F}\left\{ \sum_{n=0}^{\infty}\frac{(ikwh(x,y))^{n}}{n!}.\right\} =^{\mathcal{F}\, lin\, Operator}\sum_{n=0}^{\infty}\mathcal{F}\left\{ \frac{(ikwh(x,y))^{n}}{n!}\right\} =\sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h(x,y){}^{n}\right\} $.
+Hence it follows: $P(\alpha,\beta)=\sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$.
+
+\textbf{NB}: $\mathcal{F}\left\{ h{}^{n}\right\} (u,v)$ denotes the
+two dimensional Fourier Transformation of p(x,y) and can be nummerically
+computed by the two dimensional \textbf{DFT} or rather by the two
+dimensional \textbf{FFT} over h(x,y). 
+
+
+\paragraph {Approximation of function P}
+
+Next we are going to look for an $N\mathbb{\in N}$s.t. $\sum_{n=0}^{N}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)\approx P(\alpha,\beta)$.
+is a good approximation. We have to prove two things:
+\begin{enumerate}
+\item Show that there exist such an $N\mathbb{\in N}$s.t the approximation
+holds true.
+\item Find a value for B s.t. this approximation is below a certain error
+bound, for example machine precision $\epsilon$. 
+\end{enumerate}
+
+\paragraph {Proof Sketch of 1.}
+
+By the \textbf{ratio test} (see \textbf{{[}1{]}}) we can show that
+the series $\sum_{n=0}^{N}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$
+converges absolutely:
+
+\textbf{Proof}: Consider $\sum_{k=0}^{\infty}\frac{y^{n}}{n!}$where
+$a_{k}=\frac{y^{k}}{k!}$. By the definition of the ratio test for
+series it follows: $\forall y:$$limsup_{k\rightarrow\infty}|\frac{a_{k+1}}{a_{k}}|=limsup_{k\rightarrow\infty}\frac{y}{k+1}=0$ 
+
+Thus this series converges absolutely, no matter what value we will
+pick for y.
+
+
+\paragraph {Part 2: Find such an N}
+Let $f(x)=e^{x}$. We can formulate its Taylor-Series, stated above.
+Let $P_{n}(x)$denote the n-th Taylor-Polinomial, $P_{n}(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^{k},$where
+a is our developing point (here, in this case a=0). We can define
+the error of the n-th Taylor-Polinomial to be $E_{n}(x)=f(x)-P_{n}(x)$.
+That error is the actual value minus the Taylor polinomial. It holds
+true: $|E_{n}(x)|=|f(x)-P_{n}(x)|$. By using the Lagrangien Error
+Bound - (see source \textbf{{[}2{]}}) it follows: $|E_{n}(x)|\leq\frac{M}{(n+1)!}|x-a|^{n+1}$
+with a=0, where \textbf{M }is some value satisfying $|f^{(n+1)}(x)|\leq M$
+on the interval $I=[a,x]$.Since we are interested in an upper bound
+of the error and since \textbf{a} is known, we can reformulate the
+interval as $I=[0,x_{max}]$, where $x_{max}=|i|*k_{max}*w_{max}*h_{max}$,
+since we are interested in computing an error bound for $e^{ikwh(x,y)}$.
+From Stam's Paper about diffraction shader we know some paramters
+for the length, width and height for a given sample patch, i.e. heightfield
+h(x,y) and when using those parameters are able to find a explicit
+number for $x_{max}$.
+
+Facts we are using from Stam's Paper:
+
+\begin{itemize}
+\item Height of bump: 0.15micro meters
+\item Width of a bump: 0.5micro meters
+\item Length of a bump: 1micro meters
+\item $k=\frac{2\pi}{\lambda}$ is the wavenumber and $\lambda\in[\lambda_{min,}\lambda_{max}]$its
+wavelength hence $k_{max}=\frac{2\pi}{\lambda_{min}}$ 
+\item $w$~is a component of the vector $\vec{v}=\vec{k_{1}}-\vec{k_{2}}=(u,v,w)$,
+where $\vec{k_{1}}$ and $\vec{k_{2}}$ are \textbf{normalized} direction
+vectors and this each component can have a value in range {[}-2, 2{]}.
+\item for simplification, assume$[\lambda_{min,}\lambda_{max}]=[400nm,700nm].$
+\end{itemize}
+
+Hence $x_{max}=|i|*k_{max}*w_{max}*h_{max}=$$k_{max}*w_{max}*h_{max}=2*(\frac{2\pi}{4*10^{-7}m})*1.5*10^{-7}=1.5\pi$and
+it follows for our intervall $I=[0,1.5\pi]$. Next we are going to
+find the value for M. Since the exponential function is monoton growing
+(on the interval I) and and the derivative of the \textbf{exp} function
+is the exp function itself, we can find such an M: $M=e^{x_{max}}=exp(1.5\pi)$and
+$|f^{(n+1)}(x)|\leq M$ holds. With $|E_{n}(x_{max})|\leq\frac{M}{(n+1)!}|x_{max}-a|^{n+1}=\frac{exp(1.5\pi)*(1.5\pi)^{n+1}}{(n+1)!}$we
+now can find a value of n for a given bound, i.e. we can find an value
+of $N\mathbb{\in N}$ s.t. $\frac{exp(1.5\pi)*(1.5\pi)^{N+1}}{(N+1)!}\leq\epsilon$.
+With Octave/Matlab we can see: 
+\begin{itemize}
+\item if N=20 then $\epsilon\approx2.9950*10^{-4}$
+\item if N=25 then $\epsilon\approx8.8150*10^{-8}$
+\item if N=30 then $\epsilon\approx1.0050*10^{-11}$
+\end{itemize}
+
+\paragraph {Conclusion}
+With this approach we have that$\sum_{n=0}^{25}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$is
+an approximation of P(u,v) with error$\epsilon\approx8.8150*10^{-8}$.
+This means we can precompute 25 Fourier Transformations (for example
+via FFT2) and then sum them up in order to approximate P(u,v) and
+$\epsilon\approx8.8150*10^{-8}$. This approach will allow us to speed
+up our shader. Furthermore we see that when we just take 5 more iterations,
+we will reduce the error bound to the dimension of $10^{-11}$.
+
+
+
 Using $P_{dtft} = \mathcal{F}^{-1}\{p\}(u,v)$ definied in the section of the taylor approximationwe get for the tristumulus value X, we will get:
 
 \begin{align*}
