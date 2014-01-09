@@ -16,8 +16,8 @@
 \contentsline {subsubsection}{\numberline {2.1.8}BRDF}{9}
 \contentsline {subsubsection}{\numberline {2.1.9}Spectral Rendering}{10}
 \contentsline {subsubsection}{\numberline {2.1.10}Taylor Series}{10}
-\contentsline {subsection}{\numberline {2.2}Thesis Basis}{11}
-\contentsline {subsubsection}{\numberline {2.2.1}Basis: J. Stam}{11}
+\contentsline {subsection}{\numberline {2.2}Thesis Basis}{10}
+\contentsline {subsubsection}{\numberline {2.2.1}Basis: J. Stam}{10}
 \contentsline {subsubsection}{\numberline {2.2.2}Stams derivation}{12}
 \contentsline {subsection}{\numberline {2.3}Derivations}{14}
 \contentsline {subsubsection}{\numberline {2.3.1}BRDF formulation}{14}

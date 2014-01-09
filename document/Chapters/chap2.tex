@@ -115,32 +115,7 @@ The Taylor series of a real or complex-valued function ƒ(x) that is infinitely 
 
 
 \subsection{Thesis Basis}
-\subsubsection{Basis: J. Stam}
---------
 
-
-GOAL
-main task in the theory of diffraction is to solve this wave equation for different geometries.
-we are interested in computing the reflected waves from various types of surfaces
-
-More precisely, we want to compute the wave $\Phi_2$ equal to the reflection of an incoming planar monochromatic wave $\phi_2 = e^{ik k_1 * x}$  traveling in the direction $k_1$ from a surface S.
-
-The equation relating the reflected field to the incoming field is known as the Kirchhoff integral. This equation is a formalization of Huygen’s well-known principle that states that if one knows the wavefront at a given moment, the wave at a later time can be deduced by considering each point on the first wave as the source of a new disturbance, i.e. once the field on the surface is known, the field everywhere else away from the surface can be computed. 
-
-which will result in $\phi_2 = \frac{ik e^{ikR}}{Fv - p}*\int_{S} n * e^{ik v * s} ds$ where x is the observing point, k2 is equal to the unit vector pointing from the origin of the surface towards the point x.
-
- In this paper we will provide in every case the BRDF corresponding to our reflection model. In the applied optics literature, when dealing with scattered waves from a surface, one does not usually define the BRDF but rather the differential scattering cross-section $\sigma^0 = 4\pi limes R to \infty R^2 \frac{abs(\phi_2)^2}{abs(\phi_1)^2}$
-
-The relationship between the BRDF and the scattering cross section can be shown to be equal to $BRDF = \frac{1}{4 \pi A} * \frac{\sigma^0}{cos(\theta_1)cos(\theta_2)}$
-
-
-His derivation he shows that 
-In this section we demonstrate that the Kirchhoff integral of Equation 2 can be computed analyti- cally.
-we restrict ourselves to the reflection of waves from height fields. We assume that the surface is defined as an elevation over the xy-plane using fourier analyis he derives his equation 9 
-$BRDF_{\lambda}(w_i, w_r) = \frac{F^2 G}{\lambda^2 A w^2}abs(P(\frac{u}{\lambda},\frac{v}{\lambda}))^2$ 
-which is our starting point.
-
-------------------
 
 => stam paper:
 under certain conditions formulate conventional BRDFs for such nanostructures. assumes surface is observed from a large enough distance and then uses the kirchoff integral 
@@ -152,6 +127,9 @@ $BRDF_{\lambda}(w_i, w_r) = \frac{F^2 G}{\lambda^2 A w^2}abs(P(\frac{u}{\lambda}
 
 
 \subsubsection{Stams derivation}
+GOAL
+main task in the theory of diffraction is to solve this wave equation for different geometries.
+we are interested in computing the reflected waves from various types of surfaces
 
 abstract:
 before: most reflection models empirically or based on ray-theory of light.
@@ -165,14 +143,15 @@ A further assumption in Stam's Paper is, the emanated waves from the source are 
 Mention Helmolth equation, which has the solution $k = \frac{2\pi}{\lambda}$ which is the wavenumber
 
 
-Based on his these previous assumptions and applying Stam starts his derviations by applying the so called Kirchhoff integral, which is relating the reflected field to the incoming field. This equation is a formalization of Huygen’s well-known principle that states that if one knows the wavefront at a given moment, the wave at a later time can be deduced by considering each point on the first wave as the source of a new disturbance, i.e. once the field on the surface is known, the field everywhere else away from the surface can be computed. Mathematically this can be formulized  the following:
+Based on his these previous assumptions and applying Stam starts his derviations by applying the so called Kirchhoff integral, which is relating the reflected field to the incoming field. This equation is a formalization of Huygen’s well-known principle that states that if one knows the wavefront at a given moment, the wave at a later time can be deduced by considering each point on the first wave as the source of a new disturbance, i.e. once the field  $\psi_1 =  e^{ik\mathbf{x} \cdot \mathbf{s}\mathbf{s}}$ on the surface is known, the field everywhere $\psi_2$ else away from the surface can be computed.
+More precisely, we want to compute the wave $\psi_2$ equal to the reflection of an incoming planar monochromatic wave $\psi_1 = e^{ik k_1 * x}$  traveling in the direction $k_1$ from a surface S. Mathematically this can be formulized the following:
 
 \begin{equation}
   \psi_2 = \frac{i k e^{i K R}}{4 \pi R}(F\mathbf{v}-\mathbf{p}) \cdot \int_{S} \hat{\mathbf{n}} e^{ik\mathbf{v} \cdot \mathbf{s} d\mathbf{s}}
 \end{equation}
 
 
-In optics, when dealing with scattered waves, one does use differential scattering cross-section rather than a BRDF which has the following identitiy: 
+In applied optics, when dealing with scattered waves, one does use differential scattering cross-section rather than defining a BRDF which has the following identitiy: 
 
 \begin{equation}
     \sigma^0 = 4 \pi \lim_{R \to \infty} R^2 \frac{\langle \left|\psi_2\right|^2\rangle}{\langle \left|\psi_1\right|^2\rangle}
@@ -180,10 +159,7 @@ In optics, when dealing with scattered waves, one does use differential scatteri
 
 Relationship between the BRDF and the scattering cross section is the follwing:
 
-\begin{equation}
-    BRDF = \frac{1}{4\pi}\frac{1}{A}\frac{\sigma^0}{cos(\theta_1)cos(\theta_2)}
-\end{equation}
-
+The relationship between the BRDF and the scattering cross section can be shown to be equal to $BRDF = \frac{1}{4\pi}\frac{1}{A}\frac{\sigma^0}{cos(\theta_1)cos(\theta_2)}$
 Wheras $\theta_1a$ and $\theta_2$ are the angles that the vectors $\hat{k_1}$
 and $\hat{k_2}$ make with the vertical direction.
  

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  9 JAN 2014 12:21
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  9 JAN 2014 14:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -672,37 +672,37 @@ LaTeX Font Info:    Try loading font information for U+dsrom on input line 69.
 File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
 )
 [8] [9] [10] [11] [12] [13] [14]
-Overfull \hbox (29.16502pt too wide) in paragraph at lines 289--289
+Overfull \hbox (29.16502pt too wide) in paragraph at lines 281--281
 [] 
  []
 
 [15] [16]
-Overfull \hbox (17.27238pt too wide) in paragraph at lines 338--339
+Overfull \hbox (17.27238pt too wide) in paragraph at lines 330--331
 []\EU1/lmr/m/n/12 using the previous definition for the relative reflectance ra
 diance $\OML/zplm/m/it/12 ^^Z[]\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 w[]\OT1/ppl/
 m/n/12 , \OML/zplm/m/it/12 w[]\OT1/zplm/m/n/12 ) =
  []
 
 [17] [18]
-Overfull \hbox (61.78769pt too wide) in paragraph at lines 401--403
+Overfull \hbox (61.78769pt too wide) in paragraph at lines 393--395
 \EU1/lmr/m/n/12 Transformation of p(x,y) form above:$\OMS/zplm/m/n/12 F [] \OT1
 /zplm/m/n/12 (\OML/zplm/m/it/12 u\OT1/ppl/m/n/12 , \OML/zplm/m/it/12 v\OT1/zplm
 /m/n/12 ) = \OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 =[]
  []
 
 
-Overfull \hbox (6.94948pt too wide) in paragraph at lines 401--403
+Overfull \hbox (6.94948pt too wide) in paragraph at lines 393--395
 [][] \OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 = [][] []\OMS/zplm/m/n/12 F []$\EU1
 /lmr/m/n/12 . Hence it follows: $\OML/zplm/m/it/12 P\OT1/zplm/m/n/12 (\OML/zplm
 /m/it/12 ^^K\OT1/ppl/m/n/12 , \OML/zplm/m/it/12 ^^L\OT1/zplm/m/n/12 ) =
  []
 
-LaTeX Font Info:    Try loading font information for U+fplmbb on input line 412
+LaTeX Font Info:    Try loading font information for U+fplmbb on input line 404
 .
 (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
 ) [19]
-Overfull \hbox (8.84169pt too wide) in paragraph at lines 467--476
+Overfull \hbox (8.84169pt too wide) in paragraph at lines 459--468
 []\EU1/lmr/m/n/12 Hence $\OML/zplm/m/it/12 x[] \OT1/zplm/m/n/12 = \OMS/zplm/m/n
 /12 j\OML/zplm/m/it/12 i\OMS/zplm/m/n/12 j ^^C \OML/zplm/m/it/12 k[] \OMS/zplm/
 m/n/12 ^^C \OML/zplm/m/it/12 w[] \OMS/zplm/m/n/12 ^^C \OML/zplm/m/it/12 h[] \OT
@@ -711,25 +711,25 @@ m/n/12 ^^C \OML/zplm/m/it/12 w[] \OMS/zplm/m/n/12 ^^C \OML/zplm/m/it/12 h[] \OT
 2 2 \OMS/zplm/m/n/12 ^^C \OT1/zplm/m/n/12 ([]) \OMS/zplm/m/n/12 ^^C
  []
 
-[20] [21]
-Overfull \hbox (98.11969pt too wide) in paragraph at lines 522--522
+[20]
+Overfull \hbox (98.11969pt too wide) in paragraph at lines 514--514
 [] 
  []
 
-
-Overfull \hbox (1.98618pt too wide) in paragraph at lines 540--543
+[21]
+Overfull \hbox (1.98618pt too wide) in paragraph at lines 532--535
 []\EU1/lmr/m/n/12 We assume, that our given heighfield can be represented as a 
 2-dimensional
  []
 
 
-Overfull \hbox (13.64383pt too wide) in paragraph at lines 540--543
+Overfull \hbox (13.64383pt too wide) in paragraph at lines 532--535
 \EU1/lmr/m/n/12 box-function. Note that we can use any explicit given constrain
 ted 2-dimensional
  []
 
 [22] [23] [24]
-Overfull \hbox (26.81639pt too wide) in paragraph at lines 651--651
+Overfull \hbox (26.81639pt too wide) in paragraph at lines 643--643
 [] 
  []
 
@@ -774,7 +774,7 @@ ll-2010-math-2300-005/lectures/taylor-
 Here is how much of TeX's memory you used:
  16020 strings out of 493938
  336204 string characters out of 6148857
- 339391 words of memory out of 5000000
+ 340391 words of memory out of 5000000
  19086 multiletter control sequences out of 15000+600000
  20626 words of font info for 86 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
