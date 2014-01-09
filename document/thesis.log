@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  9 JAN 2014 14:36
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  9 JAN 2014 15:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -671,38 +671,50 @@ LaTeX Font Info:    Try loading font information for U+dsrom on input line 69.
  (/usr/local/texlive/2013/texmf-dist/tex/latex/doublestroke/Udsrom.fd
 File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
 )
-[8] [9] [10] [11] [12] [13] [14]
-Overfull \hbox (29.16502pt too wide) in paragraph at lines 281--281
+[8] [9]
+Overfull \hbox (20.90926pt too wide) in paragraph at lines 117--117
+[]\EU1/lmr/bx/n/14.4 Thesis Basis: J.Stam’s Paper about Diffraction Shader 
+ []
+
+[10] [11]
+Overfull \hbox (9.58163pt too wide) in paragraph at lines 176--177
+[]\EU1/lmr/m/n/12 wheras stam formulates for a hightfield auxilary function $\O
+ML/zplm/m/it/12 p\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 x\OT1/ppl/m/n/12 , \OML/zp
+lm/m/it/12 y\OT1/zplm/m/n/12 ) = \OML/zplm/m/it/12 e[]$
+ []
+
+[12] [13]
+Overfull \hbox (29.16502pt too wide) in paragraph at lines 243--243
 [] 
  []
 
-[15] [16]
-Overfull \hbox (17.27238pt too wide) in paragraph at lines 330--331
+[14] [15]
+Overfull \hbox (17.27238pt too wide) in paragraph at lines 292--293
 []\EU1/lmr/m/n/12 using the previous definition for the relative reflectance ra
 diance $\OML/zplm/m/it/12 ^^Z[]\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 w[]\OT1/ppl/
 m/n/12 , \OML/zplm/m/it/12 w[]\OT1/zplm/m/n/12 ) =
  []
 
-[17] [18]
-Overfull \hbox (61.78769pt too wide) in paragraph at lines 393--395
+[16] [17]
+Overfull \hbox (61.78769pt too wide) in paragraph at lines 355--357
 \EU1/lmr/m/n/12 Transformation of p(x,y) form above:$\OMS/zplm/m/n/12 F [] \OT1
 /zplm/m/n/12 (\OML/zplm/m/it/12 u\OT1/ppl/m/n/12 , \OML/zplm/m/it/12 v\OT1/zplm
 /m/n/12 ) = \OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 =[]
  []
 
 
-Overfull \hbox (6.94948pt too wide) in paragraph at lines 393--395
+Overfull \hbox (6.94948pt too wide) in paragraph at lines 355--357
 [][] \OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 = [][] []\OMS/zplm/m/n/12 F []$\EU1
 /lmr/m/n/12 . Hence it follows: $\OML/zplm/m/it/12 P\OT1/zplm/m/n/12 (\OML/zplm
 /m/it/12 ^^K\OT1/ppl/m/n/12 , \OML/zplm/m/it/12 ^^L\OT1/zplm/m/n/12 ) =
  []
 
-LaTeX Font Info:    Try loading font information for U+fplmbb on input line 404
+LaTeX Font Info:    Try loading font information for U+fplmbb on input line 366
 .
 (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
-) [19]
-Overfull \hbox (8.84169pt too wide) in paragraph at lines 459--468
+) [18]
+Overfull \hbox (8.84169pt too wide) in paragraph at lines 421--430
 []\EU1/lmr/m/n/12 Hence $\OML/zplm/m/it/12 x[] \OT1/zplm/m/n/12 = \OMS/zplm/m/n
 /12 j\OML/zplm/m/it/12 i\OMS/zplm/m/n/12 j ^^C \OML/zplm/m/it/12 k[] \OMS/zplm/
 m/n/12 ^^C \OML/zplm/m/it/12 w[] \OMS/zplm/m/n/12 ^^C \OML/zplm/m/it/12 h[] \OT
@@ -711,47 +723,47 @@ m/n/12 ^^C \OML/zplm/m/it/12 w[] \OMS/zplm/m/n/12 ^^C \OML/zplm/m/it/12 h[] \OT
 2 2 \OMS/zplm/m/n/12 ^^C \OT1/zplm/m/n/12 ([]) \OMS/zplm/m/n/12 ^^C
  []
 
-[20]
-Overfull \hbox (98.11969pt too wide) in paragraph at lines 514--514
+[19]
+Overfull \hbox (98.11969pt too wide) in paragraph at lines 476--476
 [] 
  []
 
-[21]
-Overfull \hbox (1.98618pt too wide) in paragraph at lines 532--535
+[20]
+Overfull \hbox (1.98618pt too wide) in paragraph at lines 494--497
 []\EU1/lmr/m/n/12 We assume, that our given heighfield can be represented as a 
 2-dimensional
  []
 
 
-Overfull \hbox (13.64383pt too wide) in paragraph at lines 532--535
+Overfull \hbox (13.64383pt too wide) in paragraph at lines 494--497
 \EU1/lmr/m/n/12 box-function. Note that we can use any explicit given constrain
 ted 2-dimensional
  []
 
-[22] [23] [24]
-Overfull \hbox (26.81639pt too wide) in paragraph at lines 643--643
+[21] [22] [23]
+Overfull \hbox (26.81639pt too wide) in paragraph at lines 605--605
 [] 
  []
 
-[25] [26]) [27]
+[24] [25]) [26]
 \openout2 = `Chapters/chap3.aux'.
 
- (./Chapters/chap3.tex [28
+ (./Chapters/chap3.tex [27
 
 
 
-] [29]) [30] [31]
+] [28]) [29] [30]
 \openout2 = `Chapters/chap4.aux'.
 
 
-(./Chapters/chap4.tex) [32
+(./Chapters/chap4.tex) [31
 
 
 
 ]
 \openout2 = `Chapters/chap5.aux'.
 
- (./Chapters/chap5.tex) [33
+ (./Chapters/chap5.tex) [32
 
 
 
@@ -764,7 +776,7 @@ Overfull \hbox (52.8627pt too wide) in paragraph at lines 13--13
 ll-2010-math-2300-005/lectures/taylor-
  []
 
-) [34
+) [33
 
 
 
@@ -780,4 +792,4 @@ Here is how much of TeX's memory you used:
  1144 hyphenation exceptions out of 8191
  46i,21n,30p,896b,294s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on thesis.pdf (34 pages).
+Output written on thesis.pdf (33 pages).
