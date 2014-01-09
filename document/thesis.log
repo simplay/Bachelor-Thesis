@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  9 JAN 2014 19:08
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  9 JAN 2014 19:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -652,12 +652,11 @@ LaTeX Font Info:    Font shape `U/msb/m/n' will be
  (./Chapters/chap1.tex [4
 
 
-]) [5]
+] [5]) [6]
 \openout2 = `Chapters/chap2.aux'.
 
  (./Chapters/chap2.tex
 File: images/1.png Graphic file (type QTm)
-
 <use  "images/1.png" >
 File: images/2.png Graphic file (type QTm)
  <use  "images/2.png" >
@@ -668,40 +667,40 @@ Overfull \hbox (2.53685pt too wide) in paragraph at lines 23--24
  such chan-
  []
 
-[6
+[7
 
 
 
-] [7] [8] [9]
+] [8] [9] [10]
 LaTeX Font Info:    Try loading font information for U+dsrom on input line 92.
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/doublestroke/Udsrom.fd
 File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
-) [10]
+) [11]
 Overfull \hbox (20.90926pt too wide) in paragraph at lines 125--125
 []\EU1/lmr/bx/n/14.4 Thesis Basis: J.Stam’s Paper about Diffraction Shader 
  []
 
-[11] [12]
+[12] [13]
 Overfull \hbox (9.58163pt too wide) in paragraph at lines 184--185
 []\EU1/lmr/m/n/12 wheras stam formulates for a hightfield auxilary function $\O
 ML/zplm/m/it/12 p\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 x\OT1/ppl/m/n/12 , \OML/zp
 lm/m/it/12 y\OT1/zplm/m/n/12 ) = \OML/zplm/m/it/12 e[]$
  []
 
-[13] [14]
+[14] [15]
 Overfull \hbox (29.16502pt too wide) in paragraph at lines 251--251
 [] 
  []
 
-[15] [16]
+[16] [17]
 Overfull \hbox (17.27238pt too wide) in paragraph at lines 300--301
 []\EU1/lmr/m/n/12 using the previous definition for the relative reflectance ra
 diance $\OML/zplm/m/it/12 ^^Z[]\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 w[]\OT1/ppl/
 m/n/12 , \OML/zplm/m/it/12 w[]\OT1/zplm/m/n/12 ) =
  []
 
-[17] [18]
+[18] [19]
 Overfull \hbox (61.78769pt too wide) in paragraph at lines 363--365
 \EU1/lmr/m/n/12 Transformation of p(x,y) form above:$\OMS/zplm/m/n/12 F [] \OT1
 /zplm/m/n/12 (\OML/zplm/m/it/12 u\OT1/ppl/m/n/12 , \OML/zplm/m/it/12 v\OT1/zplm
@@ -719,7 +718,7 @@ LaTeX Font Info:    Try loading font information for U+fplmbb on input line 374
 .
 (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
-) [19]
+) [20]
 Overfull \hbox (8.84169pt too wide) in paragraph at lines 429--438
 []\EU1/lmr/m/n/12 Hence $\OML/zplm/m/it/12 x[] \OT1/zplm/m/n/12 = \OMS/zplm/m/n
 /12 j\OML/zplm/m/it/12 i\OMS/zplm/m/n/12 j ^^C \OML/zplm/m/it/12 k[] \OMS/zplm/
@@ -729,12 +728,12 @@ m/n/12 ^^C \OML/zplm/m/it/12 w[] \OMS/zplm/m/n/12 ^^C \OML/zplm/m/it/12 h[] \OT
 2 2 \OMS/zplm/m/n/12 ^^C \OT1/zplm/m/n/12 ([]) \OMS/zplm/m/n/12 ^^C
  []
 
-[20]
+[21]
 Overfull \hbox (98.11969pt too wide) in paragraph at lines 484--484
 [] 
  []
 
-[21]
+[22]
 Overfull \hbox (1.98618pt too wide) in paragraph at lines 502--505
 []\EU1/lmr/m/n/12 We assume, that our given heighfield can be represented as a 
 2-dimensional
@@ -746,19 +745,19 @@ Overfull \hbox (13.64383pt too wide) in paragraph at lines 502--505
 ted 2-dimensional
  []
 
-[22] [23] [24]
+[23] [24] [25]
 Overfull \hbox (26.81639pt too wide) in paragraph at lines 613--613
 [] 
  []
 
-[25] [26]) [27]
+[26] [27]) [28]
 \openout2 = `Chapters/chap3.aux'.
 
- (./Chapters/chap3.tex [28
+ (./Chapters/chap3.tex [29
 
 
 
-] [29]) [30] [31]
+] [30]) [31] [32]
 \openout2 = `Chapters/chap4.aux'.
 
 
@@ -771,14 +770,14 @@ Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
- [32
+ [33
 
 
 
-]) [33]
+]) [34]
 \openout2 = `Chapters/chap5.aux'.
 
- (./Chapters/chap5.tex) [34
+ (./Chapters/chap5.tex) [35
 
 
 
@@ -792,7 +791,7 @@ Overfull \hbox (52.8627pt too wide) in paragraph at lines 13--13
 ll-2010-math-2300-005/lectures/taylor-
  []
 
-) [35
+) [36
 
 
 
@@ -808,4 +807,4 @@ Here is how much of TeX's memory you used:
  1144 hyphenation exceptions out of 8191
  46i,21n,30p,1589b,294s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on thesis.pdf (35 pages).
+Output written on thesis.pdf (36 pages).
