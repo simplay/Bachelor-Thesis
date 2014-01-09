@@ -72,6 +72,19 @@ The reason the function is defined as a quotient of two differentials and not di
 \subsubsection{Spectral Rendering}
 In Computer Graphics, spectral rendering is where a scene's light transport is modeled considering the whole span of wavelengths instead of R,G,B values (still relating on geometric optic, which ignore wave phase). The motivation is that real colors of the physical world are spectrum; trichromatic colors are only inherent to Human Visual System.
 
+\paragraph{CIE color spaces}
+CIE 1931 RGB and CIE 1931 XYZ color spaces are the first mathematically defined color spaces. They were created by the International Commission on Illumination (CIE) in 1931.
+
+The CIE's color matching functions $\overline{x}(\lambda)$, $\overline{y}(\lambda)$ and $\overline{z}(\lambda)$ are the numerical description of the chromatic response of the observer (described above). They can be thought of as the spectral sensitivity curves of three linear light detectors yielding the CIE tristimulus values X, Y and Z. Collectively, these three functions are known as the CIE standard observer.[9]
+
+The tristimulus values for a color with a spectral power distribution $I(\lambda)$, are given in terms of the standard observer by:
+
+    $X= \int_{380}^{780} I(\lambda)\,\overline{x}(\lambda)\,d\lambda$
+    $Y= \int_{380}^{780} I(\lambda)\,\overline{y}(\lambda)\,d\lambda$
+    $Z= \int_{380}^{780} I(\lambda)\,\overline{z}(\lambda)\,d\lambda$
+
+where $\lambda$, is the wavelength of the equivalent monochromatic light (measured in nanometers).
+
 
 \subsubsection{Signal}
 A signal is a function that conveys information about the behavior or attributes of some phenomenon.
