@@ -8,15 +8,22 @@ how from $cie_xyz$ to $cie_rgb$
 how gamma correction
 how texturing 
 can we do better?
+our approaches
 
 TODO: explain that there is the jrtr and the scene code - what are their responsibilities.
 
 shader
 
-In computergraphics, we are interested in rendering a given scene containing our 3d geometries by using so called shader programs. 
-The purpose of such programs, which run directly on the gpu hardware device, is to compute the colorization and illumination of the objects living in our scene. This computation happens in several stages and depends on the provided input paramteters like the camera, light sources, objects material constants and the desired rendering effect one is interested in to model. The shader stages are also modeled as small little programs, the so called vertex-, geometry- and fragment-shaders. Those stages are applied within the rendering pipeline sequencially. 
 
-Our shaders are written in GLSL, developed for OpenGl. The decission for using OpenGl has been made since the underlying framework which is responsible for the precomputation of all scene date is based on a framework written in Java using JOGL in oder to communicate with the GPU and precompute all the relevant scene data. This framework, the so called jrtr framework has been developed as an exercise during the class computer graphics held by M. Zwicker which I attended in autumn 2012. The framework itself has been extended during this thesis quite a lot. Further, there are also some precomputations involved, perfomed in matlab. This is basically addressing all the required precomputations for the provided heigh-fields, refering to computation of the inverse two dimensional Fourier transformations which are further explained within this chapter.  
+show schema: scene data => GPU=[Vertex processing, modeling and viewing transformation => Projection => Rasterization, fragment processing, visibility] => image
+
+In computergraphics, we are interested in synthesizing 2d images from a given scene containing our 3d geometries by using so called shader programs. This process is dentonoted as rendering.
+The purpose of shader programs, which are executed directly on the GPU hardware device, is to compute the colorization and illumination of the objects living in our scene. All these computations happen in several stages and depend on the provided scene-input paramteters like the camera, light sources, objects material constants and the desired rendering effect one is interested in to model. The shader stages are implemented sequencially as small little programs, the so called vertex-, geometry- and fragment-shaders. Those stages are applied within the rendering pipeline sequencially. 
+
+Our shaders which we use are written in a highlevel language called GLSL, the OpengGL Shading Language. The decission for using OpenGL has been made since my underlying framework, which is responsible for the precomputation of all scene date, is based on another framework, written in Java using JOGL in oder to communicate with the GPU and is also responsible to precompute all the relevant scene data. This framework, the so called jrtr framework, has been developed as an exercise during the class computer graphics held by M. Zwicker which I attended in autumn 2012. The framework itself has been used and further extended during this thesis quite a lot. All necessary input data required for our java framework in order to perfrom the shading is precomputed by using Matlab. This is basically addressing all the required precomputations for the provided heigh-fields, refering to computation of the inverse two dimensional Fourier transformations which are further explained within this chapter. The matlab scripts themself rely on the provided snake nano-scaled sheds images, taken by AFM.
+
+SHOW ARCHITECTURE GRAPHIC from CG
+
 
 It's noteworthy that all the vertices are processed within the vertex-shader, whereas the fragement shader's responsibility is to perfrom pixelwise rendering, using the input from the vertex shader. Just remember, fragements are determined by a triple of vertices. hence each pixel has assigned a trilinear interpolated value of all input parameters of its spanning vertices.
 Usually, all necessary transformations are applied vertex-wise, considering the vertex-shader as the precomputation stage for the later rendering within the rendering pipeline, in the fragment-shader. In the geometry shader, new vertices around a considered vertex can be created. this is useful for debugging - displaying normals graphically for example.
@@ -30,6 +37,26 @@ By the end of the day we will end up with two different shaders, one which basic
 tell how we are going to sample - uniformly along lambda - explain draw-back of this approach - explain possible solutions for this issue. maybe refer to reference shader or leave this for the disscusion part.
 
 
+
+\subsection{Setup}
+
+
+
+
+
+
+rendering synthesis of 2d images from 3d scene description. rendering algorithms interpret data structures that represent scenes using geometric primitives, matrial properties and lights.
+Input: Data structures that represent scene (geometry, material properties, lights, virtual camera)
+Output: 2d images (array of pixels - RGB for each pixel)
+
+focus of computer graphics: interactive rendering in order to produce images within a short periode of time which should be as photorealistic as possible - depending on applied shading apporach.
+
+
+in class(framework) - build own 3d rendering engine
+
+rendering 3d models: camera simulation, interactive viewing, lighting, shading. 
+modeling: triangle meshes, smotth surfaces
+java base code, openGL 3.0, 
 
 \subsection{Setup}
 explain geometry computation
