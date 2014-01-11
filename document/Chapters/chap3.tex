@@ -34,16 +34,30 @@ But, before we can start formulating our fragment-shader we first have to write 
 By the end of the day we will end up with two different shaders, one which basically samples the whole lambda space using a gaussian window. This shader will be modeling the effect of diffraction completely but will also be rather slow. The other shader will use a gaussian window too but will just use a few wavenumber for the sampling process. Furthermore, this shader will thread specularity seperatly as a special case which will be more like an approximation. 
 
 
-tell how we are going to sample - uniformly along lambda - explain draw-back of this approach - explain possible solutions for this issue. maybe refer to reference shader or leave this for the disscusion part.
-
-
-
-\subsection{Setup}
 
 
 
 
 
+
+\subsection{Precomputations in Matlab}
+purpose
+explain matlab code
+explain shifts
+explain what will be outputed
+
+\subsection{Our Java Renderer}
+\subsubsection{Scene}
+explain geometry computation
+explain light(source) setup
+explain factories
+explain camera setup
+explain how materials are stored
+explain how assigned to jrtr
+
+
+
+\subsubsection{jrtr Framework}
 
 rendering synthesis of 2d images from 3d scene description. rendering algorithms interpret data structures that represent scenes using geometric primitives, matrial properties and lights.
 Input: Data structures that represent scene (geometry, material properties, lights, virtual camera)
@@ -58,25 +72,22 @@ rendering 3d models: camera simulation, interactive viewing, lighting, shading.
 modeling: triangle meshes, smotth surfaces
 java base code, openGL 3.0, 
 
-\subsection{Setup}
-explain geometry computation
-explain light(source) setup
-explain factories
-explain camera setup
-explain how materials are stored
-explain how assigned to jrtr
+
+
+explain how this will work
 explain how passed to glsl shader - see computer graphics slides
 maybe show schematically the architecture
-\subsection{Precomputations in Matlab}
-explain matlab code
-explain shifts
-explain what will be outputed
 
-\subsection{jrtr Framework}
-explain how this will work
 \subsection{GLSL Diffraction Shader}
+explain vertex shader and fragment shader and how they are related.
+show rendering pipeline image
+
+review fragment- and vertex-shader
+
 start using the final findings from chapter 2 and substitute
 explain how all the components are computed and why they are computed like this.
+
+\subsubsection{Vertex Shader}
 
 \begin{algorithm}
   \caption{Vertex diffraction shader}
@@ -85,6 +96,9 @@ explain how all the components are computed and why they are computed like this.
     \EndFor
   \end{algorithmic}
 \end{algorithm}
+
+
+\subsubsection{Fragment Shader}
 
 \begin{algorithm}
   \caption{Fragment diffraction shader}
@@ -116,3 +130,8 @@ explain how all the components are computed and why they are computed like this.
     \EndFor
   \end{algorithmic}
 \end{algorithm}
+
+
+
+
+tell how we are going to sample - uniformly along lambda - explain draw-back of this approach - explain possible solutions for this issue. maybe refer to reference shader or leave this for the disscusion part.
