@@ -93,6 +93,17 @@ explain how all the components are computed and why they are computed like this.
   \caption{Vertex diffraction shader}
   \begin{algorithmic}
     \ForAll{$Vertex \thinspace v \in Shape$}
+      \State $ vec3 N = normalize(modelM * vec4(normal,0.0)).xyz$
+      \State $ vec3 T = normalize(modelM * vec4(tangent,0.0)).xyz$
+      \State $ T = rotateRodrigues(T, N, phi)$
+      \State $ vec3 B = normalize(cross(N, T))$
+      \State $ vec3 Pos = ((cop_w-position)).xyz$
+      \State $ vec4 lightDir = (directionArray[0])$
+      \State $ lightDir = normalize(lightDir)$
+      \State $ l = projectVectorOnTo(lightDir, TangentSpace)$
+      \State $ p = projectVectorOnTo(Pos, TangentSpace)$
+      \State $normalize(l); normalize(p)$
+      \State $gl_Position = projection * modelview * position$
     \EndFor
   \end{algorithmic}
 \end{algorithm}
