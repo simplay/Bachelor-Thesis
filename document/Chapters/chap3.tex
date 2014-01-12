@@ -118,8 +118,8 @@ other shader assigned inputs
 \subsubsection{Fragment Shader}
 
 The purpose of a fragment shader is to render per fragment. A fragment is spaned by three vertices of a given mesh. For each pixel within all the output from the vertex shaders of its corresponding vertices is then trilinearly interpolated, depending on the pixel's position within the fragment, and passed into its fragment shader program.
-Furthermore, there can be additional input be assigned which is not directly interpolated from the output of vertex shader programs. 
-Our Fragment shader just uses k1 and k2, the vertex position as trilinearly interpolated values. Everything else  
+Furthermore, there can be additional input be assigned which is not directly interpolated from the output of vertex shader programs. Our fragment shader just relies on k1 and k2 from its vertex shaders for the computation of the effect of diffraction.
+There are some values preliminarily assigned to our fragment shader during the opgengl setup within our java program, like all references to the image buffers, containing the fourier transformations, the number of taylor step approximations, the minimal and maximal wavelength, other lookup values like the scaling factors, a reference to a lookup table containung the cie xyz color weights for our wavelength domain and other scaling constants. 
 
 \begin{algorithm}
   \caption{Fragment diffraction shader}
