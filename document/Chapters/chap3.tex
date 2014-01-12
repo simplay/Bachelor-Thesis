@@ -100,37 +100,46 @@ explain how all the components are computed and why they are computed like this.
 
 \subsubsection{Fragment Shader}
 
+
+describe every helper method how it work
+
+pewpewpew
+
 \begin{algorithm}
   \caption{Fragment diffraction shader}
   \begin{algorithmic}
     \ForAll{$Pixel \thinspace p \in Fragment$}
-      \State $BRDF_{XYZ}, BRDF_{RGB} = vec4(0.0)$
+      \State \init $BRDF_{XYZ}, BRDF_{RGB}$ \to $vec4(0.0)$
       \State $(u,v,w) = \hat{\mathbf{k_1}}-\hat{\mathbf{k_2}}$
       \For{$(\lambda = \lambda_{min};\thinspace \lambda \leq \lambda_{max};\thinspace \lambda = \lambda + \lambda_{step})$}
+        \State $xyzWeights = getClrMatchingFnWeights(\lambda)$
+        \State $lookupCoord = getLookupCoord(u, v, \lambda)$
+        \State \init $P$ \to $vec2(0.0)$
         \State $k = \frac{2\pi}{\lambda}$
-        \State $(w_u, w_v) = (ku, kv)$
-        \State $w_{color} = (S_x(\lambda), S_y(\lambda), S_z(\lambda))$
-        \For{$(r)$}
-          \For{$(s)$}
-            \State $coords = getLookUpCoord(r, s)$
-            \State $P = taylorApprox(coords, k, w)$
-            \State $w_{r,s} = gaussianWeight(dist)$
-            \State $scale_{pq} = pqFactor(w_u, w_v)$
-            \State $P *= scale_{pq}$
-            \State $P_{abs} = \left|P\right|^2$
-            \State $P_{abs} *= w_{r,s}$
-            \State $BRDF_{XYZ} += vec4(P_{abs}*w_{color}, 0.0)$
+        \For{$(n = 0$ \to $MAXTAYLORTERMS)$}
+          \State $taylorScaleF = \frac{(kw)^n}{n!}$
+          \State \init $F_{fft}$  \to $vec2(0.0)$
+          \State $anchorX = int(floor(center.x + lookupCoord.x * fftImWidth)$
+          \State $anchorY = int(floor(center.y + lookupCoord.y * fftImHeight)$
+          \For{$(i=(anchorX-winW)$ \to $(anchorX + winW + 1))$}
+            \For{$(j=(anchorY - winW)$ \to $(anchorY + winW + 1))$}
+              \State $dist = getDistVecFromOriginFor(i,j)$
+              \State $position = getLocalLookUp(i,j,n)$
+              \State $fftVal = getRescaledFourierTextureValueAt(position)$
+              \State $fftVal \asteq getGaussWeightAtDistance(dist)$
+              \State $F_{fft} \pluseq fftVal$
+            \EndFor
           \EndFor
+          \State $P \pluseq taylorScaleF*F_{fft}$
         \EndFor
+        \State $xyzPixelColor \pluseq dot(vec3(\left|P\right|^2), xyzWeights)$
       \EndFor
-      \State $BRDF_{XYZ} = BRDF_{XYZ}*C(\hat{\mathbf{k_1}},\hat{\mathbf{k_2}})*shadowF$
-      \State $BRDF_{XYZ}.xyz = D_{65}*M_{XYZ-RGB}*BRDF_{XYZ}.xyz$
+      \State $BRDF_{XYZ} = xyzPixelColor*C(\hat{\mathbf{k_1}},\hat{\mathbf{k_2}})*shadowF$
       \State $BRDF_{RGB}.xyz = D_{65}*M_{XYZ-RGB}*BRDF_{XYZ}.xyz$
       \State $BRDF_{RGB}= gammaCorrect(BRDF_{RGB})$
     \EndFor
   \end{algorithmic}
 \end{algorithm}
-
 
 
 
