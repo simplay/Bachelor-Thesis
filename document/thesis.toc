@@ -40,7 +40,7 @@
 \contentsline {subsubsection}{\numberline {3.2.2}jrtr Framework}{32}
 \contentsline {subsection}{\numberline {3.3}GLSL Diffraction Shader}{32}
 \contentsline {subsubsection}{\numberline {3.3.1}Vertex Shader}{32}
-\contentsline {subsubsection}{\numberline {3.3.2}Fragment Shader}{32}
+\contentsline {subsubsection}{\numberline {3.3.2}Fragment Shader}{33}
 \contentsline {section}{\numberline {4}Data Acquisition and Evaluation}{35}
 \contentsline {subsection}{\numberline {4.1}Diffraction Grating}{35}
 \contentsline {subsection}{\numberline {4.2}Snake Skin Parameters}{36}

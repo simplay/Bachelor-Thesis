@@ -88,6 +88,11 @@ start using the final findings from chapter 2 and substitute
 explain how all the components are computed and why they are computed like this.
 
 \subsubsection{Vertex Shader}
+The first computional stage within our rendering pipeline is computing all necessary per vertex data. Those computations are preformed in the vertex shader. In our case, we compute for any vertex of our current geometry the direction vectors $k1$ and $k2$ described like previousely in the tangent space. Initially all input data lives in its own space. Hence, we first have to transfrom all input data into the same space in order to use it for later computations within the fragment shader. We are going to transform k1 and k2 into the so called tangent space which. Furthermore, we have also to realign our local coordinate system. This is why there is an rodrigues rotation also involved. In order to avoid scaling issues and since we are only interested in the direction of the vectors k1 and k2, we have to normalize them, too. Last, we also output the position of the current vertex transfomed into the projective camera space.
+  
+explain $cop_w$
+modelM
+other shader assigned inputs
 
 \begin{algorithm}
   \caption{Vertex diffraction shader}
@@ -111,10 +116,7 @@ explain how all the components are computed and why they are computed like this.
 
 \subsubsection{Fragment Shader}
 
-
-describe every helper method how it work
-
-pewpewpew
+sdfsdfgdfgd
 
 \begin{algorithm}
   \caption{Fragment diffraction shader}
