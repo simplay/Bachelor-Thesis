@@ -35,16 +35,16 @@
 \contentsline {subsubsection}{\numberline {2.3.6}Final Expression}{28}
 \contentsline {section}{\numberline {3}Implementation}{30}
 \contentsline {subsection}{\numberline {3.1}Precomputations in Matlab}{31}
-\contentsline {subsection}{\numberline {3.2}Our Java Renderer}{31}
-\contentsline {subsubsection}{\numberline {3.2.1}Scene}{31}
+\contentsline {subsection}{\numberline {3.2}Our Java Renderer}{32}
+\contentsline {subsubsection}{\numberline {3.2.1}Scene}{32}
 \contentsline {subsubsection}{\numberline {3.2.2}jrtr Framework}{32}
-\contentsline {subsection}{\numberline {3.3}GLSL Diffraction Shader}{32}
-\contentsline {subsubsection}{\numberline {3.3.1}Vertex Shader}{32}
+\contentsline {subsection}{\numberline {3.3}GLSL Diffraction Shader}{33}
+\contentsline {subsubsection}{\numberline {3.3.1}Vertex Shader}{33}
 \contentsline {subsubsection}{\numberline {3.3.2}Fragment Shader}{33}
-\contentsline {section}{\numberline {4}Data Acquisition and Evaluation}{35}
-\contentsline {subsection}{\numberline {4.1}Diffraction Grating}{35}
-\contentsline {subsection}{\numberline {4.2}Snake Skin Parameters}{36}
-\contentsline {section}{\numberline {5}Results}{37}
-\contentsline {section}{\numberline {6}Conclusion}{38}
-\contentsline {subsection}{\numberline {6.1}Further Work}{38}
-\contentsline {subsubsection}{\numberline {6.1.1}Sources}{38}
+\contentsline {section}{\numberline {4}Data Acquisition and Evaluation}{36}
+\contentsline {subsection}{\numberline {4.1}Diffraction Grating}{36}
+\contentsline {subsection}{\numberline {4.2}Snake Skin Parameters}{37}
+\contentsline {section}{\numberline {5}Results}{38}
+\contentsline {section}{\numberline {6}Conclusion}{39}
+\contentsline {subsection}{\numberline {6.1}Further Work}{39}
+\contentsline {subsubsection}{\numberline {6.1.1}Sources}{39}

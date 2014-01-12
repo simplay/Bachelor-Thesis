@@ -41,10 +41,12 @@ By the end of the day we will end up with two different shaders, one which basic
 
 
 \subsection{Precomputations in Matlab}
-purpose
-explain matlab code
-explain shifts
-explain what will be outputed
+Our first task is to precompute the inverse two dimensional discrete fourier transformations of a given snake shed patch of interest taken by AFM. For that purpose we have written a small matlab script which offers a huge collection of mathematically, nummerically fast and stable alforithmes. Our matlab script reads a given image, which is representing a nano-sclaed heightfield, and computes its inverse two dimensional DFT by using matlab's internel inverse fast fourier transformation function, denoted by $ifft2$. Note that we only require once color channel of the input image since the input image is representing an heightfield, encoded by just one color. Basically, we are interested in computing the $ifft2$ for different powers of the input image since our taylor series approximation for the overall computation relies on this. Keep in mind that taking the fourier transoformation of an arbitrary function will result in a complex valued output which imples that we will get a complex value for each pixel of our input image. Therefore, for each input image we get as many output images, representing the two dimensional inverse fourier transformation, as the minimal amount of taylor terms required for a well-enough approximation. In order to store our output images, we have to use 2 color channels instead just one like it was for the given input image. As an optimization step, we do not directly store images, rather we output binary files which contain all RGB values for each pixel in a row first, coloumn last format. This allows us to have much higher precission for the output values and also it does not waste any color channels. Note that we have scaled each pixel value in a range between 0 and 1. Therefore, we have to remember store four scaling factors for each output image as well, which are the real and imaginary minimum and maximum values. Later, using linear interpolation within the shaderm we will get back the image's original values. 
+
+
+Say something about shifting - the centering why required?
+list code
+
 
 \subsection{Our Java Renderer}
 \subsubsection{Scene}
