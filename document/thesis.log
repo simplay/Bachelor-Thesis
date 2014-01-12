@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  12 JAN 2014 18:35
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  12 JAN 2014 19:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -770,7 +770,7 @@ Overfull \hbox (26.81639pt too wide) in paragraph at lines 626--626
 
 
 
-] [31] [32]) [33] [34] [35]
+] [31] [32] [33]) [34] [35]
 \openout2 = `Chapters/chap4.aux'.
 
 
@@ -814,7 +814,7 @@ ll-2010-math-2300-005/lectures/taylor-
 Here is how much of TeX's memory you used:
  16219 strings out of 493938
  338364 string characters out of 6148857
- 347029 words of memory out of 5000000
+ 346029 words of memory out of 5000000
  19264 multiletter control sequences out of 15000+600000
  21922 words of font info for 94 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191

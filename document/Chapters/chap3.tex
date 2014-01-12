@@ -28,16 +28,9 @@ SHOW ARCHITECTURE GRAPHIC from CG
 It's noteworthy that all the vertices are processed within the vertex-shader, whereas the fragement shader's responsibility is to perfrom pixelwise rendering, using the input from the vertex shader. Just remember, fragements are determined by a triple of vertices. hence each pixel has assigned a trilinear interpolated value of all input parameters of its spanning vertices.
 Usually, all necessary transformations are applied vertex-wise, considering the vertex-shader as the precomputation stage for the later rendering within the rendering pipeline, in the fragment-shader. In the geometry shader, new vertices around a considered vertex can be created. this is useful for debugging - displaying normals graphically for example.
 
-In this section we are going to explain how to get a fragment-shader from our findings for our BRDF formultion from the last section.  this fragment-shader will render the effect of diffraction on our given geometry pixelwise. Therefore, the quality of diffraction depends on the number of pixels we are going to use for the rendering process and this is directly determined by the resolution of the canvas in which the rendered images are being displayed. 
-But, before we can start formulating our fragment-shader we first have to write our vertex shader which does all the precomputations. 
- 
-By the end of the day we will end up with two different shaders, one which basically samples the whole lambda space using a gaussian window. This shader will be modeling the effect of diffraction completely but will also be rather slow. The other shader will use a gaussian window too but will just use a few wavenumber for the sampling process. Furthermore, this shader will thread specularity seperatly as a special case which will be more like an approximation. 
+In this part of thesis we are going to explain how we render our BRDF formulation derived in the last section in practice. all the necessary computations in order to simulate the effect of diffraction are performed within a fragment shader. This implies that we are modeling the effect of diffraction pixelwise and hence the overall modeling quality and computional pace depends on rendering window's resolution.
 
-
-
-
-
-
+By the end of this chapter we will have seen how our how our render works, what we have to precompute and how our shaders work. 
 
 
 \subsection{Precomputations in Matlab}
@@ -49,7 +42,13 @@ list code
 
 
 \subsection{Our Java Renderer}
+based on cg class...
+
 \subsubsection{Scene}
+
+what is its purpose
+
+
 explain geometry computation
 explain light(source) setup
 explain factories
@@ -118,7 +117,9 @@ other shader assigned inputs
 
 \subsubsection{Fragment Shader}
 
-sdfsdfgdfgd
+The purpose of a fragment shader is to render per fragment. A fragment is spaned by three vertices of a given mesh. For each pixel within all the output from the vertex shaders of its corresponding vertices is then trilinearly interpolated, depending on the pixel's position within the fragment, and passed into its fragment shader program.
+Furthermore, there can be additional input be assigned which is not directly interpolated from the output of vertex shader programs. 
+Our Fragment shader just uses k1 and k2, the vertex position as trilinearly interpolated values. Everything else  
 
 \begin{algorithm}
   \caption{Fragment diffraction shader}
@@ -159,3 +160,7 @@ sdfsdfgdfgd
 
 
 tell how we are going to sample - uniformly along lambda - explain draw-back of this approach - explain possible solutions for this issue. maybe refer to reference shader or leave this for the disscusion part.
+
+
+
+one which basically samples the whole lambda space using a gaussian window. This shader will be modeling the effect of diffraction completely but will also be rather slow. The other shader will use a gaussian window too but will just use a few wavenumber for the sampling process. Furthermore, this shader will thread specularity seperatly as a special case which will be more like an approximation. 
