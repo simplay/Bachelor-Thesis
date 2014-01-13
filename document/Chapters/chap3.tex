@@ -117,9 +117,18 @@ other shader assigned inputs
 
 \subsubsection{Fragment Shader}
 
+
+
+
+
 The purpose of a fragment shader is to render per fragment. A fragment is spaned by three vertices of a given mesh. For each pixel within all the output from the vertex shaders of its corresponding vertices is then trilinearly interpolated, depending on the pixel's position within the fragment, and passed into its fragment shader program.
 Furthermore, there can be additional input be assigned which is not directly interpolated from the output of vertex shader programs. Our fragment shader just relies on k1 and k2 from its vertex shaders for the computation of the effect of diffraction.
-There are some values preliminarily assigned to our fragment shader during the opgengl setup within our java program, like all references to the image buffers, containing the fourier transformations, the number of taylor step approximations, the minimal and maximal wavelength, other lookup values like the scaling factors, a reference to a lookup table containung the cie xyz color weights for our wavelength domain and other scaling constants. 
+There are some values preliminarily assigned to our fragment shader during the opgengl setup within our java program, like all references to the image buffers, containing the fourier transformations, the number of taylor step approximations, the minimal and maximal wavelength, other lookup values like the scaling factors, a reference to a lookup table containung the cie xyz color weights for our wavelength domain and other scaling constants.
+
+Our shader performs an on-thefly numerical integration for the integral in the derivation using trapeziodal rulewith uniform discretization of the $\lambda$ dimsension at a resolution of 5nm. To compute $F_{dtft}\{p\}$ terms the shader uses he precomputed DFTs for the Taylor series terms given in the derivation. The Gaussian winow approach is perfromed for each discrete $\lambda$ value using a window large enough to span $4\sigma_f$ in both dimensions. For computing DFT tables we generally use nanostructure gieghtfields that span at least 65$\mu m^2$ and are sampled with resoution of at least 100nm. This ensures that the spectral response encompasses al the wavelengths in the visible spectrum, i.e. from 380nm to 780nm. Note that this shader is not very fast in hardly can be denoted being interactive. 
+
+mention we uniform discretize $\lambda$ for a given (u,v) which implies compressing sampled frequencies to the region near to the origin (of their frequency domain). 
+For natural structures in nano-scale, most of their spectral energy lies at lower spatial frequencies which maps closer to region $(u,v) = (0,0)$ than higher frequencies. This is why We have chosen to sample (u,v) space non-linearly. We use 30 taylorterms for our approximation approach which has an error below Y, proven in the previous derivation chapter.
 
 \begin{algorithm}
   \caption{Fragment diffraction shader}
@@ -157,10 +166,23 @@ There are some values preliminarily assigned to our fragment shader during the o
   \end{algorithmic}
 \end{algorithm}
 
+MAYBE add linenumbers and use an explenatory approach from line x to y this is B
+at line t we perfrom approach u...
+EXPLAN COLOR WEIGHTS
+EXPLAIN getLocalLookUp
+EXPLAIN getClrMatchingFnWeights
+EXPLAIN getRescaledFourierTextureValueAt
+EXPLAIN $C(\hat{\mathbf{k_1}},\hat{\mathbf{k_2}})$ further
 
 
-tell how we are going to sample - uniformly along lambda - explain draw-back of this approach - explain possible solutions for this issue. maybe refer to reference shader or leave this for the disscusion part.
+The C term, introduced in the derivation chapter includes the so called Fresenel Term. We compute this by using the so called Schlick approximation (See appendix) using an reactive index at 1.5 since this is close to the measured value from snake sheds.
 
+NOTE about shadow function:  Our BRDF values are scaled by s shadowing function as described in (SEE REFERENCES - PAPER), since most of the grooves in the snake skin nanostructures would from a V-cavity along the plane for a wave front with their top-edges at almost the same height.   
+
+SHOW GRAPH for this fact: (lambda, k=f(lambda)), where $k = \frac{2pi}{\lambda}$, $f = \frac{c}{\lambda}$
+
+
+Optimization: Just use a few lambdas (just those which are at least required), which will enhance the overall runtime quite a lot but the overall accuracy will suffer then, too.
 
 
 one which basically samples the whole lambda space using a gaussian window. This shader will be modeling the effect of diffraction completely but will also be rather slow. The other shader will use a gaussian window too but will just use a few wavenumber for the sampling process. Furthermore, this shader will thread specularity seperatly as a special case which will be more like an approximation. 

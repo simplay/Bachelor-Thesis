@@ -41,10 +41,10 @@
 \contentsline {subsection}{\numberline {3.3}GLSL Diffraction Shader}{33}
 \contentsline {subsubsection}{\numberline {3.3.1}Vertex Shader}{33}
 \contentsline {subsubsection}{\numberline {3.3.2}Fragment Shader}{33}
-\contentsline {section}{\numberline {4}Data Acquisition and Evaluation}{36}
-\contentsline {subsection}{\numberline {4.1}Diffraction Grating}{36}
-\contentsline {subsection}{\numberline {4.2}Snake Skin Parameters}{37}
-\contentsline {section}{\numberline {5}Results}{38}
-\contentsline {section}{\numberline {6}Conclusion}{39}
-\contentsline {subsection}{\numberline {6.1}Further Work}{39}
-\contentsline {subsubsection}{\numberline {6.1.1}Sources}{39}
+\contentsline {section}{\numberline {4}Data Acquisition and Evaluation}{37}
+\contentsline {subsection}{\numberline {4.1}Diffraction Grating}{37}
+\contentsline {subsection}{\numberline {4.2}Snake Skin Parameters}{38}
+\contentsline {section}{\numberline {5}Results}{39}
+\contentsline {section}{\numberline {6}Conclusion}{40}
+\contentsline {subsection}{\numberline {6.1}Further Work}{40}
+\contentsline {subsubsection}{\numberline {6.1.1}Sources}{40}
