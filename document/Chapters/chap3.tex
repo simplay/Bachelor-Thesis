@@ -39,7 +39,8 @@ Our first task is to precompute the inverse two dimensional discrete fourier tra
 
 Say something about shifting - the centering why required?
 list code
-
+mention resoulution stuff
+maybe list a sample?
 
 \subsection{Our Java Renderer}
 based on cg class...
@@ -56,6 +57,8 @@ explain camera setup
 explain how materials are stored
 explain how assigned to jrtr
 
+setup and load: camera, perspective projection, ligths, geometry data, its material constants
+pass everthing, encapsulated within a container to jrtr
 
 
 \subsubsection{jrtr Framework}
@@ -73,11 +76,13 @@ rendering 3d models: camera simulation, interactive viewing, lighting, shading.
 modeling: triangle meshes, smotth surfaces
 java base code, openGL 3.0, 
 
-
-
 explain how this will work
 explain how passed to glsl shader - see computer graphics slides
 maybe show schematically the architecture
+
+pass values into shader
+SUPERDUPERIMPORTANT to mention t0 factor how many nanometers a pixel corresponds to.
+TELL SOMETHING ABOUT UNIT conversion QQs
 
 \subsection{GLSL Diffraction Shader}
 explain vertex shader and fragment shader and how they are related.
@@ -116,10 +121,6 @@ other shader assigned inputs
 
 
 \subsubsection{Fragment Shader}
-
-
-
-
 
 The purpose of a fragment shader is to render per fragment. A fragment is spaned by three vertices of a given mesh. For each pixel within all the output from the vertex shaders of its corresponding vertices is then trilinearly interpolated, depending on the pixel's position within the fragment, and passed into its fragment shader program.
 Furthermore, there can be additional input be assigned which is not directly interpolated from the output of vertex shader programs. Our fragment shader just relies on k1 and k2 from its vertex shaders for the computation of the effect of diffraction.
