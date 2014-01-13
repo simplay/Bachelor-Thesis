@@ -36,11 +36,45 @@ By the end of this chapter we will have seen how our how our render works, what 
 \subsection{Precomputations in Matlab}
 Our first task is to precompute the inverse two dimensional discrete fourier transformations of a given snake shed patch of interest taken by AFM. For that purpose we have written a small matlab script which offers a huge collection of mathematically, nummerically fast and stable alforithmes. Our matlab script reads a given image, which is representing a nano-sclaed heightfield, and computes its inverse two dimensional DFT by using matlab's internel inverse fast fourier transformation function, denoted by $ifft2$. Note that we only require once color channel of the input image since the input image is representing an heightfield, encoded by just one color. Basically, we are interested in computing the $ifft2$ for different powers of the input image since our taylor series approximation for the overall computation relies on this. Keep in mind that taking the fourier transoformation of an arbitrary function will result in a complex valued output which imples that we will get a complex value for each pixel of our input image. Therefore, for each input image we get as many output images, representing the two dimensional inverse fourier transformation, as the minimal amount of taylor terms required for a well-enough approximation. In order to store our output images, we have to use 2 color channels instead just one like it was for the given input image. As an optimization step, we do not directly store images, rather we output binary files which contain all RGB values for each pixel in a row first, coloumn last format. This allows us to have much higher precission for the output values and also it does not waste any color channels. Note that we have scaled each pixel value in a range between 0 and 1. Therefore, we have to remember store four scaling factors for each output image as well, which are the real and imaginary minimum and maximum values. Later, using linear interpolation within the shaderm we will get back the image's original values. 
 
+\begin{algorithm}
+\caption{Precomputation: Fourier images}
+\begin{lstlisting}
+% maxH:    A floating-point number specifying 
+%          the value of maximum height of the 
+%          height-field in MICRONS, where the 
+%          minimum-height is zero. 
+%         
+% dH:      A floating-point number specifying 
+%          the resolution (pixel-size) of the 
+%          'discrete' height-field in MICRONS. 
+%          It must less than 0.1 MICRONS to 
+%          ensure proper response for 
+%          visible-range of light spectrum.
+%
+% termCnt: An integer specifying the number of 
+%          Taylor series terms to use.
 
-Say something about shifting - the centering why required?
-list code
-mention resoulution stuff
-maybe list a sample?
+function []= ComputeFFTImages(maxH, dh, termCnt)
+dH = dh*1E-6;
+% load patch into patchImg
+patchImg = patchImg.*maxH;
+% perform imrotate(patchImg, angle)
+for t = 0 : termCnt
+  patchFFT = power(1j*patchImg, t);
+  fftTerm{t+1} = fftshift(ifft2(patchFFT));
+  
+  imOut(:,:,1)  = real(fftTerm{t+1});
+  imOut(:,:,2)  = imag(fftTerm{t+1});
+  imOut(:,:,3)  = 0.5;
+  
+  % perform imrotate(imOut, -angle)
+  % find real and imaginary extrema of 
+  % write imOut, extrema, dH, into files.
+end
+\end{lstlisting}
+\end{algorithm}
+
+say something about output
 
 \subsection{Our Java Renderer}
 based on cg class...

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  13 JAN 2014 16:05
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  13 JAN 2014 16:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -558,25 +558,6 @@ Package: wasysym 2003/10/30 v2.0 Wasy-2 symbol support package
 \symwasy=\mathgroup8
 LaTeX Font Info:    Overwriting symbol font `wasy' in version `bold'
 (Font)                  U/wasy/m/n --> U/wasy/b/n on input line 90.
-) (./mcode.sty
--- Package: `mcode' 2.4 <2013/11/05> --
-Package: mcode 2013/11/05 2.4
- - settings optimized for display (colour formating)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/xcolor/xcolor.sty
-Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/latexconfig/color.cfg
-File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
-)
-Package xcolor Info: Driver file: xetex.def on input line 225.
-Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
-Package xcolor Info: Model `RGB' extended on input line 1353.
-Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
-Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
-Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
-Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
-Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
-Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
 )
 (/usr/local/texlive/2013/texmf-dist/tex/latex/listings/listings.sty
 \lst@mode=\count149
@@ -602,7 +583,7 @@ File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
 File: listings.cfg 2007/02/22 1.4 listings configuration
 ))
 Package: listings 2007/02/22 1.4 (Carsten Heinz)
-)
+
 (./thesis.aux (./Chapters/chap1.aux) (./Chapters/chap2.aux)
 (./Chapters/chap3.aux) (./Chapters/chap4.aux) (./Chapters/chap5.aux)
 (./Chapters/chap6.aux))
@@ -835,18 +816,18 @@ Overfull \hbox (26.81639pt too wide) in paragraph at lines 668--668
 
 
 
-] [32] [33]
-Overfull \hbox (11.87724pt too wide) in paragraph at lines 83--86
+] [32] [33] [34]
+Overfull \hbox (11.87724pt too wide) in paragraph at lines 117--120
 \EU1/lmr/m/n/12 tor how many nanometers a pixel corresponds to. TELL SOMETHING 
 ABOUT
  []
 
-[34] [35]
-Overfull \hbox (0.33743pt too wide) in paragraph at lines 170--177
+[35] [36]
+Overfull \hbox (0.33743pt too wide) in paragraph at lines 204--211
 \EU1/lmr/m/n/12 EXPLAIN getLocalLookUp EXPLAIN getClrMatchingFnWeights EXPLAIN
  []
 
-) [36] [37]
+) [37] [38]
 \openout2 = `Chapters/chap4.aux'.
 
  (./Chapters/chap4.tex
@@ -857,17 +838,17 @@ Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
- [38
+ [39
 
 
 
 ]
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
- [39]) [40]
+ [40]) [41]
 \openout2 = `Chapters/chap5.aux'.
 
  (./Chapters/chap5.tex)
-[41
+[42
 
 
 
@@ -880,7 +861,7 @@ Overfull \hbox (52.8627pt too wide) in paragraph at lines 16--16
 ll-2010-math-2300-005/lectures/taylor-
  []
 
-) [42
+) [43
 
 
 
@@ -888,12 +869,12 @@ ll-2010-math-2300-005/lectures/taylor-
 (./Chapters/chap3.aux) (./Chapters/chap4.aux) (./Chapters/chap5.aux)
 (./Chapters/chap6.aux)) ) 
 Here is how much of TeX's memory you used:
- 17892 strings out of 493938
- 361436 string characters out of 6148857
- 377914 words of memory out of 5000000
- 20916 multiletter control sequences out of 15000+600000
+ 17391 strings out of 493938
+ 355683 string characters out of 6148857
+ 382686 words of memory out of 5000000
+ 20424 multiletter control sequences out of 15000+600000
  21922 words of font info for 94 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
- 46i,21n,42p,2012b,307s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 46i,21n,32p,2012b,959s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on thesis.pdf (42 pages).
+Output written on thesis.pdf (43 pages).
