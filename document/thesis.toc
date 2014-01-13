@@ -1,50 +1,51 @@
 \select@language {ngerman}
-\contentsline {section}{\numberline {1}Introduction}{4}
-\contentsline {subsection}{\numberline {1.1}Motivation}{4}
-\contentsline {subsection}{\numberline {1.2}Goals}{4}
-\contentsline {subsection}{\numberline {1.3}Previous work}{5}
-\contentsline {subsection}{\numberline {1.4}Overview}{6}
-\contentsline {section}{\numberline {2}Theoretical Background}{7}
-\contentsline {subsection}{\numberline {2.1}Definitions}{7}
-\contentsline {subsubsection}{\numberline {2.1.1}Diffraction}{7}
-\contentsline {subsubsection}{\numberline {2.1.2}Radiometry}{8}
+\contentsline {section}{\numberline {1}TODOs}{4}
+\contentsline {section}{\numberline {2}Introduction}{4}
+\contentsline {subsection}{\numberline {2.1}Motivation}{4}
+\contentsline {subsection}{\numberline {2.2}Goals}{4}
+\contentsline {subsection}{\numberline {2.3}Previous work}{5}
+\contentsline {subsection}{\numberline {2.4}Overview}{6}
+\contentsline {section}{\numberline {3}Theoretical Background}{7}
+\contentsline {subsection}{\numberline {3.1}Definitions}{7}
+\contentsline {subsubsection}{\numberline {3.1.1}Diffraction}{7}
+\contentsline {subsubsection}{\numberline {3.1.2}Radiometry}{8}
 \contentsline {paragraph}{Spectral Energy}{8}
 \contentsline {paragraph}{Power}{9}
 \contentsline {paragraph}{Irradiance}{9}
 \contentsline {paragraph}{Radiance}{9}
-\contentsline {subsubsection}{\numberline {2.1.3}BRDF}{10}
-\contentsline {subsubsection}{\numberline {2.1.4}Spectral Rendering}{11}
+\contentsline {subsubsection}{\numberline {3.1.3}BRDF}{10}
+\contentsline {subsubsection}{\numberline {3.1.4}Spectral Rendering}{11}
 \contentsline {paragraph}{CIE color spaces}{11}
-\contentsline {subsubsection}{\numberline {2.1.5}Signal}{11}
-\contentsline {subsubsection}{\numberline {2.1.6}Fourier Transformation}{11}
-\contentsline {subsubsection}{\numberline {2.1.7}Convolution}{12}
-\contentsline {subsubsection}{\numberline {2.1.8}Taylor Series}{13}
-\contentsline {subsection}{\numberline {2.2}Thesis Basis: J.Stam's Paper about Diffraction Shader}{13}
-\contentsline {subsection}{\numberline {2.3}Derivations}{15}
-\contentsline {subsubsection}{\numberline {2.3.1}BRDF formulation}{15}
-\contentsline {subsubsection}{\numberline {2.3.2}Relative BRDF}{17}
-\contentsline {subsubsection}{\numberline {2.3.3}Taylour approximation for BRDF}{20}
+\contentsline {subsubsection}{\numberline {3.1.5}Signal}{11}
+\contentsline {subsubsection}{\numberline {3.1.6}Fourier Transformation}{11}
+\contentsline {subsubsection}{\numberline {3.1.7}Convolution}{12}
+\contentsline {subsubsection}{\numberline {3.1.8}Taylor Series}{13}
+\contentsline {subsection}{\numberline {3.2}Thesis Basis: J.Stam's Paper about Diffraction Shader}{13}
+\contentsline {subsection}{\numberline {3.3}Derivations}{15}
+\contentsline {subsubsection}{\numberline {3.3.1}BRDF formulation}{15}
+\contentsline {subsubsection}{\numberline {3.3.2}Relative BRDF}{17}
+\contentsline {subsubsection}{\numberline {3.3.3}Taylour approximation for BRDF}{20}
 \contentsline {paragraph}{Taylor Series of p}{20}
 \contentsline {paragraph}{Fourier Transformation of p(x,y)}{21}
 \contentsline {paragraph}{Approximation of function P}{21}
 \contentsline {paragraph}{Proof Sketch of 1.}{22}
 \contentsline {paragraph}{Part 2: Find such an N}{22}
 \contentsline {paragraph}{Conclusion}{24}
-\contentsline {subsubsection}{\numberline {2.3.4}Sampling: Gaussian Window}{24}
-\contentsline {subsubsection}{\numberline {2.3.5}Aplitude smooting}{25}
-\contentsline {subsubsection}{\numberline {2.3.6}Final Expression}{29}
-\contentsline {section}{\numberline {3}Implementation}{31}
-\contentsline {subsection}{\numberline {3.1}Precomputations in Matlab}{32}
-\contentsline {subsection}{\numberline {3.2}Our Java Renderer}{33}
-\contentsline {subsubsection}{\numberline {3.2.1}Scene}{33}
-\contentsline {subsubsection}{\numberline {3.2.2}jrtr Framework}{33}
-\contentsline {subsection}{\numberline {3.3}GLSL Diffraction Shader}{34}
-\contentsline {subsubsection}{\numberline {3.3.1}Vertex Shader}{34}
-\contentsline {subsubsection}{\numberline {3.3.2}Fragment Shader}{35}
-\contentsline {section}{\numberline {4}Data Acquisition and Evaluation}{38}
-\contentsline {subsection}{\numberline {4.1}Diffraction Grating}{38}
-\contentsline {subsection}{\numberline {4.2}Snake Skin Parameters}{39}
-\contentsline {section}{\numberline {5}Results}{40}
-\contentsline {section}{\numberline {6}Conclusion}{41}
-\contentsline {subsection}{\numberline {6.1}Further Work}{41}
-\contentsline {subsubsection}{\numberline {6.1.1}Sources}{41}
+\contentsline {subsubsection}{\numberline {3.3.4}Sampling: Gaussian Window}{24}
+\contentsline {subsubsection}{\numberline {3.3.5}Aplitude smooting}{25}
+\contentsline {subsubsection}{\numberline {3.3.6}Final Expression}{29}
+\contentsline {section}{\numberline {4}Implementation}{31}
+\contentsline {subsection}{\numberline {4.1}Precomputations in Matlab}{32}
+\contentsline {subsection}{\numberline {4.2}Our Java Renderer}{33}
+\contentsline {subsubsection}{\numberline {4.2.1}Scene}{33}
+\contentsline {subsubsection}{\numberline {4.2.2}jrtr Framework}{33}
+\contentsline {subsection}{\numberline {4.3}GLSL Diffraction Shader}{34}
+\contentsline {subsubsection}{\numberline {4.3.1}Vertex Shader}{34}
+\contentsline {subsubsection}{\numberline {4.3.2}Fragment Shader}{35}
+\contentsline {section}{\numberline {5}Data Acquisition and Evaluation}{38}
+\contentsline {subsection}{\numberline {5.1}Diffraction Grating}{38}
+\contentsline {subsection}{\numberline {5.2}Snake Skin Parameters}{40}
+\contentsline {section}{\numberline {6}Results}{41}
+\contentsline {section}{\numberline {7}Conclusion}{42}
+\contentsline {subsection}{\numberline {7.1}Further Work}{42}
+\contentsline {subsubsection}{\numberline {7.1.1}References}{42}
