@@ -313,7 +313,7 @@ Thus, we can plug our last derived expression into the definition for the relati
 
 for simplification and a better overview, let us introduce the following expression, the so called gain factor
 
-\begin{equation}
+\begin{equation} \label{eq:cfact}
     C(w_i,w_r) = \frac{F^2(w_i,w_r)(1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})^2}{F^2(w_0,w_0)(cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r) N_{samples}^2}
 \end{equation}
 
@@ -540,7 +540,11 @@ Therefore we can deduce the following expression from this:
 & = \sum_i \sum_j {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \phi(u-w_u, v-w_v)
 \end{align*}
 
-where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$
+where 
+
+\begin{equation} \label{eq:gaussweight}
+ \phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}
+\end{equation} 
 
 \subsubsection{Aplitude smooting}
 Let us consider the so called 1-dimensional Box-function with length $T$ which is defined as the following: 

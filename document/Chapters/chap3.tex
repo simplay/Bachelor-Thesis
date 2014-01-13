@@ -167,7 +167,7 @@ For natural structures in nano-scale, most of their spectral energy lies at lowe
 
 \begin{algorithm}
   \caption{Fragment diffraction shader}
-  \begin{algorithmic}
+  \begin{algorithmic}[1]
     \ForAll{$Pixel \thinspace p \in Fragment$}
       \State \init $BRDF_{XYZ}, BRDF_{RGB}$ \to $vec4(0.0)$
       \State $(u,v,w) = \hat{\mathbf{k_1}}-\hat{\mathbf{k_2}}$
@@ -201,17 +201,19 @@ For natural structures in nano-scale, most of their spectral energy lies at lowe
   \end{algorithmic}
 \end{algorithm}
 
-MAYBE add linenumbers and use an explenatory approach from line x to y this is B
-at line t we perfrom approach u...
-EXPLAN COLOR WEIGHTS
-EXPLAIN getLocalLookUp
-EXPLAIN getClrMatchingFnWeights
-EXPLAIN getRescaledFourierTextureValueAt
-EXPLAIN $C(\hat{\mathbf{k_1}},\hat{\mathbf{k_2}})$ further
 
+\myparagraph{From line 4 to 26:} 
+Within this loop happens the uniform sampling along lambda space. At line 5: $getClrMatchingFnWeights(\lambda)$ computes the color weights for the current wavelength by bilinear interpolation from the two closest given $CIE_{XYZ}$ color weights for our current wavelength $\lambda$. At line 6: $getLookupCoord(u, v, \lambda)$ computes the current coordinate for the texture lookup in our precomputed ifft2 images. 
 
-The C term, introduced in the derivation chapter includes the so called Fresenel Term. We compute this by using the so called Schlick approximation (See appendix) using an reactive index at 1.5 since this is close to the measured value from snake sheds.
+\myparagraph{From line 9 to 24:} 
+Within this loop happens the taylor series approximation till a predefined upper bound, denoted as $MAXTAYLORTERMS$.
+Basically, the spectral response is approximated for our current $(u,v,\lambda)$. Furthermore, neighborhood-bounds for the upcoming gaussian windowing-sampling-approach are computed, denoted as anchorX and anchorY.
 
+\myparagraph{From line 14 to 22:} 
+In this most inner loop the convolution of the gaussian window with the inverse fft of the patch is pixelwise performed. 
+$getGaussWeightAtDistance(dist)$ computes $~\eqref{eq:gaussweight}$ from the distance between the center of the fft image with the current position in the neighborhood in texture space. $getRescaledFourierTextureValueAt(position)$ rescales the current computed value by the precomputed extrema values since all image values are scaled between 0 and 1. At line 27 $C(\hat{\mathbf{k_1}},\hat{\mathbf{k_2}})$ is multiplied in front of the current computed pixelColor. This terms was introduced in the derivation chapter and is the product of equation $~\eqref{eq:cfact}$
+
+The C term includes the so called Fresenel Term. We compute this by using the so called Schlick approximation (See appendix) using an reactive index at 1.5 since this is close to the measured value from snake sheds.
 NOTE about shadow function:  Our BRDF values are scaled by s shadowing function as described in (SEE REFERENCES - PAPER), since most of the grooves in the snake skin nanostructures would from a V-cavity along the plane for a wave front with their top-edges at almost the same height.   
 
 SHOW GRAPH for this fact: (lambda, k=f(lambda)), where $k = \frac{2pi}{\lambda}$, $f = \frac{c}{\lambda}$
