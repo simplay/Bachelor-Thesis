@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  13 JAN 2014 16:39
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  13 JAN 2014 17:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -787,25 +787,20 @@ T1/zplm/m/n/12 ) = \OML/zplm/m/it/12 e[]$\EU1/lmr/m/n/12 . We can formulate its
 zplm/m/it/12 x\OT1/zplm/m/n/12 )$\EU1/lmr/m/n/12 denote
  []
 
-[22] [23]
-Overfull \hbox (98.11969pt too wide) in paragraph at lines 539--539
-[] 
- []
-
-[24]
-Overfull \hbox (1.98618pt too wide) in paragraph at lines 557--560
+[22] [23] [24]
+Overfull \hbox (1.98618pt too wide) in paragraph at lines 559--562
 []\EU1/lmr/m/n/12 We assume, that our given heighfield can be represented as a 
 2-dimensional
  []
 
 
-Overfull \hbox (13.64383pt too wide) in paragraph at lines 557--560
+Overfull \hbox (13.64383pt too wide) in paragraph at lines 559--562
 \EU1/lmr/m/n/12 box-function. Note that we can use any explicit given constrain
 ted 2-dimensional
  []
 
 [25] [26] [27]
-Overfull \hbox (26.81639pt too wide) in paragraph at lines 668--668
+Overfull \hbox (26.81639pt too wide) in paragraph at lines 670--670
 [] 
  []
 
