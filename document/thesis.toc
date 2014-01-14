@@ -13,7 +13,7 @@
 \contentsline {paragraph}{Irradiance}{9}
 \contentsline {paragraph}{Radiance}{9}
 \contentsline {paragraph}{BRDF}{10}
-\contentsline {paragraph}{Spectral Rendering}{10}
+\contentsline {paragraph}{Spectral Rendering}{11}
 \contentsline {paragraph}{Color spaces}{11}
 \contentsline {subsubsection}{\numberline {2.1.3}Signal Processing Basics}{12}
 \contentsline {paragraph}{Fourier Transformation}{12}

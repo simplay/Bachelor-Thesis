@@ -26,7 +26,7 @@ The relationship between the grating spacing and the angles of the incident and 
 FRAUENHOFER DIFFRACTION
 
 \subsubsection{Radiometry}
-Light is fundamentally a propagation form of enegry, so it is useful to define the SI unit of energy which is joule (J). To aid our intuition, let us describe radiometry in terms of collections of large numbers of photons. A photon can be considered as a quantum of light that has a position, direction of propagation and a wavelength $\lambda$ measured in nanometers. A photon travels in a certain speed, denoted by $v = \frac{c}{n}$, that depends only on the refractive index $n$ of the medium through which it propagates and the speed of light $c$. This allows us do define the frequency $f = \frac{c}{\lambda}$. The amount of energy $q$ carried by a photon is given by the following relationship: $q = hf=  \frac{hc}{\lambda}$ where $h$ is the Plank's constant.
+Light is fundamentally a propagation form of enegry, so it is useful to define the SI unit of energy which is joule (J). To aid our intuition, let us describe radiometry in terms of collections of large numbers of photons. A photon can be considered as a quantum of light that has a position, direction of propagation and a wavelength $\lambda$ measured in nanometers. A photon travels in a certain speed, denoted by $v = \frac{c}{n}$, that depends only on the refractive index $n$ of the medium through which it propagates and the speed of light $c$. This allows us do define the frequency $f = \frac{c}{\lambda}$. The amount of energy $q$ carried by a photon is given by the following relationship: $q = hf= \frac{hc}{\lambda}$ where $h$ is the Plank's constant.
 
 \myparagraph{Spectral Energy}
 If there is a large collection of photons given, their total energy $Q = \sum_i q_i$ is the sum of energies of each photon $q_i$ within the collection. But how is the energy distributed across wavelenghts? One way in order to determine this distribution is to order all photons by their associated wavelength and then make a histogram from them. This is achieved by a discretization of their spectrum and combine all photons which will fall into the same interval, i.e. compute the sum for each interval from the energy of all their photons. By dividing such an interval by its length, denoted by $Q_\lambda$, we get a relatively scaled interval energy, which is called spectral energy and it is an intensive quantity. Intensive quantities can be thought of as density functions that tell the density of an extensive quantity at an infinitesimal point.
@@ -35,7 +35,13 @@ If there is a large collection of photons given, their total energy $Q = \sum_i 
 Power is the estimated rate of energy production for light sources and is measured in the unit Watts, denoted by Q, which is another name for joules per second. Since power is a density over time, it is well defined even when energy production is varying over time. As with energy, we are really interested in the spectral power, measured in W/nm, denoted by $\Phi_\lambda$
 
 \myparagraph{Irradiance}
-The term irradiance comes into place when we are interested in \textit{how much light hits a given point}. In order to answer this question, we must make use of a density function. Let $\delta A$ a finite area sensor that is smaller than the light field being measured. The spectral irradiance $E$ is just the power per unit area $\delta \frac{\Phi}{\delta A}$ which is $E = \frac{\delta q}{\delta A \delta t \delta \lambda}$ thus the units of irradiance are $Jm^{-2}s^{-1}(nm)^{-1}$,the power per unit surface area.
+The term irradiance comes into place when we are interested in \textit{how much light hits a given point}. In order to answer this question, we must make use of a density function. Let $\Delta A$ a finite area sensor that is smaller than the light field being measured. The spectral irradiance $E$ is just the power per unit area $\frac{\Delta \Phi}{\Delta A}$ which is 
+
+\begin{equation}
+ E = \frac{\Delta q}{\Delta A \Delta t \Delta \lambda}
+\end{equation}
+
+Thus the units of irradiance are $Jm^{-2}s^{-1}(nm)^{-1}$, the power per unit surface area.
 
 \myparagraph{Radiance}
 
@@ -50,21 +56,21 @@ Radiance is a measure of the quantity of radiation that passes through or is emi
 This means radiance characterizes the total emission of reflectance. It indicates how much of the power emitted by a reflecting surface will be received by an optical system looking at the surface from some given angle of view. Formally, this leads us to the following definition of radiance: 
 
 \begin{equation}
- L(\theta) = \frac{d^2 \Phi}{dA d\Omega cos(\theta)} \approx \frac{\Phi}{\Omega A cos(\theta)}
+ L(\omega) = \frac{d^2 \Phi}{dA d\Omega cos(\theta)} \approx \frac{\Phi}{\Omega A cos(\theta)}
 \end{equation}
 
-where $L$ is the oberseved radiance in the unit energy per area per solid angle, which is $Wm^-2 sr^-1$ in direction $\theta$, $\Theta$ is the total flux or power emitted, $\theta$ is the angle between the surface normal and the specified direction, $A$ is the area of the surface and $\Omega$ is the solid angle in the unit steradian subtended by the observation or measurement.
+where $L$ is the observed radiance in the unit energy per area per solid angle, which is $Wm^-2 sr^-1$ in direction $\omega$ which has an angle $\theta$ between the surface normal and $\omega$, $\Theta$ is the total flux or power emitted, $\theta$ is the angle between the surface normal and the specified direction, $A$ is the area of the surface and $\Omega$ is the solid angle in the unit steradian subtended by the observation or measurement.
 
 It is useful to distinguish between radiance incident at a point on a surface and exitant from that point. Terms for these concepts sometimes used in the graphics literature are surface radiance $L_r$ for the radiance \textit{reflected} from a surface and field radiance $L_i$ for the radiance \textit{incident} at a surface.  
 
 \myparagraph{BRDF}
-The bidirectional reflectance distribution function, in short BRDF, denoted as $f_r(w_i, w_r)$ is a four dimensional function that defines \textit{how light is reflected at an opaque surface}. The function takes a negative directed incoming light direction, $\omega_{\text{i}}$, and outgoing direction, $\omega_{\text{r}}$ as input argument. Both are defined with respect to the surface normal $\mathbf{n}$.Hence A BRDF returns the ratio of reflected radiance exiting along $\omega_{\text{r}}$ to the irradiance incident on the surface from direction $\omega_{\text{i}}$, which is formally:
+The bidirectional reflectance distribution function, in short BRDF, denoted as $f_r(\omega_i, \omega_r)$ is a four dimensional function that defines \textit{how light is reflected at an opaque surface}. The function takes a negative directed incoming light direction, $\omega_{\text{i}}$, and outgoing direction, $\omega_{\text{r}}$ as input argument. Both are defined with respect to the surface normal $\mathbf{n}$.Hence A BRDF returns the ratio of reflected radiance exiting along $\omega_{\text{r}}$ to the irradiance incident on the surface from direction $\omega_{\text{i}}$, which is formally:
   
 \begin{align}
-  BRDF(w_i, w_r)
-  & = f_r(w_i, w_r) \\
-  & = \frac{dL_r(w_r)}{dE_i(w_i)} \\
-  & = \frac{dL_r(w_r)}{L_i(w_i)cos(\theta_i)dw_i}
+  BRDF(\omega_i, \omega_r)
+  & = f_r(\omega_i, \omega_r) \\
+  & = \frac{dL_r(\omega_r)}{dE_i(\omega_i)} \\
+  & = \frac{dL_r(\omega_r)}{L_i(\omega_i)cos(\theta_i)d\omega_i}
 \end{align}
 
 L is the reflected radiance, E is the irradiance and $\theta_{\text{i}}$ is the angle between $\omega_{\text{i}}$ and the surface normal, $\mathbf n$. The index $\text{i}$ indicates incident light, whereas the index $\text{r}$ indicates reflected light.
@@ -167,9 +173,8 @@ A further assumption in Stam's Paper is, the emanated waves from the source are 
 
 Mention Helmolth equation, which has the solution $k = \frac{2\pi}{\lambda}$ which is the wavenumber
 
-
 Based on his these previous assumptions and applying Stam starts his derviations by applying the so called Kirchhoff integral, which is relating the reflected field to the incoming field. This equation is a formalization of Huygen’s well-known principle that states that if one knows the wavefront at a given moment, the wave at a later time can be deduced by considering each point on the first wave as the source of a new disturbance, i.e. once the field  $\psi_1 =  e^{ik\mathbf{x} \cdot \mathbf{s}\mathbf{s}}$ on the surface is known, the field everywhere $\psi_2$ else away from the surface can be computed.
-More precisely, we want to compute the wave $\psi_2$ equal to the reflection of an incoming planar monochromatic wave $\psi_1 = e^{ik k_1 * x}$  traveling in the direction $k_1$ from a surface S. Mathematically this can be formulized the following:
+More precisely, we want to compute the wave $\psi_2$ equal to the reflection of an incoming planar monochromatic wave $\psi_1 = e^{ik \omega_i * x}$  traveling in the direction $\omega_i$ from a surface S to the light source. Mathematically this can be formulized the following:
 
 \begin{equation}
   \psi_2 = \frac{i k e^{i K R}}{4 \pi R}(F\mathbf{v}-\mathbf{p}) \cdot \int_{S} \hat{\mathbf{n}} e^{ik\mathbf{v} \cdot \mathbf{s} d\mathbf{s}}
@@ -184,21 +189,21 @@ In applied optics, when dealing with scattered waves, one does use differential 
 
 Relationship between the BRDF and the scattering cross section is the follwing:
 
-The relationship between the BRDF and the scattering cross section can be shown to be equal to $BRDF = \frac{1}{4\pi}\frac{1}{A}\frac{\sigma^0}{cos(\theta_1)cos(\theta_2)}$
-Wheras $\theta_1a$ and $\theta_2$ are the angles that the vectors $\hat{k_1}$
-and $\hat{k_2}$ make with the vertical direction.
+The relationship between the BRDF and the scattering cross section can be shown to be equal to $BRDF = \frac{1}{4\pi}\frac{1}{A}\frac{\sigma^0}{cos(\theta_i)cos(\theta_r)}$
+Wheras $\theta_i$ and $\theta_r$ are the angles that the vectors $-\omega_i$
+and $\omega_r$ make with the vertical direction.
  
-ADD FIGURE for k1, k2
+ADD FIGURE for $\omega_i$, $\omega_r$
 
-where R is the disance from the center of the patch to the receiving point $x_p$, $\hat{\mathbf{n}}$ is the normal of the surface at s and the vectors:
+where R is the distance from the center of the patch to the receiving point $x_p$, $\hat{\mathbf{n}}$ is the normal of the surface at s and the vectors:
 
 \begin{equation*}
-    \mathbf{v} = \hat{\mathbf{k_1}} - \hat{\mathbf{k_1}}
+    \mathbf{v} = -\omega_i - \omega_r
                = (u,v,w)
 \end{equation*}
 
 \begin{equation*}
-    \mathbf{p} = \hat{\mathbf{k_1}} + \hat{\mathbf{k_1}}
+    \mathbf{p} = -\omega_i + \omega_r
 \end{equation*}
 
 
@@ -220,11 +225,11 @@ We the observation that the integral is a Fourier transform by $-iku$ and $-ikv$
 which will lead us to his final derivation, using the identity of BRDF, and computing the limes:
 
 \begin{equation}
-    BRDF_{\lambda}(w_i, w_r) = \frac{k^2 F^2 G}{4\pi^2 A w^2} \langle \left|P(ku, kv)\right|^2\rangle
+    BRDF_{\lambda}(\omega_i, \omega_r) = \frac{k^2 F^2 G}{4\pi^2 A w^2} \langle \left|P(ku, kv)\right|^2\rangle
 \end{equation}
 
-$BRDF_{\lambda}(w_i, w_r)$ is BRDF where wavelength $\lambda$ $w_i$ and $w_r$ are incident and reflected normalized directions vectors, pointing away from the given surface. Which can be written, using the fourier transform (FT) $P(u,v) = F(p)(u,v)$, as:
-$BRDF_{\lambda}(w_i, w_r) = \frac{F^2 G}{\lambda^2 A w^2}abs(P(\frac{u}{\lambda},\frac{v}{\lambda}))^2$ where F represents the Fresnel term, uv,v,w are derived from the incident and reflected directions as $(u,v,w) = -\omega_i - \omega_r$, abs(P) represents the expected valuess of a random variable X and A is an area of integration on the surface that is considered to contribute to diffraction, G is the geometry term which is $G   =\frac{(1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})^2}{cos(\theta_1)cos(\theta_2)}$
+$BRDF_{\lambda}(\omega_i, \omega_r)$ is BRDF where wavelength $\lambda$ $\omega_i$ and $\omega_r$ are incident and reflected normalized directions vectors, pointing away from the given surface. Which can be written, using the fourier transform (FT) $P(u,v) = F(p)(u,v)$, as:
+$BRDF_{\lambda}(\omega_i, \omega_r) = \frac{F^2 G}{\lambda^2 A w^2}abs(P(\frac{u}{\lambda},\frac{v}{\lambda}))^2$ where F represents the Fresnel term, uv,v,w are derived from the incident and reflected directions as $(u,v,w) = -\omega_i - \omega_r$, abs(P) represents the expected valuess of a random variable X and A is an area of integration on the surface that is considered to contribute to diffraction, G is the geometry term which is $G   =\frac{(1 + \omega_i \cdot \omega_r)^2}{cos(\theta_i)cos(\theta_r)}$
 
 and P(x,y) is the Fourier transform (FT) of the function p(x,y) from above.
 This identitiy for the BRDF is the starting point for our derivations.
@@ -235,69 +240,68 @@ This identitiy for the BRDF is the starting point for our derivations.
 
 Hence, we can dervie the following expression:
 \begin{align*}
-f_r(w_i, w_r) = \frac{dL_r(w_r)}{L_i(w_i)cos(\theta_i)dw_i} \\
-=> f_r(w_i, w_r) L_i(w_i)cos(\theta_i)dw_i = dL_r(w_r) \\
-=> \int_{\Omega}f_r(w_i, w_r) L_i(w_i)cos(\theta_i)dw_i = \int_{\Omega}dL_r(w_r) \\
-=> L_r(w_r) = \int_{\Omega}f_r(w_i, w_r) L_i(w_i)cos(\theta_i)dw_i
+f_r(\omega_i, \omega_r) = \frac{dL_r(\omega_r)}{L_i(\omega_i)cos(\theta_i)d\omega_i} \\
+=> f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i = dL_r(\omega_r) \\
+=> \int_{\Omega}f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i = \int_{\Omega}dL_r(\omega_r) \\
+=> L_r(\omega_r) = \int_{\Omega}f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i
 \end{align*}
 
-We assume, that our incident light is a directional light source like sun-light and therefore its radiance is given as $L_{\lambda}(w)=I(\lambda)\delta(w-w_i)$ where $I(\lambda)$ is the intensity of the relative spectral power for the wavelength $\lambda$. Thus we get for our the brdf formulation:
+We assume, that our incident light is a directional light source like sun-light and therefore its radiance is given as $L_{\lambda}(\omega)=I(\lambda)\delta(\omega-\omega_i)$ where $I(\lambda)$ is the intensity of the relative spectral power for the wavelength $\lambda$. Thus we get for our the brdf formulation:
 
 \begin{align}
 L_{\lambda}(w_r) 
-& = \int_{\Omega} BRDF_{\lambda}(w_i, w_r) L_{\lambda}(w_i) cos(\theta_i) dw_i \\
-& = BRDF_{\lambda}(w_i, w_r) I(\lambda) cos(\theta_i)
+& = \int_{\Omega} BRDF_{\lambda}(\omega_i, \omega_r) L_{\lambda}(\omega_i) cos(\theta_i) d\omega_i \\
+& = BRDF_{\lambda}(\omega_i, \omega_r) I(\lambda) cos(\theta_i)
 \end{align}
 
-where $w_i$ is the solid angle for the incoming light, $\theta{_i}$ is the angle of incidence,
-$w_r$ is the solid angle for the reflected light, $\lambda$ wavelength, $\Omega$ is the hemisphre we of integration for the incomming light.
+where $\omega_i$ is the solid angle for the incoming light, $\theta{_i}$ is the angle of incidence,
+$\omega_r$ is the solid angle for the reflected light, $\lambda$ wavelength, $\Omega$ is the hemisphre we of integration for the incomming light.
 Radiance reflected by given surface in given direction:
-$L_{\lambda}(w_i)$ is the incomming radiance, $L_{\lambda}(w_r)$ is the reflected radiance
+$L_{\lambda}(\omega_i)$ is the incomming radiance, $L_{\lambda}(\omega_r)$ is the reflected radiance
 
-For the $BRDF(w_i, w_r)$ we are going to use the formulation dervied by Stam described above which looks like this using the fact that wavenumber $k=\frac{2\pi}{\lambda}$:
+For the $BRDF(\omega_i, \omega_r)$ we are going to use the formulation dervied by Stam described above which looks like this using the fact that wavenumber $k=\frac{2\pi}{\lambda}$:
 
 \begin{align*}
-BRDF(w_i, w_r) 
+BRDF(\omega_i, \omega_r) 
 & = \frac{k^2 F^2 G}{4\pi^2 A w^2} \langle \left|P(ku, kv) \right|^2\rangle \\
-& = \frac{k^2 F^2 (1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})}{cos(\theta_1)cos(\theta_2) 4\pi^2 A w^2} \langle \left|P(ku, kv)  \right|^2\rangle \\
-& = \frac{4 \pi^2 F^2 (1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})}{cos(\theta_1)cos(\theta_2) 4\pi^2 A \lambda^2 w^2} \langle \left|P(ku, kv)  \right|^2\rangle \\
-& = \frac{F(w_i, w_r)^2 (1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})}{cos(\theta_1)cos(\theta_2) A \lambda^2 w^2} \langle \left|P(ku, kv)  \right|^2\rangle
+& = \frac{k^2 F^2 (1 + \omega_i \cdot \omega_r)^2}{cos(\theta_i)cos(\theta_r) 4\pi^2 A w^2} \langle \left|P(ku, kv)  \right|^2\rangle \\
+& = \frac{4 \pi^2 F^2 (1 + \omega_i \cdot \omega_r)^2}{cos(\theta_i)cos(\theta_r) 4\pi^2 A \lambda^2 w^2} \langle \left|P(ku, kv)  \right|^2\rangle \\
+& = \frac{F(w_i, w_r)^2 (1 + \omega_i \cdot \omega_r)^2}{cos(\theta_i)cos(\theta_r) A \lambda^2 w^2} \langle \left|P(ku, kv)  \right|^2\rangle
 \end{align*}
 
-where $\hat{\mathbf{k_t}}$ represents a unit vector whose spherical coordinates are given by the solid angle $t$.
+where $\omega_t$ represents a unit vector whose spherical coordinates are given by the solid angle $t$.
 Since we are going to integrate over a sphere $\Omega$ we can write the component $w=(cos(\theta_i)+cos(\theta_r))$
-SHOW WHY WE ARE ALLOWED TO WRITE IT LIKE THIS => SPHERICAL COORDINATES DIFFERENCE $(k1 - k2) = (u,v,w)$ and so on.
-this our identity for $L_{r}(w_r)$ will lead us to the following identiy using our identity :
+SHOW WHY WE ARE ALLOWED TO WRITE IT LIKE THIS => SPHERICAL COORDINATES DIFFERENCE $(-\omega_i - \omega_r) = (u,v,w)$ and so on.
+this our identity for $L_{r}(\omega_r)$ will lead us to the following identiy using our identity :
 
 \begin{align*}
-L_{\lambda}(w_r) 
-& = \frac{F(w_i, w_r)^2 (1-\hat{\mathbf{k_1}}\cdot\hat{ \mathbf{k_2}})^2}{A \lambda^2 cos(\theta_i)cos(\theta_r)  (cos(\theta_i)+cos(\theta_r))^2} \langle \left|P_{cont}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle cos(\theta_i) I(\lambda) \\
-& = I(\lambda) \frac{F(w_i, w_r)^2 (1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|P_{cont}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle \\
-& = I(\lambda) \frac{F(w_i, w_r)^2 (1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|T_0^2 P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle
+L_{\lambda}(\omega_r) 
+& = \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{A \lambda^2 cos(\theta_i)cos(\theta_r)  (cos(\theta_i)+cos(\theta_r))^2} \langle \left|P_{cont}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle cos(\theta_i) I(\lambda) \\
+& = I(\lambda) \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|P_{cont}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle \\
+& = I(\lambda) \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|T_0^2 P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle
 \end{align*}
 
 $P_{cont}$ is the continious inverse Fourier transform for the taylor seies of our hight-field representing the nano structure, i.e. $P(k,l) = \mathcal{F}^{-1}\{p\}(k,l)$ and $P_{dtft}$ is the dicrete-time inverse Fourier Transform for the same problem domain and $T_0$ the sampling distance for the discretization pf $p(x,y)$ assuming equal and uniform sampling in both dimensions $x,y$.
-
 
 
 \subsubsection{Relative BRDF}
 reason why relative brdf: In order to scale the reflactiance such that we are able to texture. 
 convex combination reflectance with texture. Scale illumination.
 
-Let us examine what $L_\lambda(w_r)$ will be for $w_r = w_0 := (0,0,*)$ i.e. specular reflection case, denoted as $L_\lambda^{spec}(w_0)$. 
-When we know the expression for $L_\lambda^{spec}(w_0)$ we would be able to compute the relative reflected radiance for our problem by simply dividing $L_\lambda(w_r)$ by $L_\lambda^{spec}(w_0)$, denoted as 
+Let us examine what $L_\lambda(\omega_r)$ will be for $\omega_r = \omega_0 := (0,0,*)$ i.e. specular reflection case, denoted as $L_\lambda^{spec}(\omega_0)$. 
+When we know the expression for $L_\lambda^{spec}(\omega_0)$ we would be able to compute the relative reflected radiance for our problem by simply dividing $L_\lambda(\omega_r)$ by $L_\lambda^{spec}(\omega_0)$, denoted as 
 
 \begin{equation}
-    \rho_\lambda(w_i,w_r) = \frac{L_\lambda(w_r)}{L_\lambda^{spec}(w_0)}
+    \rho_\lambda(\omega_i,\omega_r) = \frac{L_\lambda(\omega_r)}{L_\lambda^{spec}(\omega_0)}
 \end{equation}
 
 But first, let us derive the following expression:
 
 \begin{align*}
-L_\lambda^{spec}(w_0) 
-& = I(\lambda) \frac{F(w_0, w_0)^2 (1-\colvec[0]{0}{1}\cdot\colvec[0]{0}{-1})^2}{\lambda^2 A (cos(0)+cos(0))^2 cos(0)} \langle \left|T_0^2 P_{dtft}(0,0)  \right|^2\rangle \\
-& = I(\lambda) \frac{F(w_0, w_0)^2 (1+1)^2}{\lambda^2 A (1+1)^2 1}\left| T_0^2 N_{sample} \right|^2 \\
-& = I(\lambda) \frac{F(w_0, w_0)^2}{\lambda^2 A}\left| T_0^2 N_{sample} \right|^2 
+L_\lambda^{spec}(\omega_0) 
+& = I(\lambda) \frac{F(\omega_0, \omega_0)^2 (1+\colvec[0]{0}{1}\cdot\colvec[0]{0}{1})^2}{\lambda^2 A (cos(0)+cos(0))^2 cos(0)} \langle \left|T_0^2 P_{dtft}(0,0)  \right|^2\rangle \\
+& = I(\lambda) \frac{F(\omega_0, \omega_0)^2 (1+1)^2}{\lambda^2 A (1+1)^2 1}\left| T_0^2 N_{sample} \right|^2 \\
+& = I(\lambda) \frac{F(\omega_0, \omega_0)^2}{\lambda^2 A}\left| T_0^2 N_{sample} \right|^2 
 \end{align*}
 
 Where $N_{samples}$ is the number of samples of the dtft.
@@ -305,28 +309,28 @@ Where $N_{samples}$ is the number of samples of the dtft.
 Thus, we can plug our last derived expression into the definition for the relative reflectance radiance in the direction $w_r$ and will get:
 
 \begin{align*}
-\rho_\lambda(w_i,w_r)
-& = \frac{L_\lambda(w_r)}{L_\lambda^{spec}(w_0)} \\
-& = \frac{I(\lambda) \frac{F(w_i, w_r)^2 (1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|T_0^2 P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle}{I(\lambda) \frac{F(w_0, w_0)^2}{\lambda^2 A}\left| T_0^2 N_{sample} \right|^2 } \\
-& = \frac{F^2(w_i,w_r)(1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})^2}{F^2(w_0,w_0)(cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)}  \langle \left|\frac{P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})}{N_{samples}}\right|^2\rangle
+\rho_\lambda(\omega_i,\omega_r)
+& = \frac{L_\lambda(\omega_r)}{L_\lambda^{spec}(\omega_0)} \\
+& = \frac{I(\lambda) \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|T_0^2 P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda}) \right|^2\rangle}{I(\lambda) \frac{F(\omega_0, \omega_0)^2}{\lambda^2 A}\left| T_0^2 N_{sample} \right|^2 } \\
+& = \frac{F^2(\omega_i,\omega_r)(1 + \omega_i \cdot \omega_r)^2}{F^2(\omega_0,\omega_0)(cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|\frac{P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})}{N_{samples}}\right|^2\rangle
 \end{align*}
 
 for simplification and a better overview, let us introduce the following expression, the so called gain factor
 
 \begin{equation} \label{eq:cfact}
-    C(w_i,w_r) = \frac{F^2(w_i,w_r)(1-\hat{\mathbf{k_1}}\cdot\hat{\mathbf{k_2}})^2}{F^2(w_0,w_0)(cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r) N_{samples}^2}
+    C(\omega_i,\omega_r) = \frac{F^2(\omega_i,\omega_r)(1 + \omega_i \cdot \omega_r)^2}{F^2(\omega_0,\omega_0)(cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r) N_{samples}^2}
 \end{equation}
 
 Using this substitute, we will end up with the following expression for the relative reflectance radiance
 
 \begin{equation}
-\rho_\lambda(w_i,w_r) =  C(w_i,w_r) \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle
+\rho_\lambda(\omega_i,\omega_r) =  C(\omega_i,\omega_r) \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle
 \end{equation}
 
-using the previous definition for the relative reflectance radiance $\rho_\lambda(w_i,w_r) = \frac{L_\lambda(w_r)}{L_\lambda^{spec}(w_0)}$ which we can rearrange to the expression 
+using the previous definition for the relative reflectance radiance $\rho_\lambda(\omega_i,\omega_r) = \frac{L_\lambda(\omega_r)}{L_\lambda^{spec}(\omega_0)}$ which we can rearrange to the expression 
 
 \begin{equation}
-L_\lambda(w_r) = \rho_\lambda(w_i,w_r)L_\lambda^{spec}(w_0)
+L_\lambda(\omega_r) = \rho_\lambda(\omega_i,\omega_r)L_\lambda^{spec}(\omega_0)
 \end{equation}
 
 Let us choose $L_\lambda^{spec}(w_0) = S(\lambda)$ such that is has the same pforifle as the relative spectral power distribuation of CIE Standard Illuminant $D65$. Further, when integration over $\lambda$ for a specular surface we should get $CIE_XYZ$ values corresponding to the white point for $D65$ 
@@ -336,29 +340,29 @@ the corresponding tristimulus values using CIE colormatching functions for the $
 SEE HOW THIS DEFINITION DIFFERS FROM THE WIKIDEF AND HOW WE COULD END UP WITH A SIMILAR DEFINITION.
 
 \begin{equation}
-X = \int_{\lambda}L_\lambda(w_r)\overline{x}(\lambda)d\lambda
+X = \int_{\lambda}L_\lambda(\omega_r)\overline{x}(\lambda)d\lambda
 \end{equation} 
 
 \begin{equation}
-Y = \int_{\lambda}L_\lambda(w_r)\overline{y}(\lambda)d\lambda
+Y = \int_{\lambda}L_\lambda(\omega_r)\overline{y}(\lambda)d\lambda
 \end{equation}
 
 \begin{equation}
-Z = \int_{\lambda}L_\lambda(w_r)\overline{z}(\lambda)d\lambda
+Z = \int_{\lambda}L_\lambda(\omega_r)\overline{z}(\lambda)d\lambda
 \end{equation}
 
 where $\overline{x}$, $\overline{y}$, $\overline{z}$ are the color matching functions
 
-Using our last finding for $L_\lambda(w_r)$ and the definition for the tristimulus values we can actually derive an expression for computing the colors for our brdf model. Since X, Y, Z are defined similarly, it satisfies to derive an explicit expression for just one tristimulus term, for example X. The other two will look the same, except the we have to replace all X with Y or Z respectively. Therefore, we get:
+Using our last finding for $L_\lambda(\omega_r)$ and the definition for the tristimulus values we can actually derive an expression for computing the colors for our brdf model. Since X, Y, Z are defined similarly, it satisfies to derive an explicit expression for just one tristimulus term, for example X. The other two will look the same, except the we have to replace all X with Y or Z respectively. Therefore, we get:
 
 \begin{align*}
 X 
-& =\int_{\lambda}L_\lambda(w_r)\overline{x}(\lambda)d\lambda \\
-& =\int_{\lambda}\rho_\lambda(w_i,w_r)L_\lambda^{spec}(w_0) \overline{x}(\lambda)d\lambda \\
-& =\int_{\lambda}\rho_\lambda(w_i,w_r) S(\lambda) \overline{x}(\lambda)d\lambda \\
-& =\int_{\lambda} C(w_i,w_r) \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S(\lambda) \overline{x}(\lambda)d\lambda \\
-& = C(w_i,w_r) \int_{\lambda} \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S(\lambda) \overline{x}(\lambda)d\lambda \\
-& = C(w_i,w_r) \int_{\lambda} \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S_x(\lambda)d\lambda
+& =\int_{\lambda}L_\lambda(\omega_r)\overline{x}(\lambda)d\lambda \\
+& =\int_{\lambda}\rho_\lambda(\omega_i,\omega_r)L_\lambda^{spec}(\omega_0) \overline{x}(\lambda)d\lambda \\
+& =\int_{\lambda}\rho_\lambda(\omega_i,\omega_r) S(\lambda) \overline{x}(\lambda)d\lambda \\
+& =\int_{\lambda} C(\omega_i,\omega_r) \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S(\lambda) \overline{x}(\lambda)d\lambda \\
+& = C(\omega_i,\omega_r) \int_{\lambda} \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S(\lambda) \overline{x}(\lambda)d\lambda \\
+& = C(\omega_i,\omega_r) \int_{\lambda} \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S_x(\lambda)d\lambda
 \end{align*}
 
 Where we used the definition $S_x(\lambda)\overline{x}(\lambda)$ in the last step.
@@ -684,7 +688,7 @@ Let $P(u,v,\lambda) = {F}_{fft}^{-1}\{i^n h^n\}(\frac{2\pi u}{\lambda},\frac{2\p
 
 \begin{equation}
 \begin{split}
-\colvec[X]{X}{Z}& = C(w_i,w_r) \int_{\lambda} \sum_{n=0}^N  \frac{(wk)^n}{n!} \sum_{(r,s) \in \mathcal{N}_1(u,v)} \left| P_{\lambda}(u-w_r,v-w_s) \right|^2 \\
+\colvec[X]{X}{Z}& = C(\omega_i,\omega_r) \int_{\lambda} \sum_{n=0}^N  \frac{(wk)^n}{n!} \sum_{(r,s) \in \mathcal{N}_1(u,v)} \left| P_{\lambda}(u-w_r,v-w_s) \right|^2 \\
 & \quad \quad  \phi(u-w_r, v-w_s) \colvec[S_x(\lambda)]{S_y(\lambda)}{S_z(\lambda)}d\lambda
 \end{split}
 \end{equation}
