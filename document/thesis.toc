@@ -45,11 +45,13 @@
 \contentsline {paragraph}{From line 9 to 24:}{37}
 \contentsline {paragraph}{From line 14 to 22:}{37}
 \contentsline {subsection}{\numberline {3.4}Discussion}{39}
-\contentsline {section}{\numberline {4}Data Acquisition and Evaluation}{40}
-\contentsline {subsection}{\numberline {4.1}Diffraction Grating}{40}
-\contentsline {subsection}{\numberline {4.2}Snake Skin Parameters}{42}
+\contentsline {section}{\numberline {4}Evaluation Data Acquisition}{40}
+\contentsline {subsection}{\numberline {4.1}Diffraction Gratings}{40}
+\contentsline {subsection}{\numberline {4.2}Matlab code}{42}
+\contentsline {subsection}{\numberline {4.3}Discussion}{42}
 \contentsline {section}{\numberline {5}Results}{43}
 \contentsline {section}{\numberline {6}Conclusion}{44}
 \contentsline {subsection}{\numberline {6.1}Further Work}{44}
 \contentsline {subsubsection}{\numberline {6.1.1}References}{44}
-\contentsline {section}{\numberline {7}TODOs}{44}
+\contentsline {section}{\numberline {7}Acknowledgment}{44}
+\contentsline {section}{\numberline {8}TODOs}{44}

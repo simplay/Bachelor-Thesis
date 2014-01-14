@@ -1,10 +1,14 @@
-\section{Data Acquisition and Evaluation}
 
+\section{Evaluation Data Acquisition}
 what is this chapter about
 how is evaluation perfromed
 our shader
 evaluation java table generator provided by daljit.
-
+explain how this program works:
+subvariants: sample whole lambda space, just a few lambdas, pq approach.
+how from those generated tables to matlab
+how to read those
+discussion
 
 The true surface topography is extracted by flattening a single snake scale on a metal disc covered with carbon adhesive tape. Then, measurements were carried out using intermittment contact mode in a Bruker Dimension 3100 atomic force microscope (AFM) under ambient conditions, using a nanoscope V controller. The tops used were etched silicon TESP tips with a nomminal frequency and force constant of 320 kHz and 42 N/m respectively. 
 
@@ -17,9 +21,7 @@ where m is the order of diffraction.
 SHOW PLOTS AND TALK ABOUT THEM
 
 
-
-
-\subsection{Diffraction Grating}
+\subsection{Diffraction Gratings}
 Gratings may be of the reflective or transmissive type, analogous to a mirror or lens respectively. A grating has a zero-order mode (where m=0), in which there is no diffraction and a ray of light behaves according to the laws of reflection and refraction the same as with a mirror or lens respectively.
 
 An idealised grating is considered here which is made up of a set of slits of spacing d, that must be wider than the wavelength of interest to cause diffraction. Assuming a plane wave of wavelength λ with normal incidence (perpendicular to the grating), each slit in the grating acts as a quasi point-source from which light propagates in all directions (although this is typically limited to a hemisphere). After light interacts with the grating, the diffracted light is composed of the sum of interfering wave components emanating from each slit in the grating. At any given point in space through which diffracted light may pass, the path length to each slit in the grating will vary. Since the path length varies, generally, so will the phases of the waves at that point from each of the slits, and thus will add or subtract from one another to create peaks and valleys, through the phenomenon of additive and destructive interference. When the path difference between the light from adjacent slits is equal to half the wavelength, λ/2, the waves will all be out of phase, and thus will cancel each other to create points of minimum intensity. Similarly, when the path difference is λ, the phases will add together and maxima will occur. The maxima occur at angles θm, which satisfy the relationship dsinθm/λ=|m| where θm is the angle between the diffracted ray and the grating's normal vector, and d is the distance from the center of one slit to the center of the adjacent slit, and m is an integer representing the propagation-mode of interest.
@@ -52,4 +54,7 @@ $\forall \colvec[x]{y}{z} \in \mathbb{R}^3 : \exists r \in [0,\infty) \exists \p
 \colvec[x]{y}{z} = \colvec[r sin(\theta)cos(\phi)]{r sin(\theta)sin(\phi)}{r cos(\theta)}
 \end{equation*}
 
-\subsection{Snake Skin Parameters}
+\subsection{Matlab code}
+\subsection{Discussion}
+
+
