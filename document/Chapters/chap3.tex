@@ -79,6 +79,25 @@ say something about output
 \subsection{Our Java Renderer}
 based on cg class...
 
+rendering engine (jrtr) using a low-level api openGL 
+assigning GLSL shaders communication, set-up by jogl
+assigning scene data to rendering pipeline - to shaders
+set up buffers which will be used by application programs canvas in order to be rendered.
+definition of camera, perspective projection, scene graph, lights
+resource management
+flush,allocate, prestore buffers
+rendering scene graph
+optimizations like view-frustum-culling: discard renderItems outside view-frustum
+assign textures
+allows to render by own defined vertex- and fragment-shaders
+different light sources
+
+The minimal definition of a geometry is given by its wireframe mesh. This is a datastructures consisting of vertices each stored as a triple of xyz positions in an float array and triangles each defined by a triple of vertex-indices which form a fragment each stored in an integer array. It is possible to assing additional geoemtry data like a color for each vertex, normals and texture coordinates.
+
+application prorgam: 
+set up scene-data: camera, perspective projection, materials, geometries
+packing into container, passed to jrt
+
 \subsubsection{Scene}
 
 what is its purpose
