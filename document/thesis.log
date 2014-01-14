@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  14 JAN 2014 18:13
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  14 JAN 2014 18:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -724,46 +724,56 @@ File: images/3.png Graphic file (type QTm)
 
 ]
 [8]
-Overfull \hbox (128.44017pt too wide) in paragraph at lines 43--47
- \EU1/lmr/bx/n/12 Radiance[] \EU1/lmr/m/n/12 TODO: SHOW IMAGE: SOLID angle $\OM
-L/zplm/m/it/12 WIKI \OT1/zplm/m/n/12 : \OML/zplm/m/it/12 http \OT1/zplm/m/n/12 
-: //\OML/zplm/m/it/12 en\OT1/ppl/m/n/12 .\OML/zplm/m/it/12 wikipedia\OT1/ppl/m/
-n/12 .\OML/zplm/m/it/12 org\OT1/zplm/m/n/12 /\OML/zplm/m/it/12 wiki\OT1/zplm/m/
-n/12 /\OML/zplm/m/it/12 Radiance$
+Underfull \hbox (badness 10000) in paragraph at lines 40--41
+
+ []
+
+
+Overfull \hbox (79.95699pt too wide) in paragraph at lines 42--46
+[]\EU1/lmr/m/n/12 TODO: SHOW IMAGE: SOLID angle $\OML/zplm/m/it/12 WIKI \OT1/zp
+lm/m/n/12 : \OML/zplm/m/it/12 http \OT1/zplm/m/n/12 : //\OML/zplm/m/it/12 en\OT
+1/ppl/m/n/12 .\OML/zplm/m/it/12 wikipedia\OT1/ppl/m/n/12 .\OML/zplm/m/it/12 org
+\OT1/zplm/m/n/12 /\OML/zplm/m/it/12 wiki\OT1/zplm/m/n/12 /\OML/zplm/m/it/12 Rad
+iance$
  []
 
 [9] [10]
-LaTeX Font Info:    Try loading font information for U+dsrom on input line 106.
+LaTeX Font Info:    Try loading font information for U+dsrom on input line 105.
 
  (/usr/local/texlive/2013/texmf-dist/tex/latex/doublestroke/Udsrom.fd
 File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
 )
 [11]
-Overfull \hbox (20.90926pt too wide) in paragraph at lines 139--139
+Underfull \hbox (badness 10000) in paragraph at lines 120--121
+
+ []
+
+
+Overfull \hbox (20.90926pt too wide) in paragraph at lines 138--138
 []\EU1/lmr/bx/n/14.4 Thesis Basis: J.Stam’s Paper about Diffraction Shader 
  []
 
 [12] [13]
-Overfull \hbox (9.58163pt too wide) in paragraph at lines 198--199
+Overfull \hbox (9.58163pt too wide) in paragraph at lines 197--198
 []\EU1/lmr/m/n/12 wheras stam formulates for a hightfield auxilary function $\O
 ML/zplm/m/it/12 p\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 x\OT1/ppl/m/n/12 , \OML/zp
 lm/m/it/12 y\OT1/zplm/m/n/12 ) = \OML/zplm/m/it/12 e[]$
  []
 
 [14] [15]
-Overfull \hbox (29.16502pt too wide) in paragraph at lines 265--265
+Overfull \hbox (29.16502pt too wide) in paragraph at lines 264--264
 [] 
  []
 
 [16] [17]
-Overfull \hbox (17.27238pt too wide) in paragraph at lines 314--315
+Overfull \hbox (17.27238pt too wide) in paragraph at lines 313--314
 []\EU1/lmr/m/n/12 using the previous definition for the relative reflectance ra
 diance $\OML/zplm/m/it/12 ^^Z[]\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 w[]\OT1/ppl/
 m/n/12 , \OML/zplm/m/it/12 w[]\OT1/zplm/m/n/12 ) =
  []
 
 [18] [19]
-Overfull \hbox (12.04079pt too wide) in paragraph at lines 393--394
+Overfull \hbox (12.04079pt too wide) in paragraph at lines 392--393
 []\EU1/lmr/m/n/12 Hence it follows: $\OML/zplm/m/it/12 P\OT1/zplm/m/n/12 (\OML/
 zplm/m/it/12 ^^K\OT1/ppl/m/n/12 , \OML/zplm/m/it/12 ^^L\OT1/zplm/m/n/12 ) = [][
 ] []\OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 ^^K\OT1/ppl/m/n/1
@@ -773,21 +783,21 @@ lm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 u\OT1/ppl/m/n/12 , \OML/zplm
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 396--397
+Underfull \hbox (badness 10000) in paragraph at lines 395--396
 
  []
 
-LaTeX Font Info:    Try loading font information for U+fplmbb on input line 398
+LaTeX Font Info:    Try loading font information for U+fplmbb on input line 397
 .
 (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
 ) [20]
-Underfull \hbox (badness 10000) in paragraph at lines 411--412
+Underfull \hbox (badness 10000) in paragraph at lines 410--411
 
  []
 
 
-Overfull \hbox (72.90395pt too wide) in paragraph at lines 413--415
+Overfull \hbox (72.90395pt too wide) in paragraph at lines 412--414
 []\EU1/lmr/m/n/12 By the \EU1/lmr/bx/n/12 ratio test \EU1/lmr/m/n/12 (see \EU1/
 lmr/bx/n/12 [1]\EU1/lmr/m/n/12 ) It is possible to show that the series $[][] [
 ]\OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 ^^K\OT1/ppl/m/n/12 ,
@@ -795,7 +805,7 @@ lmr/bx/n/12 [1]\EU1/lmr/m/n/12 ) It is possible to show that the series $[][] [
  []
 
 
-Overfull \hbox (16.77995pt too wide) in paragraph at lines 425--428
+Overfull \hbox (16.77995pt too wide) in paragraph at lines 424--427
 \EU1/lmr/m/n/12 Let $\OML/zplm/m/it/12 f\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 x\O
 T1/zplm/m/n/12 ) = \OML/zplm/m/it/12 e[]$\EU1/lmr/m/n/12 . We can formulate its
  Taylor-Series, stated above. Let $\OML/zplm/m/it/12 P[]\OT1/zplm/m/n/12 (\OML/
@@ -803,19 +813,19 @@ zplm/m/it/12 x\OT1/zplm/m/n/12 )$\EU1/lmr/m/n/12 denote
  []
 
 [21] [22] [23]
-Overfull \hbox (1.98618pt too wide) in paragraph at lines 551--554
+Overfull \hbox (1.98618pt too wide) in paragraph at lines 550--553
 []\EU1/lmr/m/n/12 We assume, that our given heighfield can be represented as a 
 2-dimensional
  []
 
 
-Overfull \hbox (13.64383pt too wide) in paragraph at lines 551--554
+Overfull \hbox (13.64383pt too wide) in paragraph at lines 550--553
 \EU1/lmr/m/n/12 box-function. Note that we can use any explicit given constrain
 ted 2-dimensional
  []
 
 [24] [25] [26] [27]
-Overfull \hbox (26.81639pt too wide) in paragraph at lines 662--662
+Overfull \hbox (26.81639pt too wide) in paragraph at lines 661--661
 [] 
  []
 

@@ -1,7 +1,5 @@
 \section{Theoretical Background}
 \subsection{Definitions}
-
-
 \subsubsection{Diffraction}
 Diffraction refers to various wave-like phenomena which occur when a wave encounters an obstacle, which cannot be modeled using the standard ray theory of light. 
 In classical physics, the diffraction phenomenon is described as the apparent bending of waves around small obstacles and the spreading out of waves past small openings.
@@ -30,16 +28,17 @@ FRAUENHOFER DIFFRACTION
 \subsubsection{Radiometry}
 Light is fundamentally a propagation form of enegry, so it is useful to define the SI unit of energy which is joule (J). To aid our intuition, let us describe radiometry in terms of collections of large numbers of photons. A photon can be considered as a quantum of light that has a position, direction of propagation and a wavelength $\lambda$ measured in nanometers. A photon travels in a certain speed, denoted by $v = \frac{c}{n}$, that depends only on the refractive index $n$ of the medium through which it propagates and the speed of light $c$. This allows us do define the frequency $f = \frac{c}{\lambda}$. The amount of energy $q$ carried by a photon is given by the following relationship: $q = hf=  \frac{hc}{\lambda}$ where $h$ is the Plank's constant.
 
-\paragraph{Spectral Energy}
+\myparagraph{Spectral Energy}
 If there is a large collection of photons given, their total energy $Q = \sum_i q_i$ is the sum of energies of each photon $q_i$ within the collection. But how is the energy distributed across wavelenghts? One way in order to determine this distribution is to order all photons by their associated wavelength and then make a histogram from them. This is achieved by a discretization of their spectrum and combine all photons which will fall into the same interval, i.e. compute the sum for each interval from the energy of all their photons. By dividing such an interval by its length, denoted by $Q_\lambda$, we get a relatively scaled interval energy, which is called spectral energy and it is an intensive quantity. Intensive quantities can be thought of as density functions that tell the density of an extensive quantity at an infinitesimal point.
 
-\paragraph{Power}
+\myparagraph{Power}
 Power is the estimated rate of energy production for light sources and is measured in the unit Watts, denoted by Q, which is another name for joules per second. Since power is a density over time, it is well defined even when energy production is varying over time. As with energy, we are really interested in the spectral power, measured in W/nm, denoted by $\Phi_\lambda$
 
-\paragraph{Irradiance}
+\myparagraph{Irradiance}
 The term irradiance comes into place when we are interested in \textit{how much light hits a given point}. In order to answer this question, we must make use of a density function. Let $\delta A$ a finite area sensor that is smaller than the light field being measured. The spectral irradiance $E$ is just the power per unit area $\delta \frac{\Phi}{\delta A}$ which is $E = \frac{\delta q}{\delta A \delta t \delta \lambda}$ thus the units of irradiance are $Jm^{-2}s^{-1}(nm)^{-1}$,the power per unit surface area.
 
-\paragraph{Radiance}
+\myparagraph{Radiance}
+
 TODO: SHOW IMAGE: SOLID angle
 $WIKI: http://en.wikipedia.org/wiki/Radiance$
 $CG Slides 2012 - 6.shading$
@@ -58,7 +57,7 @@ where $L$ is the oberseved radiance in the unit energy per area per solid angle,
 
 Spectral radiance is the energy at each wavelength
 
-\paragraph{BRDF}
+\myparagraph{BRDF}
 The bidirectional reflectance distribution function, in short BRDF, denoted as $f_r(w_i, w_r)$ is a four dimensional function that defines \textit{how light is reflected at an opaque surface}. The function takes a negative directed incoming light direction, $\omega_{\text{i}}$, and outgoing direction, $\omega_{\text{r}}$ as input argument. Both are defined with respect to the surface normal $\mathbf{n}$.Hence A BRDF returns the ratio of reflected radiance exiting along $\omega_{\text{r}}$ to the irradiance incident on the surface from direction $\omega_{\text{i}}$, which is formally:
   
 \begin{align}
@@ -69,11 +68,11 @@ The bidirectional reflectance distribution function, in short BRDF, denoted as $
 
 L is the reflected radiance, E is the irradiance and $\theta_{\text{i}}$ is the angle between $\omega_{\text{i}}$ and the surface normal, $\mathbf n$. The index $\text{i}$ indicates incident light, whereas the index $\text{r}$ indicates reflected light.
 
-\paragraph{Spectral Rendering}
+\myparagraph{Spectral Rendering}
 ENHANCE ME
 In Computer Graphics, spectral rendering is where a scene's light transport is modeled considering the whole span of wavelengths instead of R,G,B values (still relating on geometric optic, which ignore wave phase). The motivation is that real colors of the physical world are spectrum; trichromatic colors are only inherent to Human Visual System.
 
-\paragraph{CIE color spaces}
+\myparagraph{CIE color spaces}
 CIE 1931 RGB and CIE 1931 XYZ color spaces are the first mathematically defined color spaces. They were created by the International Commission on Illumination (CIE) in 1931.
 
 The CIE's color matching functions $\overline{x}(\lambda)$, $\overline{y}(\lambda)$ and $\overline{z}(\lambda)$ are the numerical description of the chromatic response of the observer (described above). They can be thought of as the spectral sensitivity curves of three linear light detectors yielding the CIE tristimulus values X, Y and Z. Collectively, these three functions are known as the CIE standard observer.[9]
@@ -91,7 +90,7 @@ where $\lambda$, is the wavelength of the equivalent monochromatic light (measur
 A signal is a function that conveys information about the behavior or attributes of some phenomenon.
 In the physical world, any quantity exhibiting variation in time or variation in space (such as an image) is potentially a signal that might provide information on the status of a physical system, or convey a message between observers
 
-\paragraph{Fourier Transformation}
+\myparagraph{Fourier Transformation}
 The Fourier-Transform is a mathematical tool which allows to transform a given function or rather a given signal from defined over a time- (or spatial-) domain into its corresponding frequency-domain.
  
 Let $f$ an measurable function over $\mathcal{R}^n$. Then, the coninious Fourier Transformation, denoted as FT, $\mathcal{F}\{t\}$ of $f$ is defined as, ignoring all constant factors in the formula:
@@ -118,7 +117,7 @@ we can further discretize the frequency domain and will get then the discrete fo
 \end{equation}
 Where the angular frequency $w_n$ is defined like the following $w_n = \frac{2\pi n}{N}$ and N is the number of samples within an equidistant periode sampling.
 
-\paragraph{Convolution}
+\myparagraph{Convolution}
 
 \begin{equation}
   \mathcal (f*g)(t) = \int_{\mathcal{R}^n} f(t)g(t-x) dx
@@ -127,7 +126,7 @@ Where the angular frequency $w_n$ is defined like the following $w_n = \frac{2\p
 Note that the Fourier transform of the convolution of two functions is the product of their Fourier transforms. This is equivalent to the fact that Convolution in spatial domain is equivalent to multiplication in frequency domain. Therefore, the inverse Fourier transform of the product of two Fourier transforms is the convolution of the two inverse Fourier transforms
 
 
-\paragraph{Taylor Series}
+\myparagraph{Taylor Series}
 Taylor series is a representation of a function as an infinite sum of terms that are calculated from the values of the function's derivatives at a single point.
 
 The Taylor series of a real or complex-valued function ƒ(x) that is infinitely differentiable at a real or complex number a is the power series:
