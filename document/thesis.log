@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  14 JAN 2014 18:20
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  14 JAN 2014 18:54
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -738,42 +738,36 @@ iance$
  []
 
 [9] [10]
-LaTeX Font Info:    Try loading font information for U+dsrom on input line 105.
-
+LaTeX Font Info:    Try loading font information for U+dsrom on input line 96.
  (/usr/local/texlive/2013/texmf-dist/tex/latex/doublestroke/Udsrom.fd
 File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
 )
-[11]
-Underfull \hbox (badness 10000) in paragraph at lines 120--121
-
- []
-
-
-Overfull \hbox (20.90926pt too wide) in paragraph at lines 138--138
+[11] [12]
+Overfull \hbox (20.90926pt too wide) in paragraph at lines 141--141
 []\EU1/lmr/bx/n/14.4 Thesis Basis: J.Stam’s Paper about Diffraction Shader 
  []
 
-[12] [13]
-Overfull \hbox (9.58163pt too wide) in paragraph at lines 197--198
+[13]
+Overfull \hbox (9.58163pt too wide) in paragraph at lines 200--201
 []\EU1/lmr/m/n/12 wheras stam formulates for a hightfield auxilary function $\O
 ML/zplm/m/it/12 p\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 x\OT1/ppl/m/n/12 , \OML/zp
 lm/m/it/12 y\OT1/zplm/m/n/12 ) = \OML/zplm/m/it/12 e[]$
  []
 
 [14] [15]
-Overfull \hbox (29.16502pt too wide) in paragraph at lines 264--264
+Overfull \hbox (29.16502pt too wide) in paragraph at lines 267--267
 [] 
  []
 
 [16] [17]
-Overfull \hbox (17.27238pt too wide) in paragraph at lines 313--314
+Overfull \hbox (17.27238pt too wide) in paragraph at lines 316--317
 []\EU1/lmr/m/n/12 using the previous definition for the relative reflectance ra
 diance $\OML/zplm/m/it/12 ^^Z[]\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 w[]\OT1/ppl/
 m/n/12 , \OML/zplm/m/it/12 w[]\OT1/zplm/m/n/12 ) =
  []
 
 [18] [19]
-Overfull \hbox (12.04079pt too wide) in paragraph at lines 392--393
+Overfull \hbox (12.04079pt too wide) in paragraph at lines 395--396
 []\EU1/lmr/m/n/12 Hence it follows: $\OML/zplm/m/it/12 P\OT1/zplm/m/n/12 (\OML/
 zplm/m/it/12 ^^K\OT1/ppl/m/n/12 , \OML/zplm/m/it/12 ^^L\OT1/zplm/m/n/12 ) = [][
 ] []\OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 ^^K\OT1/ppl/m/n/1
@@ -783,21 +777,22 @@ lm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 u\OT1/ppl/m/n/12 , \OML/zplm
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 395--396
+Underfull \hbox (badness 10000) in paragraph at lines 398--399
 
  []
 
-LaTeX Font Info:    Try loading font information for U+fplmbb on input line 397
+[20]
+LaTeX Font Info:    Try loading font information for U+fplmbb on input line 400
 .
-(/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ufplmbb.fd
+ (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
-) [20]
-Underfull \hbox (badness 10000) in paragraph at lines 410--411
+)
+Underfull \hbox (badness 10000) in paragraph at lines 413--414
 
  []
 
 
-Overfull \hbox (72.90395pt too wide) in paragraph at lines 412--414
+Overfull \hbox (72.90395pt too wide) in paragraph at lines 415--417
 []\EU1/lmr/m/n/12 By the \EU1/lmr/bx/n/12 ratio test \EU1/lmr/m/n/12 (see \EU1/
 lmr/bx/n/12 [1]\EU1/lmr/m/n/12 ) It is possible to show that the series $[][] [
 ]\OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 ^^K\OT1/ppl/m/n/12 ,
@@ -805,7 +800,7 @@ lmr/bx/n/12 [1]\EU1/lmr/m/n/12 ) It is possible to show that the series $[][] [
  []
 
 
-Overfull \hbox (16.77995pt too wide) in paragraph at lines 424--427
+Overfull \hbox (16.77995pt too wide) in paragraph at lines 427--430
 \EU1/lmr/m/n/12 Let $\OML/zplm/m/it/12 f\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 x\O
 T1/zplm/m/n/12 ) = \OML/zplm/m/it/12 e[]$\EU1/lmr/m/n/12 . We can formulate its
  Taylor-Series, stated above. Let $\OML/zplm/m/it/12 P[]\OT1/zplm/m/n/12 (\OML/
@@ -813,19 +808,19 @@ zplm/m/it/12 x\OT1/zplm/m/n/12 )$\EU1/lmr/m/n/12 denote
  []
 
 [21] [22] [23]
-Overfull \hbox (1.98618pt too wide) in paragraph at lines 550--553
+Overfull \hbox (1.98618pt too wide) in paragraph at lines 553--556
 []\EU1/lmr/m/n/12 We assume, that our given heighfield can be represented as a 
 2-dimensional
  []
 
 
-Overfull \hbox (13.64383pt too wide) in paragraph at lines 550--553
+Overfull \hbox (13.64383pt too wide) in paragraph at lines 553--556
 \EU1/lmr/m/n/12 box-function. Note that we can use any explicit given constrain
 ted 2-dimensional
  []
 
 [24] [25] [26] [27]
-Overfull \hbox (26.81639pt too wide) in paragraph at lines 661--661
+Overfull \hbox (26.81639pt too wide) in paragraph at lines 664--664
 [] 
  []
 
@@ -891,11 +886,11 @@ ll-2010-math-2300-005/lectures/taylor-
 (./Chapters/chap3.aux) (./Chapters/chap4.aux) (./Chapters/chap5.aux)
 (./Chapters/chap6.aux)) ) 
 Here is how much of TeX's memory you used:
- 18421 strings out of 493938
- 374554 string characters out of 6148857
+ 18416 strings out of 493938
+ 374402 string characters out of 6148857
  406111 words of memory out of 5000000
- 21446 multiletter control sequences out of 15000+600000
- 21930 words of font info for 95 fonts, out of 8000000 for 9000
+ 21445 multiletter control sequences out of 15000+600000
+ 21914 words of font info for 93 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  46i,21n,38p,2012b,1042s stack positions out of 5000i,500n,10000p,200000b,80000s
 

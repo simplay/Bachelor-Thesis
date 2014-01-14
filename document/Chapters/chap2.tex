@@ -93,43 +93,46 @@ In the physical world, any quantity exhibiting variation in time or variation in
 \myparagraph{Fourier Transformation}
 The Fourier-Transform is a mathematical tool which allows to transform a given function or rather a given signal from defined over a time- (or spatial-) domain into its corresponding frequency-domain.
  
-Let $f$ an measurable function over $\mathcal{R}^n$. Then, the coninious Fourier Transformation, denoted as FT, $\mathcal{F}\{t\}$ of $f$ is defined as, ignoring all constant factors in the formula:
+Let $f$ an measurable function over $\mathds{R}^n$. Then, the continnous Fourier Transformation(\textbf{FT}), denoted as $\mathcal{F}\{f\}$ of $f$ is defined as, ignoring all constant factors in the formula:
  
 \begin{equation}
-  \mathcal{F}\{w\}_{FT} = \int_{\mathcal{R}^n} f(x)e^{-iwt} dt
+  \mathcal{F}_{FT}\{f\}(w) = \int_{\mathds{R}^n} f(x)e^{-iwt} dt
 \end{equation}
 
 whereas its inverse transform is defined like the following which allows us to obtain back the original signal:
 
 \begin{equation}
-  \mathcal{F}\{w\}^{-1}_{FT} = \int_{\mathds{R}} \mathcal{F}\{w\}e^{iwt} dt
+  \mathcal{F}_{FT}^{-1}\{f\}(w) = \int_{\mathds{R}} \mathcal{F}\{w\}e^{iwt} dt
 \end{equation}
 
-By using fourier analysis, which is the approach to approximate any function by sums of simpler trigonometric functions, we gain the so called discrete time fourier transform (in short DTFT). The DTFT operates on a discrete function. Usually, such an input function is often created by diitally sampling a continius function. The DTFT itself is operation on a discretized signal on a continious, periodic frequency domain and looks like the following:
+An usual identity for $w$ is the the so called angular with $w = \frac{2 \pi}{T} = 2 \pi v_f$ where T is the period, $v_f$ the frequency.
+
+By using Fourier Analysis, which is the approach to approximate any function by sums of simpler trigonometric functions, we gain the so called Discrete Time Fourier Transform (in short \textbf{DTFT}). The DTFT operates on a discrete function. Usually, such an input function is often created by digitally sampling a continnous function. The DTFT itself is operation on a discretized signal on a continnous, periodic frequency domain and looks like the following:
 
 \begin{equation}
-  \mathcal{F}\{w\}_{DFT} = \sum_{-\infty}^{\infty} f(x) e^(-iwk)
+  \mathcal{F}_{DTFT}\{f\}(w) = \sum_{-\infty}^{\infty} f(x) e^{-iwk}
 \end{equation}
 
-we can further discretize the frequency domain and will get then the discrete fourier transformation (in short DFT) of the input signal:
+We can further discretize the frequency domain and will get then the Discrete Fourier Transformation (in short \textbf{DFT}) of the input signal:
+
 \begin{equation}
-  \mathcal{F}\{w\}_{DFT} = \sum_{n=0}^{N-1} f(x) e^(-iw_{n}k)
+  \mathcal{F}_{DFT}\{f\}(w) = \sum_{n=0}^{N-1} f(x) e^{-iw_{n}k}
 \end{equation}
+
 Where the angular frequency $w_n$ is defined like the following $w_n = \frac{2\pi n}{N}$ and N is the number of samples within an equidistant periode sampling.
 
 \myparagraph{Convolution}
-
+The convolution $f*g$ of two functions $f$, $g$$\colon \mathds{R}^n \to \mathds{C} $ is defined as:  
 \begin{equation}
-  \mathcal (f*g)(t) = \int_{\mathcal{R}^n} f(t)g(t-x) dx
+  \mathcal (f*g)(t) = \int_{\mathds{R}^n} f(t)g(t-x) dx
 \end{equation}
 
 Note that the Fourier transform of the convolution of two functions is the product of their Fourier transforms. This is equivalent to the fact that Convolution in spatial domain is equivalent to multiplication in frequency domain. Therefore, the inverse Fourier transform of the product of two Fourier transforms is the convolution of the two inverse Fourier transforms
 
-
 \myparagraph{Taylor Series}
 Taylor series is a representation of a function as an infinite sum of terms that are calculated from the values of the function's derivatives at a single point.
 
-The Taylor series of a real or complex-valued function ƒ(x) that is infinitely differentiable at a real or complex number a is the power series:
+The Taylor series $\mathcal T$ of a real or complex-valued function ƒ(x) that is infinitely differentiable at a real or complex number $a$ is the power series:
 \begin{equation}
   \mathcal T(f;a)(x) = \sum_{n=0}^{\infty} \frac{f^{n}(a)}{n!}(x-a)^n
 \end{equation}

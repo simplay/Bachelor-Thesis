@@ -128,20 +128,20 @@ For natural structures in nano-scale, most of their spectral energy lies at lowe
   \caption{Fragment diffraction shader}
   \begin{algorithmic}[1]
     \ForAll{$Pixel \thinspace p \in Fragment$}
-      \State \init $BRDF_{XYZ}, BRDF_{RGB}$ \to $vec4(0.0)$
+      \State \init $BRDF_{XYZ}, BRDF_{RGB}$ \myto $vec4(0.0)$
       \State $(u,v,w) = \hat{\mathbf{k_1}}-\hat{\mathbf{k_2}}$
       \For{$(\lambda = \lambda_{min};\thinspace \lambda \leq \lambda_{max};\thinspace \lambda = \lambda + \lambda_{step})$}
         \State $xyzWeights = getClrMatchingFnWeights(\lambda)$
         \State $lookupCoord = getLookupCoord(u, v, \lambda)$
-        \State \init $P$ \to $vec2(0.0)$
+        \State \init $P$ \myto $vec2(0.0)$
         \State $k = \frac{2\pi}{\lambda}$
-        \For{$(n = 0$ \to $MAXTAYLORTERMS)$}
+        \For{$(n = 0$ \myto $MAXTAYLORTERMS)$}
           \State $taylorScaleF = \frac{(kw)^n}{n!}$
-          \State \init $F_{fft}$  \to $vec2(0.0)$
+          \State \init $F_{fft}$  \myto $vec2(0.0)$
           \State $anchorX = int(floor(center.x + lookupCoord.x * fftImWidth)$
           \State $anchorY = int(floor(center.y + lookupCoord.y * fftImHeight)$
-          \For{$(i=(anchorX-winW)$ \to $(anchorX + winW + 1))$}
-            \For{$(j=(anchorY - winW)$ \to $(anchorY + winW + 1))$}
+          \For{$(i=(anchorX-winW)$ \myto $(anchorX + winW + 1))$}
+            \For{$(j=(anchorY - winW)$ \myto $(anchorY + winW + 1))$}
               \State $dist = getDistVecFromOriginFor(i,j)$
               \State $position = getLocalLookUp(i,j,n)$
               \State $fftVal = getRescaledFourierTextureValueAt(position)$
