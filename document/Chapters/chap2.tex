@@ -73,9 +73,11 @@ In Computer Graphics, spectral rendering is where a scene's light transport is m
 
 In Computer Graphics, when talking about Spectral Rendering, we are refering to use the whole span of wavelengths instead just using RGB values in order for rendering a scene's light transport. The motivation for using the whole wavelength spectrum is due to the fact that trichromatic colors are only inherent to human visual system and therefore many phenomenons are poorly represented just using trichromy. 
 
-\myparagraph{CIE color spaces}
-EXPLAIN better use cg slides
+\myparagraph{Color spaces}
+In order to see how crucial the role human vision plays, we only have to look the the definition of color: 
+\textit{Color is the aspect of visual perception by which an observer may distinguish differences between two structure-free filds of view of the same size and shape such as may be caused by differences in the spectral composition of the radiant energy concerned in the oberservation}. -  Wyszechki and Siles, 2000 mentioned in Computer Graphics Fundamentals Book. 
 
+Each color can be represented by three numbers, for instance defined by (X,Y,Z) tristimulus values. However, its primaries are imaginary, meanung that is is not possible to construct a device that has three light sources (all positive) that can reprodue all colors in the visible spectrum. A large number of (X,Y,Z) values do not even correspond to a phyisical color. 
 
 CIE 1931 RGB and CIE 1931 XYZ color spaces are the first mathematically defined color spaces. They were created by the International Commission on Illumination (CIE) in 1931.
 
@@ -83,11 +85,17 @@ The CIE's color matching functions $\overline{x}(\lambda)$, $\overline{y}(\lambd
 
 The tristimulus values for a color with a spectral power distribution $I(\lambda)$, are given in terms of the standard observer by:
 
-    $X= \int_{380}^{780} I(\lambda)\,\overline{x}(\lambda)\,d\lambda$
-    $Y= \int_{380}^{780} I(\lambda)\,\overline{y}(\lambda)\,d\lambda$
-    $Z= \int_{380}^{780} I(\lambda)\,\overline{z}(\lambda)\,d\lambda$
+\begin{align*}
+    X= \int_{380}^{780} I(\lambda)\,\overline{x}(\lambda)\,d\lambda \\
+    Y= \int_{380}^{780} I(\lambda)\,\overline{y}(\lambda)\,d\lambda \\
+    Z= \int_{380}^{780} I(\lambda)\,\overline{z}(\lambda)\,d\lambda
+\end{align*}
 
 where $\lambda$, is the wavelength of the equivalent monochromatic light (measured in nanometers).
+
+It is not possible to build a display that corresponds to CIE XYZ, for this reasons it is necessary to design  other color spaces, which are phyiscal realizable, offers efficient encoding, are perceptual uniform and have an intuitive color specification. 
+
+There are simple conversions between XYZ color space to any other color space defined, as linear transfromations.
 
 
 \subsubsection{Signal Processing Basics}
