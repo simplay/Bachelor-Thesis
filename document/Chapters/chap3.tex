@@ -1,29 +1,8 @@
 \section{Implementation}
-
-how to discretize from final derivation to computation?
-what do we have to precompute, what during runtime?
-how does the final algorithm look like
-explain shaders: vertex(geometriy, precomp) - and fragment-shader(in local space-tspace)
-how from $cie_xyz$ to $cie_rgb$
-how gamma correction
-how texturing 
-can we do better?
-our approaches
-
-TODO: explain that there is the jrtr and the scene code - what are their responsibilities.
-
-shader
-
-
-show schema: scene data => GPU=[Vertex processing, modeling and viewing transformation => Projection => Rasterization, fragment processing, visibility] => image
-
 In computergraphics, we are interested in synthesizing 2d images from a given scene containing our 3d geometries by using so called shader programs. This process is dentonoted as rendering.
 The purpose of shader programs, which are executed directly on the GPU hardware device, is to compute the colorization and illumination of the objects living in our scene. All these computations happen in several stages and depend on the provided scene-input paramteters like the camera, light sources, objects material constants and the desired rendering effect one is interested in to model. The shader stages are implemented sequencially as small little programs, the so called vertex-, geometry- and fragment-shaders. Those stages are applied within the rendering pipeline sequencially. 
 
 Our shaders which we use are written in a highlevel language called GLSL, the OpengGL Shading Language. The decission for using OpenGL has been made since my underlying framework, which is responsible for the precomputation of all scene date, is based on another framework, written in Java using JOGL in oder to communicate with the GPU and is also responsible to precompute all the relevant scene data. This framework, the so called jrtr framework, has been developed as an exercise during the class computer graphics held by M. Zwicker which I attended in autumn 2012. The framework itself has been used and further extended during this thesis quite a lot. All necessary input data required for our java framework in order to perfrom the shading is precomputed by using Matlab. This is basically addressing all the required precomputations for the provided heigh-fields, refering to computation of the inverse two dimensional Fourier transformations which are further explained within this chapter. The matlab scripts themself rely on the provided snake nano-scaled sheds images, taken by AFM.
-
-SHOW ARCHITECTURE GRAPHIC from CG
-
 
 It's noteworthy that all the vertices are processed within the vertex-shader, whereas the fragement shader's responsibility is to perfrom pixelwise rendering, using the input from the vertex shader. Just remember, fragements are determined by a triple of vertices. hence each pixel has assigned a trilinear interpolated value of all input parameters of its spanning vertices.
 Usually, all necessary transformations are applied vertex-wise, considering the vertex-shader as the precomputation stage for the later rendering within the rendering pipeline, in the fragment-shader. In the geometry shader, new vertices around a considered vertex can be created. this is useful for debugging - displaying normals graphically for example.
@@ -74,14 +53,13 @@ end
 \end{lstlisting}
 \end{algorithm}
 
-say something about output
+TODO: say something about output?
 
 \subsection{Our Java Renderer}
-based on cg class...
-
 In autumn 2012, during the semester I have attented the class computer graphics held by M. Zwicker. During the whole class we have developed a so called real time renderer program written in java as a series of homework assignments in order to be admitted to the final exam. The architecture of the program is divided into two parts: a rendering engine, the so called jrtr (java real time renderer) and an application program, denoted as scene.
 
-SHOW architecture PICTURE
+SHOW ARCHITECTURE GRAPHIC from CG
+show schema: scene data => GPU=[Vertex processing, modeling and viewing transformation => Projection => Rasterization, fragment processing, visibility] => image
 
 the scene application program task was basically to define the whole scene we is going to be rendered within jrtr later.
 A scene consists of the setup of the world camera, definitions of light source, frustum, geometries which live in our scene and their material constants. Such materials are textures for example. All those scene attributes are managed within jrtr. In the application program, there only happens their definition.
@@ -90,54 +68,23 @@ All whole scene is stored within container data-structures, defined and managed 
 The jrtr rendering engine uses a low-level API, called openGL in order to communicate with the grpahcis processor unit (GPU). Within jrtr, the whole resource-management for the rendering pipeline place, i.e. all required low-level buffers are allocated, flushed and assigned by the scene data attributes. jrtr also offers also the possibility to assign arbitrary shaders.
    
 \subsubsection{Scene}
-
 what is done here 
-
-what is its purpose
-
-
-explain geometry computation
-explain light(source) setup
-explain factories
-explain camera setup
-explain how materials are stored
-explain how assigned to jrtr
-
-setup and load: camera, perspective projection, ligths, geometry data, its material constants
-pass everthing, encapsulated within a container to jrtr
-
+reworked such that it is mvc-architecute based
+user-interaction: handlers in gui.
+which geometries are defined
+what material constants are defined: mention fabricators: light, camera, materials,...
+file readers: monkey
 
 \subsubsection{jrtr Framework}
+shader tasks
+assign all shader inputs: like t0 and so on
+load fourier images and assign to buffers
+snapshot functionality
+shaders: diffraction shader
 
-rendering synthesis of 2d images from 3d scene description. rendering algorithms interpret data structures that represent scenes using geometric primitives, matrial properties and lights.
-Input: Data structures that represent scene (geometry, material properties, lights, virtual camera)
-Output: 2d images (array of pixels - RGB for each pixel)
-
-focus of computer graphics: interactive rendering in order to produce images within a short periode of time which should be as photorealistic as possible - depending on applied shading apporach.
-
-
-in class(framework) - build own 3d rendering engine
-
-rendering 3d models: camera simulation, interactive viewing, lighting, shading. 
-modeling: triangle meshes, smotth surfaces
-java base code, openGL 3.0, 
-
-explain how this will work
-explain how passed to glsl shader - see computer graphics slides
-maybe show schematically the architecture
-
-pass values into shader
-SUPERDUPERIMPORTANT to mention t0 factor how many nanometers a pixel corresponds to.
-TELL SOMETHING ABOUT UNIT conversion QQs
 
 \subsection{GLSL Diffraction Shader}
-explain vertex shader and fragment shader and how they are related.
-show rendering pipeline image
-
-review fragment- and vertex-shader
-
-start using the final findings from chapter 2 and substitute
-explain how all the components are computed and why they are computed like this.
+TODO: start using the final findings from chapter 2 and substitute
 
 \subsubsection{Vertex Shader}
 The first computional stage within our rendering pipeline is computing all necessary per vertex data. Those computations are preformed in the vertex shader. In our case, we compute for any vertex of our current geometry the direction vectors $k1$ and $k2$ described like previousely in the tangent space. Initially all input data lives in its own space. Hence, we first have to transfrom all input data into the same space in order to use it for later computations within the fragment shader. We are going to transform k1 and k2 into the so called tangent space which. Furthermore, we have also to realign our local coordinate system. This is why there is an rodrigues rotation also involved. In order to avoid scaling issues and since we are only interested in the direction of the vectors k1 and k2, we have to normalize them, too. Last, we also output the position of the current vertex transfomed into the projective camera space.
@@ -230,8 +177,12 @@ NOTE about shadow function:  Our BRDF values are scaled by s shadowing function 
 
 SHOW GRAPH for this fact: (lambda, k=f(lambda)), where $k = \frac{2pi}{\lambda}$, $f = \frac{c}{\lambda}$
 
-\subsection{Optimization}
+\subsection{Discussion}
 Optimization: Just use a few lambdas (just those which are at least required), which will enhance the overall runtime quite a lot but the overall accuracy will suffer then, too.
 
 
 one which basically samples the whole lambda space using a gaussian window. This shader will be modeling the effect of diffraction completely but will also be rather slow. The other shader will use a gaussian window too but will just use a few wavenumber for the sampling process. Furthermore, this shader will thread specularity seperatly as a special case which will be more like an approximation. 
+
+how from $cie_xyz$ to $cie_rgb$
+how gamma correction
+how texturing
