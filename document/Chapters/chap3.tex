@@ -79,26 +79,19 @@ say something about output
 \subsection{Our Java Renderer}
 based on cg class...
 
-rendering engine (jrtr) using a low-level api openGL 
-assigning GLSL shaders communication, set-up by jogl
-assigning scene data to rendering pipeline - to shaders
-set up buffers which will be used by application programs canvas in order to be rendered.
-definition of camera, perspective projection, scene graph, lights
-resource management
-flush,allocate, prestore buffers
-rendering scene graph
-optimizations like view-frustum-culling: discard renderItems outside view-frustum
-assign textures
-allows to render by own defined vertex- and fragment-shaders
-different light sources
+In autumn 2012, during the semester I have attented the class computer graphics held by M. Zwicker. During the whole class we have developed a so called real time renderer program written in java as a series of homework assignments in order to be admitted to the final exam. The architecture of the program is divided into two parts: a rendering engine, the so called jrtr (java real time renderer) and an application program, denoted as scene.
 
+SHOW architecture PICTURE
+
+the scene application program task was basically to define the whole scene we is going to be rendered within jrtr later.
+A scene consists of the setup of the world camera, definitions of light source, frustum, geometries which live in our scene and their material constants. Such materials are textures for example. All those scene attributes are managed within jrtr. In the application program, there only happens their definition.
 The minimal definition of a geometry is given by its wireframe mesh. This is a datastructures consisting of vertices each stored as a triple of xyz positions in an float array and triangles each defined by a triple of vertex-indices which form a fragment each stored in an integer array. It is possible to assing additional geoemtry data like a color for each vertex, normals and texture coordinates.
-
-application prorgam: 
-set up scene-data: camera, perspective projection, materials, geometries
-packing into container, passed to jrt
-
+All whole scene is stored within container data-structures, defined and managed within jrtr, like a scene graph, which contains all geometries and their transformations in a tree like structured hierarchy. The geometries themself are stored within an container, containing all vertex attributes and the material constants.
+The jrtr rendering engine uses a low-level API, called openGL in order to communicate with the grpahcis processor unit (GPU). Within jrtr, the whole resource-management for the rendering pipeline place, i.e. all required low-level buffers are allocated, flushed and assigned by the scene data attributes. jrtr also offers also the possibility to assign arbitrary shaders.
+   
 \subsubsection{Scene}
+
+what is done here 
 
 what is its purpose
 
