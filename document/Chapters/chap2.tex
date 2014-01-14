@@ -224,7 +224,7 @@ wheras stam formulates for a hightfield auxilary function $p(x,y) = e^{iwkh(x,y)
 We the observation that the integral is a Fourier transform by $-iku$ and $-ikv$
 which will lead us to his final derivation, using the identity of BRDF, and computing the limes:
 
-\begin{equation}
+\begin{equation} \label{eq:mainstam}
     BRDF_{\lambda}(\omega_i, \omega_r) = \frac{k^2 F^2 G}{4\pi^2 A w^2} \langle \left|P(ku, kv)\right|^2\rangle
 \end{equation}
 
@@ -237,8 +237,8 @@ This identitiy for the BRDF is the starting point for our derivations.
 
 \subsection{Derivations}
 \subsubsection{BRDF formulation}
+Lets assume we have given an incoming light source with solid angle $\omega_i$, $\theta{_i}$ is its angle of incidence, $\omega_r$ is the solid angle for the reflected light, $\lambda$ wavelength, $\Omega$ is the hemisphre we of integration for the incomming light. Then, we are able to formulate a BRDF by using its definiton:  
 
-Hence, we can dervie the following expression:
 \begin{align*}
 f_r(\omega_i, \omega_r) = \frac{dL_r(\omega_r)}{L_i(\omega_i)cos(\theta_i)d\omega_i} \\
 => f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i = dL_r(\omega_r) \\
@@ -246,7 +246,13 @@ f_r(\omega_i, \omega_r) = \frac{dL_r(\omega_r)}{L_i(\omega_i)cos(\theta_i)d\omeg
 => L_r(\omega_r) = \int_{\Omega}f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i
 \end{align*}
 
-We assume, that our incident light is a directional light source like sun-light and therefore its radiance is given as $L_{\lambda}(\omega)=I(\lambda)\delta(\omega-\omega_i)$ where $I(\lambda)$ is the intensity of the relative spectral power for the wavelength $\lambda$. Thus we get for our the brdf formulation:
+We assume further, that our incident light is a directional, unpolarized light source like sunlight and therefore its radiance is given as 
+
+\begin{equation}
+ L_{\lambda}(\omega)=I(\lambda)\delta(\omega-\omega_i)
+\end{equation}
+
+where $I(\lambda)$ is the intensity of the relative spectral power for the wavelength $\lambda$. Thus we get for our the BRDF formulation:
 
 \begin{align}
 L_{\lambda}(w_r) 
@@ -254,12 +260,11 @@ L_{\lambda}(w_r)
 & = BRDF_{\lambda}(\omega_i, \omega_r) I(\lambda) cos(\theta_i)
 \end{align}
 
-where $\omega_i$ is the solid angle for the incoming light, $\theta{_i}$ is the angle of incidence,
-$\omega_r$ is the solid angle for the reflected light, $\lambda$ wavelength, $\Omega$ is the hemisphre we of integration for the incomming light.
-Radiance reflected by given surface in given direction:
-$L_{\lambda}(\omega_i)$ is the incomming radiance, $L_{\lambda}(\omega_r)$ is the reflected radiance
+MENTION WHY THIS INTEGRAL VANISHES
 
-For the $BRDF(\omega_i, \omega_r)$ we are going to use the formulation dervied by Stam described above which looks like this using the fact that wavenumber $k=\frac{2\pi}{\lambda}$:
+where $L_{\lambda}(\omega_i)$ is the incomming radiance and $L_{\lambda}(\omega_r)$ is the radiance reflected by given surface
+
+For the $BRDF(\omega_i, \omega_r)$ we are going to use Stam's main derivation $~\eqref{eq:mainstam}$ applying the fact that the wavenumber is equal $k=\frac{2\pi}{\lambda}$:
 
 \begin{align*}
 BRDF(\omega_i, \omega_r) 
@@ -271,8 +276,11 @@ BRDF(\omega_i, \omega_r)
 
 where $\omega_t$ represents a unit vector whose spherical coordinates are given by the solid angle $t$.
 Since we are going to integrate over a sphere $\Omega$ we can write the component $w=(cos(\theta_i)+cos(\theta_r))$
+
 SHOW WHY WE ARE ALLOWED TO WRITE IT LIKE THIS => SPHERICAL COORDINATES DIFFERENCE $(-\omega_i - \omega_r) = (u,v,w)$ and so on.
 this our identity for $L_{r}(\omega_r)$ will lead us to the following identiy using our identity :
+
+This new fact will allow us to get even further:
 
 \begin{align*}
 L_{\lambda}(\omega_r) 
@@ -281,7 +289,7 @@ L_{\lambda}(\omega_r)
 & = I(\lambda) \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|T_0^2 P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle
 \end{align*}
 
-$P_{cont}$ is the continious inverse Fourier transform for the taylor seies of our hight-field representing the nano structure, i.e. $P(k,l) = \mathcal{F}^{-1}\{p\}(k,l)$ and $P_{dtft}$ is the dicrete-time inverse Fourier Transform for the same problem domain and $T_0$ the sampling distance for the discretization pf $p(x,y)$ assuming equal and uniform sampling in both dimensions $x,y$.
+$P_{cont}$ is the continnious inverse Fourier transform for the taylor series of our heightfield representing the nano-scaled surface structure, i.e. $P(k,l) = \mathcal{F}^{-1}\{p\}(k,l)$ and $P_{dtft}$ is the discrete-time inverse Fourier Transform for the same problem domain and $T_0$ the sampling distance for the discretization pf $p(x,y)$ assuming equal and uniform sampling in both dimensions $x,y$.
 
 
 \subsubsection{Relative BRDF}
