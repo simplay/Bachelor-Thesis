@@ -50,18 +50,19 @@ Radiance is a measure of the quantity of radiation that passes through or is emi
 This means radiance characterizes the total emission of reflectance. It indicates how much of the power emitted by a reflecting surface will be received by an optical system looking at the surface from some given angle of view. Formally, this leads us to the following definition of radiance: 
 
 \begin{equation}
- L = \frac{d^2 \Phi}{dA d\Omega cos(\theta)} \approx \frac{\Phi}{\Omega A cos(\theta)}
+ L(\theta) = \frac{d^2 \Phi}{dA d\Omega cos(\theta)} \approx \frac{\Phi}{\Omega A cos(\theta)}
 \end{equation}
 
 where $L$ is the oberseved radiance in the unit energy per area per solid angle, which is $Wm^-2 sr^-1$ in direction $\theta$, $\Theta$ is the total flux or power emitted, $\theta$ is the angle between the surface normal and the specified direction, $A$ is the area of the surface and $\Omega$ is the solid angle in the unit steradian subtended by the observation or measurement.
 
-Spectral radiance is the energy at each wavelength
+It is useful to distinguish between radiance incident at a point on a surface and exitant from that point. Terms for these concepts sometimes used in the graphics literature are surface radiance $L_r$ for the radiance \textit{reflected} from a surface and field radiance $L_i$ for the radiance \textit{incident} at a surface.  
 
 \myparagraph{BRDF}
 The bidirectional reflectance distribution function, in short BRDF, denoted as $f_r(w_i, w_r)$ is a four dimensional function that defines \textit{how light is reflected at an opaque surface}. The function takes a negative directed incoming light direction, $\omega_{\text{i}}$, and outgoing direction, $\omega_{\text{r}}$ as input argument. Both are defined with respect to the surface normal $\mathbf{n}$.Hence A BRDF returns the ratio of reflected radiance exiting along $\omega_{\text{r}}$ to the irradiance incident on the surface from direction $\omega_{\text{i}}$, which is formally:
   
 \begin{align}
-  f_r(w_i, w_r)
+  BRDF(w_i, w_r)
+  & = f_r(w_i, w_r) \\
   & = \frac{dL_r(w_r)}{dE_i(w_i)} \\
   & = \frac{dL_r(w_r)}{L_i(w_i)cos(\theta_i)dw_i}
 \end{align}
@@ -232,9 +233,6 @@ This identitiy for the BRDF is the starting point for our derivations.
 \subsection{Derivations}
 \subsubsection{BRDF formulation}
 
-EXPLAIN: Why do we want a formulation for $L_{\lambda}(w_r)$ in some words. what does it represent?
-
-Definition of $BRDF(w_i, w_r) := f_r(w_i, w_r) = \frac{dL_r(w_r)}{dE_i(w_i)}=\frac{dL_r(w_r)}{L_i(w_i)cos(\theta_i)dw_i}$  
 Hence, we can dervie the following expression:
 \begin{align*}
 f_r(w_i, w_r) = \frac{dL_r(w_r)}{L_i(w_i)cos(\theta_i)dw_i} \\
@@ -365,7 +363,7 @@ X
 
 Where we used the definition $S_x(\lambda)\overline{x}(\lambda)$ in the last step.
 
-\subsubsection{Taylour approximation for BRDF}
+\subsubsection{Taylor approximation for BRDF}
 Based on J. Stam's Paper about Diffraction shaders we will show that
 there is an approximation of his equation (5), \textbf{p(x,y)}, for
 a explicitly given heightfield \textbf{h(x,y)}. This approximation

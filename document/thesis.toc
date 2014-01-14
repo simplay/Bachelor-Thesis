@@ -18,12 +18,12 @@
 \contentsline {subsubsection}{\numberline {2.1.3}Signal Processing Basics}{12}
 \contentsline {paragraph}{Fourier Transformation}{12}
 \contentsline {paragraph}{Convolution}{13}
-\contentsline {paragraph}{Taylor Series}{13}
+\contentsline {paragraph}{Taylor Series}{14}
 \contentsline {subsection}{\numberline {2.2}Thesis Basis: J.Stam's Paper about Diffraction Shader}{14}
 \contentsline {subsection}{\numberline {2.3}Derivations}{16}
 \contentsline {subsubsection}{\numberline {2.3.1}BRDF formulation}{16}
 \contentsline {subsubsection}{\numberline {2.3.2}Relative BRDF}{18}
-\contentsline {subsubsection}{\numberline {2.3.3}Taylour approximation for BRDF}{20}
+\contentsline {subsubsection}{\numberline {2.3.3}Taylor approximation for BRDF}{20}
 \contentsline {paragraph}{Taylor Series of p}{21}
 \contentsline {paragraph}{Fourier Transformation of p(x,y)}{21}
 \contentsline {paragraph}{Approximation of function P}{22}
