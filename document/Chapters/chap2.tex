@@ -3,12 +3,11 @@
 
 
 \subsubsection{Diffraction}
-Diffraction is a purely wave-like phenomenon which cannot be modeled using the standard ray theory of light.
-Interesting diffraction phenomena, however, occur mostly when the surface detail is highly anisotropic, viz. non-isotropic
-Interference produces colorful effects due to the phase differences caused by a wave traversing thin media of different indices of refraction
-Diffraction occurs when the surface detail is comparable to the wave- length of light
+Diffraction refers to various wave-like phenomena which occur when a wave encounters an obstacle, which cannot be modeled using the standard ray theory of light. 
+In classical physics, the diffraction phenomenon is described as the apparent bending of waves around small obstacles and the spreading out of waves past small openings.
+While diffraction occurs whenever propagating waves encounter such changes, its effects are generally most pronounced for waves whose wavelength is roughly similar to the dimensions of the diffracting objects. This implies diffraction occures mostly when the surface detail is highly anisotropic. If the obstructing object provides multiple, closely spaced openings, a complex pattern of varying intensity can result. This is due to the superposition, or interference, of different parts of a wave that travels to the observer by different paths (see diffraction grating).
 
-
+Example:
 Light rays passing through a small aperture will begin to diverge and interfere with one another. This becomes more significant as the size of the aperture decreases relative to the wavelength of light passing through, but occurs to some extent for any aperture or concentrated light source.
 
 \includegraphics[scale=0.5]{images/1.png}
@@ -18,51 +17,43 @@ Since the divergent rays now travel different distances, some move out of phase 
 
 \includegraphics[scale=0.5]{images/3.png}
 
-Diffraction refers to various phenomena which occur when a wave encounters an obstacle. In classical physics, the diffraction phenomenon is described as the apparent bending of waves around small obstacles and the spreading out of waves past small openings.
-
-While diffraction occurs whenever propagating waves encounter such changes, its effects are generally most pronounced for waves whose wavelength is roughly similar to the dimensions of the diffracting objects. If the obstructing object provides multiple, closely spaced openings, a complex pattern of varying intensity can result. This is due to the superposition, or interference, of different parts of a wave that travels to the observer by different paths (see diffraction grating).
+In general interference produces colorful effects due to the phase differences caused by a wave traversing thin media of different indices of refraction.
 
 The effects of diffraction are often seen in everyday life. The most striking examples of diffraction are those that involve light; for example, the closely spaced tracks on a CD or DVD act as a diffraction grating to form the familiar rainbow pattern seen when looking at a disk
 
 In optics, a diffraction grating is an optical component with a periodic structure, which splits and diffracts light into several beams travelling in different directions. The directions of these beams depend on the spacing of the grating and the wavelength of the light so that the grating acts as the dispersive element.
 
-The relationship between the grating spacing and the angles of the incident and diffracted beams of light is known as the grating equation.
+The relationship between the grating spacing and the angles of the incident and diffracted beams of light is known as the grating equation. 
 
-Fresnel and Frauenhofer diffraction
-frauenhofer diffraction = infinite observation distance.
-In multiple slit patterns each slit produces a diffraction pattern. Hence, multiple slit interference pattern is superimposed over single slit diffraction pattern.
-
+FRAUENHOFER DIFFRACTION
 
 \subsubsection{Radiometry}
-Light is fundamentally a propagation form of enegry, so it is useful to define the SI unit of energy which is joule (J). To aid our intuituin let us describe radiometry in terms of collections of large numbers of photons. A photon can be considered as a quantum of light that has a position, direction of propagation and a wavelength $\lambda$ measured in nanometers. A photon has a speed c that depends only on the refractive index n of the medium through which it propagates, which allows us do define the frequency $f = \frac{c}{\lambda}$. The amount of energy q carried by a photon is given by the following relationship: $q = hf=  \frac{hc}{\lambda}$ where h is the Plank's constant.
+Light is fundamentally a propagation form of enegry, so it is useful to define the SI unit of energy which is joule (J). To aid our intuition, let us describe radiometry in terms of collections of large numbers of photons. A photon can be considered as a quantum of light that has a position, direction of propagation and a wavelength $\lambda$ measured in nanometers. A photon travels in a certain speed, denoted by $v = \frac{c}{n}$, that depends only on the refractive index $n$ of the medium through which it propagates and the speed of light $c$. This allows us do define the frequency $f = \frac{c}{\lambda}$. The amount of energy $q$ carried by a photon is given by the following relationship: $q = hf=  \frac{hc}{\lambda}$ where $h$ is the Plank's constant.
 
 \paragraph{Spectral Energy}
-If there is a large collection of photons given, their total energy $Q = \sum_i q_i$ is the sum of each photon $q_i$. But how is the energy distributed across wavelenghts? One way in order to determine this distribution is to order all photons by their associated wavelength and then histogramming them, i.e. discretizing the spectrum and combine all photons which will fall into the same interval, i.e. compute the sum for each interval from the energy of all their photons. By dividing such an interval by its length,denoted as $Q_\lambda$, we get a relatively scaled interval energy energy, which is called sprectral energy and it is an intensive quantity. Intensive quantities can be though of as density functions that tell the density of an extensive quantity at an infinitesimal point.
+If there is a large collection of photons given, their total energy $Q = \sum_i q_i$ is the sum of energies of each photon $q_i$ within the collection. But how is the energy distributed across wavelenghts? One way in order to determine this distribution is to order all photons by their associated wavelength and then make a histogram from them. This is achieved by a discretization of their spectrum and combine all photons which will fall into the same interval, i.e. compute the sum for each interval from the energy of all their photons. By dividing such an interval by its length, denoted by $Q_\lambda$, we get a relatively scaled interval energy, which is called spectral energy and it is an intensive quantity. Intensive quantities can be thought of as density functions that tell the density of an extensive quantity at an infinitesimal point.
 
 \paragraph{Power}
-Power is the estimated rate of energy production for light sources and is measured in the unit watts, denoted by Q, which is another name for joules per second. Since power is a density over time, it is well defined even when energy prodction is varying over time. As with enery, we are really intereded in spectral power, measured in W/nm, denoted as $\Phi_\lambda$
+Power is the estimated rate of energy production for light sources and is measured in the unit Watts, denoted by Q, which is another name for joules per second. Since power is a density over time, it is well defined even when energy production is varying over time. As with energy, we are really interested in the spectral power, measured in W/nm, denoted by $\Phi_\lambda$
 
 \paragraph{Irradiance}
-The term irradiance comes into place when we are interested in how much light hits a given point. In order to answer this question, we must make use of a density function. Let $\delta A$ a fintie area sensor that is smaller than the light field being measured. The spectral irradiance H is just the power per unit area $\delta \frac{\Phi}{\delta A}$ which is $E = \frac{\delta q}{\delta A \delta t \delta \lambda}$ thus the units of irradiance are $Jm^{-2}s^{-1}(nm)^{-1}$
+The term irradiance comes into place when we are interested in \textit{how much light hits a given point}. In order to answer this question, we must make use of a density function. Let $\delta A$ a fintie area sensor that is smaller than the light field being measured. The spectral irradiance $E$ is just the power per unit area $\delta \frac{\Phi}{\delta A}$ which is $E = \frac{\delta q}{\delta A \delta t \delta \lambda}$ thus the units of irradiance are $Jm^{-2}s^{-1}(nm)^{-1}$
 
 \paragraph{Radiance}
-
-SHOW IMAGE: SOLID angle
-
+TODO: SHOW IMAGE: SOLID angle
 $WIKI: http://en.wikipedia.org/wiki/Radiance$
 $CG Slides 2012 - 6.shading$
 $Book: Fundamentals of computer graphics$
 
-Energy carried along a narrow beam of light
+Although irradiance tells us how much light is arriving at a point, it tells us little about the direction that light comes from. To measure something similar to what we see with our eyes we need to be able to associate the quantity \textit{how much light with a specific direction}. 
 
-Although irradiance tells us how much lighjt is arriving at a point, it tells us little about the direction that light comes from. To measure something something similar to what we see with our eyes we need to be able to associate the quantity how much light with a specific direction. 
+Radiance is a measure of the quantity of radiation that passes through or is emitted from a surface and falls within a given solid angle in a specified direction. Think of it as the energy carried along a narrow beam of light. 
+This means radiance characterizes the total emission of reflectance. It indicates how much of the power emitted by a reflecting surface will be received by an optical system looking at the surface from some given angle of view. Another interpretation of radiance is \textit{photon ray density, the number of photons per area per solid angle}. Formally, this leads us to the following definition of radiance: 
+\begin{equation}
+ L = \frac{d^2 \Phi}{dA d\Omega cos(\theta)} \approx \frac{\Phi}{\Omega A cos(\theta)}
+\end{equation}
 
-Radiance is a measure of the quantity of radiation that passes through or is emitted from a surface and falls within a given solid angle in a specified direction. This means radiance characterizes the total emission of reflectance. It indicates how much of the power emitted by an emitting or reflecting usrface will be receied by an optical system kooking at the surface from some angle of view.
-
-think of light consisting of photon particles, each traeling along a ray. radiance is photon ray density, number of photons per area per solid angle.
-
-Def $L = \frac{d^2 \Phi}{dA d\Omega cos(\theta)} \approx \frac{\Phi}{\Omega A cos(\theta)}$
-where $L$ is the oberseved radiance in $Wm^-2 sr^-1$ in direction $\theta$, $\Theta$ is the total flux or power emitted, $\theta$ is the angle between the furface normal and the specified direction, A is the area of the surface and $\Omega$ is the solid angle in sr subtended by the observation or measurement.
+where $L$ is the oberseved radiance in the unit $Wm^-2 sr^-1$ in direction $\theta$, $\Theta$ is the total flux or power emitted, $\theta$ is the angle between the surface normal and the specified direction, $A$ is the area of the surface and $\Omega$ is the solid angle in the unit steradian subtended by the observation or measurement.
 
 Limit of energy passing through a small area in a small bundle of directions, divided by area and by solid angle spanned by bundle of directions, as area and solid angle get smaller.
 

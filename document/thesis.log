@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  14 JAN 2014 03:56
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  14 JAN 2014 17:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -718,18 +718,13 @@ File: images/1.png Graphic file (type QTm)
 File: images/2.png Graphic file (type QTm)
  <use  "images/2.png" >
 File: images/3.png Graphic file (type QTm)
- <use  "images/3.png" >
-Overfull \hbox (2.53685pt too wide) in paragraph at lines 23--24
-[]\EU1/lmr/m/n/12 While diffraction occurs whenever propagating waves encounter
- such chan-
- []
-
-[7
+ <use  "images/3.png" > [7
 
 
 
-] [8]
-Overfull \hbox (22.71211pt too wide) in paragraph at lines 52--55
+]
+[8]
+Overfull \hbox (22.71211pt too wide) in paragraph at lines 46--49
 []$\OML/zplm/m/it/12 WIKI \OT1/zplm/m/n/12 : \OML/zplm/m/it/12 http \OT1/zplm/m
 /n/12 : //\OML/zplm/m/it/12 en\OT1/ppl/m/n/12 .\OML/zplm/m/it/12 wikipedia\OT1/
 ppl/m/n/12 .\OML/zplm/m/it/12 org\OT1/zplm/m/n/12 /\OML/zplm/m/it/12 wiki\OT1/z
@@ -738,37 +733,37 @@ plm/m/n/12 /\OML/zplm/m/it/12 Radiance$ $CGSlides\OT1/ppl/m/n/12 2012 \OMS/zplm
  []
 
 [9] [10] [11]
-LaTeX Font Info:    Try loading font information for U+dsrom on input line 118.
+LaTeX Font Info:    Try loading font information for U+dsrom on input line 112.
 
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/doublestroke/Udsrom.fd
 File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
 ) [12]
-Overfull \hbox (20.90926pt too wide) in paragraph at lines 151--151
+Overfull \hbox (20.90926pt too wide) in paragraph at lines 145--145
 []\EU1/lmr/bx/n/14.4 Thesis Basis: J.Stam’s Paper about Diffraction Shader 
  []
 
 [13]
-Overfull \hbox (9.58163pt too wide) in paragraph at lines 210--211
+Overfull \hbox (9.58163pt too wide) in paragraph at lines 204--205
 []\EU1/lmr/m/n/12 wheras stam formulates for a hightfield auxilary function $\O
 ML/zplm/m/it/12 p\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 x\OT1/ppl/m/n/12 , \OML/zp
 lm/m/it/12 y\OT1/zplm/m/n/12 ) = \OML/zplm/m/it/12 e[]$
  []
 
 [14] [15] [16]
-Overfull \hbox (29.16502pt too wide) in paragraph at lines 277--277
+Overfull \hbox (29.16502pt too wide) in paragraph at lines 271--271
 [] 
  []
 
 [17]
-Overfull \hbox (17.27238pt too wide) in paragraph at lines 326--327
+Overfull \hbox (17.27238pt too wide) in paragraph at lines 320--321
 []\EU1/lmr/m/n/12 using the previous definition for the relative reflectance ra
 diance $\OML/zplm/m/it/12 ^^Z[]\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 w[]\OT1/ppl/
 m/n/12 , \OML/zplm/m/it/12 w[]\OT1/zplm/m/n/12 ) =
  []
 
 [18] [19] [20]
-Overfull \hbox (12.04079pt too wide) in paragraph at lines 405--406
+Overfull \hbox (12.04079pt too wide) in paragraph at lines 399--400
 []\EU1/lmr/m/n/12 Hence it follows: $\OML/zplm/m/it/12 P\OT1/zplm/m/n/12 (\OML/
 zplm/m/it/12 ^^K\OT1/ppl/m/n/12 , \OML/zplm/m/it/12 ^^L\OT1/zplm/m/n/12 ) = [][
 ] []\OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 ^^K\OT1/ppl/m/n/1
@@ -778,21 +773,21 @@ lm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 u\OT1/ppl/m/n/12 , \OML/zplm
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 408--409
+Underfull \hbox (badness 10000) in paragraph at lines 402--403
 
  []
 
-LaTeX Font Info:    Try loading font information for U+fplmbb on input line 410
+LaTeX Font Info:    Try loading font information for U+fplmbb on input line 404
 .
 (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 423--424
+Underfull \hbox (badness 10000) in paragraph at lines 417--418
 
  []
 
 [21]
-Overfull \hbox (72.90395pt too wide) in paragraph at lines 425--427
+Overfull \hbox (72.90395pt too wide) in paragraph at lines 419--421
 []\EU1/lmr/m/n/12 By the \EU1/lmr/bx/n/12 ratio test \EU1/lmr/m/n/12 (see \EU1/
 lmr/bx/n/12 [1]\EU1/lmr/m/n/12 ) It is possible to show that the series $[][] [
 ]\OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 ^^K\OT1/ppl/m/n/12 ,
@@ -800,7 +795,7 @@ lmr/bx/n/12 [1]\EU1/lmr/m/n/12 ) It is possible to show that the series $[][] [
  []
 
 
-Overfull \hbox (16.77995pt too wide) in paragraph at lines 437--440
+Overfull \hbox (16.77995pt too wide) in paragraph at lines 431--434
 \EU1/lmr/m/n/12 Let $\OML/zplm/m/it/12 f\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 x\O
 T1/zplm/m/n/12 ) = \OML/zplm/m/it/12 e[]$\EU1/lmr/m/n/12 . We can formulate its
  Taylor-Series, stated above. Let $\OML/zplm/m/it/12 P[]\OT1/zplm/m/n/12 (\OML/
@@ -808,19 +803,19 @@ zplm/m/it/12 x\OT1/zplm/m/n/12 )$\EU1/lmr/m/n/12 denote
  []
 
 [22] [23] [24]
-Overfull \hbox (1.98618pt too wide) in paragraph at lines 563--566
+Overfull \hbox (1.98618pt too wide) in paragraph at lines 557--560
 []\EU1/lmr/m/n/12 We assume, that our given heighfield can be represented as a 
 2-dimensional
  []
 
 
-Overfull \hbox (13.64383pt too wide) in paragraph at lines 563--566
+Overfull \hbox (13.64383pt too wide) in paragraph at lines 557--560
 \EU1/lmr/m/n/12 box-function. Note that we can use any explicit given constrain
 ted 2-dimensional
  []
 
 [25] [26] [27]
-Overfull \hbox (26.81639pt too wide) in paragraph at lines 674--674
+Overfull \hbox (26.81639pt too wide) in paragraph at lines 668--668
 [] 
  []
 
@@ -886,11 +881,11 @@ ll-2010-math-2300-005/lectures/taylor-
 (./Chapters/chap3.aux) (./Chapters/chap4.aux) (./Chapters/chap5.aux)
 (./Chapters/chap6.aux)) ) 
 Here is how much of TeX's memory you used:
- 18418 strings out of 493938
- 374469 string characters out of 6148857
+ 18421 strings out of 493938
+ 374554 string characters out of 6148857
  406111 words of memory out of 5000000
- 21445 multiletter control sequences out of 15000+600000
- 21922 words of font info for 94 fonts, out of 8000000 for 9000
+ 21446 multiletter control sequences out of 15000+600000
+ 21930 words of font info for 95 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  46i,21n,38p,2012b,1042s stack positions out of 5000i,500n,10000p,200000b,80000s
 
