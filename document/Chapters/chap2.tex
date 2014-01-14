@@ -37,7 +37,7 @@ If there is a large collection of photons given, their total energy $Q = \sum_i 
 Power is the estimated rate of energy production for light sources and is measured in the unit Watts, denoted by Q, which is another name for joules per second. Since power is a density over time, it is well defined even when energy production is varying over time. As with energy, we are really interested in the spectral power, measured in W/nm, denoted by $\Phi_\lambda$
 
 \paragraph{Irradiance}
-The term irradiance comes into place when we are interested in \textit{how much light hits a given point}. In order to answer this question, we must make use of a density function. Let $\delta A$ a fintie area sensor that is smaller than the light field being measured. The spectral irradiance $E$ is just the power per unit area $\delta \frac{\Phi}{\delta A}$ which is $E = \frac{\delta q}{\delta A \delta t \delta \lambda}$ thus the units of irradiance are $Jm^{-2}s^{-1}(nm)^{-1}$
+The term irradiance comes into place when we are interested in \textit{how much light hits a given point}. In order to answer this question, we must make use of a density function. Let $\delta A$ a finite area sensor that is smaller than the light field being measured. The spectral irradiance $E$ is just the power per unit area $\delta \frac{\Phi}{\delta A}$ which is $E = \frac{\delta q}{\delta A \delta t \delta \lambda}$ thus the units of irradiance are $Jm^{-2}s^{-1}(nm)^{-1}$,the power per unit surface area.
 
 \paragraph{Radiance}
 TODO: SHOW IMAGE: SOLID angle
@@ -48,20 +48,18 @@ $Book: Fundamentals of computer graphics$
 Although irradiance tells us how much light is arriving at a point, it tells us little about the direction that light comes from. To measure something similar to what we see with our eyes we need to be able to associate the quantity \textit{how much light with a specific direction}. 
 
 Radiance is a measure of the quantity of radiation that passes through or is emitted from a surface and falls within a given solid angle in a specified direction. Think of it as the energy carried along a narrow beam of light. 
-This means radiance characterizes the total emission of reflectance. It indicates how much of the power emitted by a reflecting surface will be received by an optical system looking at the surface from some given angle of view. Another interpretation of radiance is \textit{photon ray density, the number of photons per area per solid angle}. Formally, this leads us to the following definition of radiance: 
+This means radiance characterizes the total emission of reflectance. It indicates how much of the power emitted by a reflecting surface will be received by an optical system looking at the surface from some given angle of view. Formally, this leads us to the following definition of radiance: 
+
 \begin{equation}
  L = \frac{d^2 \Phi}{dA d\Omega cos(\theta)} \approx \frac{\Phi}{\Omega A cos(\theta)}
 \end{equation}
 
-where $L$ is the oberseved radiance in the unit $Wm^-2 sr^-1$ in direction $\theta$, $\Theta$ is the total flux or power emitted, $\theta$ is the angle between the surface normal and the specified direction, $A$ is the area of the surface and $\Omega$ is the solid angle in the unit steradian subtended by the observation or measurement.
+where $L$ is the oberseved radiance in the unit energy per area per solid angle, which is $Wm^-2 sr^-1$ in direction $\theta$, $\Theta$ is the total flux or power emitted, $\theta$ is the angle between the surface normal and the specified direction, $A$ is the area of the surface and $\Omega$ is the solid angle in the unit steradian subtended by the observation or measurement.
 
-Limit of energy passing through a small area in a small bundle of directions, divided by area and by solid angle spanned by bundle of directions, as area and solid angle get smaller.
+Spectral radiance is the energy at each wavelength
 
-Spectral radiance: energy at each wavelength
-Units: energy per area per solid angle
-
-\subsubsection{BRDF}
-The bidirectional reflectance distribution function, in short BRDF, denoted as $f_r(w_i, w_r)$ is a four dimensional function that defines how light is reflected at an opaque surface. The function takes a negative incoming light direction, $\omega_{\text{i}}$, and outgoing direction, $\omega_{\text{r}}$, both defined with respect to the surface normal $\mathbf{n}$ and returns the ratio of reflected radiance exiting along $\omega_{\text{r}}$ to the irradiance incident on the surface from direction $\omega_{\text{i}}$
+\paragraph{BRDF}
+The bidirectional reflectance distribution function, in short BRDF, denoted as $f_r(w_i, w_r)$ is a four dimensional function that defines \textit{how light is reflected at an opaque surface}. The function takes a negative directed incoming light direction, $\omega_{\text{i}}$, and outgoing direction, $\omega_{\text{r}}$ as input argument. Both are defined with respect to the surface normal $\mathbf{n}$.Hence A BRDF returns the ratio of reflected radiance exiting along $\omega_{\text{r}}$ to the irradiance incident on the surface from direction $\omega_{\text{i}}$, which is formally:
   
 \begin{align}
   f_r(w_i, w_r)
@@ -69,11 +67,10 @@ The bidirectional reflectance distribution function, in short BRDF, denoted as $
   & = \frac{dL_r(w_r)}{L_i(w_i)cos(\theta_i)dw_i}
 \end{align}
 
-where L is radiance, or power per unit solid-angle-in-the-direction-of-a-ray per unit projected-area-perpendicular-to-the-ray, E is irradiance, or power per unit surface area, and $\theta_{\text{i}}$ is the angle between $\omega_{\text{i}}$ and the surface normal, $\mathbf n$. The index $\text{i}$ indicates incident light, whereas the index $\text{r}$ indicates reflected light.
+L is the reflected radiance, E is the irradiance and $\theta_{\text{i}}$ is the angle between $\omega_{\text{i}}$ and the surface normal, $\mathbf n$. The index $\text{i}$ indicates incident light, whereas the index $\text{r}$ indicates reflected light.
 
-The reason the function is defined as a quotient of two differentials and not directly as a quotient between the undifferentiated quantities, is because other irradiating light than $\operatorname dE_{\text{i}}(\omega_{\text{i}})$, which are of no interest for $f_{\text{r}}(\omega_{\text{i}},\, \omega_{\text{r}})$, might illuminate the surface which would unintentionally affect $L_{\text{r}}(\omega_{\text{r}})$, whereas $\operatorname dL_{\text{r}}(\omega_{\text{r}})$ is only affected by $\operatorname dE_{\text{i}}(\omega_{\text{i}})$.
-
-\subsubsection{Spectral Rendering}
+\paragraph{Spectral Rendering}
+ENHANCE ME
 In Computer Graphics, spectral rendering is where a scene's light transport is modeled considering the whole span of wavelengths instead of R,G,B values (still relating on geometric optic, which ignore wave phase). The motivation is that real colors of the physical world are spectrum; trichromatic colors are only inherent to Human Visual System.
 
 \paragraph{CIE color spaces}
@@ -90,11 +87,11 @@ The tristimulus values for a color with a spectral power distribution $I(\lambda
 where $\lambda$, is the wavelength of the equivalent monochromatic light (measured in nanometers).
 
 
-\subsubsection{Signal}
+\subsubsection{Signal Processing Basics}
 A signal is a function that conveys information about the behavior or attributes of some phenomenon.
 In the physical world, any quantity exhibiting variation in time or variation in space (such as an image) is potentially a signal that might provide information on the status of a physical system, or convey a message between observers
 
-\subsubsection{Fourier Transformation}
+\paragraph{Fourier Transformation}
 The Fourier-Transform is a mathematical tool which allows to transform a given function or rather a given signal from defined over a time- (or spatial-) domain into its corresponding frequency-domain.
  
 Let $f$ an measurable function over $\mathcal{R}^n$. Then, the coninious Fourier Transformation, denoted as FT, $\mathcal{F}\{t\}$ of $f$ is defined as, ignoring all constant factors in the formula:
@@ -121,7 +118,7 @@ we can further discretize the frequency domain and will get then the discrete fo
 \end{equation}
 Where the angular frequency $w_n$ is defined like the following $w_n = \frac{2\pi n}{N}$ and N is the number of samples within an equidistant periode sampling.
 
-\subsubsection{Convolution}
+\paragraph{Convolution}
 
 \begin{equation}
   \mathcal (f*g)(t) = \int_{\mathcal{R}^n} f(t)g(t-x) dx
@@ -130,7 +127,7 @@ Where the angular frequency $w_n$ is defined like the following $w_n = \frac{2\p
 Note that the Fourier transform of the convolution of two functions is the product of their Fourier transforms. This is equivalent to the fact that Convolution in spatial domain is equivalent to multiplication in frequency domain. Therefore, the inverse Fourier transform of the product of two Fourier transforms is the convolution of the two inverse Fourier transforms
 
 
-\subsubsection{Taylor Series}
+\paragraph{Taylor Series}
 Taylor series is a representation of a function as an infinite sum of terms that are calculated from the values of the function's derivatives at a single point.
 
 The Taylor series of a real or complex-valued function ƒ(x) that is infinitely differentiable at a real or complex number a is the power series:

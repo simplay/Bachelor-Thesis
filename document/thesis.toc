@@ -12,46 +12,46 @@
 \contentsline {paragraph}{Power}{9}
 \contentsline {paragraph}{Irradiance}{9}
 \contentsline {paragraph}{Radiance}{9}
-\contentsline {subsubsection}{\numberline {2.1.3}BRDF}{10}
-\contentsline {subsubsection}{\numberline {2.1.4}Spectral Rendering}{11}
-\contentsline {paragraph}{CIE color spaces}{11}
-\contentsline {subsubsection}{\numberline {2.1.5}Signal}{11}
-\contentsline {subsubsection}{\numberline {2.1.6}Fourier Transformation}{11}
-\contentsline {subsubsection}{\numberline {2.1.7}Convolution}{12}
-\contentsline {subsubsection}{\numberline {2.1.8}Taylor Series}{13}
-\contentsline {subsection}{\numberline {2.2}Thesis Basis: J.Stam's Paper about Diffraction Shader}{13}
+\contentsline {paragraph}{BRDF}{10}
+\contentsline {paragraph}{Spectral Rendering}{10}
+\contentsline {paragraph}{CIE color spaces}{10}
+\contentsline {subsubsection}{\numberline {2.1.3}Signal Processing Basics}{11}
+\contentsline {paragraph}{Fourier Transformation}{11}
+\contentsline {paragraph}{Convolution}{12}
+\contentsline {paragraph}{Taylor Series}{12}
+\contentsline {subsection}{\numberline {2.2}Thesis Basis: J.Stam's Paper about Diffraction Shader}{12}
 \contentsline {subsection}{\numberline {2.3}Derivations}{15}
 \contentsline {subsubsection}{\numberline {2.3.1}BRDF formulation}{15}
 \contentsline {subsubsection}{\numberline {2.3.2}Relative BRDF}{17}
-\contentsline {subsubsection}{\numberline {2.3.3}Taylour approximation for BRDF}{20}
+\contentsline {subsubsection}{\numberline {2.3.3}Taylour approximation for BRDF}{19}
 \contentsline {paragraph}{Taylor Series of p}{20}
-\contentsline {paragraph}{Fourier Transformation of p(x,y)}{21}
+\contentsline {paragraph}{Fourier Transformation of p(x,y)}{20}
 \contentsline {paragraph}{Approximation of function P}{21}
-\contentsline {paragraph}{Proof Sketch of 1.}{22}
-\contentsline {paragraph}{Part 2: Find such an N}{22}
-\contentsline {paragraph}{Conclusion}{24}
+\contentsline {paragraph}{Proof Sketch of 1.}{21}
+\contentsline {paragraph}{Part 2: Find such an N}{21}
+\contentsline {paragraph}{Conclusion}{23}
 \contentsline {subsubsection}{\numberline {2.3.4}Sampling: Gaussian Window}{24}
-\contentsline {subsubsection}{\numberline {2.3.5}Aplitude smooting}{25}
+\contentsline {subsubsection}{\numberline {2.3.5}Aplitude smooting}{24}
 \contentsline {subsubsection}{\numberline {2.3.6}Final Expression}{29}
-\contentsline {section}{\numberline {3}Implementation}{31}
-\contentsline {subsection}{\numberline {3.1}Precomputations in Matlab}{32}
-\contentsline {subsection}{\numberline {3.2}Our Java Renderer}{34}
-\contentsline {subsubsection}{\numberline {3.2.1}Scene}{34}
-\contentsline {subsubsection}{\numberline {3.2.2}jrtr Framework}{35}
-\contentsline {subsection}{\numberline {3.3}GLSL Diffraction Shader}{35}
-\contentsline {subsubsection}{\numberline {3.3.1}Vertex Shader}{35}
-\contentsline {subsubsection}{\numberline {3.3.2}Fragment Shader}{35}
-\contentsline {paragraph}{From line 4 to 26:}{37}
-\contentsline {paragraph}{From line 9 to 24:}{37}
-\contentsline {paragraph}{From line 14 to 22:}{37}
-\contentsline {subsection}{\numberline {3.4}Discussion}{39}
-\contentsline {section}{\numberline {4}Evaluation Data Acquisition}{40}
-\contentsline {subsection}{\numberline {4.1}Diffraction Gratings}{40}
-\contentsline {subsection}{\numberline {4.2}Matlab code}{42}
-\contentsline {subsection}{\numberline {4.3}Discussion}{42}
-\contentsline {section}{\numberline {5}Results}{43}
-\contentsline {section}{\numberline {6}Conclusion}{44}
-\contentsline {subsection}{\numberline {6.1}Further Work}{44}
-\contentsline {subsubsection}{\numberline {6.1.1}References}{44}
-\contentsline {section}{\numberline {7}Acknowledgment}{44}
-\contentsline {section}{\numberline {8}TODOs}{44}
+\contentsline {section}{\numberline {3}Implementation}{30}
+\contentsline {subsection}{\numberline {3.1}Precomputations in Matlab}{31}
+\contentsline {subsection}{\numberline {3.2}Our Java Renderer}{33}
+\contentsline {subsubsection}{\numberline {3.2.1}Scene}{33}
+\contentsline {subsubsection}{\numberline {3.2.2}jrtr Framework}{34}
+\contentsline {subsection}{\numberline {3.3}GLSL Diffraction Shader}{34}
+\contentsline {subsubsection}{\numberline {3.3.1}Vertex Shader}{34}
+\contentsline {subsubsection}{\numberline {3.3.2}Fragment Shader}{34}
+\contentsline {paragraph}{From line 4 to 26:}{36}
+\contentsline {paragraph}{From line 9 to 24:}{36}
+\contentsline {paragraph}{From line 14 to 22:}{36}
+\contentsline {subsection}{\numberline {3.4}Discussion}{38}
+\contentsline {section}{\numberline {4}Evaluation Data Acquisition}{39}
+\contentsline {subsection}{\numberline {4.1}Diffraction Gratings}{39}
+\contentsline {subsection}{\numberline {4.2}Matlab code}{41}
+\contentsline {subsection}{\numberline {4.3}Discussion}{41}
+\contentsline {section}{\numberline {5}Results}{42}
+\contentsline {section}{\numberline {6}Conclusion}{43}
+\contentsline {subsection}{\numberline {6.1}Further Work}{43}
+\contentsline {subsubsection}{\numberline {6.1.1}References}{43}
+\contentsline {section}{\numberline {7}Acknowledgment}{43}
+\contentsline {section}{\numberline {8}TODOs}{43}
