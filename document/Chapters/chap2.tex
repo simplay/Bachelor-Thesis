@@ -289,10 +289,10 @@ L_{\lambda}(\omega_r)
 $P_{cont}$ denotes the continuous inverse Fourier-Transform for the Taylor-Series of our heightfield representing the nano-scaled surface structure, i.e. $P(k,l) = \mathcal{F}^{-1}\{p\}(k,l)$ and $P_{dtft}$ is the inverse Discrete Time Fourier Transform of $p(x,y) = e^{ikwh(x,y)}$. Furthermore $T_0$ the sampling distance for the discretization of $p(x,y)$ assuming equal and uniform sampling in both dimensions $x,y$.
 
 \subsubsection{Relative BRDF}
-reason why relative brdf: In order to scale the reflactiance such that we are able to texture. 
-convex combination reflectance with texture. Scale illumination.
+In this section we are going to explain how to scale our BRDF formulation such that all of its possible output values are mapped into the range $\left[0,1\right]$. Such a relative BRDF formulation will ease our life for later rendering puposes since usually color values are within the range $\left[0,1\right]$, too. Furthermore, this will allow us to properly blend the resulting illumination caused by diffraction with a texture map.
 
 Let us examine what $L_\lambda(\omega_r)$ will be for $\omega_r = \omega_0 := (0,0,*)$ i.e. specular reflection case, denoted as $L_\lambda^{spec}(\omega_0)$. 
+
 When we know the expression for $L_\lambda^{spec}(\omega_0)$ we would be able to compute the relative reflected radiance for our problem by simply dividing $L_\lambda(\omega_r)$ by $L_\lambda^{spec}(\omega_0)$, denoted as 
 
 \begin{equation}
@@ -308,7 +308,7 @@ L_\lambda^{spec}(\omega_0)
 & = I(\lambda) \frac{F(\omega_0, \omega_0)^2}{\lambda^2 A}\left| T_0^2 N_{sample} \right|^2 
 \end{align*}
 
-Where $N_{samples}$ is the number of samples of the dtft.
+Where $N_{samples}$ is the number of samples of the DTFT.
 
 Thus, we can plug our last derived expression into the definition for the relative reflectance radiance in the direction $w_r$ and will get:
 
@@ -319,29 +319,32 @@ Thus, we can plug our last derived expression into the definition for the relati
 & = \frac{F^2(\omega_i,\omega_r)(1 + \omega_i \cdot \omega_r)^2}{F^2(\omega_0,\omega_0)(cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|\frac{P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})}{N_{samples}}\right|^2\rangle
 \end{align*}
 
-for simplification and a better overview, let us introduce the following expression, the so called gain factor
+for simplification and a better overview, let us introduce the following expression, the so called gain-factor:
 
 \begin{equation} \label{eq:cfact}
     C(\omega_i,\omega_r) = \frac{F^2(\omega_i,\omega_r)(1 + \omega_i \cdot \omega_r)^2}{F^2(\omega_0,\omega_0)(cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r) N_{samples}^2}
 \end{equation}
 
-Using this substitute, we will end up with the following expression for the relative reflectance radiance
+Using this substitute, we will end up with the following expression for the relative reflectance radiance:
 
 \begin{equation}
 \rho_\lambda(\omega_i,\omega_r) =  C(\omega_i,\omega_r) \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle
 \end{equation}
 
-using the previous definition for the relative reflectance radiance $\rho_\lambda(\omega_i,\omega_r) = \frac{L_\lambda(\omega_r)}{L_\lambda^{spec}(\omega_0)}$ which we can rearrange to the expression 
+Using the previous definition for the relative reflectance radiance 
+
+\begin{equation}
+ \rho_\lambda(\omega_i,\omega_r) = \frac{L_\lambda(\omega_r)}{L_\lambda^{spec}(\omega_0)} 
+\end{equation}
+
+which we can rearrange to the expression 
 
 \begin{equation}
 L_\lambda(\omega_r) = \rho_\lambda(\omega_i,\omega_r)L_\lambda^{spec}(\omega_0)
 \end{equation}
 
-Let us choose $L_\lambda^{spec}(w_0) = S(\lambda)$ such that is has the same pforifle as the relative spectral power distribuation of CIE Standard Illuminant $D65$. Further, when integration over $\lambda$ for a specular surface we should get $CIE_XYZ$ values corresponding to the white point for $D65$ 
-
-the corresponding tristimulus values using CIE colormatching functions for the $CIE_XYZ$ values look like:
-
-SEE HOW THIS DEFINITION DIFFERS FROM THE WIKIDEF AND HOW WE COULD END UP WITH A SIMILAR DEFINITION.
+Let us choose $L_\lambda^{spec}(w_0) = S(\lambda)$ such that is has the same profile as the relative spectral power distribuation of CIE Standard Illuminant $D65$. Further, when integration over $\lambda$ for a specular surface we should get $CIE_{XYZ}$ values corresponding to the white point for $D65$ 
+The corresponding tristimulus values using CIE colormatching functions for the $CIE_{XYZ}$ values look like:
 
 \begin{equation}
 X = \int_{\lambda}L_\lambda(\omega_r)\overline{x}(\lambda)d\lambda
@@ -357,7 +360,8 @@ Z = \int_{\lambda}L_\lambda(\omega_r)\overline{z}(\lambda)d\lambda
 
 where $\overline{x}$, $\overline{y}$, $\overline{z}$ are the color matching functions
 
-Using our last finding for $L_\lambda(\omega_r)$ and the definition for the tristimulus values we can actually derive an expression for computing the colors for our brdf model. Since X, Y, Z are defined similarly, it satisfies to derive an explicit expression for just one tristimulus term, for example X. The other two will look the same, except the we have to replace all X with Y or Z respectively. Therefore, we get:
+Using our last finding for $L_\lambda(\omega_r)$ with the definition for the tristimulus values we can actually derive an expression for computing the colors for our BRDF formula. 
+Since X, Y, Z are defined similarly, it satisfies to derive an explicit expression for just one tristimulus term, for example X. The other two will look the same, except the we have to replace all X with Y or Z respectively. Therefore, we get:
 
 \begin{align*}
 X 

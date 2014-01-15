@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  15 JAN 2014 21:36
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  15 JAN 2014 21:54
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -763,15 +763,8 @@ Overfull \hbox (29.42903pt too wide) in paragraph at lines 287--287
 [] 
  []
 
-[18] [19]
-Overfull \hbox (17.8004pt too wide) in paragraph at lines 334--335
-[]\EU1/lmr/m/n/12 using the previous definition for the relative reflectance ra
-diance $\OML/zplm/m/it/12 ^^Z[]\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 ![]\OT1/ppl/
-m/n/12 , \OML/zplm/m/it/12 ![]\OT1/zplm/m/n/12 ) =
- []
-
-[20] [21]
-Overfull \hbox (12.04079pt too wide) in paragraph at lines 413--414
+[18] [19] [20] [21]
+Overfull \hbox (12.04079pt too wide) in paragraph at lines 417--418
 []\EU1/lmr/m/n/12 Hence it follows: $\OML/zplm/m/it/12 P\OT1/zplm/m/n/12 (\OML/
 zplm/m/it/12 ^^K\OT1/ppl/m/n/12 , \OML/zplm/m/it/12 ^^L\OT1/zplm/m/n/12 ) = [][
 ] []\OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 ^^K\OT1/ppl/m/n/1
@@ -781,21 +774,21 @@ lm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 u\OT1/ppl/m/n/12 , \OML/zplm
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 416--417
+Underfull \hbox (badness 10000) in paragraph at lines 420--421
 
  []
 
-LaTeX Font Info:    Try loading font information for U+fplmbb on input line 418
+LaTeX Font Info:    Try loading font information for U+fplmbb on input line 422
 .
 (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 431--432
+Underfull \hbox (badness 10000) in paragraph at lines 435--436
 
  []
 
 [22]
-Overfull \hbox (72.90395pt too wide) in paragraph at lines 433--435
+Overfull \hbox (72.90395pt too wide) in paragraph at lines 437--439
 []\EU1/lmr/m/n/12 By the \EU1/lmr/bx/n/12 ratio test \EU1/lmr/m/n/12 (see \EU1/
 lmr/bx/n/12 [1]\EU1/lmr/m/n/12 ) It is possible to show that the series $[][] [
 ]\OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 ^^K\OT1/ppl/m/n/12 ,
@@ -803,7 +796,7 @@ lmr/bx/n/12 [1]\EU1/lmr/m/n/12 ) It is possible to show that the series $[][] [
  []
 
 
-Overfull \hbox (16.77995pt too wide) in paragraph at lines 445--448
+Overfull \hbox (16.77995pt too wide) in paragraph at lines 449--452
 \EU1/lmr/m/n/12 Let $\OML/zplm/m/it/12 f\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 x\O
 T1/zplm/m/n/12 ) = \OML/zplm/m/it/12 e[]$\EU1/lmr/m/n/12 . We can formulate its
  Taylor-Series, stated above. Let $\OML/zplm/m/it/12 P[]\OT1/zplm/m/n/12 (\OML/
@@ -811,19 +804,19 @@ zplm/m/it/12 x\OT1/zplm/m/n/12 )$\EU1/lmr/m/n/12 denote
  []
 
 [23] [24] [25]
-Overfull \hbox (1.98618pt too wide) in paragraph at lines 571--574
+Overfull \hbox (1.98618pt too wide) in paragraph at lines 575--578
 []\EU1/lmr/m/n/12 We assume, that our given heighfield can be represented as a 
 2-dimensional
  []
 
 
-Overfull \hbox (13.64383pt too wide) in paragraph at lines 571--574
+Overfull \hbox (13.64383pt too wide) in paragraph at lines 575--578
 \EU1/lmr/m/n/12 box-function. Note that we can use any explicit given constrain
 ted 2-dimensional
  []
 
 [26] [27] [28]
-Overfull \hbox (26.81639pt too wide) in paragraph at lines 682--682
+Overfull \hbox (26.81639pt too wide) in paragraph at lines 686--686
 [] 
  []
 
