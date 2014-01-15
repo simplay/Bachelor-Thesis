@@ -27,8 +27,8 @@
 \contentsline {paragraph}{Proof Sketch of 1.}{22}
 \contentsline {paragraph}{Part 2: Find such an N}{23}
 \contentsline {subsubsection}{\numberline {2.3.4}Sampling: Gaussian Window}{25}
-\contentsline {subsubsection}{\numberline {2.3.5}Aplitude smooting}{26}
-\contentsline {subsubsection}{\numberline {2.3.6}Final Expression}{30}
+\contentsline {subsubsection}{\numberline {2.3.5}Final Expression}{26}
+\contentsline {subsubsection}{\numberline {2.3.6}Aplitude smooting}{26}
 \contentsline {section}{\numberline {3}Implementation}{31}
 \contentsline {subsection}{\numberline {3.1}Precomputations in Matlab}{32}
 \contentsline {subsection}{\numberline {3.2}Our Java Renderer}{34}

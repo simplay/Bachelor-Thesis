@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  15 JAN 2014 23:20
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  15 JAN 2014 23:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -792,23 +792,23 @@ zplm/m/it/12 x\OT1/zplm/m/n/12 )$\EU1/lmr/m/n/12 denote
  []
 
 [23] [24] [25]
-Overfull \hbox (1.98618pt too wide) in paragraph at lines 551--554
+Overfull \hbox (1.98618pt too wide) in paragraph at lines 565--568
 []\EU1/lmr/m/n/12 We assume, that our given heighfield can be represented as a 
 2-dimensional
  []
 
 
-Overfull \hbox (13.64383pt too wide) in paragraph at lines 551--554
+Overfull \hbox (13.64383pt too wide) in paragraph at lines 565--568
 \EU1/lmr/m/n/12 box-function. Note that we can use any explicit given constrain
 ted 2-dimensional
  []
 
-[26] [27] [28]
-Overfull \hbox (26.81639pt too wide) in paragraph at lines 662--662
+[26] [27] [28] [29]
+Overfull \hbox (26.81639pt too wide) in paragraph at lines 676--676
 [] 
  []
 
-[29]) [30]
+) [30]
 \openout2 = `Chapters/chap3.aux'.
 
  (./Chapters/chap3.tex [31

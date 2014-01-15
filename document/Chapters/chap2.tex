@@ -501,11 +501,9 @@ X
 & = C(w_i,w_r) \int_{\lambda} \left| \sum_{n=0}^N \frac{(wk)^n}{n!} \mathcal{F}^{-1}\{i^n h^n\}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2 S_x(\lambda)d\lambda
 \end{align*}
 
-
 \subsubsection{Sampling: Gaussian Window}
-why this identity works:
+Practically, we cannot compute the DTFT numerically due to finite computer arithmetic, since $w$ is a continuous function for the DTFT. 
 The DFT of a discrete heightfield patch is equivalent to the DTFT of an infinitely periodic function consisting of replicas of the same discrete patch. By windowing with a window function that is zero outside the central replica, the convolution of either the DFT or the DTFT of heightfield with the fourier transfrom of the window becomes equivalent.
-
 
 Let $window_g$ denote the gaussian window with $4\sigma_s$ $\mu m$ where $\sigma_f = \frac{1}{2\pi\sigma_s}$
 let us further substitute $\mathbf{t(x,y)}=i^n h(x,y)^n$
@@ -532,11 +530,27 @@ where
  \phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}
 \end{equation} 
 
-\subsubsection{Aplitude smooting}
-REASON FOR WHICH CASE THIS CAN BE USED
+\subsubsection{Final Expression}
+As the last step of our series of derivations, we plug all our findings together to one big equation in order to compute the color for each pixel on our mesh in the $CIE_XYZ$ colorspace:
 
+For a given heigh-field $h(x,y)$, representing a small patch of the nano-structure of our surface, the resulting $CIE_{XYZ}$ caused by the effect of diffraction can be computed like the following: 
+
+Let $P(u,v,\lambda) = {F}_{fft}^{-1}\{i^n h^n\}(\frac{2\pi u}{\lambda},\frac{2\pi v}{\lambda})$
+
+\begin{equation}
+\begin{split}
+\colvec[X]{X}{Z}& = C(\omega_i,\omega_r) \int_{\lambda} \sum_{n=0}^N  \frac{(wk)^n}{n!} \sum_{(r,s) \in \mathcal{N}_1(u,v)} \left| P_{\lambda}(u-w_r,v-w_s) \right|^2 \\
+& \quad \quad  \phi(u-w_r, v-w_s) \colvec[S_x(\lambda)]{S_y(\lambda)}{S_z(\lambda)}d\lambda
+\end{split}
+\end{equation}
+
+where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the gaussian window.
+where $w_s$ and $w_r$ are ... explain them
+
+\subsubsection{Aplitude smooting}
+REASON FOR WHICH CASE THIS CAN BE USED, ADD AN IMAGE OF BOXFUNCTION
+The approach introduced within this section is an alternative to the gaussian window approach.
 Let us consider the so called 1-dimensional Box-function with length $T$ which is defined as the following: 
-ADD AN IMAGE OF BOXFUNCTION
 
 $
 Box(x) =
@@ -663,20 +677,5 @@ Let us again us again a Box-function, this time a 2-dimensional Box-function $Bo
 
 Where we define $p := (p_1 p_2 - q_1 q_2) $ and $q := (p_1 p_2 + q_1 q_2)$. For this identity we used green's integration rule which allowed us to split the double integral to the product of two single integrations. Also, we used the definition of the 2-dimensional inverse Fourer transform of the Box-function. We applied the same substituation like we did in for the 1 dimensional case, but this time twice, once for each variable seperately. The last step, substituting with $p$ and $q$ will be useful later in the implementation. The insight should be, that the product of two complex numbers is again a complex number. We will have to compute the absolute value of $\mathcal{F}^{-1}\{f\}(w_1,w_2)$ which will then be equal $(p^2 + q^2)^{\frac{1}{2}}\left|\mathcal{F}^{-1}\{Box\}(w_1,w_2)\right|$
 
-\subsubsection{Final Expression}
-As the last step of our series of derivations, we plug all our findings together to one big equation in order to compute the color for each pixel on our mesh in the $CIE_XYZ$ colorspace:
 
-For a given heigh-field $h(x,y)$, representing a small patch of the nano-structure of our surface, the resulting $CIE_{XYZ}$ caused by the effect of diffraction can be computed like the following: 
-
-Let $P(u,v,\lambda) = {F}_{fft}^{-1}\{i^n h^n\}(\frac{2\pi u}{\lambda},\frac{2\pi v}{\lambda})$
-
-\begin{equation}
-\begin{split}
-\colvec[X]{X}{Z}& = C(\omega_i,\omega_r) \int_{\lambda} \sum_{n=0}^N  \frac{(wk)^n}{n!} \sum_{(r,s) \in \mathcal{N}_1(u,v)} \left| P_{\lambda}(u-w_r,v-w_s) \right|^2 \\
-& \quad \quad  \phi(u-w_r, v-w_s) \colvec[S_x(\lambda)]{S_y(\lambda)}{S_z(\lambda)}d\lambda
-\end{split}
-\end{equation}
-
-where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the gaussian window.
-where $w_s$ and $w_r$ are ... explain them
 
