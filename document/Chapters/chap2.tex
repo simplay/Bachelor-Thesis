@@ -286,8 +286,7 @@ L_{\lambda}(\omega_r)
 & = I(\lambda) \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|T_0^2 P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle
 \end{align*}
 
-$P_{cont}$ is the continnious inverse Fourier transform for the taylor series of our heightfield representing the nano-scaled surface structure, i.e. $P(k,l) = \mathcal{F}^{-1}\{p\}(k,l)$ and $P_{dtft}$ is the discrete-time inverse Fourier Transform for the same problem domain and $T_0$ the sampling distance for the discretization pf $p(x,y)$ assuming equal and uniform sampling in both dimensions $x,y$.
-
+$P_{cont}$ denotes the continuous inverse Fourier-Transform for the Taylor-Series of our heightfield representing the nano-scaled surface structure, i.e. $P(k,l) = \mathcal{F}^{-1}\{p\}(k,l)$ and $P_{dtft}$ is the inverse Discrete Time Fourier Transform of $p(x,y) = e^{ikwh(x,y)}$. Furthermore $T_0$ the sampling distance for the discretization of $p(x,y)$ assuming equal and uniform sampling in both dimensions $x,y$.
 
 \subsubsection{Relative BRDF}
 reason why relative brdf: In order to scale the reflactiance such that we are able to texture. 
