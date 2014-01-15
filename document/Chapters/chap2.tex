@@ -158,22 +158,14 @@ The Taylor series $\mathcal T$ of a real or complex-valued function ƒ(x) that i
 
 
 \subsection{Thesis Basis: J.Stam's Paper about Diffraction Shader}
-GOAL
-main task in the theory of diffraction is to solve this wave equation for different geometries.
-we are interested in computing the reflected waves from various types of surfaces
-
-abstract:
-before: most reflection models empirically or based on ray-theory of light.
-now: new reflection model based on wave theory modeling the effect of diffraction
-
-
-In his Paper Diffraction Shader, Jos Stam derives a BRDF which modeling the effect of diffraction for various analytical anistropic reflaction models using the scalar Kirchof theory and the theory of random processes. By employing the so called scalar wave theory of diffraction [source 5 in stams paper] in which a wave is assumed to be a complex valued scalar. It's noteworthy, that stam's BRDF formulation does not take into account the polarization of the light. Fortunately, light sources like sunlight and light bulbs are unpilarizaed. In our simulations we will always assume we have given i directional light source, i.e. sunlight. Hence, we can use stam's model for our derivations
+In his paper about Diffraction Shader, J. Stam derives a BRDF which is modeling the effect of diffraction for various analytical anisotropic reflexion models relying on the so called scalar wave theory of diffraction for which a wave is assumed to be a complex valued scalar. 
+It's noteworthy, that Stam's BRDF formulation does not take into account the polarization of the light. Fortunately, light sources like sunlight and light bulbs are unpolarized. 
 
 A further assumption in Stam's Paper is, the emanated waves from the source are stationary, which implies the wave is a superposition of independent monochromatic waves. This implies that each wave is associated to a definite wavelangth lambda. However, sunlight once again fulfills this fact.
 
-Mention Helmolth equation, which has the solution $k = \frac{2\pi}{\lambda}$ which is the wavenumber
+In our simulations we will always assume we have given a directional light source, i.e. sunlight. Hence, Stam's model can be used for our derivations.
 
-Based on his these previous assumptions and applying Stam starts his derviations by applying the so called Kirchhoff integral, which is relating the reflected field to the incoming field. This equation is a formalization of Huygen’s well-known principle that states that if one knows the wavefront at a given moment, the wave at a later time can be deduced by considering each point on the first wave as the source of a new disturbance, i.e. once the field  $\psi_1 =  e^{ik\mathbf{x} \cdot \mathbf{s}\mathbf{s}}$ on the surface is known, the field everywhere $\psi_2$ else away from the surface can be computed.
+Based on his these previous assumptions and applying Stam starts his derivations by applying the so called Kirchhoff integral, which is relating the reflected field to the incoming field. This equation is a formalization of Huygen’s well-known principle that states that if one knows the wavefront at a given moment, the wave at a later time can be deduced by considering each point on the first wave as the source of a new disturbance, i.e. once the field  $\psi_1 =  e^{ik\mathbf{x} \cdot \mathbf{s}\mathbf{s}}$ on the surface is known, the field everywhere $\psi_2$ else away from the surface can be computed.
 More precisely, we want to compute the wave $\psi_2$ equal to the reflection of an incoming planar monochromatic wave $\psi_1 = e^{ik \omega_i * x}$  traveling in the direction $\omega_i$ from a surface S to the light source. Mathematically this can be formulized the following:
 
 \begin{equation}
@@ -187,15 +179,13 @@ In applied optics, when dealing with scattered waves, one does use differential 
     \sigma^0 = 4 \pi \lim_{R \to \infty} R^2 \frac{\langle \left|\psi_2\right|^2\rangle}{\langle \left|\psi_1\right|^2\rangle}
 \end{equation}
 
-Relationship between the BRDF and the scattering cross section is the follwing:
-
-The relationship between the BRDF and the scattering cross section can be shown to be equal to $BRDF = \frac{1}{4\pi}\frac{1}{A}\frac{\sigma^0}{cos(\theta_i)cos(\theta_r)}$
-Wheras $\theta_i$ and $\theta_r$ are the angles that the vectors $-\omega_i$
-and $\omega_r$ make with the vertical direction.
- 
-\includegraphics[scale=0.25]{images/brdfdiagram.png}
-
 where R is the distance from the center of the patch to the receiving point $x_p$, $\hat{\mathbf{n}}$ is the normal of the surface at s and the vectors:
+
+The relationship between the BRDF and the scattering cross section can be shown to be equal to 
+
+\begin{equation*}
+ BRDF = \frac{1}{4\pi}\frac{1}{A}\frac{\sigma^0}{cos(\theta_i)cos(\theta_r)}
+\end{equation*}
 
 \begin{equation*}
     \mathbf{v} = -\omega_i - \omega_r
@@ -206,8 +196,7 @@ where R is the distance from the center of the patch to the receiving point $x_p
     \mathbf{p} = -\omega_i + \omega_r
 \end{equation*}
 
-
-During his derivations, Stam provides a analytical representation for the Kirchhoff integral by using his assumptions. He restricts himself to the reflaction of waves from height fields $h(x,y)$ with the assumption that the surface is defined as an elevation over the (x,y) plane using the surface plane approximation.
+During his derivations, Stam provides a analytical representation for the Kirchhoff integral by using his assumptions. He restricts himself to the reflexion of waves on a surface represented by a heightfield $h(x,y)$ with the assumption that the surface is defined as an elevation over the (x,y)-plane using the surface plane approximation.
 
 Which will lead him to the follwoing identity for the Kirchhoff integral
 
@@ -215,7 +204,9 @@ Which will lead him to the follwoing identity for the Kirchhoff integral
     \mathbf{I}(ku, kv) = \int \int \frac{1}{ikw}(-p_x, -p_y, ikwp) 
 \end{equation}
 
-wheras stam formulates for a hightfield auxilary function $p(x,y) = e^{iwkh(x,y)}$ where $w = -(cos(\theta_i)+cos(\theta_r))$ and $\theta_i$ and $\theta_r$ are the angles of incident and reflected directions with the surface normal (ADD picture) and the wavenumber $k=\frac{2\pi}{\lambda}$
+wheras Stam formulates for a hightfield auxilary function $p(x,y) = e^{iwkh(x,y)}$ where $w = -(cos(\theta_i)+cos(\theta_r))$ and $\theta_i$ and $\theta_r$ are the angles of incident and reflected directions with the surface normal and the wavenumber $k=\frac{2\pi}{\lambda}$
+
+\includegraphics[scale=0.25]{images/brdfdiagram.png}
 
 \begin{equation}
     p(x,y) = e^{ikwh(x,y)}
@@ -231,9 +222,7 @@ which will lead us to his final derivation, using the identity of BRDF, and comp
 $BRDF_{\lambda}(\omega_i, \omega_r)$ is BRDF where wavelength $\lambda$ $\omega_i$ and $\omega_r$ are incident and reflected normalized directions vectors, pointing away from the given surface. Which can be written, using the fourier transform (FT) $P(u,v) = F(p)(u,v)$, as:
 $BRDF_{\lambda}(\omega_i, \omega_r) = \frac{F^2 G}{\lambda^2 A w^2}abs(P(\frac{u}{\lambda},\frac{v}{\lambda}))^2$ where F represents the Fresnel term, uv,v,w are derived from the incident and reflected directions as $(u,v,w) = -\omega_i - \omega_r$, abs(P) represents the expected valuess of a random variable X and A is an area of integration on the surface that is considered to contribute to diffraction, G is the geometry term which is $G   =\frac{(1 + \omega_i \cdot \omega_r)^2}{cos(\theta_i)cos(\theta_r)}$
 
-and P(x,y) is the Fourier transform (FT) of the function p(x,y) from above.
-This identitiy for the BRDF is the starting point for our derivations.
-
+and $P(x,y)$ is the Fourier Transform (FT) of the function $p(x,y)$ from above.
 
 \subsection{Derivations}
 \subsubsection{BRDF formulation}
