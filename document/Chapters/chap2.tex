@@ -245,14 +245,15 @@ f_r(\omega_i, \omega_r) = \frac{dL_r(\omega_r)}{L_i(\omega_i)cos(\theta_i)d\omeg
 => \int_{\Omega}f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i = \int_{\Omega}dL_r(\omega_r) \\
 => L_r(\omega_r) = \int_{\Omega}f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i
 \end{align*}
-
+The last equation is the so called rendering equation.
 We assume further, that our incident light is a directional, unpolarized light source like sunlight and therefore its radiance is given as 
 
 \begin{equation}
  L_{\lambda}(\omega)=I(\lambda)\delta(\omega-\omega_i)
 \end{equation}
 
-where $I(\lambda)$ is the intensity of the relative spectral power for the wavelength $\lambda$. Thus we get for our the BRDF formulation:
+where $I(\lambda)$ is the intensity of the relative spectral power for the wavelength $\lambda$. 
+Since all light rays are parallel whenever we are provided by a directional light source, directions and radiance are soame everywhere and thus, above's radiance identity will follow. By plugging this identity into our current rendering equation, we will get:
 
 \begin{align}
 L_{\lambda}(w_r) 
@@ -260,9 +261,8 @@ L_{\lambda}(w_r)
 & = BRDF_{\lambda}(\omega_i, \omega_r) I(\lambda) cos(\theta_i)
 \end{align}
 
-MENTION WHY THIS INTEGRAL VANISHES
-
 where $L_{\lambda}(\omega_i)$ is the incomming radiance and $L_{\lambda}(\omega_r)$ is the radiance reflected by given surface
+Note that above's integral vanishes since $\delta(\omega-\omega_i)$ is only equal one if and only if $\omega = \omega_i$.
 
 For the $BRDF(\omega_i, \omega_r)$ we are going to use Stam's main derivation $~\eqref{eq:mainstam}$ applying the fact that the wavenumber is equal $k=\frac{2\pi}{\lambda}$:
 
