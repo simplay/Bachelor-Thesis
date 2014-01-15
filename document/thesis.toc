@@ -26,7 +26,6 @@
 \contentsline {subsubsection}{\numberline {2.3.3}Taylor approximation for BRDF}{21}
 \contentsline {paragraph}{Proof Sketch of 1.}{22}
 \contentsline {paragraph}{Part 2: Find such an N}{23}
-\contentsline {paragraph}{Conclusion}{24}
 \contentsline {subsubsection}{\numberline {2.3.4}Sampling: Gaussian Window}{25}
 \contentsline {subsubsection}{\numberline {2.3.5}Aplitude smooting}{26}
 \contentsline {subsubsection}{\numberline {2.3.6}Final Expression}{30}
