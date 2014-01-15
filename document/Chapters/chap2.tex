@@ -276,12 +276,7 @@ BRDF(\omega_i, \omega_r)
 & = \frac{F(w_i, w_r)^2 (1 + \omega_i \cdot \omega_r)^2}{cos(\theta_i)cos(\theta_r) A \lambda^2 w^2} \langle \left|P(ku, kv)  \right|^2\rangle
 \end{align*}
 
-where $\omega_t$ represents a unit vector whose spherical coordinates are given by the solid angle $t$.
-Since we are going to integrate over a sphere $\Omega$ we can write the component $w=(cos(\theta_i)+cos(\theta_r))$
-
-SHOW WHY WE ARE ALLOWED TO WRITE IT LIKE THIS => SPHERICAL COORDINATES DIFFERENCE $(-\omega_i - \omega_r) = (u,v,w)$ and so on.
-this our identity for $L_{r}(\omega_r)$ will lead us to the following identiy using our identity :
-
+going back to the definition of $(u,v,w)= -\omega_i - \omega_r$ and using spherical coordinates, we get for $w$ the following identity $w = -\omega_i - \omega_r = -(\omega_i + \omega_r) = -(cos(\theta_i)+cos(\theta_r))$ and therefore $w^2$ is equal $(cos(\theta_i)+cos(\theta_r))^2$
 This new fact will allow us to get even further:
 
 \begin{align*}
