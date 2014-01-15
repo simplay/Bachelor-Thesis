@@ -245,6 +245,7 @@ f_r(\omega_i, \omega_r) = \frac{dL_r(\omega_r)}{L_i(\omega_i)cos(\theta_i)d\omeg
 => \int_{\Omega}f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i = \int_{\Omega}dL_r(\omega_r) \\
 => L_r(\omega_r) = \int_{\Omega}f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i
 \end{align*}
+
 The last equation is the so called rendering equation.
 We assume further, that our incident light is a directional, unpolarized light source like sunlight and therefore its radiance is given as 
 
@@ -253,7 +254,8 @@ We assume further, that our incident light is a directional, unpolarized light s
 \end{equation}
 
 where $I(\lambda)$ is the intensity of the relative spectral power for the wavelength $\lambda$. 
-Since all light rays are parallel whenever we are provided by a directional light source, directions and radiance are soame everywhere and thus, above's radiance identity will follow. By plugging this identity into our current rendering equation, we will get:
+Since all light rays are parallel whenever we are provided by a directional light source and we can think of radiance as a measure of the light emitted from a particular surface location into a particular direction, above's radiance identity will follow immediately. 
+By plugging this identity into our current rendering equation, we will get:
 
 \begin{align}
 L_{\lambda}(w_r) 
