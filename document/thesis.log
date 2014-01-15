@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  15 JAN 2014 00:47
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  15 JAN 2014 18:11
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -750,25 +750,27 @@ Overfull \hbox (20.90926pt too wide) in paragraph at lines 160--160
  []
 
 [14]
+File: images/brdfdiagram.png Graphic file (type QTm)
+ <use  "images/brdfdiagram.png" > [15]
 Overfull \hbox (9.58163pt too wide) in paragraph at lines 218--219
 []\EU1/lmr/m/n/12 wheras stam formulates for a hightfield auxilary function $\O
 ML/zplm/m/it/12 p\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 x\OT1/ppl/m/n/12 , \OML/zp
 lm/m/it/12 y\OT1/zplm/m/n/12 ) = \OML/zplm/m/it/12 e[]$
  []
 
-[15] [16] [17]
+[16] [17]
 Overfull \hbox (29.42903pt too wide) in paragraph at lines 290--290
 [] 
  []
 
-[18]
+[18] [19]
 Overfull \hbox (17.8004pt too wide) in paragraph at lines 338--339
 []\EU1/lmr/m/n/12 using the previous definition for the relative reflectance ra
 diance $\OML/zplm/m/it/12 ^^Z[]\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 ![]\OT1/ppl/
 m/n/12 , \OML/zplm/m/it/12 ![]\OT1/zplm/m/n/12 ) =
  []
 
-[19] [20] [21]
+[20] [21]
 Overfull \hbox (12.04079pt too wide) in paragraph at lines 417--418
 []\EU1/lmr/m/n/12 Hence it follows: $\OML/zplm/m/it/12 P\OT1/zplm/m/n/12 (\OML/
 zplm/m/it/12 ^^K\OT1/ppl/m/n/12 , \OML/zplm/m/it/12 ^^L\OT1/zplm/m/n/12 ) = [][
@@ -887,10 +889,10 @@ ll-2010-math-2300-005/lectures/taylor-
 (./Chapters/chap3.aux) (./Chapters/chap4.aux) (./Chapters/chap5.aux)
 (./Chapters/chap6.aux)) ) 
 Here is how much of TeX's memory you used:
- 18417 strings out of 493938
- 374415 string characters out of 6148857
+ 18419 strings out of 493938
+ 374452 string characters out of 6148857
  406111 words of memory out of 5000000
- 21446 multiletter control sequences out of 15000+600000
+ 21447 multiletter control sequences out of 15000+600000
  21914 words of font info for 93 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  46i,21n,38p,2012b,1042s stack positions out of 5000i,500n,10000p,200000b,80000s
