@@ -376,55 +376,44 @@ X
 Where we used the definition $S_x(\lambda)\overline{x}(\lambda)$ in the last step.
 
 \subsubsection{Taylor approximation for BRDF}
-Based on J. Stam's Paper about Diffraction shaders we will show that
-there is an approximation of his equation (5), \textbf{p(x,y)}, for
-a explicitly given heightfield \textbf{h(x,y)}. This approximation
-is achieved by using Taylor-Series and using this identity we will
-further be able to approximate the Fourier-Transformation of p(x,y),
-denoted as \textbf{P(u,v)}. Finally we will give an error bound for
-this approximation. Finally, we will put our new found identity into our so far found relative BRDF representation.
 
-\myparagraph {Taylor Series of p}
-Given $p(x,y)=e^{ikwh(x,y)}$form Stam's Paper where h(x,y) is here
-a given heightfield. Also given the definition
+
+In this section, we will show there is an approximation for the inverse Fourier Tranformation of Stam's auxilary function p(x,y). This derivation will rely on the definition of Taylor Series expansion and will further provide an error bound for our approximation approach. Last, we will extend our last findings by the findings derived within this section and get a new identity for our relative BRDF representation.
+
+Given $p(x,y)=e^{ikwh(x,y)}$ form Stam's Paper where h(x,y) is a given heightfield. Let be y real or even complex value, and lets consider the power series for the the exponential function 
 \begin{equation*}
-  e^{y}=1+y+\frac{y^{2}}{2!}+\frac{y^{3}}{3!}+...=\sum_{n=0}^{\infty}\frac{y^{n}}{n!}
+  e^{t}=1+t+\frac{t^{2}}{2!}+\frac{t^{3}}{3!}+...=\sum_{n=0}^{\infty}\frac{t^{n}}{n!}
 \end{equation*}
 
-where y can be real or even complex valued - note this identity can either
-be derieved by power series or by Taylor-Series(using the derivatives
-of the exp-function and developing the Taylor-Series around the point
-a=0). Let us now set $y=ikwh(x,y)$where $i$ is the imaginary number.
-For simplification, let us denote h(x,y) as h. It follows by our previous
+Let us define $t := t(x,y) = ikwh(x,y)$ where $i$ is the imaginary number.
+For simplification, let us denote $h(x,y)$ as $h$. Then it follows by our previous
 stated identities: 
 
 \begin{align*}
- e^{y}
+ e^{t}
  &=1+(ikwh)+\frac{1}{2!}(ikwh)^{2}+\frac{1}{3!}(ikwh)^{3}+... \\
  &=\sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}.
 \end{align*}
+
 Hence it holds $p(x,y)=\sum_{n=0}^{\infty}\frac{(ikwh(x,y))^{n}}{n!}.$
 
-\myparagraph{Fourier Transformation of p(x,y)}
 Let us now compute the Fourier Transformation of p(x,y) form above:
 \begin{align*}
-  \mathcal{F}\left\{ p\right\} (u,v)
+  \mathcal{F}\left\{ p\right\}(u,v)
   & =\mathcal{F}\left\{ \sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}.\right\}(u,v) \\
   & =^{\mathcal{F}\, lin\, Operator}\sum_{n=0}^{\infty}\mathcal{F}\left\{ \frac{(ikwh)^{n}}{n!}\right\}(u,v) \\
   & =\sum_{n=0}^{\infty}\frac{(ikw)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\}(u,v)
 \end{align*}
 
-Hence it follows: $P(\alpha,\beta)=\sum_{n=0}^{\infty}\frac{(ikw)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$ for which $\mathcal{F}\left\{ h{}^{n}\right\} (u,v)$ denotes the two dimensional Fourier Transformation of p(x,y) which can be nummerically computed by the two dimensional \textbf{FFT} of h(x,y). 
-
-
-\myparagraph{Approximation of function P}
+Hence it follows: $P(\alpha,\beta)=\sum_{n=0}^{\infty}\frac{(ikw)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$ for which $\mathcal{F}_{FT}\left\{ h{}^{n}\right\} (u,v)$.
 
 Next we are going to look for an $N\mathbb{\in N}$ such that 
 \begin{equation*}
  \sum_{n=0}^{N}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta) \approx P(\alpha,\beta) 
 \end{equation*}
 
-is a good approximation. The following two facts we have to prove:
+is a good approximation. But first the following two facts have to be proven:
+
 \begin{enumerate}
 \item Show that there exist such an $N\mathbb{\in N}$s.t the approximation
 holds true.

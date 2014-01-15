@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  15 JAN 2014 21:54
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  15 JAN 2014 22:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -764,39 +764,34 @@ Overfull \hbox (29.42903pt too wide) in paragraph at lines 287--287
  []
 
 [18] [19] [20] [21]
-Overfull \hbox (12.04079pt too wide) in paragraph at lines 417--418
+Overfull \hbox (26.16968pt too wide) in paragraph at lines 408--409
 []\EU1/lmr/m/n/12 Hence it follows: $\OML/zplm/m/it/12 P\OT1/zplm/m/n/12 (\OML/
 zplm/m/it/12 ^^K\OT1/ppl/m/n/12 , \OML/zplm/m/it/12 ^^L\OT1/zplm/m/n/12 ) = [][
 ] []\OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 ^^K\OT1/ppl/m/n/1
 2 , \OML/zplm/m/it/12 ^^L\OT1/zplm/m/n/12 )$ \EU1/lmr/m/n/12 for which $\OMS/zp
-lm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 u\OT1/ppl/m/n/12 , \OML/zplm
-/m/it/12 v\OT1/zplm/m/n/12 )$
+lm/m/n/12 F[] [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 u\OT1/ppl/m/n/12 , \OML/zp
+lm/m/it/12 v\OT1/zplm/m/n/12 )$\EU1/lmr/m/n/12 . 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 420--421
-
- []
-
-LaTeX Font Info:    Try loading font information for U+fplmbb on input line 422
+LaTeX Font Info:    Try loading font information for U+fplmbb on input line 410
 .
 (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 435--436
+Underfull \hbox (badness 10000) in paragraph at lines 424--425
 
  []
 
-[22]
-Overfull \hbox (72.90395pt too wide) in paragraph at lines 437--439
+
+Overfull \hbox (72.90395pt too wide) in paragraph at lines 426--428
 []\EU1/lmr/m/n/12 By the \EU1/lmr/bx/n/12 ratio test \EU1/lmr/m/n/12 (see \EU1/
 lmr/bx/n/12 [1]\EU1/lmr/m/n/12 ) It is possible to show that the series $[][] [
 ]\OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 ^^K\OT1/ppl/m/n/12 ,
  \OML/zplm/m/it/12 ^^L\OT1/zplm/m/n/12 )$
  []
 
-
-Overfull \hbox (16.77995pt too wide) in paragraph at lines 449--452
+[22]
+Overfull \hbox (16.77995pt too wide) in paragraph at lines 438--441
 \EU1/lmr/m/n/12 Let $\OML/zplm/m/it/12 f\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 x\O
 T1/zplm/m/n/12 ) = \OML/zplm/m/it/12 e[]$\EU1/lmr/m/n/12 . We can formulate its
  Taylor-Series, stated above. Let $\OML/zplm/m/it/12 P[]\OT1/zplm/m/n/12 (\OML/
@@ -804,43 +799,43 @@ zplm/m/it/12 x\OT1/zplm/m/n/12 )$\EU1/lmr/m/n/12 denote
  []
 
 [23] [24] [25]
-Overfull \hbox (1.98618pt too wide) in paragraph at lines 575--578
+Overfull \hbox (1.98618pt too wide) in paragraph at lines 564--567
 []\EU1/lmr/m/n/12 We assume, that our given heighfield can be represented as a 
 2-dimensional
  []
 
 
-Overfull \hbox (13.64383pt too wide) in paragraph at lines 575--578
+Overfull \hbox (13.64383pt too wide) in paragraph at lines 564--567
 \EU1/lmr/m/n/12 box-function. Note that we can use any explicit given constrain
 ted 2-dimensional
  []
 
 [26] [27] [28]
-Overfull \hbox (26.81639pt too wide) in paragraph at lines 686--686
+Overfull \hbox (26.81639pt too wide) in paragraph at lines 675--675
 [] 
  []
 
-[29] [30]) [31]
+[29]) [30]
 \openout2 = `Chapters/chap3.aux'.
 
- (./Chapters/chap3.tex [32
+ (./Chapters/chap3.tex [31
 
 
 
-] [33] [34]
+] [32] [33]
 Overfull \hbox (16.68803pt too wide) in paragraph at lines 71--77
 \EU1/lmr/m/n/12 what is done here reworked such that it is mvc-architecute base
 d user-interaction:
  []
 
-[35] [36] [37]
+[34] [35] [36]
 Overfull \hbox (116.89343pt too wide) in paragraph at lines 171--174
 \EU1/lmr/m/n/12 current position in the neighborhood in texture space. $\OML/zp
 lm/m/it/12 getRescaledFourierTextureValueAt\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 
 position\OT1/zplm/m/n/12 )$
  []
 
-[38] [39]) [40]
+[37] [38]) [39]
 \openout2 = `Chapters/chap4.aux'.
 
  (./Chapters/chap4.tex
@@ -851,17 +846,17 @@ Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
- [41
+ [40
 
 
 
 ]
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
- [42]) [43]
+ [41]) [42]
 \openout2 = `Chapters/chap5.aux'.
 
  (./Chapters/chap5.tex)
-[44
+[43
 
 
 
@@ -874,7 +869,7 @@ Overfull \hbox (52.8627pt too wide) in paragraph at lines 19--19
 ll-2010-math-2300-005/lectures/taylor-
  []
 
-) [45
+) [44
 
 
 
@@ -890,4 +885,4 @@ Here is how much of TeX's memory you used:
  1144 hyphenation exceptions out of 8191
  46i,21n,38p,2012b,1042s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on thesis.pdf (45 pages).
+Output written on thesis.pdf (44 pages).
