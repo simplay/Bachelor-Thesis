@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  15 JAN 2014 23:03
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  15 JAN 2014 23:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -750,20 +750,14 @@ Overfull \hbox (20.90926pt too wide) in paragraph at lines 160--160
  []
 
 [14]
-Overfull \hbox (11.47763pt too wide) in paragraph at lines 207--208
-[]\EU1/lmr/m/n/12 wheras Stam formulates for a hightfield auxilary function $\O
-ML/zplm/m/it/12 p\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 x\OT1/ppl/m/n/12 , \OML/zp
-lm/m/it/12 y\OT1/zplm/m/n/12 ) = \OML/zplm/m/it/12 e[]$
- []
-
 File: images/brdfdiagram.png Graphic file (type QTm)
-<use  "images/brdfdiagram.png" > [15] [16] [17]
-Overfull \hbox (29.42903pt too wide) in paragraph at lines 276--276
+ <use  "images/brdfdiagram.png" > [15] [16] [17]
+Overfull \hbox (29.42903pt too wide) in paragraph at lines 274--274
 [] 
  []
 
 [18] [19] [20] [21]
-Overfull \hbox (26.16968pt too wide) in paragraph at lines 395--396
+Overfull \hbox (26.16968pt too wide) in paragraph at lines 393--394
 []\EU1/lmr/m/n/12 Hence it follows: $\OML/zplm/m/it/12 P\OT1/zplm/m/n/12 (\OML/
 zplm/m/it/12 ^^K\OT1/ppl/m/n/12 , \OML/zplm/m/it/12 ^^L\OT1/zplm/m/n/12 ) = [][
 ] []\OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 ^^K\OT1/ppl/m/n/1
@@ -772,17 +766,17 @@ lm/m/n/12 F[] [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 u\OT1/ppl/m/n/12 , \OML/zp
 lm/m/it/12 v\OT1/zplm/m/n/12 )$\EU1/lmr/m/n/12 . 
  []
 
-LaTeX Font Info:    Try loading font information for U+fplmbb on input line 397
+LaTeX Font Info:    Try loading font information for U+fplmbb on input line 395
 .
 (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 411--412
+Underfull \hbox (badness 10000) in paragraph at lines 409--410
 
  []
 
 
-Overfull \hbox (72.90395pt too wide) in paragraph at lines 413--415
+Overfull \hbox (72.90395pt too wide) in paragraph at lines 411--413
 []\EU1/lmr/m/n/12 By the \EU1/lmr/bx/n/12 ratio test \EU1/lmr/m/n/12 (see \EU1/
 lmr/bx/n/12 [1]\EU1/lmr/m/n/12 ) It is possible to show that the series $[][] [
 ]\OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 ^^K\OT1/ppl/m/n/12 ,
@@ -790,7 +784,7 @@ lmr/bx/n/12 [1]\EU1/lmr/m/n/12 ) It is possible to show that the series $[][] [
  []
 
 [22]
-Overfull \hbox (16.77995pt too wide) in paragraph at lines 425--428
+Overfull \hbox (16.77995pt too wide) in paragraph at lines 423--426
 \EU1/lmr/m/n/12 Let $\OML/zplm/m/it/12 f\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 x\O
 T1/zplm/m/n/12 ) = \OML/zplm/m/it/12 e[]$\EU1/lmr/m/n/12 . We can formulate its
  Taylor-Series, stated above. Let $\OML/zplm/m/it/12 P[]\OT1/zplm/m/n/12 (\OML/
@@ -798,19 +792,19 @@ zplm/m/it/12 x\OT1/zplm/m/n/12 )$\EU1/lmr/m/n/12 denote
  []
 
 [23] [24] [25]
-Overfull \hbox (1.98618pt too wide) in paragraph at lines 553--556
+Overfull \hbox (1.98618pt too wide) in paragraph at lines 551--554
 []\EU1/lmr/m/n/12 We assume, that our given heighfield can be represented as a 
 2-dimensional
  []
 
 
-Overfull \hbox (13.64383pt too wide) in paragraph at lines 553--556
+Overfull \hbox (13.64383pt too wide) in paragraph at lines 551--554
 \EU1/lmr/m/n/12 box-function. Note that we can use any explicit given constrain
 ted 2-dimensional
  []
 
 [26] [27] [28]
-Overfull \hbox (26.81639pt too wide) in paragraph at lines 664--664
+Overfull \hbox (26.81639pt too wide) in paragraph at lines 662--662
 [] 
  []
 
