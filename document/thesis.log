@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  15 JAN 2014 23:28
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  16 JAN 2014 23:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -831,25 +831,24 @@ position\OT1/zplm/m/n/12 )$
 [37] [38]) [39]
 \openout2 = `Chapters/chap4.aux'.
 
- (./Chapters/chap4.tex
-Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
-Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
-Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
-Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
-Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
-Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
-Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
- [40
+ (./Chapters/chap4.tex [40
 
 
 
-]
+] [41]
+Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
+Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
+Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
- [41]) [42]
+Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
+Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
+Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
+Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
+ [42]) [43]
 \openout2 = `Chapters/chap5.aux'.
 
- (./Chapters/chap5.tex)
-[43
+
+(./Chapters/chap5.tex) [44
 
 
 
@@ -862,7 +861,7 @@ Overfull \hbox (52.8627pt too wide) in paragraph at lines 19--19
 ll-2010-math-2300-005/lectures/taylor-
  []
 
-) [44
+) [45
 
 
 
@@ -878,4 +877,4 @@ Here is how much of TeX's memory you used:
  1144 hyphenation exceptions out of 8191
  46i,21n,38p,2012b,1042s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on thesis.pdf (44 pages).
+Output written on thesis.pdf (45 pages).
