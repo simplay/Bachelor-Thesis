@@ -9,17 +9,17 @@
 \contentsline {subsubsection}{\numberline {2.1.1}Diffraction}{7}
 \contentsline {subsubsection}{\numberline {2.1.2}Radiometry}{9}
 \contentsline {paragraph}{Spectral Energy}{9}
-\contentsline {paragraph}{Power}{9}
-\contentsline {paragraph}{Irradiance}{9}
+\contentsline {paragraph}{Power}{10}
+\contentsline {paragraph}{Irradiance}{10}
 \contentsline {paragraph}{Radiance}{10}
 \contentsline {paragraph}{BRDF}{11}
 \contentsline {paragraph}{Spectral Rendering}{11}
-\contentsline {paragraph}{Color spaces}{11}
+\contentsline {paragraph}{Color spaces}{12}
 \contentsline {subsubsection}{\numberline {2.1.3}Signal Processing Basics}{13}
 \contentsline {paragraph}{Fourier Transformation}{13}
 \contentsline {paragraph}{Convolution}{14}
 \contentsline {paragraph}{Taylor Series}{14}
-\contentsline {subsection}{\numberline {2.2}Thesis Basis: J.Stam's Paper about Diffraction Shader}{14}
+\contentsline {subsection}{\numberline {2.2}Thesis Basis: J.Stam's Paper about Diffraction Shader}{15}
 \contentsline {subsection}{\numberline {2.3}Derivations}{17}
 \contentsline {subsubsection}{\numberline {2.3.1}BRDF formulation}{17}
 \contentsline {subsubsection}{\numberline {2.3.2}Relative BRDF}{19}
@@ -42,7 +42,7 @@
 \contentsline {paragraph}{From line 14 to 22:}{38}
 \contentsline {subsection}{\numberline {3.4}Discussion}{40}
 \contentsline {section}{\numberline {4}Evaluation Data Acquisition}{41}
-\contentsline {subsection}{\numberline {4.1}Diffraction Gratings}{43}
+\contentsline {subsection}{\numberline {4.1}Diffraction Gratings}{42}
 \contentsline {subsection}{\numberline {4.2}Matlab code}{44}
 \contentsline {subsection}{\numberline {4.3}Discussion}{44}
 \contentsline {section}{\numberline {5}Results}{45}

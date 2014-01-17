@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  17 JAN 2014 17:56
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  17 JAN 2014 18:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -724,12 +724,12 @@ File: images/2.png Graphic file (type QTm)
 File: images/3.png Graphic file (type QTm)
  <use  "images/3.png" >
 [8] [9]
-Underfull \hbox (badness 10000) in paragraph at lines 52--53
+Underfull \hbox (badness 10000) in paragraph at lines 57--58
 
  []
 
 
-Overfull \hbox (79.95699pt too wide) in paragraph at lines 54--58
+Overfull \hbox (79.95699pt too wide) in paragraph at lines 59--63
 []\EU1/lmr/m/n/12 TODO: SHOW IMAGE: SOLID angle $\OML/zplm/m/it/12 WIKI \OT1/zp
 lm/m/n/12 : \OML/zplm/m/it/12 http \OT1/zplm/m/n/12 : //\OML/zplm/m/it/12 en\OT
 1/ppl/m/n/12 .\OML/zplm/m/it/12 wikipedia\OT1/ppl/m/n/12 .\OML/zplm/m/it/12 org
@@ -738,25 +738,25 @@ iance$
  []
 
 [10] [11] [12]
-LaTeX Font Info:    Try loading font information for U+dsrom on input line 121.
+LaTeX Font Info:    Try loading font information for U+dsrom on input line 126.
 
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/doublestroke/Udsrom.fd
 File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
 ) [13]
-Overfull \hbox (20.90926pt too wide) in paragraph at lines 166--166
+Overfull \hbox (20.90926pt too wide) in paragraph at lines 171--171
 []\EU1/lmr/bx/n/14.4 Thesis Basis: J.Stam’s Paper about Diffraction Shader 
  []
 
-[14]
+[14] [15]
 File: images/brdfdiagram.png Graphic file (type QTm)
- <use  "images/brdfdiagram.png" > [15] [16] [17]
-Overfull \hbox (29.42903pt too wide) in paragraph at lines 280--280
+ <use  "images/brdfdiagram.png" > [16] [17]
+Overfull \hbox (29.42903pt too wide) in paragraph at lines 285--285
 [] 
  []
 
 [18] [19] [20] [21]
-Overfull \hbox (26.16968pt too wide) in paragraph at lines 399--400
+Overfull \hbox (26.16968pt too wide) in paragraph at lines 404--405
 []\EU1/lmr/m/n/12 Hence it follows: $\OML/zplm/m/it/12 P\OT1/zplm/m/n/12 (\OML/
 zplm/m/it/12 ^^K\OT1/ppl/m/n/12 , \OML/zplm/m/it/12 ^^L\OT1/zplm/m/n/12 ) = [][
 ] []\OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 ^^K\OT1/ppl/m/n/1
@@ -765,17 +765,17 @@ lm/m/n/12 F[] [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 u\OT1/ppl/m/n/12 , \OML/zp
 lm/m/it/12 v\OT1/zplm/m/n/12 )$\EU1/lmr/m/n/12 . 
  []
 
-LaTeX Font Info:    Try loading font information for U+fplmbb on input line 401
+LaTeX Font Info:    Try loading font information for U+fplmbb on input line 406
 .
 (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 415--416
+Underfull \hbox (badness 10000) in paragraph at lines 420--421
 
  []
 
 [22]
-Overfull \hbox (72.90395pt too wide) in paragraph at lines 417--419
+Overfull \hbox (72.90395pt too wide) in paragraph at lines 422--424
 []\EU1/lmr/m/n/12 By the \EU1/lmr/bx/n/12 ratio test \EU1/lmr/m/n/12 (see \EU1/
 lmr/bx/n/12 [1]\EU1/lmr/m/n/12 ) It is possible to show that the series $[][] [
 ]\OMS/zplm/m/n/12 F [] \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 ^^K\OT1/ppl/m/n/12 ,
@@ -783,7 +783,7 @@ lmr/bx/n/12 [1]\EU1/lmr/m/n/12 ) It is possible to show that the series $[][] [
  []
 
 
-Overfull \hbox (16.77995pt too wide) in paragraph at lines 429--432
+Overfull \hbox (16.77995pt too wide) in paragraph at lines 434--437
 \EU1/lmr/m/n/12 Let $\OML/zplm/m/it/12 f\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 x\O
 T1/zplm/m/n/12 ) = \OML/zplm/m/it/12 e[]$\EU1/lmr/m/n/12 . We can formulate its
  Taylor-Series, stated above. Let $\OML/zplm/m/it/12 P[]\OT1/zplm/m/n/12 (\OML/
@@ -791,19 +791,19 @@ zplm/m/it/12 x\OT1/zplm/m/n/12 )$\EU1/lmr/m/n/12 denote
  []
 
 [23] [24] [25] [26]
-Overfull \hbox (1.98618pt too wide) in paragraph at lines 571--574
+Overfull \hbox (1.98618pt too wide) in paragraph at lines 576--579
 []\EU1/lmr/m/n/12 We assume, that our given heighfield can be represented as a 
 2-dimensional
  []
 
 
-Overfull \hbox (13.64383pt too wide) in paragraph at lines 571--574
+Overfull \hbox (13.64383pt too wide) in paragraph at lines 576--579
 \EU1/lmr/m/n/12 box-function. Note that we can use any explicit given constrain
 ted 2-dimensional
  []
 
 [27] [28] [29]
-Overfull \hbox (26.81639pt too wide) in paragraph at lines 682--682
+Overfull \hbox (26.81639pt too wide) in paragraph at lines 687--687
 [] 
  []
 
@@ -834,7 +834,7 @@ position\OT1/zplm/m/n/12 )$
 
 
 
-] [42]
+]
 Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
@@ -842,6 +842,7 @@ Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
+ [42]
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
  [43]) [44]
 \openout2 = `Chapters/chap5.aux'.

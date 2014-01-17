@@ -44,3 +44,4 @@ scene/*.png
 screenshots/*
 *.aux
 *.log
+document/**/*._*
