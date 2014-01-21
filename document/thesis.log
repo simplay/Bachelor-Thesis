@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  21 JAN 2014 17:58
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  22 JAN 2014 00:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -831,7 +831,13 @@ position\OT1/zplm/m/n/12 )$
 \openout2 = `Chapters/chap4.aux'.
 
  (./Chapters/chap4.tex
-Overfull \hbox (37.69319pt too wide) in paragraph at lines 18--20
+Overfull \hbox (4.80748pt too wide) in paragraph at lines 16--17
+[]\EU1/lmr/m/n/12 Wellengleichung: Lösung der DGL deren Lösung eine Wellenfunkt
+ion y(x,t)
+ []
+
+
+Overfull \hbox (37.69319pt too wide) in paragraph at lines 30--32
 []\EU1/lmr/m/n/12 which angle are we iterating over and which is steady? iterat
 e over $\OML/zplm/m/it/12 ceil\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 angMax \OMS/z
 plm/m/n/12 ^^@
@@ -841,7 +847,7 @@ plm/m/n/12 ^^@
 
 
 
-]
+] [42]
 Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
@@ -849,7 +855,6 @@ Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
- [42]
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
  [43]) [44]
 \openout2 = `Chapters/chap5.aux'.
