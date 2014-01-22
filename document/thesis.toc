@@ -42,10 +42,12 @@
 \contentsline {paragraph}{From line 14 to 22:}{38}
 \contentsline {subsection}{\numberline {3.4}Discussion}{40}
 \contentsline {section}{\numberline {4}Evaluation Data Acquisition}{41}
-\contentsline {subsection}{\numberline {4.1}Diffraction Gratings}{43}
-\contentsline {subsection}{\numberline {4.2}Matlab code}{44}
-\contentsline {subsection}{\numberline {4.3}Discussion}{44}
+\contentsline {subsection}{\numberline {4.1}Diffraction Gratings}{41}
+\contentsline {subsection}{\numberline {4.2}Evaluation}{43}
 \contentsline {section}{\numberline {5}Results}{45}
+\contentsline {subsection}{\numberline {5.1}Other stuff}{45}
+\contentsline {subsection}{\numberline {5.2}Matlab code}{45}
+\contentsline {subsection}{\numberline {5.3}Discussion}{45}
 \contentsline {section}{\numberline {6}Conclusion}{46}
 \contentsline {subsection}{\numberline {6.1}Further Work}{46}
 \contentsline {subsubsection}{\numberline {6.1.1}References}{46}

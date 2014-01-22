@@ -1,62 +1,3 @@
-
-\section{Evaluation Data Acquisition}
-
-
-for measurement on sheds, samples are stuck on glass plates using double face tape, the animal was pushed up below a hollowed plate letting the skin emerging from the top of the plate. the surface of the scale under measurement should be large compared to the size of the drop to avoid wetting the plasmic membrane that would corrupt the reasing of the contact angle. 
-
-the surface energy was derived from the contact angle measurements following the method proposed by Fowkes
-
-
-microscopy
-scaning method: scanning electron microscopy (sem) and atomic force microscopy (AFM). 
-
-the intensity of the diffracted light decreases when m increases.
-
-
-Wellengleichung: Lösung der DGL deren Lösung eine Wellenfunktion y(x,t) ist. Allgemeine Herleutung elektromag. Wellen aus den Maxwellschen Gleichungen.
-
-$\frac{d^2 y}{dx^2} = \alpha frac{d^2 y}{dt^2}$
-
-Harmonische Wellen: $y(x,t) = A sin(kx - wt) = A sin(2\pi \frac{x}{\lambda} + \delta)$ erzeugt durch superposition aus anderen harmonischen Wellen. Sei $k = \frac{2 \pi}{\lambda}$ dann $y(x,t) = A sin(kx)$
-
-Stehende Wellen: Wellen nur in einem best. räumlichen Gebiet ausbreitbar. Beide Enden Reflexionen treten auf.
-
-Interferenz harm. Wellen ist Überlagerung von Wellen: $y_1 = A sin(kx - wt)$ und $y_2 = A sin(kx - wt + \delta)$ dann $y_1 + y_2 = abcd$.
-
-Interferenz: Zei Wellen gleicher Freq. bei ihrer Überlagerung wahrnehmbar räumlich Intensivitätsmuster erzeugt.
-
-Welleneffekt wie Brechung, Reflexion, Transmission nun auch die Beugung.
-
-which angle are we iterating over and which is steady?
-iterate over $ceil(angMax - angMin) / angInc$
-
-when light at a wavelength $\lambda$ falls on a sample presenting a periodicity a along the incident plane, under an incident angle $\theta$ compared ti the normal of the surface, the angle $\phi$ corresponding to the direction of the meerging beam whoswing constructive interferences (maximum in intensity) is given by $sin(\phi) = sin(\theta) + m\frac{\lambda}{a}$
-where $m$ is the order of diffraction. 
-
-
-optical spectral range goes from $\lambda=240 nm$ to $\lambda=1.6 \mu m$
-it is possible to measure $\phi$ angles from the grazing conditions (-90 degree) to a position where the detector is in conteact with the source 
-
-
-
-
-Die Interferenzt ist die Bildung eines sichtbaren Intensitötsmisters infolge der ¨berlagerung von zwei oder mehr koheränten Wellen, die in einmem Raumpunkt zusammentreffen. Unter Beugung versteht man die Abweichung der Wellenausbreitung von der geometrischen Strahlenrichtung an einer Öffnung oder einem Hindernis im Lichtweg.
-
-Interferenz: Zwei einander überlagende Lichquellen ergeben ein Interferenzmuster, wenn ihre Phsendifferenz während der für die Beobachtun notwenigen Zeitspanne konstant ist. Die Welle interferieren konstruktiv, wenn ihre Phasendifferenz nill ist oder ein ganzzahliges Vielfaches von 360 bzw 2PI beträgt. Sie interferieren destruktiv, wenn ohre Phasendifferenz 180 oder ein ungradzahliges Vielfaches von PI beträgt.
-
-
-
-Beugung: Beugung tritt auf, wenn ein Teil einer Wellenfront durch ein Hindernis oder eine Öffnung begrenzt wird. Die Lichtintensität an einem beliebigen Punkt im Raum lässt sich mithilfe des Huygens'schen Prinzip bestimmen, indem man das daraus resultierende Interferenzmuster berechnet.
-
-Beugungsgitter nestejt ais eomer grpssem Anzahl von äquidistanten Linien oder Spalten. Mit ihm kann die Wellenlänge des Lichts bestimmt werden, das von einer Lichtquelle ausgestrahlt wird. Doe Omterferenzmaxima m-ter Ordnung bei einem Gitter treten bei Winkeln auf, für die gilt: g sin thetam = m lambda. m = 0,1,2,...
-Darin ist g die Gitterkonstante, dh, der Abstand von benachbarten Linien oder Spalten.
-
-
-
-
-
-
-
 what is this chapter about
 how is evaluation perfromed
 our shader
@@ -67,8 +8,79 @@ how from those generated tables to matlab
 how to read those
 discussion
 
+
+\section{Evaluation Data Acquisition}
+
+for measurement on sheds, samples are stuck on glass plates using double face tape, the animal was pushed up below a hollowed plate letting the skin emerging from the top of the plate. the surface of the scale under measurement should be large compared to the size of the drop to avoid wetting the plasmic membrane that would corrupt the reasing of the contact angle. 
+
+the surface energy was derived from the contact angle measurements following the method proposed by Fowkes
+
+microscopy
+scaning method: scanning electron microscopy (sem) and atomic force microscopy (AFM).
+
 The true surface topography is extracted by flattening a single snake scale on a metal disc covered with carbon adhesive tape. Then, measurements were carried out using intermittment contact mode in a Bruker Dimension 3100 atomic force microscope (AFM) under ambient conditions, using a nanoscope V controller. The tops used were etched silicon TESP tips with a nomminal frequency and force constant of 320 kHz and 42 N/m respectively. 
 
+
+\subsection{Diffraction Gratings}
+
+The so called idealised grating is made up of a set of slits of spacing $d$. In order to cause diffraction that spacing must be wider than the wavelength of interest. Each slit in the grating acts as a quasi point source from which light propagates in all directions. The diffracted light is composed of the sum of interfering wave components emenating from each slit in the grating. 
+
+SHOW FIGURE ABC
+
+At any given point in space through which diffracted light may pass, the path-length to each slit in the grating will vary. Since the path-length varies, so will the phases of the waves at that point from each of the slits. This those waves will either add or subtract from one another due to the phenomenon of interference. Note that a point has maximal intensity if and only if at angleswhich would satisfy the relationship $d \frac{sin(\phi)}{\lambda} = |m|$. 
+
+SHOW FIGURE ABC1
+
+where m is a integer and m equal zero corresponds to specular light. 
+The detailed distribution of diffraction depends on the detailed structure of the grating elements and the number of grating elements but the grating equation will always give the maximal intensity in the directions.
+
+This derivation of the grating equation is based on an idealised grating. However, the relationship between the angles of the diffracted beams, the grating spacing and the wavelength of the light apply to any regular structure of the same spacing, because the phase relationship between light scattered from adjacent elements of the grating remains the same. The detailed distribution of the diffracted light depends on the detailed structure of the grating elements as well as on the number of elements in the grating, but it will always give maxima in the directions given by the grating equation.
+
+
+MERGE ME
+
+A diffraction grating which consists of a very large number of parallel, evenly spaced slits in an opaque sheet
+
+A typical grating would have 10,000 slits in 1 cm and thus the slit separation is much smaller than that used in the double-slit experiment. When a beam of monochromatic light is allowed to pass through the grating placed in a spectrometer, images of the sources can be seen through the telescope at different angles.
+
+ADD FIGURE
+
+Since a diffraction grating is a multiple-slit plate, the maxima occur at exactly the same position as a double slit interference. However unlike a double slit, the bright fringes are sharper and brighter.
+
+Suppose monochromatic light is directed at the grating parallel to its axis as shown. Let the distance between successive slits be d.
+
+ADD FIGURE
+
+The diffraction pattern on the screen is the result of the combined effects of diffraction and interference. Each slit causes diffraction, and the diffracted beams in turn interfere with one another to produce the pattern. The path difference between waves from any two adjacent slits can be found by dropping a perpendicular line between the parallel waves. By geometry, this path difference is d sin θ . If the path difference equals one wavelength or some integral multiple of a wavelength, waves from all slits will be in phase and a bright line will be observed at that point. Therefore, the condition for maxima in the interference pattern at the angle θ is 
+
+d sin θ = n λ
+where n = 0,1,2,3…..
+
+Because d is very small for diffraction grating, a beam of monochromatic light passing through a diffraction grating is splitted into very narrow maxima(bright fringes) at large angles θ.
+
+ADD FIGURE
+
+The maximum number of orders that can be found by letting maximum θ = 90o and finding n using equation
+n ≤ (d sin 90o)/λ
+
+When a narrow beam of white light is directed at a diffraction grating along its axis, instead of a monochromatic bright fringe, a set of coloured spectra are observed on both sides of the central white band as shown in the Figure.
+
+ADD FIGURE
+
+For a diffraction grating, the condition for the nth order maximum is given by d sin θ = nλ.
+
+Since θ increases with wavelength λ, red light which has the longest wavelength is diffracted through the largest angle. Violet light has the shortest wavelength and is diffracted the least. Thus, white light is split into its component colours from violet to red light. The spectrum is repeated in the different orders of diffraction. Only the zeroth order spectrum is pure white.
+
+The figure below shows the difference between a monochromatic and a white light spectra.
+
+ADD FIGURE
+
+wo colours of different orders may overlap if their angles of diffraction θ are equal. 
+
+
+
+
+\subsection{Evaluation}
 In order to check the physical reliability of our mthod we used our method as a virtual diffraction experimental bench on a syntetic blazed grating, Elaphe and Xenopeltis snakes. When light at a wavelength $\lambda$ falls on a sample presenting a periodicity $a$ along the incident plane under an incident angle $\theta$ compared to the normal of the surface the angle $\phi$ corresponding to the direction of the emerging beam showing constructive interferences (maximum in intensity) is given by
 
 GRATING EQUATION
@@ -78,40 +90,33 @@ where m is the order of diffraction.
 SHOW PLOTS AND TALK ABOUT THEM
 
 
-\subsection{Diffraction Gratings}
-Gratings may be of the reflective or transmissive type, analogous to a mirror or lens respectively. A grating has a zero-order mode (where m=0), in which there is no diffraction and a ray of light behaves according to the laws of reflection and refraction the same as with a mirror or lens respectively.
+which angle are we iterating over and which is steady?
+iterate over $ceil(angMax - angMin) / angInc$
 
-An idealised grating is considered here which is made up of a set of slits of spacing d, that must be wider than the wavelength of interest to cause diffraction. Assuming a plane wave of wavelength λ with normal incidence (perpendicular to the grating), each slit in the grating acts as a quasi point-source from which light propagates in all directions (although this is typically limited to a hemisphere). After light interacts with the grating, the diffracted light is composed of the sum of interfering wave components emanating from each slit in the grating. At any given point in space through which diffracted light may pass, the path length to each slit in the grating will vary. Since the path length varies, generally, so will the phases of the waves at that point from each of the slits, and thus will add or subtract from one another to create peaks and valleys, through the phenomenon of additive and destructive interference. When the path difference between the light from adjacent slits is equal to half the wavelength, λ/2, the waves will all be out of phase, and thus will cancel each other to create points of minimum intensity. Similarly, when the path difference is λ, the phases will add together and maxima will occur. The maxima occur at angles θm, which satisfy the relationship dsinθm/λ=|m| where θm is the angle between the diffracted ray and the grating's normal vector, and d is the distance from the center of one slit to the center of the adjacent slit, and m is an integer representing the propagation-mode of interest.
-
-
-Thus, when light is normally incident on the grating, the diffracted light will have maxima at angles $\theta_m$ given by:
-\begin{equation*}
-d sin(\theta_m) = m\lambda
-\end{equation*}
-
-It is straightforward to show that if a plane wave is incident at any arbitrary angle θi, the grating equation becomes:
-
-\begin{equation*}
-d(sin(\theta_i) + sin(\theta_m)) = m \lambda
-\end{equation*}
-
-When solved for the diffracted angle maxima, the equation is:
-
-\begin{equation*}
-sin(\theta_m) = \left(\frac{m\lambda}{d}-sin(\theta_i)\right)
-\end{equation*}
-
-The light that corresponds to direct transmission (or specular reflection in the case of a reflection grating) is called the zero order, and is denoted m = 0. The other maxima occur at angles which are represented by non-zero integers m. Note that m can be positive or negative, resulting in diffracted orders on both sides of the zero order beam.
-
-This derivation of the grating equation is based on an idealised grating. However, the relationship between the angles of the diffracted beams, the grating spacing and the wavelength of the light apply to any regular structure of the same spacing, because the phase relationship between light scattered from adjacent elements of the grating remains the same. The detailed distribution of the diffracted light depends on the detailed structure of the grating elements as well as on the number of elements in the grating, but it will always give maxima in the directions given by the grating equation.
+when light at a wavelength $\lambda$ falls on a sample presenting a periodicity a along the incident plane, under an incident angle $\theta$ compared ti the normal of the surface, the angle $\phi$ corresponding to the direction of the meerging beam whoswing constructive interferences (maximum in intensity) is given by $sin(\phi) = sin(\theta) + m\frac{\lambda}{a}$
+where $m$ is the order of diffraction. 
 
 
-$\forall \colvec[x]{y}{z} \in \mathbb{R}^3 : \exists r \in [0,\infty) \exists \phi \in [0,2\pi] \exists \theta \in [0,\pi] $ s.t.
-\begin{equation*}
-\colvec[x]{y}{z} = \colvec[r sin(\theta)cos(\phi)]{r sin(\theta)sin(\phi)}{r cos(\theta)}
-\end{equation*}
+optical spectral range goes from $\lambda=240 nm$ to $\lambda=1.6 \mu m$
+it is possible to measure $\phi$ angles from the grazing conditions (-90 degree) to a position where the detector is in conteact with the source
 
-\subsection{Matlab code}
-\subsection{Discussion}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
