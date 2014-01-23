@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  22 JAN 2014 19:01
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  23 JAN 2014 15:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -837,10 +837,10 @@ position\OT1/zplm/m/n/12 )$
 ]
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
+ [42]
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
- [42]
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no ≤ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
@@ -849,32 +849,33 @@ Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
-Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
-Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
-Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
-Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
-Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
-Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
-Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
-Missing character: There is no ≦ in font [lmroman12-regular]:mapping=tex-text!
-Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
-Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
-Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
-Missing character: There is no ≦ in font [lmroman12-regular]:mapping=tex-text!
-Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
-Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
-Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
  [43]
+Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
+Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
+Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
+Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
+Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
+Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
+Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
+Missing character: There is no ≦ in font [lmroman12-regular]:mapping=tex-text!
+Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
+Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
+Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
+Missing character: There is no ≦ in font [lmroman12-regular]:mapping=tex-text!
+Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
+Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
+Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
+
 Overfull \hbox (37.69319pt too wide) in paragraph at lines 106--108
 []\EU1/lmr/m/n/12 which angle are we iterating over and which is steady? iterat
 e over $\OML/zplm/m/it/12 ceil\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 angMax \OMS/z
 plm/m/n/12 ^^@
  []
 
-) [44]
+[44]) [45]
 \openout2 = `Chapters/chap5.aux'.
 
- (./Chapters/chap5.tex) [45
+ (./Chapters/chap5.tex) [46
 
 
 
@@ -887,7 +888,7 @@ Overfull \hbox (52.8627pt too wide) in paragraph at lines 19--19
 ll-2010-math-2300-005/lectures/taylor-
  []
 
-[46
+[47
 
 
 
@@ -897,7 +898,7 @@ Overfull \hbox (4.80748pt too wide) in paragraph at lines 38--39
 ion y(x,t)
  []
 
-) [47] [48] (./thesis.aux (./Chapters/chap1.aux) (./Chapters/chap2.aux)
+) [48] [49] (./thesis.aux (./Chapters/chap1.aux) (./Chapters/chap2.aux)
 (./Chapters/chap3.aux) (./Chapters/chap4.aux) (./Chapters/chap5.aux)
 (./Chapters/chap6.aux)) ) 
 Here is how much of TeX's memory you used:
@@ -909,4 +910,4 @@ Here is how much of TeX's memory you used:
  1144 hyphenation exceptions out of 8191
  46i,21n,38p,2012b,1042s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on thesis.pdf (48 pages).
+Output written on thesis.pdf (49 pages).
