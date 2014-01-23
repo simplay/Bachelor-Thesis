@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  23 JAN 2014 15:42
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  23 JAN 2014 15:51
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -866,7 +866,7 @@ Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
 
-Overfull \hbox (37.69319pt too wide) in paragraph at lines 106--108
+Overfull \hbox (37.69319pt too wide) in paragraph at lines 104--106
 []\EU1/lmr/m/n/12 which angle are we iterating over and which is steady? iterat
 e over $\OML/zplm/m/it/12 ceil\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 angMax \OMS/z
 plm/m/n/12 ^^@
