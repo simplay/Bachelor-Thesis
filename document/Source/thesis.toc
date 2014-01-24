@@ -61,5 +61,5 @@
 \contentsline {chapter}{\numberline {A}ap1}{46}{appendix.A}
 \contentsline {section}{\numberline {A.1}apsec1}{46}{section.A.1}
 \contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{47}{section.A.1}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{47}{appendix*.27}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{48}{appendix*.28}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{47}{appendix*.28}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{48}{appendix*.29}
