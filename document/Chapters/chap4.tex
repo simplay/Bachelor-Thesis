@@ -106,12 +106,20 @@ When light at a wavelength $\lambda$ falls on a sample presenting a periodicity 
 
 In our evaluation we are interested in the zero order diffraction, i.e. m equals zero which corresponds to direct transmission or specular reflection in the case of a reflection grating. 
 Within our evaluation we further assume that the incident light direction $w_i$ is given. In contrast the direction of the reflected wave $w_r$ is not given.
-In Mathematics, a three dimensional direction vector is fully defined by two two angles, i.e. it can be represented by spherical coordinates with radius $r = 1$. By convention, we denote those two vectors by $\theta$ and $\phi$. Hence, $\theta_i$, $\phi_i$ and $\phi_r$ are given constants whereas $\phi_i$ is a free parameter for our evaluation simulation. Therefore, we are going to compare the maxima for peak viewing angle corresponding to each wavelength using data produced by our method against the maxima resulting by the grating equation.
+In Mathematics, a three dimensional direction vector is fully defined by two two angles, i.e. it can be represented by spherical coordinates with radius $r = 1$. By convention, we denote those two vectors by $\theta$ and $\phi$. Hence, $\theta_i$, $\phi_i$ and $\phi_r$ are given constants whereas $\theta_i$ is a free parameter for our evaluation simulation. Therefore, we are going to compare the maxima for peak viewing angle corresponding to each wavelength using data produced by our method against the maxima resulting by the grating equation.
 
+\subsubsection{Precomputation}
+SHOW IMAGE OF GRID
+
+Before being able to compare the output produced by our method by the grating equation, we have to discretise the wavelength space $\Lambda$ and the range $\Theta$ of our free parameter $\theta_i$. We also have to initially assign  $\theta_i$, $\phi_i$ and $\phi_r$. For our experiments we choose the following initial setup: $\theta_i = 75$ $\phi_i = 0$ $\phi_r = 180$ degree.
+Further we discretise the lambda space $\Lambda = \{\lambda | \lambda = \lambda_{min} + k\lambda_{step}, k \in \{0,..,C-1\}\}$ where $\lambda_{step} = \frac{\lambda_{max}-\lambda_{min}}{C-1}$ and $C$ is the discretisation level of the lambda space, in our scenario $C = 42$. We similarly discretise the angle space by predefining an minimal and maximal angle. Also, $ceil(angMax - angMin) / angInc$ is the number of angles. 
+We are going implement a similar algorithm as the diffraction fragment shader algorithme on the grid $[\Lambda, \Theta]$ and will store its spectral response in a matrix $R = \{response(\lambda_i, \theta_{r}^{j}) | i index(\Lambda), j index(\Theta)\}$. We also have evaluated our other shaders, mentioned within the discussion of the derivation and implementation chapters.
+
+\subsubsection{Data evaluation}
 
 
 which angle are we iterating over and which is steady?
-iterate over $ceil(angMax - angMin) / angInc$
+iterate over 
 
 optical spectral range goes from $\lambda=240 nm$ to $\lambda=1.6 \mu m$
 it is possible to measure $\phi$ angles from the grazing conditions (-90 degree) to a position where the detector is in conteact with the source
