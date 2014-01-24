@@ -52,14 +52,14 @@
 \contentsline {section}{\numberline {5.1}Other stuff}{38}{section.5.1}
 \contentsline {section}{\numberline {5.2}Matlab code}{38}{section.5.2}
 \contentsline {section}{\numberline {5.3}Discussion}{38}{section.5.3}
-\contentsline {chapter}{\numberline {6}Conclusion}{41}{chapter.6}
-\contentsline {section}{\numberline {6.1}Further Work}{41}{section.6.1}
-\contentsline {subsection}{\numberline {6.1.1}References}{41}{subsection.6.1.1}
-\contentsline {section}{\numberline {6.2}Acknowledgment}{41}{section.6.2}
-\contentsline {section}{\numberline {6.3}TODOs}{41}{section.6.3}
-\contentsline {section}{\numberline {6.4}keep me alive}{42}{section.6.4}
-\contentsline {chapter}{\numberline {A}ap1}{43}{appendix.A}
-\contentsline {section}{\numberline {A.1}apsec1}{43}{section.A.1}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{44}{section.A.1}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{44}{appendix*.21}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{45}{appendix*.22}
+\contentsline {chapter}{\numberline {6}Conclusion}{42}{chapter.6}
+\contentsline {section}{\numberline {6.1}Further Work}{42}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}References}{42}{subsection.6.1.1}
+\contentsline {section}{\numberline {6.2}Acknowledgment}{42}{section.6.2}
+\contentsline {section}{\numberline {6.3}TODOs}{42}{section.6.3}
+\contentsline {section}{\numberline {6.4}keep me alive}{43}{section.6.4}
+\contentsline {chapter}{\numberline {A}ap1}{44}{appendix.A}
+\contentsline {section}{\numberline {A.1}apsec1}{44}{section.A.1}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{45}{section.A.1}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{45}{appendix*.23}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{46}{appendix*.24}
