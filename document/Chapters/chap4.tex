@@ -94,12 +94,21 @@ ADD FIGURE
 
 
 \subsection{Evaluation}
-In order to check the physical reliability of our mthod we used our method as a virtual diffraction experimental bench on a syntetic blazed grating, Elaphe and Xenopeltis snakes.
-When light at a wavelength $\lambda$ falls on a sample presenting a periodicity $d$ along the incident plane under an incident angle $\theta$ compared to the normal of the surface the angle $\phi$ corresponding to the direction of the emerging beam showing constructive interferences (maximum in intensity) is given by
+UNIFY ANGLE NAMES: 
+
+In order to check the physical reliability of our method we applied it on a syntetic blazed grating, Elaphe and Xenopeltis snake sheds and evaluated its response using the grating equation. This equation models the relationship between the grating spacing and the angles of the incident and diffracted beams of light. 
+
+When light at a wavelength $\lambda$ falls on a sample presenting a periodicity $d$ along the incident plane under an incident angle $\theta$ compared to the normal of the surface the angle $\phi$ corresponding to the direction of the emerging beam showing constructive interferences (maximum in intensity) is given by the grating equation:
 
 \begin{equation}
   sin(\theta) = sin(\phi) + \frac{m \lambda}{d}
 \end{equation}
+
+In our evaluation we are interested in the zero order diffraction, i.e. m equals zero which corresponds to direct transmission or specular reflection in the case of a reflection grating. 
+Within our evaluation we further assume that the incident light direction $w_i$ is given. In contrast the direction of the reflected wave $w_r$ is not given.
+In Mathematics, a three dimensional direction vector is fully defined by two two angles, i.e. it can be represented by spherical coordinates with radius $r = 1$. By convention, we denote those two vectors by $\theta$ and $\phi$. Hence, $\theta_i$, $\phi_i$ and $\phi_r$ are given constants whereas $\phi_i$ is a free parameter for our evaluation simulation. Therefore, we are going to compare the maxima for peak viewing angle corresponding to each wavelength using data produced by our method against the maxima resulting by the grating equation.
+
+
 
 which angle are we iterating over and which is steady?
 iterate over $ceil(angMax - angMin) / angInc$
