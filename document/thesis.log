@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  24 JAN 2014 02:39
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  24 JAN 2014 04:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -834,10 +834,9 @@ position\OT1/zplm/m/n/12 )$
 
 
 
-]
+] [42]
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
- [42]
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no λ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no θ in font [lmroman12-regular]:mapping=tex-text!
@@ -866,7 +865,7 @@ Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
  [44]
-Overfull \hbox (121.2052pt too wide) in paragraph at lines 132--133
+Overfull \hbox (121.2052pt too wide) in paragraph at lines 133--134
 [][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
@@ -877,7 +876,7 @@ File: images/blaze2500_75_closeup1.png Graphic file (type QTm)
 File: images/blaze2500_75_closeup2.png Graphic file (type QTm)
 
 <use  "images/blaze2500_75_closeup2.png" >
-Overfull \hbox (50.79132pt too wide) in paragraph at lines 143--146
+Overfull \hbox (50.79132pt too wide) in paragraph at lines 144--147
 [] []
  []
 
