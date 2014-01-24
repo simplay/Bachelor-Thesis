@@ -4,5 +4,16 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces BRDF maps for different patches\relax }}{39}{figure.caption.18}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Blaze grating}}}{39}{figure.caption.18}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {elaphe grating}}}{39}{figure.caption.18}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {xeno grating}}}{39}{figure.caption.18}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Blaze grating: Different lambda step size\relax }}{39}{figure.caption.19}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {$\lambda _{step=1 nm}$}}}{39}{figure.caption.19}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {$\lambda _{step=5 nm}$}}}{39}{figure.caption.19}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {$\lambda _{step=10 nm}$}}}{39}{figure.caption.19}
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {$\lambda _{step=25 nm}$}}}{39}{figure.caption.19}
+\contentsline {subfigure}{\numberline {(e)}{\ignorespaces {$\lambda _{step=50 nm}$}}}{39}{figure.caption.19}
+\contentsline {subfigure}{\numberline {(f)}{\ignorespaces {$\lambda _{step=100 nm}$}}}{39}{figure.caption.19}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

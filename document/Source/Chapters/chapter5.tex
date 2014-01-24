@@ -20,3 +20,63 @@ $\forall \colvec[x]{y}{z} \in \mathbb{R}^3 : \exists r \in [0,\infty) \exists \p
 
 \section{Matlab code}
 \section{Discussion}
+
+
+\begin{figure}[ht]
+  \centering
+  \subfigure[Blaze grating]{
+    \includegraphics[scale=0.12]{results/diffPatches/fftBlazeHeight_0.25Microns_allL_weak_scale.png}
+    \label{fig:brdfmapBlaze}
+  }
+~
+  \subfigure[elaphe grating]{
+    \includegraphics[scale=0.12]{results/diffPatches/elaph65.png}
+    \label{fig:brdfmapElaphe}
+  }
+~
+  \subfigure[xeno grating]{
+    \includegraphics[scale=0.12]{results/diffPatches/xeno65.png}
+    \label{fig:brdfmapXeno}
+  }
+  \label{brdfmapsDiffPatches}
+  \caption{BRDF maps for different patches}
+\end{figure}
+
+
+\begin{figure}[ht]
+  \centering
+  \subfigure[$\lambda_{step=1 nm}$]{
+    \includegraphics[scale=0.12]{results/different_lambda_steps/blaze/dl=1.png}
+    \label{fig:brdfmapsDiffLambdaStepsL1BlazeL}
+  }
+~
+  \subfigure[$\lambda_{step=5 nm}$]{
+    \includegraphics[scale=0.12]{results/different_lambda_steps/blaze/dl=5.png}
+    \label{fig:brdfmapsDiffLambdaStepsL5Blaze}
+  }
+~
+  \subfigure[$\lambda_{step=10 nm}$]{
+    \includegraphics[scale=0.12]{results/different_lambda_steps/blaze/dl=10.png}
+    \label{fig:brdfmapsDiffLambdaStepsL10Blaze}
+  }
+  
+  \subfigure[$\lambda_{step=25 nm}$]{
+    \includegraphics[scale=0.12]{results/different_lambda_steps/blaze/dl=25.png}
+    \label{fig:brdfmapsDiffLambdaStepsL25Blaze}
+  }
+~
+  \subfigure[$\lambda_{step=50 nm}$]{
+    \includegraphics[scale=0.12]{results/different_lambda_steps/blaze/dl=50.png}
+    \label{fig:brdfmapsDiffLambdaStepsL50Blaze}
+  }
+~ 
+  \subfigure[$\lambda_{step=100 nm}$]{
+    \includegraphics[scale=0.12]{results/different_lambda_steps/blaze/dl=100.png}
+    \label{fig:brdfmapsDiffLambdaStepsL100Blaze}
+  }
+  
+  \label{brdfmapsDiffLambdaStepsBlaze}
+  \caption{Blaze grating: Different lambda step size}
+\end{figure}
+
+
