@@ -112,18 +112,38 @@ In Mathematics, a three dimensional direction vector is fully defined by two two
 SHOW IMAGE OF GRID
 
 Before being able to compare the output produced by our method by the grating equation, we have to discretise the wavelength space $\Lambda$ and the range $\Theta$ of our free parameter $\theta_i$. We also have to initially assign  $\theta_i$, $\phi_i$ and $\phi_r$. For our experiments we choose the following initial setup: $\theta_i = 75$ $\phi_i = 0$ $\phi_r = 180$ degree.
-Further we discretise the lambda space $\Lambda = \{\lambda | \lambda = \lambda_{min} + k\lambda_{step}, k \in \{0,..,C-1\}\}$ where $\lambda_{step} = \frac{\lambda_{max}-\lambda_{min}}{C-1}$ and $C$ is the discretisation level of the lambda space, in our scenario $C = 42$. We similarly discretise the angle space by predefining an minimal and maximal angle. Also, $ceil(angMax - angMin) / angInc$ is the number of angles. 
+Further we discretise the lambda space $\Lambda = \{\lambda | \lambda = \lambda_{min} + k\lambda_{step}, k \in \{0,..,C-1\}\}$ where $\lambda_{step} = \frac{\lambda_{max}-\lambda_{min}}{C-1}$ and $C$ is the discretisation level of the lambda space, in our scenario $C = 42$. We similarly discretise the angle space by predefining an minimal and maximal angle boundary and $ceil(angMax - angMin) / angInc$ is the number of angles. 
 We are going implement a similar algorithm as the diffraction fragment shader algorithme on the grid $[\Lambda, \Theta]$ and will store its spectral response in a matrix $R = \{response(\lambda_i, \theta_{r}^{j}) | i index(\Lambda), j index(\Theta)\}$. We also have evaluated our other shaders, mentioned within the discussion of the derivation and implementation chapters.
 
 \subsubsection{Data evaluation}
 
+\begin{algorithm}
+\caption{Evaluation: lambda thetar graph}
+\begin{lstlisting}
+% load all variables computed in java
+lInc = (lMax - lMin)./(lambdaCnt-1);
+lambda = lMin + lInc*(-1+[1:lambdaCnt]);
+[maxC maxI] = max(response.');
+viewAngForMax = angMin + angInc * (maxI-1);
+plot(lambda, viewAngForMax,'-r');s
 
-which angle are we iterating over and which is steady?
-iterate over 
+for thetaI=baseAngle-eps:0.5:baseAngle+eps,
+	% grating equation
+	thetaV = asin(lambda./dPeriod - sin(thetaI*pi()/180))*180/pi();
+	if(thetaI==75)
+		plot(lambda, thetaV,'+ b');
+	else
+		plot(lambda, thetaV,'. g');
+	end
+end
 
-optical spectral range goes from $\lambda=240 nm$ to $\lambda=1.6 \mu m$
-it is possible to measure $\phi$ angles from the grazing conditions (-90 degree) to a position where the detector is in conteact with the source
+\end{lstlisting}
+\end{algorithm}
 
+\includegraphics[scale=0.5]{images/blaze2500_75.png}
+\includegraphics[scale=0.5]{images/blaze2500_75_closeup1.png}
+\includegraphics[scale=0.5]{images/blaze2500_75_closeup2.png}
+
+red graph is based on data produced by our method, the blue and green graphs are plots from the grating equation for different angles. If the blue graph is close the the red one, then our method performs well. 
 
 SHOW PLOTS AND TALK ABOUT THEM
-

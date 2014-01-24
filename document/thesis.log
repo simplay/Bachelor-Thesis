@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  24 JAN 2014 02:00
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  24 JAN 2014 02:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -865,11 +865,26 @@ Missing character: There is no ≦ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
 Missing character: There is no ℓ in font [lmroman12-regular]:mapping=tex-text!
- [44]) [45]
+ [44]
+Overfull \hbox (121.2052pt too wide) in paragraph at lines 132--133
+[][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+File: images/blaze2500_75.png Graphic file (type QTm)
+<use  "images/blaze2500_75.png" >
+File: images/blaze2500_75_closeup1.png Graphic file (type QTm)
+ <use  "images/blaze2500_75_closeup1.png" >
+File: images/blaze2500_75_closeup2.png Graphic file (type QTm)
+
+<use  "images/blaze2500_75_closeup2.png" >
+Overfull \hbox (50.79132pt too wide) in paragraph at lines 143--146
+[] []
+ []
+
+[45] [46]) [47]
 \openout2 = `Chapters/chap5.aux'.
 
-
-(./Chapters/chap5.tex) [46
+ (./Chapters/chap5.tex) [48
 
 
 
@@ -882,7 +897,7 @@ Overfull \hbox (52.8627pt too wide) in paragraph at lines 19--19
 ll-2010-math-2300-005/lectures/taylor-
  []
 
-[47
+[49
 
 
 
@@ -892,16 +907,16 @@ Overfull \hbox (4.80748pt too wide) in paragraph at lines 38--39
 ion y(x,t)
  []
 
-) [48] [49] (./thesis.aux (./Chapters/chap1.aux) (./Chapters/chap2.aux)
+) [50] [51] (./thesis.aux (./Chapters/chap1.aux) (./Chapters/chap2.aux)
 (./Chapters/chap3.aux) (./Chapters/chap4.aux) (./Chapters/chap5.aux)
 (./Chapters/chap6.aux)) ) 
 Here is how much of TeX's memory you used:
- 18419 strings out of 493938
- 374452 string characters out of 6148857
+ 18425 strings out of 493938
+ 374605 string characters out of 6148857
  406111 words of memory out of 5000000
- 21447 multiletter control sequences out of 15000+600000
+ 21450 multiletter control sequences out of 15000+600000
  21914 words of font info for 93 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
- 46i,21n,38p,2012b,1042s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 46i,21n,38p,2012b,1049s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on thesis.pdf (49 pages).
+Output written on thesis.pdf (51 pages).
