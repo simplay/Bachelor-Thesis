@@ -13,7 +13,7 @@ By the end of this chapter we will have seen how our how our render works, what 
 
 
 \subsection{Precomputations in Matlab}
-Our first task is to precompute the inverse two dimensional discrete fourier transformations of a given snake shed patch of interest taken by AFM. For that purpose we have written a small matlab script which offers a huge collection of mathematically, nummerically fast and stable alforithmes. Our matlab script reads a given image, which is representing a nano-sclaed heightfield, and computes its inverse two dimensional DFT by using matlab's internel inverse fast fourier transformation function, denoted by $ifft2$. Note that we only require once color channel of the input image since the input image is representing an heightfield, encoded by just one color. Basically, we are interested in computing the $ifft2$ for different powers of the input image since our taylor series approximation for the overall computation relies on this. Keep in mind that taking the fourier transoformation of an arbitrary function will result in a complex valued output which imples that we will get a complex value for each pixel of our input image. Therefore, for each input image we get as many output images, representing the two dimensional inverse fourier transformation, as the minimal amount of taylor terms required for a well-enough approximation. In order to store our output images, we have to use 2 color channels instead just one like it was for the given input image. As an optimization step, we do not directly store images, rather we output binary files which contain all RGB values for each pixel in a row first, coloumn last format. This allows us to have much higher precission for the output values and also it does not waste any color channels. Note that we have scaled each pixel value in a range between 0 and 1. Therefore, we have to remember store four scaling factors for each output image as well, which are the real and imaginary minimum and maximum values. Later, using linear interpolation within the shaderm we will get back the image's original values. 
+Our first task is to precompute the inverse two dimensional discrete fourier transformations of a given snake shed patch of interest taken by AFM. For that purpose we have written a small matlab script which offers a huge collection of mathematically, nummerically fast and stable alforithmes. Our matlab script reads a given image, which is representing a nano-sclaed heightfield, and computes its inverse two dimensional DFT by using matlab's internel inverse fast fourier transformation function, denoted by $ifft2$. Note that we only require once color channel of the input image since the input image is representing an heightfield, encoded by just one color. Basically, we are interested in computing the $ifft2$ for different powers of the input image since our taylor series approximation for the overall computation relies on this. Keep in mind that taking the fourier transformation of an arbitrary function will result in a complex valued output which imples that we will get a complex value for each pixel of our input image. Therefore, for each input image we get as many output images, representing the two dimensional inverse fourier transformation, as the minimal amount of taylor terms required for a well-enough approximation. In order to store our output images, we have to use 2 color channels instead just one like it was for the given input image. As an optimization step, we do not directly store images, rather we output binary files which contain all RGB values for each pixel in a row first, coloumn last format. This allows us to have much higher precision for the output values and also it does not waste any color channels. Note that we have scaled each pixel value in a range between 0 and 1. Therefore, we have to remember store four scaling factors for each output image as well, which are the real and imaginary minimum and maximum values. Later, using linear interpolation within the shaderm we will get back the image's original values. 
 
 \begin{algorithm}
 \caption{Precomputation: Fourier images}
@@ -52,6 +52,8 @@ for t = 0 : termCnt
 end
 \end{lstlisting}
 \end{algorithm}
+
+The command fftshift rearranges the output of the ifft2 by moving the zero frequency component to the centre of the image. This is useful for visualizing a Fourier Transform with zero frequency components in the middle of the spectrum.
 
 TODO: say something about output?
 
@@ -177,7 +179,12 @@ NOTE about shadow function:  Our BRDF values are scaled by s shadowing function 
 
 SHOW GRAPH for this fact: (lambda, k=f(lambda)), where $k = \frac{2pi}{\lambda}$, $f = \frac{c}{\lambda}$
 
+\myparagraph{Texture lookup}
+In a GLSL shader the thexture coordinates my be normalized which means that the size of the texture maps to the coordinates on the range $[0,1]$ in each dimension. By convention the the bottom left corner of an image has the coordinates $(0,0)$, whereas the top right corner has the value $(1,1)$ assigned. In order to perform pixel-index-wise one has to transform the lookup coordinates by $\frac{pixellocation_x}{image_{size_x}}$ for its x coordinate and similarly for its y coordinate. Since the zero frequency component of each fourier image was shifted towards the centre of the image, we have also a bias involved in our lookup which we have to subtract from the lookup-coordinate in order to perform the final lookup.
+
 \subsection{Discussion}
+MENTION OTHER APPROACHES and their drawbacks.
+
 Optimization: Just use a few lambdas (just those which are at least required), which will enhance the overall runtime quite a lot but the overall accuracy will suffer then, too.
 
 

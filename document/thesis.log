@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  24 JAN 2014 02:25
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013) (format=xelatex 2013.10.6)  24 JAN 2014 02:39
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -815,13 +815,13 @@ Overfull \hbox (26.81639pt too wide) in paragraph at lines 680--680
 
 
 ] [33] [34]
-Overfull \hbox (16.68803pt too wide) in paragraph at lines 71--77
+Overfull \hbox (16.68803pt too wide) in paragraph at lines 73--79
 \EU1/lmr/m/n/12 what is done here reworked such that it is mvc-architecute base
 d user-interaction:
  []
 
 [35] [36] [37]
-Overfull \hbox (116.89343pt too wide) in paragraph at lines 171--174
+Overfull \hbox (116.89343pt too wide) in paragraph at lines 173--176
 \EU1/lmr/m/n/12 current position in the neighborhood in texture space. $\OML/zp
 lm/m/it/12 getRescaledFourierTextureValueAt\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 
 position\OT1/zplm/m/n/12 )$
@@ -917,6 +917,6 @@ Here is how much of TeX's memory you used:
  21450 multiletter control sequences out of 15000+600000
  21914 words of font info for 93 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
- 46i,21n,38p,2012b,1049s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 46i,21n,38p,2010b,1049s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 Output written on thesis.pdf (51 pages).
