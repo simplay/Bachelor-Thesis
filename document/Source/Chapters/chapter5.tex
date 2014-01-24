@@ -21,7 +21,7 @@ $\forall \colvec[x]{y}{z} \in \mathbb{R}^3 : \exists r \in [0,\infty) \exists \p
 \section{Matlab code}
 \section{Discussion}
 
-
+% brdf maps patches
 \begin{figure}[ht]
   \centering
   \subfigure[Blaze grating]{
@@ -42,12 +42,12 @@ $\forall \colvec[x]{y}{z} \in \mathbb{R}^3 : \exists r \in [0,\infty) \exists \p
   \caption{BRDF maps for different patches}
 \end{figure}
 
-
+% blaze steps
 \begin{figure}[ht]
   \centering
   \subfigure[$\lambda_{step=1 nm}$]{
     \includegraphics[scale=0.12]{results/different_lambda_steps/blaze/dl=1.png}
-    \label{fig:brdfmapsDiffLambdaStepsL1BlazeL}
+    \label{fig:brdfmapsDiffLambdaStepsL1Blaze}
   }
 ~
   \subfigure[$\lambda_{step=5 nm}$]{
@@ -76,7 +76,43 @@ $\forall \colvec[x]{y}{z} \in \mathbb{R}^3 : \exists r \in [0,\infty) \exists \p
   }
   
   \label{brdfmapsDiffLambdaStepsBlaze}
-  \caption{Blaze grating: Different lambda step size}
+  \caption{Blaze grating at $2.5 \mu m$: Different $\lambda$ step sizes}
 \end{figure}
 
+% elpahe steps
+\begin{figure}[ht]
+  \centering
+  \subfigure[$\lambda_{step=1 nm}$]{
+    \includegraphics[scale=0.12]{results/different_lambda_steps/elaphe65/dl=1.png}
+    \label{fig:brdfmapsDiffLambdaStepsL1Elaphe65}
+  }
+~
+  \subfigure[$\lambda_{step=5 nm}$]{
+    \includegraphics[scale=0.12]{results/different_lambda_steps/elaphe65/dl=5.png}
+    \label{fig:brdfmapsDiffLambdaStepsL5Elaphe65}
+  }
+~
+  \subfigure[$\lambda_{step=10 nm}$]{
+    \includegraphics[scale=0.12]{results/different_lambda_steps/elaphe65/dl=10.png}
+    \label{fig:brdfmapsDiffLambdaStepsL10Elaphe65}
+  }
+  
+  \subfigure[$\lambda_{step=25 nm}$]{
+    \includegraphics[scale=0.12]{results/different_lambda_steps/elaphe65/dl=25.png}
+    \label{fig:brdfmapsDiffLambdaStepsL25Elaphe65}
+  }
+~
+  \subfigure[$\lambda_{step=50 nm}$]{
+    \includegraphics[scale=0.12]{results/different_lambda_steps/elaphe65/dl=50.png}
+    \label{fig:brdfmapsDiffLambdaStepsL50Elaphe65}
+  }
+~ 
+  \subfigure[$\lambda_{step=100 nm}$]{
+    \includegraphics[scale=0.12]{results/different_lambda_steps/elaphe65/dl=100.png}
+    \label{fig:brdfmapsDiffLambdaStepsL100Elaphe65}
+  }
+  
+  \label{brdfmapsDiffLambdaStepsElaphe65}
+  \caption{Elaphe grating at $65 \mu m$: Different $\lambda$ step sizes}
+\end{figure}
 
