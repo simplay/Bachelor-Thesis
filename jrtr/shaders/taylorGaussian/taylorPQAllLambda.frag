@@ -582,7 +582,7 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww)
 			float anchorX = orgU + lookupCoord.x * (fftWW - 0);
 			float anchorY = orgV + lookupCoord.y * (fftHH - 0);
 			
-			vec3 texIdx = new vec3(0.0, 0.0, 0.0);
+			vec3 texIdx = vec3(0.0, 0.0, 0.0);
 			
 			texIdx.x = float(anchorX)/ float(fftWW - 1);
 			texIdx.y = float(anchorY)/float(fftHH - 1);
@@ -762,7 +762,7 @@ void main()
 	// vec3 totalXYZ2 = getRawXYZFromTaylorSeries( uu, vv, -2.0f);
 	
 	
-	 totalXYZ = totalXYZ * gainF(k1, k2)*10.0;
+	 totalXYZ = totalXYZ * gainF(k1, k2)*1500.0;
 	//totalXYZ = totalXYZ *100;
 	
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);

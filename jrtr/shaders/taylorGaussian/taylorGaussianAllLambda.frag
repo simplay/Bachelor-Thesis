@@ -19,6 +19,7 @@ uniform vec3 radianceArray[MAX_LIGHTS];
 uniform int fftHH; // height of FFT Image
 uniform int fftWW; // width of FFT Image
 uniform int approxSteps;
+uniform int renderBrdfMap;
 uniform float LMIN;
 uniform float LMAX;
 uniform float delLamda;
@@ -67,10 +68,14 @@ float dH = 0.0f;
 float orgU;
 float orgV;
 
+// function declarations
+void mainBRDFMap();
+void mainRenderGeometry();
 
 void setVarXY(){
 	dH = t0;
-	float sigSpatial = 65e-6/4.0f;
+	float coherenceLength = 65.0e-6;
+	float sigSpatial = coherenceLength/4.0f;
 
 	// temporary sigma
 	float sigTemp;
@@ -120,6 +125,33 @@ float getFresnelFactor(vec3 K1, vec3 K2){
 		fF = fF + 4.0*nSkin*pow(1.0 - cosTheta, 5.0) + nK*nK;
 	}	
 	return fF/R0;
+}
+
+float getFresnelFactorAbsolute(vec3 K1, vec3 K2){
+	float nSkin = 1.5;
+	// float nSkin = 1.0015;
+	float nK = 0.0;
+	
+	vec3 hVec = -K1 + K2;
+		 
+	hVec = normalize(hVec);
+	 
+	float cosTheta = dot(hVec,K2);	
+	
+	float fF = (nSkin - 1.0);
+	
+	fF = fF * fF;
+	
+	float R0 = fF + nK*nK;
+	if (cosTheta > 0.999999)
+		fF = R0;
+	else
+		fF = fF + 4*nSkin*pow(1- cosTheta,5.0) + nK*nK;
+	
+	// do this division if its not on relative scale
+	fF = fF/ ((nSkin + 1.0)* (nSkin + 1.0) + nK*nK);
+	
+	return fF;
 }
 
 float getShadowMaskFactor(vec3 K1, vec3 K2){
@@ -310,8 +342,15 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 	float zNorm = 0.0f;
 	float specSum = 0.0f;
 	float lambdaStep = 5.0;
-
+	
+	float k_max = (2.0 * PI * pow(10.0f, 3.0f)) / (LMIN);
+	float k_min = (2.0 * PI * pow(10.0f, 3.0f)) / (LMAX);
+	float k_step = (2.0 * PI)/lambdaStep;
+	
 	for(float lambda = LMIN; lambda <= LMAX; lambda = lambda + lambdaStep){
+//	for(float k = k_min; k <= k_max; k = k + k_step){
+//		float lambda = (2.0 * PI * pow(10.0f, 3.0f)) / k;
+		
 		vec4 xyzColorWeights = getClrMatchingFnWeights(lambda);
 		float specV = xyzColorWeights.w;
 		xNorm = xNorm + specV*xyzColorWeights.x;
@@ -320,7 +359,7 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 		
 		vec2 lookupCoord = getLookupCoord(uu, vv, lambda);	
 		vec2 tempFFTScale = vec2(0.0f);
-		
+
 		for(int tIdx = 0; tIdx < MAX_TAYLORTERMS; tIdx++){
 			if(0 == tIdx){
 				scale = 1.0f;
@@ -345,41 +384,71 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 	return opVal;
 }
 
-void mainMain(){
+
+
+
+void mainRenderGeometry(){
 	setVarXY();
-	 
+	float thetaR = asin(sqrt(o_org_pos.x*o_org_pos.x + o_org_pos.y*o_org_pos.y ));
+	float phiR = atan(o_org_pos.y, o_org_pos.x);
+
     vec3 N = normalize(o_normal);
     vec3 T = normalize(o_tangent);
 
+  
 	// directional light source
 	vec3 Pos =  normalize(o_pos); 
-	vec3 lightDir =  normalize(o_light); 
-	float shadowF = getShadowMaskFactor(Pos, lightDir);
+	vec3 lightDir =  normalize(o_light);
 	
+	
+	float shadowF = getShadowMaskFactor(lightDir, Pos);
 	float uu = lightDir.x - Pos.x;
 	float vv = lightDir.y - Pos.y;
 	float ww = lightDir.z - Pos.z;
 
-	vec3 totalXYZ = getRawXYZFromTaylorSeries( uu, vv, ww);
-	totalXYZ = totalXYZ * gainF(lightDir,Pos)*100.0*shadowF;
+	vec3 totalXYZ  = getRawXYZFromTaylorSeries(uu, vv, ww);
+	totalXYZ = totalXYZ*gainF(lightDir, Pos)*200.0*shadowF;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
-	
-	if(isnan(totalXYZ.x *totalXYZ.y *totalXYZ.z)){
-		totalXYZ.x  = 1.0;
-		totalXYZ.y  = 1.0;
-		totalXYZ.z  = 0.0;
+	if(isnan(totalXYZ.x*totalXYZ.y*totalXYZ.z)){
+		totalXYZ.x = 1.0;
+		totalXYZ.y = 1.0;
+		totalXYZ.z = 0.0;
 	}
-
+	
+	
+	
 	float diffuseL = 0.0f;
+	
 	if(Pos.z < 0.0  || dot(-lightDir, N) < 0.0){
 		diffuseL = 0.0;
-	}else{ 
+	}else{
 		diffuseL = dot(-lightDir, N);
 	}
-	frag_shaded = vec4(gammaCorrect(totalXYZ,2.2)+0.05, 1.0);
+	
+	vec4 tex = vec4(0.0f);
+
+
+	tex = texture2D(bodyTexture, frag_texcoord);
+	
+
+	float alpha = getFresnelFactorAbsolute(lightDir,Pos);
+	 
+	if (alpha > 0.0f){
+		alpha = 0.0f; 
+		
+	}else if(alpha > 1.0f){ 
+		alpha = 1.0f;
+	}
+	
+	float diffW = 0.1f; 
+	float gamma = 2.2; 
+	tex.xyz = gammaCorrect(tex.xyz ,1.0f/1.0);
+	vec3 finClr = gammaCorrect((1-diffW)*(totalXYZ + (1-alpha) * tex.xyz *diffuseL) + tex.xyz * diffW, 2.2); frag_shaded = vec4(finClr, 1.0);
+	frag_shaded = vec4(gammaCorrect(totalXYZ, 2.2), 1.0);
+	
 }
 
-void main(){
+void mainBRDFMap(){
 	setVarXY();
 	float thetaR = asin(sqrt(o_org_pos.x*o_org_pos.x + o_org_pos.y*o_org_pos.y ));
 	float phiR = atan(o_org_pos.y, o_org_pos.x);
@@ -400,7 +469,7 @@ void main(){
 	float ww = k1.z - k2.z;
 
 	vec3 totalXYZ  = getRawXYZFromTaylorSeries(uu, vv, ww);
-	totalXYZ = totalXYZ*gainF(k1, k2)*100.0*shadowF;
+	totalXYZ = totalXYZ*gainF(k1, k2)*200.0*shadowF;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
 	if(isnan(totalXYZ.x*totalXYZ.y*totalXYZ.z)){
 		totalXYZ.x = 1.0;
@@ -408,4 +477,12 @@ void main(){
 		totalXYZ.z = 0.0;
 	}
 	frag_shaded = vec4(gammaCorrect(totalXYZ, 2.2), 1.0);
+}
+
+void main(){
+	if(renderBrdfMap == 1){
+		mainBRDFMap();
+	}else{
+		mainRenderGeometry();
+	}
 }

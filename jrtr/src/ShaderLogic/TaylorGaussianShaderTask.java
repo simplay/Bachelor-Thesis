@@ -139,7 +139,7 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		float lmax = m.getLambdaMax();
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "LMAX");
 		gl.glUniform1f(id3, lmax);
-		
+		System.out.println("LMIN " + lmin + " LMAX " + lmax);
 		
 		float dimN = m.getDimN();
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "dimN");
@@ -184,13 +184,20 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "neigh_rad");
 		gl.glUniform1i(id3, neighr);
 		
+		
+		int renderBrdfMap = (m.getRenderBrdfMap()) ? 1 : 0;
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "renderBrdfMap");
+		gl.glUniform1i(id3, renderBrdfMap);
+		
 		float to = (dimX/width);
+		float dh = scalingFactors[3];
+		to = dh;
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "t0");
 		gl.glUniform1f(id3, to);
 		
 
-		float dh = scalingFactors[3];
-		System.out.println("dh: " + dh + " vs t0" + to);		
+//		float dh = scalingFactors[3];
+		System.out.println("dh: " + dh + " vs t0 " + to);		
 	}
 
 	@Override
