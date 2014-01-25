@@ -15,12 +15,31 @@ This implies diffraction occurs mostly when the surface detail is highly anisotr
 Example:
 Light rays passing through a small aperture will begin to diverge and interfere with one another. This becomes more significant as the size of the aperture decreases relative to the wavelength of light passing through, but occurs to some extent for any aperture or concentrated light source.
 
-\includegraphics[scale=0.5]{1.png}
-\includegraphics[scale=0.5]{2.png}
+
+\begin{figure}[ht]
+  \centering
+  \subfigure[Large Aperture]{
+  \includegraphics[scale=0.5]{1.png}
+    \label{fig:diffractionLargeAperture}
+  }
+~
+  \subfigure[Small Aperture]{
+    \includegraphics[scale=0.5]{2.png}
+    \label{fig:diffractionSmallAperture}
+  }
+  \label{diffractionSingleSlitExample}
+  \caption{Diffraction: Single Slit Example}
+\end{figure}
+
 
 Since the divergent rays now travel different distances, some move out of phase and begin to interfere with each other — adding in some places and partially or completely canceling out in others. This interference produces a diffraction pattern with peak intensities where the amplitude of the light waves add, and less light where they subtract. If one were to measure the intensity of light reaching each position on a line, the measurements would appear as bands similar to those shown below.
 
-\includegraphics[scale=0.5]{3.png}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[scale=0.5]{3.png}
+  \label{diffractionSingleSlitPattern}
+  \caption{Diffraction Pattern}
+\end{figure}
 
 In general interference produces colorful effects due to the phase differences caused by a wave traversing thin media of different indices of refraction.
 
