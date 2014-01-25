@@ -15,10 +15,11 @@ public class SceneConfiguration {
 	private int periodCount;
 	private int neighborhoodRadius;
 	private String textureId;
+	private boolean renderBrdfMap = false;
 	
 	public SceneConfiguration(String id, ShapeTask shapeTask, String cameraConstant, 
 			String bumpConstant, String lightConstant, ShaderTaskNr shaderTask, 
-			int periodCount, String patchName, int neighborhoodRadius, String textureId){
+			int periodCount, String patchName, int neighborhoodRadius, String textureId, boolean renderBrdfMap){
 		this.id = id;
 		this.shapeTask = shapeTask;
 		this.cameraConstant = cameraConstant;
@@ -29,6 +30,7 @@ public class SceneConfiguration {
 		this.patchName = patchName;
 		this.neighborhoodRadius = neighborhoodRadius;
 		this.textureId = textureId;
+		this.renderBrdfMap = renderBrdfMap;
 	}
 	
 	public String getId(){
@@ -69,5 +71,13 @@ public class SceneConfiguration {
 	
 	public String getTextureId(){
 		return this.textureId;
+	}
+	
+	/**
+	 * Should we render the brdf map?
+	 * @return
+	 */
+	public boolean getRenderBrdfMap(){
+		return this.renderBrdfMap;
 	}
 }

@@ -13,6 +13,7 @@ import jrtr.Light;
 import jrtr.RenderPanel;
 import Diffraction.DiffractionSceneGraphFabricator;
 import MVC.MainController;
+import Materials.Material;
 import SceneGraph.GraphSceneManager;
 import SceneGraph.LightNode;
 
@@ -131,6 +132,12 @@ public class SimpleKeyListener implements KeyListener{
 				break;
 		    case 'h':
 		    	this.sceneManager.decThetaI();
+		    	renderPanel.getCanvas().repaint();
+				break;
+		    case 'y':
+		    	System.out.println(this.sceneManager.getRoot());
+		    	Material mat = fabric.getMat();
+		    	mat.setRenderBrdfMap(!mat.getRenderBrdfMap());
 		    	renderPanel.getCanvas().repaint();
 				break;
 				

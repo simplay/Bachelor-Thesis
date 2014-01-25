@@ -51,6 +51,8 @@ public class Material {
 	private float phongExponent;
 	private float trackDistance;
     
+	private boolean renderBrdfMap;
+	
     public Material(){}
     
     public Texture getBumpMapTexture(){
@@ -234,6 +236,10 @@ public class Material {
     	return this.weights;
     }
     
+    public boolean getRenderBrdfMap(){
+    	return this.renderBrdfMap;
+    }
+    
     public void setGlobals(float[] globals){
     	this.globals = globals;
     }
@@ -331,5 +337,9 @@ public class Material {
     	}
     	this.textures[at] = texture;
     }
+	
+	public void setRenderBrdfMap(boolean renderBrdfMap){
+		this.renderBrdfMap = renderBrdfMap;
+	}
 	
 }

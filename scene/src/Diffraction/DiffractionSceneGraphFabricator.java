@@ -45,6 +45,7 @@ public class DiffractionSceneGraphFabricator {
     private LightConstantManager lcm;
     private CameraSceneConstantManager cscm;
     private BodyConstantsManager bocm;
+
     
 	private float trackDistance = 2.5f;
 	private TransformGroup rootGroup;
@@ -89,7 +90,7 @@ public class DiffractionSceneGraphFabricator {
 		mat.setBodyTexture(bodyC.getBodyTexturePath(), text);
 		text = renderContext.makeTexture();
 		mat.setBumpMapTexture(bodyC.getBumpMapTexturePath(), text);
-		
+		mat.setRenderBrdfMap(sceneConfig.getRenderBrdfMap());
 		mat.setPeriodCount(sceneConfig.getPeriodCount());
 		mat.setNeighborhoodRadius(sceneConfig.getNeighborhoodRadius());
 		mat.setMaxBumpHeight(bc.getMaxHeight());
@@ -200,5 +201,9 @@ public class DiffractionSceneGraphFabricator {
 	
 	public ShaderTaskNr getShaderTask(){
 		return this.sceneConfig.getShaderTask();
+	}
+	
+	public Material getMat(){
+		return this.mat;
 	}
 }
