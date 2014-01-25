@@ -116,7 +116,6 @@ other shader assigned inputs
 
 
 \subsection{Fragment Shader}
-
 The purpose of a fragment shader is to render per fragment. A fragment is spaned by three vertices of a given mesh. For each pixel within all the output from the vertex shaders of its corresponding vertices is then trilinearly interpolated, depending on the pixel's position within the fragment, and passed into its fragment shader program.
 Furthermore, there can be additional input be assigned which is not directly interpolated from the output of vertex shader programs. Our fragment shader just relies on k1 and k2 from its vertex shaders for the computation of the effect of diffraction.
 There are some values preliminarily assigned to our fragment shader during the opgengl setup within our java program, like all references to the image buffers, containing the fourier transformations, the number of taylor step approximations, the minimal and maximal wavelength, other lookup values like the scaling factors, a reference to a lookup table containung the cie xyz color weights for our wavelength domain and other scaling constants.
@@ -174,22 +173,33 @@ Basically, the spectral response is approximated for our current $(u,v,\lambda)$
 In this most inner loop the convolution of the gaussian window with the inverse fft of the patch is pixelwise performed. 
 $getGaussWeightAtDistance(dist)$ computes $~\eqref{eq:gaussweight}$ from the distance between the center of the fft image with the current position in the neighborhood in texture space. $getRescaledFourierTextureValueAt(position)$ rescales the current computed value by the precomputed extrema values since all image values are scaled between 0 and 1. At line 27 $C(\hat{\mathbf{k_1}},\hat{\mathbf{k_2}})$ is multiplied in front of the current computed pixelColor. This terms was introduced in the derivation chapter and is the product of equation $~\eqref{eq:cfact}$
 
-The C term includes the so called Fresenel Term. We compute this by using the so called Schlick approximation (See appendix) using an reactive index at 1.5 since this is close to the measured value from snake sheds.
+The $C$ term includes the so called Fresenel Term. We compute this by using the so called Schlick approximation (See appendix) using an reactive index at 1.5 since this is close to the measured value from snake sheds.
 NOTE about shadow function:  Our BRDF values are scaled by s shadowing function as described in (SEE REFERENCES - PAPER), since most of the grooves in the snake skin nanostructures would from a V-cavity along the plane for a wave front with their top-edges at almost the same height.   
 
 SHOW GRAPH for this fact: (lambda, k=f(lambda)), where $k = \frac{2pi}{\lambda}$, $f = \frac{c}{\lambda}$
 
+
+\section{Technical details}
 \myparagraph{Texture lookup}
 In a GLSL shader the thexture coordinates my be normalized which means that the size of the texture maps to the coordinates on the range $[0,1]$ in each dimension. By convention the the bottom left corner of an image has the coordinates $(0,0)$, whereas the top right corner has the value $(1,1)$ assigned. In order to perform pixel-index-wise one has to transform the lookup coordinates by $\frac{pixellocation_x}{image_{size_x}}$ for its x coordinate and similarly for its y coordinate. Since the zero frequency component of each fourier image was shifted towards the centre of the image, we have also a bias involved in our lookup which we have to subtract from the lookup-coordinate in order to perform the final lookup.
 
+\myparagraph{Transformations, Scalings}
+what is scaled?
+
+\myparagraph{Texturing}
+how is performed?
+
+\myparagraph{Gain Factor}
+mention fresnel coefficient, geometric-term
+
+\myparagraph{Shadowing}
+why and what?
+
+\myparagraph{Color Transformation}
+mention CIE XYZ to CIE RGB, D65, gamma correction.
+
 \section{Discussion}
 MENTION OTHER APPROACHES and their drawbacks.
-
 Optimization: Just use a few lambdas (just those which are at least required), which will enhance the overall runtime quite a lot but the overall accuracy will suffer then, too.
 
-
 one which basically samples the whole lambda space using a gaussian window. This shader will be modeling the effect of diffraction completely but will also be rather slow. The other shader will use a gaussian window too but will just use a few wavenumber for the sampling process. Furthermore, this shader will thread specularity seperatly as a special case which will be more like an approximation. 
-
-how from $cie_xyz$ to $cie_rgb$
-how gamma correction
-how texturing
