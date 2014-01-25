@@ -1,11 +1,9 @@
 \documentclass[a4paper]{report}
-
 \usepackage{natbib}
 \bibpunct{[}{]}{,}{a}{}{;}
 \usepackage{fancyheadings}
 \usepackage{iamdip}
 \usepackage[pdftex]{graphicx}
-% \usepackage{subfig}
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amssymb}
@@ -20,15 +18,13 @@
 \usepackage[ngerman]{babel}
 \usepackage{fontspec}
 \usepackage{algpseudocode}
-\usepackage{algorithm}
+\usepackage[chapter]{algorithm}
 \usepackage{mathrsfs}
 \usepackage{dsfont}
 \usepackage{graphicx}
 \usepackage{ wasysym }
 \usepackage[hypcap]{caption}
 \usepackage{subfigure}
-% \usepackage{subcaption}
-
 
 \renewcommand{\algorithmicforall}{\textbf{foreach}}
 \newcommand{\init}{\textbf{INIT }}
@@ -116,6 +112,9 @@
 
 \addcontentsline{toc}{chapter}{\numberline{}List of Figures}
 \listoffigures
+
+\addcontentsline{toc}{chapter}{\numberline{}List of Algorithms}
+\listofalgorithms
 
 \addcontentsline{toc}{chapter}{\numberline{}Bibliography}
 \bibliographystyle{alphadin}

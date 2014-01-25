@@ -9,10 +9,10 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces BRDF maps for different patches\relax }}{39}{figure.caption.26}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Blaze grating}}}{39}{figure.caption.26}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {elaphe grating}}}{39}{figure.caption.26}
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {xeno grating}}}{39}{figure.caption.26}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces BRDF maps for different patches\relax }}{38}{figure.caption.26}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Blaze grating}}}{38}{figure.caption.26}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {elaphe grating}}}{38}{figure.caption.26}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {xeno grating}}}{38}{figure.caption.26}
 \contentsline {figure}{\numberline {5.2}{\ignorespaces Blaze grating at $2.5 \mu m$: Different $\lambda $ step sizes\relax }}{39}{figure.caption.27}
 \contentsline {subfigure}{\numberline {(a)}{\ignorespaces {$\lambda _{step=1 nm}$}}}{39}{figure.caption.27}
 \contentsline {subfigure}{\numberline {(b)}{\ignorespaces {$\lambda _{step=5 nm}$}}}{39}{figure.caption.27}
@@ -20,13 +20,13 @@
 \contentsline {subfigure}{\numberline {(d)}{\ignorespaces {$\lambda _{step=25 nm}$}}}{39}{figure.caption.27}
 \contentsline {subfigure}{\numberline {(e)}{\ignorespaces {$\lambda _{step=50 nm}$}}}{39}{figure.caption.27}
 \contentsline {subfigure}{\numberline {(f)}{\ignorespaces {$\lambda _{step=100 nm}$}}}{39}{figure.caption.27}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Elaphe grating at $65 \mu m$: Different $\lambda $ step sizes\relax }}{40}{figure.caption.28}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {$\lambda _{step=1 nm}$}}}{40}{figure.caption.28}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {$\lambda _{step=5 nm}$}}}{40}{figure.caption.28}
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {$\lambda _{step=10 nm}$}}}{40}{figure.caption.28}
-\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {$\lambda _{step=25 nm}$}}}{40}{figure.caption.28}
-\contentsline {subfigure}{\numberline {(e)}{\ignorespaces {$\lambda _{step=50 nm}$}}}{40}{figure.caption.28}
-\contentsline {subfigure}{\numberline {(f)}{\ignorespaces {$\lambda _{step=100 nm}$}}}{40}{figure.caption.28}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Elaphe grating at $65 \mu m$: Different $\lambda $ step sizes\relax }}{39}{figure.caption.28}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {$\lambda _{step=1 nm}$}}}{39}{figure.caption.28}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {$\lambda _{step=5 nm}$}}}{39}{figure.caption.28}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {$\lambda _{step=10 nm}$}}}{39}{figure.caption.28}
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {$\lambda _{step=25 nm}$}}}{39}{figure.caption.28}
+\contentsline {subfigure}{\numberline {(e)}{\ignorespaces {$\lambda _{step=50 nm}$}}}{39}{figure.caption.28}
+\contentsline {subfigure}{\numberline {(f)}{\ignorespaces {$\lambda _{step=100 nm}$}}}{39}{figure.caption.28}
 \contentsline {figure}{\numberline {5.4}{\ignorespaces Blaze grating: PQ approach vs full lambda space sampling\relax }}{40}{figure.caption.29}
 \contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Full Lambda Sampling: Blaze grating}}}{40}{figure.caption.29}
 \contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Full Lambda Sampling brightened: Blaze grating}}}{40}{figure.caption.29}
