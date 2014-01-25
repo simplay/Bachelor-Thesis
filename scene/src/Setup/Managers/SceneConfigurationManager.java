@@ -39,15 +39,10 @@ public class SceneConfigurationManager {
 								"stam", "lightZ", ShaderTaskNr.TAYLORGAUSSIAN, -1,  "blaze", 1, "random1",false);
 								constants.add(sc);
 		
-//								sc = new SceneConfiguration("sandbox", ShapeTask.DICE3, "plane1_far", 
-								sc = new SceneConfiguration("sandbox", ShapeTask.DICE_BRDF, "diceBRDF", 
-								
-										
-										
-										//sc = new SceneConfiguration("sandbox", ShapeTask.PLANE_UV, "planeUV", 
-								
-//								sc = new SceneConfiguration("sandbox", ShapeTask.SNAKE, "snake3", 
-										"stam", "lightZ", ShaderTaskNr.TAYLORGAUSSIAN, 5,  "blaze", 1, "random1", true);
+
+//								sc = new SceneConfiguration("sandbox", ShapeTask.DICE_BRDF, "diceBRDF", 
+								sc = new SceneConfiguration("sandbox", ShapeTask.SNAKE, "snake3", 
+										"stam", "lightDebug", ShaderTaskNr.TAYLORGAUSSIAN, 5,  "blaze", 1, "random1", false);
 								constants.add(sc);
 										
 			
