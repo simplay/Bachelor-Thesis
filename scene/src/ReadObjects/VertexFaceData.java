@@ -214,7 +214,7 @@ public class VertexFaceData {
 	}
 	
 	
-	public VertexFaceData(ArrayList<Vertex> vertices, ArrayList<Face> faces){
+	public VertexFaceData(ArrayList<Vertex> vertices, ArrayList<Face> faces, ArrayList<float[]>  parameter_space, ArrayList<float[]> normals){
 		this.vertices = vertices;
 		this.faces = faces;
 		int facesCount = faces.size();
@@ -256,8 +256,8 @@ public class VertexFaceData {
 			colors_f[3*vertexCounter+1] = color[1];
 			colors_f[3*vertexCounter+2] = color[2];
 			
-//			TextureCoordinates_f[2*vertexCounter] = textureCoordinate[0];
-//			TextureCoordinates_f[2*vertexCounter+1] = textureCoordinate[1];
+			TextureCoordinates_f[2*vertexCounter] = textureCoordinate[0];
+			TextureCoordinates_f[2*vertexCounter+1] = textureCoordinate[1];
 			
 			vertexCounter++;
 		}
@@ -267,8 +267,51 @@ public class VertexFaceData {
 		this.vertexData.addElement(colors_f, VertexData.Semantic.COLOR, 3);
 		this.vertexData.addElement(vertices_f, VertexData.Semantic.POSITION, 3);
 		this.vertexData.addElement(TextureCoordinates_f, VertexData.Semantic.TEXCOORD, 2);
-		this.vertexData.addElement(normals_f, VertexData.Semantic.NORMAL, 3);
-		this.vertexData.addElement(tangents_f, VertexData.Semantic.TANGENT, 3);
+
+		System.out.println(verticesCount + " vertices loaded");
+		System.out.println(vertices_f.length/3 + " faces loaded");
+		System.out.println(normals_f.length/3 + " normals loaded");
+		
+		if(parameter_space != null && parameter_space.size() != 0){
+			System.out.println("mesh tangents loaded");
+			float[] tanParams = new float[3*parameter_space.size()];
+			int k = 0;
+			for(float[] t  : parameter_space){
+				tanParams[3*k] = t[0];
+				tanParams[3*k+1] = t[1];
+				tanParams[3*k+2] = t[2];
+				k++;
+				          
+			}
+			System.out.println(tanParams.length/3 + " tangents loaded");
+			this.vertexData.addElement(tanParams, VertexData.Semantic.TANGENT, 3);
+		}else{
+			System.out.println("dummy tangents loaded");
+			System.out.println(tangents_f.length/3 + " tangents loaded");
+			this.vertexData.addElement(tangents_f, VertexData.Semantic.TANGENT, 3);
+		}
+		
+		if(normals != null && normals.size() != 0){
+			System.out.println("mesh normals loaded");
+			float[] normalsMesh = new float[3*normals.size()];
+			int k = 0;
+			for(float[] t  : normals){
+				normalsMesh[3*k] = t[0];
+				normalsMesh[3*k+1] = t[1];
+				normalsMesh[3*k+2] = t[2];
+				k++;
+				          
+			}
+			System.out.println(normalsMesh.length/3 + " normals loaded");
+			this.vertexData.addElement(normalsMesh, VertexData.Semantic.NORMAL, 3);
+			
+		}else{
+			System.out.println("dummy normals loaded");
+			System.out.println(tangents_f.length/3 + " tangents loaded");
+			this.vertexData.addElement(normals_f, VertexData.Semantic.NORMAL, 3);
+		}
+		
+		
 		this.vertexData.addIndices(indices_i);	
 		
 		VertexDataContainer data = new VertexDataContainer(vertices_f, normals_f, tangents_f, colors_f, TextureCoordinates_f, indices_i, avgEdgeLength);

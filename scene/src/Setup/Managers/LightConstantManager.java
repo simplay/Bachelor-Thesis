@@ -32,6 +32,15 @@ public class LightConstantManager {
 		
 		lc = new LightConstants("lightZ", new Vector4f(0.0f, 0.0f, -1.0f, 0.0f));
 		constants.add(lc);
+		
+		lc = new LightConstants("lightDebug", new Vector4f(0.0995f, 0.0f, -0.9950f, 0.0f));
+		constants.add(lc);
+		
+		lc = new LightConstants("light1a", new Vector4f(0.100536689551299850f, 0.0f, (float) -Math.sqrt(0.989f), 0.0f));
+		constants.add(lc);
+		
+		lc = new LightConstants("light1ya", new Vector4f(0.0f, -0.1f, (float) -Math.sqrt(0.99f), 0.0f));
+		constants.add(lc);
 	}
 	
 	public Light getLightConstantByName(String id){
