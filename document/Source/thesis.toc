@@ -24,8 +24,8 @@
 \contentsline {subsection}{\numberline {2.3.1}BRDF formulation}{12}{subsection.2.3.1}
 \contentsline {subsection}{\numberline {2.3.2}Relative BRDF}{13}{subsection.2.3.2}
 \contentsline {subsection}{\numberline {2.3.3}Taylor approximation for BRDF}{15}{subsection.2.3.3}
-\contentsline {paragraph}{Proof Sketch of 1.}{16}{section*.14}
-\contentsline {paragraph}{Part 2: Find such an N}{17}{section*.15}
+\contentsline {paragraph}{Proof Sketch of 1.}{16}{section*.15}
+\contentsline {paragraph}{Part 2: Find such an N}{17}{section*.16}
 \contentsline {subsection}{\numberline {2.3.4}Sampling: Gaussian Window}{18}{subsection.2.3.4}
 \contentsline {subsection}{\numberline {2.3.5}Final Expression}{19}{subsection.2.3.5}
 \contentsline {subsection}{\numberline {2.3.6}Aplitude smooting}{19}{subsection.2.3.6}
@@ -37,16 +37,16 @@
 \contentsline {section}{\numberline {3.3}GLSL Diffraction Shader}{26}{section.3.3}
 \contentsline {subsection}{\numberline {3.3.1}Vertex Shader}{26}{subsection.3.3.1}
 \contentsline {subsection}{\numberline {3.3.2}Fragment Shader}{27}{subsection.3.3.2}
-\contentsline {paragraph}{From line 4 to 26:}{28}{section*.16}
-\contentsline {paragraph}{From line 9 to 24:}{29}{section*.17}
-\contentsline {paragraph}{From line 14 to 22:}{29}{section*.18}
+\contentsline {paragraph}{From line 4 to 26:}{28}{section*.17}
+\contentsline {paragraph}{From line 9 to 24:}{29}{section*.18}
+\contentsline {paragraph}{From line 14 to 22:}{29}{section*.19}
 \contentsline {section}{\numberline {3.4}Technical details}{29}{section.3.4}
-\contentsline {paragraph}{Texture lookup}{29}{section*.19}
-\contentsline {paragraph}{Transformations, Scalings}{29}{section*.20}
-\contentsline {paragraph}{Texturing}{29}{section*.21}
-\contentsline {paragraph}{Gain Factor}{30}{section*.22}
-\contentsline {paragraph}{Shadowing}{30}{section*.23}
-\contentsline {paragraph}{Color Transformation}{30}{section*.24}
+\contentsline {paragraph}{Texture lookup}{29}{section*.20}
+\contentsline {paragraph}{Transformations, Scalings}{29}{section*.21}
+\contentsline {paragraph}{Texturing}{29}{section*.22}
+\contentsline {paragraph}{Gain Factor}{30}{section*.23}
+\contentsline {paragraph}{Shadowing}{30}{section*.24}
+\contentsline {paragraph}{Color Transformation}{30}{section*.25}
 \contentsline {section}{\numberline {3.5}Discussion}{30}{section.3.5}
 \contentsline {chapter}{\numberline {4}Evaluation Data Acquisition}{32}{chapter.4}
 \contentsline {section}{\numberline {4.1}Data Acquisition}{32}{section.4.1}
@@ -67,5 +67,5 @@
 \contentsline {chapter}{\numberline {A}Appendix}{46}{appendix.A}
 \contentsline {section}{\numberline {A.1}Schlick's approximation}{46}{section.A.1}
 \contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{47}{equation.A.1.1}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{47}{appendix*.35}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{48}{appendix*.36}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{47}{appendix*.36}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{48}{appendix*.37}
