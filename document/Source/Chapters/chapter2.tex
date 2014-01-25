@@ -183,14 +183,6 @@ The Taylor series $\mathcal T$ of a real or complex-valued function ƒ(x) that i
 
 
 \section{Thesis Basis: J.Stam's Paper about Diffraction Shader}
-
-
-
-
-
-
-
-
 In his paper about Diffraction Shader, J. Stam derives a BRDF which is modeling the effect of diffraction for various analytical anisotropic reflexion models relying on the so called scalar wave theory of diffraction for which a wave is assumed to be a complex valued scalar. 
 It's noteworthy, that Stam's BRDF formulation does not take into account the polarization of the light. Fortunately, light sources like sunlight and light bulbs are unpolarized. 
 
@@ -198,22 +190,22 @@ A further assumption in Stam's Paper is, the emanated waves from the source are 
 
 In our simulations we will always assume we have given a directional light source, i.e. sunlight. Hence, Stam's model can be used for our derivations.
 
-Based on his these previous assumptions and applying Stam starts his derivations by applying the so called Kirchhoff integral, which is relating the reflected field to the incoming field. This equation is a formalization of Huygen’s well-known principle that states that if one knows the wavefront at a given moment, the wave at a later time can be deduced by considering each point on the first wave as the source of a new disturbance, i.e. once the field  $\psi_1 =  e^{ik\mathbf{x} \cdot \mathbf{s}\mathbf{s}}$ on the surface is known, the field everywhere $\psi_2$ else away from the surface can be computed.
-More precisely, we want to compute the wave $\psi_2$ equal to the reflection of an incoming planar monochromatic wave $\psi_1 = e^{ik \omega_i * x}$  traveling in the direction $\omega_i$ from a surface S to the light source. Mathematically this can be formulized the following:
+For his derivations Stam uses the Kirchhoff integral (ADD REF TO WIKI), which is relating the reflected field to the incoming field. This equation is a formalization of Huygen’s well-known principle that states that if one knows the wavefront at a given moment, the wave at a later time can be deduced by considering each point on the first wave as the source of a new disturbance. Mathematically speaking, once the field  $\psi_1 =  e^{ik\mathbf{x} \cdot \mathbf{s}\mathbf{s}}$ on the surface is known, the field $\psi_2$ everywhere else away from the surface can be computed.
+More precisely, we want to compute the wave $\psi_2$ equal to the reflection of an incoming planar monochromatic wave $\psi_1 = e^{ik \omega_i * x}$  traveling in the direction $\omega_i$ from a surface $S$ to the light source. Formally, this can be written as:
 
 \begin{equation}
 \psi_{2}(\omega_i, \omega_r) = \frac{i k e^{i K R}}{4 \pi R} (F(-\omega_i-\omega_r)-(-\omega_i+\omega_r)) \cdot I_{1}(\omega_i, \omega_r) 
 \label{eq:kirchhoff}
 \end{equation}
 
-and
+with
 
 \begin{equation}
 I_{1}(\omega_i, \omega_r) = \int_{S} \hat{\mathbf{n}} e^{ik(-\omega_i-\omega_{r}) \cdot \mathbf{s} d\mathbf{s}}
 \label{eq:IBase}
 \end{equation}
 
-In applied optics, when dealing with scattered waves, one does use differential scattering cross-section rather than defining a BRDF which has the following identitiy: 
+In applied optics, when dealing with scattered waves, one does use differential scattering cross-section rather than defining a BRDF which has the following identity: 
 
 \begin{equation}
     \sigma^0 = 4 \pi \lim_{R \to \infty} R^2 \frac{\langle \left|\psi_2\right|^2\rangle}{\langle \left|\psi_1\right|^2\rangle}
@@ -627,7 +619,7 @@ Let $P(u,v,\lambda) = {F}_{fft}^{-1}\{i^n h^n\}(\frac{2\pi u}{\lambda},\frac{2\p
 where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the gaussian window.
 where $w_s$ and $w_r$ are ... explain them
 
-\subsection{Aplitude smooting}
+\section{Alternative Approach}
 REASON FOR WHICH CASE THIS CAN BE USED, ADD AN IMAGE OF BOXFUNCTION
 The approach introduced within this section is an alternative to the gaussian window approach.
 Let us consider the so called 1-dimensional Box-function with length $T$ which is defined as the following: 
@@ -756,6 +748,7 @@ Let us again us again a Box-function, this time a 2-dimensional Box-function $Bo
 \end{align*}
 
 Where we define $p := (p_1 p_2 - q_1 q_2) $ and $q := (p_1 p_2 + q_1 q_2)$. For this identity we used green's integration rule which allowed us to split the double integral to the product of two single integrations. Also, we used the definition of the 2-dimensional inverse Fourer transform of the Box-function. We applied the same substituation like we did in for the 1 dimensional case, but this time twice, once for each variable seperately. The last step, substituting with $p$ and $q$ will be useful later in the implementation. The insight should be, that the product of two complex numbers is again a complex number. We will have to compute the absolute value of $\mathcal{F}^{-1}\{f\}(w_1,w_2)$ which will then be equal $(p^2 + q^2)^{\frac{1}{2}}\left|\mathcal{F}^{-1}\{Box\}(w_1,w_2)\right|$
+
 
 
 

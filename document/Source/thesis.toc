@@ -28,7 +28,7 @@
 \contentsline {paragraph}{Part 2: Find such an N}{17}{section*.16}
 \contentsline {subsection}{\numberline {2.3.4}Sampling: Gaussian Window}{19}{subsection.2.3.4}
 \contentsline {subsection}{\numberline {2.3.5}Final Expression}{20}{subsection.2.3.5}
-\contentsline {subsection}{\numberline {2.3.6}Aplitude smooting}{20}{subsection.2.3.6}
+\contentsline {section}{\numberline {2.4}Alternative Approach}{20}{section.2.4}
 \contentsline {chapter}{\numberline {3}Implementation}{24}{chapter.3}
 \contentsline {section}{\numberline {3.1}Precomputations in Matlab}{25}{section.3.1}
 \contentsline {section}{\numberline {3.2}Our Java Renderer}{25}{section.3.2}

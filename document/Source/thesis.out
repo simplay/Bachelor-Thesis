@@ -15,7 +15,7 @@
 \BOOKMARK [2][-]{subsection.2.3.3}{Taylor\040approximation\040for\040BRDF}{section.2.3}% 15
 \BOOKMARK [2][-]{subsection.2.3.4}{Sampling:\040Gaussian\040Window}{section.2.3}% 16
 \BOOKMARK [2][-]{subsection.2.3.5}{Final\040Expression}{section.2.3}% 17
-\BOOKMARK [2][-]{subsection.2.3.6}{Aplitude\040smooting}{section.2.3}% 18
+\BOOKMARK [1][-]{section.2.4}{Alternative\040Approach}{chapter.2}% 18
 \BOOKMARK [0][-]{chapter.3}{Implementation}{}% 19
 \BOOKMARK [1][-]{section.3.1}{Precomputations\040in\040Matlab}{chapter.3}% 20
 \BOOKMARK [1][-]{section.3.2}{Our\040Java\040Renderer}{chapter.3}% 21
