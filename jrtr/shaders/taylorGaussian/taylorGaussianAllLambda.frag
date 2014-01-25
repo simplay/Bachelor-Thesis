@@ -341,7 +341,7 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 	float yNorm = 0.0f;
 	float zNorm = 0.0f;
 	float specSum = 0.0f;
-	float lambdaStep = 5.0;
+	float lambdaStep = 50.0;
 	
 	float k_max = (2.0 * PI * pow(10.0f, 3.0f)) / (LMIN);
 	float k_min = (2.0 * PI * pow(10.0f, 3.0f)) / (LMAX);
