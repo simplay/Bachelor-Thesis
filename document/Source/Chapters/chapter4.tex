@@ -170,9 +170,25 @@ end
 \end{lstlisting}
 \end{algorithm}
 
-\includegraphics[scale=0.5]{blaze2500_75.png}
-\includegraphics[scale=0.5]{blaze2500_75_closeup1.png}
-\includegraphics[scale=0.5]{blaze2500_75_closeup2.png}
+\begin{figure}[ht]
+  \centering
+  \subfigure[plot $\lambda$ - $\theta_i$]{
+    \includegraphics[scale=0.19]{blaze2500_75.png}
+    \label{fig:evalBlaze11}
+  }
+~
+  \subfigure[Zoomed in]{
+    \includegraphics[scale=0.19]{blaze2500_75_closeup1.png}
+    \label{fig:evalBlaze12}
+  }
+~
+\subfigure[Further zoomed in]{
+  \includegraphics[scale=0.19]{blaze2500_75_closeup2.png}
+  \label{fig:evalBlaze13}
+}
+  \label{evaluationBlaze1}
+  \caption{Evaluation: blaze grating}
+\end{figure}
 
 red graph is based on data produced by our method, the blue and green graphs are plots from the grating equation for different angles. If the blue graph is close the the red one, then our method performs well. 
 
