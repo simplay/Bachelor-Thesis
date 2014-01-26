@@ -37,7 +37,7 @@ public class CameraSceneConstantManager {
 		constants.add(cs);
 		cs = new CameraSceneConstant("snake2", 2.0f, 1.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
 		constants.add(cs);
-		cs = new CameraSceneConstant("snake3", 1.5f, 5.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
+		cs = new CameraSceneConstant("snake3", 1.5f, 15.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
 		constants.add(cs);
 		cs = new CameraSceneConstant("snake2far", 200.0f, 0.01f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
 		constants.add(cs);
