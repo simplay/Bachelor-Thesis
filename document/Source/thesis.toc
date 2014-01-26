@@ -43,11 +43,11 @@
 \contentsline {section}{\numberline {3.4}Technical details}{33}{section.3.4}
 \contentsline {paragraph}{Texture lookup}{33}{section*.22}
 \contentsline {paragraph}{Transformations, Scalings}{33}{section*.23}
-\contentsline {paragraph}{Texturing}{33}{section*.24}
+\contentsline {paragraph}{Texture Blending}{33}{section*.24}
 \contentsline {paragraph}{Gain Factor}{33}{section*.25}
 \contentsline {paragraph}{Shadowing}{33}{section*.26}
 \contentsline {paragraph}{Color Transformation}{33}{section*.27}
-\contentsline {section}{\numberline {3.5}Discussion}{33}{section.3.5}
+\contentsline {section}{\numberline {3.5}Discussion}{34}{section.3.5}
 \contentsline {chapter}{\numberline {4}Evaluation Data Acquisition}{36}{chapter.4}
 \contentsline {section}{\numberline {4.1}Data Acquisition}{36}{section.4.1}
 \contentsline {section}{\numberline {4.2}Diffraction Gratings}{36}{section.4.2}
@@ -68,4 +68,4 @@
 \contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{56}{section.A.2}
 \contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{56}{appendix*.52}
 \contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{58}{appendix*.53}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{58}{appendix*.54}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{59}{appendix*.54}
