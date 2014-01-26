@@ -1,8 +1,11 @@
 package Diffraction;
 
 import java.util.ArrayList;
+
+import javax.vecmath.AxisAngle4f;
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Point3f;
+import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 import jrtr.Light;
 import jrtr.RenderContext;
@@ -27,6 +30,7 @@ import Setup.Managers.PreCompDataManager;
 import Setup.Managers.SceneConfigurationManager;
 import Setup.Managers.ShaderTaskSetupManager;
 import Setup.Managers.ShapeManager;
+import ShaderLogic.DefaultShaderTask;
 import ShaderLogic.DiffractionShaderTask;
 import ShaderLogic.TaylorGaussianShaderTask;
 import ShaderLogic.ShaderTask;
@@ -45,8 +49,8 @@ public class DiffractionSceneGraphFabricator {
     private LightConstantManager lcm;
     private CameraSceneConstantManager cscm;
     private BodyConstantsManager bocm;
-
-    
+    private Shape lightDir;
+    private Matrix4f lightDirIMat;
 	private float trackDistance = 2.5f;
 	private TransformGroup rootGroup;
 	private SceneConfiguration sceneConfig;
@@ -120,6 +124,29 @@ public class DiffractionSceneGraphFabricator {
 		Light light = lcm.getLightConstantByName(sceneConfig.getLightConstant());
 		LightNode diceLightNode = new LightNode(light, sceneManager.getCamera().getCameraMatrix(), light.getName());
 		rootGroup.putChild(diceLightNode);
+		
+		
+		// light cone alignment
+		float[] xyz = new float[4];
+		light.getLightDirection().get(xyz);
+		Vector3f v1 = new Vector3f(xyz[0], xyz[1], xyz[2]);
+		v1.normalize();
+		Vector3f vCross = new Vector3f();
+		Vector3f v2 = new Vector3f(0.0f, 0.0f, -1.0f);
+		vCross.cross(v1, v2);
+		
+		if(vCross.length() > 1e-4){
+			double angle = Math.acos(v1.dot(v2));
+			vCross.normalize();
+			AxisAngle4f aa = new AxisAngle4f(vCross.getX(), vCross.getY(), vCross.getZ(), (float)angle );
+			Quat4f qVal = new Quat4f();
+			qVal.set(aa);
+			this.lightDirIMat = new Matrix4f(qVal, new Vector3f(0.0f, 0.0f, 0.0f), 1.0f);
+		}else{
+			this.lightDirIMat = new Matrix4f();
+			this.lightDirIMat.setIdentity();
+		}
+		lightDir.setTransformation(this.lightDirIMat);
 	}
 	
 	private void setUpShapes(){	
@@ -128,34 +155,47 @@ public class DiffractionSceneGraphFabricator {
 		this.targetIMat = sm.getTransformation();
 		targetShape.setShaderTask(activeShaderTask);
 		targetShape.setMaterial(mat);	
+		
+		DiffractionCone diffcone = new DiffractionCone(120, 0.01f, 0.1f);
+		lightDir = new Shape(diffcone.getVertices());
+		lightDir.setShaderTask(new DefaultShaderTask());
+		lightDir.setMaterial(mat);
 	}
 	
 	private void setUpSceneGraph(){
 		rootGroup = new TransformGroup("root");
-		this.root = rootGroup;	
+		this.root = rootGroup;
 		rootGroup.putChild(new ShapeNode(targetShape, "target shape"));
+		rootGroup.putChild(new ShapeNode(lightDir, "light direction"));
+			
 	}
 	
+	private boolean specificCam = true;
 	private void setUpCamera(boolean isFar){
 		CameraSceneConstant csc = cscm.getCameraSceneConstantByName(sceneConfig.getCameraConstant());
 		Point3f cop = csc.getCOP();
 		if(useSpecificCam) setSpecificCam();
 		sceneManager.getFrustum().setParameter(csc.getAspectRatio(), csc.getNear(), csc.getFar(), csc.getVerticalFieldView());
 		sceneManager.getCamera().setParameter(csc.getCOP(), csc.getLook(), csc.getUp());
-		mat.setCOP(cop);			
+		if(specificCam){
+			setSpecificCam();
+			mat.setCOP(sceneManager.getCamera().getProjectionCenterPoint());
+		}else{
+			mat.setCOP(cop);	
+		}
+		
 	}
 	
 	private void setSpecificCam(){
 		Matrix4f ma = new Matrix4f();
-		float[] a = {0.94874644f, 0.25298318f, -0.18942694f, 0.13349566f};
-		float[] b = {-0.049736004f, 0.7114186f, 0.7010073f, 0.32658237f};
-		float[] c = {0.31210417f, -0.6556542f, 0.6875345f, -10.968632f};
+		float[] a = {0.4789984f, 0.8513402f, 0.213963f, -1.5861533E-11f};
+		float[] b = {-0.69145465f, 0.21576548f, 0.6894457f, 0.0f};
+		float[] c = {0.5407871f, -0.47818932f, 0.6920147f, -0.51157564f};
 		float[] d = {0.0f, 0.0f, 0.0f, 1.0f};
 		ma.setRow(0, a);
 		ma.setRow(1, b);
 		ma.setRow(2, c);
 		ma.setRow(3, d);
-		
 		sceneManager.getCamera().setCameraMatrix(ma);
 	}
 	
