@@ -16,7 +16,7 @@ Example:
 Light rays passing through a small aperture will begin to diverge and interfere with one another. This becomes more significant as the size of the aperture decreases relative to the wavelength of light passing through, but occurs to some extent for any aperture or concentrated light source.
 
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \subfigure[Large Aperture]{
   \includegraphics[scale=0.5]{1.png}
@@ -34,7 +34,7 @@ Light rays passing through a small aperture will begin to diverge and interfere 
 
 Since the divergent rays now travel different distances, some move out of phase and begin to interfere with each other — adding in some places and partially or completely canceling out in others. This interference produces a diffraction pattern with peak intensities where the amplitude of the light waves add, and less light where they subtract. If one were to measure the intensity of light reaching each position on a line, the measurements would appear as bands similar to those shown below.
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{3.png}
   \label{diffractionSingleSlitPattern}
@@ -380,8 +380,9 @@ Thus, we can plug our last derived expression into the definition for the relati
 
 for simplification and a better overview, let us introduce the following expression, the so called gain-factor:
 
-\begin{equation} \label{eq:cfact}
+\begin{equation} 
     C(\omega_i,\omega_r) = \frac{F^2(\omega_i,\omega_r)(1 + \omega_i \cdot \omega_r)^2}{F^2(\omega_0,\omega_0)(cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r) N_{samples}^2}
+\label{eq:cfact}
 \end{equation}
 
 Using this substitute, we will end up with the following expression for the relative reflectance radiance:
@@ -748,7 +749,3 @@ Let us again us again a Box-function, this time a 2-dimensional Box-function $Bo
 \end{align*}
 
 Where we define $p := (p_1 p_2 - q_1 q_2) $ and $q := (p_1 p_2 + q_1 q_2)$. For this identity we used green's integration rule which allowed us to split the double integral to the product of two single integrations. Also, we used the definition of the 2-dimensional inverse Fourer transform of the Box-function. We applied the same substituation like we did in for the 1 dimensional case, but this time twice, once for each variable seperately. The last step, substituting with $p$ and $q$ will be useful later in the implementation. The insight should be, that the product of two complex numbers is again a complex number. We will have to compute the absolute value of $\mathcal{F}^{-1}\{f\}(w_1,w_2)$ which will then be equal $(p^2 + q^2)^{\frac{1}{2}}\left|\mathcal{F}^{-1}\{Box\}(w_1,w_2)\right|$
-
-
-
-
