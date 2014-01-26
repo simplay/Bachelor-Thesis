@@ -1,4 +1,9 @@
 \chapter{Results}
+
+show comparision between all shader variants: pq, adaptive, all, nvidiaGem.
+
+
+
 show all views results.
 differece of this shader compared to evaluation shader
 show real snake images for comparison with real rendered images
@@ -11,6 +16,7 @@ show some idft2 images, used patch, besids rendered image
 what initial size was used patch?
 mention GEM results.
 mention real results from geneva - use same paramter setup.
+
 
 
 \section{BRDF maps}
@@ -522,5 +528,23 @@ ADD ALOT OF TEXT
   \caption{Diffraction for Xeno snake skin}
 \end{figure}
 
+
+\section{Snake surface geometries}
+
+\begin{figure}[ht]
+  \centering
+  \subfigure[Simulation]{
+    \includegraphics[scale=0.2]{results/experiment/elaphe/g2.png}
+    \label{fig:renderingElaphe65Good}
+  }
+
+  \subfigure[Experiment]{
+    \includegraphics[scale=0.32]{results/experiment/elaphe/e1.png}
+    \label{fig:experimentElaphe65}
+  }
+
+  \label{renderingVsExperimentElaphe65}
+  \caption{Diffraction Elpahe: simulation vs. experimental setup}
+\end{figure}
 
 

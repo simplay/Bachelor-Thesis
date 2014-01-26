@@ -57,16 +57,17 @@
 \contentsline {chapter}{\numberline {5}Results}{39}{chapter.5}
 \contentsline {section}{\numberline {5.1}BRDF maps}{39}{section.5.1}
 \contentsline {section}{\numberline {5.2}Snake surface geometries}{39}{section.5.2}
-\contentsline {chapter}{\numberline {6}Conclusion}{50}{chapter.6}
-\contentsline {section}{\numberline {6.1}Further Work}{50}{section.6.1}
-\contentsline {subsection}{\numberline {6.1.1}References}{50}{subsection.6.1.1}
-\contentsline {section}{\numberline {6.2}Acknowledgment}{50}{section.6.2}
-\contentsline {section}{\numberline {6.3}TODOs}{50}{section.6.3}
-\contentsline {section}{\numberline {6.4}keep me alive}{51}{section.6.4}
-\contentsline {chapter}{\numberline {A}Appendix}{52}{appendix.A}
-\contentsline {section}{\numberline {A.1}Schlick's approximation}{52}{section.A.1}
-\contentsline {section}{\numberline {A.2}Spherical Coordinates}{52}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{53}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{53}{appendix*.41}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{54}{appendix*.42}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{55}{appendix*.43}
+\contentsline {section}{\numberline {5.3}Snake surface geometries}{39}{section.5.3}
+\contentsline {chapter}{\numberline {6}Conclusion}{51}{chapter.6}
+\contentsline {section}{\numberline {6.1}Further Work}{51}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}References}{51}{subsection.6.1.1}
+\contentsline {section}{\numberline {6.2}Acknowledgment}{51}{section.6.2}
+\contentsline {section}{\numberline {6.3}TODOs}{51}{section.6.3}
+\contentsline {section}{\numberline {6.4}keep me alive}{52}{section.6.4}
+\contentsline {chapter}{\numberline {A}Appendix}{53}{appendix.A}
+\contentsline {section}{\numberline {A.1}Schlick's approximation}{53}{section.A.1}
+\contentsline {section}{\numberline {A.2}Spherical Coordinates}{53}{section.A.2}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{54}{section.A.2}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{54}{appendix*.42}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{55}{appendix*.43}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{56}{appendix*.44}
