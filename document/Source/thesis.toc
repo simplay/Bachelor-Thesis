@@ -32,21 +32,21 @@
 \contentsline {chapter}{\numberline {3}Implementation}{24}{chapter.3}
 \contentsline {section}{\numberline {3.1}Precomputations in Matlab}{25}{section.3.1}
 \contentsline {section}{\numberline {3.2}Our Java Renderer}{25}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Scene}{28}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}jrtr Framework}{28}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.1}Scene}{27}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}jrtr Framework}{27}{subsection.3.2.2}
 \contentsline {section}{\numberline {3.3}GLSL Diffraction Shader}{28}{section.3.3}
 \contentsline {subsection}{\numberline {3.3.1}Vertex Shader}{28}{subsection.3.3.1}
 \contentsline {subsection}{\numberline {3.3.2}Fragment Shader}{29}{subsection.3.3.2}
-\contentsline {paragraph}{From line 4 to 26:}{29}{section*.18}
-\contentsline {paragraph}{From line 9 to 24:}{29}{section*.19}
-\contentsline {paragraph}{From line 14 to 22:}{31}{section*.20}
+\contentsline {paragraph}{From line 4 to 26:}{31}{section*.19}
+\contentsline {paragraph}{From line 9 to 24:}{31}{section*.20}
+\contentsline {paragraph}{From line 14 to 22:}{31}{section*.21}
 \contentsline {section}{\numberline {3.4}Technical details}{31}{section.3.4}
-\contentsline {paragraph}{Texture lookup}{31}{section*.21}
-\contentsline {paragraph}{Transformations, Scalings}{31}{section*.22}
-\contentsline {paragraph}{Texturing}{31}{section*.23}
-\contentsline {paragraph}{Gain Factor}{31}{section*.24}
-\contentsline {paragraph}{Shadowing}{32}{section*.25}
-\contentsline {paragraph}{Color Transformation}{32}{section*.26}
+\contentsline {paragraph}{Texture lookup}{31}{section*.22}
+\contentsline {paragraph}{Transformations, Scalings}{31}{section*.23}
+\contentsline {paragraph}{Texturing}{32}{section*.24}
+\contentsline {paragraph}{Gain Factor}{32}{section*.25}
+\contentsline {paragraph}{Shadowing}{32}{section*.26}
+\contentsline {paragraph}{Color Transformation}{32}{section*.27}
 \contentsline {section}{\numberline {3.5}Discussion}{32}{section.3.5}
 \contentsline {chapter}{\numberline {4}Evaluation Data Acquisition}{34}{chapter.4}
 \contentsline {section}{\numberline {4.1}Data Acquisition}{34}{section.4.1}
@@ -66,6 +66,6 @@
 \contentsline {section}{\numberline {A.1}Schlick's approximation}{52}{section.A.1}
 \contentsline {section}{\numberline {A.2}Spherical Coordinates}{52}{section.A.2}
 \contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{53}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{53}{appendix*.44}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{54}{appendix*.45}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{55}{appendix*.46}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{53}{appendix*.45}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{54}{appendix*.46}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{55}{appendix*.47}

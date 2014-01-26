@@ -55,6 +55,25 @@ end
 
 The command fftshift rearranges the output of the ifft2 by moving the zero frequency component to the centre of the image. This is useful for visualizing a Fourier Transform with zero frequency components in the middle of the spectrum.
 
+
+\begin{figure}[ht]
+  \centering
+  \subfigure[Simulation]{
+    \includegraphics[scale=0.2]{implementation/hf/blaze/blazeBig.png}
+    \label{fig:matlabBlazePatch}
+  }
+~
+  \subfigure[Experiment]{
+    \includegraphics[scale=0.4]{implementation/hf/blaze/extrema.png}
+    \label{fig:extremaBlaze}
+  }
+  
+
+  \label{matlabBlazeFourierImages}
+  \caption{Blaze}
+\end{figure}
+
+
 TODO: say something about output?
 
 \section{Our Java Renderer}
