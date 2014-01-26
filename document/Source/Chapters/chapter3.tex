@@ -60,8 +60,12 @@ TODO: say something about output?
 \section{Our Java Renderer}
 In autumn 2012, during the semester I have attented the class computer graphics held by M. Zwicker. During the whole class we have developed a so called real time renderer program written in java as a series of homework assignments in order to be admitted to the final exam. The architecture of the program is divided into two parts: a rendering engine, the so called jrtr (java real time renderer) and an application program, denoted as scene.
 
-SHOW ARCHITECTURE GRAPHIC from CG
-show schema: scene data => GPU=[Vertex processing, modeling and viewing transformation => Projection => Rasterization, fragment processing, visibility] => image
+\begin{figure}[ht]
+  \centering
+  \includegraphics[scale=0.7]{implementation/framework.png}
+  \label{rendererArchitecture}
+  \caption{Renderer Architecture}
+\end{figure}
 
 the scene application program task was basically to define the whole scene we is going to be rendered within jrtr later.
 A scene consists of the setup of the world camera, definitions of light source, frustum, geometries which live in our scene and their material constants. Such materials are textures for example. All those scene attributes are managed within jrtr. In the application program, there only happens their definition.
