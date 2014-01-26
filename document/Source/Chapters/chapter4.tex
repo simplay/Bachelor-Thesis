@@ -18,44 +18,86 @@ Measurements were carried out using intermittent contact mode in a Burker Dimens
 An AFM is a microscope that uses a tiny probe mounted on a cantilever to scan the surface of an object. The probe is extremely close tobut does not touchthe surface. As the probe traverses the surface, attractive and repulsive forces arising between it and the atoms on the surface induce forces on the probe that bend the cantilever. The amount of bending is measured and recorded, providing a map of the atoms on the surface. Atomic force microscopes can achieve magnification of a factor of 5 × 106, with a resolution of 2 angstroms, sufficient to resolve individual carbon atoms. Also called scanning force microscope.
 is a very high-resolution type of scanning probe microscopy, with demonstrated resolution on the order of fractions of a nanometer, more than 1000 times better than the optical diffraction limit.
 
-The tops used were etched silicon TESP tips with a nomminal frequency and force constant of 320 kHz and 42 N/m respectively. 
+The tops used were etched silicon TESP tips with a nominal frequency and force constant of 320 kHz and 42 N/m respectively. 
 
 SHOW AFM IMAGE
 
 \section{Diffraction Gratings}
-An idealised grating os made of a very large number of parallel, evenly spaced slits in an in an opaque sheet. A typical grating would have 10,000 slits. In order to cause diffraction that spacing must be wider than the wavelength of interest. Each slit in the grating acts as a quasi point source from which light propagates in all directions. The diffracted light is composed of the sum of interfering wave components emenating from each slit in the grating.
+An idealised grating is made of a very large number of parallel, evenly spaced slits in an in an opaque sheet. Typically, it would have about 10,000 slits. In order to cause diffraction, the spacing between slits must be wider than the wavelength of interest. Each slit in the grating acts as a quasi point source from which light propagates in all directions. The diffracted light is composed of the sum of interfering wave components emanating from each slit in the grating.
 
-When a beam of monochromatic light is allowed to pass through the grating placed in a spectrometer, images of the sources can be seen through the telescope at different angles.
+\begin{figure}[ht]
+  \centering
+  \includegraphics[scale=0.7]{evaluation/spectrometer.jpg}
+  \label{fig:spectometer}
+  \caption{Spectometer: When a beam of monochromatic light passes through a grating placed in a spectrometer, images of the sources can be seen through the telescope at different angles.}
+\end{figure}
 
-FIGURE SPECTOMETER
+Suppose monochromatic light is directed at the grating parallel to its axis as shown in figure. Let the distance between successive slits be equal $d$.
 
+\begin{figure}[ht]
+  \centering
+  \includegraphics[scale=0.7]{evaluation/grating2.jpg}
+  \label{fig:lighthitsgrating}
+  \caption{Light directed to parallel to grating:}
+\end{figure}
 
-Suppose monochromatic light is directed at the grating parallel to its axis as shown. Let the distance between successive slits be equal $d$.
+The diffraction pattern on the screen is the result of the combined effects of diffraction and interference. Each slit causes diffraction, and the diffracted beams in turn interfere with one another to produce the pattern. The path difference between waves from any two adjacent slits can be found by dropping a perpendicular line between the parallel waves. By geometry, this path difference is $d sin(\theta)$. If the path difference equals one wavelength or some integral multiple of a wavelength, waves from all slits will be in phase and a bright line will be observed at that point. Therefore, the condition for maxima in the interference pattern at the angle $\theta$ is: 
 
-FIGURE GRating2
+\begin{equation}
+ d sin(\theta) = m \lambda 
+\end{equation}
 
-The diffraction pattern on the screen is the result of the combined effects of diffraction and interference. Each slit causes diffraction, and the diffracted beams in turn interfere with one another to produce the pattern. The path difference between waves from any two adjacent slits can be found by dropping a perpendicular line between the parallel waves. By geometry, this path difference is d sin θ . If the path difference equals one wavelength or some integral multiple of a wavelength, waves from all slits will be in phase and a bright line will be observed at that point. Therefore, the condition for maxima in the interference pattern at the angle θ is 
+where $m \in \mathds{N}_0$ is the order of diffraction.
 
-d sin θ = m λ where m = 0,1,2,3…..
+Because $d$ is very small for a diffraction grating, a beam of monochromatic light passing through a diffraction grating is splitted into very narrow bright fringes at large angles $\theta$.
 
-Because d is very small for diffraction grating, a beam of monochromatic light passing through a diffraction grating is splitted into very narrow maxima(bright fringes) at large angles θ.
+\begin{figure}[ht]
+  \centering
+  \includegraphics[scale=0.7]{evaluation/GratingSurface.png}
+  \caption{Different Orders of diffraction: When light is directed at the grating not parallel to its axis, there is another $sin(a)$ invovled. See grating equation $\ref{eq:gratingEq}$.}
+\label{fig:gratingdiffractionorders}
+\end{figure}
 
-DIFFORDERS
+When a narrow beam of white light is directed at a diffraction grating along its axis, instead of a monochromatic bright fringe, a set of coloured spectra are observed on both sides of the central white band as shown in figure $\ref{fig:gratingdiffractionorders}$.
 
+\begin{figure}[ht]
+  \centering
+  \includegraphics[scale=0.7]{evaluation/coloredspectrum.jpg}
+  \label{fig:diffractionSpectrum}
+  \caption{White Light beam causes coloured diffraction spectra}
+\end{figure}
 
-When a narrow beam of white light is directed at a diffraction grating along its axis, instead of a monochromatic bright fringe, a set of coloured spectra are observed on both sides of the central white band as shown in the Figure.
+Since $\theta$ increases with wavelength $\lambda$, red light which has the longest wavelength is diffracted through the largest angle. Violet light has the shortest wavelength and is diffracted the least. Thus, white light is split into its component colours from violet to red light. The spectrum is repeated in the different orders of diffraction. Only the zeroth order spectrum is pure white.
 
-WHITELIGHTDIFF
+\begin{figure}[ht]
+  \centering
+  \subfigure[one slits]{
+    \includegraphics[scale=0.1]{evaluation/slits/spalt1.png}
+    \label{fig:diffractionSlits1}
+  }
+~
+  \subfigure[two slits]{
+    \includegraphics[scale=0.1]{evaluation/slits/spalt02.png}
+    \label{fig:diffractionSlits2}
+  }
+~
+  \subfigure[three slits]{
+    \includegraphics[scale=0.1]{evaluation/slits/spalt03.png}
+    \label{fig:diffractionSlits3}
+  }
+~
+  \subfigure[seven slits]{
+    \includegraphics[scale=0.1]{evaluation/slits/spalt07.png}
+    \label{fig:diffractionSlits7}
+  }
+  
+  \label{fig:diffractionSlits}
+  \caption{Difference of diffraction pattern between a monochromatic (top) and a white (bottom) light spectra for different number of slits.}
+\end{figure}
 
-The beam then separates into one or more orders according to the grating equation: d sin θ = nλ.
-
-
-Since θ increases with wavelength λ, red light which has the longest wavelength is diffracted through the largest angle. Violet light has the shortest wavelength and is diffracted the least. Thus, white light is split into its component colours from violet to red light. The spectrum is repeated in the different orders of diffraction. Only the zeroth order spectrum is pure white.
-
-The figure below shows the difference between a monochromatic and a white light spectra.
 
 WHITEMONODIFF
-
+The figure below shows the di.
 
 
 \section{Evaluation}
@@ -67,6 +109,7 @@ When light at a wavelength $\lambda$ falls on a sample presenting a periodicity 
 
 \begin{equation}
   sin(\theta) = sin(\phi) + \frac{m \lambda}{d}
+  \label{eq:gratingEq}
 \end{equation}
 
 In our evaluation we are interested in the zero order diffraction, i.e. m equals zero which corresponds to direct transmission or specular reflection in the case of a reflection grating. 
