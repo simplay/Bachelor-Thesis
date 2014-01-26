@@ -29,43 +29,43 @@
 \contentsline {subsection}{\numberline {2.3.4}Sampling: Gaussian Window}{19}{subsection.2.3.4}
 \contentsline {subsection}{\numberline {2.3.5}Final Expression}{20}{subsection.2.3.5}
 \contentsline {section}{\numberline {2.4}Alternative Approach}{20}{section.2.4}
-\contentsline {chapter}{\numberline {3}Implementation}{24}{chapter.3}
-\contentsline {section}{\numberline {3.1}Precomputations in Matlab}{25}{section.3.1}
-\contentsline {section}{\numberline {3.2}Our Java Renderer}{25}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Scene}{28}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}jrtr Framework}{28}{subsection.3.2.2}
-\contentsline {section}{\numberline {3.3}GLSL Diffraction Shader}{29}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Vertex Shader}{29}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Fragment Shader}{29}{subsection.3.3.2}
-\contentsline {paragraph}{From line 4 to 26:}{30}{section*.19}
-\contentsline {paragraph}{From line 9 to 24:}{30}{section*.20}
-\contentsline {paragraph}{From line 14 to 22:}{30}{section*.21}
-\contentsline {section}{\numberline {3.4}Technical details}{32}{section.3.4}
-\contentsline {paragraph}{Texture lookup}{32}{section*.22}
-\contentsline {paragraph}{Transformations, Scalings}{32}{section*.23}
-\contentsline {paragraph}{Texturing}{32}{section*.24}
-\contentsline {paragraph}{Gain Factor}{32}{section*.25}
-\contentsline {paragraph}{Shadowing}{32}{section*.26}
-\contentsline {paragraph}{Color Transformation}{32}{section*.27}
-\contentsline {section}{\numberline {3.5}Discussion}{32}{section.3.5}
-\contentsline {chapter}{\numberline {4}Evaluation Data Acquisition}{35}{chapter.4}
-\contentsline {section}{\numberline {4.1}Data Acquisition}{35}{section.4.1}
-\contentsline {section}{\numberline {4.2}Diffraction Gratings}{35}{section.4.2}
-\contentsline {section}{\numberline {4.3}Evaluation}{37}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Precomputation}{38}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}Data evaluation}{38}{subsection.4.3.2}
-\contentsline {chapter}{\numberline {5}Results}{40}{chapter.5}
-\contentsline {section}{\numberline {5.1}BRDF maps}{40}{section.5.1}
-\contentsline {section}{\numberline {5.2}Snake surface geometries}{40}{section.5.2}
-\contentsline {section}{\numberline {5.3}Snake surface geometries}{40}{section.5.3}
-\contentsline {chapter}{\numberline {6}Conclusion}{52}{chapter.6}
-\contentsline {section}{\numberline {6.1}Further Work}{52}{section.6.1}
-\contentsline {subsection}{\numberline {6.1.1}References}{52}{subsection.6.1.1}
-\contentsline {section}{\numberline {6.2}Acknowledgment}{52}{section.6.2}
-\contentsline {chapter}{\numberline {A}Appendix}{53}{appendix.A}
-\contentsline {section}{\numberline {A.1}Schlick's approximation}{53}{section.A.1}
-\contentsline {section}{\numberline {A.2}Spherical Coordinates}{53}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{54}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{54}{appendix*.47}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{55}{appendix*.48}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{56}{appendix*.49}
+\contentsline {chapter}{\numberline {3}Implementation}{25}{chapter.3}
+\contentsline {section}{\numberline {3.1}Precomputations in Matlab}{26}{section.3.1}
+\contentsline {section}{\numberline {3.2}Our Java Renderer}{26}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Scene}{29}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}jrtr Framework}{29}{subsection.3.2.2}
+\contentsline {section}{\numberline {3.3}GLSL Diffraction Shader}{30}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Vertex Shader}{30}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Fragment Shader}{30}{subsection.3.3.2}
+\contentsline {paragraph}{From line 4 to 26:}{31}{section*.19}
+\contentsline {paragraph}{From line 9 to 24:}{31}{section*.20}
+\contentsline {paragraph}{From line 14 to 22:}{31}{section*.21}
+\contentsline {section}{\numberline {3.4}Technical details}{33}{section.3.4}
+\contentsline {paragraph}{Texture lookup}{33}{section*.22}
+\contentsline {paragraph}{Transformations, Scalings}{33}{section*.23}
+\contentsline {paragraph}{Texturing}{33}{section*.24}
+\contentsline {paragraph}{Gain Factor}{33}{section*.25}
+\contentsline {paragraph}{Shadowing}{33}{section*.26}
+\contentsline {paragraph}{Color Transformation}{33}{section*.27}
+\contentsline {section}{\numberline {3.5}Discussion}{33}{section.3.5}
+\contentsline {chapter}{\numberline {4}Evaluation Data Acquisition}{36}{chapter.4}
+\contentsline {section}{\numberline {4.1}Data Acquisition}{36}{section.4.1}
+\contentsline {section}{\numberline {4.2}Diffraction Gratings}{36}{section.4.2}
+\contentsline {section}{\numberline {4.3}Evaluation}{38}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Precomputation}{39}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Data evaluation}{39}{subsection.4.3.2}
+\contentsline {chapter}{\numberline {5}Results}{42}{chapter.5}
+\contentsline {section}{\numberline {5.1}BRDF maps}{42}{section.5.1}
+\contentsline {section}{\numberline {5.2}Snake surface geometries}{42}{section.5.2}
+\contentsline {section}{\numberline {5.3}Snake surface geometries}{42}{section.5.3}
+\contentsline {chapter}{\numberline {6}Conclusion}{54}{chapter.6}
+\contentsline {section}{\numberline {6.1}Further Work}{54}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}References}{54}{subsection.6.1.1}
+\contentsline {section}{\numberline {6.2}Acknowledgment}{54}{section.6.2}
+\contentsline {chapter}{\numberline {A}Appendix}{55}{appendix.A}
+\contentsline {section}{\numberline {A.1}Schlick's approximation}{55}{section.A.1}
+\contentsline {section}{\numberline {A.2}Spherical Coordinates}{55}{section.A.2}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{56}{section.A.2}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{56}{appendix*.52}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{58}{appendix*.53}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{58}{appendix*.54}
