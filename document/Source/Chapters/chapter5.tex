@@ -12,14 +12,9 @@ what initial size was used patch?
 mention GEM results.
 mention real results from geneva - use same paramter setup.
 
-\section{Other stuff}
-$\forall \colvec[x]{y}{z} \in \mathbb{R}^3 : \exists r \in [0,\infty) \exists \phi \in [0,2\pi] \exists \theta \in [0,\pi] $ s.t.
-\begin{equation*}
-\colvec[x]{y}{z} = \colvec[r sin(\theta)cos(\phi)]{r sin(\theta)sin(\phi)}{r cos(\theta)}
-\end{equation*}
 
-\section{Matlab code}
-\section{Discussion}
+\section{BRDF maps}
+ADD ALOT OF TEXT
 
 % brdf maps patches
 \begin{figure}[ht]
@@ -41,6 +36,7 @@ $\forall \colvec[x]{y}{z} \in \mathbb{R}^3 : \exists r \in [0,\infty) \exists \p
   \label{brdfmapsDiffPatches}
   \caption{BRDF maps for different patches}
 \end{figure}
+
 
 % blaze steps
 \begin{figure}[ht]
@@ -141,33 +137,33 @@ $\forall \colvec[x]{y}{z} \in \mathbb{R}^3 : \exists r \in [0,\infty) \exists \p
 %pq xeno
 \begin{figure}[ht]
   \centering
-  \subfigure[Full Lambda Sampling: Xeno grating at $\theta_i = 0 degree$]{
-    \includegraphics[scale=0.2]{results/PQapproach_vs_sampleAll/xeno/a_xeno_t_i=0.png}
+  \subfigure[Full Lambda Sampling: Xeno grating $\theta_i = 0 degree$]{
+    \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/a_xeno_t_i=0.png}
     \label{fig:fullLambdaXenoti0}
   }
 ~
-  \subfigure[PQ Approach: Xeno grating at $\theta_i = 0 degree$]{
-    \includegraphics[scale=0.2]{results/PQapproach_vs_sampleAll/xeno/a_pq_t_i=0.png}
+  \subfigure[PQ Approach: Xeno grating $\theta_i = 0 degree$]{
+    \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/a_pq_t_i=0.png}
     \label{fig:pqXenoti0}
   }
 
-  \subfigure[Full Lambda Sampling: Xeno grating at $\theta_i = 10 degree$]{
-    \includegraphics[scale=0.2]{results/PQapproach_vs_sampleAll/xeno/b_xeno_t_i=10.png}
+  \subfigure[Full Lambda Sampling: Xeno grating $\theta_i = 10 degree$]{
+    \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/b_xeno_t_i=10.png}
     \label{fig:fullLambdaXenoti10}
   }
 ~
-  \subfigure[PQ Approach: Xeno grating at $\theta_i = 10 degree$]{
-    \includegraphics[scale=0.2]{results/PQapproach_vs_sampleAll/xeno/b_pq_t_i=10.png}
+  \subfigure[PQ Approach: Xeno grating $\theta_i = 10 degree$]{
+    \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/b_pq_t_i=10.png}
     \label{fig:pqXenoti10}
   }
   
-  \subfigure[Full Lambda Sampling: Xeno grating at $\theta_i = 20 degree$]{
-    \includegraphics[scale=0.2]{results/PQapproach_vs_sampleAll/xeno/c_xeno_t_i=20.png}
+  \subfigure[Full Lambda Sampling: Xeno grating $\theta_i = 20 degree$]{
+    \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/c_xeno_t_i=20.png}
     \label{fig:fullLambdaXenoti20}
   }
 ~
-  \subfigure[PQ Approach: Xeno grating at $\theta_i = 20 degree$]{
-    \includegraphics[scale=0.2]{results/PQapproach_vs_sampleAll/xeno/c_pq_t_i=20.png}
+  \subfigure[PQ Approach: Xeno grating $\theta_i = 20 degree$]{
+    \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/c_pq_t_i=20.png}
     \label{fig:pqXenoti20}
   }
   \label{pqXeno}
@@ -365,6 +361,166 @@ $\forall \colvec[x]{y}{z} \in \mathbb{R}^3 : \exists r \in [0,\infty) \exists \p
   \caption{BRDF maps for Xeno grating: different $\theta_i$ angles}
 \end{figure}
 
+
+\section{Snake surface geometries}
+
+\begin{figure}[ht]
+  \centering
+  \subfigure[Blaze grating]{
+    \includegraphics[scale=0.12]{results/snakerenderings/compars/blaze.png}
+    \label{fig:renderingBlazeGrating}
+  }
+~
+  \subfigure[Elaphe grating]{
+    \includegraphics[scale=0.12]{results/snakerenderings/compars/elaphe65.png}
+    \label{fig:renderingElapheGrating}
+  }
+~
+  \subfigure[Xeno grating]{
+    \includegraphics[scale=0.12]{results/snakerenderings/compars/xeno65.png}
+    \label{fig:renderingXenoGrating}
+  }
+  \label{renderingDifferentSnankeGratings}
+  \caption{Diffraction of different snake skin gratings rendered on a snake geometry}
+\end{figure}
+
+
+\begin{figure}[ht]
+  \centering
+  \subfigure[$zoom = 0.1$]{
+    \includegraphics[scale=0.2]{results/snakerenderings/zoomIn/elaphe65/0.1.png}
+    \label{fig:renderingZoomElaphe01}
+  }
+~
+  \subfigure[$zoom = 0.2$]{
+    \includegraphics[scale=0.2]{results/snakerenderings/zoomIn/elaphe65/0.2.png}
+    \label{fig:renderingZoomElaphe02}
+  }
+  
+  \subfigure[$zoom = 0.5$]{
+    \includegraphics[scale=0.2]{results/snakerenderings/zoomIn/elaphe65/0.5.png}
+    \label{fig:renderingZoomElaphe05}
+  }
+~
+  \subfigure[$zoom = 1.0$]{
+    \includegraphics[scale=0.2]{results/snakerenderings/zoomIn/elaphe65/1.png}
+    \label{fig:renderingZoomElaphe1}
+  }
+  
+  \subfigure[$zoom = 1.5$]{
+    \includegraphics[scale=0.2]{results/snakerenderings/zoomIn/elaphe65/1.5.png}
+    \label{fig:renderingZoomElaphe15}
+  }
+~
+  \subfigure[$zoom = 2.0$]{
+    \includegraphics[scale=0.2]{results/snakerenderings/zoomIn/elaphe65/2.png}
+    \label{fig:renderingZoomElaphe2}
+  }
+  \label{renderingDifferentZoomLevelsElaphe}
+  \caption{Diffraction on Elaphe snake skin grating: Different camera zoom levels}
+\end{figure}
+
+% first 3 move along x, next 3 move along y
+\begin{figure}[ht]
+  \centering
+  \subfigure[$(-3.3130, 0.0, -0.9999)$]{
+    \includegraphics[scale=0.12]{results/snakerenderings/rotateLight/elaphe65/moveX/2.png}
+    \label{fig:renderingElapheRotX2}
+  }
+~
+  \subfigure[$(-0.1989, 0.0, -0.9799)$]{
+    \includegraphics[scale=0.12]{results/snakerenderings/rotateLight/elaphe65/moveX/4.png}
+    \label{fig:renderingElapheRotX4}
+  }
+~
+  \subfigure[$(-0.3897, 0.0, -0.9208)$]{
+    \includegraphics[scale=0.12]{results/snakerenderings/rotateLight/elaphe65/moveX/6.png}
+    \label{fig:renderingElapheRotX6}
+  }
+  
+  \subfigure[$(0.0995, 0.0993, -0.9900)$]{
+    \includegraphics[scale=0.12]{results/snakerenderings/rotateLight/elaphe65/moveY/2.png}
+    \label{fig:renderingElapheRotY2}
+  }
+~
+  \subfigure[$(0.0995, 0.2940, -0.9505)$]{
+    \includegraphics[scale=0.12]{results/snakerenderings/rotateLight/elaphe65/moveY/4.png}
+    \label{fig:renderingElapheRotY4}
+  }
+~
+  \subfigure[$(0.0995, 0.4770, -0.8731)$]{
+    \includegraphics[scale=0.12]{results/snakerenderings/rotateLight/elaphe65/moveY/6.png}
+    \label{fig:renderingElapheRotY6}
+  }
+  
+  \label{renderingElapheLightRotations6}
+  \caption{Diffraction on Elaphe snake skin grating: Different light directions}
+\end{figure}
+
+\begin{figure}[ht]
+  \centering
+  \subfigure[Diffraction Patten]{
+    \includegraphics[scale=0.2]{results/snakerenderings/elaphe65/1.png}
+    \label{fig:renderingElaphe65DP}
+  }
+~
+  \subfigure[Diffraction + Texture]{
+    \includegraphics[scale=0.2]{results/snakerenderings/elaphe65/2.png}
+    \label{fig:renderingElaphe65DT}
+  }
+
+  \subfigure[Texture + Lightdir]{
+    \includegraphics[scale=0.12]{results/snakerenderings/elaphe65/3.png}
+    \label{fig:renderingElaphe65TL}
+  }
+~
+  \subfigure[Nanostructure]{
+    \includegraphics[scale=0.10]{results/snakerenderings/elaphe65/4.png}
+    \label{fig:renderingElaphe65NS}
+  }
+~ 
+  \subfigure[Fourier Transform]{
+    \includegraphics[scale=0.52]{results/snakerenderings/elaphe65/5.png}
+    \label{fig:renderingElaphe65FT}
+  }
+  
+  
+  \label{renderingElaphe65}
+  \caption{Diffraction for Elaphe snake skin}
+\end{figure}
+
+
+\begin{figure}[ht]
+  \centering
+  \subfigure[Diffraction Patten]{
+    \includegraphics[scale=0.2]{results/snakerenderings/xeno65/1.png}
+    \label{fig:renderingXeno65DP}
+  }
+~
+  \subfigure[Diffraction + Texture]{
+    \includegraphics[scale=0.2]{results/snakerenderings/xeno65/2.png}
+    \label{fig:renderingXeno65DT}
+  }
+
+  \subfigure[Texture + Lightdir]{
+    \includegraphics[scale=0.12]{results/snakerenderings/xeno65/3.png}
+    \label{fig:renderingXeno65TL}
+  }
+~
+  \subfigure[Nanostructure]{
+    \includegraphics[scale=0.075]{results/snakerenderings/xeno65/4.png}
+    \label{fig:renderingXeno65NS}
+  }
+~ 
+  \subfigure[Fourier Transform]{
+    \includegraphics[scale=0.52]{results/snakerenderings/xeno65/5.png}
+    \label{fig:renderingXeno65FT}
+  }
+  
+  
+  \label{renderingXeno65}
+  \caption{Diffraction for Xeno snake skin}
+\end{figure}
 
 
 
