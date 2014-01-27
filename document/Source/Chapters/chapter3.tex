@@ -282,10 +282,20 @@ SHOW GRAPH for this fact: (lambda, k=f(lambda)), where $k = \frac{2pi}{\lambda}$
 In a GLSL shader the thexture coordinates my be normalized which means that the size of the texture maps to the coordinates on the range $[0,1]$ in each dimension. By convention the the bottom left corner of an image has the coordinates $(0,0)$, whereas the top right corner has the value $(1,1)$ assigned. 
 
 Given P patch has a certain resolution, A by A microns which are stored in an Image I with N by N pixel resolution. dh tells us how many microns a pixel corresponds to. The use the image I not the patch P for our computations, therefore we have to keep in mind the scale. From one input image I we produce a series of n output images $\{I_{out_1},...,I_{out_n}\}$. The output images are transformed into another coordinate system as the input image I was. We will use the images for the lookup in our shader. 
-the lookup depends on the (u,v) coordinates see ref. we have to transform u,v in order to perfrom a correct lookup.
+the lookup depends on the (u,v) coordinates see ref. we have to transform, i.e. a scaling and shifting, u,v in order to perform a correct lookup.
 
 Since the zero frequency component of output images was shifted towards the centre of each image, we have to shift u,v to the center of the current image. 
 
+There is also a scaling involved.
+lets consider a T periodic signal, i.e. x(t) = x(t+nT) for any integer n.
+frequency interval w0 = 2pi / T and time interval t0 = 
+
+when the signal is both periodic with time period T and discrete with time interval t0  then its spectrum should be both discrete with frequency interval w0 and periodic with frequency period Omega = 2pi / t0. This gives us the idea how to discretize the spectrum: 
+Let 1 pixel correspond to m meters and lets assume there are N pixel in x direction.
+This implies that frequency interval w0 = 2*pi/T = 2*pi/(N*dh)
+Thus only wave numbers  that are integer multiples of w0 (after multiplication with u) must be considered. i.e. ku = integer multiple of w0 therefore the lookup for the u-direction will look like:
+ku/w0 = ku NdH / 2pi = u N dh / lambda
+using
 
 For a lookup in our fragment shader, we have to transform the lookup coordinates
 
