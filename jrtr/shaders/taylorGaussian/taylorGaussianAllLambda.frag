@@ -531,6 +531,7 @@ void gemMain(){
 	float lambda = 0;
 	vec4 cdiff = vec4(0, 0, 0, 1);
 	float f = 4;
+	// 25microns
 	float d = 25.0;
 	float eps = 0.0;
 	
