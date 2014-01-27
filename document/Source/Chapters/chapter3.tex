@@ -299,7 +299,20 @@ The final rendered color for each pixel is a weighted average of different color
 mention CIE XYZ to CIE RGB, D65, gamma correction.
 
 \section{Discussion}
-MENTION OTHER APPROACHES and their drawbacks.
-Optimization: Just use a few lambdas (just those which are at least required), which will enhance the overall runtime quite a lot but the overall accuracy will suffer then, too.
+Our Current approach will sample the whole wavelength spectrum for each pixel but there is an optimization possible:
+Lets consider $(u,v,w)$ defined as $\ref{eq:uvw}$. Let $d$ be the spacing between two slits of a grating. For any $L(\lambda) \neq 0$ it follows $\lambda_{n}^{u} = \frac{d u}{n}$ and $\lambda_{n}^{v} = \frac{d u}{n}$. For $n = 0$ there it follows $(u,v)=(0,0)$. 
+If $u,v > 0$
+\begin{align*}
+    N_{min}^{u} = \frac{d u}{\lambda_{max}} \leq n_{u} \leq \frac{d u}{\lambda_{min}} = N_{min}^{u}\\
+    N_{min}^{v} = \frac{d v}{\lambda_{max}} \leq n_{v} \leq \frac{d v}{\lambda_{min}} = N_{min}^{v}
+\end{align*}
+If $u,v < 0$
+\begin{align*}
+    N_{min}^{u} = \frac{d u}{\lambda_{min}} \leq n_{u} \leq \frac{d u}{\lambda_{min}} = N_{max}^{u}\\
+    N_{min}^{v} = \frac{d v}{\lambda_{min}} \leq n_{v} \leq \frac{d v}{\lambda_{min}} = N_{max}^{v}
+\end{align*}
 
-one which basically samples the whole lambda space using a gaussian window. This shader will be modeling the effect of diffraction completely but will also be rather slow. The other shader will use a gaussian window too but will just use a few wavenumber for the sampling process. Furthermore, this shader will thread specularity seperatly as a special case which will be more like an approximation. 
+By transforming those equation to $(\lambda_{min}^{u}, \lambda_{min}^{u})$, $(\lambda_{min}^{v}, \lambda_{min}^{v})$ respectively for any $(u,v,w)$ for each pixel we can reduce the number of required iterations in our shader.
+
+Note: issue at center, specularity handled seperately.
+pq-apporach.
