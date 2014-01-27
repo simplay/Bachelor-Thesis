@@ -344,10 +344,7 @@ There are some other color space transformation. The shader uses the CIE Standar
 \begin{bmatrix}R\\G\\B\end{bmatrix} = M \cdot \begin{bmatrix}X \cdot D65.x \\ Y \cdot D65.y \\Z \cdot D65.z \end{bmatrix} 
 \end{equation}
 
-Last we perfrom gamma correction
-non lin operation to 
-Gamma correction controls the overall brightness of an image
-not properly corrected can look either bleached out, or too dark
+Last we perfrom gamma correction on each pixel's $(R,G,B)$ value. Gamma correction is a non linear transformation which controls the overall brightness of an image.
 
 \section{Discussion}
 Our Current approach will sample the whole wavelength spectrum for each pixel but there is an optimization possible:
