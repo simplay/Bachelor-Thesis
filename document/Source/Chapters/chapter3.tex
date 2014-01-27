@@ -322,12 +322,19 @@ The final rendered color for each pixel is a weighted average of different color
 
 \subsection{Color Transformation}
 \label{subsec:colortransformations}
-mention CIE XYZ to CIE RGB, D65, gamma correction.
 
-tables downloadable at ""cvrl.ioo.ucl.ac.uk"
+In our shader we access a table which contains precomputed CIE's color matching functions values from $\lambda_{min} = 380 nm$ to $\lambda_{max} = 780 nm$ in $5 nm$ steps. Such a function value table can be found at downloaded at cvrl.ioo.ucl.ac.uk for example. We compute the $(X,Y,Z)$ $CIE_{XYZ}$ color values as described in $\ref{subsec:colors}$. 
 
-As exlained in ... each color can be represented by three numbers, for instance defined by (X,Y,Z) tristimulus values. However, their primaries are imaginary which means that it is not possible to construct a devise that has three light 
+transform
 
+The shader uses the CIE Standard Illuminant D65 which is intented to represent average daylight which is applied to the RGB color transformation matrix. 
+
+overall transformation looks like...
+
+Last we perfrom gamma correction
+non lin operation to 
+Gamma correction controls the overall brightness of an image
+not properly corrected can look either bleached out, or too dark
 
 \section{Discussion}
 Our Current approach will sample the whole wavelength spectrum for each pixel but there is an optimization possible:
