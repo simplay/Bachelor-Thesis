@@ -40,6 +40,7 @@
 \contentsline {paragraph}{From line 4 to 26:}{31}{section*.19}
 \contentsline {paragraph}{From line 9 to 24:}{31}{section*.20}
 \contentsline {paragraph}{From line 14 to 22:}{31}{section*.21}
+\contentsline {paragraph}{After line 26:}{32}{section*.22}
 \contentsline {section}{\numberline {3.4}Technical details}{32}{section.3.4}
 \contentsline {subsection}{\numberline {3.4.1}Texture lookup}{32}{subsection.3.4.1}
 \contentsline {subsection}{\numberline {3.4.2}Texture Blending}{33}{subsection.3.4.2}
@@ -63,6 +64,6 @@
 \contentsline {section}{\numberline {A.1}Schlick's approximation}{56}{section.A.1}
 \contentsline {section}{\numberline {A.2}Spherical Coordinates}{56}{section.A.2}
 \contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{57}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{57}{appendix*.46}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{59}{appendix*.47}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{60}{appendix*.48}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{57}{appendix*.47}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{59}{appendix*.48}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{60}{appendix*.49}
