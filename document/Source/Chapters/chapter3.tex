@@ -189,9 +189,11 @@ TODO: start using the final findings from chapter 2 and substitute
 \subsection{Vertex Shader}
 The first computional stage within our rendering pipeline is computing all necessary per vertex data. Those computations are preformed in the vertex shader. In our case, we compute for any vertex of our current geometry the direction vectors $k1$ and $k2$ described like previousely in the tangent space. Initially all input data lives in its own space. Hence, we first have to transfrom all input data into the same space in order to use it for later computations within the fragment shader. We are going to transform k1 and k2 into the so called tangent space which. Furthermore, we have also to realign our local coordinate system. This is why there is an rodrigues rotation also involved. In order to avoid scaling issues and since we are only interested in the direction of the vectors k1 and k2, we have to normalize them, too. Last, we also output the position of the current vertex transfomed into the projective camera space.
   
-explain $cop_w$
-modelM
-other shader assigned inputs
+
+show CG graphic
+unify k1,k2 to wi,wr
+
+
 
 \begin{algorithm}[H]
   \caption{Vertex diffraction shader}
@@ -212,6 +214,10 @@ other shader assigned inputs
   \end{algorithmic}
 \end{algorithm}
 
+explain $cop_w$
+modelM
+other shader assigned inputs
+
 
 \subsection{Fragment Shader}
 The purpose of a fragment shader is to render per fragment. A fragment is spanned by three vertices of a given mesh. For each pixel within all the output from the vertex shaders of its corresponding vertices is then trilinearly interpolated, depending on the pixel's position within the fragment, and passed into its fragment shader program.
@@ -228,13 +234,13 @@ For natural structures in nano-scale, most of their spectral energy lies at lowe
   \begin{algorithmic}[1]
     \ForAll{$Pixel \thinspace p \in Fragment$}
       \State \init $BRDF_{XYZ}, BRDF_{RGB}$ \myto $vec4(0.0)$
-      \State $(u,v,w) = \hat{\mathbf{k_1}}-\hat{\mathbf{k_2}}$
+      \State $(u,v,w) = -\omega_i - \omega_r$
       \For{$(\lambda = \lambda_{min};\thinspace \lambda \leq \lambda_{max};\thinspace \lambda = \lambda + \lambda_{step})$}
-        \State $xyzWeights = getClrMatchingFnWeights(\lambda)$
-        \State $lookupCoord = getLookupCoord(u, v, \lambda)$
+        \State $xyzWeights = ColorWeights(\lambda)$
+        \State $lookupCoord = lookupCoord(u, v, \lambda)$
         \State \init $P$ \myto $vec2(0.0)$
         \State $k = \frac{2\pi}{\lambda}$
-        \For{$(n = 0$ \myto $MAXTAYLORTERMS)$}
+        \For{$(n = 0$ \myto $T)$}
           \State $taylorScaleF = \frac{(kw)^n}{n!}$
           \State \init $F_{fft}$  \myto $vec2(0.0)$
           \State $anchorX = int(floor(center.x + lookupCoord.x * fftImWidth)$
@@ -242,9 +248,9 @@ For natural structures in nano-scale, most of their spectral energy lies at lowe
           \For{$(i=(anchorX-winW)$ \myto $(anchorX + winW + 1))$}
             \For{$(j=(anchorY - winW)$ \myto $(anchorY + winW + 1))$}
               \State $dist = getDistVecFromOriginFor(i,j)$
-              \State $position = getLocalLookUp(i,j,n)$
-              \State $fftVal = getRescaledFourierTextureValueAt(position)$
-              \State $fftVal \asteq getGaussWeightAtDistance(dist)$
+              \State $pos = getLocalLookUp(i,j,n)$
+              \State $fftVal = rescaledFourierValueAt(pos)$
+              \State $fftVal \asteq gaussWeightOf(dist)$
               \State $F_{fft} \pluseq fftVal$
             \EndFor
           \EndFor
@@ -252,7 +258,7 @@ For natural structures in nano-scale, most of their spectral energy lies at lowe
         \EndFor
         \State $xyzPixelColor \pluseq dot(vec3(\left|P\right|^2), xyzWeights)$
       \EndFor
-      \State $BRDF_{XYZ} = xyzPixelColor*C(\hat{\mathbf{k_1}},\hat{\mathbf{k_2}})*shadowF$
+      \State $BRDF_{XYZ} = xyzPixelColor*C(\omega_i, \omega_r)*shadowF$
       \State $BRDF_{RGB}.xyz = D_{65}*M_{XYZ-RGB}*BRDF_{XYZ}.xyz$
       \State $BRDF_{RGB}= gammaCorrect(BRDF_{RGB})$
     \EndFor
@@ -261,22 +267,26 @@ For natural structures in nano-scale, most of their spectral energy lies at lowe
 
 
 \myparagraph{From line 4 to 26:} 
-Within this loop happens the uniform sampling along lambda space. At line 5: $getClrMatchingFnWeights(\lambda)$ computes the color weights for the current wavelength by bilinear interpolation from the two closest given $CIE_{XYZ}$ color weights for our current wavelength $\lambda$. At line 6: $getLookupCoord(u, v, \lambda)$ computes the current coordinate for the texture lookup in our precomputed ifft2 images. 
+Within this loop happens the uniform sampling along wavelength-space. At line 5: $ColorWeights(\lambda)$ computes the color weights for the current wavelength by bilinear interpolation between the two closest given $CIE_{XYZ}$ color weights for our current wavelength $\lambda$ stored in a external weights-table. At line 6: $lookupCoord(u, v, \lambda)$ computes the current coordinate for the texture lookup in our precomputed ifft2 images - See $\ref{eq:scalelook}$. 
 
 \myparagraph{From line 9 to 24:} 
-Within this loop happens the taylor series approximation till a predefined upper bound, denoted as $MAXTAYLORTERMS$.
+Within this loop happens the Taylor series approximation till a predefined upper bound, denoted as $T$.
 Basically, the spectral response is approximated for our current $(u,v,\lambda)$. Furthermore, neighborhood-bounds for the upcoming gaussian windowing-sampling-approach are computed, denoted as anchorX and anchorY.
 
 \myparagraph{From line 14 to 22:} 
-In this most inner loop the convolution of the gaussian window with the inverse FFT of the patch is pixelwise performed. 
-$getGaussWeightAtDistance(dist)$ computes $~\eqref{eq:gaussweight}$ from the distance between the center of the FFT image with the current position in the neighborhood in texture space. $getRescaledFourierTextureValueAt(position)$ rescales the current computed value by the precomputed extrema values since all image values are scaled between 0 and 1. At line 27 $C(\hat{\mathbf{k_1}},\hat{\mathbf{k_2}})$ is multiplied in front of the current computed pixel-color. This terms was introduced in the derivation chapter and is the product of equation $~\eqref{eq:cfact}$
+In this most inner loop, the convolution of the gaussian window with the inverse FFT of the patch is pixelwise performed. 
+$gaussWeightOf(dist)$ computes the weights $~\eqref{eq:gaussweight}$ from the distance between the current pixel's coordinates and the current neighbor's position in texture space - See $\ref{eq:gaussianwindow}$. 
 
-The $C$ term includes is the gain factor $\ref{eq:cfact}$. We compute this by using the so called Schlick approximation $\ref{eq:schlickapprox}$ using an reactive index at 1.5 since this is close to the measured value from snake sheds.
+$rescaledFourierValueAt(pos)$ rescales the current computed value by the precomputed extrema values since all image values are scaled between 0 and 1. 
 
-Our BRDF values are scaled by s shadowing function as described in (SEE REFERENCES - PAPER), since most of the grooves in the snake skin nano-structures would from a V-cavity along the plane for a wave front with their top-edges at almost the same height.   
+\myparagraph{After line 26:} 
+At line 27 the gain factor $C(\omega_i, \omega_r)$  $\ref{eq:cfact}$ is multiplied by the current computed pixel color like formulated in $\ref{eq:cpterm}$. The gain factor contains the geometric term $ref{eq:geometricterm}$ and the Fresnel term $F$. W approximate $F$ by the Schlick approximation $\ref{eq:schlickapprox}$, using an reactive index at 1.5 since this is close to the measured value from snake sheds.
+Our BRDF values are scaled by s shadowing function as described in (SEE REFERENCES - PAPER), since most of the grooves in the snake skin nano-structures would from a V-cavity along the plane for a wave front with their top-edges at almost the same height.
+
+Last, we transform our colors from the $CIE_XYZ$ colorspace to the $CIE_RGB$ space using the CIE Standard Illuminant D65, followed by a gamma correction. See $\ref{subsec:colortransformations}$ for further insight.
 
 \section{Technical details}
-\myparagraph{Texture lookup}
+\subsection{Texture lookup}
 In a GLSL shader the texture coordinates are normalized which means that the size of the texture maps to the coordinates on the range $[0,1]$ in each dimension. By convention the the bottom left corner of an image has the coordinates $(0,0)$, whereas the top right corner has the value $(1,1)$ assigned. 
 
 Given a nano-scaled surface patch P with a resolution $A$ by $A$ microns stored as an $N$ by $N$ pixel image $I$.
@@ -317,10 +327,7 @@ This is like a base change with $(u_{lookup}, v_{lookup})$ as new coordinate sys
 \label{eq:gaussianwindow}
 \end{equation}
 
-\myparagraph{Space Transformations}
-what spaces are involved.
-
-\myparagraph{Texture Blending}
+\subsection{Texture Blending}
 The final rendered color for each pixel is a weighted average of different color components, such as the diffraction color, the texture color and the diffuse color. In our shader the diffraction color is weighted by a constant $w_{diffuse}$. the texture color is once scales by a binary weight determined by the absolute value of the Fresnel Term $F$ and once by $1-w_{diffuse}$. 
 
 \begin{algorithm}[H]
@@ -331,8 +338,11 @@ The final rendered color for each pixel is a weighted average of different color
   \end{algorithmic}
 \end{algorithm}
 
-\myparagraph{Color Transformation}
+\subsection{Color Transformation}
+\label{subsec:colortransformations}
 mention CIE XYZ to CIE RGB, D65, gamma correction.
+
+
 
 \section{Discussion}
 Our Current approach will sample the whole wavelength spectrum for each pixel but there is an optimization possible:
