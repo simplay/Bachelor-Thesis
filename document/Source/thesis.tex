@@ -26,6 +26,7 @@
 \usepackage[hypcap]{caption}
 \usepackage{subfigure}
 \usepackage{float}
+\usepackage{mathtools}
 
 \renewcommand{\algorithmicforall}{\textbf{foreach}}
 \newcommand{\init}{\textbf{INIT }}
@@ -36,7 +37,8 @@
     \begin{pmatrix}\ifx\relax#1\relax\else#1\\\fi#2\\#3\end{pmatrix}
 }
 \newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
-
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
 \headrulewidth 0.5pt \addtolength{\headheight}{5pt}
 

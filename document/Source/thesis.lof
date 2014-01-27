@@ -3,9 +3,9 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Diffraction: Single Slit Example\relax }}{5}{figure.caption.2}
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Diffraction Pattern\relax }}{5}{figure.caption.3}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces $\omega _i$ points toward the light source, $\omega _r$ points toward the camera, $n$ is the surface normal\relax }}{11}{figure.caption.14}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Large Aperture}}}{11}{figure.caption.14}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Small Aperture}}}{11}{figure.caption.14}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces $\omega _i$ points toward the light source, $\omega _r$ points toward the camera, $n$ is the surface normal\relax }}{12}{figure.caption.14}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Large Aperture}}}{12}{figure.caption.14}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Small Aperture}}}{12}{figure.caption.14}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Blaze\relax }}{27}{figure.caption.17}
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Renderer Architecture\relax }}{28}{figure.caption.18}
