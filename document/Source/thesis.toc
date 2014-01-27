@@ -42,9 +42,9 @@
 \contentsline {paragraph}{From line 14 to 22:}{31}{section*.21}
 \contentsline {section}{\numberline {3.4}Technical details}{32}{section.3.4}
 \contentsline {paragraph}{Texture lookup}{32}{section*.22}
-\contentsline {paragraph}{Transformations, Scalings}{32}{section*.23}
-\contentsline {paragraph}{Texture Blending}{32}{section*.24}
-\contentsline {paragraph}{Color Transformation}{32}{section*.25}
+\contentsline {paragraph}{Space Transformations}{33}{section*.23}
+\contentsline {paragraph}{Texture Blending}{33}{section*.24}
+\contentsline {paragraph}{Color Transformation}{33}{section*.25}
 \contentsline {section}{\numberline {3.5}Discussion}{33}{section.3.5}
 \contentsline {chapter}{\numberline {4}Evaluation Data Acquisition}{34}{chapter.4}
 \contentsline {section}{\numberline {4.1}Data Acquisition}{34}{section.4.1}
