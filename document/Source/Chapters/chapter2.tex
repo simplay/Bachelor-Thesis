@@ -109,11 +109,16 @@ In Computer Graphics, when talking about Spectral Rendering, we are refering to 
 In order to see how crucial the role human vision plays, we only have to look the the definition of color: 
 \textit{Color is the aspect of visual perception by which an observer may distinguish differences between two structure-free filds of view of the same size and shape such as may be caused by differences in the spectral composition of the radiant energy concerned in the oberservation}. -  Wyszechki and Siles, 2000 mentioned in Computer Graphics Fundamentals Book. 
 
-Each color can be represented by three numbers, for instance defined by (X,Y,Z) tristimulus values. However, its primaries are imaginary, meanung that is is not possible to construct a device that has three light sources (all positive) that can reprodue all colors in the visible spectrum. A large number of (X,Y,Z) values do not even correspond to a phyisical color. 
+An eye consists of photoreceptor cells, cones and rods. Cones are responsible for color perception. 
+The human eye has three kinds of cone cells, with spectral sensitivity peaks in short (S, 420–440 nm), middle (M, 530–540 nm), and long (L, 560–580 nm) wavelengths.
+In principle, any color sensation in the humper color perception can therefore be described by just three paramters, corresponding to levels of stimulus of the three types of cone cells. Those three paramters span a color space.
 
-CIE 1931 RGB and CIE 1931 XYZ color spaces are the first mathematically defined color spaces. They were created by the International Commission on Illumination (CIE) in 1931.
+A color space maps a range of physically produced colors from mixed light to an objective description of color
+sensations registered in the eye in terms of tristimulus values.
 
-The CIE's color matching functions $\overline{x}(\lambda)$, $\overline{y}(\lambda)$ and $\overline{z}(\lambda)$ are the numerical description of the chromatic response of the observer (described above). They can be thought of as the spectral sensitivity curves of three linear light detectors yielding the CIE tristimulus values X, Y and Z. Collectively, these three functions are known as the CIE standard observer.[9]
+Due to distribution of cones in human eye the tristimulus values, depend on over's field of view. cie defined color mapping function called standard observer, to eliminate this variable represent an avarage human chromatic response.
+
+The CIE's color matching functions $\overline{x}(\lambda)$, $\overline{y}(\lambda)$, $\overline{z}(\lambda)$ are the numerical description of the chromatic response of the observer (described above). They can be thought of as the spectral sensitivity curves of three linear light detectors yielding the CIE tristimulus values X, Y and Z.
 
 The tristimulus values for a color with a spectral power distribution $I(\lambda)$, are given in terms of the standard observer by:
 
