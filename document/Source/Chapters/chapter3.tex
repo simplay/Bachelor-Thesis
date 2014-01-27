@@ -275,14 +275,50 @@ The $C$ term includes is the gain factor $\ref{eq:cfact}$. We compute this by us
 
 Our BRDF values are scaled by s shadowing function as described in (SEE REFERENCES - PAPER), since most of the grooves in the snake skin nano-structures would from a V-cavity along the plane for a wave front with their top-edges at almost the same height.   
 
-SHOW GRAPH for this fact: (lambda, k=f(lambda)), where $k = \frac{2pi}{\lambda}$, $f = \frac{c}{\lambda}$
-
 \section{Technical details}
 \myparagraph{Texture lookup}
-In a GLSL shader the thexture coordinates my be normalized which means that the size of the texture maps to the coordinates on the range $[0,1]$ in each dimension. By convention the the bottom left corner of an image has the coordinates $(0,0)$, whereas the top right corner has the value $(1,1)$ assigned. In order to perform pixel-index-wise one has to transform the lookup coordinates by $\frac{pixellocation_x}{image_{size_x}}$ for its x coordinate and similarly for its y coordinate. Since the zero frequency component of each fourier image was shifted towards the centre of the image, we have also a bias involved in our lookup which we have to subtract from the lookup-coordinate in order to perform the final lookup.
+In a GLSL shader the texture coordinates are normalized which means that the size of the texture maps to the coordinates on the range $[0,1]$ in each dimension. By convention the the bottom left corner of an image has the coordinates $(0,0)$, whereas the top right corner has the value $(1,1)$ assigned. 
 
-\myparagraph{Transformations, Scalings}
-what is scaled?
+Given a nano-scaled surface patch P with a resolution $A$ by $A$ microns stored as an $N$ by $N$ pixel image $I$.
+Then one pixel in any direction corresponds to $dH = \frac{A}{N} \mu m$. 
+In Matlab we compute a series of $n$ output images $\{I_{out_1},...,I_{out_n}\}$ from $I$, which we will use for the lookup in our shader. For the lookup we use scaled and shifted $(u,v)$ coordinates from $\ref{eq:uvw}$. 
+
+Since the zero frequency component of output images was shifted towards the centre of each image, we have to shift $u$, $v$ to the center of the current $N$ by $N$ pixel image by a bias $b$. Mathematically, the bias is a constant value is computed the following:
+
+\begin{align}
+    b
+    &= (N \% 2 == 0) \quad ? \quad \frac{N}{2} : \frac{N-1}{2}
+\label{eq:bias}
+\end{align}
+
+For the scaling we have to think a little further: lets consider a $T$ periodic signal in time, i.e. $x(t) = x(t+nT)$ for any integer n. After applying the DFT, we have its discrete spectrum $X[n]$ with frequency interval $w0 = 2pi / T$ and time interval $t0$. Let $k = \frac{2 \pi}{\lambda}$ denote the wavenumber for the current wavelength $\lambda$.
+Ehen the signal is both periodic with time period $T$ and discrete with time interval $t_0$ then its spectrum should be both discrete with frequency interval $w_0$ and periodic with frequency period $\Omega = \frac{2 \pi}{t_0}$. This gives us the idea how to discretize the spectrum: Let us consider our Patch $P$ assuming it is distributed as a periodic function on our surface. Then, its frequency interval along the x direction is $w_0 = \frac{2 \pi}{T} = \frac{2 \pi}{N*dH}$. 
+Thus only wave numbers that are integer multiples of $w_0$ after a multiplication with $u$ must be considered, i.e. $ku$ is integer multiple of $w_0$. Hence the lookup for the u-direction will look like:
+
+\begin{align}
+    \frac{ku}{w_0} 
+    &= \frac{ku N dH}{2 \pi} \\
+    &= \frac{u N dH}{\lambda}
+\label{eq:scalelook}
+\end{align}
+
+Using those findings $\ref{eq:bias}$, $\ref{eq:scalelook}$, the final $(u,v)$ texture lookup-coorinates for the current wavelength $\lambda$ in iteration, will then look like:
+
+\begin{equation}
+  (u_{lookup}, v_{lookup}) = \left( \frac{u N dH}{\lambda} + b, \frac{v N dH}{\lambda} + b \right)
+\label{eq:ublookup}
+\end{equation}  
+
+Note for the windowing approach we are visiting a one pixel neighborhood for each pixel $p$. 
+This is like a base change with $(u_{lookup}, v_{lookup})$ as new coordinate system origin. The lookup coordinates for the neighbor-pixel $(i,j)$ are:
+
+\begin{equation}
+  (u_{lookup}, v_{lookup}) = (i,j)-(u_{lookup}, v_{lookup})
+\label{eq:gaussianwindow}
+\end{equation}
+
+\myparagraph{Space Transformations}
+what spaces are involved.
 
 \myparagraph{Texture Blending}
 The final rendered color for each pixel is a weighted average of different color components, such as the diffraction color, the texture color and the diffuse color. In our shader the diffraction color is weighted by a constant $w_{diffuse}$. the texture color is once scales by a binary weight determined by the absolute value of the Fresnel Term $F$ and once by $1-w_{diffuse}$. 
