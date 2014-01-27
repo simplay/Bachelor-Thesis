@@ -325,11 +325,24 @@ The final rendered color for each pixel is a weighted average of different color
 
 In our shader we access a table which contains precomputed CIE's color matching functions values from $\lambda_{min} = 380 nm$ to $\lambda_{max} = 780 nm$ in $5 nm$ steps. Such a function value table can be found at downloaded at cvrl.ioo.ucl.ac.uk for example. We compute the $(X,Y,Z)$ $CIE_{XYZ}$ color values as described in $\ref{subsec:colors}$. 
 
-transform
 
-The shader uses the CIE Standard Illuminant D65 which is intented to represent average daylight which is applied to the RGB color transformation matrix. 
+We can transform the color values into $CIE_{RGB}$ by performing the following linear transformation:
 
-overall transformation looks like...
+\begin{equation}
+\begin{bmatrix}R\\G\\B\end{bmatrix} = M \cdot \begin{bmatrix}X\\Y\\Z\end{bmatrix}
+\end{equation} 
+
+where one possible transformation is: 
+
+\begin{equation}
+M = \begin{bmatrix} 0.41847 & -0.15866 & -0.082835\\ -0.091169 & 0.25243 & 0.015708\\ 0.00092090 & -0.0025498 & 0.17860 \end{bmatrix}
+\end{equation}
+
+There are some other color space transformation. The shader uses the CIE Standard Illuminant D65 which is intended to represent average daylight. Using D65 the whole colorspace transformation will look like:
+
+\begin{equation}
+\begin{bmatrix}R\\G\\B\end{bmatrix} = M \cdot \begin{bmatrix}X \cdot D65.x \\ Y \cdot D65.y \\Z \cdot D65.z \end{bmatrix} 
+\end{equation}
 
 Last we perfrom gamma correction
 non lin operation to 
