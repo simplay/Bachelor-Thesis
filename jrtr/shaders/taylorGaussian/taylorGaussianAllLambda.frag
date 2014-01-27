@@ -73,6 +73,7 @@ float orgV;
 void mainBRDFMap();
 void mainRenderGeometry();
 void coneMain();
+void gemMain();
 
 void setVarXY(){
 	dH = t0;
@@ -492,16 +493,90 @@ void mainBRDFMap(){
 	frag_shaded = vec4(gammaCorrect(totalXYZ, 2.2), 1.0);
 }
 
-void main(){
-	if(isCone==1){
-		coneMain();
-	}else{
-		if(renderBrdfMap == 1){
-			mainBRDFMap();
-		}else{
-			mainRenderGeometry();
+
+vec3 blend3 (vec3 x){
+	vec3 y = 1.0 - x * x;
+	y = max(y, vec3 (0, 0, 0));
+	return (y);
+}
+
+void gemMain(){
+	
+	setVarXY();
+	float thetaR = asin(sqrt(o_org_pos.x*o_org_pos.x + o_org_pos.y*o_org_pos.y ));
+	float phiR = atan(o_org_pos.y, o_org_pos.x);
+	vec3 k1 = vec3(0.0f);
+	vec3 k2 = vec3(0.0f);
+	
+	k1.x = -sin(thetaI)*cos(phiI);
+	k1.y = -sin(thetaI)*sin(phiI);
+	k1.z = -cos(thetaI);
+	
+	k2.x = sin(thetaR)*cos(phiR);
+	k2.y = sin(thetaR)*sin(phiR);
+	k2.z = cos(thetaR);
+	
+	float u = k1.x - k2.x;
+	float v = k1.y - k2.y;
+	float w = k1.z - k2.z;
+
+
+	int shiftSpectrum = 0; 
+	float n_min = 0;
+	float n_max = 0;
+	float lambda_min = 0.4; // 400nm red
+	float lambda_max = 0.7; // 700nm blue
+	int fac = 1;
+	
+	float lambda = 0;
+	vec4 cdiff = vec4(0, 0, 0, 1);
+	float f = 4;
+	float d = 25.0;
+	float eps = 0.0;
+	
+	float uuu = abs(u);
+	float vvv = abs(v);
+	
+	n_min = (d*uuu)/lambda_max;
+	n_max = (d*uuu)/lambda_min;
+	if(vvv < 0.01){
+		int lower = 0;
+		while(lower < n_min){
+			lower++;
 		}
+		
+		int upper = 0;
+		while(upper < n_max){
+			upper++;
+		}
+		upper--;
+
+		for (int n = lower; n <= upper; n = n + 1){
+			float delta_n = 0;
+			delta_n = n - n_min;
+			float alpha = (lambda_max - lambda_min) / (n_max - n_min);
+			lambda = lambda_min + alpha*delta_n;
+			// y:[lamda_min, lamda_max] -> [0,1]
+			float y = ((10/3)*(lambda*(d/(delta_n+n_min))) - (4/3)); 
+			cdiff.xyz += ( blend3(vec3(f * (y - 0.25), f * (y - 0.5), f * (y - 0.75))) ); 
+		}
+		if(uuu < 0.01) eps = 1.0;
 	}
+
+	frag_shaded = (cdiff)/10.0 + eps;
+}
+
+void main(){
+	gemMain();
+//	if(isCone==1){
+//		coneMain();
+//	}else{
+//		if(renderBrdfMap == 1){
+//			mainBRDFMap();
+//		}else{
+//			mainRenderGeometry();
+//		}
+//	}
 	
 
 }
