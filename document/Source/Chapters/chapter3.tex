@@ -283,17 +283,12 @@ In a GLSL shader the texture coordinates are normalized which means that the siz
 
 Given a nano-scaled surface patch P with a resolution $A$ by $A$ microns stored as an $N$ by $N$ pixel image $I$.
 Then one pixel in any direction corresponds to $dH = \frac{A}{N} \mu m$. 
-In Matlab we compute a series of $n$ output images $\{I_{out_1},...,I_{out_n}\}$ from $I$, which we will use for the lookup in our shader. For the lookup we use scaled and shifted $(u,v)$ coordinates from (SEE REFERENCE)  
+In Matlab we compute a series of $n$ output images $\{I_{out_1},...,I_{out_n}\}$ from $I$, which we will use for the lookup in our shader. For the lookup we use scaled and shifted $(u,v)$ coordinates from $\ref{eq:uvw}$. 
 
 Since the zero frequency component of output images was shifted towards the centre of each image, we have to shift u,v to the center of the current image by a bias. 
 
-
-For the scaling we have to think a little further:
-lets consider a T periodic signal, i.e. x(t) = x(t+nT) for any integer n.
-frequency interval w0 = 2pi / T and time interval t0
-
-Let $k = \frac{2 \pi}{\lambda}$ denote the wavenumber for the current wavelength $\lambda$.
-when the signal is both periodic with time period $T$ and discrete with time interval $t_0$  then its spectrum should be both discrete with frequency interval $w_0$ and periodic with frequency period $\Omega = \frac{2 \pi}{t_0}$. This gives us the idea how to discretize the spectrum: Let us consider our Patch $P$ assuming it is distributed as a periodic function on our surface. Then, its frequency interval along the x direction is $w_0 = \frac{2 \pi}{T} = \frac{2 \pi}{N*dH}$. 
+For the scaling we have to think a little further: lets consider a $T$ periodic signal in time, i.e. $x(t) = x(t+nT)$ for any integer n. After applying the DFT, we have its discrete spectrum $X[n]$ with frequency interval $w0 = 2pi / T$ and time interval $t0$. Let $k = \frac{2 \pi}{\lambda}$ denote the wavenumber for the current wavelength $\lambda$.
+Ehen the signal is both periodic with time period $T$ and discrete with time interval $t_0$ then its spectrum should be both discrete with frequency interval $w_0$ and periodic with frequency period $\Omega = \frac{2 \pi}{t_0}$. This gives us the idea how to discretize the spectrum: Let us consider our Patch $P$ assuming it is distributed as a periodic function on our surface. Then, its frequency interval along the x direction is $w_0 = \frac{2 \pi}{T} = \frac{2 \pi}{N*dH}$. 
 Thus only wave numbers that are integer multiples of $w_0$ after a multiplication with $u$ must be considered, i.e. $ku$ is integer multiple of $w_0$. Hence the lookup for the u-direction will look like:
 
 \begin{align*}
@@ -301,12 +296,6 @@ Thus only wave numbers that are integer multiples of $w_0$ after a multiplicatio
     &= \frac{ku N dH}{2 \pi} \\
     &= \frac{u N dH}{\lambda}
 \end{align*}
-
-
-
-For a lookup in our fragment shader, we have to transform the lookup coordinates
-
-In order to perform pixel-index-wise one has to transform the lookup coordinates by $\frac{pixellocation_x}{image_{size_x}}$ for its x coordinate and similarly for its y coordinate. Since the zero frequency component of each fourier image was shifted towards the centre of the image, we have also a bias involved in our lookup which we have to subtract from the lookup-coordinate in order to perform the final lookup.
 
 \myparagraph{Space Transformations}
 what spaces are involved.
