@@ -18,108 +18,86 @@ Measurements were carried out using intermittent contact mode in a Burker Dimens
 An AFM is a microscope that uses a tiny probe mounted on a cantilever to scan the surface of an object. The probe is extremely close tobut does not touchthe surface. As the probe traverses the surface, attractive and repulsive forces arising between it and the atoms on the surface induce forces on the probe that bend the cantilever. The amount of bending is measured and recorded, providing a map of the atoms on the surface. Atomic force microscopes can achieve magnification of a factor of 5 × 106, with a resolution of 2 angstroms, sufficient to resolve individual carbon atoms. Also called scanning force microscope.
 is a very high-resolution type of scanning probe microscopy, with demonstrated resolution on the order of fractions of a nanometer, more than 1000 times better than the optical diffraction limit.
 
-The tops used were etched silicon TESP tips with a nomminal frequency and force constant of 320 kHz and 42 N/m respectively. 
+The tops used were etched silicon TESP tips with a nominal frequency and force constant of 320 kHz and 42 N/m respectively. 
 
 SHOW AFM IMAGE
 
 \section{Diffraction Gratings}
+An idealised grating is made of a very large number of parallel, evenly spaced slits in an in an opaque sheet. Typically, it would have about 10,000 slits. In order to cause diffraction, the spacing between slits must be wider than the wavelength of interest. Each slit in the grating acts as a quasi point source from which light propagates in all directions. The diffracted light is composed of the sum of interfering wave components emanating from each slit in the grating.
 
-The so called idealised grating is made up of a set of slits of spacing $d$. In order to cause diffraction that spacing must be wider than the wavelength of interest. Each slit in the grating acts as a quasi point source from which light propagates in all directions. The diffracted light is composed of the sum of interfering wave components emenating from each slit in the grating. 
+\begin{figure}[ht]
+  \centering
+  \includegraphics[scale=0.7]{evaluation/spectrometer.jpg}
+  \label{fig:spectometer}
+  \caption{Spectometer: When a beam of monochromatic light passes through a grating placed in a spectrometer, images of the sources can be seen through the telescope at different angles.}
+\end{figure}
 
-SHOW FIGURE ABC
+Suppose monochromatic light is directed at the grating parallel to its axis as shown in figure. Let the distance between successive slits be equal $d$.
 
-At any given point in space through which diffracted light may pass, the path-length to each slit in the grating will vary. Since the path-length varies, so will the phases of the waves at that point from each of the slits. This those waves will either add or subtract from one another due to the phenomenon of interference. Note that a point has maximal intensity if and only if at angleswhich would satisfy the relationship $d \frac{sin(\phi)}{\lambda} = |m|$. 
+\begin{figure}[ht]
+  \centering
+  \includegraphics[scale=0.7]{evaluation/grating2.jpg}
+  \label{fig:lighthitsgrating}
+  \caption{Light directed to parallel to grating:}
+\end{figure}
 
-SHOW FIGURE ABC1
+The diffraction pattern on the screen is the result of the combined effects of diffraction and interference. Each slit causes diffraction, and the diffracted beams in turn interfere with one another to produce the pattern. The path difference between waves from any two adjacent slits can be found by dropping a perpendicular line between the parallel waves. By geometry, this path difference is $d sin(\theta)$. If the path difference equals one wavelength or some integral multiple of a wavelength, waves from all slits will be in phase and a bright line will be observed at that point. Therefore, the condition for maxima in the interference pattern at the angle $\theta$ is: 
 
-where m is a integer and m equal zero corresponds to specular light. 
-The detailed distribution of diffraction depends on the detailed structure of the grating elements and the number of grating elements but the grating equation will always give the maximal intensity in the directions.
+\begin{equation}
+ d sin(\theta) = m \lambda 
+\end{equation}
 
-This derivation of the grating equation is based on an idealised grating. However, the relationship between the angles of the diffracted beams, the grating spacing and the wavelength of the light apply to any regular structure of the same spacing, because the phase relationship between light scattered from adjacent elements of the grating remains the same. The detailed distribution of the diffracted light depends on the detailed structure of the grating elements as well as on the number of elements in the grating, but it will always give maxima in the directions given by the grating equation.
+where $m \in \mathds{N}_0$ is the order of diffraction.
 
+Because $d$ is very small for a diffraction grating, a beam of monochromatic light passing through a diffraction grating is splitted into very narrow bright fringes at large angles $\theta$.
 
-MERGE ME
+\begin{figure}[ht]
+  \centering
+  \includegraphics[scale=0.7]{evaluation/GratingSurface.png}
+  \caption{Different Orders of diffraction: When light is directed at the grating not parallel to its axis, there is another $sin(a)$ invovled. See grating equation $\ref{eq:gratingEq}$.}
+\label{fig:gratingdiffractionorders}
+\end{figure}
 
-A diffraction grating which consists of a very large number of parallel, evenly spaced slits in an opaque sheet
+When a narrow beam of white light is directed at a diffraction grating along its axis, instead of a monochromatic bright fringe, a set of coloured spectra are observed on both sides of the central white band as shown in figure $\ref{fig:gratingdiffractionorders}$.
 
-A typical grating would have 10,000 slits in 1 cm and thus the slit separation is much smaller than that used in the double-slit experiment. When a beam of monochromatic light is allowed to pass through the grating placed in a spectrometer, images of the sources can be seen through the telescope at different angles.
+\begin{figure}[ht]
+  \centering
+  \includegraphics[scale=0.7]{evaluation/coloredspectrum.jpg}
+  \label{fig:diffractionSpectrum}
+  \caption{White Light beam causes coloured diffraction spectra}
+\end{figure}
 
-ADD FIGURE
+Since $\theta$ increases with wavelength $\lambda$, red light which has the longest wavelength is diffracted through the largest angle. Violet light has the shortest wavelength and is diffracted the least. Thus, white light is split into its component colours from violet to red light. The spectrum is repeated in the different orders of diffraction. Only the zeroth order spectrum is pure white.
 
-Since a diffraction grating is a multiple-slit plate, the maxima occur at exactly the same position as a double slit interference. However unlike a double slit, the bright fringes are sharper and brighter.
-
-Suppose monochromatic light is directed at the grating parallel to its axis as shown. Let the distance between successive slits be d.
-
-ADD FIGURE
-
-The diffraction pattern on the screen is the result of the combined effects of diffraction and interference. Each slit causes diffraction, and the diffracted beams in turn interfere with one another to produce the pattern. The path difference between waves from any two adjacent slits can be found by dropping a perpendicular line between the parallel waves. By geometry, this path difference is d sin θ . If the path difference equals one wavelength or some integral multiple of a wavelength, waves from all slits will be in phase and a bright line will be observed at that point. Therefore, the condition for maxima in the interference pattern at the angle θ is 
-
-d sin θ = n λ
-where n = 0,1,2,3…..
-
-Because d is very small for diffraction grating, a beam of monochromatic light passing through a diffraction grating is splitted into very narrow maxima(bright fringes) at large angles θ.
-
-ADD FIGURE
-
-The maximum number of orders that can be found by letting maximum θ = 90o and finding n using equation
-n ≤ (d sin 90o)/λ
-
-When a narrow beam of white light is directed at a diffraction grating along its axis, instead of a monochromatic bright fringe, a set of coloured spectra are observed on both sides of the central white band as shown in the Figure.
-
-ADD FIGURE
-
-For a diffraction grating, the condition for the nth order maximum is given by d sin θ = nλ.
-
-Since θ increases with wavelength λ, red light which has the longest wavelength is diffracted through the largest angle. Violet light has the shortest wavelength and is diffracted the least. Thus, white light is split into its component colours from violet to red light. The spectrum is repeated in the different orders of diffraction. Only the zeroth order spectrum is pure white.
-
-The figure below shows the difference between a monochromatic and a white light spectra.
-
-ADD FIGURE
-
-wo colours of different orders may overlap if their angles of diffraction θ are equal. 
-
-MERGE ME
-
-ADD FIGURE
-
-The performance of a simple diffraction grating can best be shown with reference to Figure 2. Notice that the optical beam enters the periodic pattern (spatial fringe pattern) with a particular angle of incidence. The beam then separates into one or more orders according to the grating equation: EQ
-
-Three characteristics of the simple diffraction grating stand out. As figure 2 shows, the zero order is not diffracted and therefore continues undisturbed (but has some loss of power). Also, for a given wavelength, the amount of beam turning is a function of the groove period and of the angle of incidence. Finally, no real diffracted beam exists when the wavelength is greater than twice the groove period. However, when the grove period is large compared to the wavelength many orders can exist. Indeed, Echelle gratings often operate over hundreds of orders.
-
-Free Spectral Range:
-The free spectral range of a diffraction grating is defined as the largest bandwidth in a given order which does not overlap the same bandwidth in an adjacent order. Referring to Figure 3, if ℓ1 and ℓ2 are the extremes of the spectrum band then overlapping will occur at the long wavelength end of the spectrum when ℓ2 in order m is diffracted at the same angle as in order m+1. Conversely, overlapping will occur at the short wavelength end when ℓ1 in order m coincides with ℓ2 order m-1. To avoid overlapping, the required conditions is:
-ℓ2-ℓ1≦ℓ1/m or ℓ2-ℓ1≦ℓ2/(m-1)
-however, since ℓ1 < ℓ2, we may say that the free spectral range is equal to the shortest wavelength in the allowed bandwidth divided by the order number.
-
-ADD FIGURE
-
-
-
-
-% \begin{figure}[ht]
-% \centering
-% 
-% \subfigure[Subfigure 1 caption]{
-%    \includegraphics[scale=0.3]{1.png}
-%    \label{fig:subfig1}
-%  }
-% ~
-%  \subfigure[Subfigure 2 caption]{
-%    \includegraphics[scale=0.3]{1.png}
-%    \label{fig:subfig2}
-%  }
-% ~
-%  \subfigure[Subfigure 3 caption]{
-%    \includegraphics[scale=0.3]{1.png}
-%    \label{fig:subfig3}
-%  }
-% 
-% 
-% \label{myfigure}
-% \caption{Global figure caption}
-% \end{figure}
+\begin{figure}[ht]
+  \centering
+  \subfigure[one slits]{
+    \includegraphics[scale=0.1]{evaluation/slits/spalt1.png}
+    \label{fig:diffractionSlits1}
+  }
+~
+  \subfigure[two slits]{
+    \includegraphics[scale=0.1]{evaluation/slits/spalt02.png}
+    \label{fig:diffractionSlits2}
+  }
+~
+  \subfigure[three slits]{
+    \includegraphics[scale=0.1]{evaluation/slits/spalt03.png}
+    \label{fig:diffractionSlits3}
+  }
+~
+  \subfigure[seven slits]{
+    \includegraphics[scale=0.1]{evaluation/slits/spalt07.png}
+    \label{fig:diffractionSlits7}
+  }
+  
+  \label{fig:diffractionSlits}
+  \caption{Difference of diffraction pattern between a monochromatic (top) and a white (bottom) light spectra for different number of slits.}
+\end{figure}
 
 
+WHITEMONODIFF
+The figure below shows the di.
 
 
 \section{Evaluation}
@@ -131,6 +109,7 @@ When light at a wavelength $\lambda$ falls on a sample presenting a periodicity 
 
 \begin{equation}
   sin(\theta) = sin(\phi) + \frac{m \lambda}{d}
+  \label{eq:gratingEq}
 \end{equation}
 
 In our evaluation we are interested in the zero order diffraction, i.e. m equals zero which corresponds to direct transmission or specular reflection in the case of a reflection grating. 
@@ -148,6 +127,7 @@ We are going implement a similar algorithm as the diffraction fragment shader al
 
 \begin{algorithm}
 \caption{Evaluation: lambda thetar graph}
+\label{alg:evalmatlab}
 \begin{lstlisting}
 % load all variables computed in java
 lInc = (lMax - lMin)./(lambdaCnt-1);
@@ -169,9 +149,25 @@ end
 \end{lstlisting}
 \end{algorithm}
 
-\includegraphics[scale=0.5]{blaze2500_75.png}
-\includegraphics[scale=0.5]{blaze2500_75_closeup1.png}
-\includegraphics[scale=0.5]{blaze2500_75_closeup2.png}
+\begin{figure}[ht]
+  \centering
+  \subfigure[plot $\lambda$ - $\theta_i$]{
+    \includegraphics[scale=0.19]{blaze2500_75.png}
+    \label{fig:evalBlaze11}
+  }
+~
+  \subfigure[Zoomed in]{
+    \includegraphics[scale=0.19]{blaze2500_75_closeup1.png}
+    \label{fig:evalBlaze12}
+  }
+~
+\subfigure[Further zoomed in]{
+  \includegraphics[scale=0.19]{blaze2500_75_closeup2.png}
+  \label{fig:evalBlaze13}
+}
+  \label{evaluationBlaze1}
+  \caption{Evaluation: blaze grating}
+\end{figure}
 
 red graph is based on data produced by our method, the blue and green graphs are plots from the grating equation for different angles. If the blue graph is close the the red one, then our method performs well. 
 

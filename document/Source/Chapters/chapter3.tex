@@ -55,13 +55,111 @@ end
 
 The command fftshift rearranges the output of the ifft2 by moving the zero frequency component to the centre of the image. This is useful for visualizing a Fourier Transform with zero frequency components in the middle of the spectrum.
 
+
+\begin{figure}[ht]
+  \centering
+  \subfigure[Blaze Patch]{
+    \includegraphics[scale=0.25]{implementation/hf/blaze/blazeBig.png}
+    \label{fig:matlabBlazePatch}
+  }
+~
+  \subfigure[Extrema Plot]{
+    \includegraphics[scale=0.4]{implementation/hf/blaze/extrema.png}
+    \label{fig:extremaBlaze}  
+  }
+  
+  \subfigure[ImRe0]{
+    \includegraphics[scale=0.6]{implementation/hf/blaze/AmpReIm0.png}
+    \label{fig:blazeftimre0}
+  }
+~
+  \subfigure[ImRe1]{
+    \includegraphics[scale=0.6]{implementation/hf/blaze/AmpReIm1.png}
+    \label{fig:blazeftimre1}
+  }
+~
+  \subfigure[ImRe4]{
+    \includegraphics[scale=0.6]{implementation/hf/blaze/AmpReIm4.png}
+    \label{fig:blazeftimre4}
+  }
+~
+  \subfigure[ImRe10]{
+    \includegraphics[scale=0.6]{implementation/hf/blaze/AmpReIm10.png}
+    \label{fig:blazeftimre10}
+  }
+~
+  \subfigure[ImRe20]{
+    \includegraphics[scale=0.6]{implementation/hf/blaze/AmpReIm20.png}
+    \label{fig:blazeftimre20}
+  }
+ 
+  
+  \subfigure[Re0]{
+    \includegraphics[scale=0.6]{implementation/hf/blaze/re0.png}
+    \label{fig:blazeftre0}
+  }
+~
+  \subfigure[Re1]{
+    \includegraphics[scale=0.6]{implementation/hf/blaze/re1.png}
+    \label{fig:blazeftre1}
+  }
+~
+  \subfigure[Re4]{
+    \includegraphics[scale=0.6]{implementation/hf/blaze/re4.png}
+    \label{fig:blazeftre4}
+  }
+~
+  \subfigure[Re10]{
+    \includegraphics[scale=0.6]{implementation/hf/blaze/re10.png}
+    \label{fig:blazeftre10}
+  }
+~
+  \subfigure[Re20]{
+    \includegraphics[scale=0.6]{implementation/hf/blaze/re20.png}
+    \label{fig:blazeftre20}
+  }
+  
+  \subfigure[Im0]{
+    \includegraphics[scale=0.45]{implementation/hf/blaze/im0.png}
+    \label{fig:blazeftim0}
+  }
+~
+  \subfigure[Im1]{
+    \includegraphics[scale=0.6]{implementation/hf/blaze/im1.png}
+    \label{fig:blazeftim1}
+  }
+~
+  \subfigure[Im4]{
+    \includegraphics[scale=0.6]{implementation/hf/blaze/im4.png}
+    \label{fig:blazeftim4}
+  }
+~
+  \subfigure[Im10]{
+    \includegraphics[scale=0.6]{implementation/hf/blaze/im10.png}
+    \label{fig:blazeftim10}
+  }
+~
+  \subfigure[Im20]{
+    \includegraphics[scale=0.6]{implementation/hf/blaze/im20.png}
+    \label{fig:blazeftim20}
+  }
+  
+  \label{matlabBlazeFourierImages}
+  \caption{Blaze}
+\end{figure}
+
+
 TODO: say something about output?
 
 \section{Our Java Renderer}
 In autumn 2012, during the semester I have attented the class computer graphics held by M. Zwicker. During the whole class we have developed a so called real time renderer program written in java as a series of homework assignments in order to be admitted to the final exam. The architecture of the program is divided into two parts: a rendering engine, the so called jrtr (java real time renderer) and an application program, denoted as scene.
 
-SHOW ARCHITECTURE GRAPHIC from CG
-show schema: scene data => GPU=[Vertex processing, modeling and viewing transformation => Projection => Rasterization, fragment processing, visibility] => image
+\begin{figure}[ht]
+  \centering
+  \includegraphics[scale=0.7]{implementation/framework.png}
+  \label{rendererArchitecture}
+  \caption{Renderer Architecture}
+\end{figure}
 
 the scene application program task was basically to define the whole scene we is going to be rendered within jrtr later.
 A scene consists of the setup of the world camera, definitions of light source, frustum, geometries which live in our scene and their material constants. Such materials are textures for example. All those scene attributes are managed within jrtr. In the application program, there only happens their definition.
@@ -116,7 +214,6 @@ other shader assigned inputs
 
 
 \subsection{Fragment Shader}
-
 The purpose of a fragment shader is to render per fragment. A fragment is spaned by three vertices of a given mesh. For each pixel within all the output from the vertex shaders of its corresponding vertices is then trilinearly interpolated, depending on the pixel's position within the fragment, and passed into its fragment shader program.
 Furthermore, there can be additional input be assigned which is not directly interpolated from the output of vertex shader programs. Our fragment shader just relies on k1 and k2 from its vertex shaders for the computation of the effect of diffraction.
 There are some values preliminarily assigned to our fragment shader during the opgengl setup within our java program, like all references to the image buffers, containing the fourier transformations, the number of taylor step approximations, the minimal and maximal wavelength, other lookup values like the scaling factors, a reference to a lookup table containung the cie xyz color weights for our wavelength domain and other scaling constants.
@@ -174,22 +271,39 @@ Basically, the spectral response is approximated for our current $(u,v,\lambda)$
 In this most inner loop the convolution of the gaussian window with the inverse fft of the patch is pixelwise performed. 
 $getGaussWeightAtDistance(dist)$ computes $~\eqref{eq:gaussweight}$ from the distance between the center of the fft image with the current position in the neighborhood in texture space. $getRescaledFourierTextureValueAt(position)$ rescales the current computed value by the precomputed extrema values since all image values are scaled between 0 and 1. At line 27 $C(\hat{\mathbf{k_1}},\hat{\mathbf{k_2}})$ is multiplied in front of the current computed pixelColor. This terms was introduced in the derivation chapter and is the product of equation $~\eqref{eq:cfact}$
 
-The C term includes the so called Fresenel Term. We compute this by using the so called Schlick approximation (See appendix) using an reactive index at 1.5 since this is close to the measured value from snake sheds.
+The $C$ term includes the so called Fresenel Term. We compute this by using the so called Schlick approximation (See appendix) using an reactive index at 1.5 since this is close to the measured value from snake sheds.
 NOTE about shadow function:  Our BRDF values are scaled by s shadowing function as described in (SEE REFERENCES - PAPER), since most of the grooves in the snake skin nanostructures would from a V-cavity along the plane for a wave front with their top-edges at almost the same height.   
 
 SHOW GRAPH for this fact: (lambda, k=f(lambda)), where $k = \frac{2pi}{\lambda}$, $f = \frac{c}{\lambda}$
 
+
+\section{Technical details}
 \myparagraph{Texture lookup}
 In a GLSL shader the thexture coordinates my be normalized which means that the size of the texture maps to the coordinates on the range $[0,1]$ in each dimension. By convention the the bottom left corner of an image has the coordinates $(0,0)$, whereas the top right corner has the value $(1,1)$ assigned. In order to perform pixel-index-wise one has to transform the lookup coordinates by $\frac{pixellocation_x}{image_{size_x}}$ for its x coordinate and similarly for its y coordinate. Since the zero frequency component of each fourier image was shifted towards the centre of the image, we have also a bias involved in our lookup which we have to subtract from the lookup-coordinate in order to perform the final lookup.
 
+\myparagraph{Transformations, Scalings}
+what is scaled?
+
+\myparagraph{Texturing}
+how is performed?
+
+\myparagraph{Gain Factor}
+
+
+The Fresnel's equations describe the reflection and transmission of electromagnetic waves at an interface. That is, they give the reflection and transmission coefficients for waves parallel and perpendicular to the plane of incidence. We use the so called Schlick's approximation is a formula for approximating the contribution of the Fresnel term. See $\ref{eq:schlickapprox}$
+
+Reference to appendix for fresenel
+
+mention fresnel coefficient, geometric-term
+
+\myparagraph{Shadowing}
+why and what?
+
+\myparagraph{Color Transformation}
+mention CIE XYZ to CIE RGB, D65, gamma correction.
+
 \section{Discussion}
 MENTION OTHER APPROACHES and their drawbacks.
-
 Optimization: Just use a few lambdas (just those which are at least required), which will enhance the overall runtime quite a lot but the overall accuracy will suffer then, too.
 
-
 one which basically samples the whole lambda space using a gaussian window. This shader will be modeling the effect of diffraction completely but will also be rather slow. The other shader will use a gaussian window too but will just use a few wavenumber for the sampling process. Furthermore, this shader will thread specularity seperatly as a special case which will be more like an approximation. 
-
-how from $cie_xyz$ to $cie_rgb$
-how gamma correction
-how texturing
