@@ -10,30 +10,30 @@
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Blaze\relax }}{27}{figure.caption.17}
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Renderer Architecture\relax }}{28}{figure.caption.18}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Spectometer: When a beam of monochromatic light passes through a grating placed in a spectrometer, images of the sources can be seen through the telescope at different angles.\relax }}{35}{figure.caption.26}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Light directed to parallel to grating:\relax }}{36}{figure.caption.27}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Different Orders of diffraction: When light is directed at the grating not parallel to its axis, there is another $sin(a)$ invovled. See grating equation $\ref {eq:gratingEq}$.\relax }}{37}{figure.caption.28}
-\contentsline {figure}{\numberline {4.4}{\ignorespaces White Light beam causes coloured diffraction spectra\relax }}{37}{figure.caption.29}
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Difference of diffraction pattern between a monochromatic (top) and a white (bottom) light spectra for different number of slits.\relax }}{38}{figure.caption.30}
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Evaluation: blaze grating\relax }}{40}{figure.caption.31}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Spectometer: When a beam of monochromatic light passes through a grating placed in a spectrometer, images of the sources can be seen through the telescope at different angles.\relax }}{36}{figure.caption.26}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Light directed to parallel to grating:\relax }}{37}{figure.caption.27}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Different Orders of diffraction: When light is directed at the grating not parallel to its axis, there is another $sin(a)$ invovled. See grating equation $\ref {eq:gratingEq}$.\relax }}{38}{figure.caption.28}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces White Light beam causes coloured diffraction spectra\relax }}{38}{figure.caption.29}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Difference of diffraction pattern between a monochromatic (top) and a white (bottom) light spectra for different number of slits.\relax }}{39}{figure.caption.30}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Evaluation: blaze grating\relax }}{41}{figure.caption.31}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Species Elaphe Guttata\relax }}{41}{figure.caption.32}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Species Xenopeltis Unicolor\relax }}{41}{figure.caption.33}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces BRDF maps for different patches\relax }}{42}{figure.caption.34}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Blaze grating at $2.5 \mu m$: Different $\lambda $ step sizes\relax }}{43}{figure.caption.35}
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Elaphe grating at $65 \mu m$: Different $\lambda $ step sizes\relax }}{43}{figure.caption.36}
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Blaze grating: PQ approach vs full lambda space sampling\relax }}{44}{figure.caption.37}
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Xeno grating: PQ approach vs full lambda space sampling\relax }}{45}{figure.caption.38}
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Elaphe grating: PQ approach vs full lambda space sampling\relax }}{46}{figure.caption.39}
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Blaze grating at $2.5 \mu m$: Different $\sigma _s$ sizes\relax }}{46}{figure.caption.40}
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Elaphe grating at $65 \mu m$: $N$ Taylor Iterations\relax }}{47}{figure.caption.41}
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Blaze grating at $2.5 \mu m$: $N$ Taylor Iterations\relax }}{47}{figure.caption.42}
-\contentsline {figure}{\numberline {5.12}{\ignorespaces BRDF maps for Xeno grating: different $\theta _i$ angles\relax }}{47}{figure.caption.43}
-\contentsline {figure}{\numberline {5.13}{\ignorespaces Diffraction of different snake skin gratings rendered on a snake geometry\relax }}{48}{figure.caption.44}
-\contentsline {figure}{\numberline {5.14}{\ignorespaces Diffraction on Elaphe snake skin grating: Different camera zoom levels\relax }}{49}{figure.caption.45}
-\contentsline {figure}{\numberline {5.15}{\ignorespaces Diffraction on Elaphe snake skin grating: Different light directions\relax }}{50}{figure.caption.46}
-\contentsline {figure}{\numberline {5.16}{\ignorespaces Diffraction for Elaphe snake skin\relax }}{51}{figure.caption.47}
-\contentsline {figure}{\numberline {5.17}{\ignorespaces Diffraction for Xeno snake skin\relax }}{52}{figure.caption.48}
-\contentsline {figure}{\numberline {5.18}{\ignorespaces Diffraction Elpahe: simulation vs. experimental setup\relax }}{53}{figure.caption.49}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Species Elaphe Guttata\relax }}{42}{figure.caption.32}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Species Xenopeltis Unicolor\relax }}{42}{figure.caption.33}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces BRDF maps for different patches\relax }}{43}{figure.caption.34}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Blaze grating at $2.5 \mu m$: Different $\lambda $ step sizes\relax }}{44}{figure.caption.35}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Elaphe grating at $65 \mu m$: Different $\lambda $ step sizes\relax }}{44}{figure.caption.36}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Blaze grating: PQ approach vs full lambda space sampling\relax }}{45}{figure.caption.37}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Xeno grating: PQ approach vs full lambda space sampling\relax }}{46}{figure.caption.38}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Elaphe grating: PQ approach vs full lambda space sampling\relax }}{47}{figure.caption.39}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Blaze grating at $2.5 \mu m$: Different $\sigma _s$ sizes\relax }}{47}{figure.caption.40}
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Elaphe grating at $65 \mu m$: $N$ Taylor Iterations\relax }}{48}{figure.caption.41}
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Blaze grating at $2.5 \mu m$: $N$ Taylor Iterations\relax }}{48}{figure.caption.42}
+\contentsline {figure}{\numberline {5.12}{\ignorespaces BRDF maps for Xeno grating: different $\theta _i$ angles\relax }}{48}{figure.caption.43}
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Diffraction of different snake skin gratings rendered on a snake geometry\relax }}{49}{figure.caption.44}
+\contentsline {figure}{\numberline {5.14}{\ignorespaces Diffraction on Elaphe snake skin grating: Different camera zoom levels\relax }}{50}{figure.caption.45}
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Diffraction on Elaphe snake skin grating: Different light directions\relax }}{51}{figure.caption.46}
+\contentsline {figure}{\numberline {5.16}{\ignorespaces Diffraction for Elaphe snake skin\relax }}{52}{figure.caption.47}
+\contentsline {figure}{\numberline {5.17}{\ignorespaces Diffraction for Xeno snake skin\relax }}{53}{figure.caption.48}
+\contentsline {figure}{\numberline {5.18}{\ignorespaces Diffraction Elpahe: simulation vs. experimental setup\relax }}{54}{figure.caption.49}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
