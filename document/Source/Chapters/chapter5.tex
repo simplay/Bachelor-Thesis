@@ -1,26 +1,9 @@
 \chapter{Results}
 
 show comparision between all shader variants: pq, adaptive, all, nvidiaGem.
-
-
-
-show all views results.
-differece of this shader compared to evaluation shader
-show real snake images for comparison with real rendered images
-show experiments received
-show rendered images by daljits implemetation of stams approach.
-show our renderer's results 
-mention all input parameters and their values.
 mention system specs and how long it took in order to precompute
-show some idft2 images, used patch, besids rendered image
-what initial size was used patch?
 mention GEM results.
-mention real results from geneva - use same paramter setup.
-
-
-
-\section{BRDF maps}
-ADD ALOT OF TEXT
+show nminmax renderings
 
 \begin{figure}[H]
   \centering
@@ -52,8 +35,11 @@ ADD ALOT OF TEXT
   \caption{Species Xenopeltis Unicolor}
 \end{figure}
 
+\section{BRDF maps}
+Mention brdf map basic idea figure + text
 
 
+brdf maps for different nanoscale surface gratings
 % brdf maps patches
 \begin{figure}[H]
   \centering
@@ -76,6 +62,8 @@ ADD ALOT OF TEXT
 \end{figure}
 
 
+for blaze grating different wavelength step sizes in fragment shader
+wider steps fewer iterations, loss of qulatiy. for elaphe step bigger than 10nm there are visible artifacts. for blaze grating bigger step sizes possible. 
 % blaze steps
 \begin{figure}[H]
   \centering
@@ -150,6 +138,8 @@ ADD ALOT OF TEXT
   \caption{Elaphe grating at $65 \mu m$: Different $\lambda$ step sizes}
 \end{figure}
 
+
+compare pq qith full lambda sampling. see similarities but also differences 
 %pq blaze
 \begin{figure}[H]
   \centering
@@ -225,6 +215,8 @@ ADD ALOT OF TEXT
   \caption{Elaphe grating: PQ approach vs full lambda space sampling}
 \end{figure}
 
+blaze grating lower coherence length, fewer interacting grating periods, produce blurred diffraction bands for different lambda which overlap to produce poorly resolved colors.
+
 %sigma var
 \begin{figure}[H]
   \centering
@@ -262,6 +254,7 @@ ADD ALOT OF TEXT
   \caption{Blaze grating at $2.5 \mu m$: Different $\sigma_s$ sizes}
 \end{figure}
 
+visually convergence taylor series for higher values for N.
 
 %taylor var elaphe
 \begin{figure}[H]
@@ -401,6 +394,7 @@ ADD ALOT OF TEXT
 
 
 \section{Snake surface geometries}
+initially using fully lambda shader for those renderings, slow but accurate.
 
 \begin{figure}[H]
   \centering
