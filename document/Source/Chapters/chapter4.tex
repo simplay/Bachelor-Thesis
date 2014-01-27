@@ -1,14 +1,3 @@
-what is this chapter about
-how is evaluation perfromed
-our shader
-evaluation java table generator provided by daljit.
-explain how this program works:
-subvariants: sample whole lambda space, just a few lambdas, pq approach.
-how from those generated tables to matlab
-how to read those
-discussion
-
-
 \chapter{Evaluation Data Acquisition}
 \section{Data Acquisition}
 For measurement on the true surface topography of snake sheds, samples are stuck on glass plates using double face tape, the animal was pushed up below a hollowed plate letting the skin emerging from the top of the plate. the surface of the scale under measurement should be large compared to the size of the drop to avoid wetting the plasmic membrane that would corrupt the reasing of the contact angle. 
@@ -25,7 +14,7 @@ SHOW AFM IMAGE
 \section{Diffraction Gratings}
 An idealised grating is made of a very large number of parallel, evenly spaced slits in an in an opaque sheet. Typically, it would have about 10,000 slits. In order to cause diffraction, the spacing between slits must be wider than the wavelength of interest. Each slit in the grating acts as a quasi point source from which light propagates in all directions. The diffracted light is composed of the sum of interfering wave components emanating from each slit in the grating.
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \includegraphics[scale=0.7]{evaluation/spectrometer.jpg}
   \label{fig:spectometer}
@@ -34,7 +23,7 @@ An idealised grating is made of a very large number of parallel, evenly spaced s
 
 Suppose monochromatic light is directed at the grating parallel to its axis as shown in figure. Let the distance between successive slits be equal $d$.
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \includegraphics[scale=0.7]{evaluation/grating2.jpg}
   \label{fig:lighthitsgrating}
@@ -51,7 +40,7 @@ where $m \in \mathds{N}_0$ is the order of diffraction.
 
 Because $d$ is very small for a diffraction grating, a beam of monochromatic light passing through a diffraction grating is splitted into very narrow bright fringes at large angles $\theta$.
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \includegraphics[scale=0.7]{evaluation/GratingSurface.png}
   \caption{Different Orders of diffraction: When light is directed at the grating not parallel to its axis, there is another $sin(a)$ invovled. See grating equation $\ref{eq:gratingEq}$.}
@@ -60,7 +49,7 @@ Because $d$ is very small for a diffraction grating, a beam of monochromatic lig
 
 When a narrow beam of white light is directed at a diffraction grating along its axis, instead of a monochromatic bright fringe, a set of coloured spectra are observed on both sides of the central white band as shown in figure $\ref{fig:gratingdiffractionorders}$.
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \includegraphics[scale=0.7]{evaluation/coloredspectrum.jpg}
   \label{fig:diffractionSpectrum}
@@ -69,7 +58,7 @@ When a narrow beam of white light is directed at a diffraction grating along its
 
 Since $\theta$ increases with wavelength $\lambda$, red light which has the longest wavelength is diffracted through the largest angle. Violet light has the shortest wavelength and is diffracted the least. Thus, white light is split into its component colours from violet to red light. The spectrum is repeated in the different orders of diffraction. Only the zeroth order spectrum is pure white.
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \subfigure[one slits]{
     \includegraphics[scale=0.1]{evaluation/slits/spalt1.png}
@@ -94,11 +83,6 @@ Since $\theta$ increases with wavelength $\lambda$, red light which has the long
   \label{fig:diffractionSlits}
   \caption{Difference of diffraction pattern between a monochromatic (top) and a white (bottom) light spectra for different number of slits.}
 \end{figure}
-
-
-WHITEMONODIFF
-The figure below shows the di.
-
 
 \section{Evaluation}
 UNIFY ANGLE NAMES: 
@@ -125,7 +109,7 @@ We are going implement a similar algorithm as the diffraction fragment shader al
 
 \subsection{Data evaluation}
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \caption{Evaluation: lambda thetar graph}
 \label{alg:evalmatlab}
 \begin{lstlisting}
@@ -149,7 +133,7 @@ end
 \end{lstlisting}
 \end{algorithm}
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \subfigure[plot $\lambda$ - $\theta_i$]{
     \includegraphics[scale=0.19]{blaze2500_75.png}
@@ -172,3 +156,6 @@ end
 red graph is based on data produced by our method, the blue and green graphs are plots from the grating equation for different angles. If the blue graph is close the the red one, then our method performs well. 
 
 SHOW PLOTS AND TALK ABOUT THEM
+
+subvariants: sample whole lambda space, just a few lambdas, pq approach.
+discussion

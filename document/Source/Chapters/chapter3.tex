@@ -1,8 +1,8 @@
 \chapter{Implementation}
-In computergraphics, we are interested in synthesizing 2d images from a given scene containing our 3d geometries by using so called shader programs. This process is dentonoted as rendering.
-The purpose of shader programs, which are executed directly on the GPU hardware device, is to compute the colorization and illumination of the objects living in our scene. All these computations happen in several stages and depend on the provided scene-input paramteters like the camera, light sources, objects material constants and the desired rendering effect one is interested in to model. The shader stages are implemented sequencially as small little programs, the so called vertex-, geometry- and fragment-shaders. Those stages are applied within the rendering pipeline sequencially. 
+In computergraphics, we are interested in synthesizing 2d images from a given scene containing our 3d geometries by using so called shader programs. This process is denoted as rendering.
+The purpose of shader programs, which are executed directly on the GPU hardware device, is to compute the colorization and illumination of the objects living in our scene. All these computations happen in several stages and depend on the provided scene-input parameters like the camera, light sources, objects material constants and the desired rendering effect one is interested in to model. The shader stages are implemented sequencially as small little programs, the so called vertex-, geometry- and fragment-shaders. Those stages are applied within the rendering pipeline sequencially. 
 
-Our shaders which we use are written in a highlevel language called GLSL, the OpengGL Shading Language. The decission for using OpenGL has been made since my underlying framework, which is responsible for the precomputation of all scene date, is based on another framework, written in Java using JOGL in oder to communicate with the GPU and is also responsible to precompute all the relevant scene data. This framework, the so called jrtr framework, has been developed as an exercise during the class computer graphics held by M. Zwicker which I attended in autumn 2012. The framework itself has been used and further extended during this thesis quite a lot. All necessary input data required for our java framework in order to perfrom the shading is precomputed by using Matlab. This is basically addressing all the required precomputations for the provided heigh-fields, refering to computation of the inverse two dimensional Fourier transformations which are further explained within this chapter. The matlab scripts themself rely on the provided snake nano-scaled sheds images, taken by AFM.
+Our shaders which we use are written in a high-level language called GLSL, the OpengGL Shading Language. The decission for using OpenGL has been made since my underlying framework, which is responsible for the precomputation of all scene date, is based on another framework, written in Java using JOGL in oder to communicate with the GPU and is also responsible to precompute all the relevant scene data. This framework, the so called jrtr framework, has been developed as an exercise during the class computer graphics held by M. Zwicker which I attended in autumn 2012. The framework itself has been used and further extended during this thesis quite a lot. All necessary input data required for our java framework in order to perform the shading is precomputed by using Matlab. This is basically addressing all the required precomputations for the provided heigh-fields, refering to computation of the inverse two dimensional Fourier transformations which are further explained within this chapter. The Matlab scripts themself rely on the provided snake nano-scaled sheds images, taken by AFM.
 
 It's noteworthy that all the vertices are processed within the vertex-shader, whereas the fragement shader's responsibility is to perfrom pixelwise rendering, using the input from the vertex shader. Just remember, fragements are determined by a triple of vertices. hence each pixel has assigned a trilinear interpolated value of all input parameters of its spanning vertices.
 Usually, all necessary transformations are applied vertex-wise, considering the vertex-shader as the precomputation stage for the later rendering within the rendering pipeline, in the fragment-shader. In the geometry shader, new vertices around a considered vertex can be created. this is useful for debugging - displaying normals graphically for example.
@@ -13,9 +13,9 @@ By the end of this chapter we will have seen how our how our render works, what 
 
 
 \section{Precomputations in Matlab}
-Our first task is to precompute the inverse two dimensional discrete fourier transformations of a given snake shed patch of interest taken by AFM. For that purpose we have written a small matlab script which offers a huge collection of mathematically, nummerically fast and stable alforithmes. Our matlab script reads a given image, which is representing a nano-sclaed heightfield, and computes its inverse two dimensional DFT by using matlab's internel inverse fast fourier transformation function, denoted by $ifft2$. Note that we only require once color channel of the input image since the input image is representing an heightfield, encoded by just one color. Basically, we are interested in computing the $ifft2$ for different powers of the input image since our taylor series approximation for the overall computation relies on this. Keep in mind that taking the fourier transformation of an arbitrary function will result in a complex valued output which imples that we will get a complex value for each pixel of our input image. Therefore, for each input image we get as many output images, representing the two dimensional inverse fourier transformation, as the minimal amount of taylor terms required for a well-enough approximation. In order to store our output images, we have to use 2 color channels instead just one like it was for the given input image. As an optimization step, we do not directly store images, rather we output binary files which contain all RGB values for each pixel in a row first, coloumn last format. This allows us to have much higher precision for the output values and also it does not waste any color channels. Note that we have scaled each pixel value in a range between 0 and 1. Therefore, we have to remember store four scaling factors for each output image as well, which are the real and imaginary minimum and maximum values. Later, using linear interpolation within the shaderm we will get back the image's original values. 
+Our first task is to precompute the inverse two dimensional discrete Fourier Transformations of a given snake shed patch of interest taken by AFM. For that purpose we have written a small Matlab script which offers a huge collection of mathematically, nummerically fast and stable algorithms. Our Matlab script reads a given image, which is representing a nano-scaled heightfield, and computes its inverse two dimensional DFT by using Matlab's internel inverse fast Fourier Transformation function, denoted by $ifft2$. Note that we only require once color channel of the input image since the input image is representing an heightfield, encoded by just one color. Basically, we are interested in computing the $ifft2$ for different powers of the input image since our taylor series approximation for the overall computation relies on this. Keep in mind that taking the Fourier Transformation of an arbitrary function will result in a complex valued output which implies that we will get a complex value for each pixel of our input image. Therefore, for each input image we get as many output images, representing the two dimensional inverse Fourier Transformation, as the minimal amount of taylor terms required for a well-enough approximation. In order to store our output images, we have to use 2 color channels instead just one like it was for the given input image. As an optimization step, we do not directly store images, rather we output binary files which contain all RGB values for each pixel in a row first, column last format. This allows us to have much higher precision for the output values and also it does not waste any color channels. Note that we have scaled each pixel value in a range between 0 and 1. Therefore, we have to remember store four scaling factors for each output image as well, which are the real and imaginary minimum and maximum values. Later, using linear interpolation within the shader, we will get back the image's original values. 
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \caption{Precomputation: Fourier images}
 \begin{lstlisting}
 % maxH:    A floating-point number specifying 
@@ -56,7 +56,7 @@ end
 The command fftshift rearranges the output of the ifft2 by moving the zero frequency component to the centre of the image. This is useful for visualizing a Fourier Transform with zero frequency components in the middle of the spectrum.
 
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \subfigure[Blaze Patch]{
     \includegraphics[scale=0.25]{implementation/hf/blaze/blazeBig.png}
@@ -154,7 +154,7 @@ TODO: say something about output?
 \section{Our Java Renderer}
 In autumn 2012, during the semester I have attented the class computer graphics held by M. Zwicker. During the whole class we have developed a so called real time renderer program written in java as a series of homework assignments in order to be admitted to the final exam. The architecture of the program is divided into two parts: a rendering engine, the so called jrtr (java real time renderer) and an application program, denoted as scene.
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \includegraphics[scale=0.7]{implementation/framework.png}
   \label{rendererArchitecture}
@@ -170,7 +170,7 @@ The jrtr rendering engine uses a low-level API, called openGL in order to commun
 \subsection{Scene}
 what is done here 
 reworked such that it is mvc-architecute based
-user-interaction: handlers in gui.
+user-interaction: handlers in GUI.
 which geometries are defined
 what material constants are defined: mention fabricators: light, camera, materials,...
 file readers: monkey
@@ -193,7 +193,7 @@ explain $cop_w$
 modelM
 other shader assigned inputs
 
-\begin{algorithm}
+\begin{algorithm}[H]
   \caption{Vertex diffraction shader}
   \begin{algorithmic}
     \ForAll{$Vertex \thinspace v \in Shape$}
@@ -214,16 +214,16 @@ other shader assigned inputs
 
 
 \subsection{Fragment Shader}
-The purpose of a fragment shader is to render per fragment. A fragment is spaned by three vertices of a given mesh. For each pixel within all the output from the vertex shaders of its corresponding vertices is then trilinearly interpolated, depending on the pixel's position within the fragment, and passed into its fragment shader program.
+The purpose of a fragment shader is to render per fragment. A fragment is spanned by three vertices of a given mesh. For each pixel within all the output from the vertex shaders of its corresponding vertices is then trilinearly interpolated, depending on the pixel's position within the fragment, and passed into its fragment shader program.
 Furthermore, there can be additional input be assigned which is not directly interpolated from the output of vertex shader programs. Our fragment shader just relies on k1 and k2 from its vertex shaders for the computation of the effect of diffraction.
-There are some values preliminarily assigned to our fragment shader during the opgengl setup within our java program, like all references to the image buffers, containing the fourier transformations, the number of taylor step approximations, the minimal and maximal wavelength, other lookup values like the scaling factors, a reference to a lookup table containung the cie xyz color weights for our wavelength domain and other scaling constants.
+There are some values preliminarily assigned to our fragment shader during the opgenGL setup within our java program, like all references to the image buffers, containing the Fourier Transformations, the number of taylor step approximations, the minimal and maximal wavelength, other lookup values like the scaling factors, a reference to a lookup table containing the $CIE_{XYZ}$ color weights for our wavelength domain and other scaling constants.
 
-Our shader performs an on-thefly numerical integration for the integral in the derivation using trapeziodal rulewith uniform discretization of the $\lambda$ dimsension at a resolution of 5nm. To compute $F_{dtft}\{p\}$ terms the shader uses he precomputed DFTs for the Taylor series terms given in the derivation. The Gaussian winow approach is perfromed for each discrete $\lambda$ value using a window large enough to span $4\sigma_f$ in both dimensions. For computing DFT tables we generally use nanostructure gieghtfields that span at least 65$\mu m^2$ and are sampled with resoution of at least 100nm. This ensures that the spectral response encompasses al the wavelengths in the visible spectrum, i.e. from 380nm to 780nm. Note that this shader is not very fast in hardly can be denoted being interactive. 
+Our shader performs an on-the-fly numerical integration for the integral in the derivation using trapeziodal rule with uniform discretization of the $\lambda$ dimension at a resolution of 5nm. To compute $F_{dtft}\{p\}$ terms the shader uses he precomputed DFTs for the Taylor series terms given in the derivation. The Gaussian window approach is performed for each discrete $\lambda$ value using a window large enough to span $4\sigma_f$ in both dimensions. For computing DFT tables we generally use nanostructure hieghtfields that span at least 65$\mu m^2$ and are sampled with resolution of at least 100nm. This ensures that the spectral response encompasses al the wavelengths in the visible spectrum, i.e. from 380nm to 780nm. Note that this shader is not very fast in hardly can be denoted being interactive. 
 
 mention we uniform discretize $\lambda$ for a given (u,v) which implies compressing sampled frequencies to the region near to the origin (of their frequency domain). 
-For natural structures in nano-scale, most of their spectral energy lies at lower spatial frequencies which maps closer to region $(u,v) = (0,0)$ than higher frequencies. This is why We have chosen to sample (u,v) space non-linearly. We use 30 taylorterms for our approximation approach which has an error below Y, proven in the previous derivation chapter.
+For natural structures in nano-scale, most of their spectral energy lies at lower spatial frequencies which maps closer to region $(u,v) = (0,0)$ than higher frequencies. This is why We have chosen to sample (u,v) space non-linearly. We use 30 Taylor-terms for our approximation approach which has an error below Y, proven in the previous derivation chapter.
 
-\begin{algorithm}
+\begin{algorithm}[H]
   \caption{Fragment diffraction shader}
   \begin{algorithmic}[1]
     \ForAll{$Pixel \thinspace p \in Fragment$}
@@ -268,14 +268,14 @@ Within this loop happens the taylor series approximation till a predefined upper
 Basically, the spectral response is approximated for our current $(u,v,\lambda)$. Furthermore, neighborhood-bounds for the upcoming gaussian windowing-sampling-approach are computed, denoted as anchorX and anchorY.
 
 \myparagraph{From line 14 to 22:} 
-In this most inner loop the convolution of the gaussian window with the inverse fft of the patch is pixelwise performed. 
-$getGaussWeightAtDistance(dist)$ computes $~\eqref{eq:gaussweight}$ from the distance between the center of the fft image with the current position in the neighborhood in texture space. $getRescaledFourierTextureValueAt(position)$ rescales the current computed value by the precomputed extrema values since all image values are scaled between 0 and 1. At line 27 $C(\hat{\mathbf{k_1}},\hat{\mathbf{k_2}})$ is multiplied in front of the current computed pixelColor. This terms was introduced in the derivation chapter and is the product of equation $~\eqref{eq:cfact}$
+In this most inner loop the convolution of the gaussian window with the inverse FFT of the patch is pixelwise performed. 
+$getGaussWeightAtDistance(dist)$ computes $~\eqref{eq:gaussweight}$ from the distance between the center of the FFT image with the current position in the neighborhood in texture space. $getRescaledFourierTextureValueAt(position)$ rescales the current computed value by the precomputed extrema values since all image values are scaled between 0 and 1. At line 27 $C(\hat{\mathbf{k_1}},\hat{\mathbf{k_2}})$ is multiplied in front of the current computed pixel-color. This terms was introduced in the derivation chapter and is the product of equation $~\eqref{eq:cfact}$
 
-The $C$ term includes the so called Fresenel Term. We compute this by using the so called Schlick approximation (See appendix) using an reactive index at 1.5 since this is close to the measured value from snake sheds.
-NOTE about shadow function:  Our BRDF values are scaled by s shadowing function as described in (SEE REFERENCES - PAPER), since most of the grooves in the snake skin nanostructures would from a V-cavity along the plane for a wave front with their top-edges at almost the same height.   
+The $C$ term includes is the gain factor $\ref{eq:cfact}$. We compute this by using the so called Schlick approximation $\ref{eq:schlickapprox}$ using an reactive index at 1.5 since this is close to the measured value from snake sheds.
+
+Our BRDF values are scaled by s shadowing function as described in (SEE REFERENCES - PAPER), since most of the grooves in the snake skin nano-structures would from a V-cavity along the plane for a wave front with their top-edges at almost the same height.   
 
 SHOW GRAPH for this fact: (lambda, k=f(lambda)), where $k = \frac{2pi}{\lambda}$, $f = \frac{c}{\lambda}$
-
 
 \section{Technical details}
 \myparagraph{Texture lookup}
@@ -284,20 +284,16 @@ In a GLSL shader the thexture coordinates my be normalized which means that the 
 \myparagraph{Transformations, Scalings}
 what is scaled?
 
-\myparagraph{Texturing}
-how is performed?
+\myparagraph{Texture Blending}
+The final rendered color for each pixel is a weighted average of different color components, such as the diffraction color, the texture color and the diffuse color. In our shader the diffraction color is weighted by a constant $w_{diffuse}$. the texture color is once scales by a binary weight determined by the absolute value of the Fresnel Term $F$ and once by $1-w_{diffuse}$. 
 
-\myparagraph{Gain Factor}
-
-
-The Fresnel's equations describe the reflection and transmission of electromagnetic waves at an interface. That is, they give the reflection and transmission coefficients for waves parallel and perpendicular to the plane of incidence. We use the so called Schlick's approximation is a formula for approximating the contribution of the Fresnel term. See $\ref{eq:schlickapprox}$
-
-Reference to appendix for fresenel
-
-mention fresnel coefficient, geometric-term
-
-\myparagraph{Shadowing}
-why and what?
+\begin{algorithm}[H]
+  \caption{Texture Blending}
+  \begin{algorithmic}
+    \State $\alpha = (abs(F) > 1) ? 1 : 0$
+    \State $c_{out} =(1-w_{diffuse})*c_{diffraction} + (1-\alpha)*c_{texture} + w_{diffuse}*c_{texture})$
+  \end{algorithmic}
+\end{algorithm}
 
 \myparagraph{Color Transformation}
 mention CIE XYZ to CIE RGB, D65, gamma correction.
