@@ -55,6 +55,8 @@ end
 
 The command fftshift rearranges the output of the ifft2 by moving the zero frequency component to the centre of the image. This is useful for visualizing a Fourier Transform with zero frequency components in the middle of the spectrum.
 
+\label{sec:precompmatlabfft}
+mention rescaling
 
 \begin{figure}[H]
   \centering
@@ -151,7 +153,7 @@ The command fftshift rearranges the output of the ifft2 by moving the zero frequ
 
 TODO: say something about output?
 
-\section{Our Java Renderer}
+\section{Java Renderer}
 In autumn 2012, during the semester I have attented the class computer graphics held by M. Zwicker. During the whole class we have developed a so called real time renderer program written in java as a series of homework assignments in order to be admitted to the final exam. The architecture of the program is divided into two parts: a rendering engine, the so called jrtr (java real time renderer) and an application program, denoted as scene.
 
 \begin{figure}[H]
@@ -166,26 +168,8 @@ A scene consists of the setup of the world camera, definitions of light source, 
 The minimal definition of a geometry is given by its wireframe mesh. This is a datastructures consisting of vertices each stored as a triple of xyz positions in an float array and triangles each defined by a triple of vertex-indices which form a fragment each stored in an integer array. It is possible to assing additional geoemtry data like a color for each vertex, normals and texture coordinates.
 All whole scene is stored within container data-structures, defined and managed within jrtr, like a scene graph, which contains all geometries and their transformations in a tree like structured hierarchy. The geometries themself are stored within an container, containing all vertex attributes and the material constants.
 The jrtr rendering engine uses a low-level API, called openGL in order to communicate with the grpahcis processor unit (GPU). Within jrtr, the whole resource-management for the rendering pipeline place, i.e. all required low-level buffers are allocated, flushed and assigned by the scene data attributes. jrtr also offers also the possibility to assign arbitrary shaders.
-   
-\subsection{Scene}
-what is done here 
-reworked such that it is mvc-architecute based
-user-interaction: handlers in GUI.
-which geometries are defined
-what material constants are defined: mention fabricators: light, camera, materials,...
-file readers: monkey
-
-\subsection{jrtr Framework}
-shader tasks
-assign all shader inputs: like t0 and so on
-load fourier images and assign to buffers
-snapshot functionality
-shaders: diffraction shader
-
 
 \section{GLSL Diffraction Shader}
-TODO: start using the final findings from chapter 2 and substitute
-
 \subsection{Vertex Shader}
 The first computional stage within our rendering pipeline is computing all necessary per vertex data. Those computations are preformed in the vertex shader. In our case, we compute for any vertex of our current geometry the direction vectors $k1$ and $k2$ described like previousely in the tangent space. Initially all input data lives in its own space. Hence, we first have to transfrom all input data into the same space in order to use it for later computations within the fragment shader. We are going to transform k1 and k2 into the so called tangent space which. Furthermore, we have also to realign our local coordinate system. This is why there is an rodrigues rotation also involved. In order to avoid scaling issues and since we are only interested in the direction of the vectors k1 and k2, we have to normalize them, too. Last, we also output the position of the current vertex transfomed into the projective camera space.
   
@@ -247,8 +231,8 @@ For natural structures in nano-scale, most of their spectral energy lies at lowe
           \State $anchorY = int(floor(center.y + lookupCoord.y * fftImHeight)$
           \For{$(i=(anchorX-winW)$ \myto $(anchorX + winW + 1))$}
             \For{$(j=(anchorY - winW)$ \myto $(anchorY + winW + 1))$}
-              \State $dist = getDistVecFromOriginFor(i,j)$
-              \State $pos = getLocalLookUp(i,j,n)$
+              \State $dist = distVecFromOriginTo(i,j)$
+              \State $pos = localLookUp(i,j,n)$
               \State $fftVal = rescaledFourierValueAt(pos)$
               \State $fftVal \asteq gaussWeightOf(dist)$
               \State $F_{fft} \pluseq fftVal$
@@ -267,17 +251,15 @@ For natural structures in nano-scale, most of their spectral energy lies at lowe
 
 
 \myparagraph{From line 4 to 26:} 
-Within this loop happens the uniform sampling along wavelength-space. At line 5: $ColorWeights(\lambda)$ computes the color weights for the current wavelength by bilinear interpolation between the two closest given $CIE_{XYZ}$ color weights for our current wavelength $\lambda$ stored in a external weights-table. At line 6: $lookupCoord(u, v, \lambda)$ computes the current coordinate for the texture lookup in our precomputed ifft2 images - See $\ref{eq:scalelook}$. 
+Within this loop happens the uniform sampling along wavelength-space. $ColorWeights(\lambda)$ computes the color weight for the current wavelength $\lambda$ by bilinear interpolation between the color weight for $\ceil{\lambda}$ and $\floor{\lambda}$ which are stored in a external weights-table (assuming this table contains wavelengths in 1nm steps). At line 6: $lookupCoord(u, v, \lambda)$ the coordinates for the texture lookup are computed - See $\ref{eq:scalelook}$. Line 25 sums up the diffraction color contribution for the current wavelength in iteration $\lambda$.  
 
 \myparagraph{From line 9 to 24:} 
-Within this loop happens the Taylor series approximation till a predefined upper bound, denoted as $T$.
-Basically, the spectral response is approximated for our current $(u,v,\lambda)$. Furthermore, neighborhood-bounds for the upcoming gaussian windowing-sampling-approach are computed, denoted as anchorX and anchorY.
+Within this loop happens the Taylor series approximation until a predefined upper bound, denoted by $T$, has been reached.
+Basically, the spectral response is approximated for our current $(u,v,\lambda)$. Furthermore, neighborhood boundaries for the gaussian-window sampling are computed, denoted as anchorX and anchorY.
 
 \myparagraph{From line 14 to 22:} 
-In this most inner loop, the convolution of the gaussian window with the inverse FFT of the patch is pixelwise performed. 
-$gaussWeightOf(dist)$ computes the weights $~\eqref{eq:gaussweight}$ from the distance between the current pixel's coordinates and the current neighbor's position in texture space - See $\ref{eq:gaussianwindow}$. 
-
-$rescaledFourierValueAt(pos)$ rescales the current computed value by the precomputed extrema values since all image values are scaled between 0 and 1. 
+In this most inner loop, the convolution of the gaussian window with the inverse FFT of the patch is pixel-wise performed. 
+$gaussWeightOf(dist)$ computes the weights $~\eqref{eq:gaussweight}$ from the distance between the current pixel's coordinates and the current neighbor's position in texture space. Local lookup coordinates for the current fourier coefficient $fftVal$ value are computed at line 17 and computed like described in $\ref{eq:gaussianwindowlook}$. The actual texture lookup is performed at line 18 using those local coordinates. Inside $rescaledFourierValueAt$ the values $fftVal$ is rescaled by its extrema, i,e. $(fftVal*Max + Min)$ is computed, since $fftVal$ is normalized $\ref{sec:precompmatlabfft}$. The current $fftVal$ values in iteration is scaled by the current gaussian weight and then summed to the final neighborhood FFT contribution at line 20.
 
 \myparagraph{After line 26:} 
 At line 27 the gain factor $C(\omega_i, \omega_r)$  $\ref{eq:cfact}$ is multiplied by the current computed pixel color like formulated in $\ref{eq:cpterm}$. The gain factor contains the geometric term $ref{eq:geometricterm}$ and the Fresnel term $F$. W approximate $F$ by the Schlick approximation $\ref{eq:schlickapprox}$, using an reactive index at 1.5 since this is close to the measured value from snake sheds.
@@ -324,7 +306,7 @@ This is like a base change with $(u_{lookup}, v_{lookup})$ as new coordinate sys
 
 \begin{equation}
   (u_{lookup}, v_{lookup}) = (i,j)-(u_{lookup}, v_{lookup})
-\label{eq:gaussianwindow}
+\label{eq:gaussianwindowlook}
 \end{equation}
 
 \subsection{Texture Blending}
