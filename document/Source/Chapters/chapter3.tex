@@ -189,9 +189,11 @@ TODO: start using the final findings from chapter 2 and substitute
 \subsection{Vertex Shader}
 The first computional stage within our rendering pipeline is computing all necessary per vertex data. Those computations are preformed in the vertex shader. In our case, we compute for any vertex of our current geometry the direction vectors $k1$ and $k2$ described like previousely in the tangent space. Initially all input data lives in its own space. Hence, we first have to transfrom all input data into the same space in order to use it for later computations within the fragment shader. We are going to transform k1 and k2 into the so called tangent space which. Furthermore, we have also to realign our local coordinate system. This is why there is an rodrigues rotation also involved. In order to avoid scaling issues and since we are only interested in the direction of the vectors k1 and k2, we have to normalize them, too. Last, we also output the position of the current vertex transfomed into the projective camera space.
   
-explain $cop_w$
-modelM
-other shader assigned inputs
+
+show CG graphic
+unify k1,k2 to wi,wr
+
+
 
 \begin{algorithm}[H]
   \caption{Vertex diffraction shader}
@@ -211,6 +213,10 @@ other shader assigned inputs
     \EndFor
   \end{algorithmic}
 \end{algorithm}
+
+explain $cop_w$
+modelM
+other shader assigned inputs
 
 
 \subsection{Fragment Shader}
@@ -276,7 +282,7 @@ The $C$ term includes is the gain factor $\ref{eq:cfact}$. We compute this by us
 Our BRDF values are scaled by s shadowing function as described in (SEE REFERENCES - PAPER), since most of the grooves in the snake skin nano-structures would from a V-cavity along the plane for a wave front with their top-edges at almost the same height.   
 
 \section{Technical details}
-\myparagraph{Texture lookup}
+\subsection{Texture lookup}
 In a GLSL shader the texture coordinates are normalized which means that the size of the texture maps to the coordinates on the range $[0,1]$ in each dimension. By convention the the bottom left corner of an image has the coordinates $(0,0)$, whereas the top right corner has the value $(1,1)$ assigned. 
 
 Given a nano-scaled surface patch P with a resolution $A$ by $A$ microns stored as an $N$ by $N$ pixel image $I$.
@@ -317,10 +323,7 @@ This is like a base change with $(u_{lookup}, v_{lookup})$ as new coordinate sys
 \label{eq:gaussianwindow}
 \end{equation}
 
-\myparagraph{Space Transformations}
-what spaces are involved.
-
-\myparagraph{Texture Blending}
+\subsection{Texture Blending}
 The final rendered color for each pixel is a weighted average of different color components, such as the diffraction color, the texture color and the diffuse color. In our shader the diffraction color is weighted by a constant $w_{diffuse}$. the texture color is once scales by a binary weight determined by the absolute value of the Fresnel Term $F$ and once by $1-w_{diffuse}$. 
 
 \begin{algorithm}[H]
@@ -331,8 +334,10 @@ The final rendered color for each pixel is a weighted average of different color
   \end{algorithmic}
 \end{algorithm}
 
-\myparagraph{Color Transformation}
+\subsection{Color Transformation}
 mention CIE XYZ to CIE RGB, D65, gamma correction.
+
+
 
 \section{Discussion}
 Our Current approach will sample the whole wavelength spectrum for each pixel but there is an optimization possible:

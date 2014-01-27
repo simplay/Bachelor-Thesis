@@ -41,10 +41,9 @@
 \contentsline {paragraph}{From line 9 to 24:}{31}{section*.20}
 \contentsline {paragraph}{From line 14 to 22:}{31}{section*.21}
 \contentsline {section}{\numberline {3.4}Technical details}{32}{section.3.4}
-\contentsline {paragraph}{Texture lookup}{32}{section*.22}
-\contentsline {paragraph}{Space Transformations}{33}{section*.23}
-\contentsline {paragraph}{Texture Blending}{33}{section*.24}
-\contentsline {paragraph}{Color Transformation}{33}{section*.25}
+\contentsline {subsection}{\numberline {3.4.1}Texture lookup}{32}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Texture Blending}{33}{subsection.3.4.2}
+\contentsline {subsection}{\numberline {3.4.3}Color Transformation}{33}{subsection.3.4.3}
 \contentsline {section}{\numberline {3.5}Discussion}{33}{section.3.5}
 \contentsline {chapter}{\numberline {4}Evaluation Data Acquisition}{35}{chapter.4}
 \contentsline {section}{\numberline {4.1}Data Acquisition}{35}{section.4.1}
@@ -64,6 +63,6 @@
 \contentsline {section}{\numberline {A.1}Schlick's approximation}{56}{section.A.1}
 \contentsline {section}{\numberline {A.2}Spherical Coordinates}{56}{section.A.2}
 \contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{57}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{57}{appendix*.50}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{59}{appendix*.51}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{60}{appendix*.52}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{57}{appendix*.46}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{59}{appendix*.47}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{60}{appendix*.48}
