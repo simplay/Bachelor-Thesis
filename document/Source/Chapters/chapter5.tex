@@ -35,6 +35,15 @@ show nminmax renderings
   \caption{Species Xenopeltis Unicolor}
 \end{figure}
 
+Mention basic set up
+brdf map shows shader output for all viewing directions and a fixed incident light direction. viewing direction represented in spherical coordinates $(\theta_v, \phi_v)$ is represented in map at point $(x,y) = (sin(\theta_v)cos(\phi_v), sin(\theta_v)sin(\phi_v))$ with origin at map center. fix light direction for normal incidence, i.e. $(\theta_i, \phi_i) = (0,0)$ unless specified otherwise.
+
+brdf map for blazed grating shows typical high relative brightness for the first order of diffraction.
+
+elaphe skin, finger-like nanostructure quite regularly placed, thus exhibits diffraction accros these periodic arrangements, i.e. there is a long horizontal axis for brdf map. furthermore fingers overlap across layers thus do not exhibit any definite periodicity along finger directions. hence do not see strong diffraction color along other directions in brdf map.
+
+for xeno, layers of nano-fingers do not overlap and they manoeuvre significantly along their lenght but with some local consistency. thus see diffraction along many different directions in brdf map. similar argument for diffraction across locally periodic finger patches with slightly different orientations.
+
 \section{BRDF maps}
 Mention brdf map basic idea figure + text
 
