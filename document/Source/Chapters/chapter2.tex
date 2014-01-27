@@ -119,7 +119,14 @@ sensations registered in the eye in terms of tristimulus values.
 
 Tristimulus values associated with a color space can be conceptualized as amounts of three primary colors in a tri-chromatic additive color model. In some color spaces (including LMS and XYZ spaces), the primary colors used are not real colors, in the sense that they cannot be generated with any light spectrum.
 
-Due to distribution of cones in human eye the tristimulus values, depend on over's field of view. cie defined color mapping function called standard observer, to eliminate this variable represent an avarage human chromatic response.
+Due to distribution of cones in human eye, the tristimulus values depend on over's field of view. CIE defined a color mapping function called standard observer, to eliminate this variable represent an avarage human chromatic response.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.7]{background/somatchingfunctions.png}
+  \label{fig:matchingfunction}
+  \caption{Plots of our color matching functions we used for rendering}
+\end{figure}
 
 The CIE's color matching functions $\overline{x}(\lambda)$, $\overline{y}(\lambda)$, $\overline{z}(\lambda)$ are the numerical description of the chromatic response of the observer (described above). They can be thought of as the spectral sensitivity curves of three linear light detectors yielding the CIE tristimulus values X, Y and Z.
 
