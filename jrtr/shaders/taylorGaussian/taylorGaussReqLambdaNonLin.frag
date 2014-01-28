@@ -106,11 +106,11 @@ vec2 compute_N_min_max(float t){
 	float N_max = 0.0;
 	
 	if(t > 0.0){
-		N_min = floor((dx*t) / (0.78));
-		N_max = ceil((dx*t) / (0.38));
+		N_min = ceil((dx*t) / (0.78));
+		N_max = floor((dx*t) / (0.38));
 	}else if(t < 0.0){
-		N_min = floor((dx*t) / (0.38));
-		N_max = ceil((dx*t) / (0.78));
+		N_min = ceil((dx*t) / (0.38));
+		N_max = floor((dx*t) / (0.78));
 	}
 	return vec2(N_min, N_max);
 }
@@ -692,6 +692,6 @@ void main(){
 //	}
 	
 	
-	frag_shaded = vec4(gammaCorrect(totalXYZ,2.2), 1.0)/2.0;
+	frag_shaded = vec4(gammaCorrect(totalXYZ,2.2), 1.0)/1.0;
 //	frag_shaded = vec4(xyz, 1.0);
 }

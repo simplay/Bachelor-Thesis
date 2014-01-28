@@ -200,8 +200,8 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		gl.glUniform1f(id3, dh);
 		
 		// spacing between two patches
-		float dx = to*width*1000000.0f;
-//		float dx =0.25f;
+		float dx = 65;
+//		float dx =2.5f;
 		System.out.println("patch spacing in microns: " + dx);
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "dx");
 		gl.glUniform1f(id3, dx);
