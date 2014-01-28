@@ -22,21 +22,22 @@
 \contentsline {figure}{\numberline {5.1}{\ignorespaces Species Elaphe Guttata\relax }}{44}{figure.caption.31}
 \contentsline {figure}{\numberline {5.2}{\ignorespaces Species Xenopeltis Unicolor\relax }}{44}{figure.caption.32}
 \contentsline {figure}{\numberline {5.3}{\ignorespaces BRDF maps for different patches: $\Theta =(\theta ,\phi )$ is the direction of light propagation\relax }}{45}{figure.caption.33}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces BRDF maps for different patches\relax }}{46}{figure.caption.34}
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Blaze grating at $2.5 \mu m$: Different $\lambda $ step sizes\relax }}{46}{figure.caption.35}
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Elaphe grating at $65 \mu m$: Different $\lambda $ step sizes\relax }}{47}{figure.caption.36}
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Blaze grating: PQ approach vs full lambda space sampling\relax }}{47}{figure.caption.37}
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Xeno grating: PQ approach vs full lambda space sampling\relax }}{48}{figure.caption.38}
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Elaphe grating: PQ approach vs full lambda space sampling\relax }}{49}{figure.caption.39}
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Blaze grating at $2.5 \mu m$: Different $\sigma _s$ sizes\relax }}{49}{figure.caption.40}
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Elaphe grating at $65 \mu m$: $N$ Taylor Iterations\relax }}{50}{figure.caption.41}
-\contentsline {figure}{\numberline {5.12}{\ignorespaces Blaze grating at $2.5 \mu m$: $N$ Taylor Iterations\relax }}{50}{figure.caption.42}
-\contentsline {figure}{\numberline {5.13}{\ignorespaces BRDF maps for Xeno grating: different $\theta _i$ angles\relax }}{50}{figure.caption.43}
-\contentsline {figure}{\numberline {5.14}{\ignorespaces Diffraction of different snake skin gratings rendered on a snake geometry\relax }}{51}{figure.caption.44}
-\contentsline {figure}{\numberline {5.15}{\ignorespaces Diffraction on Elaphe snake skin grating: Different camera zoom levels\relax }}{52}{figure.caption.45}
-\contentsline {figure}{\numberline {5.16}{\ignorespaces Diffraction on Elaphe snake skin grating: Different light directions\relax }}{53}{figure.caption.46}
-\contentsline {figure}{\numberline {5.17}{\ignorespaces Diffraction for Elaphe snake skin\relax }}{54}{figure.caption.47}
-\contentsline {figure}{\numberline {5.18}{\ignorespaces Diffraction for Xeno snake skin\relax }}{55}{figure.caption.48}
-\contentsline {figure}{\numberline {5.19}{\ignorespaces Diffraction Elpahe: simulation vs. experimental setup\relax }}{56}{figure.caption.49}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces BRDF maps for blaze grating comparing our different rendering apporaches\relax }}{46}{figure.caption.34}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces BRDF maps for different patches\relax }}{46}{figure.caption.35}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Blaze grating at $2.5 \mu m$: Different $\lambda $ step sizes\relax }}{47}{figure.caption.36}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Elaphe grating at $65 \mu m$: Different $\lambda $ step sizes\relax }}{47}{figure.caption.37}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Blaze grating: PQ approach vs full lambda space sampling\relax }}{48}{figure.caption.38}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Xeno grating: PQ approach vs full lambda space sampling\relax }}{49}{figure.caption.39}
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Elaphe grating: PQ approach vs full lambda space sampling\relax }}{50}{figure.caption.40}
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Blaze grating at $2.5 \mu m$: Different $\sigma _s$ sizes\relax }}{50}{figure.caption.41}
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Elaphe grating at $65 \mu m$: $N$ Taylor Iterations\relax }}{51}{figure.caption.42}
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Blaze grating at $2.5 \mu m$: $N$ Taylor Iterations\relax }}{51}{figure.caption.43}
+\contentsline {figure}{\numberline {5.14}{\ignorespaces BRDF maps for Xeno grating: different $\theta _i$ angles\relax }}{51}{figure.caption.44}
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Diffraction of different snake skin gratings rendered on a snake geometry\relax }}{52}{figure.caption.45}
+\contentsline {figure}{\numberline {5.16}{\ignorespaces Diffraction on Elaphe snake skin grating: Different camera zoom levels\relax }}{53}{figure.caption.46}
+\contentsline {figure}{\numberline {5.17}{\ignorespaces Diffraction on Elaphe snake skin grating: Different light directions\relax }}{54}{figure.caption.47}
+\contentsline {figure}{\numberline {5.18}{\ignorespaces Diffraction for Elaphe snake skin\relax }}{55}{figure.caption.48}
+\contentsline {figure}{\numberline {5.19}{\ignorespaces Diffraction for Xeno snake skin\relax }}{56}{figure.caption.49}
+\contentsline {figure}{\numberline {5.20}{\ignorespaces Diffraction Elpahe: simulation vs. experimental setup\relax }}{57}{figure.caption.50}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

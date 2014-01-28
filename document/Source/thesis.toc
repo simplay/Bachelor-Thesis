@@ -52,16 +52,16 @@
 \contentsline {subsection}{\numberline {4.3.2}Data evaluation}{42}{subsection.4.3.2}
 \contentsline {chapter}{\numberline {5}Results}{44}{chapter.5}
 \contentsline {section}{\numberline {5.1}BRDF maps}{45}{section.5.1}
-\contentsline {section}{\numberline {5.2}Snake surface geometries}{50}{section.5.2}
-\contentsline {section}{\numberline {5.3}Snake surface geometries}{56}{section.5.3}
-\contentsline {chapter}{\numberline {6}Conclusion}{57}{chapter.6}
-\contentsline {section}{\numberline {6.1}Further Work}{57}{section.6.1}
-\contentsline {subsection}{\numberline {6.1.1}References}{57}{subsection.6.1.1}
-\contentsline {section}{\numberline {6.2}Acknowledgment}{57}{section.6.2}
-\contentsline {chapter}{\numberline {A}Appendix}{58}{appendix.A}
-\contentsline {section}{\numberline {A.1}Schlick's approximation}{58}{section.A.1}
-\contentsline {section}{\numberline {A.2}Spherical Coordinates}{58}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{59}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{59}{appendix*.50}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{61}{appendix*.51}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{62}{appendix*.52}
+\contentsline {section}{\numberline {5.2}Snake surface geometries}{51}{section.5.2}
+\contentsline {section}{\numberline {5.3}Snake surface geometries}{57}{section.5.3}
+\contentsline {chapter}{\numberline {6}Conclusion}{58}{chapter.6}
+\contentsline {section}{\numberline {6.1}Further Work}{58}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}References}{58}{subsection.6.1.1}
+\contentsline {section}{\numberline {6.2}Acknowledgment}{58}{section.6.2}
+\contentsline {chapter}{\numberline {A}Appendix}{59}{appendix.A}
+\contentsline {section}{\numberline {A.1}Schlick's approximation}{59}{section.A.1}
+\contentsline {section}{\numberline {A.2}Spherical Coordinates}{59}{section.A.2}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{60}{section.A.2}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{60}{appendix*.51}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{62}{appendix*.52}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{63}{appendix*.53}

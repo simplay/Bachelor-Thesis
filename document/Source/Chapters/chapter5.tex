@@ -82,6 +82,35 @@ BRDF map shows shader output for all viewing directions and a fixed incident lig
 Mention brdf map basic idea figure + text
 
 
+% brdf maps patches
+\begin{figure}[H]
+  \centering
+  \subfigure[ALL lambda]{
+    \includegraphics[scale=0.09]{results/diffPatches/fftBlazeHeight_0.25Microns_allL_weak_scale.png}
+    \label{fig:brdfmapBlazeAllLambda}
+  }
+~
+  \subfigure[Nmin Nmax]{
+    \includegraphics[scale=0.09]{results/methodComp/gem.png}
+    \label{fig:brdfmapBlazeOnlyReq}
+  }
+~
+  \subfigure[PQ]{
+    \includegraphics[scale=0.09]{results/PQapproach_vs_sampleAll/blaze/pq.png}
+    \label{fig:brdfmapBlazePQ}
+  }
+~
+  \subfigure[Gem]{
+    \includegraphics[scale=0.09]{results/methodComp/gem.png}
+    \label{fig:brdfmapBlazeGem}
+  }
+  
+  \label{brdfmapsDiffRenderingApproaches}
+  \caption{BRDF maps for blaze grating comparing our different rendering apporaches}
+\end{figure}
+
+% add also a comp. for elaphe
+
 brdf maps for different nanoscale surface gratings
 % brdf maps patches
 \begin{figure}[H]
