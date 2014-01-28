@@ -615,7 +615,7 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww)
 }
 
 
-void mainMain() 
+void main() 
 {
 	// setsF();
 	setVarXY();
@@ -639,7 +639,7 @@ void mainMain()
 	vec3 totalXYZ = getRawXYZFromTaylorSeries( uu, vv, ww);
 	
 	
-	totalXYZ = totalXYZ * gainF(lightDir,Pos)*100;
+	totalXYZ = totalXYZ * gainF(lightDir,Pos)*3500.0;
 	// totalXYZ = totalXYZ * 10.0;
 	
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
@@ -718,7 +718,7 @@ float rotV(float uu, float vv, float ang)
 }
 
 
-void main() 
+void mainbrdfmap() 
 {
 	
 	

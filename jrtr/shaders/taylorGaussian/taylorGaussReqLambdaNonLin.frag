@@ -546,7 +546,7 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 }
 
 
-void mainMain(){
+void main(){
 	setVarXY();
 	 
     vec3 N = normalize(o_normal);
@@ -561,7 +561,7 @@ void mainMain(){
 	float ww = lightDir.z - Pos.z;
 	
 	vec3 totalXYZ = getRawXYZFromTaylorSeries( uu, vv, ww);	
-	totalXYZ = totalXYZ * gainF(lightDir,Pos)*100;
+	totalXYZ = totalXYZ * gainF(lightDir,Pos)*2000;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
 	
 	
@@ -592,7 +592,7 @@ float rotV(float uu, float vv, float ang){
 }
 
 
-void main(){
+void mainbrdfmap(){
 	setVarXY();
 	 
 	float thetaR = asin(sqrt(o_org_pos.x * o_org_pos.x + o_org_pos.y * o_org_pos.y ));
@@ -615,7 +615,7 @@ void main(){
 
 	vec3 totalXYZ  = getRawXYZFromTaylorSeries( uu, vv, ww);
 //	vec3 totalXYZ  = vec3(0);
-	totalXYZ = totalXYZ * gainF(k1, k2)*100;
+	totalXYZ = totalXYZ * gainF(k1, k2)*1000;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
 	
 	if (isnan(totalXYZ.x *totalXYZ.y *totalXYZ.z)){
