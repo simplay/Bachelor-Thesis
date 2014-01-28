@@ -173,7 +173,12 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "patchSpacing");
 		gl.glUniform1f(id3, patchSpacing);
 		
+		
+		
+//		float dimX = m.getPatchDimX();
+		// see images and estimate
 		float dimX = m.getPatchDimX();
+		System.out.println("dim x " + dimX);
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "dimX");
 		gl.glUniform1f(id3, width);
 		
