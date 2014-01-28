@@ -49,10 +49,10 @@ In optics, a diffraction grating is an optical component with a periodic structu
 The relationship between the grating spacing and the angles of the incident and diffracted beams of light is known as the grating equation. See chapter Evaluation Data Acquisition for further insight.
 
 \subsection{Radiometry}
-Light is fundamentally a propagation form of enegry, so it is useful to define the SI unit of energy which is joule (J). To aid our intuition, let us describe radiometry in terms of collections of large numbers of photons. A photon can be considered as a quantum of light that has a position, direction of propagation and a wavelength $\lambda$ measured in nanometers. A photon travels in a certain speed, denoted by $v = \frac{c}{n}$, that depends only on the refractive index $n$ of the medium through which it propagates and the speed of light $c$. This allows us do define the frequency $f = \frac{c}{\lambda}$. The amount of energy $q$ carried by a photon is given by the following relationship: $q = hf= \frac{hc}{\lambda}$ where $h$ is the Plank's constant.
+Light is fundamentally a propagation form of energy, so it is useful to define the SI unit of energy which is joule (J). To aid our intuition, let us describe radiometry in terms of collections of large numbers of photons. A photon can be considered as a quantum of light that has a position, direction of propagation and a wavelength $\lambda$ measured in nanometers. A photon travels in a certain speed, denoted by $v = \frac{c}{n}$, that depends only on the refractive index $n$ of the medium through which it propagates and the speed of light $c$. This allows us do define the frequency $f = \frac{c}{\lambda}$. The amount of energy $q$ carried by a photon is given by the following relationship: $q = hf= \frac{hc}{\lambda}$ where $h$ is the Plank's constant.
 
 \myparagraph{Spectral Energy}
-If there is a large collection of photons given, their total energy $Q = \sum_i q_i$ is the sum of energies of each photon $q_i$ within the collection. But how is the energy distributed across wavelenghts? One way in order to determine this distribution is to order all photons by their associated wavelength and then make a histogram from them. This is achieved by a discretization of their spectrum and combine all photons which will fall into the same interval, i.e. compute the sum for each interval from the energy of all their photons. By dividing such an interval by its length, denoted by $Q_\lambda$, we get a relatively scaled interval energy, which is called spectral energy and it is an intensive quantity. Intensive quantities can be thought of as density functions that tell the density of an extensive quantity at an infinitesimal point.
+If there is a large collection of photons given, their total energy $Q = \sum_i q_i$ is the sum of energies of each photon $q_i$ within the collection. But how is the energy distributed across wavelengths? One way in order to determine this distribution is to order all photons by their associated wavelength and then make a histogram from them. This is achieved by a discretization of their spectrum and combine all photons which will fall into the same interval, i.e. compute the sum for each interval from the energy of all their photons. By dividing such an interval by its length, denoted by $Q_\lambda$, we get a relatively scaled interval energy, which is called spectral energy and it is an intensive quantity. Intensive quantities can be thought of as density functions that tell the density of an extensive quantity at an infinitesimal point.
 
 \myparagraph{Power}
 Power is the estimated rate of energy production for light sources and is measured in the unit Watts, denoted by Q, which is another name for joules per second. Since power is a density over time, it is well defined even when energy production is varying over time. As with energy, we are really interested in the spectral power, measured in W/nm, denoted by $\Phi_\lambda$
@@ -84,7 +84,7 @@ This means radiance characterizes the total emission of reflectance. It indicate
 
 where $L$ is the observed radiance in the unit energy per area per solid angle, which is $Wm^-2 sr^-1$ in direction $\omega$ which has an angle $\theta$ between the surface normal and $\omega$, $\Theta$ is the total flux or power emitted, $\theta$ is the angle between the surface normal and the specified direction, $A$ is the area of the surface and $\Omega$ is the solid angle in the unit steradian subtended by the observation or measurement.
 
-It is useful to distinguish between radiance incident at a point on a surface and exitant from that point. Terms for these concepts sometimes used in the graphics literature are surface radiance $L_r$ for the radiance \textit{reflected} from a surface and field radiance $L_i$ for the radiance \textit{incident} at a surface.  
+It is useful to distinguish between radiance incident at a point on a surface and excitant from that point. Terms for these concepts sometimes used in the graphics literature are surface radiance $L_r$ for the radiance \textit{reflected} from a surface and field radiance $L_i$ for the radiance \textit{incident} at a surface.  
 
 \myparagraph{BRDF}
 \label{brdf}
@@ -103,23 +103,23 @@ L is the reflected radiance, E is the irradiance and $\theta_{\text{i}}$ is the 
 \myparagraph{Spectral Rendering}
 In Computer Graphics, spectral rendering is where a scene's light transport is modeled considering the whole span of wavelengths instead of R,G,B values (still relating on geometric optic, which ignore wave phase). The motivation is that real colors of the physical world are spectrum; trichromatic colors are only inherent to Human Visual System.
 
-In Computer Graphics, when talking about Spectral Rendering, we are refering to use the whole span of wavelengths instead just using RGB values in order for rendering a scene's light transport. The motivation for using the whole wavelength spectrum is due to the fact that trichromatic colors are only inherent to human visual system and therefore many phenomenons are poorly represented just using trichromy. 
+In Computer Graphics, when talking about Spectral Rendering, we are referring to use the whole span of wavelengths instead just using RGB values in order for rendering a scene's light transport. The motivation for using the whole wavelength spectrum is due to the fact that trichromatic colors are only inherent to human visual system and therefore many phenomenons are poorly represented just using trichromy. 
 
 \myparagraph{Colors}
 \label{subsec:colors}
 In order to see how crucial the role human vision plays, we only have to look the the definition of color: 
-\textit{Color is the aspect of visual perception by which an observer may distinguish differences between two structure-free filds of view of the same size and shape such as may be caused by differences in the spectral composition of the radiant energy concerned in the oberservation}. -  Wyszechki and Siles, 2000 mentioned in Computer Graphics Fundamentals Book. 
+\textit{Color is the aspect of visual perception by which an observer may distinguish differences between two structure-free fields of view of the same size and shape such as may be caused by differences in the spectral composition of the radiant energy concerned in the observation}. -  Wyszechki and Siles, 2000 mentioned in Computer Graphics Fundamentals Book. 
 
 An eye consists of photoreceptor cells, cones and rods. Cones are responsible for color perception. 
 The human eye has three kinds of cone cells, with spectral sensitivity peaks in short (S, 420–440 nm), middle (M, 530–540 nm), and long (L, 560–580 nm) wavelengths.
-In principle, any color sensation in the humper color perception can therefore be described by just three paramters, corresponding to levels of stimulus of the three types of cone cells.
+In principle, any color sensation in human color perception can therefore be described by just three parameters, corresponding to levels of stimulus of the three types of cone cells.
 
 A color space maps a range of physically produced colors from mixed light to an objective description of color
 sensations registered in the eye in terms of tristimulus values.
 
 Tristimulus values associated with a color space can be conceptualized as amounts of three primary colors in a tri-chromatic additive color model. In some color spaces (including LMS and XYZ spaces), the primary colors used are not real colors, in the sense that they cannot be generated with any light spectrum.
 
-Due to distribution of cones in human eye, the tristimulus values depend on over's field of view. CIE defined a color mapping function called standard observer, to eliminate this variable represent an avarage human chromatic response.
+Due to distribution of cones in human eye, the tristimulus values depend on over's field of view. CIE defined a color mapping function called standard observer, to eliminate this variable represent an average human chromatic response.
 
 \begin{figure}[H]
   \centering
@@ -140,18 +140,20 @@ The tristimulus values for a color with a spectral power distribution $I(\lambda
 
 where $\lambda$, is the wavelength of the equivalent monochromatic light (measured in nanometers).
 
-It is not possible to build a display that corresponds to CIE XYZ, for this reasons it is necessary to design  other color spaces, which are phyiscal realizable, offers efficient encoding, are perceptual uniform and have an intuitive color specification. 
+It is not possible to build a display that corresponds to CIE XYZ, for this reasons it is necessary to design  other color spaces, which are physical realizable, offers efficient encoding, are perceptual uniform and have an intuitive color specification. 
 
 There are simple conversions between XYZ color space to any other color space defined, described as linear transformations.
 
 \subsection{Signal Processing Basics}
 A signal is a function that conveys information about the behavior or attributes of some phenomenon.
-In the physical world, any quantity exhibiting variation in time or variation in space (such as an image) is potentially a signal that might provide information on the status of a physical system, or convey a message between observers
+In the physical world, any quantity exhibiting variation in time or variation in space (such as an image) is potentially a signal that might provide information on the status of a physical system, or convey a message between observers.
+
+The Fourier Transform is an important image processing tool which is used to decompose an image into its sine and cosine components. The output of the transformation represents the image in the Fourier or frequency domain, while the input image is the spatial domain equivalent. In the Fourier domain image, each point represents a particular frequency contained in the spatial domain image. 
 
 \myparagraph{Fourier Transformation}
 The Fourier-Transform is a mathematical tool which allows to transform a given function or rather a given signal from defined over a time- (or spatial-) domain into its corresponding frequency-domain.
  
-Let $f$ an measurable function over $\mathds{R}^n$. Then, the continnous Fourier Transformation(\textbf{FT}), denoted as $\mathcal{F}\{f\}$ of $f$ is defined as, ignoring all constant factors in the formula:
+Let $f$ an measurable function over $\mathds{R}^n$. Then, the continuous Fourier Transformation(\textbf{FT}), denoted as $\mathcal{F}\{f\}$ of $f$ is defined as, ignoring all constant factors in the formula:
  
 \begin{equation}
   \mathcal{F}_{FT}\{f\}(w) = \int_{\mathds{R}^n} f(x)e^{-iwt} dt
@@ -165,7 +167,7 @@ whereas its inverse transform is defined like the following which allows us to o
 
 An usual identity for $w$ is the the so called angular with $w = \frac{2 \pi}{T} = 2 \pi v_f$ where T is the period, $v_f$ the frequency.
 
-By using Fourier Analysis, which is the approach to approximate any function by sums of simpler trigonometric functions, we gain the so called Discrete Time Fourier Transform (in short \textbf{DTFT}). The DTFT operates on a discrete function. Usually, such an input function is often created by digitally sampling a continnous function. The DTFT itself is operation on a discretized signal on a continnous, periodic frequency domain and looks like the following:
+By using Fourier Analysis, which is the approach to approximate any function by sums of simpler trigonometric functions, we gain the so called Discrete Time Fourier Transform (in short \textbf{DTFT}). The DTFT operates on a discrete function. Usually, such an input function is often created by digitally sampling a continuous function. The DTFT itself is operation on a discretized signal on a continuous, periodic frequency domain and looks like the following:
 
 \begin{equation}
   \mathcal{F}_{DTFT}\{f\}(w) = \sum_{-\infty}^{\infty} f(x) e^{-iwk}
@@ -200,7 +202,7 @@ The Taylor series $\mathcal T$ of a real or complex-valued function ƒ(x) that i
 In his paper about Diffraction Shader, J. Stam derives a BRDF which is modeling the effect of diffraction for various analytical anisotropic reflexion models relying on the so called scalar wave theory of diffraction for which a wave is assumed to be a complex valued scalar. 
 It's noteworthy, that Stam's BRDF formulation does not take into account the polarization of the light. Fortunately, light sources like sunlight and light bulbs are unpolarized. 
 
-A further assumption in Stam's Paper is, the emanated waves from the source are stationary, which implies the wave is a superposition of independent monochromatic waves. This implies that each wave is associated to a definite wavelangth lambda. However, sunlight once again fulfills this fact.
+A further assumption in Stam's Paper is, the emanated waves from the source are stationary, which implies the wave is a superposition of independent monochromatic waves. This implies that each wave is associated to a definite wavelength lambda. However, sunlight once again fulfills this fact.
 
 In our simulations we will always assume we have given a directional light source, i.e. sunlight. Hence, Stam's model can be used for our derivations.
 
@@ -259,20 +261,20 @@ explicitly and introduces the equation:
 which is a first simplification of $\ref{eq:IBase}$. Note that the scalar $w$ is the third component of ~\ref{eq:uvw} and can be written as $w = -(cos(\theta_i)+cos(\theta_r))$ using spherical coordinates. The scalar $k=\frac{2\pi}{\lambda}$ represent the wavenumber.
 
 
-During his derivations, Stam provides a analytical representation for the Kirchhoff integral assuming that each surface point $s(x,y)$ can be parameterized by $(x,y,h(x,y))$ where $h$ is the height at the position $(x,y)$ on the given $(x,y)$ surface plane. Using the tangent plane approximation for the parameterized surface and pluggin it into $\ref{eq:Istart}$ he will end up with: 
+During his derivations, Stam provides a analytical representation for the Kirchhoff integral assuming that each surface point $s(x,y)$ can be parameterized by $(x,y,h(x,y))$ where $h$ is the height at the position $(x,y)$ on the given $(x,y)$ surface plane. Using the tangent plane approximation for the parameterized surface and plugging it into $\ref{eq:Istart}$ he will end up with: 
 
 \begin{equation}
     \mathbf{I}(ku, kv) = \int \int (-h_{x}(x,y), -h_{y}(x,y), 1) e^{ikwh(x,y)} e^{ik(ux + vy)} dx dy
 \label{eq:I1}
 \end{equation}
 
-For further simplification Stam formulates auxilary function which depends on the provided heightfield: 
+For further simplification Stam formulates auxillary function which depends on the provided height field: 
 \begin{equation}
   p(x,y) = e^{iwkh(x,y)} 
 \label{eq:px}
 \end{equation}
 
-which will allow him to further simplifiy his equation $\ref{eq:I1}$ to:
+which will allow him to further simplify his equation $\ref{eq:I1}$ to:
 
 \begin{equation}
     \mathbf{I}(ku, kv) = \int \int \frac{1}{ikw}(-p_x, -p_y, ikwp) dx dy
@@ -288,7 +290,7 @@ Let $P(x,y)$ denote the Fourier Transform (FT) of $p(x,y)$. Then, the differenti
 \label{eq:I3}
 \end{equation}
 
-Let us consider the term $g = (F(-\omega_i - \omega_r)-(-\omega_i + \omega_r))$, which is a scalar factor of $\ref{eq:kirchhoff}$. The dot product with $g$ and $(-\omega_i - \omega_r)$ is equal $2F(1 + \omega_i \cdot \omega_r)$. Putting this finding and the identiy $\ref{eq:I3}$ into $\ref{eq:kirchhoff}$ he will end up with:
+Let us consider the term $g = (F(-\omega_i - \omega_r)-(-\omega_i + \omega_r))$, which is a scalar factor of $\ref{eq:kirchhoff}$. The dot product with $g$ and $(-\omega_i - \omega_r)$ is equal $2F(1 + \omega_i \cdot \omega_r)$. Putting this finding and the identity $\ref{eq:I3}$ into $\ref{eq:kirchhoff}$ he will end up with:
 
 \begin{equation}
 \psi_{2}(\omega_i, \omega_r) = \frac{i k e^{i K R}}{4 \pi R} \frac{2F(1 + \omega_i \cdot \omega_r)}{w} P(ku, kv)
@@ -310,7 +312,7 @@ where $G$ is the so called geometry term which is equal:
 
 \section{Derivations}
 \subsection{BRDF formulation}
-Lets assume we have given an incoming light source with solid angle $\omega_i$, $\theta{_i}$ is its angle of incidence, $\omega_r$ is the solid angle for the reflected light, $\lambda$ wavelength, $\Omega$ is the hemisphre we of integration for the incomming light. Then, we are able to formulate a BRDF by using its definiton:  
+Lets assume we have given an incoming light source with solid angle $\omega_i$, $\theta{_i}$ is its angle of incidence, $\omega_r$ is the solid angle for the reflected light, $\lambda$ wavelength, $\Omega$ is the hemisphere we of integration for the incoming light. Then, we are able to formulate a BRDF by using its definition:  
 
 \begin{align*}
 f_r(\omega_i, \omega_r) = \frac{dL_r(\omega_r)}{L_i(\omega_i)cos(\theta_i)d\omega_i} \\
@@ -359,10 +361,10 @@ L_{\lambda}(\omega_r)
 & = I(\lambda) \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|T_0^2 P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle
 \end{align*}
 
-$P_{cont}$ denotes the continuous inverse Fourier-Transform for the Taylor-Series of our heightfield representing the nano-scaled surface structure, i.e. $P(k,l) = \mathcal{F}^{-1}\{p\}(k,l)$ and $P_{dtft}$ is the inverse Discrete Time Fourier Transform of $p(x,y) = e^{ikwh(x,y)}$. Furthermore $T_0$ the sampling distance for the discretization of $p(x,y)$ assuming equal and uniform sampling in both dimensions $x,y$.
+$P_{cont}$ denotes the continuous inverse Fourier-Transform for the Taylor-Series of our height field representing the nano-scaled surface structure, i.e. $P(k,l) = \mathcal{F}^{-1}\{p\}(k,l)$ and $P_{dtft}$ is the inverse Discrete Time Fourier Transform of $p(x,y) = e^{ikwh(x,y)}$. Furthermore $T_0$ the sampling distance for the discretization of $p(x,y)$ assuming equal and uniform sampling in both dimensions $x,y$.
 
 \subsection{Relative BRDF}
-In this section we are going to explain how to scale our BRDF formulation such that all of its possible output values are mapped into the range $\left[0,1\right]$. Such a relative BRDF formulation will ease our life for later rendering puposes since usually color values are within the range $\left[0,1\right]$, too. Furthermore, this will allow us to properly blend the resulting illumination caused by diffraction with a texture map.
+In this section we are going to explain how to scale our BRDF formulation such that all of its possible output values are mapped into the range $\left[0,1\right]$. Such a relative BRDF formulation will ease our life for later rendering purposes since usually color values are within the range $\left[0,1\right]$, too. Furthermore, this will allow us to properly blend the resulting illumination caused by diffraction with a texture map.
 
 Let us examine what $L_\lambda(\omega_r)$ will be for $\omega_r = \omega_0 := (0,0,*)$ i.e. specular reflection case, denoted as $L_\lambda^{spec}(\omega_0)$. 
 
@@ -418,7 +420,7 @@ which we can rearrange to the expression
 L_\lambda(\omega_r) = \rho_\lambda(\omega_i,\omega_r)L_\lambda^{spec}(\omega_0)
 \end{equation}
 
-Let us choose $L_\lambda^{spec}(w_0) = S(\lambda)$ such that is has the same profile as the relative spectral power distribuation of CIE Standard Illuminant $D65$. Further, when integration over $\lambda$ for a specular surface we should get $CIE_{XYZ}$ values corresponding to the white point for $D65$ 
+Let us choose $L_\lambda^{spec}(w_0) = S(\lambda)$ such that is has the same profile as the relative spectral power distribution of CIE Standard Illuminant $D65$. Further, when integration over $\lambda$ for a specular surface we should get $CIE_{XYZ}$ values corresponding to the white point for $D65$ 
 The corresponding tristimulus values using CIE colormatching functions for the $CIE_{XYZ}$ values look like:
 
 \begin{equation}
@@ -451,9 +453,9 @@ X
 Where we used the definition $S_x(\lambda)\overline{x}(\lambda)$ in the last step.
 
 \subsection{Taylor approximation for BRDF}
-In this section, we will deliver an approximation for the inverse Fourier Tranformation of Stam's auxilary function p(x,y)s. This derivation will rely on the definition of Taylor Series expansion. Further, we will provide an error bound for our approximation approach for a given number of iterations. Last, we will extend our current BRDF formula by the findings derived within this section.
+In this section, we will deliver an approximation for the inverse Fourier Transformation of Stam's auxiliary function p(x,y)s. This derivation will rely on the definition of Taylor Series expansion. Further, we will provide an error bound for our approximation approach for a given number of iterations. Last, we will extend our current BRDF formula by the findings derived within this section.
 
-Given $p(x,y)=e^{ikwh(x,y)}$ form Stam's Paper where h(x,y) is a given heightfield. Let be y real or even complex value, and lets consider the power series for the the exponential function 
+Given $p(x,y)=e^{ikwh(x,y)}$ form Stam's Paper where h(x,y) is a given height field. Let be y real or even complex value, and lets consider the power series for the the exponential function 
 \begin{equation*}
   e^{t}=1+t+\frac{t^{2}}{2!}+\frac{t^{3}}{3!}+...=\sum_{n=0}^{\infty}\frac{t^{n}}{n!}
 \end{equation*}
@@ -510,15 +512,15 @@ pick for y.
 
 \myparagraph{Part 2: Find such an N}
 Let $f(x)=e^{x}$. We can formulate its Taylor-Series, stated above.
-Let $P_{n}(x)$denote the n-th Taylor-Polinomial, 
+Let $P_{n}(x)$denote the n-th Taylor polynom, 
 \begin{equation*}
  P_{n}(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^{k}
 \end{equation*}
 where $a$ is our developing point (here a is equal zero). 
 
-We can define the error of the n-th Taylor-Polinomial to be $E_{n}(x)=f(x)-P_{n}(x)$.
-the error of the n-th Taylor-Polinomial is difference between the value of the function and the Taylor polinomial
-This directly implies $|E_{n}(x)|=|f(x)-P_{n}(x)|$. By using the Lagrangien Error Bound it follows: 
+We can define the error of the n-th Taylor polynom to be $E_{n}(x)=f(x)-P_{n}(x)$.
+the error of the n-th Taylor polynom is difference between the value of the function and the Taylor polynomial
+This directly implies $|E_{n}(x)|=|f(x)-P_{n}(x)|$. By using the Lagrangian Error Bound it follows: 
 
 \begin{equation*}
  |E_{n}(x)|\leq\frac{M}{(n+1)!}|x-a|^{n+1} 
@@ -553,9 +555,9 @@ x_{max}
  &=1.5\pi
 \end{align*}
 
-and it follows for our intervall $I=[0,1.5\pi]$. 
+and it follows for our interval $I=[0,1.5\pi]$. 
 
-Next we are going to find the value for $M$. Since the exponential function is monotonically growing (on the interval I) and the derivative of the \textbf{exp} function is the exp function itself, we can find such an $M$: 
+Next we are going to find the value for $M$. Since the exponential function is monotonically growing (on the interval I) and the derivative of the \textbf{exp} function is the exponential function itself, we can find such an $M$: 
 \begin{align*}
  M
  &=e^{x_{max}} \\
@@ -581,7 +583,7 @@ With Octave/Matlab we can see:
 With this approach we have that $\sum_{n=0}^{25}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$ is
 an approximation of $P(u,v)$ with error $\epsilon\approx8.8150*10^{-8}$. This means we can precompute 25 Fourier Transformations in order to approximate P(u,v) having an error $\epsilon\approx8.8150*10^{-8}$. 
 
-Using now our approximation for $P_{dtft} = \mathcal{F}^{-1}\{p\}(u,v)$ for the tristumulus value X, we will get:
+Using now our approximation for $P_{dtft} = \mathcal{F}^{-1}\{p\}(u,v)$ for the tristimulus value X, we will get:
 
 \begin{align*}
 X 
@@ -591,7 +593,7 @@ X
 
 \subsection{Sampling: Gaussian Window}
 Practically, we cannot compute the DTFT numerically due to finite computer arithmetic, since $w$ is a continuous function for the DTFT. 
-The DFT of a discrete heightfield patch is equivalent to the DTFT of an infinitely periodic function consisting of replicas of the same discrete patch. By windowing with a window function that is zero outside the central replica, the convolution of either the DFT or the DTFT of heightfield with the fourier transfrom of the window becomes equivalent.
+The DFT of a discrete height field patch is equivalent to the DTFT of an infinitely periodic function consisting of replicas of the same discrete patch. By windowing with a window function that is zero outside the central replica, the convolution of either the DFT or the DTFT of height field with the Fourier Transform of the window becomes equivalent.
 
 Let $window_g$ denote the gaussian window with $4\sigma_s$ $\mu m$ where $\sigma_f = \frac{1}{2\pi\sigma_s}$
 let us further substitute $\mathbf{t(x,y)}=i^n h(x,y)^n$
@@ -650,19 +652,19 @@ Box(x) =
 \right.
 $
 
-We assume, that our given heighfield can be represented as a 2-dimensional box-function. 
-Note that we can use any explicit given constrainted 2-dimensional function and will get some identities like
+We assume, that our given height field can be represented as a 2-dimensional box-function. 
+Note that we can use any explicit given constrained 2-dimensional function and will get some identities like
 we get from the box-function.
  
-Further we are assuming that we can model the overall surface be assuming this heighfield being distributed in a periodic manor.
-Therfore, the whole surface can be represented like this $f(x) = \sum_{n=0}^{N} Box(x+nT_1, y+mT_2)$ assuming the given heighfield has the dimensions $T_1$ by $T_2$. But let us first consider the 1-dimensional Box-function case before deriving an identity for the Fourier transform of our 2-dimensional Box-function, i.e. the fourier transform of our heighfield. 
+Further we are assuming that we can model the overall surface be assuming this height field being distributed in a periodic manor.
+Therefore, the whole surface can be represented like this $f(x) = \sum_{n=0}^{N} Box(x+nT_1, y+mT_2)$ assuming the given height field has the dimensions $T_1$ by $T_2$. But let us first consider the 1-dimensional Box-function case before deriving an identity for the Fourier transform of our 2-dimensional Box-function, i.e. the Fourier Transform of our height field. 
 
-Note: A function $f$ periodic with periode $T$ means: $\forall x \in \mathcal{R}: Box(x) = Box(x+T)$
+Note: A function $f$ periodic with period $T$ means: $\forall x \in \mathcal{R}: Box(x) = Box(x+T)$
 
-A so called bump can be represented by our 1-dimensional Box-function. We assume periodicity which is equaivalent to:   
+A so called bump can be represented by our 1-dimensional Box-function. We assume periodicity which is equivalent to:   
 $f(x) = \sum_{n=0}^{N} Box(x+nT)$
 
-We are insterested in the 1-dimensional inverse Fourier transform of the 1-dimensional Box-function:
+We are interested in the 1-dimensional inverse Fourier transform of the 1-dimensional Box-function:
 
 \begin{align*}
 \mathcal{F}^{-1}\{f\}(w)
@@ -671,14 +673,14 @@ We are insterested in the 1-dimensional inverse Fourier transform of the 1-dimen
 & =\sum_{n=0}^{N} \int_{-\infty}^{\infty} Box(x+nT) e^{iwx}dx
 \end{align*}
 
-Next, apply the following substituation $x+nT = y$ which will lead us to:
+Next, apply the following substitution $x+nT = y$ which will lead us to:
 
 \begin{gather*}
 x=y-nT\\
 dx=dy
 \end{gather*} 
 
-Plugging this substituation back to the equation from above we will get 
+Plugging this substitution back to the equation from above we will get 
 
 \begin{align*}
 \mathcal{F}^{-1}\{f\}(w)
@@ -697,9 +699,9 @@ We used the fact that the term $e^{-iwnT}$ is a constant when integrating along 
 & =\frac{1-e^{iwT(N+1)}}{1-e^{-iwT}}
 \end{align*}
 
-We recognize the geometric series identity for the left-handside of this equation. Since our series is bounded we can derive our right-handside.
+We recognize the geometric series identity for the left-hand-side of this equation. Since our series is bounded we can derive our right-hand-side.
 
-Since $e^{-ix}$ is a complex number and every complex number can be written in its polar form, i.e. $e^{-ix} = cos(x) + i sin(x)$ we can go even further, using the trigonometric idententities that $cos(-x) = cos(x)$ and $sin(-x) = -sin(x)$:
+Since $e^{-ix}$ is a complex number and every complex number can be written in its polar form, i.e. $e^{-ix} = cos(x) + i sin(x)$ we can go even further, using the trigonometric identities that $cos(-x) = cos(x)$ and $sin(-x) = -sin(x)$:
 
 \begin{align*}
 \frac{1-e^{iwT(N+1)}}{1-e^{-iwT}}
@@ -707,7 +709,7 @@ Since $e^{-ix}$ is a complex number and every complex number can be written in i
 \end{align*}
 
 Which is still a complex number $(p+iq)$. Every complex number can be written as a fraction of two complex numbers. This means that the complex number $(p+iq)$ can be written as $(p+iq) = \frac{(a+ib)}{(c+id)}$ for any $(a+ib), (c+id) \neq 0$. 
-For our case, let us use the follwoing substituations: 
+For our case, let us use the following substitutions: 
 
 \begin{align}
 a& := 1 - cos(wT(N+1))&
@@ -717,7 +719,7 @@ d& =sin(wT)
 \end{align}
 
 hence it follows $\frac{1-e^{iwT(N+1)}}{1-e^{-iwT}} = \frac{(a+ib)}{(c+id)}$.
-By rearanging the terms it follows $(a+ib) = (c+id)(p+iq)$ and multiplying the right handside out we get the follwing system of equations:
+By rearranging the terms it follows $(a+ib) = (c+id)(p+iq)$ and multiplying the right hand-side out we get the following system of equations:
 
 \begin{align}
 (cp-dq)& =a\\
@@ -732,7 +734,7 @@ q& =\frac{(bc+ad)}{c^2 + d^2}
 \end{align}
 
 
-Putting our substituation for $a, b, c, d$ back into the current representatio for $p$ and $q$ and using some trigonometric identites, this we then get:
+Putting our substitution for $a, b, c, d$ back into the current representation for $p$ and $q$ and using some trigonometric identities, this we then get:
 
 \begin{align}
 p& =\frac{1}{2}+\frac{1}{2}\left(\frac{cos(wTN)-cos(wT(N+1))}{1-cos(wT)}\right)\\
@@ -747,7 +749,7 @@ Since we have seen, that $\sum_{n=0}^N e^{-uwnT}$ is a complex number and can be
 & = (p+iq) \mathcal{F}^{-1}\{Box\}(w)  
 \end{align*}
 
-In oder to derive next a identity for the Fourier transform for our 2-dim heighfield, we can proceed similarly, the only fact which changes is, that we are now in a 2-dimensional domain, i.e. we are about to compute a two-dimensional Fourier transform:
+In oder to derive next a identity for the Fourier transform for our 2-dim height field, we can proceed similarly, the only fact which changes is, that we are now in a 2-dimensional domain, i.e. we are about to compute a two-dimensional Fourier transform:
 Let us again us again a Box-function, this time a 2-dimensional Box-function $Box(x,y)$ just for the sake of convenience.
 
 \begin{align*}
@@ -763,4 +765,4 @@ Let us again us again a Box-function, this time a 2-dimensional Box-function $Bo
 & =(p + iq) \mathcal{F}^{-1}\{Box\}(w_1,w_2)
 \end{align*}
 
-Where we define $p := (p_1 p_2 - q_1 q_2) $ and $q := (p_1 p_2 + q_1 q_2)$. For this identity we used green's integration rule which allowed us to split the double integral to the product of two single integrations. Also, we used the definition of the 2-dimensional inverse Fourer transform of the Box-function. We applied the same substituation like we did in for the 1 dimensional case, but this time twice, once for each variable seperately. The last step, substituting with $p$ and $q$ will be useful later in the implementation. The insight should be, that the product of two complex numbers is again a complex number. We will have to compute the absolute value of $\mathcal{F}^{-1}\{f\}(w_1,w_2)$ which will then be equal $(p^2 + q^2)^{\frac{1}{2}}\left|\mathcal{F}^{-1}\{Box\}(w_1,w_2)\right|$
+Where we define $p := (p_1 p_2 - q_1 q_2) $ and $q := (p_1 p_2 + q_1 q_2)$. For this identity we used green's integration rule which allowed us to split the double integral to the product of two single integrations. Also, we used the definition of the 2-dimensional inverse Fourier transform of the Box-function. We applied the same substitution like we did in for the 1 dimensional case, but this time twice, once for each variable separately. The last step, substituting with $p$ and $q$ will be useful later in the implementation. The insight should be, that the product of two complex numbers is again a complex number. We will have to compute the absolute value of $\mathcal{F}^{-1}\{f\}(w_1,w_2)$ which will then be equal $(p^2 + q^2)^{\frac{1}{2}}\left|\mathcal{F}^{-1}\{Box\}(w_1,w_2)\right|$
