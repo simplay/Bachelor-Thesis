@@ -409,9 +409,9 @@ void mainRenderGeometry(){
 	float vv = lightDir.y - Pos.y;
 	float ww = lightDir.z - Pos.z;
 
-//	vec3 totalXYZ  = getRawXYZFromTaylorSeries(uu, vv, ww);
+	vec3 totalXYZ  = getRawXYZFromTaylorSeries(uu, vv, ww);
 	
-	vec3 totalXYZ  = vec3(1, 0, 0);
+//	vec3 totalXYZ  = vec3(1, 0, 0);
 	
 	totalXYZ = totalXYZ*gainF(lightDir, Pos)*1000.0*shadowF;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
@@ -450,9 +450,9 @@ void mainRenderGeometry(){
 	float gamma = 2.2; 
 	tex.xyz = gammaCorrect(tex.xyz ,1.0f/1.0);
 	vec3 finClr = gammaCorrect((1-diffW)*(totalXYZ + (1-alpha) * tex.xyz *diffuseL) + tex.xyz * diffW, 2.2);
-//	frag_shaded = vec4(gammaCorrect(totalXYZ, 2.2), 1.0);
+	frag_shaded = vec4(gammaCorrect(totalXYZ, 2.2), 1.0);
 //	frag_shaded = vec4(finClr, 1.0);
-	frag_shaded = vec4(tex.xyz, 1.0);
+//	frag_shaded = vec4(tex.xyz, 1.0);
 	
 }
 
@@ -573,9 +573,9 @@ void main(){
 //		coneMain();
 //	}else{
 //		if(renderBrdfMap == 1){
-			mainBRDFMap();
+//			mainBRDFMap();
 //		}else{
-//			mainRenderGeometry();
+			mainRenderGeometry();
 //		}
 //	}
 	
