@@ -164,7 +164,10 @@ public class FreqResponseGenerator extends LookupGenerator {
 
 			// correct it for proper division
 			//float vAngInc = 180.0f/ (numAng-1);
-
+			
+			
+			
+			
 			for (int angIdx=0; angIdx < numAng; ++angIdx)
 			{
 				//float thetaR = (float)(Math.PI * (angIdx-midAngIdx)*vAngInc/180.0f );

@@ -10,7 +10,7 @@
 uniform float LMIN;
 uniform float LMAX;
 uniform float delLamda;
-
+uniform float dx;
 // Uniform variables, passed in from host program via suitable
 uniform int debugTxtIdx;
 
@@ -98,17 +98,19 @@ float GetLightNormalCos()
 
 }
 
+
+
 vec2 compute_N_min_max(float t){
 	// default case if t == 0 otherwise override it.
 	float N_min = 0.0;
 	float N_max = 0.0;
 	
 	if(t > 0.0){
-		N_min = ceil((dimX*t) / lambda_max);
-		N_max = floor((dimX*t) / lambda_min);
+		N_min = floor((dx*t) / (0.78));
+		N_max = ceil((dx*t) / (0.38));
 	}else if(t < 0.0){
-		N_min = ceil((dimX*t) / lambda_min);
-		N_max = floor((dimX*t) / lambda_max);
+		N_min = floor((dx*t) / (0.38));
+		N_max = ceil((dx*t) / (0.78));
 	}
 	return vec2(N_min, N_max);
 }
@@ -416,10 +418,10 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 	
 	vec2 N_u = compute_N_min_max(uu);
 	vec2 N_v = compute_N_min_max(vv);
-	float lower_u = N_u.x * pow(10.0, -9.0);
-	float upper_u = N_u.y * pow(10.0, -9.0);
-	float lower_v = N_v.x* pow(10.0, -9.0);
-	float upper_v = N_v.y* pow(10.0, -9.0);
+	float lower_u = N_u.x;
+	float upper_u = N_u.y;
+	float lower_v = N_v.x;
+	float upper_v = N_v.y;
 	float diff = upper_u - lower_u;
 	
 	float upperbound_u = 0.0;
@@ -429,36 +431,33 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 	float threshold = pow(10.0, -40.0);
 	float eps = 2.0*pow(10.0, -2.0);
 	
-	if(uu >= 0.0){
+//	if(uu >= 0.0){
 		lowerbound_u = lower_u;
 		upperbound_u = upper_u;
-	}else{
-		lowerbound_u = -upper_u;
-		upperbound_u = -lower_u;
-	}
-	
-	if(vv >= 0.0){
+//	}else{
+//		lowerbound_u = -upper_u;
+//		upperbound_u = -lower_u;
+//	}
+//	
+
 		lowerbound_v = lower_v;
-		upperbound_v = upper_v;
-	}else{
-		lowerbound_v = -upper_v;
-		upperbound_v = -lower_v;
-	}
-	
-	float stepSize = 0.02;
+		upperbound_v = upper_v;	
+		
+	float stepSize = 1.0;
 	float N_u_step = stepSize;
 	float N_v_step = stepSize;
 	float uv_sqr = pow(uu*uu+vv*vv, 0.5);
 	if(uv_sqr < eps){
 		return vec3(1,1,1);
 	}else{
+
 		for(float N_u = lowerbound_u; N_u <= upperbound_u; N_u = N_u + N_u_step){
 			if(abs(N_u) < threshold){
 				continue;
 			}
-			
-			float lVal = ((dimX*(uu))/N_u);
-			
+			if(upperbound_u - lowerbound_u > 800) break;
+			float lVal = ((dx*(uu))/N_u);
+			lVal = lVal*1000.0;
 			if(lVal < 380.0 && lVal > 780.0){
 				continue;
 			}
@@ -497,8 +496,9 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 			if(abs(N_v) < threshold){
 				continue;
 			}
-			
-			float lVal = ((dimX*(vv))/N_v);
+			if(upperbound_v - lowerbound_v > 800) break;
+			float lVal = ((dx*(vv))/N_v);
+			lVal = lVal*1000.0;
 			
 			if(lVal < 380.0 && lVal > 780.0){
 				continue;
@@ -692,6 +692,6 @@ void main(){
 //	}
 	
 	
-	frag_shaded = vec4(gammaCorrect(totalXYZ,2.2), 1.0);
+	frag_shaded = vec4(gammaCorrect(totalXYZ,2.2), 1.0)/2.0;
 //	frag_shaded = vec4(xyz, 1.0);
 }

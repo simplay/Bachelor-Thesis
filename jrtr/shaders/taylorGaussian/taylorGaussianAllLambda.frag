@@ -568,12 +568,12 @@ void gemMain(){
 }
 
 void main(){
-	gemMain();
+//	gemMain();
 //	if(isCone==1){
 //		coneMain();
 //	}else{
 //		if(renderBrdfMap == 1){
-//			mainBRDFMap();
+			mainBRDFMap();
 //		}else{
 //			mainRenderGeometry();
 //		}
