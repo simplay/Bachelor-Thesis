@@ -441,19 +441,11 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 //	
 //
 		lowerbound_v = lower_v;
-<<<<<<< HEAD
-		upperbound_v = upper_v;
-	}else{
-		lowerbound_v = -upper_v;
-		upperbound_v = -lower_v;
-	}
-	
-	float stepSize = 0.10;
-=======
+
 		upperbound_v = upper_v;	
 		
 	float stepSize = 1.0;
->>>>>>> pewpewpew
+
 	float N_u_step = stepSize;
 	float N_v_step = stepSize;
 	float uv_sqr = pow(uu*uu+vv*vv, 0.5);
