@@ -43,7 +43,6 @@
 \contentsline {subsection}{\numberline {3.4.1}Texture lookup}{33}{subsection.3.4.1}
 \contentsline {subsection}{\numberline {3.4.2}Texture Blending}{35}{subsection.3.4.2}
 \contentsline {subsection}{\numberline {3.4.3}Color Transformation}{35}{subsection.3.4.3}
-\contentsline {section}{\numberline {3.5}Discussion}{35}{section.3.5}
 \contentsline {chapter}{\numberline {4}Evaluation Data Acquisition}{37}{chapter.4}
 \contentsline {section}{\numberline {4.1}Data Acquisition}{37}{section.4.1}
 \contentsline {section}{\numberline {4.2}Diffraction Gratings}{37}{section.4.2}
@@ -62,6 +61,6 @@
 \contentsline {section}{\numberline {A.1}Schlick's approximation}{59}{section.A.1}
 \contentsline {section}{\numberline {A.2}Spherical Coordinates}{59}{section.A.2}
 \contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{60}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{60}{appendix*.51}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{62}{appendix*.52}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{63}{appendix*.53}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{60}{appendix*.52}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{62}{appendix*.53}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{63}{appendix*.54}
