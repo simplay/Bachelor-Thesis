@@ -314,12 +314,23 @@ where $G$ is the so called geometry term which is equal:
 \subsection{BRDF formulation}
 Lets assume we have given an incoming light source with solid angle $\omega_i$, $\theta{_i}$ is its angle of incidence, $\omega_r$ is the solid angle for the reflected light, $\lambda$ wavelength, $\Omega$ is the hemisphere we of integration for the incoming light. Then, we are able to formulate a BRDF by using its definition:  
 
-\begin{align*}
-f_r(\omega_i, \omega_r) = \frac{dL_r(\omega_r)}{L_i(\omega_i)cos(\theta_i)d\omega_i} \\
-=> f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i = dL_r(\omega_r) \\
-=> \int_{\Omega}f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i = \int_{\Omega}dL_r(\omega_r) \\
-=> L_r(\omega_r) = \int_{\Omega}f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i
-\end{align*}
+
+
+\begin{alignat}{4}
+& f_r(\omega_i, \omega_r) &&= \frac{dL_r(\omega_r)}{L_i(\omega_i)cos(\theta_i)d\omega_i} \nonumber \\
+\Rightarrow{} & f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i &&= dL_r(\omega_r) \nonumber \\
+\Rightarrow{} & \int_{\Omega}f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i &&= \int_{\Omega}dL_r(\omega_r) \nonumber\\
+\Rightarrow{} & L_r(\omega_r) &&= \int_{\Omega}f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i
+\end{alignat}
+
+
+
+% \begin{align*}
+% f_r(\omega_i, \omega_r) = \frac{dL_r(\omega_r)}{L_i(\omega_i)cos(\theta_i)d\omega_i} \\
+% => f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i = dL_r(\omega_r) \\
+% => \int_{\Omega}f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i = \int_{\Omega}dL_r(\omega_r) \\
+% => L_r(\omega_r) = \int_{\Omega}f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i
+% \end{align*}
 
 The last equation is the so called rendering equation.
 We assume further, that our incident light is a directional, unpolarized light source like sunlight and therefore its radiance is given as 
