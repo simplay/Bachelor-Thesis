@@ -173,7 +173,12 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "patchSpacing");
 		gl.glUniform1f(id3, patchSpacing);
 		
+		
+		
+//		float dimX = m.getPatchDimX();
+		// see images and estimate
 		float dimX = m.getPatchDimX();
+		System.out.println("dim x " + dimX);
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "dimX");
 		gl.glUniform1f(id3, width);
 		
@@ -195,9 +200,17 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		
 		float to = (dimX/width);
 		float dh = scalingFactors[3];
-		to = dh;
+		to = (float)dh;
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "t0");
-		gl.glUniform1f(id3, to);
+		gl.glUniform1f(id3, dh);
+		
+		// spacing between two patches
+//		float dx = 35;
+		float dx =dh*width*1000000;//2.5f;
+		if(dx < 10.0) dx = 10;
+		System.out.println("patch spacing in microns: " + dx);
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "dx");
+		gl.glUniform1f(id3, dx);
 		
 
 //		float dh = scalingFactors[3];
@@ -229,7 +242,7 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 			lightDirections[k*4 +1] = lightDirection.y;
 			lightDirections[k*4 +2] = lightDirection.z;
 			lightDirections[k*4 +3] = lightDirection.w;
-			
+			//
 			k++;
 		}
 
