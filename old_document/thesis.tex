@@ -1,0 +1,60 @@
+\documentclass[12pt]{article}
+\usepackage{lingmacros}
+\usepackage{tree-dvips}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathpazo}
+\usepackage[ngerman]{babel}
+\usepackage{fontspec}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage{mathrsfs}
+\usepackage{dsfont}
+\usepackage{graphicx}
+\usepackage{ wasysym }
+\usepackage{listings}
+\usepackage{ amssymb }
+\usepackage[hypcap]{caption}
+
+\renewcommand{\algorithmicforall}{\textbf{foreach}}
+\newcommand{\init}{\textbf{INIT }}
+\newcommand{\pluseq}{\mathrel{+}=}
+\newcommand{\asteq}{\mathrel{*}=}
+\newcommand{\myto}{\textbf{TO }}
+
+
+\newcommand*\colvec[3][]{
+    \begin{pmatrix}\ifx\relax#1\relax\else#1\\\fi#2\\#3\end{pmatrix}
+}
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
+
+
+\begin{document}
+
+\title{Diffraction Shader}
+\author{Michael Single}
+\maketitle
+
+\newpage{\pagestyle{empty} \cleardoublepage}
+\tableofcontents
+\newpage{\pagestyle{empty} \cleardoublepage}
+
+\include{Chapters/chap1}
+\newpage{\pagestyle{empty} \cleardoublepage}
+
+\include{Chapters/chap2}
+\newpage{\pagestyle{empty} \cleardoublepage}
+
+\include{Chapters/chap3}
+\newpage{\pagestyle{empty} \cleardoublepage}
+
+\include{Chapters/chap4}
+\newpage{\pagestyle{empty} \cleardoublepage}
+
+\include{Chapters/chap5}
+\newpage{\pagestyle{empty} \cleardoublepage}
+
+\include{Chapters/chap6}
+\newpage{\pagestyle{empty} \cleardoublepage}
+
+\end{document}

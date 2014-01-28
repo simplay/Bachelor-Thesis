@@ -42,3 +42,6 @@ scene/bin/**/*.class
 scene/*.png
 #snapshots
 screenshots/*
+*.aux
+*.log
+document/**/*._*
