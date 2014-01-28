@@ -36,7 +36,7 @@ show nminmax renderings
 \end{figure}
 
 Mention basic set up
-brdf map shows shader output for all viewing directions and a fixed incident light direction. viewing direction represented in spherical coordinates $(\theta_v, \phi_v)$ is represented in map at point $(x,y) = (sin(\theta_v)cos(\phi_v), sin(\theta_v)sin(\phi_v))$ with origin at map center. fix light direction for normal incidence, i.e. $(\theta_i, \phi_i) = (0,0)$ unless specified otherwise.
+
 
 brdf map for blazed grating shows typical high relative brightness for the first order of diffraction.
 
@@ -45,7 +45,7 @@ elaphe skin, finger-like nanostructure quite regularly placed, thus exhibits dif
 for xeno, layers of nano-fingers do not overlap and they manoeuvre significantly along their lenght but with some local consistency. thus see diffraction along many different directions in brdf map. similar argument for diffraction across locally periodic finger patches with slightly different orientations.
 
 \section{BRDF maps}
-
+Following passage explains the structure of the partial BRD maps that are presented in this report. Consider a sample the partial BRD maps shown below :
 
 \begin{figure}[H]
   \centering
@@ -59,10 +59,17 @@ for xeno, layers of nano-fingers do not overlap and they manoeuvre significantly
     \label{fig:lightreflectiongeometry}
   }
 ~
-  \label{brdfmapexplanation}
-  \caption{BRDF maps for different patches}
+
+  \caption{BRDF maps for different patches: $\Theta=(\theta,\phi)$ is the direction of light propagation}
+\label{fig:brdfmapexplanation}
 \end{figure}
 
+Distance from the center of the (circular) map = $sin(theta_r)$
+Angle with the positive X-Axis in the map = $\phi_r$
+$\theta_i$ and $\phi_i$ are constant for a given map, plot. For all the results presented in this report $\phi_i = \pi$
+
+
+BRDF map shows shader output for all viewing directions and a fixed incident light direction. viewing direction represented in spherical coordinates $(\theta_v, \phi_v)$ is represented in map at point $(x,y) = (sin(\theta_v)cos(\phi_v), sin(\theta_v)sin(\phi_v))$ with origin at map center. fix light direction for normal incidence, i.e. $(\theta_i, \phi_i) = (0,0)$ unless specified otherwise. See figure $\ref{fig:brdfmapexplanation}$.
 
 Mention brdf map basic idea figure + text
 
