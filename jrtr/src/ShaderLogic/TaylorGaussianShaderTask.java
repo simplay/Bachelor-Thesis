@@ -241,7 +241,7 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 			lightDirections[k*4 +1] = lightDirection.y;
 			lightDirections[k*4 +2] = lightDirection.z;
 			lightDirections[k*4 +3] = lightDirection.w;
-			
+			//
 			k++;
 		}
 

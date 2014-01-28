@@ -439,7 +439,7 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 //		upperbound_u = -lower_u;
 //	}
 //	
-
+//
 		lowerbound_v = lower_v;
 <<<<<<< HEAD
 		upperbound_v = upper_v;

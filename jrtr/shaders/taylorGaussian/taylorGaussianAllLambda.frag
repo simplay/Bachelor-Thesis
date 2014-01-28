@@ -499,7 +499,7 @@ vec3 blend3 (vec3 x){
 	y = max(y, vec3 (0, 0, 0));
 	return (y);
 }
-
+//
 void gemMain(){
 	
 	setVarXY();
