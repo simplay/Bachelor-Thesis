@@ -36,7 +36,7 @@ show nminmax renderings
 \end{figure}
 
 Mention basic set up
-brdf map shows shader output for all viewing directions and a fixed incident light direction. viewing direction represented in spherical coordinates $(\theta_v, \phi_v)$ is represented in map at point $(x,y) = (sin(\theta_v)cos(\phi_v), sin(\theta_v)sin(\phi_v))$ with origin at map center. fix light direction for normal incidence, i.e. $(\theta_i, \phi_i) = (0,0)$ unless specified otherwise.
+
 
 brdf map for blazed grating shows typical high relative brightness for the first order of diffraction.
 
@@ -44,9 +44,72 @@ elaphe skin, finger-like nanostructure quite regularly placed, thus exhibits dif
 
 for xeno, layers of nano-fingers do not overlap and they manoeuvre significantly along their lenght but with some local consistency. thus see diffraction along many different directions in brdf map. similar argument for diffraction across locally periodic finger patches with slightly different orientations.
 
+
+the elapse does not look that regular under the electron scanning microscope. This is why it is much less iridescent than the other specie.
+
+In addition, the micro-geometry is highly similar among snake species, it is the geometry of the nanostructures that are highly different among species and that cause the snake to be or not be iridescent. So, even Xenopeltis would not give you very different geometry than Elaphe.
+
+Xeno has a brownish body with no pattern that makes the iridescence more spectacular than on Ellaphe
+
+
 \section{BRDF maps}
+Following passage explains the structure of the partial BRD maps that are presented in this report. Consider a sample the partial BRD maps shown below :
+
+\begin{figure}[H]
+  \centering
+  \subfigure[BRDF map schema]{
+    \includegraphics[scale=0.53]{results/brdfmapschema.png}
+    \label{fig:brdfmapschema}
+  }
+~
+  \subfigure[Light reflection geometrical setting]{
+    \includegraphics[scale=0.68]{results/Lightreflectiongeometry.png}
+    \label{fig:lightreflectiongeometry}
+  }
+~
+
+  \caption{BRDF maps for different patches: $\Theta=(\theta,\phi)$ is the direction of light propagation}
+\label{fig:brdfmapexplanation}
+\end{figure}
+
+Distance from the center of the (circular) map = $sin(theta_r)$
+Angle with the positive X-Axis in the map = $\phi_r$
+$\theta_i$ and $\phi_i$ are constant for a given map, plot. For all the results presented in this report $\phi_i = \pi$
+
+
+BRDF map shows shader output for all viewing directions and a fixed incident light direction. viewing direction represented in spherical coordinates $(\theta_v, \phi_v)$ is represented in map at point $(x,y) = (sin(\theta_v)cos(\phi_v), sin(\theta_v)sin(\phi_v))$ with origin at map center. fix light direction for normal incidence, i.e. $(\theta_i, \phi_i) = (0,0)$ unless specified otherwise. See figure $\ref{fig:brdfmapexplanation}$.
+
 Mention brdf map basic idea figure + text
 
+
+% brdf maps patches
+\begin{figure}[H]
+  \centering
+  \subfigure[ALL lambda]{
+    \includegraphics[scale=0.09]{results/diffPatches/fftBlazeHeight_0.25Microns_allL_weak_scale.png}
+    \label{fig:brdfmapBlazeAllLambda}
+  }
+~
+  \subfigure[Nmin Nmax]{
+    \includegraphics[scale=0.09]{results/methodComp/gem.png}
+    \label{fig:brdfmapBlazeOnlyReq}
+  }
+~
+  \subfigure[PQ]{
+    \includegraphics[scale=0.09]{results/PQapproach_vs_sampleAll/blaze/pq.png}
+    \label{fig:brdfmapBlazePQ}
+  }
+~
+  \subfigure[Gem]{
+    \includegraphics[scale=0.09]{results/methodComp/gem.png}
+    \label{fig:brdfmapBlazeGem}
+  }
+  
+  \label{brdfmapsDiffRenderingApproaches}
+  \caption{BRDF maps for blaze grating comparing our different rendering apporaches}
+\end{figure}
+
+% add also a comp. for elaphe
 
 brdf maps for different nanoscale surface gratings
 % brdf maps patches
