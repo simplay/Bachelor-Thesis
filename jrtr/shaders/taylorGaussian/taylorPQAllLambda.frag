@@ -32,6 +32,7 @@ uniform vec4 scalingFactors[MAX_WFACTORS];
 // uniform vec4 global_extrema[1];
 uniform vec4 camPos;
 uniform int drawTexture;
+uniform float patchReso;
 uniform float dimX;
 uniform float t0;
 uniform float dx;
@@ -137,23 +138,14 @@ float get_q_factor(float w_i, float T_i, float N_i){
 
 float compute_pq_scale_factor(float w_u, float w_v){
 	float in_periods = periods;
-	
-	if(userSetPeriodFlag){
-		in_periods = ceil(65e-6/fftWW);
-		if(in_periods < 1.0) in_periods = 1.0;
-	}
-	
+	in_periods = ceil(patchReso/dx);
 
-	
-	
 	float p1 = get_p_factor(w_u, T_1, in_periods);
 	float p2 = get_p_factor(w_v, T_2, in_periods);
 	
 	float q1 = get_q_factor(w_u, T_1, in_periods);
 	float q2 = get_q_factor(w_v, T_2, in_periods);
 
-//	return pow(p1*p1 + q1*q1 , 0.5)*pow(p2*p2 + q2*q2 , 0.5);
-	
 	float uuu = p1*p2 - q1*q2;
 	float vvv = p1*p2 + q1*q2;
 	
@@ -179,7 +171,7 @@ void setVarXY()
 	
 	// scalingFactors[0].w = 15e-6/256;
 	
-	float sigSpatial = 65e-6/4.0f;
+	float sigSpatial = (patchReso*1e-6)/4.0f;
 	// float sigSpatial = 15e-6/4.0f;
 	
 	// temporary sigma
@@ -808,7 +800,7 @@ vec3 getRawXYZFromTaylorSeriesMINMAX(float uu,float vv,float ww)
 }
 
 
-void main() 
+void mainReal() 
 {
 	// setsF();
 	setVarXY();
@@ -911,7 +903,7 @@ float rotV(float uu, float vv, float ang)
 }
 
 
-void mainbrdfmap() 
+void main() 
 {
 	
 	
@@ -955,7 +947,7 @@ void mainbrdfmap()
 	// vec3 totalXYZ2 = getRawXYZFromTaylorSeries( uu, vv, -2.0f);
 	
 	
-	 totalXYZ = totalXYZ * gainF(k1, k2)*1500.0;
+	 totalXYZ = totalXYZ * gainF(k1, k2)*15.0;
 	//totalXYZ = totalXYZ *100;
 	
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
