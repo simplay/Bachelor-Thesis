@@ -561,7 +561,7 @@ void main(){
 	float ww = lightDir.z - Pos.z;
 	
 	vec3 totalXYZ = getRawXYZFromTaylorSeries( uu, vv, ww);	
-	totalXYZ = totalXYZ * gainF(lightDir,Pos)*2000;
+	totalXYZ = totalXYZ * gainF(lightDir,Pos)*1000.0;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
 	
 	
@@ -615,7 +615,7 @@ void mainbrdfmap(){
 
 	vec3 totalXYZ  = getRawXYZFromTaylorSeries( uu, vv, ww);
 //	vec3 totalXYZ  = vec3(0);
-	totalXYZ = totalXYZ * gainF(k1, k2)*1000;
+	totalXYZ = totalXYZ * gainF(k1, k2)*1000.0;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
 	
 	if (isnan(totalXYZ.x *totalXYZ.y *totalXYZ.z)){

@@ -198,23 +198,27 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "renderBrdfMap");
 		gl.glUniform1i(id3, renderBrdfMap);
 		
-		float to = (dimX/width);
+//		float to = (dimX/width);
 		float dh = scalingFactors[3];
-		to = (float)dh;
+//		to = (float)dh;
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "t0");
 		gl.glUniform1f(id3, dh);
 		
 		// spacing between two patches
 //		float dx = 35;
-		float dx =dh*width*1000000;//2.5f;
-		if(dx < 60.0) dx = 60;
+		float dx = (float)((double)dh*width*1000000.0d);//2.5f;
+//		if(dx < 60.0) dx = 60;
 		System.out.println("patch spacing in microns: " + dx);
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "dx");
 		gl.glUniform1f(id3, dx);
 		
-
+		float patchResolution = 65.0f;
+		System.out.println("patch total resolution in microns: " + patchResolution);
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "patchReso");
+		gl.glUniform1f(id3, patchResolution);
+		
 //		float dh = scalingFactors[3];
-		System.out.println("dh: " + dh + " vs t0 " + to);		
+		System.out.println("resolution: microns per pixel: " + dh);		
 	}
 
 	@Override

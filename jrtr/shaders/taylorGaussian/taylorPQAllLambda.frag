@@ -32,8 +32,10 @@ uniform vec4 scalingFactors[MAX_WFACTORS];
 // uniform vec4 global_extrema[1];
 uniform vec4 camPos;
 uniform int drawTexture;
+uniform float patchReso;
 uniform float dimX;
 uniform float t0;
+uniform float dx;
 uniform sampler2DArray lookupText;
 // Variables passed in from the vertex shader
 in vec2 frag_texcoord;
@@ -136,23 +138,14 @@ float get_q_factor(float w_i, float T_i, float N_i){
 
 float compute_pq_scale_factor(float w_u, float w_v){
 	float in_periods = periods;
-	
-	if(userSetPeriodFlag){
-		in_periods = ceil(65e-6/fftWW);
-		if(in_periods < 1.0) in_periods = 1.0;
-	}
-	
+	in_periods = ceil(patchReso/dx);
 
-	
-	
 	float p1 = get_p_factor(w_u, T_1, in_periods);
 	float p2 = get_p_factor(w_v, T_2, in_periods);
 	
 	float q1 = get_q_factor(w_u, T_1, in_periods);
 	float q2 = get_q_factor(w_v, T_2, in_periods);
 
-//	return pow(p1*p1 + q1*q1 , 0.5)*pow(p2*p2 + q2*q2 , 0.5);
-	
 	float uuu = p1*p2 - q1*q2;
 	float vvv = p1*p2 + q1*q2;
 	
@@ -178,7 +171,7 @@ void setVarXY()
 	
 	// scalingFactors[0].w = 15e-6/256;
 	
-	float sigSpatial = 65e-6/4.0f;
+	float sigSpatial = (patchReso*1e-6)/4.0f;
 	// float sigSpatial = 15e-6/4.0f;
 	
 	// temporary sigma
@@ -539,11 +532,8 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww)
 	
 	float lIncr;
 	
-	if (0 == drawTexture)
-		lIncr = 5.0;
-	else
-		lIncr = 40.0;
-	lIncr = 1.0;	
+
+	lIncr = 5.0;	
 
 	for(float lVal = LMIN; lVal <= LMAX; lVal = lVal+lIncr)
 	{
@@ -587,9 +577,7 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww)
 			texIdx.x = float(anchorX)/ float(fftWW - 1);
 			texIdx.y = float(anchorY)/float(fftHH - 1);
 			texIdx.z = float(tIdx);
-		
 //			vec2 fftCoef = getFFTAt(lookupCoord, tIdx);
-			
 			vec3 fftVal = texture2DArray(TexArray, texIdx).xyz;
 			fftVal = rescaleXYZ(fftVal.x, fftVal.y, 0.0, tIdx);
 			vec2 fftCoef = fftVal.xy;
@@ -615,7 +603,204 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww)
 }
 
 
-void main() 
+
+vec2 compute_N_min_max(float t){
+	// default case if t == 0 otherwise override it.
+	float N_min = 0.0;
+	float N_max = 0.0;
+	
+	if(t > 0.0){
+		N_min = ceil((dx*t) / (0.78));
+		N_max = floor((dx*t) / (0.38));
+	}else if(t < 0.0){
+		N_min = ceil((dx*t) / (0.38));
+		N_max = floor((dx*t) / (0.78));
+	}
+	return vec2(N_min, N_max);
+}
+
+
+vec3 getRawXYZFromTaylorSeriesMINMAX(float uu,float vv,float ww)
+{
+	vec3 opVal = vec3(0.0f);
+	float preScale = 1.0f;
+	float fftMag = 0.0f;	
+	float xNorm = 0.0f;
+	float yNorm = 0.0f;
+	float zNorm = 0.0f;
+	float specSum = 0.0f;	
+
+	vec2 N_u = compute_N_min_max(uu);
+	vec2 N_v = compute_N_min_max(vv);
+	float lower_u = N_u.x;
+	float upper_u = N_u.y;
+	float lower_v = N_v.x;
+	float upper_v = N_v.y;
+	float diff = upper_u - lower_u;
+	
+	float upperbound_u = 0.0;
+	float lowerbound_u = 0.0;
+	float upperbound_v = 0.0;
+	float lowerbound_v = 0.0;
+	float threshold = pow(10.0, -40.0);
+	float eps = 2.0*pow(10.0, -2.0);
+	
+//	if(uu >= 0.0){
+		lowerbound_u = lower_u;
+		upperbound_u = upper_u;
+//	}else{
+//		lowerbound_u = -upper_u;
+//		upperbound_u = -lower_u;
+//	}
+//	
+//
+		lowerbound_v = lower_v;
+
+		upperbound_v = upper_v;	
+		
+	float stepSize = 2.0;
+
+	float N_u_step = stepSize;
+	float N_v_step = stepSize;
+	float uv_sqr = pow(uu*uu+vv*vv, 0.5);
+	if(uv_sqr < eps){
+		return vec3(1,1,1);
+	}else{
+
+		for(float N_u = lowerbound_u; N_u <= upperbound_u; N_u = N_u + N_u_step){
+			if(abs(N_u) < threshold){
+				continue;
+			}
+			if(upperbound_u - lowerbound_u > 800) break;
+			float lVal = ((dx*(uu))/N_u);
+			lVal = lVal*1000.0;
+			if(lVal < 380.0 && lVal > 780.0){
+				continue;
+			}
+			
+			vec4 clrFn = getClrMatchingFnWeights(abs(lVal));
+			
+			
+			float lambda_iter = lVal*pow(10.0, -9.0);
+			float k = (2.0*PI) / lambda_iter;
+			float w_u = k*uu;
+			float w_v = k*vv;
+			
+			
+			float specV = clrFn.w;	
+			xNorm = xNorm + specV*clrFn.x;
+			yNorm = yNorm + specV*clrFn.y;
+			zNorm = zNorm + specV*clrFn.z;
+			
+			vec2 lookupCoord = getLookupCoord(uu, vv, lVal);
+			
+			vec2 tempFFTScale = vec2(0.0f);
+			
+			for(int tIdx = 0; tIdx < MAX_TAYLORTERMS; ++tIdx){
+				if(0 == tIdx) {
+					preScale = 1.0f;
+				} else {
+					float currS = ww * k *pow(10.0, -9.0)* pow(10.0f, 3.0f) / tIdx;
+					preScale = preScale * currS;
+				}
+				
+				float anchorX = orgU + lookupCoord.x * (fftWW - 0);
+				float anchorY = orgV + lookupCoord.y * (fftHH - 0);
+				
+				vec3 texIdx = vec3(0.0, 0.0, 0.0);
+				
+				texIdx.x = float(anchorX)/ float(fftWW - 1);
+				texIdx.y = float(anchorY)/float(fftHH - 1);
+				texIdx.z = float(tIdx);
+			
+//				vec2 fftCoef = getFFTAt(lookupCoord, tIdx);
+				
+				vec3 fftVal = texture2DArray(TexArray, texIdx).xyz;
+				fftVal = rescaleXYZ(fftVal.x, fftVal.y, 0.0, tIdx);
+				vec2 fftCoef = fftVal.xy;
+				
+				tempFFTScale = tempFFTScale + preScale * fftCoef;
+			}
+			
+			float fftMagSqr = tempFFTScale.x * tempFFTScale.x + tempFFTScale.y * tempFFTScale.y;
+			opVal.x = opVal.x + fftMagSqr * specV * clrFn.x;
+			opVal.y = opVal.y + fftMagSqr * specV * clrFn.y;
+			opVal.z = opVal.z + fftMagSqr * specV * clrFn.z;
+		}
+		
+		
+		for(float N_v = lowerbound_v; N_v <= upperbound_v; N_v = N_v + N_v_step){
+			if(abs(N_v) < threshold){
+				continue;
+			}
+			if(upperbound_v - lowerbound_v > 800) break;
+			float lVal = ((dx*(vv))/N_v);
+			lVal = lVal*1000.0;
+			
+			if(lVal < 380.0 && lVal > 780.0){
+				continue;
+			}
+			
+			vec4 clrFn = getClrMatchingFnWeights(abs(lVal));
+			
+			float lambda_iter = lVal*pow(10.0, -9.0);
+			float k = (2.0*PI) / lambda_iter;
+			float w_u = k*uu;
+			float w_v = k*vv;
+			
+			float specV = clrFn.w;	
+			xNorm = xNorm + specV*clrFn.x;
+			yNorm = yNorm + specV*clrFn.y;
+			zNorm = zNorm + specV*clrFn.z;
+			
+			vec2 lookupCoord = getLookupCoord(uu, vv, lVal);
+			
+			vec2 tempFFTScale = vec2(0.0f);
+			
+			for(int tIdx = 0; tIdx < MAX_TAYLORTERMS; ++tIdx){
+				if(0 == tIdx) {
+					preScale = 1.0f;
+				} else {
+					float currS = ww * k *pow(10.0, -9.0)* pow(10.0f, 3.0f) / tIdx;
+					preScale = preScale * currS;
+				}
+				
+				float anchorX = orgU + lookupCoord.x * (fftWW - 0);
+				float anchorY = orgV + lookupCoord.y * (fftHH - 0);
+				
+				vec3 texIdx = vec3(0.0, 0.0, 0.0);
+				
+				texIdx.x = float(anchorX)/ float(fftWW - 1);
+				texIdx.y = float(anchorY)/float(fftHH - 1);
+				texIdx.z = float(tIdx);
+			
+//				vec2 fftCoef = getFFTAt(lookupCoord, tIdx);
+				
+				vec3 fftVal = texture2DArray(TexArray, texIdx).xyz;
+				fftVal = rescaleXYZ(fftVal.x, fftVal.y, 0.0, tIdx);
+				vec2 fftCoef = fftVal.xy;
+				
+				tempFFTScale = tempFFTScale + preScale * fftCoef;
+			}
+			
+			float fftMagSqr = tempFFTScale.x * tempFFTScale.x + tempFFTScale.y * tempFFTScale.y;
+			opVal.x = opVal.x + fftMagSqr * specV * clrFn.x;
+			opVal.y = opVal.y + fftMagSqr * specV * clrFn.y;
+			opVal.z = opVal.z + fftMagSqr * specV * clrFn.z;
+		}
+	}
+	
+
+	
+	opVal.x = opVal.x / xNorm ;
+	opVal.y = opVal.y / yNorm ;
+	opVal.z = opVal.z / zNorm ;
+
+	return opVal;
+}
+
+
+void mainReal() 
 {
 	// setsF();
 	setVarXY();
@@ -636,10 +821,10 @@ void main()
 	// vv = vv/10;
 	
 	
-	vec3 totalXYZ = getRawXYZFromTaylorSeries( uu, vv, ww);
+	vec3 totalXYZ = getRawXYZFromTaylorSeriesMINMAX( uu, vv, ww);
+//	vec3 totalXYZ = getRawXYZFromTaylorSeries( uu, vv, ww);
 	
-	
-	totalXYZ = totalXYZ * gainF(lightDir,Pos)*3500.0;
+	totalXYZ = totalXYZ * gainF(lightDir,Pos)*8000.0;
 	// totalXYZ = totalXYZ * 10.0;
 	
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
@@ -718,7 +903,7 @@ float rotV(float uu, float vv, float ang)
 }
 
 
-void mainbrdfmap() 
+void main() 
 {
 	
 	
@@ -762,7 +947,7 @@ void mainbrdfmap()
 	// vec3 totalXYZ2 = getRawXYZFromTaylorSeries( uu, vv, -2.0f);
 	
 	
-	 totalXYZ = totalXYZ * gainF(k1, k2)*1500.0;
+	 totalXYZ = totalXYZ * gainF(k1, k2)*15.0;
 	//totalXYZ = totalXYZ *100;
 	
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);

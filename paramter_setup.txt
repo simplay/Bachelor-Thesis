@@ -1,0 +1,6 @@
+setups
+*******
+
+matlab precomputations:
++ elaphe(1 finger): 
+ + ComputeFFTImages(4.347220e-1,5/666,43)
