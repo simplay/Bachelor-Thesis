@@ -483,7 +483,7 @@ void mainBRDFMap(){
 	vec3 totalXYZ = getRawXYZFromTaylorSeries(uu, vv, ww);
 
 	
-	totalXYZ = totalXYZ*gainF(k1, k2)*200.0*shadowF;
+	totalXYZ = totalXYZ*gainF(k1, k2)*3500.0*shadowF;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
 	if(isnan(totalXYZ.x*totalXYZ.y*totalXYZ.z)){
 		totalXYZ.x = 1.0;
