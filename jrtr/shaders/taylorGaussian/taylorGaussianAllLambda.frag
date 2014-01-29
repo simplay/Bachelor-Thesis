@@ -413,7 +413,7 @@ void mainRenderGeometry(){
 	
 //	vec3 totalXYZ  = vec3(1, 0, 0);
 	
-	totalXYZ = totalXYZ*gainF(lightDir, Pos)*1000.0*shadowF;
+	totalXYZ = totalXYZ*gainF(lightDir, Pos)*1.0*shadowF;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
 	if(isnan(totalXYZ.x*totalXYZ.y*totalXYZ.z)){
 		totalXYZ.x = 1.0;
@@ -483,7 +483,7 @@ void mainBRDFMap(){
 	vec3 totalXYZ = getRawXYZFromTaylorSeries(uu, vv, ww);
 
 	
-	totalXYZ = totalXYZ*gainF(k1, k2)*200.0*shadowF;
+	totalXYZ = totalXYZ*gainF(k1, k2)*35.0*shadowF;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
 	if(isnan(totalXYZ.x*totalXYZ.y*totalXYZ.z)){
 		totalXYZ.x = 1.0;
@@ -573,9 +573,9 @@ void main(){
 //		coneMain();
 //	}else{
 //		if(renderBrdfMap == 1){
-//			mainBRDFMap();
+			mainBRDFMap();
 //		}else{
-			mainRenderGeometry();
+//			mainRenderGeometry();
 //		}
 //	}
 	

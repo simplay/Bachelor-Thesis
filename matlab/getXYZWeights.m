@@ -2,12 +2,9 @@ function getXYZWeights(lamdas)
 
 	load X10deg.dat
 	A = X10deg;
-    out = 'out/';
+    out = "out/";
 	% matrix A has stored data [nm,x,y,z] with index-range: 1-4401
 	% i.e. A(4401,;) == [830.0	1.762465E-06	7.053860E-07	0.000000E+00]
-	sumX = 1.0/sum(A(:,2));
-	sumY = 1.0/sum(A(:,3));
-	sumZ = 1.0/sum(A(:,4));
 	
 	sumN = zeros(1,3);
 	% find closest lamda from given lamda - precission .1
@@ -26,6 +23,6 @@ function getXYZWeights(lamdas)
     res(k,:) = res(k,:)./sumN;
   end
   
-	dlmwrite(strcat(out,'weights.txt'), res, 'delimiter', '\n')
+	dlmwrite(strcat(out,"weights.txt"), res, 'delimiter', '\n')
 
 end
