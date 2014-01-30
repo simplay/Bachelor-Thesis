@@ -198,6 +198,22 @@ Note that the Fourier transform of the convolution of two functions is the produ
 \end{figure}
 
 
+\begin{table}[H]
+    \begin{tabular}{l|l|l}
+    \hline
+    Spetail signal $f(t)$ is & Operator & Transformed frequency signal $\hat{f}(\omega)$ is\\
+    \hline
+    continuous and periodic in $t$ & FS & only discrete in $\omega$ \\
+    only continuous in $t$ & FT & only continuous in $\omega$\\
+    only discrete in $t$ & DTFT & continuous and periodic in $\omega$\\
+    discrete and periodic in $t$ & DFT & discrete and periodic in $\omega$\\
+    \hline
+    \end{tabular}
+\caption{Fourier operator to apply for a given spatial input signal and the properties of its resulting output signal in frequency space}
+\label{tab:ftoperatorsdependencies}
+\end{table}
+
+
 
 \myparagraph{Taylor Series}
 Taylor series is a representation of a function as an infinite sum of terms that are calculated from the values of the function's derivatives at a single point.
