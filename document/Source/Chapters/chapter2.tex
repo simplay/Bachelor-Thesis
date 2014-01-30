@@ -181,6 +181,19 @@ We can further discretize the frequency domain and will get then the Discrete Fo
 
 Where the angular frequency $w_n$ is defined like the following $w_n = \frac{2\pi n}{N}$ and N is the number of samples within an equidistant periode sampling.
 
+Any continuous function $f(t)$ can be expressed as a series of sines and cosines. This representation is called the Fourier Series (denoted by $FS$) of $f(t)$.
+\begin{equation}
+  f(t) = \frac{1}{2}a_0 + \sum_{n=1}^{\infty} a_n cos(nt) + \sum_{n=1}^{\infty} b_n cos(nt)
+\end{equation}
+
+where
+
+\begin{align*}
+    a_0 = \int_{-\pi}^{\pi} f(t) dt \\
+    a_n = \frac{1}{\pi}\int_{-\pi}^{\pi} f(t) cos(nt) dt \\
+    b_n = \frac{1}{\pi}\int_{-\pi}^{\pi} f(t) sin(nt) dt \\
+\end{align*}
+
 \myparagraph{Convolution}
 The convolution $f*g$ of two functions $f$, $g$$\colon \mathds{R}^n \to \mathds{C} $ is defined as:  
 \begin{equation}
@@ -188,6 +201,30 @@ The convolution $f*g$ of two functions $f$, $g$$\colon \mathds{R}^n \to \mathds{
 \end{equation}
 
 Note that the Fourier transform of the convolution of two functions is the product of their Fourier transforms. This is equivalent to the fact that Convolution in spatial domain is equivalent to multiplication in frequency domain. Therefore, the inverse Fourier transform of the product of two Fourier transforms is the convolution of the two inverse Fourier transforms
+
+% image from wikipedia
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{background/dcft.png}
+  \caption{Relationship between the continuous Fourier transform and the discrete Fourier transform: Left column: A continuous function (top) and its Fourier transform (bottom). Center-left column: Periodic summation of the original function (top). Fourier transform (bottom) is zero except at discrete points. The inverse transform is a sum of sinusoids called Fourier series. Center-right column: Original function is discretized (multiplied by a Dirac comb) (top). Its Fourier transform (bottom) is a periodic summation (DTFT) of the original transform. Right column: The DFT (bottom) computes discrete samples of the continuous DTFT. The inverse DFT (top) is a periodic summation of the orginal samples.}
+\label{fig:contdiscft}
+\end{figure}
+
+
+\begin{table}[H]
+    \begin{tabular}{l|l|l}
+    \hline
+    Spetail signal $f(t)$ is & Operator & Transformed frequency signal $\hat{f}(\omega)$ is\\
+    \hline
+    continuous and periodic in $t$ & FS & only discrete in $\omega$ \\
+    only continuous in $t$ & FT & only continuous in $\omega$\\
+    only discrete in $t$ & DTFT & continuous and periodic in $\omega$\\
+    discrete and periodic in $t$ & DFT & discrete and periodic in $\omega$\\
+    \hline
+    \end{tabular}
+\caption{Fourier operator to apply for a given spatial input signal and the properties of its resulting output signal in frequency space}
+\label{tab:ftoperatorsdependencies}
+\end{table}
 
 \myparagraph{Taylor Series}
 Taylor series is a representation of a function as an infinite sum of terms that are calculated from the values of the function's derivatives at a single point.
