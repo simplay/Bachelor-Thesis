@@ -181,6 +181,19 @@ We can further discretize the frequency domain and will get then the Discrete Fo
 
 Where the angular frequency $w_n$ is defined like the following $w_n = \frac{2\pi n}{N}$ and N is the number of samples within an equidistant periode sampling.
 
+Any continuous function $f(t)$ can be expressed as a series of sines and cosines. This representation is called the Fourier Series (denoted by $FS$) of $f(t)$.
+\begin{equation}
+  f(t) = \frac{1}{2}a_0 + \sum_{n=1}^{\infty} a_n cos(nt) + \sum_{n=1}^{\infty} b_n cos(nt)
+\end{equation}
+
+where
+
+\begin{align*}
+    a_0 = \int_{-\pi}^{\pi} f(t) dt \\
+    a_n = \frac{1}{\pi}\int_{-\pi}^{\pi} f(t) cos(nt) dt \\
+    b_n = \frac{1}{\pi}\int_{-\pi}^{\pi} f(t) sin(nt) dt \\
+\end{align*}
+
 \myparagraph{Convolution}
 The convolution $f*g$ of two functions $f$, $g$$\colon \mathds{R}^n \to \mathds{C} $ is defined as:  
 \begin{equation}
@@ -212,8 +225,6 @@ Note that the Fourier transform of the convolution of two functions is the produ
 \caption{Fourier operator to apply for a given spatial input signal and the properties of its resulting output signal in frequency space}
 \label{tab:ftoperatorsdependencies}
 \end{table}
-
-
 
 \myparagraph{Taylor Series}
 Taylor series is a representation of a function as an infinite sum of terms that are calculated from the values of the function's derivatives at a single point.
