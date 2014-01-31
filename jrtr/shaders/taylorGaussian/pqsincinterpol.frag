@@ -675,9 +675,9 @@ void main(){
 //		coneMain();
 //	}else{
 //		if(renderBrdfMap == 1){
-			mainBRDFMap();
+//			mainBRDFMap();
 //		}else{
-//			mainRenderGeometry();
+			mainRenderGeometry();
 //		}
 //	}
 	
