@@ -26,8 +26,8 @@
 \contentsline {subsection}{\numberline {2.3.3}Taylor approximation for BRDF}{18}{subsection.2.3.3}
 \contentsline {paragraph}{Proof Sketch of 1.}{19}{section*.18}
 \contentsline {paragraph}{Part 2: Find such an N}{19}{section*.19}
-\contentsline {subsection}{\numberline {2.3.4}Sampling: Gaussian Window}{20}{subsection.2.3.4}
-\contentsline {subsection}{\numberline {2.3.5}Final Expression}{21}{subsection.2.3.5}
+\contentsline {subsection}{\numberline {2.3.4}Sampling: Gaussian Window}{21}{subsection.2.3.4}
+\contentsline {subsection}{\numberline {2.3.5}Final Expression}{22}{subsection.2.3.5}
 \contentsline {section}{\numberline {2.4}Alternative Approach}{22}{section.2.4}
 \contentsline {subsection}{\numberline {2.4.1}Interpolation}{25}{subsection.2.4.1}
 \contentsline {chapter}{\numberline {3}Implementation}{26}{chapter.3}
