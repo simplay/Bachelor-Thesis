@@ -810,6 +810,13 @@ Where we define $p := (p_1 p_2 - q_1 q_2) $ and $q := (p_1 p_2 + q_1 q_2)$. For 
 
 
 \subsection{Interpolation}
+
+\begin{align}
+f(t)
+& = \sum_{n=-\infty}^{\infty} x[n] (2 F_0 T_s) sinc\left(F_0 (t-nT_s)\right) \\
+& = \sum_{n=-\infty}^{\infty} x[n] sinc\left(\frac{t-nT_s}{T_s}\right)
+\end{align}
+
 method to construct a continuous-time bandlimited function from a sequence of real numbers. 
 sampling theorem: a bandlimited function can be perfectly reconstructed from a countable sequence of samples if the bandlimit, B, is no greater than half the sampling rate.
 In practice, infinite sequences, perfect sampling, and perfect interpolation are all replaced by approximations, deviating from the ideal mathematical reconstruction.
