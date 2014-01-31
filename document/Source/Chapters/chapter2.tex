@@ -153,7 +153,7 @@ The Fourier Transform is an important image processing tool which is used to dec
 \myparagraph{Fourier Transformation}
 The Fourier-Transform is a mathematical tool which allows to transform a given function or rather a given signal from defined over a time- (or spatial-) domain into its corresponding frequency-domain.
  
-Let $f$ an measurable function over $\mathds{R}^n$. Then, the continuous Fourier Transformation(\textbf{FT}), denoted as $\mathcal{F}\{f\}$ of $f$ is defined as, ignoring all constant factors in the formula:
+Let $f$ an measurable function over $\mathds{R}^n$. Then, the continuous Fourier Transformation(\textbf{FT}), denoted as $\mathcal{F}\{f\}$ of $f$, ignoring all constant factors in the formula, is defined as:
  
 \begin{equation}
   \mathcal{F}_{FT}\{f\}(w) = \int_{\mathds{R}^n} f(x)e^{-iwt} dt
@@ -165,7 +165,7 @@ whereas its inverse transform is defined like the following which allows us to o
   \mathcal{F}_{FT}^{-1}\{f\}(w) = \int_{\mathds{R}} \mathcal{F}\{w\}e^{iwt} dt
 \end{equation}
 
-An usual identity for $w$ is the the so called angular with $w = \frac{2 \pi}{T} = 2 \pi v_f$ where T is the period, $v_f$ the frequency.
+Usual $w$ is identified by the angular frequency which is  equal $w = \frac{2 \pi}{T} = 2 \pi v_f$. In this connection, $T$ is the period of the resulting spectrum and $v_f$ is its corresponding frequency.
 
 By using Fourier Analysis, which is the approach to approximate any function by sums of simpler trigonometric functions, we gain the so called Discrete Time Fourier Transform (in short \textbf{DTFT}). The DTFT operates on a discrete function. Usually, such an input function is often created by digitally sampling a continuous function. The DTFT itself is operation on a discretized signal on a continuous, periodic frequency domain and looks like the following:
 
@@ -173,13 +173,26 @@ By using Fourier Analysis, which is the approach to approximate any function by 
   \mathcal{F}_{DTFT}\{f\}(w) = \sum_{-\infty}^{\infty} f(x) e^{-iwk}
 \end{equation}
 
-We can further discretize the frequency domain and will get then the Discrete Fourier Transformation (in short \textbf{DFT}) of the input signal:
+Note that the DTFT is not practically suitable for digital signal processing since there a signal can be measured only in a finite number of points. Thus, we can further discretize the frequency domain and will get then the Discrete Fourier Transformation (in short \textbf{DFT}) of the input signal:
 
 \begin{equation}
   \mathcal{F}_{DFT}\{f\}(w) = \sum_{n=0}^{N-1} f(x) e^{-iw_{n}k}
 \end{equation}
 
-Where the angular frequency $w_n$ is defined like the following $w_n = \frac{2\pi n}{N}$ and N is the number of samples within an equidistant periode sampling.
+Where the angular frequency $w_n$ is defined like the following $w_n = \frac{2\pi n}{N}$ and $N$ is the number of samples within an equidistant period sampling.
+
+Any continuous function $f(t)$ can be expressed as a series of sines and cosines. This representation is called the Fourier Series (denoted by $FS$) of $f(t)$.
+\begin{equation}
+  f(t) = \frac{1}{2}a_0 + \sum_{n=1}^{\infty} a_n cos(nt) + \sum_{n=1}^{\infty} b_n cos(nt)
+\end{equation}
+
+where
+
+\begin{align*}
+    a_0 = \int_{-\pi}^{\pi} f(t) dt \\
+    a_n = \frac{1}{\pi}\int_{-\pi}^{\pi} f(t) cos(nt) dt \\
+    b_n = \frac{1}{\pi}\int_{-\pi}^{\pi} f(t) sin(nt) dt \\
+\end{align*}
 
 \myparagraph{Convolution}
 The convolution $f*g$ of two functions $f$, $g$$\colon \mathds{R}^n \to \mathds{C} $ is defined as:  
@@ -188,6 +201,31 @@ The convolution $f*g$ of two functions $f$, $g$$\colon \mathds{R}^n \to \mathds{
 \end{equation}
 
 Note that the Fourier transform of the convolution of two functions is the product of their Fourier transforms. This is equivalent to the fact that Convolution in spatial domain is equivalent to multiplication in frequency domain. Therefore, the inverse Fourier transform of the product of two Fourier transforms is the convolution of the two inverse Fourier transforms
+
+Last an illustration of the relationships between the previous presented Fourier transformations and different given input signals. First an concrete example shown in Figure $\ref{fig:contdiscft}$. Table $\ref{tab:ftoperatorsdependencies}$ tells what Fourier transformation operator has to be applied to which kind of input signal and what properties its resulting Fourier transform will have.
+
+% image from wikipedia
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{background/dcft.png}
+  \caption{Relationship between the continuous Fourier transform and the discrete Fourier transform: Left column: A continuous function (top) and its Fourier transform (bottom). Center-left column: Periodic summation of the original function (top). Fourier transform (bottom) is zero except at discrete points. The inverse transform is a sum of sinusoids called Fourier series. Center-right column: Original function is discretized (multiplied by a Dirac comb) (top). Its Fourier transform (bottom) is a periodic summation (DTFT) of the original transform. Right column: The DFT (bottom) computes discrete samples of the continuous DTFT. The inverse DFT (top) is a periodic summation of the orginal samples.}
+\label{fig:contdiscft}
+\end{figure}
+
+\begin{table}[H]
+    \begin{tabular}{l|l|l}
+    \hline
+    Spetail signal $f(t)$ is & Operator & Transformed frequency signal $\hat{f}(\omega)$ is\\
+    \hline
+    continuous and periodic in $t$ & FS & only discrete in $\omega$ \\
+    only continuous in $t$ & FT & only continuous in $\omega$\\
+    only discrete in $t$ & DTFT & continuous and periodic in $\omega$\\
+    discrete and periodic in $t$ & DFT & discrete and periodic in $\omega$\\
+    \hline
+    \end{tabular}
+\caption{Fourier operator to apply for a given spatial input signal and the properties of its resulting output signal in frequency space}
+\label{tab:ftoperatorsdependencies}
+\end{table}
 
 \myparagraph{Taylor Series}
 Taylor series is a representation of a function as an infinite sum of terms that are calculated from the values of the function's derivatives at a single point.
@@ -769,3 +807,30 @@ Let us again us again a Box-function, this time a 2-dimensional Box-function $Bo
 \end{align*}
 
 Where we define $p := (p_1 p_2 - q_1 q_2) $ and $q := (p_1 p_2 + q_1 q_2)$. For this identity we used green's integration rule which allowed us to split the double integral to the product of two single integrations. Also, we used the definition of the 2-dimensional inverse Fourier transform of the Box-function. We applied the same substitution like we did in for the 1 dimensional case, but this time twice, once for each variable separately. The last step, substituting with $p$ and $q$ will be useful later in the implementation. The insight should be, that the product of two complex numbers is again a complex number. We will have to compute the absolute value of $\mathcal{F}^{-1}\{f\}(w_1,w_2)$ which will then be equal $(p^2 + q^2)^{\frac{1}{2}}\left|\mathcal{F}^{-1}\{Box\}(w_1,w_2)\right|$
+
+
+\subsection{Interpolation}
+\label{sec:sincinterpolation}
+\begin{align}
+f(t)
+& = \sum_{n=-\infty}^{\infty} x[n] (2 F_0 T_s) sinc\left(F_0 (t-nT_s)\right) \\
+& = \sum_{n=-\infty}^{\infty} x[n] sinc\left(\frac{t-nT_s}{T_s}\right)
+\end{align}
+
+method to construct a continuous-time bandlimited function from a sequence of real numbers. 
+sampling theorem: a bandlimited function can be perfectly reconstructed from a countable sequence of samples if the bandlimit, B, is no greater than half the sampling rate.
+In practice, infinite sequences, perfect sampling, and perfect interpolation are all replaced by approximations, deviating from the ideal mathematical reconstruction.
+
+Issue: given discrete signal, want to perform computation using its DFT values, but given DTFT values. solution: convolve by a sinc filter. 
+show plots sinc- vs linear- signal interpolation 
+
+
+Given a sequence of real numbers $x[n]$ then the continuous function 
+
+\begin{equation}
+  x(t) = \sum_{n=-\infty}^{\infty} x[n] sinc\left(\frac{t-nT}{T}\right)
+\end{equation}
+
+has the Fourier transformation $X(f)$ whose non-zero values are confined to the region $|f| \leq \frac{1}{2T} = B$.
+When $x[n]$ represents time samples at interval $T$ of a continuous function, then the quantity $f_s = \frac{1}{T}$ is known as its sample rate and $\frac{f_s}{2}$ denotes the Nyquist frequency. The sampling Theorem states that when a function has a Bandlimit B less than the Nyquist frequency, then $x(t)$ is a perfect reconstruction of the original function. 
+
