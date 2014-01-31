@@ -44,24 +44,25 @@
 \contentsline {subsection}{\numberline {3.4.1}Texture lookup}{35}{subsection.3.4.1}
 \contentsline {subsection}{\numberline {3.4.2}Texture Blending}{37}{subsection.3.4.2}
 \contentsline {subsection}{\numberline {3.4.3}Color Transformation}{37}{subsection.3.4.3}
-\contentsline {chapter}{\numberline {4}Evaluation Data Acquisition}{39}{chapter.4}
-\contentsline {section}{\numberline {4.1}Data Acquisition}{39}{section.4.1}
-\contentsline {section}{\numberline {4.2}Diffraction Gratings}{39}{section.4.2}
-\contentsline {section}{\numberline {4.3}Evaluation}{43}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Precomputation}{44}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}Data evaluation}{44}{subsection.4.3.2}
-\contentsline {chapter}{\numberline {5}Results}{46}{chapter.5}
-\contentsline {section}{\numberline {5.1}BRDF maps}{47}{section.5.1}
-\contentsline {section}{\numberline {5.2}Snake surface geometries}{53}{section.5.2}
-\contentsline {section}{\numberline {5.3}Snake surface geometries}{59}{section.5.3}
-\contentsline {chapter}{\numberline {6}Conclusion}{60}{chapter.6}
-\contentsline {section}{\numberline {6.1}Further Work}{60}{section.6.1}
-\contentsline {subsection}{\numberline {6.1.1}References}{60}{subsection.6.1.1}
-\contentsline {section}{\numberline {6.2}Acknowledgment}{60}{section.6.2}
-\contentsline {chapter}{\numberline {A}Appendix}{61}{appendix.A}
-\contentsline {section}{\numberline {A.1}Schlick's approximation}{61}{section.A.1}
-\contentsline {section}{\numberline {A.2}Spherical Coordinates}{61}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{62}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{62}{appendix*.54}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{64}{appendix*.55}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{65}{appendix*.56}
+\contentsline {section}{\numberline {3.5}Discussion}{37}{section.3.5}
+\contentsline {chapter}{\numberline {4}Evaluation Data Acquisition}{40}{chapter.4}
+\contentsline {section}{\numberline {4.1}Data Acquisition}{40}{section.4.1}
+\contentsline {section}{\numberline {4.2}Diffraction Gratings}{40}{section.4.2}
+\contentsline {section}{\numberline {4.3}Evaluation}{44}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Precomputation}{45}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Data evaluation}{45}{subsection.4.3.2}
+\contentsline {chapter}{\numberline {5}Results}{47}{chapter.5}
+\contentsline {section}{\numberline {5.1}BRDF maps}{48}{section.5.1}
+\contentsline {section}{\numberline {5.2}Snake surface geometries}{54}{section.5.2}
+\contentsline {section}{\numberline {5.3}Snake surface geometries}{60}{section.5.3}
+\contentsline {chapter}{\numberline {6}Conclusion}{61}{chapter.6}
+\contentsline {section}{\numberline {6.1}Further Work}{61}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}References}{61}{subsection.6.1.1}
+\contentsline {section}{\numberline {6.2}Acknowledgment}{61}{section.6.2}
+\contentsline {chapter}{\numberline {A}Appendix}{62}{appendix.A}
+\contentsline {section}{\numberline {A.1}Schlick's approximation}{62}{section.A.1}
+\contentsline {section}{\numberline {A.2}Spherical Coordinates}{62}{section.A.2}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{63}{section.A.2}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{63}{appendix*.53}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{65}{appendix*.54}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{66}{appendix*.55}
