@@ -824,3 +824,13 @@ In practice, infinite sequences, perfect sampling, and perfect interpolation are
 Issue: given discrete signal, want to perform computation using its DFT values, but given DTFT values. solution: convolve by a sinc filter. 
 show plots sinc- vs linear- signal interpolation 
 
+
+Given a sequence of real numbers $x[n]$ then the continuous function 
+
+\begin{equation}
+  x(t) = \sum_{n=-\infty}^{\infty} x[n] sinc\left(\frac{t-nT}{T}\right)
+\end{equation}
+
+has the Fourier transformation $X(f)$ whose non-zero values are confined to the region $|f| \leq \frac{1}{2T} = B$.
+When $x[n]$ represents time samples at interval $T$ of a continuous function, then the quantity $f_s = \frac{1}{T}$ is known as its sample rate and $\frac{f_s}{2}$ denotes the Nyquist frequency. The sampling Theorem states that when a function has a Bandlimit B less than the Nyquist frequency, then $x(t)$ is a perfect reconstruction of the original function. 
+
