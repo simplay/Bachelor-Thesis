@@ -93,8 +93,8 @@ The bidirectional reflectance distribution function, in short BRDF, denoted as $
   
 \begin{align}
   BRDF(\omega_i, \omega_r)
-  & = f_r(\omega_i, \omega_r) \\
-  & = \frac{dL_r(\omega_r)}{dE_i(\omega_i)} \\
+  & = f_r(\omega_i, \omega_r) \nonumber \\
+  & = \frac{dL_r(\omega_r)}{dE_i(\omega_i)} \nonumber \\
   & = \frac{dL_r(\omega_r)}{L_i(\omega_i)cos(\theta_i)d\omega_i}
 \end{align}
 
@@ -133,8 +133,8 @@ The CIE's color matching functions $\overline{x}(\lambda)$, $\overline{y}(\lambd
 The tristimulus values for a color with a spectral power distribution $I(\lambda)$, are given in terms of the standard observer by:
 
 \begin{align}
-    X= \int_{380}^{780} I(\lambda)\,\overline{x}(\lambda)\,d\lambda \\
-    Y= \int_{380}^{780} I(\lambda)\,\overline{y}(\lambda)\,d\lambda \\
+    X= \int_{380}^{780} I(\lambda)\,\overline{x}(\lambda)\,d\lambda \nonumber \\
+    Y= \int_{380}^{780} I(\lambda)\,\overline{y}(\lambda)\,d\lambda \nonumber \\
     Z= \int_{380}^{780} I(\lambda)\,\overline{z}(\lambda)\,d\lambda
 \end{align}
 
@@ -189,9 +189,9 @@ Any continuous function $f(t)$ can be expressed as a series of sines and cosines
 where
 
 \begin{align}
-    a_0 = \int_{-\pi}^{\pi} f(t) dt \\
-    a_n = \frac{1}{\pi}\int_{-\pi}^{\pi} f(t) cos(nt) dt \\
-    b_n = \frac{1}{\pi}\int_{-\pi}^{\pi} f(t) sin(nt) dt \\
+    a_0 = \int_{-\pi}^{\pi} f(t) dt \nonumber \\
+    a_n = \frac{1}{\pi}\int_{-\pi}^{\pi} f(t) cos(nt) dt \nonumber \\
+    b_n = \frac{1}{\pi}\int_{-\pi}^{\pi} f(t) sin(nt) dt
 \end{align}
 
 \myparagraph{Convolution}
@@ -497,7 +497,7 @@ stated identities:
 
 \begin{align}
  e^{t}
- &=1+(ikwh)+\frac{1}{2!}(ikwh)^{2}+\frac{1}{3!}(ikwh)^{3}+... \\
+ &=1+(ikwh)+\frac{1}{2!}(ikwh)^{2}+\frac{1}{3!}(ikwh)^{3}+... \nonumber \\
  &=\sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}.
 \end{align}
 
@@ -506,8 +506,8 @@ Hence it holds $p(x,y)=\sum_{n=0}^{\infty}\frac{(ikwh(x,y))^{n}}{n!}.$
 Let us now compute the Fourier Transformation of p(x,y) form above:
 \begin{align}
   \mathcal{F}\left\{ p\right\}(u,v)
-  & =\mathcal{F}\left\{ \sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}.\right\}(u,v) \\
-  & =^{\mathcal{F}\, lin\, Operator}\sum_{n=0}^{\infty}\mathcal{F}\left\{ \frac{(ikwh)^{n}}{n!}\right\}(u,v) \\
+  & =\mathcal{F}\left\{ \sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}.\right\}(u,v) \nonumber \\
+  & =^{\mathcal{F}\, lin\, Operator}\sum_{n=0}^{\infty}\mathcal{F}\left\{ \frac{(ikwh)^{n}}{n!}\right\}(u,v) \nonumber \\
   & =\sum_{n=0}^{\infty}\frac{(ikw)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\}(u,v)
 \end{align}
 
@@ -583,9 +583,9 @@ We get:
 
 \begin{align}
 x_{max}
- &= \|i\|*k_{max}*w_{max}*h_{max} \\
- &= k_{max}*w_{max}*h_{max} \\
- &=2*(\frac{2\pi}{4*10^{-7}m})*1.5*10^{-7} \\
+ &= \|i\|*k_{max}*w_{max}*h_{max} \nonumber \\
+ &= k_{max}*w_{max}*h_{max} \nonumber \\
+ &=2*(\frac{2\pi}{4*10^{-7}m})*1.5*10^{-7} \nonumber \\
  &=1.5\pi
 \end{align}
 
@@ -594,7 +594,7 @@ and it follows for our interval $I=[0,1.5\pi]$.
 Next we are going to find the value for $M$. Since the exponential function is monotonically growing (on the interval I) and the derivative of the \textbf{exp} function is the exponential function itself, we can find such an $M$: 
 \begin{align*}
  M
- &=e^{x_{max}} \\
+ &=e^{x_{max}} \nonumber \\
  &=exp(1.5\pi)
 \end{align*}
 
@@ -602,7 +602,7 @@ and $|f^{(n+1)}(x)|\leq M$ holds. With
 
 \begin{align}
 |E_{n}(x_{max})|
- &\leq\frac{M}{(n+1)!}|x_{max}-a|^{n+1} \\
+ &\leq\frac{M}{(n+1)!}|x_{max}-a|^{n+1} \nonumber \\
  &= \frac{exp(1.5\pi)*(1.5\pi)^{n+1}}{(n+1)!}
 \end{align}
 
@@ -622,7 +622,7 @@ Using now our approximation for $P_{dtft} = \mathcal{F}^{-1}\{p\}(u,v)$ for the 
 
 \begin{align}
 X 
-& = C(w_i,w_r) \int_{\lambda} \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S_x(\lambda)d\lambda \\
+& = C(w_i,w_r) \int_{\lambda} \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S_x(\lambda)d\lambda \nonumber \\
 & = C(w_i,w_r) \int_{\lambda} \left| \sum_{n=0}^N \frac{(wk)^n}{n!} \mathcal{F}^{-1}\{i^n h^n\}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2 S_x(\lambda)d\lambda
 \label{eq:xcolexpression}
 \end{align}
@@ -642,11 +642,11 @@ Therefore we can deduce the following expression from this:
 
 \begin{align}
 \mathcal{F}_{dtft}^{-1}\{\mathbf{t}\}(u,v)
-& = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \phi(u-w_u, v-w_v) dw_u dw_v \\
-& = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} \sum_i \sum_j {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \\ 
-& \quad \quad \delta(w_u-w_i, w_v-w_j)\phi(u-w_u, v-w_v) dw_u dw_v \\
-& = \sum_i \sum_j \int_{-\infty}^{\infty} \int_{-\infty}^{\infty}  {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \\
-& \quad \quad \delta(w_u-w_i, w_v-w_j)\phi(u-w_u, v-w_v) dw_u dw_v \\
+& = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \phi(u-w_u, v-w_v) dw_u dw_v \nonumber \\
+& = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} \sum_i \sum_j {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \nonumber \\ 
+& \quad \quad \delta(w_u-w_i, w_v-w_j)\phi(u-w_u, v-w_v) dw_u dw_v \nonumber \\
+& = \sum_i \sum_j \int_{-\infty}^{\infty} \int_{-\infty}^{\infty}  {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \nonumber \\
+& \quad \quad \delta(w_u-w_i, w_v-w_j)\phi(u-w_u, v-w_v) dw_u dw_v \nonumber \\
 & = \sum_i \sum_j {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \phi(u-w_u, v-w_v)
 \end{align}
 
@@ -707,7 +707,7 @@ Plugging this substitution back into equation $\ref{eq:pqsinit}$ we will get:
 
 \begin{align}
 \mathcal{F}^{-1}\{S\}(w)
-& =\sum_{n=0}^{N} \int_{-\infty}^{\infty} f(x+nT) e^{iwx}dx
+& =\sum_{n=0}^{N} \int_{-\infty}^{\infty} f(x+nT) e^{iwx}dx \nonumber \\
 & =\sum_{n=0}^{N} \int_{-\infty}^{\infty} f(y) e^{iw(y-nT)}dy \nonumber \\
 & =\sum_{n=0}^{N} e^{-iwnT} \int_{-\infty}^{\infty} f(y) e^{iwy}dy \nonumber \\
 & =\sum_{n=0}^{N} e^{-iwnT} \mathcal{F}^{-1}\{f\}(w) \nonumber \\
