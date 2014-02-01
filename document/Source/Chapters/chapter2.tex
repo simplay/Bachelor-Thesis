@@ -834,3 +834,11 @@ Given a sequence of real numbers $x[n]$ then the continuous function
 has the Fourier transformation $X(f)$ whose non-zero values are confined to the region $|f| \leq \frac{1}{2T} = B$.
 When $x[n]$ represents time samples at interval $T$ of a continuous function, then the quantity $f_s = \frac{1}{T}$ is known as its sample rate and $\frac{f_s}{2}$ denotes the Nyquist frequency. The sampling Theorem states that when a function has a Bandlimit B less than the Nyquist frequency, then $x(t)$ is a perfect reconstruction of the original function. 
 
+\begin{figure}[ht]
+  \centering
+  \includegraphics[scale=0.8]{background/sincreconstructed.png}
+  \caption{Comparission between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\hat{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.}
+  \label{fig:plotsincinterpolation}  
+\end{figure}
+
+
