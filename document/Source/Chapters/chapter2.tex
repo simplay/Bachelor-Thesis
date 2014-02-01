@@ -132,11 +132,11 @@ The CIE's color matching functions $\overline{x}(\lambda)$, $\overline{y}(\lambd
 
 The tristimulus values for a color with a spectral power distribution $I(\lambda)$, are given in terms of the standard observer by:
 
-\begin{align*}
+\begin{align}
     X= \int_{380}^{780} I(\lambda)\,\overline{x}(\lambda)\,d\lambda \\
     Y= \int_{380}^{780} I(\lambda)\,\overline{y}(\lambda)\,d\lambda \\
     Z= \int_{380}^{780} I(\lambda)\,\overline{z}(\lambda)\,d\lambda
-\end{align*}
+\end{align}
 
 where $\lambda$, is the wavelength of the equivalent monochromatic light (measured in nanometers).
 
@@ -188,11 +188,11 @@ Any continuous function $f(t)$ can be expressed as a series of sines and cosines
 
 where
 
-\begin{align*}
+\begin{align}
     a_0 = \int_{-\pi}^{\pi} f(t) dt \\
     a_n = \frac{1}{\pi}\int_{-\pi}^{\pi} f(t) cos(nt) dt \\
     b_n = \frac{1}{\pi}\int_{-\pi}^{\pi} f(t) sin(nt) dt \\
-\end{align*}
+\end{align}
 
 \myparagraph{Convolution}
 The convolution $f*g$ of two functions $f$, $g$$\colon \mathds{R}^n \to \mathds{C} $ is defined as:  
@@ -463,22 +463,13 @@ L_\lambda(\omega_r) = \rho_\lambda(\omega_i,\omega_r)L_\lambda^{spec}(\omega_0)
 Let us choose $L_\lambda^{spec}(w_0) = S(\lambda)$ such that is has the same profile as the relative spectral power distribution of CIE Standard Illuminant $D65$. Further, when integration over $\lambda$ for a specular surface we should get $CIE_{XYZ}$ values corresponding to the white point for $D65$ 
 The corresponding tristimulus values using CIE colormatching functions for the $CIE_{XYZ}$ values look like:
 
-\begin{equation}
-X = \int_{\lambda}L_\lambda(\omega_r)\overline{x}(\lambda)d\lambda
-\end{equation} 
-
-\begin{equation}
-Y = \int_{\lambda}L_\lambda(\omega_r)\overline{y}(\lambda)d\lambda
-\end{equation}
-
-\begin{equation}
+\begin{align}
+X = \int_{\lambda}L_\lambda(\omega_r)\overline{x}(\lambda)d\lambda \nonumber \\
+Y = \int_{\lambda}L_\lambda(\omega_r)\overline{y}(\lambda)d\lambda \nonumber \\
 Z = \int_{\lambda}L_\lambda(\omega_r)\overline{z}(\lambda)d\lambda
-\end{equation}
+\end{align}
 
-where $\overline{x}$, $\overline{y}$, $\overline{z}$ are the color matching functions
-
-Using our last finding for $L_\lambda(\omega_r)$ with the definition for the tristimulus values we can actually derive an expression for computing the colors for our BRDF formula. 
-Since X, Y, Z are defined similarly, it satisfies to derive an explicit expression for just one tristimulus term, for example X. The other two will look the same, except the we have to replace all X with Y or Z respectively. Therefore, we get:
+where $\overline{x}$, $\overline{y}$, $\overline{z}$ are the color matching functions. Using our last finding for $L_\lambda(\omega_r)$ with the definition for the tristimulus values we can actually derive an expression for computing the colors for our BRDF formula. Since X, Y, Z are defined similarly, it satisfies to derive an explicit expression for just one tristimulus term, for example X. The other two will look the same, except the we have to replace all X with Y or Z respectively. Therefore, we get:
 
 \begin{align}
 X 
@@ -496,36 +487,36 @@ Where we used the definition $S_x(\lambda)\overline{x}(\lambda)$ in the last ste
 In this section, we will deliver an approximation for the inverse Fourier Transformation of Stam's auxiliary function p(x,y)s. This derivation will rely on the definition of Taylor Series expansion. Further, we will provide an error bound for our approximation approach for a given number of iterations. Last, we will extend our current BRDF formula by the findings derived within this section.
 
 Given $p(x,y)=e^{ikwh(x,y)}$ form Stam's Paper where h(x,y) is a given height field. Let be y real or even complex value, and lets consider the power series for the the exponential function 
-\begin{equation*}
+\begin{equation}
   e^{t}=1+t+\frac{t^{2}}{2!}+\frac{t^{3}}{3!}+...=\sum_{n=0}^{\infty}\frac{t^{n}}{n!}
-\end{equation*}
+\end{equation}
 
 Let us define $t := t(x,y) = ikwh(x,y)$ where $i$ is the imaginary number.
 For simplification, let us denote $h(x,y)$ as $h$. Then it follows by our previous
 stated identities: 
 
-\begin{align*}
+\begin{align}
  e^{t}
  &=1+(ikwh)+\frac{1}{2!}(ikwh)^{2}+\frac{1}{3!}(ikwh)^{3}+... \\
  &=\sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}.
-\end{align*}
+\end{align}
 
 Hence it holds $p(x,y)=\sum_{n=0}^{\infty}\frac{(ikwh(x,y))^{n}}{n!}.$
 
 Let us now compute the Fourier Transformation of p(x,y) form above:
-\begin{align*}
+\begin{align}
   \mathcal{F}\left\{ p\right\}(u,v)
   & =\mathcal{F}\left\{ \sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}.\right\}(u,v) \\
   & =^{\mathcal{F}\, lin\, Operator}\sum_{n=0}^{\infty}\mathcal{F}\left\{ \frac{(ikwh)^{n}}{n!}\right\}(u,v) \\
   & =\sum_{n=0}^{\infty}\frac{(ikw)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\}(u,v)
-\end{align*}
+\end{align}
 
 Hence it follows: $P(\alpha,\beta)=\sum_{n=0}^{\infty}\frac{(ikw)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$ for which $\mathcal{F}_{FT}\left\{ h{}^{n}\right\} (u,v)$.
 
 Next we are going to look for an $N\mathbb{\in N}$ such that 
-\begin{equation*}
+\begin{equation}
  \sum_{n=0}^{N}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta) \approx P(\alpha,\beta) 
-\end{equation*}
+\end{equation}
 
 is a good approximation. But first the following two facts have to be proven:
 
@@ -543,9 +534,10 @@ It is possible to show that the series $\sum_{n=0}^{N}\frac{(ikwh)^{n}}{n!}\math
 
 \textbf{Proof}: Consider $\sum_{k=0}^{\infty}\frac{y^{n}}{n!}$ where
 $a_{k}=\frac{y^{k}}{k!}$. By applying the definition of the ratio test for this series it follows: 
-\begin{equation*}
+
+\begin{equation}
  \forall y:limsup_{k\rightarrow\infty}|\frac{a_{k+1}}{a_{k}}|=limsup_{k\rightarrow\infty}\frac{y}{k+1}=0 
-\end{equation*}
+\end{equation}
 
 Thus this series converges absolutely, no matter what value we will
 pick for y.
@@ -553,24 +545,26 @@ pick for y.
 \myparagraph{Part 2: Find such an N}
 Let $f(x)=e^{x}$. We can formulate its Taylor-Series, stated above.
 Let $P_{n}(x)$denote the n-th Taylor polynom, 
-\begin{equation*}
+
+\begin{equation}
  P_{n}(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^{k}
-\end{equation*}
+\end{equation}
+
 where $a$ is our developing point (here a is equal zero). 
 
 We can define the error of the n-th Taylor polynom to be $E_{n}(x)=f(x)-P_{n}(x)$.
 the error of the n-th Taylor polynom is difference between the value of the function and the Taylor polynomial
 This directly implies $|E_{n}(x)|=|f(x)-P_{n}(x)|$. By using the Lagrangian Error Bound it follows: 
 
-\begin{equation*}
+\begin{equation}
  |E_{n}(x)|\leq\frac{M}{(n+1)!}|x-a|^{n+1} 
-\end{equation*}
+\end{equation}
 
 with $a=0$, where \textbf{M} is some value satisfying $|f^{(n+1)}(x)|\leq M$ on the interval $I=[a,x]$. Since we are interested in an upper bound of the error and since \textbf{a} is known, we can reformulate the interval as $I=[0,x_{max}]$, where 
 
-\begin{equation*}
+\begin{equation}
  x_{max} = \|i\| k_{max} w_{max} h_{max}
-\end{equation*}
+\end{equation}
 
 We are interested in computing an error bound for $e^{ikwh(x,y)}$. Assuming the following parameters and facts used within Stam's Paper: 
 
@@ -587,13 +581,13 @@ each component can have a value in range {[}-2, 2{]}.
 
 We get:  
 
-\begin{align*}
+\begin{align}
 x_{max}
  &= \|i\|*k_{max}*w_{max}*h_{max} \\
  &= k_{max}*w_{max}*h_{max} \\
  &=2*(\frac{2\pi}{4*10^{-7}m})*1.5*10^{-7} \\
  &=1.5\pi
-\end{align*}
+\end{align}
 
 and it follows for our interval $I=[0,1.5\pi]$. 
 
@@ -606,14 +600,15 @@ Next we are going to find the value for $M$. Since the exponential function is m
 
 and $|f^{(n+1)}(x)|\leq M$ holds. With 
 
-\begin{align*}
+\begin{align}
 |E_{n}(x_{max})|
  &\leq\frac{M}{(n+1)!}|x_{max}-a|^{n+1} \\
  &= \frac{exp(1.5\pi)*(1.5\pi)^{n+1}}{(n+1)!}
-\end{align*}
+\end{align}
 
 we now can find a value of $n$ for a given bound, i.e. we can find an value of $N\mathbb{\in N}$ s.t. $\frac{exp(1.5\pi)*(1.5\pi)^{N+1}}{(N+1)!}\leq\epsilon$.
 With Octave/Matlab we can see: 
+
 \begin{itemize}
 \item if N=20 then $\epsilon\approx2.9950*10^{-4}$
 \item if N=25 then $\epsilon\approx8.8150*10^{-8}$
@@ -645,7 +640,7 @@ let us further substitute $\mathbf{t(x,y)}=i^n h(x,y)^n$
 
 Therefore we can deduce the following expression from this:
 
-\begin{align*}
+\begin{align}
 \mathcal{F}_{dtft}^{-1}\{\mathbf{t}\}(u,v)
 & = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \phi(u-w_u, v-w_v) dw_u dw_v \\
 & = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} \sum_i \sum_j {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \\ 
@@ -653,7 +648,7 @@ Therefore we can deduce the following expression from this:
 & = \sum_i \sum_j \int_{-\infty}^{\infty} \int_{-\infty}^{\infty}  {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \\
 & \quad \quad \delta(w_u-w_i, w_v-w_j)\phi(u-w_u, v-w_v) dw_u dw_v \\
 & = \sum_i \sum_j {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \phi(u-w_u, v-w_v)
-\end{align*}
+\end{align}
 
 where 
 
@@ -670,7 +665,7 @@ Let $P(u,v,\lambda) = {F}_{fft}^{-1}\{i^n h^n\}(\frac{2\pi u}{\lambda},\frac{2\p
 
 \begin{equation}
 \begin{split}
-\colvec[X]{X}{Z}& = C(\omega_i,\omega_r) \int_{\lambda} \sum_{n=0}^N  \frac{(wk)^n}{n!} \sum_{(r,s) \in \mathcal{N}_1(u,v)} \left| P_{\lambda}(u-w_r,v-w_s) \right|^2 \\
+\colvec[X]{Y}{Z}& = C(\omega_i,\omega_r) \int_{\lambda} \sum_{n=0}^N  \frac{(wk)^n}{n!} \sum_{(r,s) \in \mathcal{N}_1(u,v)} \left| P_{\lambda}(u-w_r,v-w_s) \right|^2 \\
 & \quad \quad  \phi(u-w_r, v-w_s) \colvec[S_x(\lambda)]{S_y(\lambda)}{S_z(\lambda)}d\lambda
 \end{split}
 \end{equation}
