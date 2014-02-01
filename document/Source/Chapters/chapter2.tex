@@ -682,7 +682,9 @@ where $w_s$ and $w_r$ are ... explain them
 \label{sec:pq}
 REASON FOR WHICH CASE THIS CAN BE USED, ADD AN IMAGE OF BOXFUNCTION
 
-In this section we are presenting an alternative approach to the previous Gaussian window approach $\ref{sec:gaussianwindow}$ in order to solve the issue working with $DTFT$ instead the $DFT$. We assume, that a given surface $S$ is covered by a number of replicas of a provided representative surface patch $f$. In a simplified, one dimensional scenario, mathematically speaking, $f$ is assumed to be a periodic function, i.e. $\forall x \in \mathcal{R}: f(x) = f(x+nT)$, where $T$ is its period and $n \in \matcal{N}_0$. Thus, the surfaces can be written formally as:
+In this section we are presenting an alternative approach to the previous Gaussian window approach 
+$\ref{sec:gaussianwindow}$ 
+in order to solve the issue working with $DTFT$ instead the $DFT$. We assume, that a given surface $S$ is covered by a number of replicas of a provided representative surface patch $f$. In a simplified, one dimensional scenario, mathematically speaking, $f$ is assumed to be a periodic function, i.e. $\forall x \in \mathds{R} : f(x) = f(x+nT)$, where $T$ is its period and $n \in \mathds{N}_{0}$. Thus, the surfaces can be written formally as:
 
 \begin{equation}
   S(x) = \sum_{n=0}^N f(x+nT)
@@ -696,6 +698,7 @@ What we are looking for is an identity for the inverse Fourier transform of our 
 & =\int f(x) e^{iwx}dx\\
 & =\int_{-\infty}^{\infty} \sum_{n=0}^{N} f(x+nT) e^{iwx}dx\\
 & =\sum_{n=0}^{N} \int_{-\infty}^{\infty} f(x+nT) e^{iwx}dx
+\label{eq:pqsinit}
 \end{align}
 
 Next, apply the following substitution $x+nT = y$ which will lead us to:
@@ -705,46 +708,67 @@ x=y-nT\\
 dx=dy
 \end{gather*} 
 
-Plugging this substitution back to the equation from above we will get 
+Plugging this substitution back into equation $\ref{eq:pqsinit}$ we will get: 
 
-\begin{align*}
-\mathcal{F}^{-1}\{f\}(w)
-& =\int f(x) e^{iwx}dx\\
-& =\sum_{n=0}^{N} \int_{-\infty}^{\infty} Box(y) e^{iw(y-nT)}dy \\
-& =\sum_{n=0}^{N} e^{-iwnT} \int_{-\infty}^{\infty} Box(y) e^{iwy}dy \\
-& =\sum_{n=0}^{N} e^{-iwnT} \mathcal{F}\{f\}(w) \\
-& =\mathcal{F}^{-1}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT}  
-\end{align*}
+\begin{align}
+\mathcal{F}^{-1}\{S\}(w)
+& =\sum_{n=0}^{N} \int_{-\infty}^{\infty} f(x+nT) e^{iwx}dx
+& =\sum_{n=0}^{N} \int_{-\infty}^{\infty} f(y) e^{iw(y-nT)}dy \\
+& =\sum_{n=0}^{N} e^{-iwnT} \int_{-\infty}^{\infty} f(y) e^{iwy}dy \\
+& =\sum_{n=0}^{N} e^{-iwnT} \mathcal{F}^{-1}\{f\}(w) \\
+& =\mathcal{F}^{-1}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT}
+\label{eq:pqsub}  
+\end{align}
 
-We used the fact that the term $e^{-iwnT}$ is a constant when integrating along $dy$ and the identity for the inverse Fourier transform of the Box function. Next, let us consider $\sum_{n=0}^N e^{-uwnT}$ further:
+We used the fact that the exponential term $e^{-iwnT}$ is a constant factor when integrating along $dy$ and the identity for the inverse Fourier transform of the function $f$. Next, let us examine the series $\sum_{n=0}^N e^{-iwnT}$ closer:
 
-\begin{align*}
+\begin{align}
 \sum_{n=0}^N e^{-uwnT}
 & =\sum_{n=0}^N (e^{-uwT})^n \\
 & =\frac{1-e^{iwT(N+1)}}{1-e^{-iwT}}
-\end{align*}
+\label{eq:pqgeometricseries}
+\end{align}
 
-We recognize the geometric series identity for the left-hand-side of this equation. Since our series is bounded we can derive our right-hand-side.
+We recognize the geometric series identity for the left-hand-side of equation $\ref{eq:pqgeometricseries}$. Since our series is bounded, we can simplify the right-hand-side of equation $\ref{eq:pqgeometricseries}$.
 
-Since $e^{-ix}$ is a complex number and every complex number can be written in its polar form, i.e. $e^{-ix} = cos(x) + i sin(x)$ we can go even further, using the trigonometric identities that $cos(-x) = cos(x)$ and $sin(-x) = -sin(x)$:
+Note that $e^{-ix}$ is a complex number. Every complex number can be written in its polar form, i.e. 
 
-\begin{align*}
+\begin{equation}
+e^{-ix} = cos(x) + i sin(x) 
+\label{eq:polarform}
+\end{equation}
+
+Using the following trigonometric identities
+\begin{gather*}
+cos(-x) = cos(x)\\
+sin(-x) = -sin(x)
+\end{gather*}
+
+combined with $\ref{eq:polarform}$ we can simplify the series $\ref{eq:pqgeometricseries}$ even further to:
+
+\begin{align}
 \frac{1-e^{iwT(N+1)}}{1-e^{-iwT}}
 & =\frac{1-cos(wT(N+1)) + i sin(wT(N+1)) }{1-cos(wT) + i sin(wT)}
-\end{align*}
+\label{eq:pq1minusexp}
+\end{align}
 
-Which is still a complex number $(p+iq)$. Every complex number can be written as a fraction of two complex numbers. This means that the complex number $(p+iq)$ can be written as $(p+iq) = \frac{(a+ib)}{(c+id)}$ for any $(a+ib), (c+id) \neq 0$. 
-For our case, let us use the following substitutions: 
+Equation $\ref{eq:pq1minusexp}$ is still a complex number $(p+iq)$. Generally, every complex number can be written as a fraction of two complex numbers. This implies that the complex number $(p+iq)$ can be written as $(p+iq) = \frac{(a+ib)}{(c+id)}$ for any $(a+ib), (c+id) \neq 0$. Let us use the following substitutions: 
 
 \begin{align}
 a& := 1 - cos(wT(N+1))&
 b& =sin(wT(N+1))\\
 c& =1-cos(wT)&
 d& =sin(wT)
+\label{eq:pqabcdsubstitudes}
 \end{align}
 
-hence it follows $\frac{1-e^{iwT(N+1)}}{1-e^{-iwT}} = \frac{(a+ib)}{(c+id)}$.
-By rearranging the terms it follows $(a+ib) = (c+id)(p+iq)$ and multiplying the right hand-side out we get the following system of equations:
+Hence, using $\ref{eq:pqabcdsubstitudes}$, it follows 
+
+\begin{equation}
+  \frac{1-e^{iwT(N+1)}}{1-e^{-iwT}} = \frac{(a+ib)}{(c+id)}
+\end{equation}
+
+By rearranging the terms, it follows $(a+ib) = (c+id)(p+iq)$ and by multiplying its right hand-side out we get the following system of equations:
 
 \begin{align}
 (cp-dq)& =a\\
@@ -782,7 +806,7 @@ Therefore, the whole surface can be represented like this $f(x) = \sum_{n=0}^{N}
 In oder to derive next a identity for the Fourier transform for our 2-dim height field, we can proceed similarly, the only fact which changes is, that we are now in a 2-dimensional domain, i.e. we are about to compute a two-dimensional Fourier transform:
 Let us again us again a Box-function, this time a 2-dimensional Box-function $Box(x,y)$ just for the sake of convenience.
 
-\begin{align*}
+\begin{align}
 \mathcal{F}^{-1}\{f\}(w_1,w_2)
 & = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} Box(x_1 + n_1 T_1, x_2 + n_2 T_2) e^{iw(x_1 + x_2)}dx_1 dx_2 \\
 & = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} Box(y_1, y_2) e^{iw((y_1 - n_1 T_1) + (y_2 + n_2 T_2))}dx_1 dx_2 \\
@@ -794,7 +818,7 @@ Let us again us again a Box-function, this time a 2-dimensional Box-function $Bo
 & =((p_1 p_2 - q_1 q_2) + i(p_1 p_2 + q_1 q_2)) \mathcal{F}^{-1}\{Box\}(w_1,w_2) \\
 & =(p + iq) \mathcal{F}_{DTFT}^{-1}\{Box\}(w_1,w_2)
 \label{eq:pqmainfinding}
-\end{align*}
+\end{align}
 
 Where we define $p := (p_1 p_2 - q_1 q_2) $ and $q := (p_1 p_2 + q_1 q_2)$. For this identity we used green's integration rule which allowed us to split the double integral to the product of two single integrations. Also, we used the definition of the 2-dimensional inverse Fourier transform of the Box-function. We applied the same substitution like we did in for the 1 dimensional case, but this time twice, once for each variable separately. The last step, substituting with $p$ and $q$ will be useful later in the implementation. The insight should be, that the product of two complex numbers is again a complex number. We will have to compute the absolute value of $\mathcal{F}^{-1}\{f\}(w_1,w_2)$ which will then be equal $(p^2 + q^2)^{\frac{1}{2}}\left|\mathcal{F}^{-1}\{Box\}(w_1,w_2)\right|$
 
