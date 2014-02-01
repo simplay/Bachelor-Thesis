@@ -633,8 +633,7 @@ X
 
 \subsection{Sampling: Gaussian Window}
 \label{sec:gaussianwindow}
-Practically, we cannot compute the DTFT numerically due to finite computer arithmetic, since $w$ is a continuous function for the DTFT. 
-The DFT of a discrete height field patch is equivalent to the DTFT of an infinitely periodic function consisting of replicas of the same discrete patch. By windowing with a window function that is zero outside the central replica, the convolution of either the DFT or the DTFT of height field with the Fourier Transform of the window becomes equivalent.
+Practically, we cannot compute the DTFT numerically due to finite computer arithmetic, since $w$ is a continuous function for the DTFT. The DFT of a discrete height field patch is equivalent to the DTFT of an infinitely periodic function consisting of replicas of the same discrete patch. By windowing with a window function that is zero outside the central replica, the convolution of either the DFT or the DTFT of height field with the Fourier Transform of the window becomes equivalent.
 
 Let $window_g$ denote the gaussian window with $4\sigma_s$ $\mu m$ where $\sigma_f = \frac{1}{2\pi\sigma_s}$
 let us further substitute $\mathbf{t(x,y)}=i^n h(x,y)^n$
@@ -680,6 +679,15 @@ where $w_s$ and $w_r$ are ... explain them
 
 \section{Alternative Approach}
 \label{sec:pq}
+
+In this section we are presenting an alternative approach to the previous Gaussian window approach $\ref{sec:gaussianwindow}$ in order to solve the issue working with $DTFT$ instead the $DFT$. We assume, that a given surface $S$ is covered by a number of replicas of a provided representative surface patch $f$. In a simplified scenario, one dimensional scenario, mathematically speaking, $f$ is assumed to be a periodic function, i.e. $f(x) = f(x+nT)$, where $T$ is its period and $n \in \matcal{N}_0$. Thus, the surfaces can be written formally as:
+
+\begin{equation}
+  S(x) = \sum_{n=0}^N f(x+nT)
+\label{eq:replicatedpatchsurface}
+\end{equation}
+
+
 REASON FOR WHICH CASE THIS CAN BE USED, ADD AN IMAGE OF BOXFUNCTION
 The approach introduced within this section is an alternative to the gaussian window approach.
 Let us consider the so called 1-dimensional Box-function with length $T$ which is defined as the following: 
