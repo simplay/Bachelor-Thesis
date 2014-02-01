@@ -773,32 +773,32 @@ By rearranging the terms, it follows $(a+ib) = (c+id)(p+iq)$ and by multiplying 
 \begin{align}
 (cp-dq)& =a\\
 (dp + cq)& =b
+\label{eq:cdadcn}
 \end{align}
 
-Which gives lead us we some further math (trick: mult first eq. by $c$ and 2nd by $d$, then adding them together. using distributivity and we have the identity for p for example, similar for q) to 
+After multiplying the first equation of $\ref{eq:cdadcn}$ by $c$ and the second by $d$ and then adding them together, we get using the law of distributivity new identities for $p$ and $q$:
 
 \begin{align}
 p& =\frac{(ac+bd)}{c^2 + d^2}\\
 q& =\frac{(bc+ad)}{c^2 + d^2}
+\label{eq:pq1}
 \end{align}
 
-
-Putting our substitution for $a, b, c, d$ back into the current representation for $p$ and $q$ and using some trigonometric identities, this we then get:
+Using trigonometric identity and putting our substitution for $a, b, c, d$ back into the current representation $\ref{eq:pq1}$ of $p$ and $q$ we will get:
 
 \begin{align}
 p& =\frac{1}{2}+\frac{1}{2}\left(\frac{cos(wTN)-cos(wT(N+1))}{1-cos(wT)}\right)\\
 q& =\frac{sin(wT(N+1))-sin(wTN)-sin(wT)}{2(1-cos(wT))}
 \end{align}
 
-Since we have seen, that $\sum_{n=0}^N e^{-uwnT}$ is a complex number and can be written as $(p+iq)$ and we know now the explicit identity for those $p$ and $q$ we get for the 1-dimensional Fourier transform of the 1-dimensional Box-function the following final identity:
+Since we have seen, that $\sum_{n=0}^N e^{-uwnT}$ is a complex number and can be written as $(p+iq)$, we now know an explicit expression for $p$ and $q$. Therefore, the one dimensional inverse Fourier transform of $S$ is equal:
 
-\begin{align*}
-\mathcal{F}^{-1}\{f\}(w)
+\begin{align}
+\mathcal{F}^{-1}\{S\}(w)
 & =\mathcal{F}^{-1}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT} \\
-& = (p+iq) \mathcal{F}^{-1}\{Box\}(w)  
-\end{align*}
-
-
+& = (p+iq) \mathcal{F}^{-1}\{f\}(w)  
+\label{eq:mainfinding1d}
+\end{align}
 
 Therefore, the whole surface can be represented like this $f(x) = \sum_{n=0}^{N} Box(x+nT_1, y+mT_2)$ assuming the given height field has the dimensions $T_1$ by $T_2$. 
 
