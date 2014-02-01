@@ -29,7 +29,8 @@
 \contentsline {subsection}{\numberline {2.3.4}Sampling: Gaussian Window}{21}{subsection.2.3.4}
 \contentsline {subsection}{\numberline {2.3.5}Final Expression}{22}{subsection.2.3.5}
 \contentsline {section}{\numberline {2.4}Alternative Approach}{22}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}Interpolation}{25}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.1}PQ factors}{22}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Interpolation}{25}{subsection.2.4.2}
 \contentsline {chapter}{\numberline {3}Implementation}{27}{chapter.3}
 \contentsline {section}{\numberline {3.1}Precomputations in Matlab}{28}{section.3.1}
 \contentsline {section}{\numberline {3.2}Java Renderer}{30}{section.3.2}

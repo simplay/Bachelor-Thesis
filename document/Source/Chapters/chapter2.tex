@@ -679,9 +679,8 @@ where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the gaussian win
 where $w_s$ and $w_r$ are ... explain them
 
 \section{Alternative Approach}
+\subsection{PQ factors}
 \label{sec:pq}
-REASON FOR WHICH CASE THIS CAN BE USED, ADD AN IMAGE OF BOXFUNCTION
-
 In this section we are presenting an alternative approach to the previous Gaussian window approach 
 $\ref{sec:gaussianwindow}$ 
 in order to solve the issue working with $DTFT$ instead the $DFT$. We assume, that a given surface $S$ is covered by a number of replicas of a provided representative surface patch $f$. In a simplified, one dimensional scenario, mathematically speaking, $f$ is assumed to be a periodic function, i.e. $\forall x \in \mathds{R} : f(x) = f(x+nT)$, where $T$ is its period and $n \in \mathds{N}_{0}$. Thus, the surfaces can be written formally as:
@@ -695,28 +694,28 @@ What we are looking for is an identity for the inverse Fourier transform of our 
 
 \begin{align}
 \mathcal{F}^{-1}\{S\}(w)
-& =\int f(x) e^{iwx}dx\\
-& =\int_{-\infty}^{\infty} \sum_{n=0}^{N} f(x+nT) e^{iwx}dx\\
+& =\int f(x) e^{iwx}dx \nonumber \\
+& =\int_{-\infty}^{\infty} \sum_{n=0}^{N} f(x+nT) e^{iwx}dx \nonumber \\
 & =\sum_{n=0}^{N} \int_{-\infty}^{\infty} f(x+nT) e^{iwx}dx
 \label{eq:pqsinit}
 \end{align}
 
 Next, apply the following substitution $x+nT = y$ which will lead us to:
 
-\begin{gather*}
-x=y-nT\\
+\begin{gather}
+x=y-nT \nonumber \\
 dx=dy
 \label{eq:substitude1dpq}
-\end{gather*} 
+\end{gather} 
 
 Plugging this substitution back into equation $\ref{eq:pqsinit}$ we will get: 
 
 \begin{align}
 \mathcal{F}^{-1}\{S\}(w)
 & =\sum_{n=0}^{N} \int_{-\infty}^{\infty} f(x+nT) e^{iwx}dx
-& =\sum_{n=0}^{N} \int_{-\infty}^{\infty} f(y) e^{iw(y-nT)}dy \\
-& =\sum_{n=0}^{N} e^{-iwnT} \int_{-\infty}^{\infty} f(y) e^{iwy}dy \\
-& =\sum_{n=0}^{N} e^{-iwnT} \mathcal{F}^{-1}\{f\}(w) \\
+& =\sum_{n=0}^{N} \int_{-\infty}^{\infty} f(y) e^{iw(y-nT)}dy \nonumber \\
+& =\sum_{n=0}^{N} e^{-iwnT} \int_{-\infty}^{\infty} f(y) e^{iwy}dy \nonumber \\
+& =\sum_{n=0}^{N} e^{-iwnT} \mathcal{F}^{-1}\{f\}(w) \nonumber \\
 & =\mathcal{F}^{-1}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT}
 \label{eq:pqsub}  
 \end{align}
@@ -725,7 +724,7 @@ We used the fact that the exponential term $e^{-iwnT}$ is a constant factor when
 
 \begin{align}
 \sum_{n=0}^N e^{-uwnT}
-& =\sum_{n=0}^N (e^{-uwT})^n \\
+& =\sum_{n=0}^N (e^{-uwT})^n \nonumber \\
 & =\frac{1-e^{iwT(N+1)}}{1-e^{-iwT}}
 \label{eq:pqgeometricseries}
 \end{align}
@@ -740,10 +739,10 @@ e^{-ix} = cos(x) + i sin(x)
 \end{equation}
 
 Using the following trigonometric identities
-\begin{gather*}
-cos(-x) = cos(x)\\
+\begin{gather}
+cos(-x) = cos(x) \nonumber \\
 sin(-x) = -sin(x)
-\end{gather*}
+\end{gather}
 
 combined with $\ref{eq:polarform}$ we can simplify the series $\ref{eq:pqgeometricseries}$ even further to:
 
@@ -753,11 +752,11 @@ combined with $\ref{eq:polarform}$ we can simplify the series $\ref{eq:pqgeometr
 \label{eq:pq1minusexp}
 \end{align}
 
-Equation $\ref{eq:pq1minusexp}$ is still a complex number $(p+iq)$. Generally, every complex number can be written as a fraction of two complex numbers. This implies that the complex number $(p+iq)$ can be written as $(p+iq) = \frac{(a+ib)}{(c+id)}$ for any $(a+ib), (c+id) \neq 0$. Let us use the following substitutions: 
+Equation $\ref{eq:pq1minusexp}$ is still a complex number, denoted as $(p+iq)$. Generally, every complex number can be written as a fraction of two complex numbers. This implies that the complex number $(p+iq)$ can be written as $(p+iq) = \frac{(a+ib)}{(c+id)}$ for any $(a+ib), (c+id) \neq 0$. Let us use the following substitutions: 
 
 \begin{align}
 a& := 1 - cos(wT(N+1))&
-b& =sin(wT(N+1))\\
+b& =sin(wT(N+1)) \nonumber \\
 c& =1-cos(wT)&
 d& =sin(wT)
 \label{eq:pqabcdsubstitudes}
@@ -772,7 +771,7 @@ Hence, using $\ref{eq:pqabcdsubstitudes}$, it follows
 By rearranging the terms, it follows $(a+ib) = (c+id)(p+iq)$ and by multiplying its right hand-side out we get the following system of equations:
 
 \begin{align}
-(cp-dq)& =a\\
+(cp-dq)& =a \nonumber \\
 (dp + cq)& =b
 \label{eq:cdadcn}
 \end{align}
@@ -780,7 +779,7 @@ By rearranging the terms, it follows $(a+ib) = (c+id)(p+iq)$ and by multiplying 
 After multiplying the first equation of $\ref{eq:cdadcn}$ by $c$ and the second by $d$ and then adding them together, we get using the law of distributivity new identities for $p$ and $q$:
 
 \begin{align}
-p& =\frac{(ac+bd)}{c^2 + d^2}\\
+p& =\frac{(ac+bd)}{c^2 + d^2} \nonumber \\
 q& =\frac{(bc+ad)}{c^2 + d^2}
 \label{eq:pq1}
 \end{align}
@@ -788,7 +787,7 @@ q& =\frac{(bc+ad)}{c^2 + d^2}
 Using some trigonometric identities and putting our substitution from $\ref{eq:pqabcdsubstitudes}$ for $a$, $b$, $c$, $d$ back into the current representation $\ref{eq:pq1}$ of $p$ and $q$ we will get:
 
 \begin{align}
-p& =\frac{1}{2}+\frac{1}{2}\left(\frac{cos(wTN)-cos(wT(N+1))}{1-cos(wT)}\right)\\
+p& =\frac{1}{2}+\frac{1}{2}\left(\frac{cos(wTN)-cos(wT(N+1))}{1-cos(wT)}\right) \nonumber \\
 q& =\frac{sin(wT(N+1))-sin(wTN)-sin(wT)}{2(1-cos(wT))}
 \end{align}
 
@@ -796,7 +795,7 @@ Since we have seen, that $\sum_{n=0}^N e^{-uwnT}$ is a complex number and can be
 
 \begin{align}
 \mathcal{F}^{-1}\{S\}(w)
-& =\mathcal{F}^{-1}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT} \\
+& =\mathcal{F}^{-1}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT} \nonumber \\
 & = (p+iq) \mathcal{F}^{-1}\{f\}(w)  
 \label{eq:mainfinding1d}
 \end{align}
@@ -806,14 +805,14 @@ Now lets consider our actual problem description. Given a patch of a nanoscaled 
 
 \begin{align}
 \mathcal{F}^{-1}\{S\}(w_1, w_2)
-& = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} h(x_1 + n_1 T_1, x_2 + n_2 T_2) e^{iw(x_1 + x_2)}dx_1 dx_2 \\
-& = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} h(y_1, y_2) e^{iw((y_1 - n_1 T_1) + (y_2 + n_2 T_2))}dx_1 dx_2 \\
-& =\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} h(y_1, y_2) e^{iw(y_1 + y_2)} e^{-iw(n_1 T_1 + n_2 T_2)}dy_1 dy_2 \\
-& =\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} e^{-iw(n_1 T_1 + n_2 T_2)} \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} Box(y_1, y_2) e^{iw(y_1 + y_2)} dy_1 dy_2 \\
-& =\left(\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} e^{-iw(n_1 T_1 + n_2 T_2)}\right) \mathcal{F}^{-1}\{h\}(w_1,w_2) \\
-& =\left(\sum_{n_2=0}^{N_1} e^{-iw n_1 T_1}\right) \left(\sum_{n_2=0}^{N_2} e^{-iw n_2 T_2}\right) \mathcal{F}^{-1}\{h\}(w_1,w_2) \\
-& =(p_1 + i q_1)(p_2 + i q_2) \mathcal{F}^{-1}\{h\}(w_1,w_2) \\
-& =((p_1 p_2 - q_1 q_2) + i(p_1 p_2 + q_1 q_2)) \mathcal{F}^{-1}\{h\}(w_1,w_2) \\
+& = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} h(x_1 + n_1 T_1, x_2 + n_2 T_2) e^{iw(x_1 + x_2)}dx_1 dx_2 \nonumber \\
+& = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} h(y_1, y_2) e^{iw((y_1 - n_1 T_1) + (y_2 + n_2 T_2))}dx_1 dx_2 \nonumber \\
+& =\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} h(y_1, y_2) e^{iw(y_1 + y_2)} e^{-iw(n_1 T_1 + n_2 T_2)}dy_1 dy_2 \nonumber \\
+& =\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} e^{-iw(n_1 T_1 + n_2 T_2)} \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} Box(y_1, y_2) e^{iw(y_1 + y_2)} dy_1 dy_2 \nonumber \\
+& =\left(\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} e^{-iw(n_1 T_1 + n_2 T_2)}\right) \mathcal{F}^{-1}\{h\}(w_1,w_2) \nonumber \\
+& =\left(\sum_{n_2=0}^{N_1} e^{-iw n_1 T_1}\right) \left(\sum_{n_2=0}^{N_2} e^{-iw n_2 T_2}\right) \mathcal{F}^{-1}\{h\}(w_1,w_2) \nonumber \\
+& =(p_1 + i q_1)(p_2 + i q_2) \mathcal{F}^{-1}\{h\}(w_1,w_2) \nonumber \\
+& =((p_1 p_2 - q_1 q_2) + i(p_1 p_2 + q_1 q_2)) \mathcal{F}^{-1}\{h\}(w_1,w_2) \nonumber \\
 & =(p + iq) \mathcal{F}_{DTFT}^{-1}\{h\}(w_1,w_2)
 \label{eq:pqmainfinding}
 \end{align}
@@ -821,7 +820,7 @@ Now lets consider our actual problem description. Given a patch of a nanoscaled 
 Where we have defined 
 
 \begin{align}
-p := (p_1 p_2 - q_1 q_2) \\ 
+p := (p_1 p_2 - q_1 q_2) \nonumber \\ 
 q := (p_1 p_2 + q_1 q_2)
 \label{eq:pqsubst2d}
 \end{align}
