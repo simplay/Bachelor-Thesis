@@ -137,6 +137,7 @@ The tristimulus values for a color with a spectral power distribution $I(\lambda
     X= \int_{380}^{780} I(\lambda)\,\overline{x}(\lambda)\,d\lambda \nonumber \\
     Y= \int_{380}^{780} I(\lambda)\,\overline{y}(\lambda)\,d\lambda \nonumber \\
     Z= \int_{380}^{780} I(\lambda)\,\overline{z}(\lambda)\,d\lambda
+\label{eq:tristimulusvalues}
 \end{align}
 
 where $\lambda$, is the wavelength of the equivalent monochromatic light (measured in nanometers).
@@ -412,9 +413,10 @@ This new fact will allow us to get even further:
 
 \begin{align}
 L_{\lambda}(\omega_r) 
-& = \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{A \lambda^2 cos(\theta_i)cos(\theta_r)  (cos(\theta_i)+cos(\theta_r))^2} \langle \left|P_{cont}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle cos(\theta_i) I(\lambda) \nonumber \\
-& = I(\lambda) \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|P_{cont}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle \nonumber \\
-& = I(\lambda) \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|T_0^2 P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle
+& = \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{A \lambda^2 cos(\theta_i)cos(\theta_r)  (cos(\theta_i)+cos(\theta_r))^2} \left \langle \left|P_{cont}\left( \frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda}\right) \right|^2 \right \rangle cos(\theta_i) I(\lambda) \nonumber \\
+& = I(\lambda) \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \left \langle \left|P_{cont}\left( \frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda}\right) \right|^2 \right \rangle \nonumber \\
+& = I(\lambda) \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \left \langle \left|T_0^2 P_{dtft}\left( \frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda}\right) \right|^2 \right \rangle
+\label{eq:nonrelativebrdffinding}
 \end{align}
 
 Where $P_{cont}$ denotes the continuous inverse Fourier-Transform $\ref{eq:icft}$ for the Taylor-Series $\ref{eq:deftaylor}$ of our height field representing the nano-scaled surface structure, i.e. $P(k,l) = \mathcal{F}^{-1}\{p\}(k,l)$ and $P_{dtft}$ is the inverse Discrete Time Fourier Transform $\ref{eq:dtft}$ of $p(x,y) = e^{ikwh(x,y)}$. Furthermore $T_0$ the sampling distance for the discretization of $p(x,y)$ assuming equal and uniform sampling in both dimensions $x$ and $y$.
@@ -422,12 +424,11 @@ Where $P_{cont}$ denotes the continuous inverse Fourier-Transform $\ref{eq:icft}
 \subsection{Relative BRDF}
 In this section we are going to explain how to scale our BRDF formulation such that all of its possible output values are mapped into the range $\left[0,1\right]$. Such a relative BRDF formulation will ease our life for later rendering purposes since usually color values are within the range $\left[0,1\right]$, too. Furthermore, this will allow us to properly blend the resulting illumination caused by diffraction with a texture map.
 
-Let us examine what $L_\lambda(\omega_r)$ will be for $\omega_r = \omega_0 := (0,0,*)$ i.e. specular reflection case, denoted as $L_\lambda^{spec}(\omega_0)$. 
-
-When we know the expression for $L_\lambda^{spec}(\omega_0)$ we would be able to compute the relative reflected radiance for our problem by simply dividing $L_\lambda(\omega_r)$ by $L_\lambda^{spec}(\omega_0)$, denoted as 
+Let us examine what $L_\lambda(\omega_r)$ will be for $\omega_r = \omega_0 := (0,0,*)$ i.e. specular reflection case, denoted as $L_\lambda^{spec}(\omega_0)$. When we know the expression for $L_\lambda^{spec}(\omega_0)$ we would be able to compute the relative reflected radiance for our problem $\ref{eq:nonrelativebrdffinding}$ by simply taking the fraction between $L_\lambda(\omega_r)$ and $L_\lambda^{spec}(\omega_0)$ which is denoted by: 
 
 \begin{equation}
-    \rho_\lambda(\omega_i,\omega_r) = \frac{L_\lambda(\omega_r)}{L_\lambda^{spec}(\omega_0)}
+  \rho_\lambda(\omega_i,\omega_r) = \frac{L_\lambda(\omega_r)}{L_\lambda^{spec}(\omega_0)}
+  \label{eq:rohrel}
 \end{equation}
 
 But first, let us derive the following expression:
@@ -437,55 +438,57 @@ L_\lambda^{spec}(\omega_0)
 & = I(\lambda) \frac{F(\omega_0, \omega_0)^2 (1+\colvec[0]{0}{1}\cdot\colvec[0]{0}{1})^2}{\lambda^2 A (cos(0)+cos(0))^2 cos(0)} \langle \left|T_0^2 P_{dtft}(0,0)  \right|^2\rangle \nonumber \\
 & = I(\lambda) \frac{F(\omega_0, \omega_0)^2 (1+1)^2}{\lambda^2 A (1+1)^2 1}\left| T_0^2 N_{sample} \right|^2 \nonumber \\
 & = I(\lambda) \frac{F(\omega_0, \omega_0)^2}{\lambda^2 A}\left| T_0^2 N_{sample} \right|^2 
+\label{eq:lspec}
 \end{align}
 
-Where $N_{samples}$ is the number of samples of the DTFT.
-
-Thus, we can plug our last derived expression into the definition for the relative reflectance radiance in the direction $w_r$ and will get:
+Where $N_{samples}$ is the number of samples of the DTFT $\ref{eq:dtft}$. Thus, we can plug our last derived expression $\ref{eq:lspec}$ into the definition for the relative reflectance radiance $\ref{eq:rohrel}$ in the direction $w_r$ and will get:
 
 \begin{align}
 \rho_\lambda(\omega_i,\omega_r)
 & = \frac{L_\lambda(\omega_r)}{L_\lambda^{spec}(\omega_0)} \nonumber \\
 & = \frac{I(\lambda) \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|T_0^2 P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda}) \right|^2\rangle}{I(\lambda) \frac{F(\omega_0, \omega_0)^2}{\lambda^2 A}\left| T_0^2 N_{sample} \right|^2 } \nonumber \\
 & = \frac{F^2(\omega_i,\omega_r)(1 + \omega_i \cdot \omega_r)^2}{F^2(\omega_0,\omega_0)(cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|\frac{P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})}{N_{samples}}\right|^2\rangle
+\label{eq:lspecrohrel}
 \end{align}
 
-for simplification and a better overview, let us introduce the following expression, the so called gain-factor:
+For simplification and a better overview, let us introduce the following expression, the so called gain-factor:
 
 \begin{equation} 
     C(\omega_i,\omega_r) = \frac{F^2(\omega_i,\omega_r)(1 + \omega_i \cdot \omega_r)^2}{F^2(\omega_0,\omega_0)(cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r) N_{samples}^2}
 \label{eq:cfact}
 \end{equation}
 
-Using this substitute, we will end up with the following expression for the relative reflectance radiance:
+Using this substitute, we will end up with the following expression for the relative reflectance radiance from equation $\ref{eq:lspecrohrel}$:
 
 \begin{equation}
 \rho_\lambda(\omega_i,\omega_r) =  C(\omega_i,\omega_r) \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle
 \label{eq:cpterm}
 \end{equation}
 
-Using the previous definition for the relative reflectance radiance 
+Using the previous definition for the relative reflectance radiance $\ref{eq:rohrel}$:
 
 \begin{equation}
  \rho_\lambda(\omega_i,\omega_r) = \frac{L_\lambda(\omega_r)}{L_\lambda^{spec}(\omega_0)} 
 \end{equation}
 
-which we can rearrange to the expression 
+Which we can rearrange to the expression: 
 
 \begin{equation}
 L_\lambda(\omega_r) = \rho_\lambda(\omega_i,\omega_r)L_\lambda^{spec}(\omega_0)
+\label{eq:radianceomegarspec}
 \end{equation}
 
-Let us choose $L_\lambda^{spec}(w_0) = S(\lambda)$ such that is has the same profile as the relative spectral power distribution of CIE Standard Illuminant $D65$. Further, when integration over $\lambda$ for a specular surface we should get $CIE_{XYZ}$ values corresponding to the white point for $D65$ 
-The corresponding tristimulus values using CIE colormatching functions for the $CIE_{XYZ}$ values look like:
+Let us choose $L_\lambda^{spec}(w_0) = S(\lambda)$ such that is has the same profile as the relative spectral power distribution of CIE Standard Illuminant $D65$ discussed in $\ref{subsec:colortransformations}$. Furthermore, when integrating over $\lambda$ for a specular surface, we should get $CIE_{XYZ}$ values corresponding to the white point for $D65$. The corresponding tristimulus values using CIE colormatching functions $\ref{eq:tristimulusvalues}$ for the $CIE_{XYZ}$ values look like:
 
 \begin{align}
 X = \int_{\lambda}L_\lambda(\omega_r)\overline{x}(\lambda)d\lambda \nonumber \\
 Y = \int_{\lambda}L_\lambda(\omega_r)\overline{y}(\lambda)d\lambda \nonumber \\
 Z = \int_{\lambda}L_\lambda(\omega_r)\overline{z}(\lambda)d\lambda
+\label{eq:tristimrad}
 \end{align}
 
-where $\overline{x}$, $\overline{y}$, $\overline{z}$ are the color matching functions. Using our last finding for $L_\lambda(\omega_r)$ with the definition for the tristimulus values we can actually derive an expression for computing the colors for our BRDF formula. Since X, Y, Z are defined similarly, it satisfies to derive an explicit expression for just one tristimulus term, for example X. The other two will look the same, except the we have to replace all X with Y or Z respectively. Therefore, we get:
+where $\overline{x}$, $\overline{y}$, $\overline{z}$ are the color matching functions. Using our last finding $\ref{eq:radianceomegarspec}$ for $L_\lambda(\omega_r)$ with the definition for the tristimulus values $\ref{eq:tristimrad}$, we can actually derive an expression for computing the colors for our initial BRDF formula $\ref{eq:initialbrdf}$. 
+Without any loss of generality it satisfies to derive an explicit expression for just one tristimulus term, for example X. Since The other have a similar formulation, except the we have to replace all X with Y or Z respectively. Therefore, we get:
 
 \begin{align}
 X 
@@ -645,7 +648,7 @@ X
 
 \subsection{Sampling: Gaussian Window}
 \label{sec:gaussianwindow}
-Practically, we cannot compute the DTFT numerically due to finite computer arithmetic, since $w$ is a continuous function for the DTFT. The DFT of a discrete height field patch is equivalent to the DTFT of an infinitely periodic function consisting of replicas of the same discrete patch. By windowing with a window function that is zero outside the central replica, the convolution of either the DFT or the DTFT of height field with the Fourier Transform of the window becomes equivalent.
+Practically, we cannot compute the DTFT $\ref{eq:dtft}$ numerically due to finite computer arithmetic, since $w$ is a continuous function for the DTFT. The DFT $\ref{eq:dft}$ of a discrete height field patch is equivalent to the DTFT of an infinitely periodic function consisting of replicas of the same discrete patch. By windowing with a window function that is zero outside the central replica, the convolution of either the DFT or the DTFT of height field with the Fourier Transform of the window becomes equivalent.
 
 Let $window_g$ denote the gaussian window with $4\sigma_s$ $\mu m$ where $\sigma_f = \frac{1}{2\pi\sigma_s}$
 let us further substitute $\mathbf{t(x,y)}=i^n h(x,y)^n$
