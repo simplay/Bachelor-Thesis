@@ -246,6 +246,7 @@ The Taylor series $\mathcal T$ of a real or complex-valued function $f(x)$ that 
 
 
 \section{Thesis Basis: J.Stam's Paper about Diffraction Shader}
+\label{sec:sumstam}
 In his paper about Diffraction Shader, J. Stam derives a BRDF which is modeling the effect of diffraction for various analytical anisotropic reflexion models relying on the so called scalar wave theory of diffraction for which a wave is assumed to be a complex valued scalar. 
 It's noteworthy, that Stam's BRDF formulation does not take into account the polarization of the light. Fortunately, light sources like sunlight and light bulbs are unpolarized. 
 
@@ -503,16 +504,22 @@ X
 Where we used the definition $S_x(\lambda)\overline{x}(\lambda)$ in the last step.
 
 \subsection{Taylor approximation for BRDF}
-In this section, we will deliver an approximation for the inverse Fourier Transformation of Stam's auxiliary function p(x,y)s. This derivation will rely on the definition of Taylor Series expansion. Further, we will provide an error bound for our approximation approach for a given number of iterations. Last, we will extend our current BRDF formula by the findings derived within this section.
+In this section, we will deliver an approximation for the inverse Fourier Transformation of Stam's auxiliary function $p(x,y)$. This derivation will rely on the definition of Taylor Series expansion $\ref{eq:deftaylor}$. Further, we will provide an error bound for our approximation approach for a given number of iterations. Last, we will extend our current BRDF formula by the findings derived within this section.
 
-Given $p(x,y)=e^{ikwh(x,y)}$ form Stam's Paper where h(x,y) is a given height field. Let be y real or even complex value, and lets consider the power series for the the exponential function 
+Given $p(x,y)=e^{ikwh(x,y)}$ form Stam's Paper $\ref{sec:sumstam}$ where $h(x,y)$ is a given height field. Let be y real or even complex value, and lets consider the power series for the the exponential function
+ 
 \begin{equation}
   e^{t}=1+t+\frac{t^{2}}{2!}+\frac{t^{3}}{3!}+...=\sum_{n=0}^{\infty}\frac{t^{n}}{n!}
 \end{equation}
 
-Let us define $t := t(x,y) = ikwh(x,y)$ where $i$ is the imaginary number.
-For simplification, let us denote $h(x,y)$ as $h$. Then it follows by our previous
-stated identities: 
+Let us define 
+\begin{align}
+t 
+= t(x,y) 
+= ikwh(x,y)
+\end{align}
+ 
+where $i$ is the imaginary number. For simplification, let us denote $h(x,y)$ as $h$. Then it follows by our previous stated identities: 
 
 \begin{align}
  e^{t}
@@ -520,9 +527,8 @@ stated identities:
  &=\sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}.
 \end{align}
 
-Hence it holds $p(x,y)=\sum_{n=0}^{\infty}\frac{(ikwh(x,y))^{n}}{n!}.$
+Hence it holds $p(x,y)=\sum_{n=0}^{\infty}\frac{(ikwh(x,y))^{n}}{n!}$. Let us now compute the Fourier Transformation of p(x,y) form above:
 
-Let us now compute the Fourier Transformation of p(x,y) form above:
 \begin{align}
   \mathcal{F}\left\{ p\right\}(u,v)
   & =\mathcal{F}\left\{ \sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}.\right\}(u,v) \nonumber \\
@@ -530,7 +536,7 @@ Let us now compute the Fourier Transformation of p(x,y) form above:
   & =\sum_{n=0}^{\infty}\frac{(ikw)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\}(u,v)
 \end{align}
 
-Hence it follows: $P(\alpha,\beta)=\sum_{n=0}^{\infty}\frac{(ikw)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$ for which $\mathcal{F}_{FT}\left\{ h{}^{n}\right\} (u,v)$.
+Therefore it follows: $P(\alpha,\beta)=\sum_{n=0}^{\infty}\frac{(ikw)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$ for which $\mathcal{F}_{FT}\left\{ h{}^{n}\right\} (u,v)$.
 
 Next we are going to look for an $N\mathbb{\in N}$ such that 
 \begin{equation}
