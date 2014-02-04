@@ -96,6 +96,7 @@ The bidirectional reflectance distribution function, in short BRDF, denoted as $
   & = f_r(\omega_i, \omega_r) \nonumber \\
   & = \frac{dL_r(\omega_r)}{dE_i(\omega_i)} \nonumber \\
   & = \frac{dL_r(\omega_r)}{L_i(\omega_i)cos(\theta_i)d\omega_i}
+  \label{eq:defbrdf}
 \end{align}
 
 L is the reflected radiance, E is the irradiance and $\theta_{\text{i}}$ is the angle between $\omega_{\text{i}}$ and the surface normal, $\mathbf n$. The index $\text{i}$ indicates incident light, whereas the index $\text{r}$ indicates reflected light.
@@ -157,12 +158,14 @@ Let $f$ an measurable function over $\mathds{R}^n$. Then, the continuous Fourier
  
 \begin{equation}
   \mathcal{F}_{FT}\{f\}(w) = \int_{\mathds{R}^n} f(x)e^{-iwt} dt
+  \label{eq:cft}
 \end{equation}
 
 whereas its inverse transform is defined like the following which allows us to obtain back the original signal:
 
 \begin{equation}
   \mathcal{F}_{FT}^{-1}\{f\}(w) = \int_{\mathds{R}} \mathcal{F}\{w\}e^{iwt} dt
+  \label{eq:icft}
 \end{equation}
 
 Usual $w$ is identified by the angular frequency which is  equal $w = \frac{2 \pi}{T} = 2 \pi v_f$. In this connection, $T$ is the period of the resulting spectrum and $v_f$ is its corresponding frequency.
@@ -171,12 +174,14 @@ By using Fourier Analysis, which is the approach to approximate any function by 
 
 \begin{equation}
   \mathcal{F}_{DTFT}\{f\}(w) = \sum_{-\infty}^{\infty} f(x) e^{-iwk}
+  \label{eq:dtft}
 \end{equation}
 
 Note that the DTFT is not practically suitable for digital signal processing since there a signal can be measured only in a finite number of points. Thus, we can further discretize the frequency domain and will get then the Discrete Fourier Transformation (in short \textbf{DFT}) of the input signal:
 
 \begin{equation}
   \mathcal{F}_{DFT}\{f\}(w) = \sum_{n=0}^{N-1} f(x) e^{-iw_{n}k}
+  \label{eq:dft}
 \end{equation}
 
 Where the angular frequency $w_n$ is defined like the following $w_n = \frac{2\pi n}{N}$ and $N$ is the number of samples within an equidistant period sampling.
@@ -184,6 +189,7 @@ Where the angular frequency $w_n$ is defined like the following $w_n = \frac{2\p
 Any continuous function $f(t)$ can be expressed as a series of sines and cosines. This representation is called the Fourier Series (denoted by $FS$) of $f(t)$.
 \begin{equation}
   f(t) = \frac{1}{2}a_0 + \sum_{n=1}^{\infty} a_n cos(nt) + \sum_{n=1}^{\infty} b_n cos(nt)
+  \label{eq:dfs}
 \end{equation}
 
 where
@@ -198,6 +204,7 @@ where
 The convolution $f*g$ of two functions $f$, $g$$\colon \mathds{R}^n \to \mathds{C} $ is defined as:  
 \begin{equation}
   \mathcal (f*g)(t) = \int_{\mathds{R}^n} f(t)g(t-x) dx
+  \label{eq:convolution}
 \end{equation}
 
 Note that the Fourier transform of the convolution of two functions is the product of their Fourier transforms. This is equivalent to the fact that Convolution in spatial domain is equivalent to multiplication in frequency domain. Therefore, the inverse Fourier transform of the product of two Fourier transforms is the convolution of the two inverse Fourier transforms
@@ -217,10 +224,10 @@ Last an illustration of the relationships between the previous presented Fourier
     \hline
     Spetail signal $f(t)$ is & Operator & Transformed frequency signal $\hat{f}(\omega)$ is\\
     \hline
-    continuous and periodic in $t$ & FS & only discrete in $\omega$ \\
-    only continuous in $t$ & FT & only continuous in $\omega$\\
-    only discrete in $t$ & DTFT & continuous and periodic in $\omega$\\
-    discrete and periodic in $t$ & DFT & discrete and periodic in $\omega$\\
+    continuous and periodic in $t$ & FS $\ref{eq:dfs}$ & only discrete in $\omega$ \\
+    only continuous in $t$ & FT $\ref{eq:cft}$ & only continuous in $\omega$\\
+    only discrete in $t$ & DTFT $\ref{eq:dtft}$ & continuous and periodic in $\omega$\\
+    discrete and periodic in $t$ & DFT $\ref{eq:dft}$ & discrete and periodic in $\omega$\\
     \hline
     \end{tabular}
 \caption{Fourier operator to apply for a given spatial input signal and the properties of its resulting output signal in frequency space}
@@ -231,8 +238,10 @@ Last an illustration of the relationships between the previous presented Fourier
 Taylor series is a representation of a function as an infinite sum of terms that are calculated from the values of the function's derivatives at a single point.
 
 The Taylor series $\mathcal T$ of a real or complex-valued function ƒ(x) that is infinitely differentiable at a real or complex number $a$ is the power series:
+
 \begin{equation}
   \mathcal T(f;a)(x) = \sum_{n=0}^{\infty} \frac{f^{n}(a)}{n!}(x-a)^n
+  \label{eq:deftaylor}
 \end{equation}
 
 
@@ -350,38 +359,37 @@ where $G$ is the so called geometry term which is equal:
 
 \section{Derivations}
 \subsection{BRDF formulation}
-Lets assume we have given an incoming light source with solid angle $\omega_i$, $\theta{_i}$ is its angle of incidence, $\omega_r$ is the solid angle for the reflected light, $\lambda$ wavelength, $\Omega$ is the hemisphere we of integration for the incoming light. Then, we are able to formulate a BRDF by using its definition:  
-
-
+Lets assume we have given an incoming light source with solid angle $\omega_i$, $\theta_i$ is its angle of incidence, $\omega_r$ is the solid angle for the reflected light. Further let $\lambda$ denote the wavelength and $\Omega$ is the hemisphere we of integration for the incoming light. Then, we are able to formulate a BRDF by using its definition $\ref{eq:defbrdf}$:  
 
 \begin{alignat}{4}
 & f_r(\omega_i, \omega_r) &&= \frac{dL_r(\omega_r)}{L_i(\omega_i)cos(\theta_i)d\omega_i} \nonumber \\
 \Rightarrow{} & f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i &&= dL_r(\omega_r) \nonumber \\
 \Rightarrow{} & \int_{\Omega}f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i &&= \int_{\Omega}dL_r(\omega_r) \nonumber\\
 \Rightarrow{} & L_r(\omega_r) &&= \int_{\Omega}f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i
+\label{eq:initialbrdf}
 \end{alignat}
 
 The last equation is the so called rendering equation.
-We assume further, that our incident light is a directional, unpolarized light source like sunlight and therefore its radiance is given as 
+We assume that our incident light is a directional, unpolarized light source like sunlight and therefore its radiance is given as 
 
 \begin{equation}
  L_{\lambda}(\omega)=I(\lambda)\delta(\omega-\omega_i)
+\label{eq:radiancedirlightsource}
 \end{equation}
 
 where $I(\lambda)$ is the intensity of the relative spectral power for the wavelength $\lambda$. 
-Since all light rays are parallel whenever we are provided by a directional light source and we can think of radiance as a measure of the light emitted from a particular surface location into a particular direction, above's radiance identity will follow immediately. 
-By plugging this identity into our current rendering equation, we will get:
+Since all light rays are parallel, whenever we are provided by a directional light source and we can think of radiance as a measure of the light emitted from a particular surface location into a particular direction, above's radiance identity will follow immediately. By plugging the identity $\ref{eq:radiancedirlightsource}$ into our current rendering equation $\ref{eq:initialbrdf}$, we will get:
 
 \begin{align}
 L_{\lambda}(w_r) 
 & = \int_{\Omega} BRDF_{\lambda}(\omega_i, \omega_r) L_{\lambda}(\omega_i) cos(\theta_i) d\omega_i \nonumber \\
 & = BRDF_{\lambda}(\omega_i, \omega_r) I(\lambda) cos(\theta_i)
+\label{eq:deribrdfwithdirsource}
 \end{align}
 
-where $L_{\lambda}(\omega_i)$ is the incoming radiance and $L_{\lambda}(\omega_r)$ is the radiance reflected by given surface
-Note that above's integral vanishes since $\delta(\omega-\omega_i)$ is only equal one if and only if $\omega = \omega_i$.
+where $L_{\lambda}(\omega_i)$ is the incoming radiance and $L_{\lambda}(\omega_r)$ is the radiance reflected by the given surface. Note that the integral in equation $\ref{eq:deribrdfwithdirsource}$ vanishes since $\delta(\omega-\omega_i)$ is only equal one if and only if $\omega = \omega_i$.
 
-For the $BRDF(\omega_i, \omega_r)$ we are going to use Stam's main derivation $~\eqref{eq:mainstam}$ applying the fact that the wavenumber is equal $k=\frac{2\pi}{\lambda}$:
+We are going to use Stam's main derivation $~\eqref{eq:mainstam}$ for the $BRDF(\omega_i, \omega_r)$ in $\ref{eq:deribrdfwithdirsource}$ by applying the fact that the wavenumber is equal $k=\frac{2\pi}{\lambda}$:
 
 \begin{align}
 BRDF(\omega_i, \omega_r) 
@@ -391,7 +399,16 @@ BRDF(\omega_i, \omega_r)
 & = \frac{F(w_i, w_r)^2 (1 + \omega_i \cdot \omega_r)^2}{cos(\theta_i)cos(\theta_r) A \lambda^2 w^2} \langle \left|P(ku, kv)  \right|^2\rangle
 \end{align}
 
-going back to the definition of $(u,v,w)= -\omega_i - \omega_r$ and using spherical coordinates, we get for $w$ the following identity $w = -\omega_i - \omega_r = -(\omega_i + \omega_r) = -(cos(\theta_i)+cos(\theta_r))$ and therefore $w^2$ is equal $(cos(\theta_i)+cos(\theta_r))^2$
+Going back to the definition $\ref{eq:uvw}$ of $(u,v,w)= -\omega_i - \omega_r$ and using spherical coordinates $\ref{eq:sphericalcoordinates}$, we get for $w$ the following identity
+
+\begin{align}
+w 
+&= -\omega_i - \omega_r \nonumber \\ 
+&= -(\omega_i + \omega_r) \nonumber \\
+&= -\left( cos(\theta_i)+cos(\theta_r) \right) 
+\end{align}
+
+and therefore $w^2$ is equal $(cos(\theta_i)+cos(\theta_r))^2$
 This new fact will allow us to get even further:
 
 \begin{align}
@@ -401,7 +418,7 @@ L_{\lambda}(\omega_r)
 & = I(\lambda) \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|T_0^2 P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle
 \end{align}
 
-$P_{cont}$ denotes the continuous inverse Fourier-Transform for the Taylor-Series of our height field representing the nano-scaled surface structure, i.e. $P(k,l) = \mathcal{F}^{-1}\{p\}(k,l)$ and $P_{dtft}$ is the inverse Discrete Time Fourier Transform of $p(x,y) = e^{ikwh(x,y)}$. Furthermore $T_0$ the sampling distance for the discretization of $p(x,y)$ assuming equal and uniform sampling in both dimensions $x,y$.
+Where $P_{cont}$ denotes the continuous inverse Fourier-Transform $\ref{eq:icft}$ for the Taylor-Series $\ref{eq:deftaylor}$ of our height field representing the nano-scaled surface structure, i.e. $P(k,l) = \mathcal{F}^{-1}\{p\}(k,l)$ and $P_{dtft}$ is the inverse Discrete Time Fourier Transform $\ref{eq:dtft}$ of $p(x,y) = e^{ikwh(x,y)}$. Furthermore $T_0$ the sampling distance for the discretization of $p(x,y)$ assuming equal and uniform sampling in both dimensions $x$ and $y$.
 
 \subsection{Relative BRDF}
 In this section we are going to explain how to scale our BRDF formulation such that all of its possible output values are mapped into the range $\left[0,1\right]$. Such a relative BRDF formulation will ease our life for later rendering purposes since usually color values are within the range $\left[0,1\right]$, too. Furthermore, this will allow us to properly blend the resulting illumination caused by diffraction with a texture map.
