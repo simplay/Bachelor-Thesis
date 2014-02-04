@@ -29,17 +29,18 @@
 \contentsline {subsection}{\numberline {2.3.4}Sampling: Gaussian Window}{21}{subsection.2.3.4}
 \contentsline {subsection}{\numberline {2.3.5}Final Expression}{22}{subsection.2.3.5}
 \contentsline {section}{\numberline {2.4}Alternative Approach}{22}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}Interpolation}{25}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.1}PQ factors}{22}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Interpolation}{25}{subsection.2.4.2}
 \contentsline {chapter}{\numberline {3}Implementation}{27}{chapter.3}
 \contentsline {section}{\numberline {3.1}Precomputations in Matlab}{28}{section.3.1}
 \contentsline {section}{\numberline {3.2}Java Renderer}{30}{section.3.2}
 \contentsline {section}{\numberline {3.3}GLSL Diffraction Shader}{32}{section.3.3}
 \contentsline {subsection}{\numberline {3.3.1}Vertex Shader}{32}{subsection.3.3.1}
 \contentsline {subsection}{\numberline {3.3.2}Fragment Shader}{32}{subsection.3.3.2}
-\contentsline {paragraph}{From line 4 to 26:}{34}{section*.22}
-\contentsline {paragraph}{From line 9 to 24:}{34}{section*.23}
-\contentsline {paragraph}{From line 14 to 22:}{35}{section*.24}
-\contentsline {paragraph}{After line 26:}{35}{section*.25}
+\contentsline {paragraph}{From line 4 to 26:}{34}{section*.23}
+\contentsline {paragraph}{From line 9 to 24:}{34}{section*.24}
+\contentsline {paragraph}{From line 14 to 22:}{35}{section*.25}
+\contentsline {paragraph}{After line 26:}{35}{section*.26}
 \contentsline {section}{\numberline {3.4}Technical details}{35}{section.3.4}
 \contentsline {subsection}{\numberline {3.4.1}Texture lookup}{35}{subsection.3.4.1}
 \contentsline {subsection}{\numberline {3.4.2}Texture Blending}{37}{subsection.3.4.2}
@@ -63,6 +64,6 @@
 \contentsline {section}{\numberline {A.1}Schlick's approximation}{62}{section.A.1}
 \contentsline {section}{\numberline {A.2}Spherical Coordinates}{62}{section.A.2}
 \contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{63}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{63}{appendix*.53}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{65}{appendix*.54}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{66}{appendix*.55}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{63}{appendix*.54}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{65}{appendix*.55}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{66}{appendix*.56}

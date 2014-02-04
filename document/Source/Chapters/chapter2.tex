@@ -93,8 +93,8 @@ The bidirectional reflectance distribution function, in short BRDF, denoted as $
   
 \begin{align}
   BRDF(\omega_i, \omega_r)
-  & = f_r(\omega_i, \omega_r) \\
-  & = \frac{dL_r(\omega_r)}{dE_i(\omega_i)} \\
+  & = f_r(\omega_i, \omega_r) \nonumber \\
+  & = \frac{dL_r(\omega_r)}{dE_i(\omega_i)} \nonumber \\
   & = \frac{dL_r(\omega_r)}{L_i(\omega_i)cos(\theta_i)d\omega_i}
 \end{align}
 
@@ -132,11 +132,11 @@ The CIE's color matching functions $\overline{x}(\lambda)$, $\overline{y}(\lambd
 
 The tristimulus values for a color with a spectral power distribution $I(\lambda)$, are given in terms of the standard observer by:
 
-\begin{align*}
-    X= \int_{380}^{780} I(\lambda)\,\overline{x}(\lambda)\,d\lambda \\
-    Y= \int_{380}^{780} I(\lambda)\,\overline{y}(\lambda)\,d\lambda \\
+\begin{align}
+    X= \int_{380}^{780} I(\lambda)\,\overline{x}(\lambda)\,d\lambda \nonumber \\
+    Y= \int_{380}^{780} I(\lambda)\,\overline{y}(\lambda)\,d\lambda \nonumber \\
     Z= \int_{380}^{780} I(\lambda)\,\overline{z}(\lambda)\,d\lambda
-\end{align*}
+\end{align}
 
 where $\lambda$, is the wavelength of the equivalent monochromatic light (measured in nanometers).
 
@@ -188,11 +188,11 @@ Any continuous function $f(t)$ can be expressed as a series of sines and cosines
 
 where
 
-\begin{align*}
-    a_0 = \int_{-\pi}^{\pi} f(t) dt \\
-    a_n = \frac{1}{\pi}\int_{-\pi}^{\pi} f(t) cos(nt) dt \\
-    b_n = \frac{1}{\pi}\int_{-\pi}^{\pi} f(t) sin(nt) dt \\
-\end{align*}
+\begin{align}
+    a_0 = \int_{-\pi}^{\pi} f(t) dt \nonumber \\
+    a_n = \frac{1}{\pi}\int_{-\pi}^{\pi} f(t) cos(nt) dt \nonumber \\
+    b_n = \frac{1}{\pi}\int_{-\pi}^{\pi} f(t) sin(nt) dt
+\end{align}
 
 \myparagraph{Convolution}
 The convolution $f*g$ of two functions $f$, $g$$\colon \mathds{R}^n \to \mathds{C} $ is defined as:  
@@ -463,22 +463,13 @@ L_\lambda(\omega_r) = \rho_\lambda(\omega_i,\omega_r)L_\lambda^{spec}(\omega_0)
 Let us choose $L_\lambda^{spec}(w_0) = S(\lambda)$ such that is has the same profile as the relative spectral power distribution of CIE Standard Illuminant $D65$. Further, when integration over $\lambda$ for a specular surface we should get $CIE_{XYZ}$ values corresponding to the white point for $D65$ 
 The corresponding tristimulus values using CIE colormatching functions for the $CIE_{XYZ}$ values look like:
 
-\begin{equation}
-X = \int_{\lambda}L_\lambda(\omega_r)\overline{x}(\lambda)d\lambda
-\end{equation} 
-
-\begin{equation}
-Y = \int_{\lambda}L_\lambda(\omega_r)\overline{y}(\lambda)d\lambda
-\end{equation}
-
-\begin{equation}
+\begin{align}
+X = \int_{\lambda}L_\lambda(\omega_r)\overline{x}(\lambda)d\lambda \nonumber \\
+Y = \int_{\lambda}L_\lambda(\omega_r)\overline{y}(\lambda)d\lambda \nonumber \\
 Z = \int_{\lambda}L_\lambda(\omega_r)\overline{z}(\lambda)d\lambda
-\end{equation}
+\end{align}
 
-where $\overline{x}$, $\overline{y}$, $\overline{z}$ are the color matching functions
-
-Using our last finding for $L_\lambda(\omega_r)$ with the definition for the tristimulus values we can actually derive an expression for computing the colors for our BRDF formula. 
-Since X, Y, Z are defined similarly, it satisfies to derive an explicit expression for just one tristimulus term, for example X. The other two will look the same, except the we have to replace all X with Y or Z respectively. Therefore, we get:
+where $\overline{x}$, $\overline{y}$, $\overline{z}$ are the color matching functions. Using our last finding for $L_\lambda(\omega_r)$ with the definition for the tristimulus values we can actually derive an expression for computing the colors for our BRDF formula. Since X, Y, Z are defined similarly, it satisfies to derive an explicit expression for just one tristimulus term, for example X. The other two will look the same, except the we have to replace all X with Y or Z respectively. Therefore, we get:
 
 \begin{align}
 X 
@@ -496,36 +487,36 @@ Where we used the definition $S_x(\lambda)\overline{x}(\lambda)$ in the last ste
 In this section, we will deliver an approximation for the inverse Fourier Transformation of Stam's auxiliary function p(x,y)s. This derivation will rely on the definition of Taylor Series expansion. Further, we will provide an error bound for our approximation approach for a given number of iterations. Last, we will extend our current BRDF formula by the findings derived within this section.
 
 Given $p(x,y)=e^{ikwh(x,y)}$ form Stam's Paper where h(x,y) is a given height field. Let be y real or even complex value, and lets consider the power series for the the exponential function 
-\begin{equation*}
+\begin{equation}
   e^{t}=1+t+\frac{t^{2}}{2!}+\frac{t^{3}}{3!}+...=\sum_{n=0}^{\infty}\frac{t^{n}}{n!}
-\end{equation*}
+\end{equation}
 
 Let us define $t := t(x,y) = ikwh(x,y)$ where $i$ is the imaginary number.
 For simplification, let us denote $h(x,y)$ as $h$. Then it follows by our previous
 stated identities: 
 
-\begin{align*}
+\begin{align}
  e^{t}
- &=1+(ikwh)+\frac{1}{2!}(ikwh)^{2}+\frac{1}{3!}(ikwh)^{3}+... \\
+ &=1+(ikwh)+\frac{1}{2!}(ikwh)^{2}+\frac{1}{3!}(ikwh)^{3}+... \nonumber \\
  &=\sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}.
-\end{align*}
+\end{align}
 
 Hence it holds $p(x,y)=\sum_{n=0}^{\infty}\frac{(ikwh(x,y))^{n}}{n!}.$
 
 Let us now compute the Fourier Transformation of p(x,y) form above:
-\begin{align*}
+\begin{align}
   \mathcal{F}\left\{ p\right\}(u,v)
-  & =\mathcal{F}\left\{ \sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}.\right\}(u,v) \\
-  & =^{\mathcal{F}\, lin\, Operator}\sum_{n=0}^{\infty}\mathcal{F}\left\{ \frac{(ikwh)^{n}}{n!}\right\}(u,v) \\
+  & =\mathcal{F}\left\{ \sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}.\right\}(u,v) \nonumber \\
+  & =^{\mathcal{F}\, lin\, Operator}\sum_{n=0}^{\infty}\mathcal{F}\left\{ \frac{(ikwh)^{n}}{n!}\right\}(u,v) \nonumber \\
   & =\sum_{n=0}^{\infty}\frac{(ikw)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\}(u,v)
-\end{align*}
+\end{align}
 
 Hence it follows: $P(\alpha,\beta)=\sum_{n=0}^{\infty}\frac{(ikw)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$ for which $\mathcal{F}_{FT}\left\{ h{}^{n}\right\} (u,v)$.
 
 Next we are going to look for an $N\mathbb{\in N}$ such that 
-\begin{equation*}
+\begin{equation}
  \sum_{n=0}^{N}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta) \approx P(\alpha,\beta) 
-\end{equation*}
+\end{equation}
 
 is a good approximation. But first the following two facts have to be proven:
 
@@ -543,9 +534,10 @@ It is possible to show that the series $\sum_{n=0}^{N}\frac{(ikwh)^{n}}{n!}\math
 
 \textbf{Proof}: Consider $\sum_{k=0}^{\infty}\frac{y^{n}}{n!}$ where
 $a_{k}=\frac{y^{k}}{k!}$. By applying the definition of the ratio test for this series it follows: 
-\begin{equation*}
+
+\begin{equation}
  \forall y:limsup_{k\rightarrow\infty}|\frac{a_{k+1}}{a_{k}}|=limsup_{k\rightarrow\infty}\frac{y}{k+1}=0 
-\end{equation*}
+\end{equation}
 
 Thus this series converges absolutely, no matter what value we will
 pick for y.
@@ -553,24 +545,26 @@ pick for y.
 \myparagraph{Part 2: Find such an N}
 Let $f(x)=e^{x}$. We can formulate its Taylor-Series, stated above.
 Let $P_{n}(x)$denote the n-th Taylor polynom, 
-\begin{equation*}
+
+\begin{equation}
  P_{n}(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^{k}
-\end{equation*}
+\end{equation}
+
 where $a$ is our developing point (here a is equal zero). 
 
 We can define the error of the n-th Taylor polynom to be $E_{n}(x)=f(x)-P_{n}(x)$.
 the error of the n-th Taylor polynom is difference between the value of the function and the Taylor polynomial
 This directly implies $|E_{n}(x)|=|f(x)-P_{n}(x)|$. By using the Lagrangian Error Bound it follows: 
 
-\begin{equation*}
+\begin{equation}
  |E_{n}(x)|\leq\frac{M}{(n+1)!}|x-a|^{n+1} 
-\end{equation*}
+\end{equation}
 
 with $a=0$, where \textbf{M} is some value satisfying $|f^{(n+1)}(x)|\leq M$ on the interval $I=[a,x]$. Since we are interested in an upper bound of the error and since \textbf{a} is known, we can reformulate the interval as $I=[0,x_{max}]$, where 
 
-\begin{equation*}
+\begin{equation}
  x_{max} = \|i\| k_{max} w_{max} h_{max}
-\end{equation*}
+\end{equation}
 
 We are interested in computing an error bound for $e^{ikwh(x,y)}$. Assuming the following parameters and facts used within Stam's Paper: 
 
@@ -587,33 +581,34 @@ each component can have a value in range {[}-2, 2{]}.
 
 We get:  
 
-\begin{align*}
+\begin{align}
 x_{max}
- &= \|i\|*k_{max}*w_{max}*h_{max} \\
- &= k_{max}*w_{max}*h_{max} \\
- &=2*(\frac{2\pi}{4*10^{-7}m})*1.5*10^{-7} \\
+ &= \|i\|*k_{max}*w_{max}*h_{max} \nonumber \\
+ &= k_{max}*w_{max}*h_{max} \nonumber \\
+ &=2*(\frac{2\pi}{4*10^{-7}m})*1.5*10^{-7} \nonumber \\
  &=1.5\pi
-\end{align*}
+\end{align}
 
 and it follows for our interval $I=[0,1.5\pi]$. 
 
 Next we are going to find the value for $M$. Since the exponential function is monotonically growing (on the interval I) and the derivative of the \textbf{exp} function is the exponential function itself, we can find such an $M$: 
 \begin{align*}
  M
- &=e^{x_{max}} \\
+ &=e^{x_{max}} \nonumber \\
  &=exp(1.5\pi)
 \end{align*}
 
 and $|f^{(n+1)}(x)|\leq M$ holds. With 
 
-\begin{align*}
+\begin{align}
 |E_{n}(x_{max})|
- &\leq\frac{M}{(n+1)!}|x_{max}-a|^{n+1} \\
+ &\leq\frac{M}{(n+1)!}|x_{max}-a|^{n+1} \nonumber \\
  &= \frac{exp(1.5\pi)*(1.5\pi)^{n+1}}{(n+1)!}
-\end{align*}
+\end{align}
 
 we now can find a value of $n$ for a given bound, i.e. we can find an value of $N\mathbb{\in N}$ s.t. $\frac{exp(1.5\pi)*(1.5\pi)^{N+1}}{(N+1)!}\leq\epsilon$.
 With Octave/Matlab we can see: 
+
 \begin{itemize}
 \item if N=20 then $\epsilon\approx2.9950*10^{-4}$
 \item if N=25 then $\epsilon\approx8.8150*10^{-8}$
@@ -625,15 +620,16 @@ an approximation of $P(u,v)$ with error $\epsilon\approx8.8150*10^{-8}$. This me
 
 Using now our approximation for $P_{dtft} = \mathcal{F}^{-1}\{p\}(u,v)$ for the tristimulus value X, we will get:
 
-\begin{align*}
+\begin{align}
 X 
-& = C(w_i,w_r) \int_{\lambda} \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S_x(\lambda)d\lambda \\
+& = C(w_i,w_r) \int_{\lambda} \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S_x(\lambda)d\lambda \nonumber \\
 & = C(w_i,w_r) \int_{\lambda} \left| \sum_{n=0}^N \frac{(wk)^n}{n!} \mathcal{F}^{-1}\{i^n h^n\}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2 S_x(\lambda)d\lambda
-\end{align*}
+\label{eq:xcolexpression}
+\end{align}
 
 \subsection{Sampling: Gaussian Window}
-Practically, we cannot compute the DTFT numerically due to finite computer arithmetic, since $w$ is a continuous function for the DTFT. 
-The DFT of a discrete height field patch is equivalent to the DTFT of an infinitely periodic function consisting of replicas of the same discrete patch. By windowing with a window function that is zero outside the central replica, the convolution of either the DFT or the DTFT of height field with the Fourier Transform of the window becomes equivalent.
+\label{sec:gaussianwindow}
+Practically, we cannot compute the DTFT numerically due to finite computer arithmetic, since $w$ is a continuous function for the DTFT. The DFT of a discrete height field patch is equivalent to the DTFT of an infinitely periodic function consisting of replicas of the same discrete patch. By windowing with a window function that is zero outside the central replica, the convolution of either the DFT or the DTFT of height field with the Fourier Transform of the window becomes equivalent.
 
 Let $window_g$ denote the gaussian window with $4\sigma_s$ $\mu m$ where $\sigma_f = \frac{1}{2\pi\sigma_s}$
 let us further substitute $\mathbf{t(x,y)}=i^n h(x,y)^n$
@@ -644,15 +640,15 @@ let us further substitute $\mathbf{t(x,y)}=i^n h(x,y)^n$
 
 Therefore we can deduce the following expression from this:
 
-\begin{align*}
+\begin{align}
 \mathcal{F}_{dtft}^{-1}\{\mathbf{t}\}(u,v)
-& = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \phi(u-w_u, v-w_v) dw_u dw_v \\
-& = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} \sum_i \sum_j {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \\ 
-& \quad \quad \delta(w_u-w_i, w_v-w_j)\phi(u-w_u, v-w_v) dw_u dw_v \\
-& = \sum_i \sum_j \int_{-\infty}^{\infty} \int_{-\infty}^{\infty}  {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \\
-& \quad \quad \delta(w_u-w_i, w_v-w_j)\phi(u-w_u, v-w_v) dw_u dw_v \\
+& = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \phi(u-w_u, v-w_v) dw_u dw_v \nonumber \\
+& = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} \sum_i \sum_j {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \nonumber \\ 
+& \quad \quad \delta(w_u-w_i, w_v-w_j)\phi(u-w_u, v-w_v) dw_u dw_v \nonumber \\
+& = \sum_i \sum_j \int_{-\infty}^{\infty} \int_{-\infty}^{\infty}  {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \nonumber \\
+& \quad \quad \delta(w_u-w_i, w_v-w_j)\phi(u-w_u, v-w_v) dw_u dw_v \nonumber \\
 & = \sum_i \sum_j {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \phi(u-w_u, v-w_v)
-\end{align*}
+\end{align}
 
 where 
 
@@ -669,168 +665,185 @@ Let $P(u,v,\lambda) = {F}_{fft}^{-1}\{i^n h^n\}(\frac{2\pi u}{\lambda},\frac{2\p
 
 \begin{equation}
 \begin{split}
-\colvec[X]{X}{Z}& = C(\omega_i,\omega_r) \int_{\lambda} \sum_{n=0}^N  \frac{(wk)^n}{n!} \sum_{(r,s) \in \mathcal{N}_1(u,v)} \left| P_{\lambda}(u-w_r,v-w_s) \right|^2 \\
+\colvec[X]{Y}{Z}& = C(\omega_i,\omega_r) \int_{\lambda} \sum_{n=0}^N  \frac{(wk)^n}{n!} \sum_{(r,s) \in \mathcal{N}_1(u,v)} \left| P_{\lambda}(u-w_r,v-w_s) \right|^2 \\
 & \quad \quad  \phi(u-w_r, v-w_s) \colvec[S_x(\lambda)]{S_y(\lambda)}{S_z(\lambda)}d\lambda
 \end{split}
 \end{equation}
 
-where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the gaussian window.
+where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the gaussian window and .
 where $w_s$ and $w_r$ are ... explain them
 
 \section{Alternative Approach}
+\subsection{PQ factors}
 \label{sec:pq}
-REASON FOR WHICH CASE THIS CAN BE USED, ADD AN IMAGE OF BOXFUNCTION
-The approach introduced within this section is an alternative to the gaussian window approach.
-Let us consider the so called 1-dimensional Box-function with length $T$ which is defined as the following: 
+In this section we are presenting an alternative approach to the previous Gaussian window approach 
+$\ref{sec:gaussianwindow}$ 
+in order to solve the issue working with $DTFT$ instead the $DFT$. We assume, that a given surface $S$ is covered by a number of replicas of a provided representative surface patch $f$. In a simplified, one dimensional scenario, mathematically speaking, $f$ is assumed to be a periodic function, i.e. $\forall x \in \mathds{R} : f(x) = f(x+nT)$, where $T$ is its period and $n \in \mathds{N}_{0}$. Thus, the surfaces can be written formally as:
 
-$
-Box(x) =
-\left\{
-	\begin{array}{ll}
-		1  & \mbox{if } x \leq T \\
-		0 & \mbox{if } else
-	\end{array}
-\right.
-$
+\begin{equation}
+  S(x) = \sum_{n=0}^N f(x+nT)
+\label{eq:replicatedpatchsurface}
+\end{equation}
 
-We assume, that our given height field can be represented as a 2-dimensional box-function. 
-Note that we can use any explicit given constrained 2-dimensional function and will get some identities like
-we get from the box-function.
- 
-Further we are assuming that we can model the overall surface be assuming this height field being distributed in a periodic manor.
-Therefore, the whole surface can be represented like this $f(x) = \sum_{n=0}^{N} Box(x+nT_1, y+mT_2)$ assuming the given height field has the dimensions $T_1$ by $T_2$. But let us first consider the 1-dimensional Box-function case before deriving an identity for the Fourier transform of our 2-dimensional Box-function, i.e. the Fourier Transform of our height field. 
+What we are looking for is an identity for the inverse Fourier transform of our surface $S$, required in order to simplify the $(X,Y,Z)$ colors from $\ref{eq:xcolexpression}$:
 
-Note: A function $f$ periodic with period $T$ means: $\forall x \in \mathcal{R}: Box(x) = Box(x+T)$
-
-A so called bump can be represented by our 1-dimensional Box-function. We assume periodicity which is equivalent to:   
-$f(x) = \sum_{n=0}^{N} Box(x+nT)$
-
-We are interested in the 1-dimensional inverse Fourier transform of the 1-dimensional Box-function:
-
-\begin{align*}
-\mathcal{F}^{-1}\{f\}(w)
-& =\int f(x) e^{iwx}dx\\
-& =\int_{-\infty}^{\infty} \sum_{n=0}^{N} Box(x+nT) e^{iwx}dx\\
-& =\sum_{n=0}^{N} \int_{-\infty}^{\infty} Box(x+nT) e^{iwx}dx
-\end{align*}
+\begin{align}
+\mathcal{F}^{-1}\{S\}(w)
+& =\int f(x) e^{iwx}dx \nonumber \\
+& =\int_{-\infty}^{\infty} \sum_{n=0}^{N} f(x+nT) e^{iwx}dx \nonumber \\
+& =\sum_{n=0}^{N} \int_{-\infty}^{\infty} f(x+nT) e^{iwx}dx
+\label{eq:pqsinit}
+\end{align}
 
 Next, apply the following substitution $x+nT = y$ which will lead us to:
 
-\begin{gather*}
-x=y-nT\\
+\begin{gather}
+x=y-nT \nonumber \\
 dx=dy
-\end{gather*} 
+\label{eq:substitude1dpq}
+\end{gather} 
 
-Plugging this substitution back to the equation from above we will get 
+Plugging this substitution back into equation $\ref{eq:pqsinit}$ we will get: 
 
-\begin{align*}
-\mathcal{F}^{-1}\{f\}(w)
-& =\int f(x) e^{iwx}dx\\
-& =\sum_{n=0}^{N} \int_{-\infty}^{\infty} Box(y) e^{iw(y-nT)}dy \\
-& =\sum_{n=0}^{N} e^{-iwnT} \int_{-\infty}^{\infty} Box(y) e^{iwy}dy \\
-& =\sum_{n=0}^{N} e^{-iwnT} \mathcal{F}\{f\}(w) \\
-& =\mathcal{F}^{-1}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT}  
-\end{align*}
+\begin{align}
+\mathcal{F}^{-1}\{S\}(w)
+& =\sum_{n=0}^{N} \int_{-\infty}^{\infty} f(x+nT) e^{iwx}dx \nonumber \\
+& =\sum_{n=0}^{N} \int_{-\infty}^{\infty} f(y) e^{iw(y-nT)}dy \nonumber \\
+& =\sum_{n=0}^{N} e^{-iwnT} \int_{-\infty}^{\infty} f(y) e^{iwy}dy \nonumber \\
+& =\sum_{n=0}^{N} e^{-iwnT} \mathcal{F}^{-1}\{f\}(w) \nonumber \\
+& =\mathcal{F}^{-1}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT}
+\label{eq:pqsub}  
+\end{align}
 
-We used the fact that the term $e^{-iwnT}$ is a constant when integrating along $dy$ and the identity for the inverse Fourier transform of the Box function. Next, let us consider $\sum_{n=0}^N e^{-uwnT}$ further:
+We used the fact that the exponential term $e^{-iwnT}$ is a constant factor when integrating along $dy$ and the identity for the inverse Fourier transform of the function $f$. Next, let us examine the series $\sum_{n=0}^N e^{-iwnT}$ closer:
 
-\begin{align*}
+\begin{align}
 \sum_{n=0}^N e^{-uwnT}
-& =\sum_{n=0}^N (e^{-uwT})^n \\
+& =\sum_{n=0}^N (e^{-uwT})^n \nonumber \\
 & =\frac{1-e^{iwT(N+1)}}{1-e^{-iwT}}
-\end{align*}
+\label{eq:pqgeometricseries}
+\end{align}
 
-We recognize the geometric series identity for the left-hand-side of this equation. Since our series is bounded we can derive our right-hand-side.
+We recognize the geometric series identity for the left-hand-side of equation $\ref{eq:pqgeometricseries}$. Since our series is bounded, we can simplify the right-hand-side of equation $\ref{eq:pqgeometricseries}$.
 
-Since $e^{-ix}$ is a complex number and every complex number can be written in its polar form, i.e. $e^{-ix} = cos(x) + i sin(x)$ we can go even further, using the trigonometric identities that $cos(-x) = cos(x)$ and $sin(-x) = -sin(x)$:
+Note that $e^{-ix}$ is a complex number. Every complex number can be written in its polar form, i.e. 
 
-\begin{align*}
+\begin{equation}
+e^{-ix} = cos(x) + i sin(x) 
+\label{eq:polarform}
+\end{equation}
+
+Using the following trigonometric identities
+\begin{gather}
+cos(-x) = cos(x) \nonumber \\
+sin(-x) = -sin(x)
+\end{gather}
+
+combined with $\ref{eq:polarform}$ we can simplify the series $\ref{eq:pqgeometricseries}$ even further to:
+
+\begin{align}
 \frac{1-e^{iwT(N+1)}}{1-e^{-iwT}}
 & =\frac{1-cos(wT(N+1)) + i sin(wT(N+1)) }{1-cos(wT) + i sin(wT)}
-\end{align*}
+\label{eq:pq1minusexp}
+\end{align}
 
-Which is still a complex number $(p+iq)$. Every complex number can be written as a fraction of two complex numbers. This means that the complex number $(p+iq)$ can be written as $(p+iq) = \frac{(a+ib)}{(c+id)}$ for any $(a+ib), (c+id) \neq 0$. 
-For our case, let us use the following substitutions: 
+Equation $\ref{eq:pq1minusexp}$ is still a complex number, denoted as $(p+iq)$. Generally, every complex number can be written as a fraction of two complex numbers. This implies that the complex number $(p+iq)$ can be written as $(p+iq) = \frac{(a+ib)}{(c+id)}$ for any $(a+ib), (c+id) \neq 0$. Let us use the following substitutions: 
 
 \begin{align}
 a& := 1 - cos(wT(N+1))&
-b& =sin(wT(N+1))\\
+b& =sin(wT(N+1)) \nonumber \\
 c& =1-cos(wT)&
 d& =sin(wT)
+\label{eq:pqabcdsubstitudes}
 \end{align}
 
-hence it follows $\frac{1-e^{iwT(N+1)}}{1-e^{-iwT}} = \frac{(a+ib)}{(c+id)}$.
-By rearranging the terms it follows $(a+ib) = (c+id)(p+iq)$ and multiplying the right hand-side out we get the following system of equations:
+Hence, using $\ref{eq:pqabcdsubstitudes}$, it follows 
+
+\begin{equation}
+  \frac{1-e^{iwT(N+1)}}{1-e^{-iwT}} = \frac{(a+ib)}{(c+id)}
+\end{equation}
+
+By rearranging the terms, it follows $(a+ib) = (c+id)(p+iq)$ and by multiplying its right hand-side out we get the following system of equations:
 
 \begin{align}
-(cp-dq)& =a\\
+(cp-dq)& =a \nonumber \\
 (dp + cq)& =b
+\label{eq:cdadcn}
 \end{align}
 
-Which gives lead us we some further math (trick: mult first eq. by $c$ and 2nd by $d$, then adding them together. using distributivity and we have the identity for p for example, similar for q) to 
+After multiplying the first equation of $\ref{eq:cdadcn}$ by $c$ and the second by $d$ and then adding them together, we get using the law of distributivity new identities for $p$ and $q$:
 
 \begin{align}
-p& =\frac{(ac+bd)}{c^2 + d^2}\\
+p& =\frac{(ac+bd)}{c^2 + d^2} \nonumber \\
 q& =\frac{(bc+ad)}{c^2 + d^2}
+\label{eq:pq1}
 \end{align}
 
-
-Putting our substitution for $a, b, c, d$ back into the current representation for $p$ and $q$ and using some trigonometric identities, this we then get:
+Using some trigonometric identities and putting our substitution from $\ref{eq:pqabcdsubstitudes}$ for $a$, $b$, $c$, $d$ back into the current representation $\ref{eq:pq1}$ of $p$ and $q$ we will get:
 
 \begin{align}
-p& =\frac{1}{2}+\frac{1}{2}\left(\frac{cos(wTN)-cos(wT(N+1))}{1-cos(wT)}\right)\\
+p& =\frac{1}{2}+\frac{1}{2}\left(\frac{cos(wTN)-cos(wT(N+1))}{1-cos(wT)}\right) \nonumber \\
 q& =\frac{sin(wT(N+1))-sin(wTN)-sin(wT)}{2(1-cos(wT))}
 \end{align}
 
-Since we have seen, that $\sum_{n=0}^N e^{-uwnT}$ is a complex number and can be written as $(p+iq)$ and we know now the explicit identity for those $p$ and $q$ we get for the 1-dimensional Fourier transform of the 1-dimensional Box-function the following final identity:
+Since we have seen, that $\sum_{n=0}^N e^{-uwnT}$ is a complex number and can be written as $(p+iq)$, we now know an explicit expression for $p$ and $q$. Therefore, the one dimensional inverse Fourier transform of $S$ is equal:
 
-\begin{align*}
-\mathcal{F}^{-1}\{f\}(w)
-& =\mathcal{F}^{-1}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT} \\
-& = (p+iq) \mathcal{F}^{-1}\{Box\}(w)  
-\end{align*}
+\begin{align}
+\mathcal{F}^{-1}\{S\}(w)
+& =\mathcal{F}^{-1}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT} \nonumber \\
+& = (p+iq) \mathcal{F}^{-1}\{f\}(w)  
+\label{eq:mainfinding1d}
+\end{align}
 
-In oder to derive next a identity for the Fourier transform for our 2-dim height field, we can proceed similarly, the only fact which changes is, that we are now in a 2-dimensional domain, i.e. we are about to compute a two-dimensional Fourier transform:
-Let us again us again a Box-function, this time a 2-dimensional Box-function $Box(x,y)$ just for the sake of convenience.
 
-\begin{align*}
-\mathcal{F}^{-1}\{f\}(w_1,w_2)
-& = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} Box(x_1 + n_1 T_1, x_2 + n_2 T_2) e^{iw(x_1 + x_2)}dx_1 dx_2 \\
-& = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} Box(y_1, y_2) e^{iw((y_1 - n_1 T_1) + (y_2 + n_2 T_2))}dx_1 dx_2 \\
-& =\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} Box(y_1, y_2) e^{iw(y_1 + y_2)} e^{-iw(n_1 T_1 + n_2 T_2)}dy_1 dy_2 \\
-& =\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} e^{-iw(n_1 T_1 + n_2 T_2)} \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} Box(y_1, y_2) e^{iw(y_1 + y_2)} dy_1 dy_2 \\
-& =\left(\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} e^{-iw(n_1 T_1 + n_2 T_2)}\right) \mathcal{F}^{-1}\{Box\}(w_1,w_2) \\
-& =\left(\sum_{n_2=0}^{N_1} e^{-iw n_1 T_1}\right) \left(\sum_{n_2=0}^{N_2} e^{-iw n_2 T_2}\right) \mathcal{F}^{-1}\{Box\}(w_1,w_2) \\
-& =(p_1 + i q_1)(p_2 + i q_2) \mathcal{F}^{-1}\{Box\}(w_1,w_2) \\
-& =((p_1 p_2 - q_1 q_2) + i(p_1 p_2 + q_1 q_2)) \mathcal{F}^{-1}\{Box\}(w_1,w_2) \\
-& =(p + iq) \mathcal{F}^{-1}\{Box\}(w_1,w_2)
-\end{align*}
+Now lets consider our actual problem description. Given a patch of a nanoscaled sureface snake shed represented as a two dimensional heightfield $h(x,y)$. We once again assume that this provided patch is representing the whole surface $S$ of our geometry by some number of replicas of itself. Therefore, $S(x,y) = \sum_{n=0}^{N} h(x+nT_1, y+mT_2)$, assuming the given height field has the dimensions $T_1$ by $T_2$. In order to derive an identity for the two dimensional inverse Fourier transformation of $S$ we can similarly proceed like we did to derive equation $\ref{eq:mainfinding1d}$.
 
-Where we define $p := (p_1 p_2 - q_1 q_2) $ and $q := (p_1 p_2 + q_1 q_2)$. For this identity we used green's integration rule which allowed us to split the double integral to the product of two single integrations. Also, we used the definition of the 2-dimensional inverse Fourier transform of the Box-function. We applied the same substitution like we did in for the 1 dimensional case, but this time twice, once for each variable separately. The last step, substituting with $p$ and $q$ will be useful later in the implementation. The insight should be, that the product of two complex numbers is again a complex number. We will have to compute the absolute value of $\mathcal{F}^{-1}\{f\}(w_1,w_2)$ which will then be equal $(p^2 + q^2)^{\frac{1}{2}}\left|\mathcal{F}^{-1}\{Box\}(w_1,w_2)\right|$
+\begin{align}
+\mathcal{F}^{-1}\{S\}(w_1, w_2)
+& = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} h(x_1 + n_1 T_1, x_2 + n_2 T_2) e^{iw(x_1 + x_2)}dx_1 dx_2 \nonumber \\
+& = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} h(y_1, y_2) e^{iw((y_1 - n_1 T_1) + (y_2 + n_2 T_2))}dx_1 dx_2 \nonumber \\
+& =\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} h(y_1, y_2) e^{iw(y_1 + y_2)} e^{-iw(n_1 T_1 + n_2 T_2)}dy_1 dy_2 \nonumber \\
+& =\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} e^{-iw(n_1 T_1 + n_2 T_2)} \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} Box(y_1, y_2) e^{iw(y_1 + y_2)} dy_1 dy_2 \nonumber \\
+& =\left(\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} e^{-iw(n_1 T_1 + n_2 T_2)}\right) \mathcal{F}^{-1}\{h\}(w_1,w_2) \nonumber \\
+& =\left(\sum_{n_2=0}^{N_1} e^{-iw n_1 T_1}\right) \left(\sum_{n_2=0}^{N_2} e^{-iw n_2 T_2}\right) \mathcal{F}^{-1}\{h\}(w_1,w_2) \nonumber \\
+& =(p_1 + i q_1)(p_2 + i q_2) \mathcal{F}^{-1}\{h\}(w_1,w_2) \nonumber \\
+& =((p_1 p_2 - q_1 q_2) + i(p_1 p_2 + q_1 q_2)) \mathcal{F}^{-1}\{h\}(w_1,w_2) \nonumber \\
+& =(p + iq) \mathcal{F}_{DTFT}^{-1}\{h\}(w_1,w_2)
+\label{eq:pqmainfinding}
+\end{align}
+
+Where we have defined 
+
+\begin{align}
+p := (p_1 p_2 - q_1 q_2) \nonumber \\ 
+q := (p_1 p_2 + q_1 q_2)
+\label{eq:pqsubst2d}
+\end{align}
+
+For the identity of equation $\ref{eq:pqmainfinding}$ we made use of Green's integration rule which allowed us to split the double integral to the product of two single integrations. Also, we used the definition of the 2-dimensional inverse Fourier transform of the height field function. We applied a similar substitution like we did in $\ref{eq:substitude1dpq}$, but this time twice, once for $x_1$ and once for $x_2$ separately. The last step in equation $\ref{eq:pqmainfinding}$, substituting with $p$ and $q$ in equation $\ref{eq:pqsubst2d}$ will be useful later in the implementation. The insight should be, that the product of two complex numbers is again a complex number. We will have to compute the absolute value of $\mathcal{F}^{-1}\{S\}(w_1,w_2)$ which will then be equal $(p^2 + q^2)^{\frac{1}{2}}\left|\mathcal{F}^{-1}\{h\}(w_1,w_2)\right|$
 
 
 \subsection{Interpolation}
 \label{sec:sincinterpolation}
-\begin{align}
-f(t)
-& = \sum_{n=-\infty}^{\infty} x[n] (2 F_0 T_s) sinc\left(F_0 (t-nT_s)\right) \\
-& = \sum_{n=-\infty}^{\infty} x[n] sinc\left(\frac{t-nT_s}{T_s}\right)
-\end{align}
 
-method to construct a continuous-time bandlimited function from a sequence of real numbers. 
-sampling theorem: a bandlimited function can be perfectly reconstructed from a countable sequence of samples if the bandlimit, B, is no greater than half the sampling rate.
-In practice, infinite sequences, perfect sampling, and perfect interpolation are all replaced by approximations, deviating from the ideal mathematical reconstruction.
+In $\ref{sec:pq}$ we have derived an alternative approach when we are working with a periodic signal instead using the gaussian window approach from $\sec{sec:gaussianwindow}$. Its main finding $\ref{eq:pqmainfinding}$ that we can just integrate over one of its period instead iterating over the whole domain. Nevertheless, this main finding is using the inverse DTFT. Since we are using 
 
-Issue: given discrete signal, want to perform computation using its DFT values, but given DTFT values. solution: convolve by a sinc filter. 
-show plots sinc- vs linear- signal interpolation 
+We are interested in recovering an original analog signal $x(t)$ from its samples $x[t] = $ 
 
-
-Given a sequence of real numbers $x[n]$ then the continuous function 
+Therfore, for a given sequence of real numbers $x[n]$, representing a digital signal, its correspond continuous function is: 
 
 \begin{equation}
   x(t) = \sum_{n=-\infty}^{\infty} x[n] sinc\left(\frac{t-nT}{T}\right)
 \end{equation}
 
-has the Fourier transformation $X(f)$ whose non-zero values are confined to the region $|f| \leq \frac{1}{2T} = B$.
+which has the Fourier transformation $X(f)$ whose non-zero values are confined to the region $|f| \leq \frac{1}{2T} = B$.
 When $x[n]$ represents time samples at interval $T$ of a continuous function, then the quantity $f_s = \frac{1}{T}$ is known as its sample rate and $\frac{f_s}{2}$ denotes the Nyquist frequency. The sampling Theorem states that when a function has a Bandlimit B less than the Nyquist frequency, then $x(t)$ is a perfect reconstruction of the original function. 
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[scale=0.8]{background/sincreconstructed.png}
+  \caption{Comparission between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\hat{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.}
+  \label{fig:plotsincinterpolation}  
+\end{figure}
+
 
