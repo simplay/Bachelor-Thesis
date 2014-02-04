@@ -657,11 +657,13 @@ where
 \end{equation} 
 
 \subsection{Final Expression}
-As the last step of our series of derivations, we plug all our findings together to one big equation in order to compute the color for each pixel on our mesh in the $CIE_XYZ$ colorspace:
+As the last step of our series of derivations, we plug all our findings together to one big equation in order to compute the color for each pixel on our mesh in the $CIE_XYZ$ colorspace. For any given heigh-field $h(x,y)$ representing a small patch of a nano structure of a surface and the direction vectors $w_s$ and $w_r$ from figure $\ref{fig:geometricsetup}$ the resulting color caused by the effect of diffraction can be computed like: Let 
 
-For a given heigh-field $h(x,y)$, representing a small patch of the nano-structure of our surface, the resulting $CIE_{XYZ}$ caused by the effect of diffraction can be computed like the following: 
+\begin{equation}
+$P(u,v,\lambda) = {F}_{fft}^{-1}\{i^n h^n\}(\frac{2\pi u}{\lambda},\frac{2\pi v}{\lambda})$
+\end{equation}
 
-Let $P(u,v,\lambda) = {F}_{fft}^{-1}\{i^n h^n\}(\frac{2\pi u}{\lambda},\frac{2\pi v}{\lambda})$
+Then our final expression using our previous derivations will look like:
 
 \begin{equation}
 \begin{split}
@@ -670,8 +672,7 @@ Let $P(u,v,\lambda) = {F}_{fft}^{-1}\{i^n h^n\}(\frac{2\pi u}{\lambda},\frac{2\p
 \end{split}
 \end{equation}
 
-where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the gaussian window and .
-where $w_s$ and $w_r$ are ... explain them
+where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the gaussian window $\ref{sec:gaussianwindow}$.
 
 \section{Alternative Approach}
 \subsection{PQ factors}
