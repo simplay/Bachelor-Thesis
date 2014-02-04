@@ -170,7 +170,7 @@ public class DiffractionSceneGraphFabricator {
 			
 	}
 	
-	private boolean specificCam = false;
+	private boolean specificCam = true;
 	private void setUpCamera(boolean isFar){
 		CameraSceneConstant csc = cscm.getCameraSceneConstantByName(sceneConfig.getCameraConstant());
 		Point3f cop = csc.getCOP();
