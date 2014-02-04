@@ -40,8 +40,8 @@ public class SceneConfigurationManager {
 								constants.add(sc);
 		
 
-								sc = new SceneConfiguration("sandbox", ShapeTask.DICE_BRDF, "diceBRDF", 
-//								sc = new SceneConfiguration("sandbox", ShapeTask.SNAKE, "snake3", 
+//								sc = new SceneConfiguration("sandbox", ShapeTask.DICE_BRDF, "diceBRDF", 
+								sc = new SceneConfiguration("sandbox", ShapeTask.SNAKE, "snake3", 
 										"stam", "lightDebug", ShaderTaskNr.TAYLORGAUSSIAN, 5,  "blaze", 1, "ProcessedElapheFront", false);
 								constants.add(sc);
 										
