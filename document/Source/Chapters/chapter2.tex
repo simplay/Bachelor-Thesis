@@ -207,15 +207,14 @@ The convolution $f*g$ of two functions $f$, $g$$\colon \mathds{R}^n \to \mathds{
   \label{eq:convolution}
 \end{equation}
 
-Note that the Fourier transform of the convolution of two functions is the product of their Fourier transforms. This is equivalent to the fact that Convolution in spatial domain is equivalent to multiplication in frequency domain. Therefore, the inverse Fourier transform of the product of two Fourier transforms is the convolution of the two inverse Fourier transforms
-
+Note that the Fourier transform of the convolution of two functions is the product of their Fourier transforms. This is equivalent to the fact that Convolution in spatial domain is equivalent to multiplication in frequency domain. Therefore, the inverse Fourier transform of the product of two Fourier transforms is the convolution of the two inverse Fourier transforms.
 Last an illustration of the relationships between the previous presented Fourier transformations and different given input signals. First an concrete example shown in Figure $\ref{fig:contdiscft}$. Table $\ref{tab:ftoperatorsdependencies}$ tells what Fourier transformation operator has to be applied to which kind of input signal and what properties its resulting Fourier transform will have.
 
 % image from wikipedia
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{background/dcft.png}
-  \caption{Relationship between the continuous Fourier transform and the discrete Fourier transform: Left column: A continuous function (top) and its Fourier transform (bottom). Center-left column: Periodic summation of the original function (top). Fourier transform (bottom) is zero except at discrete points. The inverse transform is a sum of sinusoids called Fourier series. Center-right column: Original function is discretized (multiplied by a Dirac comb) (top). Its Fourier transform (bottom) is a periodic summation (DTFT) of the original transform. Right column: The DFT (bottom) computes discrete samples of the continuous DTFT. The inverse DFT (top) is a periodic summation of the orginal samples.}
+  \caption{Relationship between the continuous Fourier transform and the discrete Fourier transform: Left column: A continuous function (top) and its Fourier transform $\ref{eq:cft}$ (bottom). Center-left column: Periodic summation of the original function (top). Fourier transform (bottom) is zero except at discrete points. The inverse transform is a sum of sinusoids called Fourier series $\ref{eq:dfs}$. Center-right column: Original function is discretized (multiplied by a Dirac comb) (top). Its Fourier transform (bottom) is a periodic summation (DTFT) of the original transform. Right column: The DFT $\ref{eq:dft}$ (bottom) computes discrete samples of the continuous DTFT $\ref{eq:dtft}$. The inverse DFT (top) is a periodic summation of the original samples.}
 \label{fig:contdiscft}
 \end{figure}
 
@@ -237,7 +236,7 @@ Last an illustration of the relationships between the previous presented Fourier
 \myparagraph{Taylor Series}
 Taylor series is a representation of a function as an infinite sum of terms that are calculated from the values of the function's derivatives at a single point.
 
-The Taylor series $\mathcal T$ of a real or complex-valued function ƒ(x) that is infinitely differentiable at a real or complex number $a$ is the power series:
+The Taylor series $\mathcal T$ of a real or complex-valued function $f(x)$ that is infinitely differentiable at a real or complex number $a$ is the power series:
 
 \begin{equation}
   \mathcal T(f;a)(x) = \sum_{n=0}^{\infty} \frac{f^{n}(a)}{n!}(x-a)^n
