@@ -36,7 +36,7 @@
 \contentsline {section}{\numberline {3.2}Java Renderer}{32}{section.3.2}
 \contentsline {section}{\numberline {3.3}GLSL Diffraction Shader}{34}{section.3.3}
 \contentsline {subsection}{\numberline {3.3.1}Vertex Shader}{34}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Fragment Shader}{35}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.2}Fragment Shader}{36}{subsection.3.3.2}
 \contentsline {paragraph}{From line 4 to 26:}{37}{section*.31}
 \contentsline {paragraph}{From line 9 to 24:}{37}{section*.32}
 \contentsline {paragraph}{From line 14 to 22:}{38}{section*.33}

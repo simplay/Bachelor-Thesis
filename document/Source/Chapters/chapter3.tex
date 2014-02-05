@@ -169,7 +169,40 @@ The jrtr rendering engine uses a low-level API, called openGL in order to commun
 
 \section{GLSL Diffraction Shader}
 \subsection{Vertex Shader}
-The first computional stage within our rendering pipeline is computing all necessary per vertex data. Those computations are preformed in the vertex shader. In our case, we compute for any vertex of our current geometry the direction vectors $\omega_i$ and $\omega_r$ described like previousely in the tangent space. Initially all input data lives in its own space. Hence, we first have to transfrom all input data into the same space in order to use it for later computations within the fragment shader. We are going to transform k1 and k2 into the so called tangent space which. Furthermore, we have also to realign our local coordinate system. This is why there is an rodrigues rotation also involved. In order to avoid scaling issues and since we are only interested in the direction of the vectors k1 and k2, we have to normalize them, too. Last, we also output the position of the current vertex transfomed into the projective camera space.
+The Vertex shader is the first shading stage within our rendering pipeline and responsible for computing all necessary per vertex data. Usually, within a vertex shader each vertex position is transformed into a projective space:
+
+\begin{equation}
+  p_{projective} = P \cdot C^{-1} \cdot M \cdot p_{obj}
+\end{equation}
+
+Where M is a transformation from the local object space to the reference coordinate system, called world space, $C^{-1}$ camera matrix C and $P$ the projection matrix. The camera matrix defines transformation from camera to world coordinates as shown in figure $\ref{fig:cameracoordinatesystem}$.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.7]{implementation/cameracoodsyst.png}
+  \caption{Camera coordinate system where its origin defines the center of projection of camera}
+  \label{fig:cameracoordinatesystem}
+\end{figure}
+
+The camera matrix is constructed from its center of projection $e$, the position the cameras looks at $d$ and up vector denoted by $up$ given in world coordinates like illustrated in figure $\ref{fig:cameramatrix}$
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.35]{implementation/cameramatrix.png}
+  \caption{Illustration of involved components in order to construct the camera matrix. We introduce some helper vectors $z_c = \frac{e-d}{||e-d||}$, $x_c = \frac{up \times z_c}{||up \times z_c||} $ and $z_c \times x_c$ for the actual construction of the camera matrix}
+  \label{fig:cameramatrix}
+\end{figure}
+
+The mathematical representation of the camera matrix, using the helper vectors introduced in figure $\ref{fig:cameramatrix}$, looks like:
+
+\begin{equation}
+C = \begin{bmatrix} x_c & y_c & z_c & e \\ 0 & 0 & 0 & 1 \end{bmatrix}
+\end{equation}
+
+
+
+All vertex shader output will be used within the fragment shader $\ref{sec:fragmentshader}$. In our vertex shader we also compute for every vertex in our current geometry the direction vectors $\omega_i$ and $\omega_r$ described like in figure $\ref{fig:geometricsetup}$. Those direction vectors are transformed onto the tangent space, a local coordinate system spanned by a vertex's normal, tangent and binormal vector.  
+
   
 \begin{algorithm}[H]
   \caption{Vertex diffraction shader}
@@ -177,7 +210,6 @@ The first computional stage within our rendering pipeline is computing all neces
     \ForAll{$Vertex \thinspace v \in Shape$}
       \State $ vec3 N = normalize(modelM * vec4(normal,0.0)).xyz$
       \State $ vec3 T = normalize(modelM * vec4(tangent,0.0)).xyz$
-      \State $ T = rotateRodrigues(T, N, phi)$
       \State $ vec3 B = normalize(cross(N, T))$
       \State $ vec3 Pos = ((cop_w-position)).xyz$
       \State $ vec4 lightDir = (directionArray[0])$
@@ -192,19 +224,9 @@ The first computional stage within our rendering pipeline is computing all neces
 
 Transformation see figure for cam. coordsystem
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[scale=0.7]{implementation/cameracoodsyst.png}
-  \caption{camera coordinate system}
-  \label{fig:cameracoordinatesystem}
-\end{figure}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[scale=0.35]{implementation/cameramatrix.png}
-  \caption{camera matrix}
-  \label{fig:cameramatrix}
-\end{figure}
+
+
 
 mention light source
 reference to deriviation
@@ -219,6 +241,7 @@ reference to deriviation
 
 
 \subsection{Fragment Shader}
+\label{sec:fragmentshader}
 The purpose of a fragment shader is to render per fragment. A fragment is spanned by three vertices of a given mesh. For each pixel within all the output from the vertex shaders of its corresponding vertices is then trilinearly interpolated, depending on the pixel's position within the fragment, and passed into its fragment shader program.
 Furthermore, there can be additional input be assigned which is not directly interpolated from the output of vertex shader programs. Our fragment shader just relies on k1 and k2 from its vertex shaders for the computation of the effect of diffraction.
 There are some values preliminarily assigned to our fragment shader during the opgenGL setup within our java program, like all references to the image buffers, containing the Fourier Transformations, the number of taylor step approximations, the minimal and maximal wavelength, other lookup values like the scaling factors, a reference to a lookup table containing the $CIE_{XYZ}$ color weights for our wavelength domain and other scaling constants.
