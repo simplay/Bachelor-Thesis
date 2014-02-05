@@ -125,29 +125,36 @@ In Computer Graphics, when talking about Spectral Rendering, we are referring to
 \myparagraph{Colors}
 \label{subsec:colors}
 In order to see how crucial the role human vision plays, we only have to look the the definition of color: 
-\textit{Color is the aspect of visual perception by which an observer may distinguish differences between two structure-free fields of view of the same size and shape such as may be caused by differences in the spectral composition of the radiant energy concerned in the observation}. -  Wyszechki and Siles, 2000 mentioned in Computer Graphics Fundamentals Book. 
+\textit{Color is the aspect of visual perception by which an observer may distinguish differences between two structure-free fields of view of the same size and shape such as may be caused by differences in the spectral composition of the radiant energy concerned in the observation}. - Wyszechki and Siles, 2000 mentioned in Computer Graphics Fundamentals Book. 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.35]{background/lightspec.png}
+  \caption{Frequency (top) and wavelenght (bottom) of colors of the visible light spectrum.}
+  \label{fig:colorspectrum}
+\end{figure}
 
 An eye consists of photoreceptor cells, cones and rods. Cones are responsible for color perception. 
-The human eye has three kinds of cone cells, with spectral sensitivity peaks in short (S, 420–440 nm), middle (M, 530–540 nm), and long (L, 560–580 nm) wavelengths.
-In principle, any color sensation in human color perception can therefore be described by just three parameters, corresponding to levels of stimulus of the three types of cone cells.
+The human eye has three kinds of cone cells, with spectral sensitivity peaks in short (between 420–440 nm), middle (between 530–540 nm), and long (between 560–580 nm) wavelengths.
+In principle, any color sensation in human color perception as shown in figure $\ref{fig:colorspectrum}$ can therefore be described by just three parameters, corresponding to levels of stimulus of the three types of cone cells.
 
 A color space maps a range of physically produced colors from mixed light to an objective description of color
-sensations registered in the eye in terms of tristimulus values.
+sensations registered in the eye in terms of Tristimulus values.
 
 Tristimulus values associated with a color space can be conceptualized as amounts of three primary colors in a tri-chromatic additive color model. In some color spaces (including LMS and XYZ spaces), the primary colors used are not real colors, in the sense that they cannot be generated with any light spectrum.
 
-Due to distribution of cones in human eye, the tristimulus values depend on over's field of view. CIE defined a color mapping function called standard observer, to eliminate this variable represent an average human chromatic response.
+Due to distribution of cones in human eye, the Tristimulus values depend on over's field of view. CIE defined a color mapping function called standard observer, to eliminate this variable represent an average human chromatic response.
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.7]{background/somatchingfunctions.png}
-  \label{fig:matchingfunction}
   \caption{Plots of our color matching functions we used for rendering}
+  \label{fig:matchingfunction}
 \end{figure}
 
-The CIE's color matching functions $\overline{x}(\lambda)$, $\overline{y}(\lambda)$, $\overline{z}(\lambda)$ are the numerical description of the chromatic response of the observer (described above). They can be thought of as the spectral sensitivity curves of three linear light detectors yielding the CIE tristimulus values X, Y and Z.
+The CIE's color matching functions $\overline{x}(\lambda)$, $\overline{y}(\lambda)$, $\overline{z}(\lambda)$ in figure $\ref{fig:matchingfunction}$ are the numerical description of the chromatic response of the observer. They can be thought of as the spectral sensitivity curves of three linear light detectors yielding the CIE Tristimulus values X, Y and Z.
 
-The tristimulus values for a color with a spectral power distribution $I(\lambda)$, are given in terms of the standard observer by:
+The Tristimulus values for a color with a spectral power distribution $I(\lambda)$, are given in terms of the standard observer by:
 
 \begin{align}
     X= \int_{380}^{780} I(\lambda)\,\overline{x}(\lambda)\,d\lambda \nonumber \\
@@ -156,11 +163,7 @@ The tristimulus values for a color with a spectral power distribution $I(\lambda
 \label{eq:tristimulusvalues}
 \end{align}
 
-where $\lambda$, is the wavelength of the equivalent monochromatic light (measured in nanometers).
-
-It is not possible to build a display that corresponds to CIE XYZ, for this reasons it is necessary to design  other color spaces, which are physical realizable, offers efficient encoding, are perceptual uniform and have an intuitive color specification. 
-
-There are simple conversions between XYZ color space to any other color space defined, described as linear transformations.
+where $\lambda$, is the wavelength of the equivalent monochromatic light (measured in nanometers). It is not possible to build a display that corresponds to CIE XYZ, for this reasons it is necessary to design  other color spaces, which are physical realizable, offers efficient encoding, are perceptual uniform and have an intuitive color specification. There are simple conversions between XYZ color space to any other color space defined, described as linear transformations.
 
 \subsection{Signal Processing Basics}
 A signal is a function that conveys information about the behavior or attributes of some phenomenon.
