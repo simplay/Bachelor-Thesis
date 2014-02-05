@@ -11,59 +11,59 @@
 \contentsline {paragraph}{Spectral Energy}{6}{section*.4}
 \contentsline {paragraph}{Power}{6}{section*.5}
 \contentsline {paragraph}{Irradiance}{6}{section*.6}
-\contentsline {paragraph}{Radiance}{7}{section*.7}
-\contentsline {paragraph}{BRDF}{7}{section*.8}
-\contentsline {paragraph}{Spectral Rendering}{8}{section*.9}
-\contentsline {paragraph}{Colors}{8}{section*.10}
-\contentsline {subsection}{\numberline {2.1.3}Signal Processing Basics}{9}{subsection.2.1.3}
-\contentsline {paragraph}{Fourier Transformation}{10}{section*.12}
-\contentsline {paragraph}{Convolution}{11}{section*.13}
-\contentsline {paragraph}{Taylor Series}{12}{section*.16}
-\contentsline {section}{\numberline {2.2}Thesis Basis: J.Stam's Paper about Diffraction Shader}{12}{section.2.2}
-\contentsline {section}{\numberline {2.3}Derivations}{14}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}BRDF formulation}{14}{subsection.2.3.1}
-\contentsline {subsection}{\numberline {2.3.2}Relative BRDF}{16}{subsection.2.3.2}
-\contentsline {subsection}{\numberline {2.3.3}Taylor approximation for BRDF}{18}{subsection.2.3.3}
-\contentsline {paragraph}{Proof Sketch of 1.}{19}{section*.18}
-\contentsline {paragraph}{Part 2: Find such an N}{19}{section*.19}
-\contentsline {subsection}{\numberline {2.3.4}Sampling: Gaussian Window}{21}{subsection.2.3.4}
-\contentsline {subsection}{\numberline {2.3.5}Final Expression}{22}{subsection.2.3.5}
-\contentsline {section}{\numberline {2.4}Alternative Approach}{22}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}PQ factors}{22}{subsection.2.4.1}
-\contentsline {subsection}{\numberline {2.4.2}Interpolation}{25}{subsection.2.4.2}
-\contentsline {chapter}{\numberline {3}Implementation}{27}{chapter.3}
-\contentsline {section}{\numberline {3.1}Precomputations in Matlab}{28}{section.3.1}
-\contentsline {section}{\numberline {3.2}Java Renderer}{30}{section.3.2}
-\contentsline {section}{\numberline {3.3}GLSL Diffraction Shader}{32}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Vertex Shader}{32}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Fragment Shader}{32}{subsection.3.3.2}
-\contentsline {paragraph}{From line 4 to 26:}{34}{section*.23}
-\contentsline {paragraph}{From line 9 to 24:}{34}{section*.24}
-\contentsline {paragraph}{From line 14 to 22:}{35}{section*.25}
-\contentsline {paragraph}{After line 26:}{35}{section*.26}
-\contentsline {section}{\numberline {3.4}Technical details}{35}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}Texture lookup}{35}{subsection.3.4.1}
-\contentsline {subsection}{\numberline {3.4.2}Texture Blending}{37}{subsection.3.4.2}
-\contentsline {subsection}{\numberline {3.4.3}Color Transformation}{37}{subsection.3.4.3}
-\contentsline {section}{\numberline {3.5}Discussion}{37}{section.3.5}
-\contentsline {chapter}{\numberline {4}Evaluation Data Acquisition}{40}{chapter.4}
-\contentsline {section}{\numberline {4.1}Data Acquisition}{40}{section.4.1}
-\contentsline {section}{\numberline {4.2}Diffraction Gratings}{40}{section.4.2}
-\contentsline {section}{\numberline {4.3}Evaluation}{44}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Precomputation}{45}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}Data evaluation}{45}{subsection.4.3.2}
-\contentsline {chapter}{\numberline {5}Results}{47}{chapter.5}
-\contentsline {section}{\numberline {5.1}BRDF maps}{48}{section.5.1}
-\contentsline {section}{\numberline {5.2}Snake surface geometries}{54}{section.5.2}
-\contentsline {section}{\numberline {5.3}Snake surface geometries}{60}{section.5.3}
-\contentsline {chapter}{\numberline {6}Conclusion}{61}{chapter.6}
-\contentsline {section}{\numberline {6.1}Further Work}{61}{section.6.1}
-\contentsline {subsection}{\numberline {6.1.1}References}{61}{subsection.6.1.1}
-\contentsline {section}{\numberline {6.2}Acknowledgment}{61}{section.6.2}
-\contentsline {chapter}{\numberline {A}Appendix}{62}{appendix.A}
-\contentsline {section}{\numberline {A.1}Schlick's approximation}{62}{section.A.1}
-\contentsline {section}{\numberline {A.2}Spherical Coordinates}{62}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{63}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{63}{appendix*.54}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{65}{appendix*.55}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{66}{appendix*.56}
+\contentsline {paragraph}{Radiance}{7}{section*.8}
+\contentsline {paragraph}{BRDF}{8}{section*.11}
+\contentsline {paragraph}{Spectral Rendering}{8}{section*.12}
+\contentsline {paragraph}{Colors}{9}{section*.13}
+\contentsline {subsection}{\numberline {2.1.3}Signal Processing Basics}{10}{subsection.2.1.3}
+\contentsline {paragraph}{Fourier Transformation}{10}{section*.15}
+\contentsline {paragraph}{Convolution}{11}{section*.16}
+\contentsline {paragraph}{Taylor Series}{12}{section*.19}
+\contentsline {section}{\numberline {2.2}Thesis Basis: J.Stam's Paper about Diffraction Shader}{13}{section.2.2}
+\contentsline {section}{\numberline {2.3}Derivations}{15}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}BRDF formulation}{15}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Relative BRDF}{17}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Taylor approximation for BRDF}{19}{subsection.2.3.3}
+\contentsline {paragraph}{Proof Sketch of 1.}{20}{section*.21}
+\contentsline {paragraph}{Part 2: Find such an N}{20}{section*.22}
+\contentsline {subsection}{\numberline {2.3.4}Sampling: Gaussian Window}{22}{subsection.2.3.4}
+\contentsline {subsection}{\numberline {2.3.5}Final Expression}{23}{subsection.2.3.5}
+\contentsline {section}{\numberline {2.4}Alternative Approach}{23}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}PQ factors}{23}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Interpolation}{26}{subsection.2.4.2}
+\contentsline {chapter}{\numberline {3}Implementation}{28}{chapter.3}
+\contentsline {section}{\numberline {3.1}Precomputations in Matlab}{29}{section.3.1}
+\contentsline {section}{\numberline {3.2}Java Renderer}{31}{section.3.2}
+\contentsline {section}{\numberline {3.3}GLSL Diffraction Shader}{33}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Vertex Shader}{33}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Fragment Shader}{33}{subsection.3.3.2}
+\contentsline {paragraph}{From line 4 to 26:}{35}{section*.26}
+\contentsline {paragraph}{From line 9 to 24:}{35}{section*.27}
+\contentsline {paragraph}{From line 14 to 22:}{36}{section*.28}
+\contentsline {paragraph}{After line 26:}{36}{section*.29}
+\contentsline {section}{\numberline {3.4}Technical details}{36}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Texture lookup}{36}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Texture Blending}{38}{subsection.3.4.2}
+\contentsline {subsection}{\numberline {3.4.3}Color Transformation}{38}{subsection.3.4.3}
+\contentsline {section}{\numberline {3.5}Discussion}{38}{section.3.5}
+\contentsline {chapter}{\numberline {4}Evaluation Data Acquisition}{41}{chapter.4}
+\contentsline {section}{\numberline {4.1}Data Acquisition}{41}{section.4.1}
+\contentsline {section}{\numberline {4.2}Diffraction Gratings}{41}{section.4.2}
+\contentsline {section}{\numberline {4.3}Evaluation}{45}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Precomputation}{46}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Data evaluation}{46}{subsection.4.3.2}
+\contentsline {chapter}{\numberline {5}Results}{48}{chapter.5}
+\contentsline {section}{\numberline {5.1}BRDF maps}{49}{section.5.1}
+\contentsline {section}{\numberline {5.2}Snake surface geometries}{55}{section.5.2}
+\contentsline {section}{\numberline {5.3}Snake surface geometries}{61}{section.5.3}
+\contentsline {chapter}{\numberline {6}Conclusion}{62}{chapter.6}
+\contentsline {section}{\numberline {6.1}Further Work}{62}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}References}{62}{subsection.6.1.1}
+\contentsline {section}{\numberline {6.2}Acknowledgment}{62}{section.6.2}
+\contentsline {chapter}{\numberline {A}Appendix}{63}{appendix.A}
+\contentsline {section}{\numberline {A.1}Schlick's approximation}{63}{section.A.1}
+\contentsline {section}{\numberline {A.2}Spherical Coordinates}{63}{section.A.2}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{64}{section.A.2}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{64}{appendix*.57}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{66}{appendix*.58}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{67}{appendix*.59}
