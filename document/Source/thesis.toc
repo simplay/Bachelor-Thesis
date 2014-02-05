@@ -37,15 +37,15 @@
 \contentsline {section}{\numberline {3.3}GLSL Diffraction Shader}{34}{section.3.3}
 \contentsline {subsection}{\numberline {3.3.1}Vertex Shader}{34}{subsection.3.3.1}
 \contentsline {subsection}{\numberline {3.3.2}Fragment Shader}{36}{subsection.3.3.2}
-\contentsline {paragraph}{From line 4 to 26:}{37}{section*.31}
-\contentsline {paragraph}{From line 9 to 24:}{37}{section*.32}
-\contentsline {paragraph}{From line 14 to 22:}{38}{section*.33}
-\contentsline {paragraph}{After line 26:}{38}{section*.34}
+\contentsline {paragraph}{From line 4 to 26:}{38}{section*.32}
+\contentsline {paragraph}{From line 9 to 24:}{38}{section*.33}
+\contentsline {paragraph}{From line 14 to 22:}{38}{section*.34}
+\contentsline {paragraph}{After line 26:}{38}{section*.35}
 \contentsline {section}{\numberline {3.4}Technical details}{38}{section.3.4}
 \contentsline {subsection}{\numberline {3.4.1}Texture lookup}{38}{subsection.3.4.1}
 \contentsline {subsection}{\numberline {3.4.2}Texture Blending}{40}{subsection.3.4.2}
 \contentsline {subsection}{\numberline {3.4.3}Color Transformation}{40}{subsection.3.4.3}
-\contentsline {section}{\numberline {3.5}Discussion}{40}{section.3.5}
+\contentsline {section}{\numberline {3.5}Discussion}{41}{section.3.5}
 \contentsline {chapter}{\numberline {4}Evaluation Data Acquisition}{43}{chapter.4}
 \contentsline {section}{\numberline {4.1}Data Acquisition}{43}{section.4.1}
 \contentsline {section}{\numberline {4.2}Diffraction Gratings}{43}{section.4.2}
@@ -64,6 +64,6 @@
 \contentsline {section}{\numberline {A.1}Schlick's approximation}{65}{section.A.1}
 \contentsline {section}{\numberline {A.2}Spherical Coordinates}{65}{section.A.2}
 \contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{66}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{66}{appendix*.62}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{68}{appendix*.63}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{69}{appendix*.64}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{66}{appendix*.63}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{68}{appendix*.64}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{69}{appendix*.65}
