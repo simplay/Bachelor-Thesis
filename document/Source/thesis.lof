@@ -7,43 +7,44 @@
 \contentsline {figure}{\numberline {2.4}{\ignorespaces Radiance is photon ray density number of photons per area per solid angle - see figure $\ref {fig:solidangle}$\relax }}{7}{figure.caption.9}
 \contentsline {figure}{\numberline {2.5}{\ignorespaces Solida angle is th earea of a surface patch on the unit sphere which is spanned by a set of directions. Its corresponding solid angle is equal $\Theta = \frac {A}{R^2}$.\relax }}{8}{figure.caption.10}
 \contentsline {figure}{\numberline {2.6}{\ignorespaces Frequency (top) and wavelenght (bottom) of colors of the visible light spectrum.\relax }}{9}{figure.caption.14}
-\contentsline {figure}{\numberline {2.7}{\ignorespaces Plots of our color matching functions we used for rendering\relax }}{10}{figure.caption.15}
-\contentsline {figure}{\numberline {2.8}{\ignorespaces Relationship between the continuous Fourier transform and the discrete Fourier transform: Left column: A continuous function (top) and its Fourier transform $\ref {eq:cft}$ (bottom). Center-left column: Periodic summation of the original function (top). Fourier transform (bottom) is zero except at discrete points. The inverse transform is a sum of sinusoids called Fourier series $\ref {eq:dfs}$. Center-right column: Original function is discretized (multiplied by a Dirac comb) (top). Its Fourier transform (bottom) is a periodic summation (DTFT) of the original transform. Right column: The DFT $\ref {eq:dft}$ (bottom) computes discrete samples of the continuous DTFT $\ref {eq:dtft}$. The inverse DFT (top) is a periodic summation of the original samples.\relax }}{12}{figure.caption.18}
-\contentsline {figure}{\numberline {2.9}{\ignorespaces $\omega _i$ points toward the light source, $\omega _r$ points toward the camera, $n$ is the surface normal\relax }}{14}{figure.caption.21}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Large Aperture}}}{14}{figure.caption.21}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Small Aperture}}}{14}{figure.caption.21}
-\contentsline {figure}{\numberline {2.10}{\ignorespaces Comparission between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\mathaccentV {hat}65E{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.\relax }}{27}{figure.caption.24}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Schematic of photoreceptor cells, cones and rods, in human eye \relax }}{9}{figure.caption.15}
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Plots of our color matching functions we used for rendering\relax }}{10}{figure.caption.16}
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Relationship between the continuous Fourier transform and the discrete Fourier transform: Left column: A continuous function (top) and its Fourier transform $\ref {eq:cft}$ (bottom). Center-left column: Periodic summation of the original function (top). Fourier transform (bottom) is zero except at discrete points. The inverse transform is a sum of sinusoids called Fourier series $\ref {eq:dfs}$. Center-right column: Original function is discretized (multiplied by a Dirac comb) (top). Its Fourier transform (bottom) is a periodic summation (DTFT) of the original transform. Right column: The DFT $\ref {eq:dft}$ (bottom) computes discrete samples of the continuous DTFT $\ref {eq:dtft}$. The inverse DFT (top) is a periodic summation of the original samples.\relax }}{13}{figure.caption.19}
+\contentsline {figure}{\numberline {2.10}{\ignorespaces $\omega _i$ points toward the light source, $\omega _r$ points toward the camera, $n$ is the surface normal\relax }}{15}{figure.caption.22}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Large Aperture}}}{15}{figure.caption.22}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Small Aperture}}}{15}{figure.caption.22}
+\contentsline {figure}{\numberline {2.11}{\ignorespaces Comparission between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\mathaccentV {hat}65E{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.\relax }}{28}{figure.caption.25}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Blaze\relax }}{31}{figure.caption.25}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Renderer Architecture\relax }}{32}{figure.caption.26}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces $(u,v)$ lookup image\relax }}{37}{figure.caption.31}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Blaze\relax }}{32}{figure.caption.26}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Renderer Architecture\relax }}{33}{figure.caption.27}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces $(u,v)$ lookup image\relax }}{38}{figure.caption.32}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Spectometer: When a beam of monochromatic light passes through a grating placed in a spectrometer, images of the sources can be seen through the telescope at different angles.\relax }}{42}{figure.caption.32}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Light directed to parallel to grating:\relax }}{43}{figure.caption.33}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Different Orders of diffraction: When light is directed at the grating not parallel to its axis, there is another $sin(a)$ invovled. See grating equation $\ref {eq:gratingEq}$.\relax }}{44}{figure.caption.34}
-\contentsline {figure}{\numberline {4.4}{\ignorespaces White Light beam causes coloured diffraction spectra\relax }}{44}{figure.caption.35}
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Difference of diffraction pattern between a monochromatic (top) and a white (bottom) light spectra for different number of slits.\relax }}{45}{figure.caption.36}
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Evaluation: gratings\relax }}{47}{figure.caption.37}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Spectometer: When a beam of monochromatic light passes through a grating placed in a spectrometer, images of the sources can be seen through the telescope at different angles.\relax }}{43}{figure.caption.33}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Light directed to parallel to grating:\relax }}{44}{figure.caption.34}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Different Orders of diffraction: When light is directed at the grating not parallel to its axis, there is another $sin(a)$ invovled. See grating equation $\ref {eq:gratingEq}$.\relax }}{45}{figure.caption.35}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces White Light beam causes coloured diffraction spectra\relax }}{45}{figure.caption.36}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Difference of diffraction pattern between a monochromatic (top) and a white (bottom) light spectra for different number of slits.\relax }}{46}{figure.caption.37}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Evaluation: gratings\relax }}{48}{figure.caption.38}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Species Elaphe Guttata\relax }}{48}{figure.caption.38}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Species Xenopeltis Unicolor\relax }}{48}{figure.caption.39}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces BRDF maps for different patches: $\Theta =(\theta ,\phi )$ is the direction of light propagation\relax }}{49}{figure.caption.40}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces BRDF maps for blaze grating comparing our different rendering apporaches\relax }}{50}{figure.caption.41}
-\contentsline {figure}{\numberline {5.5}{\ignorespaces BRDF maps for different patches\relax }}{50}{figure.caption.42}
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Blaze grating at $2.5 \mu m$: Different $\lambda $ step sizes\relax }}{51}{figure.caption.43}
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Elaphe grating at $65 \mu m$: Different $\lambda $ step sizes\relax }}{51}{figure.caption.44}
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Blaze grating: PQ approach vs full lambda space sampling\relax }}{52}{figure.caption.45}
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Xeno grating: PQ approach vs full lambda space sampling\relax }}{53}{figure.caption.46}
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Elaphe grating: PQ approach vs full lambda space sampling\relax }}{54}{figure.caption.47}
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Blaze grating at $2.5 \mu m$: Different $\sigma _s$ sizes\relax }}{54}{figure.caption.48}
-\contentsline {figure}{\numberline {5.12}{\ignorespaces Elaphe grating at $65 \mu m$: $N$ Taylor Iterations\relax }}{55}{figure.caption.49}
-\contentsline {figure}{\numberline {5.13}{\ignorespaces Blaze grating at $2.5 \mu m$: $N$ Taylor Iterations\relax }}{55}{figure.caption.50}
-\contentsline {figure}{\numberline {5.14}{\ignorespaces BRDF maps for Xeno grating: different $\theta _i$ angles\relax }}{55}{figure.caption.51}
-\contentsline {figure}{\numberline {5.15}{\ignorespaces Diffraction of different snake skin gratings rendered on a snake geometry\relax }}{56}{figure.caption.52}
-\contentsline {figure}{\numberline {5.16}{\ignorespaces Diffraction on Elaphe snake skin grating: Different camera zoom levels\relax }}{57}{figure.caption.53}
-\contentsline {figure}{\numberline {5.17}{\ignorespaces Diffraction on Elaphe snake skin grating: Different light directions\relax }}{58}{figure.caption.54}
-\contentsline {figure}{\numberline {5.18}{\ignorespaces Diffraction for Elaphe snake skin\relax }}{59}{figure.caption.55}
-\contentsline {figure}{\numberline {5.19}{\ignorespaces Diffraction for Xeno snake skin\relax }}{60}{figure.caption.56}
-\contentsline {figure}{\numberline {5.20}{\ignorespaces Diffraction Elpahe: simulation vs. experimental setup\relax }}{61}{figure.caption.57}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Species Elaphe Guttata\relax }}{49}{figure.caption.39}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Species Xenopeltis Unicolor\relax }}{49}{figure.caption.40}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces BRDF maps for different patches: $\Theta =(\theta ,\phi )$ is the direction of light propagation\relax }}{50}{figure.caption.41}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces BRDF maps for blaze grating comparing our different rendering apporaches\relax }}{51}{figure.caption.42}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces BRDF maps for different patches\relax }}{51}{figure.caption.43}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Blaze grating at $2.5 \mu m$: Different $\lambda $ step sizes\relax }}{52}{figure.caption.44}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Elaphe grating at $65 \mu m$: Different $\lambda $ step sizes\relax }}{52}{figure.caption.45}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Blaze grating: PQ approach vs full lambda space sampling\relax }}{53}{figure.caption.46}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Xeno grating: PQ approach vs full lambda space sampling\relax }}{54}{figure.caption.47}
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Elaphe grating: PQ approach vs full lambda space sampling\relax }}{55}{figure.caption.48}
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Blaze grating at $2.5 \mu m$: Different $\sigma _s$ sizes\relax }}{55}{figure.caption.49}
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Elaphe grating at $65 \mu m$: $N$ Taylor Iterations\relax }}{56}{figure.caption.50}
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Blaze grating at $2.5 \mu m$: $N$ Taylor Iterations\relax }}{56}{figure.caption.51}
+\contentsline {figure}{\numberline {5.14}{\ignorespaces BRDF maps for Xeno grating: different $\theta _i$ angles\relax }}{56}{figure.caption.52}
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Diffraction of different snake skin gratings rendered on a snake geometry\relax }}{57}{figure.caption.53}
+\contentsline {figure}{\numberline {5.16}{\ignorespaces Diffraction on Elaphe snake skin grating: Different camera zoom levels\relax }}{58}{figure.caption.54}
+\contentsline {figure}{\numberline {5.17}{\ignorespaces Diffraction on Elaphe snake skin grating: Different light directions\relax }}{59}{figure.caption.55}
+\contentsline {figure}{\numberline {5.18}{\ignorespaces Diffraction for Elaphe snake skin\relax }}{60}{figure.caption.56}
+\contentsline {figure}{\numberline {5.19}{\ignorespaces Diffraction for Xeno snake skin\relax }}{61}{figure.caption.57}
+\contentsline {figure}{\numberline {5.20}{\ignorespaces Diffraction Elpahe: simulation vs. experimental setup\relax }}{62}{figure.caption.58}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
