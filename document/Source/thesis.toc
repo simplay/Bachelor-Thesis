@@ -36,34 +36,34 @@
 \contentsline {section}{\numberline {3.2}Java Renderer}{32}{section.3.2}
 \contentsline {section}{\numberline {3.3}GLSL Diffraction Shader}{34}{section.3.3}
 \contentsline {subsection}{\numberline {3.3.1}Vertex Shader}{34}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Fragment Shader}{34}{subsection.3.3.2}
-\contentsline {paragraph}{From line 4 to 26:}{36}{section*.28}
-\contentsline {paragraph}{From line 9 to 24:}{36}{section*.29}
-\contentsline {paragraph}{From line 14 to 22:}{37}{section*.30}
-\contentsline {paragraph}{After line 26:}{37}{section*.31}
-\contentsline {section}{\numberline {3.4}Technical details}{37}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}Texture lookup}{37}{subsection.3.4.1}
-\contentsline {subsection}{\numberline {3.4.2}Texture Blending}{39}{subsection.3.4.2}
-\contentsline {subsection}{\numberline {3.4.3}Color Transformation}{39}{subsection.3.4.3}
-\contentsline {section}{\numberline {3.5}Discussion}{39}{section.3.5}
-\contentsline {chapter}{\numberline {4}Evaluation Data Acquisition}{42}{chapter.4}
-\contentsline {section}{\numberline {4.1}Data Acquisition}{42}{section.4.1}
-\contentsline {section}{\numberline {4.2}Diffraction Gratings}{42}{section.4.2}
-\contentsline {section}{\numberline {4.3}Evaluation}{46}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Precomputation}{47}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}Data evaluation}{47}{subsection.4.3.2}
-\contentsline {chapter}{\numberline {5}Results}{49}{chapter.5}
-\contentsline {section}{\numberline {5.1}BRDF maps}{50}{section.5.1}
-\contentsline {section}{\numberline {5.2}Snake surface geometries}{56}{section.5.2}
-\contentsline {section}{\numberline {5.3}Snake surface geometries}{62}{section.5.3}
-\contentsline {chapter}{\numberline {6}Conclusion}{63}{chapter.6}
-\contentsline {section}{\numberline {6.1}Further Work}{63}{section.6.1}
-\contentsline {subsection}{\numberline {6.1.1}References}{63}{subsection.6.1.1}
-\contentsline {section}{\numberline {6.2}Acknowledgment}{63}{section.6.2}
-\contentsline {chapter}{\numberline {A}Appendix}{64}{appendix.A}
-\contentsline {section}{\numberline {A.1}Schlick's approximation}{64}{section.A.1}
-\contentsline {section}{\numberline {A.2}Spherical Coordinates}{64}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{65}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{65}{appendix*.59}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{67}{appendix*.60}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{68}{appendix*.61}
+\contentsline {subsection}{\numberline {3.3.2}Fragment Shader}{35}{subsection.3.3.2}
+\contentsline {paragraph}{From line 4 to 26:}{37}{section*.31}
+\contentsline {paragraph}{From line 9 to 24:}{37}{section*.32}
+\contentsline {paragraph}{From line 14 to 22:}{38}{section*.33}
+\contentsline {paragraph}{After line 26:}{38}{section*.34}
+\contentsline {section}{\numberline {3.4}Technical details}{38}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Texture lookup}{38}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Texture Blending}{40}{subsection.3.4.2}
+\contentsline {subsection}{\numberline {3.4.3}Color Transformation}{40}{subsection.3.4.3}
+\contentsline {section}{\numberline {3.5}Discussion}{40}{section.3.5}
+\contentsline {chapter}{\numberline {4}Evaluation Data Acquisition}{43}{chapter.4}
+\contentsline {section}{\numberline {4.1}Data Acquisition}{43}{section.4.1}
+\contentsline {section}{\numberline {4.2}Diffraction Gratings}{43}{section.4.2}
+\contentsline {section}{\numberline {4.3}Evaluation}{47}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Precomputation}{48}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Data evaluation}{48}{subsection.4.3.2}
+\contentsline {chapter}{\numberline {5}Results}{50}{chapter.5}
+\contentsline {section}{\numberline {5.1}BRDF maps}{51}{section.5.1}
+\contentsline {section}{\numberline {5.2}Snake surface geometries}{57}{section.5.2}
+\contentsline {section}{\numberline {5.3}Snake surface geometries}{63}{section.5.3}
+\contentsline {chapter}{\numberline {6}Conclusion}{64}{chapter.6}
+\contentsline {section}{\numberline {6.1}Further Work}{64}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}References}{64}{subsection.6.1.1}
+\contentsline {section}{\numberline {6.2}Acknowledgment}{64}{section.6.2}
+\contentsline {chapter}{\numberline {A}Appendix}{65}{appendix.A}
+\contentsline {section}{\numberline {A.1}Schlick's approximation}{65}{section.A.1}
+\contentsline {section}{\numberline {A.2}Spherical Coordinates}{65}{section.A.2}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{66}{section.A.2}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{66}{appendix*.62}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{68}{appendix*.63}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{69}{appendix*.64}

@@ -169,14 +169,8 @@ The jrtr rendering engine uses a low-level API, called openGL in order to commun
 
 \section{GLSL Diffraction Shader}
 \subsection{Vertex Shader}
-The first computional stage within our rendering pipeline is computing all necessary per vertex data. Those computations are preformed in the vertex shader. In our case, we compute for any vertex of our current geometry the direction vectors $k1$ and $k2$ described like previousely in the tangent space. Initially all input data lives in its own space. Hence, we first have to transfrom all input data into the same space in order to use it for later computations within the fragment shader. We are going to transform k1 and k2 into the so called tangent space which. Furthermore, we have also to realign our local coordinate system. This is why there is an rodrigues rotation also involved. In order to avoid scaling issues and since we are only interested in the direction of the vectors k1 and k2, we have to normalize them, too. Last, we also output the position of the current vertex transfomed into the projective camera space.
+The first computional stage within our rendering pipeline is computing all necessary per vertex data. Those computations are preformed in the vertex shader. In our case, we compute for any vertex of our current geometry the direction vectors $\omega_i$ and $\omega_r$ described like previousely in the tangent space. Initially all input data lives in its own space. Hence, we first have to transfrom all input data into the same space in order to use it for later computations within the fragment shader. We are going to transform k1 and k2 into the so called tangent space which. Furthermore, we have also to realign our local coordinate system. This is why there is an rodrigues rotation also involved. In order to avoid scaling issues and since we are only interested in the direction of the vectors k1 and k2, we have to normalize them, too. Last, we also output the position of the current vertex transfomed into the projective camera space.
   
-
-show CG graphic
-unify k1,k2 to wi,wr
-
-
-
 \begin{algorithm}[H]
   \caption{Vertex diffraction shader}
   \begin{algorithmic}
@@ -196,9 +190,32 @@ unify k1,k2 to wi,wr
   \end{algorithmic}
 \end{algorithm}
 
-explain $cop_w$
-modelM
-other shader assigned inputs
+Transformation see figure for cam. coordsystem
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.7]{implementation/cameracoodsyst.png}
+  \caption{camera coordinate system}
+  \label{fig:cameracoordinatesystem}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.35]{implementation/cameramatrix.png}
+  \caption{camera matrix}
+  \label{fig:cameramatrix}
+\end{figure}
+
+mention light source
+reference to deriviation
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.45]{implementation/dirlightsource.png}
+  \caption{dir lightsource}
+  \label{fig:dirlightsource}
+\end{figure}
+
 
 
 \subsection{Fragment Shader}
