@@ -19,7 +19,7 @@
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Renderer Architecture\relax }}{33}{figure.caption.27}
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Camera coordinate system where its origin defines the center of projection of camera\relax }}{34}{figure.caption.28}
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Illustration of involved components in order to construct the camera matrix. We introduce some helper vectors $z_c = \frac {e-d}{||e-d||}$, $x_c = \frac {up \times z_c}{||up \times z_c||} $ and $z_c \times x_c$ for the actual construction of the camera matrix\relax }}{35}{figure.caption.29}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces dir lightsource\relax }}{36}{figure.caption.30}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces For a directional light source all light rays are in parallel.\relax }}{36}{figure.caption.30}
 \contentsline {figure}{\numberline {3.6}{\ignorespaces $(u,v)$ lookup image\relax }}{39}{figure.caption.35}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Spectometer: When a beam of monochromatic light passes through a grating placed in a spectrometer, images of the sources can be seen through the telescope at different angles.\relax }}{44}{figure.caption.36}
