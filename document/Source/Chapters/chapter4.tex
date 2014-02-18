@@ -164,7 +164,18 @@ end
 \label{fig:evaluationdiffshaderalllambda}
 \end{figure}
 
-Figure $\ref{fig:evaluationdiffshaderalllambda}$ shows fits of order one diffraction angles of idealized periodic structures using illumination angle $\theta = 75$ degrees. Each graph in this figure shows reflectance of different nano-scaled structures computed by the uniform wavelength sampling fragment shader described as in algorithm $\ref{alg:fragmentshaderall}$. higher values are in yellow, lower values in green. viewing angles for peak reflectances of the nanostructues at each wavelength (red curve) and diffraction angles for an idealized periodic structure with a certain periodicity $T$ according to the grating equation $\ref{eq:gratingeq}$.
+Figure $\ref{fig:evaluationdiffshaderalllambda}$ shows fits of order one diffraction angles of idealized periodic structures using illumination angle $\theta = 75$ degrees. The graphs $\ref{fig:elapheeval}$ and $\ref{fig:elapheeval}$ in figure $\ref{fig:evaluationdiffshaderalllambda}$ show reflectance of different nano-scaled structures computed by the uniform wavelength sampling fragment shader described as in algorithm $\ref{alg:fragmentshaderall}$. Higher values are in yellow, lower values in green. Viewing angles for peak reflectances of the nanostructues at each wavelength (red curve) and diffraction angles for an idealized periodic structure with a certain periodicity $d$ according to the grating equation $\ref{eq:gratingeq}$.
+
+For each of the graphs we determine the vieweing angles with peak reflectance for various wavelengths and then plot this peak viewing angles against their wavelength as solid red curves. This red curve closely matches the blue curve representing the grating equation with the value of a edstimated from the peak view angles, listed in external source.
+
+
+since blazed grating is synthetic we use its exact periodicity to plot the blue curve instead of estimating it. xeno evaluated just along the direction for the finger like structures.
+
+the red and blue curve are closely overlapping in our figures $\ref{fig:blazeval}$ and $\ref{fig:elapheeval}$. For blaze and elaphe there is only diffraction along only along one direction perceivable.
+
+for xeno its interesting to see that the red curve for the peak viewing angle toggles between two ridges correspinding to two different periodicities. this happens because there are multiple sub regions of the nanostructure whith slithly different orientations and periodicit. Each sub region carves out a different yellowish ridge. depending on the viewing agnle, reflectance due to one such subregion can be higher than from the others.
+
+
 
 
 subvariants: sample whole lambda space, just a few lambdas, pq approach.
