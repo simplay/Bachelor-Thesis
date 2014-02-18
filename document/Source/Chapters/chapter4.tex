@@ -85,7 +85,13 @@ Since $\theta$ increases with wavelength $\lambda$, red light which has the long
 \end{figure}
 
 \section{Evaluation}
-UNIFY ANGLE NAMES: 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.65]{evaluation/evalsetup.png}
+  \caption{experimental}
+  \label{fig:experimentalsetup}
+\end{figure}
 
 In order to check the physical reliability of our method we applied it on a syntetic blazed grating, Elaphe and Xenopeltis snake sheds and evaluated its response using the grating equation. This equation models the relationship between the grating spacing and the angles of the incident and diffracted beams of light. 
 
@@ -133,28 +139,32 @@ end
 \end{lstlisting}
 \end{algorithm}
 
+
+
+
+
 \begin{figure}[H]
   \centering
   \subfigure[Blaze grating]{
     \includegraphics[scale=0.42]{evaluation/blazeHR.png}
-    \label{fig:blaze}
+    \label{fig:blazeval}
   }
 ~
-  \subfigure[Elaphe]{
-    \includegraphics[scale=0.42]{evaluation/ElapheHR.png}
-    \label{fig:elaphe}
+  \subfigure[Xenopeltis]{
+    \includegraphics[scale=0.42]{evaluation/XenoHR.png}
+    \label{fig:xenopeltiseval}
   }
 ~
-\subfigure[Xeno]{
-  \includegraphics[scale=0.42]{evaluation/XenoHR.png}
-  \label{fig:xeno}
+\subfigure[Elaphe]{
+  \includegraphics[scale=0.75]{evaluation/ElapheHR.png}
+  \label{fig:elapheeval}
 }
 
   \caption{Reflectance obtained by using the shading approach described in algorithm $\ref{alg:fragmentshaderall}$ simulating a BRDF which models the effect of diffraction at different viewing angles over the spectrum of visible light.}
   \label{fig:evaluationdiffshaderalllambda}
 \end{figure}
 
-Figure $\ref{fig:evaluationdiffshaderalllambda}$ shows fits of order one diffraction angles of idealized periodic structures. Each graph in this figure shows reflectance of different nano-scaled structures computed by the uniform wavelength sampling fragment shader described as in algorithm $\ref{alg:fragmentshaderall}$. higher values are in yellow, lower values in green. viewing angles for peak reflectances of the nanostructues at each wavelength (red curve) and diffraction angles for an idealized periodic structure with a certain periodicity $T$ according to the grating equation $\ref{eq:eq:gratingEq}$.
+Figure $\ref{fig:evaluationdiffshaderalllambda}$ shows fits of order one diffraction angles of idealized periodic structures using illumination angle $\theta = 75$ degrees. Each graph in this figure shows reflectance of different nano-scaled structures computed by the uniform wavelength sampling fragment shader described as in algorithm $\ref{alg:fragmentshaderall}$. higher values are in yellow, lower values in green. viewing angles for peak reflectances of the nanostructues at each wavelength (red curve) and diffraction angles for an idealized periodic structure with a certain periodicity $T$ according to the grating equation $\ref{eq:eq:gratingEq}$.
 
 
 subvariants: sample whole lambda space, just a few lambdas, pq approach.
