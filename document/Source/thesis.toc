@@ -65,5 +65,5 @@
 \contentsline {section}{\numberline {A.2}Spherical Coordinates}{67}{section.A.2}
 \contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{68}{section.A.2}
 \contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{68}{appendix*.64}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{70}{appendix*.65}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{71}{appendix*.65}
 \contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{71}{appendix*.66}

@@ -28,7 +28,7 @@
 \contentsline {figure}{\numberline {4.3}{\ignorespaces Different Orders of diffraction: When light is directed at the grating not parallel to its axis, there is another $sin(a)$ invovled. See grating equation $\ref {eq:gratingeq}$.\relax }}{46}{figure.caption.39}
 \contentsline {figure}{\numberline {4.4}{\ignorespaces White Light beam causes coloured diffraction spectra\relax }}{46}{figure.caption.40}
 \contentsline {figure}{\numberline {4.5}{\ignorespaces Difference of diffraction pattern between a monochromatic (top) and a white (bottom) light spectra for different number of slits.\relax }}{47}{figure.caption.41}
-\contentsline {figure}{\numberline {4.6}{\ignorespaces experimental\relax }}{47}{figure.caption.42}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Experimental setup for evaluation: A light beam with direction $L$ hits the surface, representing a grating pattern with periodicity $d$, at the incident plane relative to the surface normal $n$ at angle $\theta $ and emerges at angle $\phi $ with direction $V$.\relax }}{47}{figure.caption.42}
 \contentsline {figure}{\numberline {4.7}{\ignorespaces Reflectance obtained by using the shading approach described in algorithm $\ref {alg:fragmentshaderall}$ simulating a BRDF which models the effect of diffraction at different viewing angles over the spectrum of visible light.\relax }}{50}{figure.caption.43}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {5.1}{\ignorespaces Species Elaphe Guttata\relax }}{52}{figure.caption.44}
