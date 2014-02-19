@@ -49,21 +49,21 @@
 \contentsline {chapter}{\numberline {4}Evaluation Data Acquisition}{43}{chapter.4}
 \contentsline {section}{\numberline {4.1}Data Acquisition}{43}{section.4.1}
 \contentsline {section}{\numberline {4.2}Diffraction Gratings}{43}{section.4.2}
-\contentsline {section}{\numberline {4.3}Evaluation}{47}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Precomputation}{48}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}Data evaluation}{49}{subsection.4.3.2}
-\contentsline {chapter}{\numberline {5}Results}{52}{chapter.5}
-\contentsline {section}{\numberline {5.1}BRDF maps}{53}{section.5.1}
-\contentsline {section}{\numberline {5.2}Snake surface geometries}{59}{section.5.2}
-\contentsline {section}{\numberline {5.3}Snake surface geometries}{65}{section.5.3}
-\contentsline {chapter}{\numberline {6}Conclusion}{66}{chapter.6}
-\contentsline {section}{\numberline {6.1}Further Work}{66}{section.6.1}
-\contentsline {subsection}{\numberline {6.1.1}References}{66}{subsection.6.1.1}
-\contentsline {section}{\numberline {6.2}Acknowledgment}{66}{section.6.2}
-\contentsline {chapter}{\numberline {A}Appendix}{67}{appendix.A}
-\contentsline {section}{\numberline {A.1}Schlick's approximation}{67}{section.A.1}
-\contentsline {section}{\numberline {A.2}Spherical Coordinates}{67}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{68}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{68}{appendix*.64}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{71}{appendix*.65}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{72}{appendix*.66}
+\contentsline {section}{\numberline {4.3}Evaluation}{49}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Precomputation}{49}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Data evaluation}{50}{subsection.4.3.2}
+\contentsline {chapter}{\numberline {5}Results}{53}{chapter.5}
+\contentsline {section}{\numberline {5.1}BRDF maps}{54}{section.5.1}
+\contentsline {section}{\numberline {5.2}Snake surface geometries}{60}{section.5.2}
+\contentsline {section}{\numberline {5.3}Snake surface geometries}{66}{section.5.3}
+\contentsline {chapter}{\numberline {6}Conclusion}{67}{chapter.6}
+\contentsline {section}{\numberline {6.1}Further Work}{67}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}References}{67}{subsection.6.1.1}
+\contentsline {section}{\numberline {6.2}Acknowledgment}{67}{section.6.2}
+\contentsline {chapter}{\numberline {A}Appendix}{68}{appendix.A}
+\contentsline {section}{\numberline {A.1}Schlick's approximation}{68}{section.A.1}
+\contentsline {section}{\numberline {A.2}Spherical Coordinates}{68}{section.A.2}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{69}{section.A.2}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{69}{appendix*.65}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{72}{appendix*.66}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{73}{appendix*.67}
