@@ -52,18 +52,18 @@
 \contentsline {section}{\numberline {4.3}Evaluation}{49}{section.4.3}
 \contentsline {subsection}{\numberline {4.3.1}Precomputation}{50}{subsection.4.3.1}
 \contentsline {subsection}{\numberline {4.3.2}Data evaluation}{51}{subsection.4.3.2}
-\contentsline {chapter}{\numberline {5}Results}{54}{chapter.5}
-\contentsline {section}{\numberline {5.1}BRDF maps}{55}{section.5.1}
-\contentsline {section}{\numberline {5.2}Snake surface geometries}{61}{section.5.2}
-\contentsline {section}{\numberline {5.3}Snake surface geometries}{67}{section.5.3}
-\contentsline {chapter}{\numberline {6}Conclusion}{68}{chapter.6}
-\contentsline {section}{\numberline {6.1}Further Work}{68}{section.6.1}
-\contentsline {subsection}{\numberline {6.1.1}References}{68}{subsection.6.1.1}
-\contentsline {section}{\numberline {6.2}Acknowledgment}{68}{section.6.2}
-\contentsline {chapter}{\numberline {A}Appendix}{69}{appendix.A}
-\contentsline {section}{\numberline {A.1}Schlick's approximation}{69}{section.A.1}
-\contentsline {section}{\numberline {A.2}Spherical Coordinates}{69}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{70}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{70}{appendix*.66}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{73}{appendix*.67}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{74}{appendix*.68}
+\contentsline {chapter}{\numberline {5}Results}{53}{chapter.5}
+\contentsline {section}{\numberline {5.1}BRDF maps}{54}{section.5.1}
+\contentsline {section}{\numberline {5.2}Snake surface geometries}{60}{section.5.2}
+\contentsline {section}{\numberline {5.3}Snake surface geometries}{66}{section.5.3}
+\contentsline {chapter}{\numberline {6}Conclusion}{67}{chapter.6}
+\contentsline {section}{\numberline {6.1}Further Work}{67}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}References}{67}{subsection.6.1.1}
+\contentsline {section}{\numberline {6.2}Acknowledgment}{67}{section.6.2}
+\contentsline {chapter}{\numberline {A}Appendix}{68}{appendix.A}
+\contentsline {section}{\numberline {A.1}Schlick's approximation}{68}{section.A.1}
+\contentsline {section}{\numberline {A.2}Spherical Coordinates}{68}{section.A.2}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{69}{section.A.2}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{69}{appendix*.66}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{72}{appendix*.67}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{73}{appendix*.68}
