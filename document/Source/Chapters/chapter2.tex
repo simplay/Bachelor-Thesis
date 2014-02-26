@@ -1,8 +1,7 @@
 \chapter{Theoretical Background}
 \section{Definitions}
 \subsection{Diffraction}
-ADD IMAGES
-
+\label{diffractiondeff}
 A wave is the spatial propagating variation or rather perturbation or also an oscillation of a location-and time-dependent physical quantity. In Mathematics, when talking about a wave, we are referring to the so called wavefunction  $y(x,t) = A sin(wt - kx)$ which is a solution for the so called wave-equation. In general, this function depends on the location $x$ and in time $t$. The maximal amplitude / magnitude of a wave is denoted by $A$. The phase of wave indicates in which part within its period with respect to a reference point in time / location the wave is located.
 Naturally occurring waves are uncommonly purely monochromatic waves, rather an overlapping of many waves with different wavelengths, which is denoted by interference. Interference  is a phenomenon in which two waves superimpose to form a resultant wave of greater or lower amplitude. All portions of these corresponding wavelengths are forming the so called spectrum. For example sunlight which is a overlapping of many electromagnetic monochromatic waves of different wavelengths, ranging continuously from infrared across visible light to ultraviolet. Thereby, many effects may occur like interference - by overlapping two waves they either will amplify or cancel out partially or even totally each other in some location.
 Waves can experience in a different way a change in their form of appearance through reflexion, transmission, refraction or diffraction. In this thesis we are interested in particular in the bending of waves the so called effect of diffraction, which cannot be modeled using the standard ray theory of light.
@@ -58,7 +57,7 @@ If there is a large collection of photons given, their total energy $Q = \sum_i 
 Power is the estimated rate of energy production for light sources and is measured in the unit Watts, denoted by Q, which is another name for joules per second. Since power is a density over time, it is well defined even when energy production is varying over time. As with energy, we are really interested in the spectral power, measured in W/nm, denoted by $\Phi_\lambda$
 
 \myparagraph{Irradiance}
-The term irradiance comes into place when we are interested in \textit{how much light hits a given point}. In order to answer this question, we must make use of a density function. Let $\Delta A$ a finite area sensor that is smaller than the light field being measured. The spectral irradiance $E$ is just the power per unit area $\frac{\Delta \Phi}{\Delta A}$ which is 
+The term irradiance comes into place when we are interested in \textit{how much light hits a given point}. In order to answer this question, we must make use of a density function. Figure $\ref{fig:irradiance}$ illustrates this idea. Let $\Delta A$ a finite area sensor that is smaller than the light field being measured. The spectral irradiance $E$ is just the power per unit area $\frac{\Delta \Phi}{\Delta A}$ which is 
 
 \begin{equation}
  E = \frac{\Delta q}{\Delta A \Delta t \Delta \lambda}
@@ -66,17 +65,24 @@ The term irradiance comes into place when we are interested in \textit{how much 
 
 Thus the units of irradiance are $Jm^{-2}s^{-1}(nm)^{-1}$, the power per unit surface area.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{background/irradiance.png}
+  \caption{Irradiance is the summed up radiance over all directions}
+  \label{fig:irradiance}
+\end{figure}
+
 \myparagraph{Radiance}
+Although irradiance tells us how much light is arriving at a point as illustrated in figure $\ref{fig:irradiance}$, it tells us little about the direction that light comes from. To measure something similar to what we see with our eyes we need to be able to associate the quantity \textit{how much light with a specific direction}. 
 
-TODO: SHOW IMAGE: SOLID angle
-$WIKI: http://en.wikipedia.org/wiki/Radiance$
-$CG Slides 2012 - 6.shading$
-$Book: Fundamentals of computer graphics$
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.3]{background/radiance.png}
+  \caption{Radiance is photon ray density number of photons per area per solid angle - see figure $\ref{fig:solidangle}$}
+  \label{fig:radiance}
+\end{figure}
 
-Although irradiance tells us how much light is arriving at a point, it tells us little about the direction that light comes from. To measure something similar to what we see with our eyes we need to be able to associate the quantity \textit{how much light with a specific direction}. 
-
-Radiance is a measure of the quantity of radiation that passes through or is emitted from a surface and falls within a given solid angle in a specified direction. Think of it as the energy carried along a narrow beam of light. 
-This means radiance characterizes the total emission of reflectance. It indicates how much of the power emitted by a reflecting surface will be received by an optical system looking at the surface from some given angle of view. Formally, this leads us to the following definition of radiance: 
+Radiance is a measure of the quantity of radiation that passes through or is emitted from a surface and falls within a given solid angle as shown in figure $\ref{fig:solidangle}$ in a specified direction as shown in figure $\ref{fig:radiance}$. Think of it as the energy carried along a narrow beam of light. This means radiance characterizes the total emission of reflectance. It indicates how much of the power emitted by a reflecting surface will be received by an optical system looking at the surface from some given angle of view. Formally, this leads us to the following definition of radiance: 
 
 \begin{equation}
  L(\omega) = \frac{d^2 \Phi}{dA d\Omega cos(\theta)} \approx \frac{\Phi}{\Omega A cos(\theta)}
@@ -84,11 +90,17 @@ This means radiance characterizes the total emission of reflectance. It indicate
 
 where $L$ is the observed radiance in the unit energy per area per solid angle, which is $Wm^-2 sr^-1$ in direction $\omega$ which has an angle $\theta$ between the surface normal and $\omega$, $\Theta$ is the total flux or power emitted, $\theta$ is the angle between the surface normal and the specified direction, $A$ is the area of the surface and $\Omega$ is the solid angle in the unit steradian subtended by the observation or measurement.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.3]{background/solidangle.png}
+  \caption{Solida angle is th earea of a surface patch on the unit sphere which is spanned by a set of directions. Its corresponding solid angle is equal $\Theta = \frac{A}{R^2}$.}
+  \label{fig:solidangle}
+\end{figure}
+
 It is useful to distinguish between radiance incident at a point on a surface and excitant from that point. Terms for these concepts sometimes used in the graphics literature are surface radiance $L_r$ for the radiance \textit{reflected} from a surface and field radiance $L_i$ for the radiance \textit{incident} at a surface.  
 
 \myparagraph{BRDF}
 \label{brdf}
-
 The bidirectional reflectance distribution function, in short BRDF, denoted as $f_r(\omega_i, \omega_r)$ is a four dimensional function that defines \textit{how light is reflected at an opaque surface}. The function takes a negative directed incoming light direction, $\omega_{\text{i}}$, and outgoing direction, $\omega_{\text{r}}$ as input argument. Both are defined with respect to the surface normal $\mathbf{n}$.Hence A BRDF returns the ratio of reflected radiance exiting along $\omega_{\text{r}}$ to the irradiance incident on the surface from direction $\omega_{\text{i}}$, which is formally:
   
 \begin{align}
@@ -96,6 +108,7 @@ The bidirectional reflectance distribution function, in short BRDF, denoted as $
   & = f_r(\omega_i, \omega_r) \nonumber \\
   & = \frac{dL_r(\omega_r)}{dE_i(\omega_i)} \nonumber \\
   & = \frac{dL_r(\omega_r)}{L_i(\omega_i)cos(\theta_i)d\omega_i}
+  \label{eq:defbrdf}
 \end{align}
 
 L is the reflected radiance, E is the irradiance and $\theta_{\text{i}}$ is the angle between $\omega_{\text{i}}$ and the surface normal, $\mathbf n$. The index $\text{i}$ indicates incident light, whereas the index $\text{r}$ indicates reflected light.
@@ -108,41 +121,52 @@ In Computer Graphics, when talking about Spectral Rendering, we are referring to
 \myparagraph{Colors}
 \label{subsec:colors}
 In order to see how crucial the role human vision plays, we only have to look the the definition of color: 
-\textit{Color is the aspect of visual perception by which an observer may distinguish differences between two structure-free fields of view of the same size and shape such as may be caused by differences in the spectral composition of the radiant energy concerned in the observation}. -  Wyszechki and Siles, 2000 mentioned in Computer Graphics Fundamentals Book. 
+\textit{Color is the aspect of visual perception by which an observer may distinguish differences between two structure-free fields of view of the same size and shape such as may be caused by differences in the spectral composition of the radiant energy concerned in the observation}. - Wyszechki and Siles, 2000 mentioned in Computer Graphics Fundamentals Book. 
 
-An eye consists of photoreceptor cells, cones and rods. Cones are responsible for color perception. 
-The human eye has three kinds of cone cells, with spectral sensitivity peaks in short (S, 420–440 nm), middle (M, 530–540 nm), and long (L, 560–580 nm) wavelengths.
-In principle, any color sensation in human color perception can therefore be described by just three parameters, corresponding to levels of stimulus of the three types of cone cells.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.35]{background/lightspec.png}
+  \caption{Frequency (top) and wavelenght (bottom) of colors of the visible light spectrum.}
+  \label{fig:colorspectrum}
+\end{figure}
+
+An eye consists of photoreceptor cells, cones and rods like illustrated in figure $\ref{fig:humaneye}$. Cones are responsible for color perception. 
+The human eye has three kinds of cone cells, with spectral sensitivity peaks in short (between 420–440 nm), middle (between 530–540 nm), and long (between 560–580 nm) wavelengths.
+In principle, any color sensation in human color perception as shown in figure $\ref{fig:colorspectrum}$ can therefore be described by just three parameters, corresponding to levels of stimulus of the three types of cone cells.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.35]{background/humaneye.png}
+  \caption{Schematic of photoreceptor cells, cones and rods, in human eye }
+  \label{fig:humaneye}
+\end{figure}
 
 A color space maps a range of physically produced colors from mixed light to an objective description of color
-sensations registered in the eye in terms of tristimulus values.
+sensations registered in the eye in terms of Tristimulus values.
 
 Tristimulus values associated with a color space can be conceptualized as amounts of three primary colors in a tri-chromatic additive color model. In some color spaces (including LMS and XYZ spaces), the primary colors used are not real colors, in the sense that they cannot be generated with any light spectrum.
 
-Due to distribution of cones in human eye, the tristimulus values depend on over's field of view. CIE defined a color mapping function called standard observer, to eliminate this variable represent an average human chromatic response.
+Due to distribution of cones in human eye, the Tristimulus values depend on over's field of view. CIE defined a color mapping function called standard observer, to eliminate this variable represent an average human chromatic response.
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.7]{background/somatchingfunctions.png}
-  \label{fig:matchingfunction}
   \caption{Plots of our color matching functions we used for rendering}
+  \label{fig:matchingfunction}
 \end{figure}
 
-The CIE's color matching functions $\overline{x}(\lambda)$, $\overline{y}(\lambda)$, $\overline{z}(\lambda)$ are the numerical description of the chromatic response of the observer (described above). They can be thought of as the spectral sensitivity curves of three linear light detectors yielding the CIE tristimulus values X, Y and Z.
+The CIE's color matching functions $\overline{x}(\lambda)$, $\overline{y}(\lambda)$, $\overline{z}(\lambda)$ in figure $\ref{fig:matchingfunction}$ are the numerical description of the chromatic response of the observer. They can be thought of as the spectral sensitivity curves of three linear light detectors yielding the CIE Tristimulus values X, Y and Z.
 
-The tristimulus values for a color with a spectral power distribution $I(\lambda)$, are given in terms of the standard observer by:
+The Tristimulus values for a color with a spectral power distribution $I(\lambda)$, are given in terms of the standard observer by:
 
 \begin{align}
     X= \int_{380}^{780} I(\lambda)\,\overline{x}(\lambda)\,d\lambda \nonumber \\
     Y= \int_{380}^{780} I(\lambda)\,\overline{y}(\lambda)\,d\lambda \nonumber \\
     Z= \int_{380}^{780} I(\lambda)\,\overline{z}(\lambda)\,d\lambda
+\label{eq:tristimulusvalues}
 \end{align}
 
-where $\lambda$, is the wavelength of the equivalent monochromatic light (measured in nanometers).
-
-It is not possible to build a display that corresponds to CIE XYZ, for this reasons it is necessary to design  other color spaces, which are physical realizable, offers efficient encoding, are perceptual uniform and have an intuitive color specification. 
-
-There are simple conversions between XYZ color space to any other color space defined, described as linear transformations.
+where $\lambda$, is the wavelength of the equivalent monochromatic light (measured in nanometers). It is not possible to build a display that corresponds to CIE XYZ, for this reasons it is necessary to design  other color spaces, which are physical realizable, offers efficient encoding, are perceptual uniform and have an intuitive color specification. There are simple conversions between XYZ color space to any other color space defined, described as linear transformations.
 
 \subsection{Signal Processing Basics}
 A signal is a function that conveys information about the behavior or attributes of some phenomenon.
@@ -157,12 +181,14 @@ Let $f$ an measurable function over $\mathds{R}^n$. Then, the continuous Fourier
  
 \begin{equation}
   \mathcal{F}_{FT}\{f\}(w) = \int_{\mathds{R}^n} f(x)e^{-iwt} dt
+  \label{eq:cft}
 \end{equation}
 
 whereas its inverse transform is defined like the following which allows us to obtain back the original signal:
 
 \begin{equation}
   \mathcal{F}_{FT}^{-1}\{f\}(w) = \int_{\mathds{R}} \mathcal{F}\{w\}e^{iwt} dt
+  \label{eq:icft}
 \end{equation}
 
 Usual $w$ is identified by the angular frequency which is  equal $w = \frac{2 \pi}{T} = 2 \pi v_f$. In this connection, $T$ is the period of the resulting spectrum and $v_f$ is its corresponding frequency.
@@ -171,12 +197,14 @@ By using Fourier Analysis, which is the approach to approximate any function by 
 
 \begin{equation}
   \mathcal{F}_{DTFT}\{f\}(w) = \sum_{-\infty}^{\infty} f(x) e^{-iwk}
+  \label{eq:dtft}
 \end{equation}
 
 Note that the DTFT is not practically suitable for digital signal processing since there a signal can be measured only in a finite number of points. Thus, we can further discretize the frequency domain and will get then the Discrete Fourier Transformation (in short \textbf{DFT}) of the input signal:
 
 \begin{equation}
   \mathcal{F}_{DFT}\{f\}(w) = \sum_{n=0}^{N-1} f(x) e^{-iw_{n}k}
+  \label{eq:dft}
 \end{equation}
 
 Where the angular frequency $w_n$ is defined like the following $w_n = \frac{2\pi n}{N}$ and $N$ is the number of samples within an equidistant period sampling.
@@ -184,6 +212,7 @@ Where the angular frequency $w_n$ is defined like the following $w_n = \frac{2\p
 Any continuous function $f(t)$ can be expressed as a series of sines and cosines. This representation is called the Fourier Series (denoted by $FS$) of $f(t)$.
 \begin{equation}
   f(t) = \frac{1}{2}a_0 + \sum_{n=1}^{\infty} a_n cos(nt) + \sum_{n=1}^{\infty} b_n cos(nt)
+  \label{eq:dfs}
 \end{equation}
 
 where
@@ -194,21 +223,11 @@ where
     b_n = \frac{1}{\pi}\int_{-\pi}^{\pi} f(t) sin(nt) dt
 \end{align}
 
-\myparagraph{Convolution}
-The convolution $f*g$ of two functions $f$, $g$$\colon \mathds{R}^n \to \mathds{C} $ is defined as:  
-\begin{equation}
-  \mathcal (f*g)(t) = \int_{\mathds{R}^n} f(t)g(t-x) dx
-\end{equation}
-
-Note that the Fourier transform of the convolution of two functions is the product of their Fourier transforms. This is equivalent to the fact that Convolution in spatial domain is equivalent to multiplication in frequency domain. Therefore, the inverse Fourier transform of the product of two Fourier transforms is the convolution of the two inverse Fourier transforms
-
-Last an illustration of the relationships between the previous presented Fourier transformations and different given input signals. First an concrete example shown in Figure $\ref{fig:contdiscft}$. Table $\ref{tab:ftoperatorsdependencies}$ tells what Fourier transformation operator has to be applied to which kind of input signal and what properties its resulting Fourier transform will have.
-
 % image from wikipedia
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{background/dcft.png}
-  \caption{Relationship between the continuous Fourier transform and the discrete Fourier transform: Left column: A continuous function (top) and its Fourier transform (bottom). Center-left column: Periodic summation of the original function (top). Fourier transform (bottom) is zero except at discrete points. The inverse transform is a sum of sinusoids called Fourier series. Center-right column: Original function is discretized (multiplied by a Dirac comb) (top). Its Fourier transform (bottom) is a periodic summation (DTFT) of the original transform. Right column: The DFT (bottom) computes discrete samples of the continuous DTFT. The inverse DFT (top) is a periodic summation of the orginal samples.}
+  \caption{Relationship between the continuous Fourier transform and the discrete Fourier transform: Left column: A continuous function (top) and its Fourier transform $\ref{eq:cft}$ (bottom). Center-left column: Periodic summation of the original function (top). Fourier transform (bottom) is zero except at discrete points. The inverse transform is a sum of sinusoids called Fourier series $\ref{eq:dfs}$. Center-right column: Original function is discretized (multiplied by a Dirac comb) (top). Its Fourier transform (bottom) is a periodic summation (DTFT) of the original transform. Right column: The DFT $\ref{eq:dft}$ (bottom) computes discrete samples of the continuous DTFT $\ref{eq:dtft}$. The inverse DFT (top) is a periodic summation of the original samples.}
 \label{fig:contdiscft}
 \end{figure}
 
@@ -217,26 +236,39 @@ Last an illustration of the relationships between the previous presented Fourier
     \hline
     Spetail signal $f(t)$ is & Operator & Transformed frequency signal $\hat{f}(\omega)$ is\\
     \hline
-    continuous and periodic in $t$ & FS & only discrete in $\omega$ \\
-    only continuous in $t$ & FT & only continuous in $\omega$\\
-    only discrete in $t$ & DTFT & continuous and periodic in $\omega$\\
-    discrete and periodic in $t$ & DFT & discrete and periodic in $\omega$\\
+    continuous and periodic in $t$ & FS $\ref{eq:dfs}$ & only discrete in $\omega$ \\
+    only continuous in $t$ & FT $\ref{eq:cft}$ & only continuous in $\omega$\\
+    only discrete in $t$ & DTFT $\ref{eq:dtft}$ & continuous and periodic in $\omega$\\
+    discrete and periodic in $t$ & DFT $\ref{eq:dft}$ & discrete and periodic in $\omega$\\
     \hline
     \end{tabular}
 \caption{Fourier operator to apply for a given spatial input signal and the properties of its resulting output signal in frequency space}
 \label{tab:ftoperatorsdependencies}
 \end{table}
 
+\myparagraph{Convolution}
+The convolution $f*g$ of two functions $f$, $g$$\colon \mathds{R}^n \to \mathds{C} $ is defined as:  
+\begin{equation}
+  \mathcal (f*g)(t) = \int_{\mathds{R}^n} f(t)g(t-x) dx
+  \label{eq:convolution}
+\end{equation}
+
+Note that the Fourier transform of the convolution of two functions is the product of their Fourier transforms. This is equivalent to the fact that Convolution in spatial domain is equivalent to multiplication in frequency domain. Therefore, the inverse Fourier transform of the product of two Fourier transforms is the convolution of the two inverse Fourier transforms.
+Last an illustration of the relationships between the previous presented Fourier transformations and different given input signals. First an concrete example shown in Figure $\ref{fig:contdiscft}$. Table $\ref{tab:ftoperatorsdependencies}$ tells what Fourier transformation operator has to be applied to which kind of input signal and what properties its resulting Fourier transform will have.
+
 \myparagraph{Taylor Series}
 Taylor series is a representation of a function as an infinite sum of terms that are calculated from the values of the function's derivatives at a single point.
 
-The Taylor series $\mathcal T$ of a real or complex-valued function ƒ(x) that is infinitely differentiable at a real or complex number $a$ is the power series:
+The Taylor series $\mathcal T$ of a real or complex-valued function $f(x)$ that is infinitely differentiable at a real or complex number $a$ is the power series:
+
 \begin{equation}
   \mathcal T(f;a)(x) = \sum_{n=0}^{\infty} \frac{f^{n}(a)}{n!}(x-a)^n
+  \label{eq:deftaylor}
 \end{equation}
 
 
 \section{Thesis Basis: J.Stam's Paper about Diffraction Shader}
+\label{sec:sumstam}
 In his paper about Diffraction Shader, J. Stam derives a BRDF which is modeling the effect of diffraction for various analytical anisotropic reflexion models relying on the so called scalar wave theory of diffraction for which a wave is assumed to be a complex valued scalar. 
 It's noteworthy, that Stam's BRDF formulation does not take into account the polarization of the light. Fortunately, light sources like sunlight and light bulbs are unpolarized. 
 
@@ -350,38 +382,36 @@ where $G$ is the so called geometry term which is equal:
 
 \section{Derivations}
 \subsection{BRDF formulation}
-Lets assume we have given an incoming light source with solid angle $\omega_i$, $\theta{_i}$ is its angle of incidence, $\omega_r$ is the solid angle for the reflected light, $\lambda$ wavelength, $\Omega$ is the hemisphere we of integration for the incoming light. Then, we are able to formulate a BRDF by using its definition:  
-
-
+Lets assume we have given an incoming light source with solid angle $\omega_i$, $\theta_i$ is its angle of incidence, $\omega_r$ is the solid angle for the reflected light. Further let $\lambda$ denote the wavelength and $\Omega$ is the hemisphere we of integration for the incoming light. Then, we are able to formulate a BRDF by using its definition $\ref{eq:defbrdf}$:  
 
 \begin{alignat}{4}
 & f_r(\omega_i, \omega_r) &&= \frac{dL_r(\omega_r)}{L_i(\omega_i)cos(\theta_i)d\omega_i} \nonumber \\
 \Rightarrow{} & f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i &&= dL_r(\omega_r) \nonumber \\
 \Rightarrow{} & \int_{\Omega}f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i &&= \int_{\Omega}dL_r(\omega_r) \nonumber\\
 \Rightarrow{} & L_r(\omega_r) &&= \int_{\Omega}f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i
+\label{eq:initialbrdf}
 \end{alignat}
 
-The last equation is the so called rendering equation.
-We assume further, that our incident light is a directional, unpolarized light source like sunlight and therefore its radiance is given as 
+The last equation is the so called rendering equation.$\label{sec:dirlighsourceassumption}$ We assume that our incident light is a directional, unpolarized light source $\ref{fig:dirlightsource}$ like sunlight and therefore its radiance is given as 
 
 \begin{equation}
  L_{\lambda}(\omega)=I(\lambda)\delta(\omega-\omega_i)
+\label{eq:radiancedirlightsource}
 \end{equation}
 
 where $I(\lambda)$ is the intensity of the relative spectral power for the wavelength $\lambda$. 
-Since all light rays are parallel whenever we are provided by a directional light source and we can think of radiance as a measure of the light emitted from a particular surface location into a particular direction, above's radiance identity will follow immediately. 
-By plugging this identity into our current rendering equation, we will get:
+Since all light rays are parallel, whenever we are provided by a directional light source and we can think of radiance as a measure of the light emitted from a particular surface location into a particular direction, above's radiance identity will follow immediately. By plugging the identity $\ref{eq:radiancedirlightsource}$ into our current rendering equation $\ref{eq:initialbrdf}$, we will get:
 
 \begin{align}
 L_{\lambda}(w_r) 
 & = \int_{\Omega} BRDF_{\lambda}(\omega_i, \omega_r) L_{\lambda}(\omega_i) cos(\theta_i) d\omega_i \nonumber \\
 & = BRDF_{\lambda}(\omega_i, \omega_r) I(\lambda) cos(\theta_i)
+\label{eq:deribrdfwithdirsource}
 \end{align}
 
-where $L_{\lambda}(\omega_i)$ is the incoming radiance and $L_{\lambda}(\omega_r)$ is the radiance reflected by given surface
-Note that above's integral vanishes since $\delta(\omega-\omega_i)$ is only equal one if and only if $\omega = \omega_i$.
+where $L_{\lambda}(\omega_i)$ is the incoming radiance and $L_{\lambda}(\omega_r)$ is the radiance reflected by the given surface. Note that the integral in equation $\ref{eq:deribrdfwithdirsource}$ vanishes since $\delta(\omega-\omega_i)$ is only equal one if and only if $\omega = \omega_i$.
 
-For the $BRDF(\omega_i, \omega_r)$ we are going to use Stam's main derivation $~\eqref{eq:mainstam}$ applying the fact that the wavenumber is equal $k=\frac{2\pi}{\lambda}$:
+We are going to use Stam's main derivation $~\eqref{eq:mainstam}$ for the $BRDF(\omega_i, \omega_r)$ in $\ref{eq:deribrdfwithdirsource}$ by applying the fact that the wavenumber is equal $k=\frac{2\pi}{\lambda}$:
 
 \begin{align}
 BRDF(\omega_i, \omega_r) 
@@ -391,27 +421,36 @@ BRDF(\omega_i, \omega_r)
 & = \frac{F(w_i, w_r)^2 (1 + \omega_i \cdot \omega_r)^2}{cos(\theta_i)cos(\theta_r) A \lambda^2 w^2} \langle \left|P(ku, kv)  \right|^2\rangle
 \end{align}
 
-going back to the definition of $(u,v,w)= -\omega_i - \omega_r$ and using spherical coordinates, we get for $w$ the following identity $w = -\omega_i - \omega_r = -(\omega_i + \omega_r) = -(cos(\theta_i)+cos(\theta_r))$ and therefore $w^2$ is equal $(cos(\theta_i)+cos(\theta_r))^2$
+Going back to the definition $\ref{eq:uvw}$ of $(u,v,w)= -\omega_i - \omega_r$ and using spherical coordinates $\ref{eq:sphericalcoordinates}$, we get for $w$ the following identity
+
+\begin{align}
+w 
+&= -\omega_i - \omega_r \nonumber \\ 
+&= -(\omega_i + \omega_r) \nonumber \\
+&= -\left( cos(\theta_i)+cos(\theta_r) \right) 
+\end{align}
+
+and therefore $w^2$ is equal $(cos(\theta_i)+cos(\theta_r))^2$
 This new fact will allow us to get even further:
 
 \begin{align}
 L_{\lambda}(\omega_r) 
-& = \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{A \lambda^2 cos(\theta_i)cos(\theta_r)  (cos(\theta_i)+cos(\theta_r))^2} \langle \left|P_{cont}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle cos(\theta_i) I(\lambda) \nonumber \\
-& = I(\lambda) \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|P_{cont}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle \nonumber \\
-& = I(\lambda) \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|T_0^2 P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle
+& = \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{A \lambda^2 cos(\theta_i)cos(\theta_r)  (cos(\theta_i)+cos(\theta_r))^2} \left \langle \left|P_{cont}\left( \frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda}\right) \right|^2 \right \rangle cos(\theta_i) I(\lambda) \nonumber \\
+& = I(\lambda) \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \left \langle \left|P_{cont}\left( \frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda}\right) \right|^2 \right \rangle \nonumber \\
+& = I(\lambda) \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \left \langle \left|T_0^2 P_{dtft}\left( \frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda}\right) \right|^2 \right \rangle
+\label{eq:nonrelativebrdffinding}
 \end{align}
 
-$P_{cont}$ denotes the continuous inverse Fourier-Transform for the Taylor-Series of our height field representing the nano-scaled surface structure, i.e. $P(k,l) = \mathcal{F}^{-1}\{p\}(k,l)$ and $P_{dtft}$ is the inverse Discrete Time Fourier Transform of $p(x,y) = e^{ikwh(x,y)}$. Furthermore $T_0$ the sampling distance for the discretization of $p(x,y)$ assuming equal and uniform sampling in both dimensions $x,y$.
+Where $P_{cont}$ denotes the continuous inverse Fourier-Transform $\ref{eq:icft}$ for the Taylor-Series $\ref{eq:deftaylor}$ of our height field representing the nano-scaled surface structure, i.e. $P(k,l) = \mathcal{F}^{-1}\{p\}(k,l)$ and $P_{dtft}$ is the inverse Discrete Time Fourier Transform $\ref{eq:dtft}$ of $p(x,y) = e^{ikwh(x,y)}$. Furthermore $T_0$ the sampling distance for the discretization of $p(x,y)$ assuming equal and uniform sampling in both dimensions $x$ and $y$.
 
 \subsection{Relative BRDF}
 In this section we are going to explain how to scale our BRDF formulation such that all of its possible output values are mapped into the range $\left[0,1\right]$. Such a relative BRDF formulation will ease our life for later rendering purposes since usually color values are within the range $\left[0,1\right]$, too. Furthermore, this will allow us to properly blend the resulting illumination caused by diffraction with a texture map.
 
-Let us examine what $L_\lambda(\omega_r)$ will be for $\omega_r = \omega_0 := (0,0,*)$ i.e. specular reflection case, denoted as $L_\lambda^{spec}(\omega_0)$. 
-
-When we know the expression for $L_\lambda^{spec}(\omega_0)$ we would be able to compute the relative reflected radiance for our problem by simply dividing $L_\lambda(\omega_r)$ by $L_\lambda^{spec}(\omega_0)$, denoted as 
+Let us examine what $L_\lambda(\omega_r)$ will be for $\omega_r = \omega_0 := (0,0,*)$ i.e. specular reflection case, denoted as $L_\lambda^{spec}(\omega_0)$. When we know the expression for $L_\lambda^{spec}(\omega_0)$ we would be able to compute the relative reflected radiance for our problem $\ref{eq:nonrelativebrdffinding}$ by simply taking the fraction between $L_\lambda(\omega_r)$ and $L_\lambda^{spec}(\omega_0)$ which is denoted by: 
 
 \begin{equation}
-    \rho_\lambda(\omega_i,\omega_r) = \frac{L_\lambda(\omega_r)}{L_\lambda^{spec}(\omega_0)}
+  \rho_\lambda(\omega_i,\omega_r) = \frac{L_\lambda(\omega_r)}{L_\lambda^{spec}(\omega_0)}
+  \label{eq:rohrel}
 \end{equation}
 
 But first, let us derive the following expression:
@@ -421,55 +460,57 @@ L_\lambda^{spec}(\omega_0)
 & = I(\lambda) \frac{F(\omega_0, \omega_0)^2 (1+\colvec[0]{0}{1}\cdot\colvec[0]{0}{1})^2}{\lambda^2 A (cos(0)+cos(0))^2 cos(0)} \langle \left|T_0^2 P_{dtft}(0,0)  \right|^2\rangle \nonumber \\
 & = I(\lambda) \frac{F(\omega_0, \omega_0)^2 (1+1)^2}{\lambda^2 A (1+1)^2 1}\left| T_0^2 N_{sample} \right|^2 \nonumber \\
 & = I(\lambda) \frac{F(\omega_0, \omega_0)^2}{\lambda^2 A}\left| T_0^2 N_{sample} \right|^2 
+\label{eq:lspec}
 \end{align}
 
-Where $N_{samples}$ is the number of samples of the DTFT.
-
-Thus, we can plug our last derived expression into the definition for the relative reflectance radiance in the direction $w_r$ and will get:
+Where $N_{samples}$ is the number of samples of the DTFT $\ref{eq:dtft}$. Thus, we can plug our last derived expression $\ref{eq:lspec}$ into the definition for the relative reflectance radiance $\ref{eq:rohrel}$ in the direction $w_r$ and will get:
 
 \begin{align}
 \rho_\lambda(\omega_i,\omega_r)
 & = \frac{L_\lambda(\omega_r)}{L_\lambda^{spec}(\omega_0)} \nonumber \\
 & = \frac{I(\lambda) \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|T_0^2 P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda}) \right|^2\rangle}{I(\lambda) \frac{F(\omega_0, \omega_0)^2}{\lambda^2 A}\left| T_0^2 N_{sample} \right|^2 } \nonumber \\
 & = \frac{F^2(\omega_i,\omega_r)(1 + \omega_i \cdot \omega_r)^2}{F^2(\omega_0,\omega_0)(cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \langle \left|\frac{P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})}{N_{samples}}\right|^2\rangle
+\label{eq:lspecrohrel}
 \end{align}
 
-for simplification and a better overview, let us introduce the following expression, the so called gain-factor:
+For simplification and a better overview, let us introduce the following expression, the so called gain-factor:
 
 \begin{equation} 
     C(\omega_i,\omega_r) = \frac{F^2(\omega_i,\omega_r)(1 + \omega_i \cdot \omega_r)^2}{F^2(\omega_0,\omega_0)(cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r) N_{samples}^2}
 \label{eq:cfact}
 \end{equation}
 
-Using this substitute, we will end up with the following expression for the relative reflectance radiance:
+Using this substitute, we will end up with the following expression for the relative reflectance radiance from equation $\ref{eq:lspecrohrel}$:
 
 \begin{equation}
 \rho_\lambda(\omega_i,\omega_r) =  C(\omega_i,\omega_r) \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle
 \label{eq:cpterm}
 \end{equation}
 
-Using the previous definition for the relative reflectance radiance 
+Using the previous definition for the relative reflectance radiance $\ref{eq:rohrel}$:
 
 \begin{equation}
  \rho_\lambda(\omega_i,\omega_r) = \frac{L_\lambda(\omega_r)}{L_\lambda^{spec}(\omega_0)} 
 \end{equation}
 
-which we can rearrange to the expression 
+Which we can rearrange to the expression: 
 
 \begin{equation}
 L_\lambda(\omega_r) = \rho_\lambda(\omega_i,\omega_r)L_\lambda^{spec}(\omega_0)
+\label{eq:radianceomegarspec}
 \end{equation}
 
-Let us choose $L_\lambda^{spec}(w_0) = S(\lambda)$ such that is has the same profile as the relative spectral power distribution of CIE Standard Illuminant $D65$. Further, when integration over $\lambda$ for a specular surface we should get $CIE_{XYZ}$ values corresponding to the white point for $D65$ 
-The corresponding tristimulus values using CIE colormatching functions for the $CIE_{XYZ}$ values look like:
+Let us choose $L_\lambda^{spec}(w_0) = S(\lambda)$ such that is has the same profile as the relative spectral power distribution of CIE Standard Illuminant $D65$ discussed in $\ref{subsec:colortransformations}$. Furthermore, when integrating over $\lambda$ for a specular surface, we should get $CIE_{XYZ}$ values corresponding to the white point for $D65$. The corresponding tristimulus values using CIE colormatching functions $\ref{eq:tristimulusvalues}$ for the $CIE_{XYZ}$ values look like:
 
 \begin{align}
 X = \int_{\lambda}L_\lambda(\omega_r)\overline{x}(\lambda)d\lambda \nonumber \\
 Y = \int_{\lambda}L_\lambda(\omega_r)\overline{y}(\lambda)d\lambda \nonumber \\
 Z = \int_{\lambda}L_\lambda(\omega_r)\overline{z}(\lambda)d\lambda
+\label{eq:tristimrad}
 \end{align}
 
-where $\overline{x}$, $\overline{y}$, $\overline{z}$ are the color matching functions. Using our last finding for $L_\lambda(\omega_r)$ with the definition for the tristimulus values we can actually derive an expression for computing the colors for our BRDF formula. Since X, Y, Z are defined similarly, it satisfies to derive an explicit expression for just one tristimulus term, for example X. The other two will look the same, except the we have to replace all X with Y or Z respectively. Therefore, we get:
+where $\overline{x}$, $\overline{y}$, $\overline{z}$ are the color matching functions. Using our last finding $\ref{eq:radianceomegarspec}$ for $L_\lambda(\omega_r)$ with the definition for the tristimulus values $\ref{eq:tristimrad}$, we can actually derive an expression for computing the colors for our initial BRDF formula $\ref{eq:initialbrdf}$. 
+Without any loss of generality it satisfies to derive an explicit expression for just one tristimulus term, for example X. Since The other have a similar formulation, except the we have to replace all X with Y or Z respectively. Therefore, we get:
 
 \begin{align}
 X 
@@ -484,16 +525,23 @@ X
 Where we used the definition $S_x(\lambda)\overline{x}(\lambda)$ in the last step.
 
 \subsection{Taylor approximation for BRDF}
-In this section, we will deliver an approximation for the inverse Fourier Transformation of Stam's auxiliary function p(x,y)s. This derivation will rely on the definition of Taylor Series expansion. Further, we will provide an error bound for our approximation approach for a given number of iterations. Last, we will extend our current BRDF formula by the findings derived within this section.
+\label{sec:taylorapproximation}
+In this section, we will deliver an approximation for the inverse Fourier Transformation of Stam's auxiliary function $p(x,y)$. This derivation will rely on the definition of Taylor Series expansion $\ref{eq:deftaylor}$. Further, we will provide an error bound for our approximation approach for a given number of iterations. Last, we will extend our current BRDF formula by the findings derived within this section.
 
-Given $p(x,y)=e^{ikwh(x,y)}$ form Stam's Paper where h(x,y) is a given height field. Let be y real or even complex value, and lets consider the power series for the the exponential function 
+Given $p(x,y)=e^{ikwh(x,y)}$ form Stam's Paper $\ref{sec:sumstam}$ where $h(x,y)$ is a given height field. Let be y real or even complex value, and lets consider the power series for the the exponential function
+ 
 \begin{equation}
   e^{t}=1+t+\frac{t^{2}}{2!}+\frac{t^{3}}{3!}+...=\sum_{n=0}^{\infty}\frac{t^{n}}{n!}
 \end{equation}
 
-Let us define $t := t(x,y) = ikwh(x,y)$ where $i$ is the imaginary number.
-For simplification, let us denote $h(x,y)$ as $h$. Then it follows by our previous
-stated identities: 
+Let us define 
+\begin{align}
+t 
+= t(x,y) 
+= ikwh(x,y)
+\end{align}
+ 
+where $i$ is the imaginary number. For simplification, let us denote $h(x,y)$ as $h$. Then it follows by our previous stated identities: 
 
 \begin{align}
  e^{t}
@@ -501,9 +549,8 @@ stated identities:
  &=\sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}.
 \end{align}
 
-Hence it holds $p(x,y)=\sum_{n=0}^{\infty}\frac{(ikwh(x,y))^{n}}{n!}.$
+Hence it holds $p(x,y)=\sum_{n=0}^{\infty}\frac{(ikwh(x,y))^{n}}{n!}$. Let us now compute the Fourier Transformation of p(x,y) form above:
 
-Let us now compute the Fourier Transformation of p(x,y) form above:
 \begin{align}
   \mathcal{F}\left\{ p\right\}(u,v)
   & =\mathcal{F}\left\{ \sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}.\right\}(u,v) \nonumber \\
@@ -511,7 +558,7 @@ Let us now compute the Fourier Transformation of p(x,y) form above:
   & =\sum_{n=0}^{\infty}\frac{(ikw)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\}(u,v)
 \end{align}
 
-Hence it follows: $P(\alpha,\beta)=\sum_{n=0}^{\infty}\frac{(ikw)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$ for which $\mathcal{F}_{FT}\left\{ h{}^{n}\right\} (u,v)$.
+Therefore it follows: $P(\alpha,\beta)=\sum_{n=0}^{\infty}\frac{(ikw)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$ for which $\mathcal{F}_{FT}\left\{ h{}^{n}\right\} (u,v)$.
 
 Next we are going to look for an $N\mathbb{\in N}$ such that 
 \begin{equation}
@@ -629,7 +676,7 @@ X
 
 \subsection{Sampling: Gaussian Window}
 \label{sec:gaussianwindow}
-Practically, we cannot compute the DTFT numerically due to finite computer arithmetic, since $w$ is a continuous function for the DTFT. The DFT of a discrete height field patch is equivalent to the DTFT of an infinitely periodic function consisting of replicas of the same discrete patch. By windowing with a window function that is zero outside the central replica, the convolution of either the DFT or the DTFT of height field with the Fourier Transform of the window becomes equivalent.
+Practically, we cannot compute the DTFT $\ref{eq:dtft}$ numerically due to finite computer arithmetic, since $w$ is a continuous function for the DTFT. The DFT $\ref{eq:dft}$ of a discrete height field patch is equivalent to the DTFT of an infinitely periodic function consisting of replicas of the same discrete patch. By windowing with a window function that is zero outside the central replica, the convolution of either the DFT or the DTFT of height field with the Fourier Transform of the window becomes equivalent.
 
 Let $window_g$ denote the gaussian window with $4\sigma_s$ $\mu m$ where $\sigma_f = \frac{1}{2\pi\sigma_s}$
 let us further substitute $\mathbf{t(x,y)}=i^n h(x,y)^n$
@@ -657,21 +704,23 @@ where
 \end{equation} 
 
 \subsection{Final Expression}
-As the last step of our series of derivations, we plug all our findings together to one big equation in order to compute the color for each pixel on our mesh in the $CIE_XYZ$ colorspace:
+As the last step of our series of derivations, we plug all our findings together to one big equation in order to compute the color for each pixel on our mesh in the $CIE_{XYZ}$ colorspace. For any given heigh-field $h(x,y)$ representing a small patch of a nano structure of a surface and the direction vectors $w_s$ and $w_r$ from figure $\ref{fig:geometricsetup}$ the resulting color caused by the effect of diffraction can be computed like: Let 
 
-For a given heigh-field $h(x,y)$, representing a small patch of the nano-structure of our surface, the resulting $CIE_{XYZ}$ caused by the effect of diffraction can be computed like the following: 
+\begin{equation}
+P_{\lambda}(u,v) = {F}_{fft}^{-1}\{i^n h^n\}(\frac{2\pi u}{\lambda},\frac{2\pi v}{\lambda})
+\end{equation}
 
-Let $P(u,v,\lambda) = {F}_{fft}^{-1}\{i^n h^n\}(\frac{2\pi u}{\lambda},\frac{2\pi v}{\lambda})$
+Then our final expression using our previous derivations will look like:
 
 \begin{equation}
 \begin{split}
 \colvec[X]{Y}{Z}& = C(\omega_i,\omega_r) \int_{\lambda} \sum_{n=0}^N  \frac{(wk)^n}{n!} \sum_{(r,s) \in \mathcal{N}_1(u,v)} \left| P_{\lambda}(u-w_r,v-w_s) \right|^2 \\
 & \quad \quad  \phi(u-w_r, v-w_s) \colvec[S_x(\lambda)]{S_y(\lambda)}{S_z(\lambda)}d\lambda
 \end{split}
+\label{eq:finalexpression}
 \end{equation}
 
-where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the gaussian window and .
-where $w_s$ and $w_r$ are ... explain them
+where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the Gaussian window $\ref{sec:gaussianwindow}$.
 
 \section{Alternative Approach}
 \subsection{PQ factors}
