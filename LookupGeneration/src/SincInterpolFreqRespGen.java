@@ -1,10 +1,12 @@
+
+
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.List;
 
 
-public class NminmaxFreqRespGen extends LookupGenerator {
+public class SincInterpolFreqRespGen extends LookupGeneratorSincInterpol {
 
 	/**
 	 * @param args
@@ -13,11 +15,11 @@ public class NminmaxFreqRespGen extends LookupGenerator {
 	protected static int angMin;
 	protected static int angMax;
 	protected static double angInc;
-	protected static float dimX = 65.0f;// 2.5f; 
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-		NminmaxFreqRespGen lGen = new NminmaxFreqRespGen();
+		SincInterpolFreqRespGen lGen = new SincInterpolFreqRespGen();
 		
 		if (args.length > 0)
 			ipPath = args[0];
@@ -41,6 +43,7 @@ public class NminmaxFreqRespGen extends LookupGenerator {
 		if (args.length > 5)
 			angMax = (Integer.parseInt(args[5]));
 		
+		
 		if (args.length > 6)
 			angInc = (Double.parseDouble(args[6]));
 		
@@ -49,13 +52,11 @@ public class NminmaxFreqRespGen extends LookupGenerator {
 		
 		if (args.length > 8)
 			lGen.phiI = (Integer.parseInt(args[8])) * Math.PI/180;
-			
+		
+		
 		if (args.length > 9)
 			lGen.phiR = (Integer.parseInt(args[9])) * Math.PI/180;
-		
-		if (args.length > 10)
-			dimX = (Float.parseFloat(args[10]));
-		
+
 		else
 		{
 			System.out.println("Not continuing as all the parametes are not provided");
@@ -104,161 +105,181 @@ public class NminmaxFreqRespGen extends LookupGenerator {
 			
 			opFile.print("response= [ ");
 
-		} catch (Exception e) {
+		} catch (Exception e) 
+		{
 			System.out.println("failed to write Response");
 		}	
 			
+			
 		lGen.numAng = (int)(Math.ceil((double)(angMax - angMin)/ angInc));
+		
 		lGen.response = new float[lGen.numAng]; 
-		
-		R = new float[lGen.numAng][lGen.lambdaCnt]; 
-		
-		
-		flushResponseArray();
-//		for (int lIdx = 0; lIdx < lGen.lambdaCnt; ++lIdx){
-//			
-//
-//		}
-		
-		lGen.genFreqResponse();
-		lGen.writeFrequencyResponse(opFile);
-		
+		for (int lIdx = 0; lIdx < lGen.lambdaCnt; ++lIdx)
+		{
+			lGen.genFreqResponse(lIdx);
+			lGen.writeFrequencyResponse(opFile, lIdx);
+		}
 		try {
 
 			opFile.println("];");
 			opFile.close();
 
-		} catch (Exception e) {
+		} catch (Exception e) 
+		{
 			System.out.println("failed to write Response");
 		}	
 		
 
 	}
-	static float[][] R;
-	protected static float[] response;
-	protected static int numAng;
+	
+	protected float[] response;
+	protected int numAng;
 	
 	protected double thetaI;
 	protected double phiI;
 	protected double phiR;
 	
-	protected void writeFrequencyResponse(PrintStream opFile){
+	protected void writeFrequencyResponse(PrintStream opFile, int i)
+	{
 	try{
+		if( i != 0)
+			opFile.println("; ...");
 
-		for(int l = 0; l < lambdaCnt; ++l){
-			if( l != 0){
-				opFile.println("; ...");
-			}
-			for(int v = 0; v < numAng; ++v){
-				opFile.print(R[v][l] +", ");
-			}
-			System.out.println("Finished writing for " +l);	
-		}
+		for(int v = 0; v < numAng; ++v)
+			opFile.print(response[v] +", ");
+
 		opFile.flush();
+		} catch (Exception e) 
+		{
+			System.out.println("failed to write Response");
+		}		
+		System.out.println("Finished writing for " +i);		
 		
-	} catch (Exception e) {
-		System.out.println("failed to write Response");
-	}
-		
-	
-		
-	}
-	
-	/**
-	 * set for each angular indices response array to zero.
-	 */
-	protected static void flushResponseArray(){
-		for (int angIdx=0; angIdx < numAng; ++angIdx){
-			response[angIdx] = 0.0f;
-		}
 	}
 	
+	
+	float patchResolution = 65.0f;
+	
+	float compute_pq_scale_factor(float w_u, float w_v){
+		float dx = (float)((double)this.dH*this.uvWid);//2.5f;
+		System.out.println("dx " + dx);
+		
+		float in_periods = (float) Math.ceil(patchResolution/dx);
+//		in_periods = 26;
+		System.out.println("periods " + in_periods);
+		
+		float T_1 = (float) (this.dH * uvWid);
+		float p1 = get_p_factor(w_u, T_1, in_periods);
+		float p2 = get_p_factor(w_v, T_1, in_periods);
+		
+		float q1 = get_q_factor(w_u, T_1, in_periods);
+		float q2 = get_q_factor(w_v, T_1, in_periods);
 
-	protected static int[] compute_N_min_max(float t){
-		float N_min = 0.0f;
-		float N_max = 0.0f;
+		float uuu = p1*p2 - q1*q2;
+		float vvv = p1*p2 + q1*q2;
 		
-//		float f = (float) (666f*dH);
-
-		if(t > 0.0f){
-			N_min = (int) Math.ceil((dimX*t) / (LMAX));
-			N_max = (int) Math.floor((dimX*t) / (LMIN));
+		return (float) Math.pow(uuu*uuu + vvv*vvv, 0.5);
+	}
+	
+	float eps_pq = (float) (1.0*Math.pow(10.0, -5.0)); 
+	float get_p_factor(float w_i, float T_i, float N_i){
+		float tmp = 1.0f;
+		if (Math.abs(1.0-Math.cos(T_i*w_i)) < eps_pq){
+			tmp = N_i;
 		}else{
-			N_min = (int) Math.ceil((dimX*t) / (LMIN));
-			N_max = (int) Math.floor((dimX*t) / (LMAX));
+			tmp = (float) (Math.cos(w_i*T_i*N_i)-Math.cos(w_i*T_i*(N_i + 1.0)));
+			tmp /= (1.0 - Math.cos(w_i*T_i));
+			tmp = 0.5f + 0.5f*(tmp);
 		}
-		
-		
-		int[] ret = new int[2];
-		ret[0] = (int) N_min; 
-		ret[1] = (int) N_max; 
-		return ret;
+		return tmp/N_i;
 	}
 
-protected int roundNM(float lambda){
-	return (int)(lambda+0.5f);
-}
-protected void genFreqResponse(){
-		for (int angIdx=0; angIdx < numAng; ++angIdx){
-		//float thetaR = (float)(Math.PI * (angIdx-midAngIdx)*vAngInc/180.0f );
-		float thetaR = (float)(Math.PI * (angMin + angInc*angIdx)/180.0f );
-				
-		// here we made it positive so that angles are measured similarly for viewing and incidence
-		// note , viewing is done at 180 degrees apart in PHI
-		float k1X =  (float)( Math.sin(thetaI)*Math.cos(phiI) );
-		float k1Y =  (float)( Math.sin(thetaI)*Math.sin(phiI) );
-		float k1Z = - (float)( Math.cos(thetaI));
-				
-		float k2X = (float)(Math.sin(thetaR)*Math.cos(phiR) );
-		float k2Y = (float)( Math.sin(thetaR)*Math.sin(phiR));
-		float k2Z = (float)( Math.cos(thetaR) );
 
-				
-		float uu = k1X - k2X;
-		float vv = k1Y - k2Y;
-		float ww = k1Z - k2Z;
-				
-		int[] N_u = compute_N_min_max(uu);
-		int[] N_v = compute_N_min_max(vv);
-				
-
-		float lower_u = N_u[0];
-		float upper_u = N_u[1];
-		float lower_v = N_v[0];
-		float upper_v = N_v[1];
-				
-		int lambda_lower_u = roundNM((float) (((dimX*uu)/upper_u)*Math.pow(10.0, 3.0)));
-		int lambda_upper_u = roundNM((float) (((dimX*uu)/lower_u)*Math.pow(10.0, 3.0)));
-		if(upper_u < 0.0){
-			lambda_lower_u = roundNM((float) (((dimX*uu)/lower_u)*Math.pow(10.0, 3.0)));
-			lambda_upper_u = roundNM((float) (((dimX*uu)/upper_u)*Math.pow(10.0, 3.0)));	
+	//is this correct: T_i*w_i is a multiple of 2*PI
+	float get_q_factor(float w_i, float T_i, float N_i){
+		float tmp = N_i;
+		if (Math.abs(1.0-Math.cos(T_i*w_i)) < eps_pq){
+			tmp = 0.0f;
+		}else{
+			tmp = (float) (Math.sin(w_i*T_i*(N_i+1.0))-Math.sin(w_i*T_i*N_i)-Math.sin(w_i*T_i));
+			tmp /= 2.0*(1.0 - Math.cos(w_i*T_i));
 		}
-				
-		int lambda_lower_v = roundNM((float) (((dimX*vv)/upper_v)*Math.pow(10.0, 9.0)));
-		int lambda_upper_v = roundNM((float) (((dimX*vv)/lower_v)*Math.pow(10.0, 9.0)));
-		if(upper_v < 0.0){
-			lambda_lower_v = roundNM((float) (((dimX*vv)/lower_v)*Math.pow(10.0, 9.0)));
-			lambda_upper_v = roundNM((float) (((dimX*vv)/upper_v)*Math.pow(10.0, 9.0)));	
-		}
-		
-		for(int lambda_u = lambda_lower_u; lambda_u <=lambda_upper_u; lambda_u++ ){
-			int lambdaIndex = lambda_u-(int)(LMIN*1000);
-			double fftMagSqr = getFFTMagSqr_At(uu,vv,ww, lambdaIndex);
-			if (angMin + angInc*angIdx > 90.0 || angMin + angInc*angIdx < -90.0) fftMagSqr = 0.0;
-			R[angIdx][lambdaIndex] += (float)(fftMagSqr * gainAt(k1X, k1Y, k1Z, k2X, k2Y, k2Z) );
-		}
-		
-		for(int lambda_v = lambda_lower_v; lambda_v <=lambda_upper_v; lambda_v++ ){
-			int lambdaIndex = lambda_v-(int)(LMIN*1000);
-			double fftMagSqr = getFFTMagSqr_At(uu,vv,ww, lambdaIndex);
-			if (angMin + angInc*angIdx > 90.0 || angMin + angInc*angIdx < -90.0) fftMagSqr = 0.0;
-			R[angIdx][lambdaIndex] += (float)(fftMagSqr * gainAt(k1X, k1Y, k1Z, k2X, k2Y, k2Z) );
-		}
+		return tmp/N_i;
 	}
-		
-}
 	
-	protected double gainAt(float k1X, float k1Y,float  k1Z,float k2X, float k2Y, float  k2Z){
+	
+	
+	protected void genFreqResponse(int lIdx)
+	{
+		//for (int lIdx = 0; lIdx < this.lambdaCnt; ++lIdx)
+		{
+			//int midAngIdx = (numAng-1)/2; // -1 because of zero indexing
+
+			// correct it for proper division
+			//float vAngInc = 180.0f/ (numAng-1);
+			System.out.println("lIdx_foo " + lIdx);
+			for (int angIdx=0; angIdx < numAng; ++angIdx)
+			{
+				//float thetaR = (float)(Math.PI * (angIdx-midAngIdx)*vAngInc/180.0f );
+				float thetaR = (float)(Math.PI * (angMin + angInc*angIdx)/180.0f );
+				
+				// here we made it positive so that angles are measured similarly for viewing and incidence
+				// note , viewing is done at 180 degrees apart in PHI
+				float k1X =  (float)( Math.sin(thetaI)*Math.cos(phiI) );
+				float k1Y =  (float)( Math.sin(thetaI)*Math.sin(phiI) );
+				float k1Z = - (float)( Math.cos(thetaI));
+				
+				float k2X = (float)(Math.sin(thetaR)*Math.cos(phiR) );
+				float k2Y = (float)( Math.sin(thetaR)*Math.sin(phiR));
+				float k2Z = (float)( Math.cos(thetaR) );
+
+				
+				float uu = k1X - k2X;
+				float vv = k1Y - k2Y;
+				float ww = k1Z - k2Z;
+				
+				
+				
+				
+				int uN_min = -1000;
+				int uN_max = -1000;
+				float t = uu;
+//				float f = (float) (666f*dH);
+				float f = 65f;
+				
+				if(uu > 0.0f){
+					uN_min = (int) Math.floor((f*t) / (LMAX));
+					uN_max = (int) Math.ceil((f*t) / (LMIN));
+				}else{
+					uN_min = (int) Math.floor((f*t) / (LMIN));
+					uN_max = (int) Math.ceil((f*t) / (LMAX));
+				}
+
+				
+				
+				
+//				System.out.println("u_min " + uN_min + " u_max " + uN_max + " uu0 " + t);
+				
+				double lambda = currLambda[lIdx];
+				float lambda_iter = (float) (lambda*Math.pow(10.0, -6.0));
+				float k = (float) ((1.0) / lambda_iter);
+				float w_u = k*uu;
+				float w_v = k*vv;
+				System.out.println("w_u_v " + w_u  + " " + w_v);
+				double fftMagSqr = getFFTMagSqr_At(uu,vv,ww, lIdx);
+				double pq_scale = compute_pq_scale_factor(w_u, w_v);
+				System.out.println("pq val " + pq_scale);
+				// to avoid response on obtuse angles
+				if (angMin + angInc*angIdx > 90.0 || angMin + angInc*angIdx < -90.0)
+					fftMagSqr = 0.0;
+				
+				response[angIdx] = (float)(pq_scale * fftMagSqr * gainAt(k1X, k1Y, k1Z, k2X, k2Y, k2Z) ); // no need for color tables yet
+			}
+		}
+	}
+	
+	protected double gainAt(float k1X, float k1Y,float  k1Z,float k2X, float k2Y, float  k2Z)
+	{
 	
 		float gF = 1 - (k1X*k2X + k1Y*k2Y + k1Z*k2Z );
 		
@@ -289,7 +310,8 @@ protected void genFreqResponse(){
 		 return 1.0;
 	}
 	
-	protected double getFresnelFactor(float k1X, float k1Y,float  k1Z,float k2X, float k2Y, float  k2Z){
+	protected double getFresnelFactor(float k1X, float k1Y,float  k1Z,float k2X, float k2Y, float  k2Z)
+	{
 		double nSkin = 1.5;
 		double nK = 0.0;
 		
@@ -325,12 +347,13 @@ protected void genFreqResponse(){
 	}
 	
 	
-	protected double getFFTMagSqr_At(float uu0, float vv0, float ww0, int lIdx){
+	protected double getFFTMagSqr_At(float uu0, float vv0, float ww0, int lIdx)
+	{
 //		System.out.println("dH " + this.dH);
 
 //		System.out.println("lIdx " + currLambda[lIdx] + " dh " + dH + " lmax " + this.LMAX);
 
-
+		
 		double uu = (uu0 * dH)/ currLambda[lIdx];
 		double vv = (vv0 * dH)/ currLambda[lIdx];
 		
