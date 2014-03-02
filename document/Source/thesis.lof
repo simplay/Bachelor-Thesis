@@ -1,57 +1,34 @@
 \select@language {ngerman}
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Diffraction: Single Slit Example\relax }}{2}{figure.caption.2}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Diffraction Pattern\relax }}{2}{figure.caption.3}
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Irradiance is the summed up radiance over all directions\relax }}{4}{figure.caption.7}
+\contentsline {figure}{\numberline {1.4}{\ignorespaces Radiance is photon ray density number of photons per area per solid angle - see figure $\ref {fig:solidangle}$\relax }}{4}{figure.caption.9}
+\contentsline {figure}{\numberline {1.5}{\ignorespaces Solida angle is th earea of a surface patch on the unit sphere which is spanned by a set of directions. Its corresponding solid angle is equal $\Theta = \frac {A}{R^2}$.\relax }}{5}{figure.caption.10}
+\contentsline {figure}{\numberline {1.6}{\ignorespaces Frequency (top) and wavelenght (bottom) of colors of the visible light spectrum.\relax }}{6}{figure.caption.14}
+\contentsline {figure}{\numberline {1.7}{\ignorespaces Schematic of photoreceptor cells, cones and rods, in human eye \relax }}{6}{figure.caption.15}
+\contentsline {figure}{\numberline {1.8}{\ignorespaces Plots of our color matching functions we used for rendering\relax }}{7}{figure.caption.16}
+\contentsline {figure}{\numberline {1.9}{\ignorespaces Relationship between the continuous Fourier transform and the discrete Fourier transform: Left column: A continuous function (top) and its Fourier transform $\ref {eq:cft}$ (bottom). Center-left column: Periodic summation of the original function (top). Fourier transform (bottom) is zero except at discrete points. The inverse transform is a sum of sinusoids called Fourier series $\ref {eq:dfs}$. Center-right column: Original function is discretized (multiplied by a Dirac comb) (top). Its Fourier transform (bottom) is a periodic summation (DTFT) of the original transform. Right column: The DFT $\ref {eq:dft}$ (bottom) computes discrete samples of the continuous DTFT $\ref {eq:dtft}$. The inverse DFT (top) is a periodic summation of the original samples.\relax }}{9}{figure.caption.18}
+\contentsline {figure}{\numberline {1.10}{\ignorespaces $\omega _i$ points toward the light source, $\omega _r$ points toward the camera, $n$ is the surface normal\relax }}{11}{figure.caption.22}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Large Aperture}}}{11}{figure.caption.22}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Small Aperture}}}{11}{figure.caption.22}
+\contentsline {figure}{\numberline {1.11}{\ignorespaces Comparission between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\mathaccentV {hat}65E{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.\relax }}{25}{figure.caption.25}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Diffraction: Single Slit Example\relax }}{5}{figure.caption.2}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Diffraction Pattern\relax }}{5}{figure.caption.3}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Irradiance is the summed up radiance over all directions\relax }}{7}{figure.caption.7}
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Radiance is photon ray density number of photons per area per solid angle - see figure $\ref {fig:solidangle}$\relax }}{7}{figure.caption.9}
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Solida angle is th earea of a surface patch on the unit sphere which is spanned by a set of directions. Its corresponding solid angle is equal $\Theta = \frac {A}{R^2}$.\relax }}{8}{figure.caption.10}
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Frequency (top) and wavelenght (bottom) of colors of the visible light spectrum.\relax }}{9}{figure.caption.14}
-\contentsline {figure}{\numberline {2.7}{\ignorespaces Schematic of photoreceptor cells, cones and rods, in human eye \relax }}{9}{figure.caption.15}
-\contentsline {figure}{\numberline {2.8}{\ignorespaces Plots of our color matching functions we used for rendering\relax }}{10}{figure.caption.16}
-\contentsline {figure}{\numberline {2.9}{\ignorespaces Relationship between the continuous Fourier transform and the discrete Fourier transform: Left column: A continuous function (top) and its Fourier transform $\ref {eq:cft}$ (bottom). Center-left column: Periodic summation of the original function (top). Fourier transform (bottom) is zero except at discrete points. The inverse transform is a sum of sinusoids called Fourier series $\ref {eq:dfs}$. Center-right column: Original function is discretized (multiplied by a Dirac comb) (top). Its Fourier transform (bottom) is a periodic summation (DTFT) of the original transform. Right column: The DFT $\ref {eq:dft}$ (bottom) computes discrete samples of the continuous DTFT $\ref {eq:dtft}$. The inverse DFT (top) is a periodic summation of the original samples.\relax }}{12}{figure.caption.18}
-\contentsline {figure}{\numberline {2.10}{\ignorespaces $\omega _i$ points toward the light source, $\omega _r$ points toward the camera, $n$ is the surface normal\relax }}{14}{figure.caption.22}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Large Aperture}}}{14}{figure.caption.22}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Small Aperture}}}{14}{figure.caption.22}
-\contentsline {figure}{\numberline {2.11}{\ignorespaces Comparission between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\mathaccentV {hat}65E{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.\relax }}{28}{figure.caption.25}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Blaze\relax }}{29}{figure.caption.26}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Renderer Architecture\relax }}{30}{figure.caption.27}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces A wireframe mesh represents an object as a set of faces and a set of vertices.\relax }}{31}{figure.caption.28}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Camera coordinate system where its origin defines the center of projection of camera\relax }}{32}{figure.caption.29}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Illustration of involved components in order to construct the camera matrix. We introduce some helper vectors $z_c = \frac {e-d}{||e-d||}$, $x_c = \frac {up \times z_c}{||up \times z_c||} $ and $z_c \times x_c$ for the actual construction of the camera matrix\relax }}{32}{figure.caption.30}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces For a directional light source all light rays are in parallel.\relax }}{33}{figure.caption.31}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces $(u,v)$ lookup image\relax }}{36}{figure.caption.36}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Blaze\relax }}{32}{figure.caption.26}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Renderer Architecture\relax }}{33}{figure.caption.27}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces A wireframe mesh represents an object as a set of faces and a set of vertices.\relax }}{34}{figure.caption.28}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Camera coordinate system where its origin defines the center of projection of camera\relax }}{35}{figure.caption.29}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Illustration of involved components in order to construct the camera matrix. We introduce some helper vectors $z_c = \frac {e-d}{||e-d||}$, $x_c = \frac {up \times z_c}{||up \times z_c||} $ and $z_c \times x_c$ for the actual construction of the camera matrix\relax }}{35}{figure.caption.30}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces For a directional light source all light rays are in parallel.\relax }}{36}{figure.caption.31}
-\contentsline {figure}{\numberline {3.7}{\ignorespaces $(u,v)$ lookup image\relax }}{39}{figure.caption.36}
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Spectometer: When a beam of monochromatic light passes through a grating placed in a spectrometer, images of the sources can be seen through the telescope at different angles.\relax }}{44}{figure.caption.37}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Light directed to parallel to grating:\relax }}{45}{figure.caption.38}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Different Orders of diffraction\relax }}{46}{figure.caption.39}
-\contentsline {figure}{\numberline {4.4}{\ignorespaces White Light beam causes coloured diffraction spectra\relax }}{46}{figure.caption.40}
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Relative intensitiies of a diffracted beam of light at wavelength $\lambda =500nm$ on a grating for different number of periods $N$ width slit width of 30 microns and slit seperation of 0.15 mm each. The viewer is 0.5m apart from the grating.\relax }}{47}{figure.caption.41}
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Difference of diffraction pattern between a monochromatic (top) and a white (bottom) light spectra for different number of slits.\relax }}{48}{figure.caption.42}
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Experimental setup for evaluation: A light beam with direction $L$ hits the surface, representing a grating pattern with periodicity $d$, at the incident plane relative to the surface normal $n$ at angle $\theta $ and emerges at angle $\phi $ with direction $V$.\relax }}{49}{figure.caption.43}
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Reflecting grating: When the incident light direction is not parallel to its axis at the grating, there is another $sin(\phi )$ involved. See also the grating equation $\ref {eq:gratingeq}$.\relax }}{49}{figure.caption.44}
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Reflectance obtained by using the shading approach described in algorithm $\ref {alg:fragmentshaderall}$ simulating a BRDF which models the effect of diffraction at different viewing angles over the spectrum of visible light.\relax }}{51}{figure.caption.45}
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Species Elaphe Guttata\relax }}{53}{figure.caption.46}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Species Xenopeltis Unicolor\relax }}{53}{figure.caption.47}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces BRDF maps for different patches: $\Theta =(\theta ,\phi )$ is the direction of light propagation\relax }}{54}{figure.caption.48}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces BRDF maps for blaze grating comparing our different rendering apporaches\relax }}{55}{figure.caption.49}
-\contentsline {figure}{\numberline {5.5}{\ignorespaces BRDF maps for different patches\relax }}{55}{figure.caption.50}
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Blaze grating at $2.5 \mu m$: Different $\lambda $ step sizes\relax }}{56}{figure.caption.51}
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Elaphe grating at $65 \mu m$: Different $\lambda $ step sizes\relax }}{56}{figure.caption.52}
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Blaze grating: PQ approach vs full lambda space sampling\relax }}{57}{figure.caption.53}
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Xeno grating: PQ approach vs full lambda space sampling\relax }}{58}{figure.caption.54}
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Elaphe grating: PQ approach vs full lambda space sampling\relax }}{59}{figure.caption.55}
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Blaze grating at $2.5 \mu m$: Different $\sigma _s$ sizes\relax }}{59}{figure.caption.56}
-\contentsline {figure}{\numberline {5.12}{\ignorespaces Elaphe grating at $65 \mu m$: $N$ Taylor Iterations\relax }}{60}{figure.caption.57}
-\contentsline {figure}{\numberline {5.13}{\ignorespaces Blaze grating at $2.5 \mu m$: $N$ Taylor Iterations\relax }}{60}{figure.caption.58}
-\contentsline {figure}{\numberline {5.14}{\ignorespaces BRDF maps for Xeno grating: different $\theta _i$ angles\relax }}{60}{figure.caption.59}
-\contentsline {figure}{\numberline {5.15}{\ignorespaces Diffraction of different snake skin gratings rendered on a snake geometry\relax }}{61}{figure.caption.60}
-\contentsline {figure}{\numberline {5.16}{\ignorespaces Diffraction on Elaphe snake skin grating: Different camera zoom levels\relax }}{62}{figure.caption.61}
-\contentsline {figure}{\numberline {5.17}{\ignorespaces Diffraction on Elaphe snake skin grating: Different light directions\relax }}{63}{figure.caption.62}
-\contentsline {figure}{\numberline {5.18}{\ignorespaces Diffraction for Elaphe snake skin\relax }}{64}{figure.caption.63}
-\contentsline {figure}{\numberline {5.19}{\ignorespaces Diffraction for Xeno snake skin\relax }}{65}{figure.caption.64}
-\contentsline {figure}{\numberline {5.20}{\ignorespaces Diffraction Elpahe: simulation vs. experimental setup\relax }}{66}{figure.caption.65}
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Spectometer: When a beam of monochromatic light passes through a grating placed in a spectrometer, images of the sources can be seen through the telescope at different angles.\relax }}{41}{figure.caption.37}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Light directed to parallel to grating:\relax }}{42}{figure.caption.38}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Different Orders of diffraction\relax }}{43}{figure.caption.39}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces White Light beam causes coloured diffraction spectra\relax }}{43}{figure.caption.40}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Relative intensitiies of a diffracted beam of light at wavelength $\lambda =500nm$ on a grating for different number of periods $N$ width slit width of 30 microns and slit seperation of 0.15 mm each. The viewer is 0.5m apart from the grating.\relax }}{44}{figure.caption.41}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Difference of diffraction pattern between a monochromatic (top) and a white (bottom) light spectra for different number of slits.\relax }}{45}{figure.caption.42}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Experimental setup for evaluation: A light beam with direction $L$ hits the surface, representing a grating pattern with periodicity $d$, at the incident plane relative to the surface normal $n$ at angle $\theta $ and emerges at angle $\phi $ with direction $V$.\relax }}{46}{figure.caption.43}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Reflecting grating: When the incident light direction is not parallel to its axis at the grating, there is another $sin(\phi )$ involved. See also the grating equation $\ref {eq:gratingeq}$.\relax }}{46}{figure.caption.44}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Reflectance obtained by using the shading approach described in algorithm $\ref {alg:fragmentshaderall}$ simulating a BRDF which models the effect of diffraction at different viewing angles over the spectrum of visible light.\relax }}{48}{figure.caption.45}
 \addvspace {10\p@ }

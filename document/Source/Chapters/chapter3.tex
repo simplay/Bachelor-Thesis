@@ -385,6 +385,7 @@ There are some other color space transformation. The shader uses the CIE Standar
 Last we perfrom gamma correction on each pixel's $(R,G,B)$ value. Gamma correction is a non linear transformation which controls the overall brightness of an image.
 
 \section{Discussion}
+\label{sec:impldiscus}
 The fragment shader algorithm described in $\ref{alg:fragmentshaderall}$ performs the gaussian window approach by sampling over the whole wavelength spectrum in uniform step sizes. This algorithm is valid but also slow since we iterate for each pixel over the whole lambda spectrum. Furthermore, for any pixel, we iterate over its 1 neighborhood. Considering the loop for the taylor approximation as well, we will have a run-time complexity of $O(\#spectrtumIter \cdot \#taylorIter \cdot neighborhoodRadius^2)$. 
 Hence, Instead sampling over the whole wavelength spectrum, we could instead integrate over just a few required lambdas which are elicited like the following: Lets consider $(u,v,w)$ defined as $\ref{eq:uvw}$. Let $d$ be the spacing between two slits of a grating. For any $L(\lambda) \neq 0$ it follows $\lambda_{n}^{u} = \frac{d u}{n}$ and $\lambda_{n}^{v} = \frac{d u}{n}$. For $n = 0$ there it follows $(u,v)=(0,0)$. 
 If $u,v > 0$
