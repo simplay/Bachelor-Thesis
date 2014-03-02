@@ -165,7 +165,7 @@ We will plot this matrix and compare its graph against the grating equation for 
 
 Figure $\ref{fig:evaluationdiffshaderalllambda}$ contains our evaluations graphs of algorithm $\ref{alg:fragmentshaderall}$ for different idealized periodic structure using an illumination angle $\theta_i = 75$ degrees. The graphs $\ref{fig:elapheeval}$ and $\ref{fig:elapheeval}$ in figure $\ref{fig:evaluationdiffshaderalllambda}$ show reflectance. Higher values are in yellow and lower values in green. For each of the graphs we determine the viewing angles with peak reflectance for various wavelengths and then plot this peak viewing angles against their wavelength as solid red curves. The blue curve represents diffraction angles for an idealized periodic structure with a certain periodicity $d$ according to the grating equation $\ref{eq:gratingeq}$. The corresponding periodicity is estimated using the precomputed response data. The red and blue curve are closely overlapping in our figures $\ref{fig:blazeval}$ and $\ref{fig:elapheeval}$. For blaze and Elaphe there is only diffraction along only along one direction perceivable. Since blazed grating is synthetic we use its exact periodicity to plot the blue curve instead of estimating it. Xenopeltis evaluated just along the direction for the finger like structures. For Xenopeltis it is interesting to see that the red curve for the peak viewing angle toggles between two ridges corresponding to two different periodicities. this happens because there are multiple sub regions of the nanostructure with slightly different orientations and periodicity. Each sub region carves out a different yellowish ridge. depending on the viewing agnle, reflectance due to one such subregion can be higher than from the others.
 
-Figure $\ref{fig:foobar}$ shows the evaluation plots for the $(N_{min},N_{max})$ approach $\ref{sec:impldiscus}$ which integrates over a reduced wavelength spectrum. This optimization is mentioned within the discussion section of the implementation chapter as a further optimization in order to enhance the overall run-time complexity. As we can see from the plots the graphs again closely match the grating equation graphs. Nevertheless we observe little variations: discuss them
+Figure $\ref{fig:evaluationdiffshadernminmax}$ shows the evaluation plots for the $(N_{min},N_{max})$ approach $\ref{sec:impldiscus}$ which integrates over a reduced wavelength spectrum. This optimization is mentioned within the discussion section of the implementation chapter as a further optimization in order to enhance the overall run-time complexity. As we can see from the plots the graphs again closely match the grating equation graphs. Nevertheless we observe little variations: discuss them
 
 \begin{figure}[H]
   \centering
@@ -183,7 +183,7 @@ Figure $\ref{fig:foobar}$ shows the evaluation plots for the $(N_{min},N_{max})$
 \end{figure}
 
 
-Last let us consider the graphs for the PQ approach $\ref{alg:sincinterpolation}$ in figure $\ref{fig:baz}$. for blaze grating, differences, but also similarities. 
+Last let us consider the graphs for the PQ approach $\ref{alg:sincinterpolation}$ in figure $\ref{fig:evaluationdiffshaderpq}$. for blaze grating, differences, but also similarities. 
 
 
 \begin{figure}[H]
