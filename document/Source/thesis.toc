@@ -47,10 +47,10 @@
 \contentsline {section}{\numberline {3.3}Evaluation}{46}{section.3.3}
 \contentsline {subsection}{\numberline {3.3.1}Precomputation}{47}{subsection.3.3.1}
 \contentsline {subsection}{\numberline {3.3.2}Data evaluation}{48}{subsection.3.3.2}
-\contentsline {chapter}{\numberline {A}Appendix}{50}{appendix.A}
-\contentsline {section}{\numberline {A.1}Schlick's approximation}{50}{section.A.1}
-\contentsline {section}{\numberline {A.2}Spherical Coordinates}{50}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{51}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{51}{appendix*.48}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{53}{appendix*.49}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{54}{appendix*.50}
+\contentsline {chapter}{\numberline {A}Appendix}{51}{appendix.A}
+\contentsline {section}{\numberline {A.1}Schlick's approximation}{51}{section.A.1}
+\contentsline {section}{\numberline {A.2}Spherical Coordinates}{51}{section.A.2}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{52}{section.A.2}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{52}{appendix*.48}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{54}{appendix*.49}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{55}{appendix*.50}
