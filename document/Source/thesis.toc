@@ -51,6 +51,6 @@
 \contentsline {section}{\numberline {A.1}Schlick's approximation}{50}{section.A.1}
 \contentsline {section}{\numberline {A.2}Spherical Coordinates}{50}{section.A.2}
 \contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{51}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{51}{appendix*.46}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{53}{appendix*.47}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{54}{appendix*.48}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{51}{appendix*.48}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{53}{appendix*.49}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{54}{appendix*.50}

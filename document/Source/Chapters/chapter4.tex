@@ -158,7 +158,7 @@ We will plot this matrix and compare its graph against the grating equation for 
   \label{fig:elapheeval}
 }
 
-  \caption{Reflectance obtained by using the shading approach described in algorithm $\ref{alg:fragmentshaderall}$ simulating a BRDF which models the effect of diffraction at different viewing angles over the spectrum of visible light.}
+\caption{Reflectance obtained by using the shading approach described in algorithm $\ref{alg:fragmentshaderall}$ simulating a BRDF which models the effect of diffraction at different viewing angles over the spectrum of visible light.}
 
 \label{fig:evaluationdiffshaderalllambda}
 \end{figure}
@@ -167,7 +167,39 @@ Figure $\ref{fig:evaluationdiffshaderalllambda}$ contains our evaluations graphs
 
 Figure $\ref{fig:foobar}$ shows the evaluation plots for the $(N_{min},N_{max})$ approach $\ref{sec:impldiscus}$ which integrates over a reduced wavelength spectrum. This optimization is mentioned within the discussion section of the implementation chapter as a further optimization in order to enhance the overall run-time complexity. As we can see from the plots the graphs again closely match the grating equation graphs. Nevertheless we observe little variations: discuss them
 
+\begin{figure}[H]
+  \centering
+  \subfigure[Blaze grating]{
+    \includegraphics[scale=0.135]{evaluation/bn.png}
+    \label{fig:blazneval}
+  }
+~
+  \subfigure[Elaphe]{
+    \includegraphics[scale=0.135]{evaluation/en.png}
+    \label{fig:elapheneval}
+  }
+\caption{Reflectance obtained using $N_{min} N_{max}$ optimization apporach}
+\label{fig:evaluationdiffshadernminmax}
+\end{figure}
+
+
 Last let us consider the graphs for the PQ approach $\ref{alg:sincinterpolation}$ in figure $\ref{fig:baz}$. for blaze grating, differences, but also similarities. 
+
+
+\begin{figure}[H]
+  \centering
+  \subfigure[Blaze grating]{
+    \includegraphics[scale=0.135]{evaluation/bpq.png}
+    \label{fig:blazepqeval}
+  }
+~
+  \subfigure[Elaphe]{
+    \includegraphics[scale=0.135]{evaluation/epq.png}
+    \label{fig:elaphepqeval}
+  }
+\caption{Reflectance obtained using PQ optimization apporach}
+\label{fig:evaluationdiffshaderpq}
+\end{figure}
 
 
 subvariants: sample whole lambda space, just a few lambdas, pq approach.

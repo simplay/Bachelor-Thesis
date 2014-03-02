@@ -31,4 +31,6 @@
 \contentsline {figure}{\numberline {3.7}{\ignorespaces Experimental setup for evaluation: A light beam with direction $L$ hits the surface, representing a grating pattern with periodicity $d$, at the incident plane relative to the surface normal $n$ at angle $\theta $ and emerges at angle $\phi $ with direction $V$.\relax }}{46}{figure.caption.43}
 \contentsline {figure}{\numberline {3.8}{\ignorespaces Reflecting grating: When the incident light direction is not parallel to its axis at the grating, there is another $sin(\phi )$ involved. See also the grating equation $\ref {eq:gratingeq}$.\relax }}{46}{figure.caption.44}
 \contentsline {figure}{\numberline {3.9}{\ignorespaces Reflectance obtained by using the shading approach described in algorithm $\ref {alg:fragmentshaderall}$ simulating a BRDF which models the effect of diffraction at different viewing angles over the spectrum of visible light.\relax }}{48}{figure.caption.45}
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Reflectance obtained using $N_{min} N_{max}$ optimization apporach\relax }}{49}{figure.caption.46}
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Reflectance obtained using PQ optimization apporach\relax }}{49}{figure.caption.47}
 \addvspace {10\p@ }
