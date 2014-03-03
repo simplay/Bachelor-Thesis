@@ -1,4 +1,4 @@
-\chapter{Evaluation Data Acquisition}
+\chapter{Evaluation and data acquisition}
 \section{Data Acquisition}
 For measurement on the true surface topography of snake sheds, samples are stuck on glass plates using double face tape, the animal was pushed up below a hollowed plate letting the skin emerging from the top of the plate using an atomic force microscope (AFM). An AFM is a microscope that uses a tiny probe mounted on a cantilever to scan the surface of an object. The probe is extremely close tobut does not touch the surface. As the probe traverses the surface, attractive and repulsive forces arising between it and the atoms on the surface induce forces on the probe that bend the cantilever. The amount of bending is measured and recorded, providing a map of the atoms on the surface. Atomic force microscopes is a very high-resolution type of scanning probe microscopy, with demonstrated resolution on the order of fractions of a nanometer, more than 1000 times better than the optical diffraction limit.
 
@@ -140,7 +140,7 @@ We will plot this matrix and compare its graph against the grating equation for 
 \label{alg:evalmatlab}
 \end{algorithm}
 
-\subsection{Data evaluation}
+\subsection{Evaluation graphs}
 
 \begin{figure}[H]
   \centering
@@ -187,8 +187,7 @@ Figure $\ref{fig:evaluationdiffshadernminmax}$ shows the evaluation plots for th
 \label{fig:evaluationdiffshadernminmax}
 \end{figure}
 
-Last let us consider the evaluation graphs of the PQ approach $\ref{alg:sincinterpolation}$ in figure $\ref{fig:evaluationdiffshaderpq}$. The PQ approach assumes the given grating being periodically distributed on a shape's surface. For this approach we have plotted evaluation graphs of the Blaze- $\ref{fig:blazepqeval}$ and Elaphe grating $\ref{fig:elaphepqeval}$. For both graphs their response curves have some similarities but also some differences compared to their corresponding grating equation curve. We could say that the response curve of the blaze grating is weakly oscillating around the grating equation curve (blue) but basically following it even there are some outliers. The response curve of the Elpahe grating is not following its corresponding first order grating equation curve rather another response curve for the pq approach. This could be due to the assumption of the PQ approach that a given patch must be periodically distributed along the surface which is actually not that case. Nevertheless, the red curve fits one of the response curves.
-
+Last let us consider the evaluation graphs of the PQ approach $\ref{alg:sincinterpolation}$ in figure $\ref{fig:evaluationdiffshaderpq}$. The PQ approach assumes the given grating being periodically distributed on a shape's surface. For this approach we have plotted evaluation graphs of the Blaze- $\ref{fig:blazepqeval}$ and Elaphe grating $\ref{fig:elaphepqeval}$. For both graphs their response curves have some similarities but also some differences compared to their corresponding grating equation curve. We could say that the response curve of the blaze grating is weakly oscillating around the grating equation curve (blue) but basically following it even there are some outliers. The response curve of the Elpahe grating is not following its corresponding first order grating equation curve rather another response curve for the pq approach. This could be due to the assumption of the PQ approach that a given patch must be periodically distributed along the surface which is actually not that case. Nevertheless, the red curve fits one of the response curves. 
 
 \begin{figure}[H]
   \centering
@@ -204,7 +203,4 @@ Last let us consider the evaluation graphs of the PQ approach $\ref{alg:sincinte
 \caption{Reflectance obtained using PQ optimization apporach}
 \label{fig:evaluationdiffshaderpq}
 \end{figure}
-
-
-subvariants: sample whole lambda space, just a few lambdas, pq approach.
 

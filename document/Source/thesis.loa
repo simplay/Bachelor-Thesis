@@ -1,6 +1,6 @@
-\contentsline {algorithm}{\numberline {2.1}{\ignorespaces Precomputation: Fourier images\relax }}{28}{algorithm.2.1}
-\contentsline {algorithm}{\numberline {2.2}{\ignorespaces Vertex diffraction shader\relax }}{33}{algorithm.2.2}
-\contentsline {algorithm}{\numberline {2.3}{\ignorespaces Fragment diffraction shader\relax }}{34}{algorithm.2.3}
-\contentsline {algorithm}{\numberline {2.4}{\ignorespaces Texture Blending\relax }}{37}{algorithm.2.4}
-\contentsline {algorithm}{\numberline {2.5}{\ignorespaces Sinc interpolation for pq approach\relax }}{39}{algorithm.2.5}
-\contentsline {algorithm}{\numberline {3.1}{\ignorespaces Vertex diffraction shader\relax }}{47}{algorithm.3.1}
+\contentsline {algorithm}{\numberline {3.1}{\ignorespaces Precomputation: Fourier images\relax }}{31}{algorithm.3.1}
+\contentsline {algorithm}{\numberline {3.2}{\ignorespaces Vertex diffraction shader\relax }}{36}{algorithm.3.2}
+\contentsline {algorithm}{\numberline {3.3}{\ignorespaces Fragment diffraction shader\relax }}{37}{algorithm.3.3}
+\contentsline {algorithm}{\numberline {3.4}{\ignorespaces Texture Blending\relax }}{40}{algorithm.3.4}
+\contentsline {algorithm}{\numberline {3.5}{\ignorespaces Sinc interpolation for pq approach\relax }}{42}{algorithm.3.5}
+\contentsline {algorithm}{\numberline {4.1}{\ignorespaces Vertex diffraction shader\relax }}{50}{algorithm.4.1}
