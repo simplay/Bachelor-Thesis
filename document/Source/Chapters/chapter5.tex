@@ -5,35 +5,14 @@ mention system specs and how long it took in order to precompute
 mention GEM results.
 show nminmax renderings
 
-\begin{figure}[H]
-  \centering
-  \subfigure[A]{
-    \includegraphics[scale=0.1118]{ElapheGuttata/1.png}
-    \label{fig:realImageElapheGuttata1}
-  }
-~
-  \subfigure[B]{
-    \includegraphics[scale=0.189]{ElapheGuttata/4.png}
-    \label{fig:realImageElapheGuttata2}
-  }
-  \label{realImageElapheGuttata}
-  \caption{Species Elaphe Guttata}
-\end{figure}
 
-\begin{figure}[H]
-  \centering
-  \subfigure[A]{
-    \includegraphics[scale=0.369]{XenopeltisUnicolor/2.png}
-    \label{fig:realImageXeno1}
-  }
-~
-  \subfigure[B]{
-    \includegraphics[scale=0.40]{XenopeltisUnicolor/3.png}
-    \label{fig:realImageXeno2}
-  }
-  \label{realImageXenopeltis}
-  \caption{Species Xenopeltis Unicolor}
-\end{figure}
+
+
+
+
+
+
+
 
 Mention basic set up
 
@@ -53,7 +32,8 @@ Xeno has a brownish body with no pattern that makes the iridescence more spectac
 
 
 \section{BRDF maps}
-Following passage explains the structure of the partial BRD maps that are presented in this report. Consider a sample the partial BRD maps shown below :
+In this section we examine the rendered output resulting by the implementation of our BRDF models applied on different input patches such as Blaze grating or Elaphe $\ref{fig:elpahespecies}$ and Xenopeltis $\ref{fig:xenospeicies}$ snake nano-scaled surface sheds. We going to discuss and compare both, their BRDF maps $\ref{fig:brdfmapexplanation}$ and the corresponding renderings on a snake geometry for various input parameters. Last we also show a real experimental image showing the effect of diffraction for similar parameters like we have. 
+A BRDF map shows a shader's output for all possible viewing directions for a given, fixed, incident light direction. We assume that each viewing direction is in spherical coordinates form $\ref{sec:sphericalcoordinates}$ $(\theta_v, \phi_v)$ and is represented in the map at point $(x,y) = (sin(\theta_v)cos(\phi_v), sin(\theta_v)sin(\phi_v))$ with its origin at the map-center. The light direction for normal incidence $(\theta_i, \phi_i)$ has been fixed to $(0,\pi)$ for our rendered results.
 
 \begin{figure}[H]
   \centering
@@ -71,15 +51,6 @@ Following passage explains the structure of the partial BRD maps that are presen
   \caption{BRDF maps for different patches: $\Theta=(\theta,\phi)$ is the direction of light propagation}
 \label{fig:brdfmapexplanation}
 \end{figure}
-
-Distance from the center of the (circular) map = $sin(theta_r)$
-Angle with the positive X-Axis in the map = $\phi_r$
-$\theta_i$ and $\phi_i$ are constant for a given map, plot. For all the results presented in this report $\phi_i = \pi$
-
-
-BRDF map shows shader output for all viewing directions and a fixed incident light direction. viewing direction represented in spherical coordinates $(\theta_v, \phi_v)$ is represented in map at point $(x,y) = (sin(\theta_v)cos(\phi_v), sin(\theta_v)sin(\phi_v))$ with origin at map center. fix light direction for normal incidence, i.e. $(\theta_i, \phi_i) = (0,0)$ unless specified otherwise. See figure $\ref{fig:brdfmapexplanation}$.
-
-Mention brdf map basic idea figure + text
 
 
 % brdf maps patches
