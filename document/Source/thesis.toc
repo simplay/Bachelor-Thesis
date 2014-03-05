@@ -54,7 +54,7 @@
 \contentsline {subsection}{\numberline {4.3.2}Evaluation graphs}{51}{subsection.4.3.2}
 \contentsline {chapter}{\numberline {5}Results}{54}{chapter.5}
 \contentsline {section}{\numberline {5.1}BRDF maps}{54}{section.5.1}
-\contentsline {section}{\numberline {5.2}Snake surface geometries}{60}{section.5.2}
+\contentsline {section}{\numberline {5.2}Snake surface geometries}{61}{section.5.2}
 \contentsline {chapter}{\numberline {6}Conclusion}{66}{chapter.6}
 \contentsline {section}{\numberline {6.1}Further Work}{66}{section.6.1}
 \contentsline {section}{\numberline {6.2}Acknowledgment}{66}{section.6.2}

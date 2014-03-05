@@ -53,6 +53,33 @@ A BRDF map shows a shader's output for all possible viewing directions for a giv
 \end{figure}
 
 
+Figure $\ref{fig:brdfmapsdiffpatches}$ shows the BRDF maps of the full lambda space sampling approach $\ref{sec:fragmentshader}$ applied on different nanoscale surface gratings.
+
+% brdf maps patches
+\begin{figure}[H]
+  \centering
+  \subfigure[Blaze grating]{
+    \includegraphics[scale=0.12]{results/diffPatches/fftBlazeHeight_0.25Microns_allL_weak_scale.png}
+    \label{fig:brdfmapBlaze}
+  }
+~
+  \subfigure[elaphe grating]{
+    \includegraphics[scale=0.12]{results/diffPatches/elaph65.png}
+    \label{fig:brdfmapElaphe}
+  }
+~
+  \subfigure[xeno grating]{
+    \includegraphics[scale=0.12]{results/diffPatches/xeno65.png}
+    \label{fig:brdfmapXeno}
+  }
+
+\caption{BRDF maps for different patches}
+\label{fig:brdfmapsdiffpatches}
+\end{figure}
+
+Figure $\ref{fig:brdfmapsdiffrenderingapproaches}$ shows the BRDF maps of all our BRDF models applied on the Blaze grating.
+CHANGE PQ IMAGE SINCE SINC INTERPOL IS MISSING
+
 % brdf maps patches
 \begin{figure}[H]
   \centering
@@ -75,37 +102,15 @@ A BRDF map shows a shader's output for all possible viewing directions for a giv
     \includegraphics[scale=0.09]{results/methodComp/gem.png}
     \label{fig:brdfmapBlazeGem}
   }
-  
-  \label{brdfmapsDiffRenderingApproaches}
-  \caption{BRDF maps for blaze grating comparing our different rendering apporaches}
+    
+\caption{BRDF maps for Blaze grating comparing our different rendering apporaches}
+\label{fig:brdfmapsdiffrenderingapproaches}
 \end{figure}
 
 % add also a comp. for elaphe
 
-brdf maps for different nanoscale surface gratings
-% brdf maps patches
-\begin{figure}[H]
-  \centering
-  \subfigure[Blaze grating]{
-    \includegraphics[scale=0.12]{results/diffPatches/fftBlazeHeight_0.25Microns_allL_weak_scale.png}
-    \label{fig:brdfmapBlaze}
-  }
-~
-  \subfigure[elaphe grating]{
-    \includegraphics[scale=0.12]{results/diffPatches/elaph65.png}
-    \label{fig:brdfmapElaphe}
-  }
-~
-  \subfigure[xeno grating]{
-    \includegraphics[scale=0.12]{results/diffPatches/xeno65.png}
-    \label{fig:brdfmapXeno}
-  }
-  \label{brdfmapsDiffPatches}
-  \caption{BRDF maps for different patches}
-\end{figure}
+Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdifflambdastepselaphe65}$ show the BRDF maps for different wavelength step sizes used in the fragment shader for the full lambda space sampling approach applied on the Blaze grating and the Elpahe snake shed, respectively.  
 
-
-for blaze grating different wavelength step sizes in fragment shader
 wider steps fewer iterations, loss of qulatiy. for elaphe step bigger than 10nm there are visible artifacts. for blaze grating bigger step sizes possible. 
 % blaze steps
 \begin{figure}[H]
@@ -140,8 +145,8 @@ wider steps fewer iterations, loss of qulatiy. for elaphe step bigger than 10nm 
     \label{fig:brdfmapsDiffLambdaStepsL100Blaze}
   }
   
-  \label{brdfmapsDiffLambdaStepsBlaze}
-  \caption{Blaze grating at $2.5 \mu m$: Different $\lambda$ step sizes}
+\caption{Blaze grating at $2.5 \mu m$: Different $\lambda$ step sizes}
+\label{fig:brdfmapsdifflambdastepsblaze}
 \end{figure}
 
 % elpahe steps
@@ -177,12 +182,14 @@ wider steps fewer iterations, loss of qulatiy. for elaphe step bigger than 10nm 
     \label{fig:brdfmapsDiffLambdaStepsL100Elaphe65}
   }
   
-  \label{brdfmapsDiffLambdaStepsElaphe65}
-  \caption{Elaphe grating at $65 \mu m$: Different $\lambda$ step sizes}
+\caption{Elaphe grating at $65 \mu m$: Different $\lambda$ step sizes}
+\label{fig:brdfmapsdifflambdastepselaphe65}
 \end{figure}
 
 
-compare pq qith full lambda sampling. see similarities but also differences 
+The Figures $\ref{fig:pqblaze}$, $\ref{fig:pqxeno}$, $\ref{fig:pqelaphe}$ show a comparison of the BRDF maps produced by full lambda space sampling approach (on the left) and the PQ shading approach (on the right) applied on all our patches. 
+see similarities but also differences RERENDER PQ
+
 %pq blaze
 \begin{figure}[H]
   \centering
@@ -192,7 +199,7 @@ compare pq qith full lambda sampling. see similarities but also differences
   }
 ~
   \subfigure[Full Lambda Sampling brightened: Blaze grating]{
-    \includegraphics[scale=0.12]{results/PQapproach_vs_sampleAll/blaze/fftBlazeHeight_0.25Microns_allL_weak_scale_g=2.2_scale=100.png}
+            \includegraphics[scale=0.12]{results/PQapproach_vs_sampleAll/blaze/fftBlazeHeight_0.25Microns_allL_weak_scale_g=2.2_scale=100.png}
     \label{fig:fullLambdaBrightenedBlaze}
   }
 ~
@@ -200,10 +207,10 @@ compare pq qith full lambda sampling. see similarities but also differences
     \includegraphics[scale=0.12]{results/PQapproach_vs_sampleAll/blaze/pq.png}
     \label{fig:pqBlaze}
   }
-  \label{pqBlaze}
-  \caption{Blaze grating: PQ approach vs full lambda space sampling}
+  
+\caption{Blaze grating: PQ approach vs full lambda space sampling}
+\label{fig:pqblaze}
 \end{figure}
-
 
 %pq xeno
 \begin{figure}[H]
@@ -237,8 +244,9 @@ compare pq qith full lambda sampling. see similarities but also differences
     \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/c_pq_t_i=20.png}
     \label{fig:pqXenoti20}
   }
-  \label{pqXeno}
-  \caption{Xeno grating: PQ approach vs full lambda space sampling}
+  
+\caption{Xeno grating: PQ approach vs full lambda space sampling}
+\label{fig:pqxeno}
 \end{figure}
 
 %pq elaphe
@@ -254,10 +262,13 @@ compare pq qith full lambda sampling. see similarities but also differences
     \label{fig:pqElaphe}
   }
 
-  \label{pqElaphe}
-  \caption{Elaphe grating: PQ approach vs full lambda space sampling}
+  
+\caption{Elaphe grating: PQ approach vs full lambda space sampling}
+\label{fig:pqelaphe}
 \end{figure}
 
+
+Figure $\ref{fig:brdfmapsdiffsigmasizeblaze}$ shows BRDF map for full lambda sampling approach applied on the Blaze grating, varying the value for the spacial variance $\sigma_s$.
 blaze grating lower coherence length, fewer interacting grating periods, produce blurred diffraction bands for different lambda which overlap to produce poorly resolved colors.
 
 %sigma var
@@ -293,69 +304,12 @@ blaze grating lower coherence length, fewer interacting grating periods, produce
     \label{fig:brdfmapsDiffSigmaStepsL100Blaze}
   }
   
-  \label{brdfmapsDiffSigmaSizeBlaze}
-  \caption{Blaze grating at $2.5 \mu m$: Different $\sigma_s$ sizes}
-\end{figure}
-
-visually convergence taylor series for higher values for N.
-
-%taylor var elaphe
-\begin{figure}[H]
-  \centering
-  \subfigure[$N=0$]{
-    \includegraphics[scale=0.06]{results/taylorStepsVar/elaphe65/0.png}
-    \label{fig:brdfmapsTaylorN0Elaphe65}
-  }
-~
-  \subfigure[$N=1$]{
-    \includegraphics[scale=0.06]{results/taylorStepsVar/elaphe65/1.png}
-    \label{fig:brdfmapsTaylorN1Elaphe65}
-  }
-~
-  \subfigure[$N=2$]{
-    \includegraphics[scale=0.06]{results/taylorStepsVar/elaphe65/2.png}
-    \label{fig:brdfmapsTaylorN2Elaphe65}
-  }
-~  
-  \subfigure[$N=3$]{
-    \includegraphics[scale=0.06]{results/taylorStepsVar/elaphe65/3.png}
-    \label{fig:brdfmapsTaylorN3Elaphe65}
-  }
-~
-  \subfigure[$N=4$]{
-    \includegraphics[scale=0.06]{results/taylorStepsVar/elaphe65/4.png}
-    \label{fig:brdfmapsTaylorN4Elaphe65}
-  }
-
-  \subfigure[$N=5$]{
-    \includegraphics[scale=0.06]{results/taylorStepsVar/elaphe65/5.png}
-    \label{fig:brdfmapsTaylorN5Elaphe65}
-  }
-~  
-  \subfigure[$N=6$]{
-    \includegraphics[scale=0.06]{results/taylorStepsVar/elaphe65/6.png}
-    \label{fig:brdfmapsTaylorN6Elaphe65}
-  }
-~  
-  \subfigure[$N=7$]{
-    \includegraphics[scale=0.06]{results/taylorStepsVar/elaphe65/7.png}
-    \label{fig:brdfmapsTaylorN7Elaphe65}
-  }
-~  
-  \subfigure[$N=8$]{
-    \includegraphics[scale=0.06]{results/taylorStepsVar/elaphe65/8.png}
-    \label{fig:brdfmapsTaylorN8Elaphe65}
-  }
-~ 
-  \subfigure[$N=9$]{
-    \includegraphics[scale=0.06]{results/taylorStepsVar/elaphe65/9.png}
-    \label{fig:brdfmapsTaylorN9Elaphe65}
-  }
   
-  \label{brdfmapsTaylorIterationsElaphe65}
-  \caption{Elaphe grating at $65 \mu m$: $N$ Taylor Iterations}
+\caption{Blaze grating at $2.5 \mu m$: Different $\sigma_s$ sizes}
+\label{fig:brdfmapsdiffsigmasizeblaze}
 \end{figure}
 
+The figures $\ref{fig:brdfmapstayloriterationsblaze}$ and $\ref{fig:brdfmapstayloriterationselaphe65}$ show the BRDF maps of the full lambda space approach using different values for $N$ used for the taylor series approximation used within our fragment shaders. For both input patches we clearly visually observe the convergence of the taylor series for higher values for N.
 
 %taylor var blaze
 \begin{figure}[H]
@@ -410,9 +364,70 @@ visually convergence taylor series for higher values for N.
     \label{fig:brdfmapsTaylorN9Blaze}
   }
   
-  \label{brdfmapsTaylorIterationsBlaze}
-  \caption{Blaze grating at $2.5 \mu m$: $N$ Taylor Iterations}
+  
+\caption{Blaze grating at $2.5 \mu m$: $N$ Taylor Iterations}
+\label{fig:brdfmapstayloriterationsblaze}
 \end{figure}
+
+%taylor var elaphe
+\begin{figure}[H]
+  \centering
+  \subfigure[$N=0$]{
+    \includegraphics[scale=0.06]{results/taylorStepsVar/elaphe65/0.png}
+    \label{fig:brdfmapsTaylorN0Elaphe65}
+  }
+~
+  \subfigure[$N=1$]{
+    \includegraphics[scale=0.06]{results/taylorStepsVar/elaphe65/1.png}
+    \label{fig:brdfmapsTaylorN1Elaphe65}
+  }
+~
+  \subfigure[$N=2$]{
+    \includegraphics[scale=0.06]{results/taylorStepsVar/elaphe65/2.png}
+    \label{fig:brdfmapsTaylorN2Elaphe65}
+  }
+~  
+  \subfigure[$N=3$]{
+    \includegraphics[scale=0.06]{results/taylorStepsVar/elaphe65/3.png}
+    \label{fig:brdfmapsTaylorN3Elaphe65}
+  }
+~
+  \subfigure[$N=4$]{
+    \includegraphics[scale=0.06]{results/taylorStepsVar/elaphe65/4.png}
+    \label{fig:brdfmapsTaylorN4Elaphe65}
+  }
+
+  \subfigure[$N=5$]{
+    \includegraphics[scale=0.06]{results/taylorStepsVar/elaphe65/5.png}
+    \label{fig:brdfmapsTaylorN5Elaphe65}
+  }
+~  
+  \subfigure[$N=6$]{
+    \includegraphics[scale=0.06]{results/taylorStepsVar/elaphe65/6.png}
+    \label{fig:brdfmapsTaylorN6Elaphe65}
+  }
+~  
+  \subfigure[$N=7$]{
+    \includegraphics[scale=0.06]{results/taylorStepsVar/elaphe65/7.png}
+    \label{fig:brdfmapsTaylorN7Elaphe65}
+  }
+~  
+  \subfigure[$N=8$]{
+    \includegraphics[scale=0.06]{results/taylorStepsVar/elaphe65/8.png}
+    \label{fig:brdfmapsTaylorN8Elaphe65}
+  }
+~ 
+  \subfigure[$N=9$]{
+    \includegraphics[scale=0.06]{results/taylorStepsVar/elaphe65/9.png}
+    \label{fig:brdfmapsTaylorN9Elaphe65}
+  }
+  
+\caption{Elaphe grating at $65 \mu m$: $N$ Taylor Iterations}
+\label{fig:brdfmapstayloriterationselaphe65}
+\end{figure}
+
+
+Figure $\ref{fig:brdfmapsxenodiffthetaiangles}$ shows the BRDF maps of the full lambda shading approach applied on the Xenopeltis snake shed, using different $\theta_i$ incident angles.
 
 % brdf maps xeno angles
 \begin{figure}[H]
@@ -431,8 +446,9 @@ visually convergence taylor series for higher values for N.
     \includegraphics[scale=0.12]{results/different_theta_i_angles/xenopeltis/xeno_t_i=20.png}
     \label{fig:brdfmapXenoti20}
   }
-  \label{brdfmapsXenoDiffThetaIAngles}
-  \caption{BRDF maps for Xeno grating: different $\theta_i$ angles}
+  
+\caption{BRDF maps for Xeno grating: different $\theta_i$ angles}
+\label{fig:brdfmapsxenodiffthetaiangles}
 \end{figure}
 
 
