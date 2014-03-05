@@ -32,7 +32,7 @@ Xeno has a brownish body with no pattern that makes the iridescence more spectac
 
 
 \section{BRDF maps}
-In this section we examine the rendered output resulting by the implementation of our BRDF models applied on different input patches such as Blaze grating or Elaphe $\ref{fig:elpahespecies}$ and Xenopeltis $\ref{fig:xenospeicies}$ snake nano-scaled surface sheds. We going to discuss and compare both, their BRDF maps $\ref{fig:brdfmapexplanation}$ and the corresponding renderings on a snake geometry for various input parameters. Last we also show a real experimental image showing the effect of diffraction for similar parameters like we have. 
+In this chapter we examine the rendered output resulting by the implementation of our BRDF models applied on different input patches such as Blaze grating or Elaphe $\ref{fig:elpahespecies}$ and Xenopeltis $\ref{fig:xenospeicies}$ snake nano-scaled surface sheds. We going to discuss and compare both, their BRDF maps $\ref{fig:brdfmapexplanation}$ and the corresponding renderings on a snake geometry $\ref{sec:snakegeomrenderings}$ for various input parameters. Last we also show a real experimental image showing the effect of diffraction for similar parameters like we have. 
 A BRDF map shows a shader's output for all possible viewing directions for a given, fixed, incident light direction. We assume that each viewing direction is in spherical coordinates form $\ref{sec:sphericalcoordinates}$ $(\theta_v, \phi_v)$ and is represented in the map at point $(x,y) = (sin(\theta_v)cos(\phi_v), sin(\theta_v)sin(\phi_v))$ with its origin at the map-center. The light direction for normal incidence $(\theta_i, \phi_i)$ has been fixed to $(0,\pi)$ for our rendered results.
 
 \begin{figure}[H]
@@ -453,11 +453,15 @@ Figure $\ref{fig:brdfmapsxenodiffthetaiangles}$ shows the BRDF maps of the full 
 
 
 \section{Snake surface geometries}
+\label{sec:snakegeomrenderings}
 initially using fully lambda shader for those renderings, slow but accurate.
 
 diffraction colors change dramatically with changes in light direction, surface normals and viewing direction, which s typical for diffraction colors observed in nature.
 
 Mention resuolution of patches and their runtimes with used hardware - specify this hardware too.
+
+
+Figure $\ref{fig:renderingdifferentsnankegratings}$ shows renderings of full lambda sampling approach applied on a snake shaped mesh for different given input patches.
 
 \begin{figure}[H]
   \centering
@@ -475,10 +479,83 @@ Mention resuolution of patches and their runtimes with used hardware - specify t
     \includegraphics[scale=0.12]{results/snakerenderings/compars/xeno65.png}
     \label{fig:renderingXenoGrating}
   }
-  \label{renderingDifferentSnankeGratings}
-  \caption{Diffraction of different snake skin gratings rendered on a snake geometry}
+  
+\caption{Diffraction of different snake skin gratings rendered on a snake geometry}
+\label{fig:renderingdifferentsnankegratings}
 \end{figure}
 
+
+Figure $\ref{fig:renderingelaphe65}$ dsfsdf
+
+\begin{figure}[H]
+  \centering
+  \subfigure[Diffraction Patten]{
+    \includegraphics[scale=0.2]{results/snakerenderings/elaphe65/1.png}
+    \label{fig:renderingElaphe65DP}
+  }
+~
+  \subfigure[Diffraction + Texture]{
+    \includegraphics[scale=0.2]{results/snakerenderings/elaphe65/2.png}
+    \label{fig:renderingElaphe65DT}
+  }
+
+  \subfigure[Texture + Lightdir]{
+    \includegraphics[scale=0.12]{results/snakerenderings/elaphe65/3.png}
+    \label{fig:renderingElaphe65TL}
+  }
+~
+  \subfigure[Nanostructure]{
+    \includegraphics[scale=0.10]{results/snakerenderings/elaphe65/4.png}
+    \label{fig:renderingElaphe65NS}
+  }
+~ 
+  \subfigure[Fourier Transform]{
+    \includegraphics[scale=0.52]{results/snakerenderings/elaphe65/5.png}
+    \label{fig:renderingElaphe65FT}
+  }
+  
+\caption{Diffraction for Elaphe snake skin}
+\label{fig:renderingelaphe65}
+\end{figure}
+
+
+Figure $\ref{fig:renderingxeno65}$ dsfsdf
+
+
+\begin{figure}[H]
+  \centering
+  \subfigure[Diffraction Patten]{
+    \includegraphics[scale=0.2]{results/snakerenderings/xeno65/1.png}
+    \label{fig:renderingXeno65DP}
+  }
+~
+  \subfigure[Diffraction + Texture]{
+    \includegraphics[scale=0.2]{results/snakerenderings/xeno65/2.png}
+    \label{fig:renderingXeno65DT}
+  }
+
+  \subfigure[Texture + Lightdir]{
+    \includegraphics[scale=0.12]{results/snakerenderings/xeno65/3.png}
+    \label{fig:renderingXeno65TL}
+  }
+~
+  \subfigure[Nanostructure]{
+    \includegraphics[scale=0.075]{results/snakerenderings/xeno65/4.png}
+    \label{fig:renderingXeno65NS}
+  }
+~ 
+  \subfigure[Fourier Transform]{
+    \includegraphics[scale=0.52]{results/snakerenderings/xeno65/5.png}
+    \label{fig:renderingXeno65FT}
+  }
+  
+  
+  
+\caption{Diffraction for Xeno snake skin}
+\label{fig:renderingxeno65}
+\end{figure}
+
+Figure $\ref{fig:renderingdifferentzoomlevelselaphe}$ shows the diffraction pattern for a Elaphe snake shed for different zoom levels for fixed incident light and viewing direction using the full lambda sampling approach.
 
 \begin{figure}[H]
   \centering
@@ -511,9 +588,13 @@ Mention resuolution of patches and their runtimes with used hardware - specify t
     \includegraphics[scale=0.2]{results/snakerenderings/zoomIn/elaphe65/2.png}
     \label{fig:renderingZoomElaphe2}
   }
-  \label{renderingDifferentZoomLevelsElaphe}
-  \caption{Diffraction on Elaphe snake skin grating: Different camera zoom levels}
+  
+\caption{Diffraction on Elaphe snake skin grating: Different camera zoom levels}
+\label{fig:renderingdifferentzoomlevelselaphe}
 \end{figure}
+
+
+Figure $\ref{fig:renderingelaphelightrotations6}$ shows how the diffraction pattern changes when slightly moving the incident light direction. same to position, different from pos
 
 % first 3 move along x, next 3 move along y
 \begin{figure}[H]
@@ -548,79 +629,16 @@ Mention resuolution of patches and their runtimes with used hardware - specify t
     \label{fig:renderingElapheRotY6}
   }
   
-  \label{renderingElapheLightRotations6}
-  \caption{Diffraction on Elaphe snake skin grating: Different light directions}
+  
+\caption{Diffraction on Elaphe snake skin grating: Different light directions}
+\label{fig:renderingelaphelightrotations6}
 \end{figure}
 
-\begin{figure}[H]
-  \centering
-  \subfigure[Diffraction Patten]{
-    \includegraphics[scale=0.2]{results/snakerenderings/elaphe65/1.png}
-    \label{fig:renderingElaphe65DP}
-  }
-~
-  \subfigure[Diffraction + Texture]{
-    \includegraphics[scale=0.2]{results/snakerenderings/elaphe65/2.png}
-    \label{fig:renderingElaphe65DT}
-  }
-
-  \subfigure[Texture + Lightdir]{
-    \includegraphics[scale=0.12]{results/snakerenderings/elaphe65/3.png}
-    \label{fig:renderingElaphe65TL}
-  }
-~
-  \subfigure[Nanostructure]{
-    \includegraphics[scale=0.10]{results/snakerenderings/elaphe65/4.png}
-    \label{fig:renderingElaphe65NS}
-  }
-~ 
-  \subfigure[Fourier Transform]{
-    \includegraphics[scale=0.52]{results/snakerenderings/elaphe65/5.png}
-    \label{fig:renderingElaphe65FT}
-  }
-  
-  
-  \label{renderingElaphe65}
-  \caption{Diffraction for Elaphe snake skin}
-\end{figure}
-
-
-\begin{figure}[H]
-  \centering
-  \subfigure[Diffraction Patten]{
-    \includegraphics[scale=0.2]{results/snakerenderings/xeno65/1.png}
-    \label{fig:renderingXeno65DP}
-  }
-~
-  \subfigure[Diffraction + Texture]{
-    \includegraphics[scale=0.2]{results/snakerenderings/xeno65/2.png}
-    \label{fig:renderingXeno65DT}
-  }
-
-  \subfigure[Texture + Lightdir]{
-    \includegraphics[scale=0.12]{results/snakerenderings/xeno65/3.png}
-    \label{fig:renderingXeno65TL}
-  }
-~
-  \subfigure[Nanostructure]{
-    \includegraphics[scale=0.075]{results/snakerenderings/xeno65/4.png}
-    \label{fig:renderingXeno65NS}
-  }
-~ 
-  \subfigure[Fourier Transform]{
-    \includegraphics[scale=0.52]{results/snakerenderings/xeno65/5.png}
-    \label{fig:renderingXeno65FT}
-  }
-  
-  
-  \label{renderingXeno65}
-  \caption{Diffraction for Xeno snake skin}
-\end{figure}
-
+Figure $\ref{fig:experimentelaphe65}$ shows a photo of an experimental setup for demonstrating the effect of diffraction using a Elpahe snake grating. The exact parameters for the experimental setup are unknown. Nevertheless this image gives us an impression of how close our model is to the reality comparing it with our simulated results since we notice similar diffraction patterns for our simulated results using an Elaphe snake shed. 
 
 \begin{figure}[H]
   \includegraphics[scale=0.2]{results/experiment/elaphe/g2.png}
-  \label{renderingVsExperimentElaphe65}
   \caption{Diffraction Elaphe: experimental setup}
+  \label{fig:experimentelaphe65}
 \end{figure}
 
