@@ -164,9 +164,24 @@ We will plot this matrix and compare its graph against the grating equation for 
 \label{fig:evaluationdiffshaderalllambda}
 \end{figure}
 
-In this discuss the quality of our BRDF models applied to different surface structures. For that purpose we compare the resulting relative reflectance computed as described in section $\ref{sec:evalprecomp}$ for each of our BRDF models to the idealized grating equation $\ref{eq:gratingeq}$. 
+In this section we discuss the quality of our BRDF models applied to different surface structures. For that purpose we compare the resulting relative reflectance computed as described in section $\ref{sec:evalprecomp}$ for each of our BRDF models to the idealized grating equation $\ref{eq:gratingeq}$. 
 
-Figure $\ref{fig:evaluationdiffshaderalllambda}$ shows the reflectance graphs resulting by the shading approach of sampling the whole lambda space descriped in algorithm $\ref{alg:fragmentshaderall}$. This evaluation has been applied to different idealized periodic structures, namely to the Blaze- $\ref{fig:blazeval}$, Elaphe- $\ref{fig:elapheeval}$ and Xenopeltis-grating $\ref{fig:xenopeltiseval}$, using an illumination angle $\theta_i = 75$ degrees. Note that higher response values are plotted in yellow and lower values in green. For each of the graphs we determine the viewing angles with peak reflectance for various wavelengths and then plot this peak viewing angles against their wavelength as solid red curves. The blue curve represents diffraction angles for an idealized periodic structure with a certain periodicity $d$ according to the grating equation $\ref{eq:gratingeq}$. The corresponding periodicity for every grating structure is estimated using the precomputed response data using again the grating equation. 
+\begin{table}[H]
+  \centering
+  \begin{tabular}{| l | c | r |}
+    \hline                       
+    Patch & Mean[mm] & Variance[mm] \\
+    \hline
+    Blazed grating $\ref{fig:blazegratingpatch}$ & 2500.34 & 0.16 \\
+    Elaphe grating $\ref{fig:elpahegratingpatch}$ & 1144.28 & 0.15 \\
+    Xenopeltis grating $\ref{fig:xenogratingpatch}$ & 1552.27 & 0.45 \\
+    \hline  
+  \end{tabular}
+\caption{Statistics of periodicity $d$ of our used gratings $\ref{fig:gratingpatches}$ estimated by using the grating equation $\ref{eq:gratingeq}$. This table was provided by Mr. D.Singh.}
+\label{tab:gratingsmeanvariance}
+\end{table}
+
+Figure $\ref{fig:evaluationdiffshaderalllambda}$ shows the reflectance graphs resulting by the shading approach of sampling the whole lambda space descriped in algorithm $\ref{alg:fragmentshaderall}$. This evaluation has been applied to different idealized periodic structures, namely to the Blaze- $\ref{fig:blazeval}$, Elaphe- $\ref{fig:elapheeval}$ and Xenopeltis-grating $\ref{fig:xenopeltiseval}$, using an illumination angle $\theta_i = 75$ degrees. Note that higher response values are plotted in yellow and lower values in green. For each of the graphs we determine the viewing angles with peak reflectance for various wavelengths and then plot this peak viewing angles against their wavelength as solid red curves. The blue curve represents diffraction angles for an idealized periodic structure with a certain periodicity $d$ according to the grating equation $\ref{eq:gratingeq}$. The corresponding periodicity for every grating structure is estimated using the precomputed response data using again the grating equation and are tabulated in table $\ref{tab:gratingsmeanvariance}$. 
 
 The red and blue curve are closely overlapping in our figures $\ref{fig:blazeval}$ and $\ref{fig:elapheeval}$. For Blaze and Elaphe there is only diffraction along only along one direction perceivable. Since the Blazed grating is synthetic we use its exact periodicity to plot the blue curve instead of estimating it. The Xenopeltis grating is evaluated just along the direction for the finger like structures. For Xenopeltis it is interesting to see that the red curve for the peak viewing angle toggles between two ridges corresponding to two different periodicities. this happens because there are multiple sub regions of the nanostructure with slightly different orientations and periodicity. Each sub region carves out a different yellowish ridge. depending on the viewing angle, reflectance due to one such subregion can be higher than from the others.
 
