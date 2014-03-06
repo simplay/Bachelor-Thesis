@@ -120,7 +120,7 @@ Last, let us consider figure $\ref{fig:brdfmapblazegem}$ which shows the BRDF ma
 \label{fig:brdfmapsdiffrenderingapproaches}
 \end{figure}
 
-Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdifflambdastepselaphe65}$ show the BRDF maps for different wavelength step sizes used in the fragment shader for the full lambda space sampling approach applied on the Blaze grating and the Elpahe snake shed, respectively. Within our fragment shaders the most outer loop iterate over the range $[380nm, 700nm]$ for fixed step sizes $\lambda_{step}$ which basically constitutes the integration over the wavelength spectrum. Therefore, having bigger step sizes implies having fewer step sizes which will fasten up the overall runtime of a shader but will also introduce artifacts and therefore lower the overall shading qualtity. For Elaphe surface grating, artifacts are perceptional arising when $\lambda_{step} \leq 10nm$. Results produced by using $5nm$ step sizes do not differ from those produced by using $\lambda_{step}= 1nm$ which allows us to set $\lambda_{step}$ equal 5nm. For a Blazed grating we may chose even bigger step sized without losing any rendering quality.   
+Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdifflambdastepselaphe65}$ show the BRDF maps for different wavelength step sizes used in the fragment shader for the full lambda space sampling approach applied on the Blaze grating and the Elpahe snake shed, respectively. Within our fragment shaders the most outer loop iterate over the range $[380nm, 780nm]$ for fixed step sizes $\lambda_{step}$ which basically constitutes the integration over the wavelength spectrum. Therefore, having bigger step sizes implies having fewer step sizes which will fasten up the overall runtime of a shader but will also introduce artifacts and therefore lower the overall shading qualtity. For Elaphe surface grating, artifacts are perceptional arising when $\lambda_{step} \leq 10nm$. Results produced by using $5nm$ step sizes do not differ from those produced by using $\lambda_{step}= 1nm$ which allows us to set $\lambda_{step}$ equal 5nm. For a Blazed grating we may chose even bigger step sized without losing any rendering quality.   
 
 % blaze steps
 \begin{figure}[H]
@@ -197,7 +197,7 @@ Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdif
 \end{figure}
 
 
-The Figures $\ref{fig:pqblaze}$, $\ref{fig:pqxeno}$, $\ref{fig:pqelaphe}$ show a comparison of the BRDF maps produced by full lambda space sampling approach (on the left) and the PQ shading approach (on the right) applied on all our patches. For Blazed grating, as already mentioned, we notice that both approaches resemble each other. We also notice that for PQ map, the first order diffraction color contribution is spread. For Elaphe and Xenopeltis grating we notice similar shaped BRDF patterns, even when the angle of light varies, but nevertheless, they also contain some artifacts. This also holds true for 
+The Figures $\ref{fig:pqblaze}$, $\ref{fig:pqxeno}$, $\ref{fig:pqelaphe}$ show a comparison of the BRDF maps produced by full lambda space sampling approach (on the left) and the PQ shading approach (on the right) applied on all our patches. For Blazed grating, as already mentioned, we notice that both approaches resemble each other. We also notice that for PQ map, the first order diffraction color contribution is spread. For Elaphe and Xenopeltis grating we notice similar shaped BRDF patterns, even when the angle of light varies, but nevertheless, they also contain some artifacts. This also holds true when we linearly interpolate instead relying on sinc-interpolation.
 
 %pq blaze
 \begin{figure}[H]
@@ -276,8 +276,7 @@ The Figures $\ref{fig:pqblaze}$, $\ref{fig:pqxeno}$, $\ref{fig:pqelaphe}$ show a
 \label{fig:pqxeno}
 \end{figure}
 
-Figure $\ref{fig:brdfmapsdiffsigmasizeblaze}$ shows BRDF map for full lambda sampling approach applied on the Blaze grating, varying the value for the spacial variance $\sigma_s$.
-blaze grating lower coherence length, fewer interacting grating periods, produce blurred diffraction bands for different lambda which overlap to produce poorly resolved colors.
+Figure $\ref{fig:brdfmapsdiffsigmasizeblaze}$ shows BRDF map for the full lambda sampling approach applied on the Blaze grating, varying the value for the spacial variance $\sigma_s$. This is similar to consider the output of different coherence lengths for our incident light. The lower the coherence length, the fewer interacting grating periods produce produce blurred diffraction bands for different $\lambda$ which overlap to produce poorly resolved colors.
 
 %sigma var
 \begin{figure}[H]
@@ -318,6 +317,7 @@ blaze grating lower coherence length, fewer interacting grating periods, produce
 \end{figure}
 
 The figures $\ref{fig:brdfmapstayloriterationsblaze}$ and $\ref{fig:brdfmapstayloriterationselaphe65}$ show the BRDF maps of the full lambda space approach using different values for $N$ used for the taylor series approximation used within our fragment shaders. For both input patches we clearly visually observe the convergence of the taylor series for higher values for N.
+We visually observe convergence of the Taylor series for all our from a certain value of $N$. In section $\ref{sec:taylorapproximation}$ we already provided a proof for the convergence for a specific geometrical set up which could be applied easily to another setup. The higher the value of $N$ the less the BRDF map changes. For the Blazed grating, we do not see much changing patterns for $N \geq 7$ and for the Elaphe surface grating $N \geq 9$. In general it is rather hard to say for what value of $N$ we have visual convergence since in algorithm $\ref{alg:matlabprecomp}$ we compute the inverse FFT of $power(1j*patchImg, t)$ which is equivalent to $iFFT(patchImg)^n \cdot i^n$. Since we multiply this by $i^n$ there are four possible series where each converges within its own convergence radius.
 
 %taylor var blaze
 \begin{figure}[H]
