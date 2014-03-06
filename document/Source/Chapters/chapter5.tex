@@ -1,14 +1,4 @@
 \chapter{Results}
-
-mention system specs and how long it took in order to precompute
-
-the elapse does not look that regular under the electron scanning microscope. This is why it is much less iridescent than the other specie.
-
-In addition, the micro-geometry is highly similar among snake species, it is the geometry of the nanostructures that are highly different among species and that cause the snake to be or not be iridescent. So, even Xenopeltis would not give you very different geometry than Elaphe.
-
-Xeno has a brownish body with no pattern that makes the iridescence more spectacular than on Ellaphe
-
-
 \section{BRDF maps}
 In this chapter we examine the rendered output resulting by the implementation of our BRDF models applied on different input patches such as Blaze grating or Elaphe $\ref{fig:elpahespecies}$ and Xenopeltis $\ref{fig:xenospeicies}$ snake nano-scaled surface sheds. We going to discuss and compare both, their BRDF maps $\ref{fig:brdfmapexplanation}$ and the corresponding renderings on a snake geometry $\ref{sec:snakegeomrenderings}$ for various input parameters. Last we also show a real experimental image showing the effect of diffraction for similar parameters like we have. 
 A BRDF map shows a shader's output for all possible viewing directions for a given, fixed, incident light direction. We assume that each viewing direction is in spherical coordinates form $\ref{sec:sphericalcoordinates}$ $(\theta_v, \phi_v)$ and is represented in the map at point $(x,y) = (sin(\theta_v)cos(\phi_v), sin(\theta_v)sin(\phi_v))$ with its origin at the map-center. The light direction for normal incidence $(\theta_i, \phi_i)$ has been fixed to $(0,\pi)$ for our rendered results.
@@ -435,7 +425,7 @@ We visually observe convergence of the Taylor series for all our from a certain 
 \end{figure}
 
 
-Figure $\ref{fig:brdfmapsxenodiffthetaiangles}$ shows the BRDF maps of the full lambda shading approach applied on the Xenopeltis snake shed, using different $\theta_i$ incident angles.
+Figure $\ref{fig:brdfmapsxenodiffthetaiangles}$ shows the BRDF maps of the full lambda shading approach applied on the Xenopeltis snake shed, using different $\theta_i$ incident angles. When slightly moving the incident angle $\theta_i$, we can observe how the brdf map changes. For higher values of $\theta_i$ we start seeing diffraction color contribution on the right side of the BRDF map. 
 
 % brdf maps xeno angles
 \begin{figure}[H]
@@ -459,33 +449,32 @@ Figure $\ref{fig:brdfmapsxenodiffthetaiangles}$ shows the BRDF maps of the full 
 \label{fig:brdfmapsxenodiffthetaiangles}
 \end{figure}
 
-
 \section{Snake surface geometries}
 \label{sec:snakegeomrenderings}
-initially using fully lambda shader for those renderings, slow but accurate.
+In this section we are going to present our actual renderings simulating the effect of diffraction caused when a directional light source encounters different nano-scaled surfaces on a given curved snake mesh. We will see that diffraction colors change dramatically with changes in light direction, surface normals and viewing direction, which s typical for diffraction colors observed in nature. For rendering we are going to rely on our full wavelength space sampling approach. Unfortunately, this approach is rather slow and can barely be considered as being interactive performing. Nevertheless, we have introduced some optimizations in oder to become interactive in rendering, such as the $N_{min}, N_{max}$ approach, we are going to use this slow approach since this resembles the ground truth and therefore is the most accurate among all our presented approaches. As mentioned we are going to render diffraction on a given snake mesh. Note that we actually just have one particular mesh,  For all our renderings we are going to use the same snake mesh which has been produced by 3d scanning an Elpahe snake species. The reason for that is that it was hard to get a Xenopeltis snake ready for being 3d scanned. In addition, the micro-geometry is highly similar among snake species, it is the geometry of the nanostructures that are highly different among species and that cause the snake to be or not be iridescent. So, even Xenopeltis would not give you very different geometry than Elaphe.
 
-diffraction colors change dramatically with changes in light direction, surface normals and viewing direction, which s typical for diffraction colors observed in nature.
+Systemspecifications listed in table bla
+mention mesh size
+path resolutions
 
-Mention resuolution of patches and their runtimes with used hardware - specify this hardware too.
 
-
-Figure $\ref{fig:renderingdifferentsnankegratings}$ shows renderings of full lambda sampling approach applied on a snake shaped mesh for different given input patches.
-
+Figure $\ref{fig:renderingdifferentsnankegratings}$ shows renderings produced by the full lambda sampling approach applied on a snake shaped mesh for different given input patches. Due do the fact that a blazed grating has its maximum intensity for a certain direction and the geometry of the snake mesh is curved which means non-flat, we can expect rather less diffraction color contribution like shown in figure $\ref{fig:renderingelaphegrating}$. Differently for our other two gratings, Elaphe and Xenopeltis. For both renderings, we can see color contribution despite the effect of diffraction whereas we see much less colorful patterns for Elpahe $\ref{fig:renderingelaphegrating}$ than for Xenopeltis $\ref{fig:renderingxenograting}$. This also corresponds to the reality, considering the figure $\ref{fig:snakespecies}$ as a reference. The nano-scaled surface structure of the species Elapse as shwon in figure $\ref{fig:elpahegratingpatch}$ does not look that regular under the electron scanning microscope. This is why it is much less iridescent than the other specie. Xeno has a brownish body with no pattern that makes the iridescence more spectacular than on Ellaphe.
+ 
 \begin{figure}[H]
   \centering
   \subfigure[Blaze grating]{
     \includegraphics[scale=0.12]{results/snakerenderings/compars/blaze.png}
-    \label{fig:renderingBlazeGrating}
+    \label{fig:renderingblazegrating}
   }
 ~
   \subfigure[Elaphe grating]{
     \includegraphics[scale=0.12]{results/snakerenderings/compars/elaphe65.png}
-    \label{fig:renderingElapheGrating}
+    \label{fig:renderingelaphegrating}
   }
 ~
   \subfigure[Xeno grating]{
     \includegraphics[scale=0.12]{results/snakerenderings/compars/xeno65.png}
-    \label{fig:renderingXenoGrating}
+    \label{fig:renderingxenograting}
   }
   
 \caption{Diffraction of different snake skin gratings rendered on a snake geometry}
