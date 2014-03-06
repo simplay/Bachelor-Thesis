@@ -197,8 +197,7 @@ Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdif
 \end{figure}
 
 
-The Figures $\ref{fig:pqblaze}$, $\ref{fig:pqxeno}$, $\ref{fig:pqelaphe}$ show a comparison of the BRDF maps produced by full lambda space sampling approach (on the left) and the PQ shading approach (on the right) applied on all our patches. 
-see similarities but also differences RERENDER PQ
+The Figures $\ref{fig:pqblaze}$, $\ref{fig:pqxeno}$, $\ref{fig:pqelaphe}$ show a comparison of the BRDF maps produced by full lambda space sampling approach (on the left) and the PQ shading approach (on the right) applied on all our patches. For Blazed grating, as already mentioned, we notice that both approaches resemble each other. We also notice that for PQ map, the first order diffraction color contribution is spread. For Elaphe and Xenopeltis grating we notice similar shaped BRDF patterns, even when the angle of light varies, but nevertheless, they also contain some artifacts. This also holds true for 
 
 %pq blaze
 \begin{figure}[H]
@@ -220,6 +219,24 @@ see similarities but also differences RERENDER PQ
   
 \caption{Blaze grating: PQ approach vs full lambda space sampling}
 \label{fig:pqblaze}
+\end{figure}
+
+%pq elaphe
+\begin{figure}[H]
+  \centering
+  \subfigure[Full Lambda Sampling: Elaphe grating]{
+    \includegraphics[scale=0.2]{results/PQapproach_vs_sampleAll/elaphe/elaph65.png}
+    \label{fig:fullLambdaElaphe}
+  }
+~
+  \subfigure[PQ Approach: Elaphe grating]{
+    \includegraphics[scale=0.2]{results/PQapproach_vs_sampleAll/elaphe/pq.png}
+    \label{fig:pqElaphe}
+  }
+
+  
+\caption{Elaphe grating: PQ approach vs full lambda space sampling}
+\label{fig:pqelaphe}
 \end{figure}
 
 %pq xeno
@@ -258,25 +275,6 @@ see similarities but also differences RERENDER PQ
 \caption{Xeno grating: PQ approach vs full lambda space sampling}
 \label{fig:pqxeno}
 \end{figure}
-
-%pq elaphe
-\begin{figure}[H]
-  \centering
-  \subfigure[Full Lambda Sampling: Elaphe grating]{
-    \includegraphics[scale=0.2]{results/PQapproach_vs_sampleAll/elaphe/elaph65.png}
-    \label{fig:fullLambdaElaphe}
-  }
-~
-  \subfigure[PQ Approach: Elaphe grating]{
-    \includegraphics[scale=0.2]{results/PQapproach_vs_sampleAll/elaphe/pq.png}
-    \label{fig:pqElaphe}
-  }
-
-  
-\caption{Elaphe grating: PQ approach vs full lambda space sampling}
-\label{fig:pqelaphe}
-\end{figure}
-
 
 Figure $\ref{fig:brdfmapsdiffsigmasizeblaze}$ shows BRDF map for full lambda sampling approach applied on the Blaze grating, varying the value for the spacial variance $\sigma_s$.
 blaze grating lower coherence length, fewer interacting grating periods, produce blurred diffraction bands for different lambda which overlap to produce poorly resolved colors.
