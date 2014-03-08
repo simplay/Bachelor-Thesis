@@ -55,13 +55,13 @@
 \contentsline {chapter}{\numberline {5}Results}{55}{chapter.5}
 \contentsline {section}{\numberline {5.1}BRDF maps}{55}{section.5.1}
 \contentsline {section}{\numberline {5.2}Snake surface geometries}{64}{section.5.2}
-\contentsline {chapter}{\numberline {6}Conclusion}{69}{chapter.6}
-\contentsline {section}{\numberline {6.1}Further Work}{69}{section.6.1}
-\contentsline {section}{\numberline {6.2}Acknowledgment}{69}{section.6.2}
-\contentsline {chapter}{\numberline {A}Appendix}{70}{appendix.A}
-\contentsline {section}{\numberline {A.1}Schlick's approximation}{70}{section.A.1}
-\contentsline {section}{\numberline {A.2}Spherical Coordinates}{70}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{71}{section.A.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{71}{appendix*.70}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{74}{appendix*.71}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{75}{appendix*.72}
+\contentsline {chapter}{\numberline {6}Conclusion}{71}{chapter.6}
+\contentsline {section}{\numberline {6.1}Further Work}{71}{section.6.1}
+\contentsline {section}{\numberline {6.2}Acknowledgment}{71}{section.6.2}
+\contentsline {chapter}{\numberline {A}Appendix}{72}{appendix.A}
+\contentsline {section}{\numberline {A.1}Schlick's approximation}{72}{section.A.1}
+\contentsline {section}{\numberline {A.2}Spherical Coordinates}{72}{section.A.2}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{73}{section.A.2}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{73}{appendix*.70}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{76}{appendix*.71}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{77}{appendix*.72}
