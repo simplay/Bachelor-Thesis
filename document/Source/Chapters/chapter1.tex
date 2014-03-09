@@ -1,11 +1,17 @@
+pewpew $\cite{diffstam}$ and pewpew $\cite{diffourp}$ aa $\cite{fundcg}$ bbb $\cite{ana3}$  aa $\cite{fosa}$
+
 \chapter{Introduction}
 \section{Motivation}
-In Nature, coloring mostly comes from the inherent colors of materials but sometimes colorization has a pure physical origin such as the effect diffraction or interference of light. Both phenomenon are causing the so called structural coloration, which is the production of color through the interaction of visible light with micrioscopically structured surfaces. 
-Color production is die to wave interference with quasiperiodic structures whose periodicity leads to interaction with visible light. Therefore we perceive color when the different wavelengths composing white light are selectively interfered with by matter (absorbed, reflected, refracted, scattered, or diffracted) on their way to our eyes, or when a non-white distribution of light has been emitted.
-In animals, such as feathers of birds and the scales of butterflies, interference is created by a range of photonic mechanisms, including diffraction grating, selective mirrors, photonic crystals.
-The connection beween microscopic structures and coloration has been observed by Robert Hooke in the early seventeenth centrury. The discovery of the wave nature of light led to the conclusion that the cause for the coloration lies in wave interference.
+% In Nature, coloring mostly comes from the inherent colors of materials but sometimes colorization has a pure physical origin such as the effect diffraction or interference of light. Both phenomenon are causing the so called structural coloration, which is the production of color through the interaction of visible light with micrioscopically structured surfaces. 
+% Color production is die to wave interference with quasiperiodic structures whose periodicity leads to interaction with visible light. Therefore we perceive color when the different wavelengths composing white light are selectively interfered with by matter (absorbed, reflected, refracted, scattered, or diffracted) on their way to our eyes, or when a non-white distribution of light has been emitted.
+% In animals, such as feathers of birds and the scales of butterflies, interference is created by a range of photonic mechanisms, including diffraction grating, selective mirrors, photonic crystals.
+% The connection beween microscopic structures and coloration has been observed by Robert Hooke in the early seventeenth centrury. The discovery of the wave nature of light led to the conclusion that the cause for the coloration lies in wave interference.
+% 
+% In the field of computer graphics, many researchers have been attempted rendering of structural colors by formulating a the bidirectional reflectance distribution function (BRDF) for this purpose. But most of the techniques so far, however, are either too slow for interactive rendering or rely on simplifying assumption, like modeling light as rays, to achieve real-time performance, which are not able capturing the essence of diffraction at all. 
 
-In the field of computer graphics, many researchers have been attempted rendering of structural colors by formulating a the bidirectional reflectance distribution function (BRDF) for this purpose. But most of the techniques so far, however, are either too slow for interactive rendering or rely on simplifying assumption, like modeling light as rays, to achieve real-time performance, which are not able capturing the essence of diffraction at all. 
+
+
+
 
 \begin{figure}[H]
   \centering
@@ -37,17 +43,17 @@ The contribution is that this approach is more broadly applicable than the previ
 
 
 \section{Previous work}
-stam, hooke, see our paper, see stams paper, see own research.
-
-
-Robert Hooke = observed connection between microscopic structures and colorisation
-wave nature of light led to conclusion that the cause for the coloration lies in wave interference.
-
-previous
-
-In computer graphics literature, Stam was the first to develop reflection models based on wave optics called diffraction shaders, that can produce colorful diffraction effects. His approach is based on a far field approximation of the Kirchhof integral. He shows that for surfaces representeted as nanoscale heightfieds it is possible to derive their BRDF as the Fourier transformation of a function of the heightfield. Nevetheless, this formulation is not immediately useful for efficent rendering of measured complex nanostructures since this would require the on-the-fly evaluation of and and integration over Fourier transforms of the heightfield that depend on the light and viewing geometry. In his derivations, Stam models heightfields as probabilistic superpositions of bumps forming periodic like structures. This provides him an analytical identity for this class of heightfields. However, boplogocal nanostructures are way more complex and do not lend themself to this simplified statistical model.
-
-follow ups
+% stam, hooke, see our paper, see stams paper, see own research.
+% 
+% 
+% Robert Hooke = observed connection between microscopic structures and colorisation
+% wave nature of light led to conclusion that the cause for the coloration lies in wave interference.
+% 
+% previous
+% 
+% In computer graphics literature, Stam was the first to develop reflection models based on wave optics called diffraction shaders, that can produce colorful diffraction effects. His approach is based on a far field approximation of the Kirchhof integral. He shows that for surfaces representeted as nanoscale heightfieds it is possible to derive their BRDF as the Fourier transformation of a function of the heightfield. Nevetheless, this formulation is not immediately useful for efficent rendering of measured complex nanostructures since this would require the on-the-fly evaluation of and and integration over Fourier transforms of the heightfield that depend on the light and viewing geometry. In his derivations, Stam models heightfields as probabilistic superpositions of bumps forming periodic like structures. This provides him an analytical identity for this class of heightfields. However, boplogocal nanostructures are way more complex and do not lend themself to this simplified statistical model.
+% 
+% follow ups
 
 
 \section{Overview}
