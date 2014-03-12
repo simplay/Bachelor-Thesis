@@ -207,7 +207,7 @@ The mathematical representation of the camera matrix, using the helper vectors i
 C = \begin{bmatrix} x_c & y_c & z_c & e \\ 0 & 0 & 0 & 1 \end{bmatrix}
 \end{equation}
 
-All vertex shader output will be used within the fragment shader $\ref{sec:fragmentshader}$. In our vertex shader we also compute for every vertex in our current geometry the direction vectors $\omega_i$ and $\omega_r$ described like in figure $\ref{fig:geometricsetup}$. Those direction vectors are transformed onto the tangent space, a local coordinate system spanned by a vertex's normal, tangent and binormal vector. The algorithm $\ref{alg:vertexshader}$ stated below shows our vertex shader.
+All vertex shader output will be used within the fragment shader $\ref{sec:fragmentshader}$. In our vertex shader we also compute for every vertex in our current geometry the direction vectors $\omega_i$ and $\omega_r$ described like in figure $\ref{fig:geometricsetup}$. Those direction vectors are transformed onto the tangent space, a local coordinate system spanned by a vertex's normal, tangent and binormal vector. Have a look at the appendix $\ref{sec:tangentspace}$ for further information and insight about the tangent space. The algorithm $\ref{alg:vertexshader}$ stated below shows our vertex shader.
   
 \begin{algorithm}[H]
   \caption{Vertex diffraction shader}

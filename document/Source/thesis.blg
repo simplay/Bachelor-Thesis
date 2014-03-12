@@ -2,6 +2,11 @@ This is BibTeX, Version 0.99d (TeX Live 2013)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis.aux
 A level-1 auxiliary file: Chapters/chapter1.aux
+A level-1 auxiliary file: Chapters/chapter2.aux
+A level-1 auxiliary file: Chapters/chapter3.aux
+A level-1 auxiliary file: Chapters/chapter4.aux
+A level-1 auxiliary file: Chapters/chapter5.aux
+A level-1 auxiliary file: Chapters/chapter6.aux
 A level-1 auxiliary file: Chapters/appendix.aux
 The style file: alphadin.bst
 Reallocated singl_function (elt_size=4) to 100 items from 50.
@@ -12,7 +17,7 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: thesis.bib
 You've used 8 entries,
             4793 wiz_defined-function locations,
-            938 strings with 7054 characters,
+            943 strings with 7159 characters,
 and the built_in function-call counts, 4408 in all, are:
 = -- 457
 > -- 64
