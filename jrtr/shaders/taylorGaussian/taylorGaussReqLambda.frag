@@ -474,7 +474,7 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 	}
 	
 	float dist2Zero = sqrt(uu*uu + vv*vv);
-	float epsSQT = 0.02;
+	float epsSQT = 0.015;
 	// heuristics
 	if(dist2Zero <= epsSQT){
 		opVal.x = 1.0;
@@ -482,7 +482,7 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 		opVal.z = 1.0;
 	}else{
 		float maskStep = (1.0/mask);
-		if(dist2Zero <= epsSQT+0.08){
+		if(dist2Zero <= epsSQT+0.07){
 			float newMask = mask*10.0;
 			maskStep = (1.0/newMask);
 			N_u = compute_N_min_max_own_mask(uu, newMask);
@@ -651,7 +651,7 @@ void main(){
 	float ww = k1.z - k2.z;
 
 	vec3 totalXYZ  = getRawXYZFromTaylorSeries( uu, vv, ww);
-	totalXYZ = totalXYZ * gainF(k1, k2)*100;
+	totalXYZ = totalXYZ * gainF(k1, k2)*10;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
 	
 	if (isnan(totalXYZ.x *totalXYZ.y *totalXYZ.z)){
