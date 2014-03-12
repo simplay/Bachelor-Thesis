@@ -87,27 +87,27 @@ Last, let us consider figure $\ref{fig:brdfmapblazegem}$ which shows the BRDF ma
 % brdf maps patches
 \begin{figure}[H]
   \centering
-  \subfigure[ALL lambda]{
+  \subfigure[FLSS]{
     \includegraphics[scale=0.09]{results/diffPatches/fftBlazeHeight_0.25Microns_allL_weak_scale.png}
     \label{fig:brdfmapblazeallLambda}
   }
 ~
-  \subfigure[Nmin Nmax]{
-    \includegraphics[scale=0.09]{results/methodComp/gem.png}
+  \subfigure[NMMS]{
+    \includegraphics[scale=0.09]{results/methodComp/blazedNMMS.png}
     \label{fig:brdfmapblazeonlyreq}
   }
 ~
-  \subfigure[PQ]{
-    \includegraphics[scale=0.09]{results/PQapproach_vs_sampleAll/blaze/pq.png}
+  \subfigure[PQ with Sinc-Interpolation]{
+    \includegraphics[scale=0.09]{results/methodComp/pqsincinterpol}
     \label{fig:brdfmapblazepq}
   }
 ~
-  \subfigure[Gem]{
+  \subfigure[Nvidia Gem's Approach]{
     \includegraphics[scale=0.09]{results/methodComp/gem.png}
     \label{fig:brdfmapblazegem}
   }
     
-\caption{BRDF maps for Blaze grating comparing our different rendering apporaches}
+\caption{BRDF maps for Blazed grating comparing our different rendering approaches}
 \label{fig:brdfmapsdiffrenderingapproaches}
 \end{figure}
 
@@ -146,7 +146,7 @@ Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdif
     \label{fig:brdfmapsDiffLambdaStepsL100Blaze}
   }
   
-\caption{Blaze grating at $2.5 \mu m$: Different $\lambda$ step sizes}
+\caption{Blazed grating at $2.5 \mu m$: Different $\lambda$ step sizes}
 \label{fig:brdfmapsdifflambdastepsblaze}
 \end{figure}
 
@@ -193,22 +193,22 @@ The Figures $\ref{fig:pqblaze}$, $\ref{fig:pqxeno}$, $\ref{fig:pqelaphe}$ show a
 %pq blaze
 \begin{figure}[H]
   \centering
-  \subfigure[Full Lambda Sampling: Blaze grating]{
+  \subfigure[Full Lambda Sampling: Blazed grating]{
     \includegraphics[scale=0.12]{results/PQapproach_vs_sampleAll/blaze/fftBlazeHeight_0.25Microns_allL_weak_scale_g=1.1.png}
     \label{fig:fullLambdaBlaze}
   }
 ~
-  \subfigure[Full Lambda Sampling brightened: Blaze grating]{
+  \subfigure[Full Lambda Sampling brightened: Blazed grating]{
             \includegraphics[scale=0.12]{results/PQapproach_vs_sampleAll/blaze/fftBlazeHeight_0.25Microns_allL_weak_scale_g=2.2_scale=100.png}
     \label{fig:fullLambdaBrightenedBlaze}
   }
 ~
-  \subfigure[PQ Approach: Blaze grating]{
+  \subfigure[PQ Approach: Blazed grating]{
     \includegraphics[scale=0.12]{results/PQapproach_vs_sampleAll/blaze/pq.png}
     \label{fig:pqBlaze}
   }
   
-\caption{Blaze grating: PQ approach vs full lambda space sampling}
+\caption{Blazed grating: PQ approach vs full lambda space sampling}
 \label{fig:pqblaze}
 \end{figure}
 
@@ -267,7 +267,7 @@ The Figures $\ref{fig:pqblaze}$, $\ref{fig:pqxeno}$, $\ref{fig:pqelaphe}$ show a
 \label{fig:pqxeno}
 \end{figure}
 
-Figure $\ref{fig:brdfmapsdiffsigmasizeblaze}$ shows BRDF map for the full lambda sampling approach applied on the Blaze grating, varying the value for the spacial variance $\sigma_s$. This is similar to consider the output of different coherence lengths for our incident light. The lower the coherence length, the fewer interacting grating periods produce produce blurred diffraction bands for different $\lambda$ which overlap to produce poorly resolved colors.
+Figure $\ref{fig:brdfmapsdiffsigmasizeblaze}$ shows BRDF map for the full lambda sampling approach applied on the Blazed grating, varying the value for the spacial variance $\sigma_s$. This is similar to consider the output of different coherence lengths for our incident light. The lower the coherence length, the fewer interacting grating periods produce produce blurred diffraction bands for different $\lambda$ which overlap to produce poorly resolved colors.
 
 %sigma var
 \begin{figure}[H]
@@ -303,7 +303,7 @@ Figure $\ref{fig:brdfmapsdiffsigmasizeblaze}$ shows BRDF map for the full lambda
   }
   
   
-\caption{Blaze grating at $2.5 \mu m$: Different $\sigma_s$ sizes}
+\caption{Blazed grating at $2.5 \mu m$: Different $\sigma_s$ sizes}
 \label{fig:brdfmapsdiffsigmasizeblaze}
 \end{figure}
 
@@ -364,7 +364,7 @@ We visually observe convergence of the Taylor series for all our from a certain 
   }
   
   
-\caption{Blaze grating at $2.5 \mu m$: $N$ Taylor Iterations}
+\caption{Blazed grating at $2.5 \mu m$: $N$ Taylor Iterations}
 \label{fig:brdfmapstayloriterationsblaze}
 \end{figure}
 
@@ -467,11 +467,11 @@ In this section we are going to present our actual renderings simulating the eff
 \label{tab:hardwarespecifications}
 \end{table}
 
-Figure $\ref{fig:renderingdifferentsnankegratings}$ shows renderings produced by the full lambda sampling approach applied on a snake shaped mesh for different given input patches. Due do the fact that a blazed grating has its maximum intensity for a certain direction and the geometry of the snake mesh is curved which means non-flat, we can expect rather less diffraction color contribution like shown in figure $\ref{fig:renderingelaphegrating}$. Differently for our other two gratings, Elaphe and Xenopeltis. For both renderings, we can see color contribution despite the effect of diffraction whereas we see much less colorful patterns for Elpahe $\ref{fig:renderingelaphegrating}$ than for Xenopeltis $\ref{fig:renderingxenograting}$. This also corresponds to the reality, considering the figure $\ref{fig:snakespecies}$ as a reference. The nano-scaled surface structure of the species Elapse as shwon in figure $\ref{fig:elpahegratingpatch}$ does not look that regular under the electron scanning microscope. This is why it is much less iridescent than the other specie. Xeno has a brownish body with no pattern that makes the iridescence more spectacular than on Ellaphe. 
+Figure $\ref{fig:renderingdifferentsnankegratings}$ shows renderings produced by the full lambda sampling approach applied on a snake shaped mesh for different given input patches. Due do the fact that a Blazed grating has its maximum intensity for a certain direction and the geometry of the snake mesh is curved which means non-flat, we can expect rather less diffraction color contribution like shown in figure $\ref{fig:renderingelaphegrating}$. Differently for our other two gratings, Elaphe and Xenopeltis. For both renderings, we can see color contribution despite the effect of diffraction whereas we see much less colorful patterns for Elpahe $\ref{fig:renderingelaphegrating}$ than for Xenopeltis $\ref{fig:renderingxenograting}$. This also corresponds to the reality, considering the figure $\ref{fig:snakespecies}$ as a reference. The nano-scaled surface structure of the species Elapse as shwon in figure $\ref{fig:elpahegratingpatch}$ does not look that regular under the electron scanning microscope. This is why it is much less iridescent than the other specie. Xeno has a brownish body with no pattern that makes the iridescence more spectacular than on Ellaphe. 
  
 \begin{figure}[H]
   \centering
-  \subfigure[Blaze grating]{
+  \subfigure[Blazed grating]{
     \includegraphics[scale=0.12]{results/snakerenderings/compars/blaze.png}
     \label{fig:renderingblazegrating}
   }
