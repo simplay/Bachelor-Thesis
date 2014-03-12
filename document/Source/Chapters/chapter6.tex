@@ -1,39 +1,28 @@
 \chapter{Conclusion}
+\section{Review}
+The goal of this thesis was to simulate the effect of diffraction caused when a directional light source encounters an anisotropic surface, when provided explicitly by a small patch of this nano-scaled surface. For this purpose we developed a BRDF model which is based on J. Stam's main derivation described within his paper about diffraction shaders. 
 
-can we do better?
+Rendering the effect of diffraction for explicitly provided surfaces, described as a height-field, was previously not possible and may therefore be considered as a kind of novelty.
 
-brief overwiew pf results achieved, what was the most important in the work, appropriate to provide an introduction to possible future work in this field. reflect the emotions associated with the work, what was especially difficult or particularly interesting, one may elaborate on open questions within subjects related to the thesis without giving any answer. discuss follow-ups.
+Our formulation allows us to precompute many computational expensive terms, such as different powers of the two dimensional inverse Fourier transformation of the given input patch, and then combine them within our shader relying on Taylor series. This Taylor series approximation allows us to enhance the overall runtime complexity of our shading approach quite a lot, compared to Stam's formulation. Furthermore, we also introduced some other numerical approximations for our BRDF formulations, such as the $N_{min}, N_{max}$ shading approach, which will tweak the overall runtime complexity of the whole shading. 
 
-statment what you've researched and what your original contribution of the fild is
-explain why our approach is a good idea
-explain how the straight foreward approach would behave compared to our approach, computing the fourier transformations straight away.
-explain what we achieved, summary
-say something about draw-backs and about limitations of current apporach
-say something about the ongoing paper future work
-maybe say something about runtime complexity
+We also formulated a complete different approach, the PQ shading approach, which is performing Sinc-Interpolation, assuming the given patch is periodically distributed on the surface of a given geometry. 
 
-\section{Further Work}
-\subsection{References}
-% \begin{itemize}
-refs
-% chapter1:
-% chapter2:
-% http://www.cambridgeincolour.com/tutorials/diffraction-photography.htm
-% chapter3:
-% chapter4:
-% chapter5:
-% http://h2physics.org/?cat=49 
-% www.tau.ac.il/~phchlab/experiments_new/SemB01_Hydrogen/02TheoreticalBackground.html
-% www.itp.uni-hannover.de/~zawischa/ITP/multibeam.html 
-%http://geneva-physics-of-biology-2013.ch
+We have implemented a Java renderer which is using GLSL shaders, implementing our BRDF models. We evaluated the quality of all our shading approaches for our given different provided surface gratings. 
+Last we rendered BRDF maps and the effect of diffraction on a snake mesh for Blazed, Elaphe, Xenopeltis grating for various input parameters and discussed all results in depth.
 
-% TODO: SHOW IMAGE: SOLID angle
-% $WIKI: http://en.wikipedia.org/wiki/Radiance$
-% $CG Slides 2012 - 6.shading$
-% $Book: Fundamentals of computer graphics$
+We some approximation techniques we achieved all goals of this thesis. Even our shader is rather slow, we can denote it as being interactive, when using the $N_{min}, N_{max}$ shading approach for our used hardware specifications. Note that when we are sampling the whole wavelength space, which is the most accurate variant among all our shading approaches, we barely can be denoted as being interactive at all. Despite this variant of shading is based in a gaussian windowing approach which is basically weighting each pixel by its neighborhood and also integrates over each wavelength of our spectrum, it has such a high runtime complexity. Nevertheless, this kind of shading produces quite reliable results, considering its evaluation plots and its actual renderings. The PQ shading approach is rather far apart from reality since it assumes the given patch being a representative of the whole surface due to fact being distributed periodically along the surface in each direction. It also is a rather slow shading approach since Sinc-Interpolation is iterating over the whole neighborhood of each pixel. 
 
+A non-physical and also non-mathematical sound hack is to combine the PQ approach with the $N_{min}, N_{max}$ approach but not using Sinc-Interpolation. This would be like linearly interpolating in the Fourier domain, using the PQ factors, using no window and also a reduced spectrum. This approach sometimes produces good looking results but they are quite non-reliable. 
 
-% \item \textbf{{[}1{]}} http://en.wikipedia.org/wiki/Ratio\_test
-% \item \textbf{{[}2{]}} http://math.jasonbhill.com/courses/fall-2010-math-2300-005/lectures/taylor-polynomial-error-bounds\end{itemize}
+There is a further optimization possible described in $PAPER$ by further simplifying our BRDF formulation. These simplifications allow to precompute further computational expensive terms.  
+
+\section{Personal Experiences}
+I always knew that eventually I will write a thesis in the field of computer graphics. After having taking the computer graphics class held by Mr. Zwicker, I was sure that i will definitely write my thesis at the computer Graphics Group at the University of Bern. Since I already acquired a Minor and am very interested in the field of Mathematics, I asked for getting a topic involving also some Mathematics. I have to admit that, after having read the Paper of J. Stam about Diffraction shaders, in the very beginning of my thesis, I thought this topic would exceed my knowledge in Mathematics and Physics. And It actually did but i did not give up. Despite of this thesis I could acquire new and even deepen already existent knowledge in concepts of Physics such as waves theory, wave-interference, diffraction of waves and diffraction gratings. Regarding Mathematics I learned quite a lot about the different kind of Fourier transforms and about their differences, about windowing approaches and about BRDF models and formulations and the numerics regarding those topics. It was a satisfactory experience to use and apply all the knowledge which I have acquired during the time as a bachelor student. Also this work gave me the opportunity to program quite a lot what I really liked and allowed me to strengthen my programming skills in java and OpenGL's shading language GLSL. Altogether it was a rewarding experience for me to write a bachelor thesis at the Computer Graphics group.
+
 \section{Acknowledgment}
-% ty to abcdefg
+First I would like to thank Mr. Zwicker for giving me the opportunity to write a bachelor thesis at the computer Graphics Group at the University of Bern.
+
+Foremost, I would like to express my sincere gratitude to my advisor Mr. Daljit Singh for the continuous support of my study, for his patience, motivation, enthusiasm, and knowledge. His guidance and active support helped me quite a lot deriving the BRDF formulation, during developing and evaluating the shaders and writing this thesis. 
+  
+Last but not the least, I would like to thank my mother and brother, Manuela and Patrik Single and my close friend Radischa Iyadurai for supporting me mentally and spiritually throughout during this thesis.
