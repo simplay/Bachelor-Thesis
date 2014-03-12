@@ -41,14 +41,14 @@
 \contentsline {figure}{\numberline {5.1}{\ignorespaces BRDF maps for different patches: $\Theta =(\theta ,\phi )$ is the direction of light propagation\relax }}{55}{figure.caption.50}
 \contentsline {figure}{\numberline {5.2}{\ignorespaces Cutouts of our nano-scaled surface gratings used for rendering within our shader with a scale indicator (red line) for each patch. Note that for rendering we use larger patches.\relax }}{56}{figure.caption.51}
 \contentsline {figure}{\numberline {5.3}{\ignorespaces BRDF maps for different patches\relax }}{57}{figure.caption.52}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces BRDF maps for Blaze grating comparing our different rendering apporaches\relax }}{58}{figure.caption.53}
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Blaze grating at $2.5 \mu m$: Different $\lambda $ step sizes\relax }}{58}{figure.caption.54}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces BRDF maps for Blazed grating comparing our different rendering approaches\relax }}{58}{figure.caption.53}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Blazed grating at $2.5 \mu m$: Different $\lambda $ step sizes\relax }}{58}{figure.caption.54}
 \contentsline {figure}{\numberline {5.6}{\ignorespaces Elaphe grating at $65 \mu m$: Different $\lambda $ step sizes\relax }}{59}{figure.caption.55}
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Blaze grating: PQ approach vs full lambda space sampling\relax }}{59}{figure.caption.56}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Blazed grating: PQ approach vs full lambda space sampling\relax }}{59}{figure.caption.56}
 \contentsline {figure}{\numberline {5.8}{\ignorespaces Elaphe grating: PQ approach vs full lambda space sampling\relax }}{60}{figure.caption.57}
 \contentsline {figure}{\numberline {5.9}{\ignorespaces Xeno grating: PQ approach vs full lambda space sampling\relax }}{61}{figure.caption.58}
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Blaze grating at $2.5 \mu m$: Different $\sigma _s$ sizes\relax }}{62}{figure.caption.59}
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Blaze grating at $2.5 \mu m$: $N$ Taylor Iterations\relax }}{63}{figure.caption.60}
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Blazed grating at $2.5 \mu m$: Different $\sigma _s$ sizes\relax }}{62}{figure.caption.59}
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Blazed grating at $2.5 \mu m$: $N$ Taylor Iterations\relax }}{63}{figure.caption.60}
 \contentsline {figure}{\numberline {5.12}{\ignorespaces Elaphe grating at $65 \mu m$: $N$ Taylor Iterations\relax }}{63}{figure.caption.61}
 \contentsline {figure}{\numberline {5.13}{\ignorespaces BRDF maps for Xeno grating: different $\theta _i$ angles\relax }}{63}{figure.caption.62}
 \contentsline {figure}{\numberline {5.14}{\ignorespaces Diffraction of different snake skin gratings rendered on a snake geometry\relax }}{65}{figure.caption.64}
