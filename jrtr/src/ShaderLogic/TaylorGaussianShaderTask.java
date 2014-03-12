@@ -212,6 +212,20 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "dx");
 		gl.glUniform1f(id3, dx);
 		
+		float minSpacer = (float) (dx / 0.38f);
+		float maxSpacer = (float) (dx / 0.78f);
+		System.out.println("max spacer: " + maxSpacer);
+		System.out.println("min spacer: " + minSpacer);
+		
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "minspacer");
+		gl.glUniform1f(id3, minSpacer);
+		
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "maxspacer");
+		gl.glUniform1f(id3, maxSpacer);
+		
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "dx");
+		gl.glUniform1f(id3, dx);
+		
 		float patchResolution = 65.0f;
 		System.out.println("patch total resolution in microns: " + patchResolution);
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "patchReso");

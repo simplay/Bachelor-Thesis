@@ -11,6 +11,9 @@ uniform float LMIN;
 uniform float LMAX;
 uniform float delLamda;
 
+uniform float minspacer;
+uniform float maxspacer;
+
 // Uniform variables, passed in from host program via suitable
 uniform int debugTxtIdx;
 
@@ -32,6 +35,7 @@ uniform vec4 scalingFactors[MAX_WFACTORS];
 uniform vec4 camPos;
 uniform int drawTexture;
 uniform float dimX;
+uniform float dx;
 uniform float t0;
 uniform sampler2DArray lookupText;
 // Variables passed in from the vertex shader
@@ -98,19 +102,39 @@ float GetLightNormalCos()
 
 }
 
+float mask = 10.0;
 vec2 compute_N_min_max(float t){
 	// default case if t == 0 otherwise override it.
 	float N_min = 0.0;
 	float N_max = 0.0;
-	
+
 	if(t > 0.0){
-		N_min = ceil((dimX*t) / lambda_max);
-		N_max = floor((dimX*t) / lambda_min);
+		N_min = ceil(mask*maxspacer*t)/mask;
+		N_max = floor(mask*minspacer*t)/mask;
 	}else if(t < 0.0){
-		N_min = ceil((dimX*t) / lambda_min);
-		N_max = floor((dimX*t) / lambda_max);
+		N_min = ceil(mask*minspacer*t)/mask;
+		N_max = floor(mask*maxspacer*t)/mask;
 	}
+	
 	return vec2(N_min, N_max);
+//	return vec2(dx/N_min, dx/N_max);
+}
+
+vec2 compute_N_min_max_own_mask(float t, float own_mask){
+	// default case if t == 0 otherwise override it.
+	float N_min = 0.0;
+	float N_max = 0.0;
+
+	if(t > 0.0){
+		N_min = ceil(own_mask*maxspacer*t)/own_mask;
+		N_max = floor(own_mask*minspacer*t)/own_mask;
+	}else if(t < 0.0){
+		N_min = ceil(own_mask*minspacer*t)/own_mask;
+		N_max = floor(own_mask*maxspacer*t)/own_mask;
+	}
+	
+	return vec2(N_min, N_max);
+//	return vec2(dx/N_min, dx/N_max);
 }
 
 
@@ -428,84 +452,132 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 	float lower_v = N_v.x;
 	float upper_v = N_v.y;
 	
-	float lambda_lower_u = ((dimX*uu)/upper_u)*pow(10.0, 9.0);
-	float lambda_upper_u = ((dimX*uu)/lower_u)*pow(10.0, 9.0);
+//	float lambda_lower_u = uu*upper_u*1000.0;
+//	float lambda_upper_u = uu*lower_u*1000.0;
+//	if(upper_u < 0.0){
+//		lambda_lower_u = uu*lower_u*1000.0;
+//		lambda_upper_u = uu*upper_u*1000.0;	
+//	}
+	
+	float lambda_lower_u = upper_u;
+	float lambda_upper_u = lower_u;
 	if(upper_u < 0.0){
-		lambda_lower_u = ((dimX*uu)/lower_u)*pow(10.0, 9.0);
-		lambda_upper_u = ((dimX*uu)/upper_u)*pow(10.0, 9.0);	
+		lambda_lower_u = lower_u;
+		lambda_upper_u = upper_u;	
 	}
 	
-	float lambda_lower_v = ((dimX*vv)/upper_v)*pow(10.0, 9.0);
-	float lambda_upper_v = ((dimX*vv)/lower_v)*pow(10.0, 9.0);
+	float lambda_lower_v = upper_v;
+	float lambda_upper_v = lower_v;
 	if(upper_v < 0.0){
-		lambda_lower_v = ((dimX*vv)/lower_v)*pow(10.0, 9.0);
-		lambda_upper_v = ((dimX*vv)/upper_v)*pow(10.0, 9.0);	
-	}
-
-
-	for(float lVal = lambda_lower_u; lVal <= lambda_upper_u; lVal = lVal+lambdaStep){
-		vec4 clrFn = getClrMatchingFnWeights(lVal);
-		
-		float specV = clrFn.w;	
-		xNorm = xNorm + specV*clrFn.x;
-		yNorm = yNorm + specV*clrFn.y;
-		zNorm = zNorm + specV*clrFn.z;
-		
-		vec2 lookupCoord = getLookupCoord(uu, vv, lVal);
-		
-		vec2 tempFFTScale = vec2(0.0f);
-		
-		for(int tIdx = 0; tIdx < MAX_TAYLORTERMS; ++tIdx){
-			if(0 == tIdx) {
-				preScale = 1.0f;
-			} else {
-				float currS = ww * 2.0 * PI * pow(10.0f, 3.0f) / lVal / tIdx;
-				preScale = preScale * currS;
-			}
-		
-			vec2 fftCoef = getFFTAt(lookupCoord, tIdx);
-			tempFFTScale = tempFFTScale + preScale * fftCoef;
-		}
-		
-		float fftMagSqr = tempFFTScale.x * tempFFTScale.x + tempFFTScale.y * tempFFTScale.y;
-		opVal.x = opVal.x + fftMagSqr * specV * clrFn.x;
-		opVal.y = opVal.y + fftMagSqr * specV * clrFn.y;
-		opVal.z = opVal.z + fftMagSqr * specV * clrFn.z;
+		lambda_lower_v = lower_v;
+		lambda_upper_v = upper_v;	
 	}
 	
-	for(float lVal = lambda_lower_v; lVal <= lambda_upper_v; lVal = lVal+lambdaStep){
-		vec4 clrFn = getClrMatchingFnWeights(lVal);
-		
-		float specV = clrFn.w;
-		xNorm = xNorm + specV*clrFn.x;
-		yNorm = yNorm + specV*clrFn.y;
-		zNorm = zNorm + specV*clrFn.z;
-		
-		vec2 lookupCoord = getLookupCoord(uu, vv, lVal);
-		
-		vec2 tempFFTScale = vec2(0.0f);
-		
-		for(int tIdx = 0; tIdx < MAX_TAYLORTERMS; ++tIdx){
-			if(0 == tIdx){
-				preScale = 1.0f;
-			}else {
-				float currS = ww * 2.0 * PI * pow(10.0f, 3.0f) / lVal / tIdx;
-				preScale = preScale * currS;
+	float dist2Zero = sqrt(uu*uu + vv*vv);
+	float epsSQT = 0.02;
+	// heuristics
+	if(dist2Zero <= epsSQT){
+		opVal.x = 1.0;
+		opVal.y = 1.0;
+		opVal.z = 1.0;
+	}else{
+		float maskStep = (1.0/mask);
+		if(dist2Zero <= epsSQT+0.08){
+			float newMask = mask*10.0;
+			maskStep = (1.0/newMask);
+			N_u = compute_N_min_max_own_mask(uu, newMask);
+			N_v = compute_N_min_max_own_mask(vv, newMask);
+			lower_u = N_u.x;
+			upper_u = N_u.y;
+			lower_v = N_v.x;
+			upper_v = N_v.y;
+			
+			lambda_lower_u = upper_u;
+			lambda_upper_u = lower_u;
+			if(upper_u < 0.0){
+				lambda_lower_u = lower_u;
+				lambda_upper_u = upper_u;	
 			}
-		
-			vec2 fftCoef = getFFTAt(lookupCoord, tIdx);
-			tempFFTScale = tempFFTScale + preScale * fftCoef;
+			
+			lambda_lower_v = upper_v;
+			lambda_upper_v = lower_v;
+			if(upper_v < 0.0){
+				lambda_lower_v = lower_v;
+				lambda_upper_v = upper_v;	
+			}
+			
+			
 		}
 		
-		float fftMagSqr = tempFFTScale.x * tempFFTScale.x + tempFFTScale.y * tempFFTScale.y;
-		opVal.x = opVal.x + fftMagSqr * specV * clrFn.x;
-		opVal.y = opVal.y + fftMagSqr * specV * clrFn.y;
-		opVal.z = opVal.z + fftMagSqr * specV * clrFn.z;
+		for(float nu = lower_u; nu < upper_u; nu = nu+maskStep){
+			float lVal = (uu*dx/nu)*1000.0;
+
+			
+			vec4 clrFn = getClrMatchingFnWeights(lVal);
+			
+			float specV = clrFn.w;	
+			xNorm = xNorm + specV*clrFn.x;
+			yNorm = yNorm + specV*clrFn.y;
+			zNorm = zNorm + specV*clrFn.z;
+			
+			vec2 lookupCoord = getLookupCoord(uu, vv, lVal);
+			
+			vec2 tempFFTScale = vec2(0.0f);
+			
+			for(int tIdx = 0; tIdx < MAX_TAYLORTERMS; ++tIdx){
+				if(0 == tIdx) {
+					preScale = 1.0f;
+				} else {
+					float currS = ww * 2.0 * PI * pow(10.0f, 3.0f) / lVal / tIdx;
+					preScale = preScale * currS;
+				}
+			
+				vec2 fftCoef = getFFTAt(lookupCoord, tIdx);
+				tempFFTScale = tempFFTScale + preScale * fftCoef;
+			}
+			
+			float fftMagSqr = tempFFTScale.x * tempFFTScale.x + tempFFTScale.y * tempFFTScale.y;
+			opVal.x = opVal.x + fftMagSqr * specV * clrFn.x;
+			opVal.y = opVal.y + fftMagSqr * specV * clrFn.y;
+			opVal.z = opVal.z + fftMagSqr * specV * clrFn.z;
+		}
+		
+		for(float nv = lower_v; nv < upper_v; nv = nv+maskStep){
+			float lVal = (vv*dx/nv)*1000.0;
+			
+			vec4 clrFn = getClrMatchingFnWeights(lVal);
+			
+			float specV = clrFn.w;
+			xNorm = xNorm + specV*clrFn.x;
+			yNorm = yNorm + specV*clrFn.y;
+			zNorm = zNorm + specV*clrFn.z;
+			
+			vec2 lookupCoord = getLookupCoord(uu, vv, lVal);
+			
+			vec2 tempFFTScale = vec2(0.0f);
+			
+			for(int tIdx = 0; tIdx < MAX_TAYLORTERMS; ++tIdx){
+				if(0 == tIdx){
+					preScale = 1.0f;
+				}else {
+					float currS = ww * 2.0 * PI * pow(10.0f, 3.0f) / lVal / tIdx;
+					preScale = preScale * currS;
+				}
+			
+				vec2 fftCoef = getFFTAt(lookupCoord, tIdx);
+				tempFFTScale = tempFFTScale + preScale * fftCoef;
+			}
+			
+			float fftMagSqr = tempFFTScale.x * tempFFTScale.x + tempFFTScale.y * tempFFTScale.y;
+			opVal.x = opVal.x + fftMagSqr * specV * clrFn.x;
+			opVal.y = opVal.y + fftMagSqr * specV * clrFn.y;
+			opVal.z = opVal.z + fftMagSqr * specV * clrFn.z;
+		}
+		
+		opVal.x = opVal.x / xNorm ;
+		opVal.y = opVal.y / yNorm ;
+		opVal.z = opVal.z / zNorm ;
 	}
-	
-	opVal.x = opVal.x / xNorm ;
-	opVal.y = opVal.y / yNorm ;
-	opVal.z = opVal.z / zNorm ;
 
 	return opVal;
 }

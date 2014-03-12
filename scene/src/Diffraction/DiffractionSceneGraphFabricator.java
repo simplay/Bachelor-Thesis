@@ -55,7 +55,7 @@ public class DiffractionSceneGraphFabricator {
 	private TransformGroup rootGroup;
 	private SceneConfiguration sceneConfig;
 	private String configName = "sandbox";
-	private boolean useSpecificCam = false;
+	private boolean specificCam = false;
 	
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
 		this.sceneManager = sceneManager;
@@ -170,11 +170,11 @@ public class DiffractionSceneGraphFabricator {
 			
 	}
 	
-	private boolean specificCam = true;
+	
 	private void setUpCamera(boolean isFar){
 		CameraSceneConstant csc = cscm.getCameraSceneConstantByName(sceneConfig.getCameraConstant());
 		Point3f cop = csc.getCOP();
-		if(useSpecificCam) setSpecificCam();
+		if(specificCam) setSpecificCam();
 		sceneManager.getFrustum().setParameter(csc.getAspectRatio(), csc.getNear(), csc.getFar(), csc.getVerticalFieldView());
 		sceneManager.getCamera().setParameter(csc.getCOP(), csc.getLook(), csc.getUp());
 		if(specificCam){
