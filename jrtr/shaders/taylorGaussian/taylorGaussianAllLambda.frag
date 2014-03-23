@@ -74,6 +74,8 @@ void mainBRDFMap();
 void mainRenderGeometry();
 void coneMain();
 void gemMain();
+vec2 getNMMfor(float, float);
+vec3 sumContributionAlongDir(vec2, float, float);
 
 void setVarXY(){
 	dH = t0;
@@ -502,7 +504,6 @@ vec3 blend3 (vec3 x){
 //
 void gemMain(){
 	
-	setVarXY();
 	float thetaR = asin(sqrt(o_org_pos.x*o_org_pos.x + o_org_pos.y*o_org_pos.y ));
 	float phiR = atan(o_org_pos.y, o_org_pos.x);
 	vec3 k1 = vec3(0.0f);
@@ -521,59 +522,73 @@ void gemMain(){
 	float w = k1.z - k2.z;
 
 
-	int shiftSpectrum = 0; 
-	float n_min = 0;
-	float n_max = 0;
-	float lambda_min = 0.4; // 400nm red
-	float lambda_max = 0.7; // 700nm blue
-	int fac = 1;
+	float lambda_min = 0.38; // 400nm red
+	float lambda_max = 0.78; // 700nm blue
 	
-	float lambda = 0;
 	vec4 cdiff = vec4(0, 0, 0, 1);
-	float f = 4;
-	// 25microns
-	float d = 25.0;
+	
+	// 2.5microns
+	float d = 2.5;
 	float eps = 0.0;
 	
 	float uuu = abs(u);
 	float vvv = abs(v);
 	
-	n_min = (d*uuu)/lambda_max;
-	n_max = (d*uuu)/lambda_min;
+	vec2 uNMM = getNMMfor(uuu, d);
+	vec2 vNMM = getNMMfor(vvv, d);
+	
 	if(vvv < 0.01){
-		int lower = 0;
-		while(lower < n_min){
-			lower++;
-		}
-		
-		int upper = 0;
-		while(upper < n_max){
-			upper++;
-		}
-		upper--;
-
-		for (int n = lower; n <= upper; n = n + 1){
-			float delta_n = 0;
-			delta_n = n - n_min;
-			float alpha = (lambda_max - lambda_min) / (n_max - n_min);
-			lambda = lambda_min + alpha*delta_n;
-			// y:[lamda_min, lamda_max] -> [0,1]
-			float y = ((10/3)*(lambda*(d/(delta_n+n_min))) - (4/3)); 
-			cdiff.xyz += ( blend3(vec3(f * (y - 0.25), f * (y - 0.5), f * (y - 0.75))) ); 
-		}
+		cdiff.xyz += sumContributionAlongDir(uNMM, uuu, d);
 		if(uuu < 0.01) eps = 1.0;
 	}
+	
+	if(uuu < 0.001){
+		cdiff.xyz += sumContributionAlongDir(vNMM, vvv, d);
+		if(vvv < 0.01) eps = 1.0;
+	}
+	
+	frag_shaded = 0.5*(cdiff)/1.0 + eps;
+}
 
-	frag_shaded = (cdiff)/10.0 + eps;
+vec3 sumContributionAlongDir(vec2 boundaries, float dir, float spacing) {
+	float f = 4;
+	float lambda_min = 0.38; // 400nm red
+	float lambda_max = 0.78; // 700nm blue
+	vec3 spectrumContribution = vec3(0.0, 0.0, 0.0);
+	
+	for (float n = boundaries.x; n <= boundaries.y; n = n + 1) {
+		// values between 0.38 and 0.78 microns
+		float lval = (dir*spacing/n);
+			
+		// rescale them to [0,1]
+		float y = (lval-lambda_min)/(lambda_max-lambda_min);
+		spectrumContribution += ( blend3(vec3(f * (y - 0.75), f * (y - 0.5), f * (y - 0.25))) ); 
+	}
+	return spectrumContribution;
+}
+
+// compute n_min n_max from given direction
+// spacing in microns
+// t is absolute valued compontent of (u,v,w)
+vec2 getNMMfor(float t, float spacing) {
+	float lambda_min = 0.38; // 400nm red
+	float lambda_max = 0.78; // 700nm blue
+	
+	float n_min = (spacing*t)/lambda_max;
+	float n_max = (spacing*t)/lambda_min;
+	
+	float lower = ceil(n_min);
+	float upper = floor(n_max);
+	return vec2(lower, upper);
 }
 
 void main(){
-//	gemMain();
+	gemMain();
 //	if(isCone==1){
 //		coneMain();
 //	}else{
 //		if(renderBrdfMap == 1){
-			mainBRDFMap();
+//			mainBRDFMap();
 //		}else{
 //			mainRenderGeometry();
 //		}
