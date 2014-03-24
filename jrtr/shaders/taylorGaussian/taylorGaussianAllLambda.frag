@@ -3,7 +3,7 @@
 
 // substitutes
 #define MAX_LIGHTS 1
-#define MAX_TAYLORTERMS 39
+#define MAX_TAYLORTERMS 37
 #define MAX_WFACTORS 78
 #define MAX_WEIGHTS 401
 
@@ -415,7 +415,7 @@ void mainRenderGeometry(){
 	
 //	vec3 totalXYZ  = vec3(1, 0, 0);
 	
-	totalXYZ = totalXYZ*gainF(lightDir, Pos)*1.0*shadowF;
+	totalXYZ = totalXYZ*gainF(lightDir, Pos)*1000.0*shadowF;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
 	if(isnan(totalXYZ.x*totalXYZ.y*totalXYZ.z)){
 		totalXYZ.x = 1.0;
@@ -449,10 +449,10 @@ void mainRenderGeometry(){
 	}
 	
 	float diffW = 0.1f; 
-	float gamma = 2.2; 
+	float gamma = 2.5; 
 	tex.xyz = gammaCorrect(tex.xyz ,1.0f/1.0);
-	vec3 finClr = gammaCorrect((1-diffW)*(totalXYZ + (1-alpha) * tex.xyz *diffuseL) + tex.xyz * diffW, 2.2);
-	frag_shaded = vec4(gammaCorrect(totalXYZ, 2.2), 1.0);
+	vec3 finClr = gammaCorrect((1-diffW)*(totalXYZ + (1-alpha) * tex.xyz *diffuseL) + tex.xyz * diffW, gamma);
+	frag_shaded = vec4(gammaCorrect(totalXYZ, gamma), 1.0);
 //	frag_shaded = vec4(finClr, 1.0);
 //	frag_shaded = vec4(tex.xyz, 1.0);
 	
@@ -485,14 +485,14 @@ void mainBRDFMap(){
 	vec3 totalXYZ = getRawXYZFromTaylorSeries(uu, vv, ww);
 
 	
-	totalXYZ = totalXYZ*gainF(k1, k2)*35.0*shadowF;
+	totalXYZ = totalXYZ*gainF(k1, k2)*150.0*shadowF;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
 	if(isnan(totalXYZ.x*totalXYZ.y*totalXYZ.z)){
 		totalXYZ.x = 1.0;
 		totalXYZ.y = 1.0;
 		totalXYZ.z = 0.0;
 	}
-	frag_shaded = vec4(gammaCorrect(totalXYZ, 2.2), 1.0);
+	frag_shaded = vec4(gammaCorrect(totalXYZ, 2.5), 1.0);
 }
 
 
@@ -504,31 +504,54 @@ vec3 blend3 (vec3 x){
 //
 void gemMain(){
 	
+//	float thetaR = asin(sqrt(o_org_pos.x*o_org_pos.x + o_org_pos.y*o_org_pos.y ));
+//	float phiR = atan(o_org_pos.y, o_org_pos.x);
+//	vec3 k1 = vec3(0.0f);
+//	vec3 k2 = vec3(0.0f);
+//	
+//	k1.x = -sin(thetaI)*cos(phiI);
+//	k1.y = -sin(thetaI)*sin(phiI);
+//	k1.z = -cos(thetaI);
+//	
+//	k2.x = sin(thetaR)*cos(phiR);
+//	k2.y = sin(thetaR)*sin(phiR);
+//	k2.z = cos(thetaR);
+//	
+//	float u = k1.x - k2.x;
+//	float v = k1.y - k2.y;
+//	float w = k1.z - k2.z;
+	
+	
+	
 	float thetaR = asin(sqrt(o_org_pos.x*o_org_pos.x + o_org_pos.y*o_org_pos.y ));
 	float phiR = atan(o_org_pos.y, o_org_pos.x);
-	vec3 k1 = vec3(0.0f);
-	vec3 k2 = vec3(0.0f);
-	
-	k1.x = -sin(thetaI)*cos(phiI);
-	k1.y = -sin(thetaI)*sin(phiI);
-	k1.z = -cos(thetaI);
-	
-	k2.x = sin(thetaR)*cos(phiR);
-	k2.y = sin(thetaR)*sin(phiR);
-	k2.z = cos(thetaR);
-	
-	float u = k1.x - k2.x;
-	float v = k1.y - k2.y;
-	float w = k1.z - k2.z;
 
+    vec3 N = normalize(o_normal);
+    vec3 T = normalize(o_tangent);
 
+  
+	// directional light source
+	vec3 Pos =  normalize(o_pos); 
+	vec3 lightDir =  normalize(o_light);
+	
+	
+	float shadowF = getShadowMaskFactor(lightDir, Pos);
+	float u = lightDir.x - Pos.x;
+	float v = lightDir.y - Pos.y;
+	float w = lightDir.z - Pos.z;
+	
+	
+	
+	
+	
+//	float shadowF = getShadowMaskFactor(k1, k2);
 	float lambda_min = 0.38; // 400nm red
 	float lambda_max = 0.78; // 700nm blue
 	
 	vec4 cdiff = vec4(0, 0, 0, 1);
 	
 	// 2.5microns
-	float d = 2.5;
+	float d = 1.7;
 	float eps = 0.0;
 	
 	float uuu = abs(u);
@@ -537,17 +560,18 @@ void gemMain(){
 	vec2 uNMM = getNMMfor(uuu, d);
 	vec2 vNMM = getNMMfor(vvv, d);
 	
-	if(vvv < 0.01){
+//	if(vvv < 0.01){
 		cdiff.xyz += sumContributionAlongDir(uNMM, uuu, d);
 		if(uuu < 0.01) eps = 1.0;
-	}
+//	}
 	
-	if(uuu < 0.001){
+//	if(uuu < 0.0){
 		cdiff.xyz += sumContributionAlongDir(vNMM, vvv, d);
 		if(vvv < 0.01) eps = 1.0;
-	}
+//	}
 	
-	frag_shaded = 0.5*(cdiff)/1.0 + eps;
+	vec3 totalXYZ = 1*cdiff.xyz/5.0 + eps;
+	frag_shaded = vec4(gammaCorrect(totalXYZ, 2.2), 1.0);
 }
 
 vec3 sumContributionAlongDir(vec2 boundaries, float dir, float spacing) {
@@ -583,14 +607,14 @@ vec2 getNMMfor(float t, float spacing) {
 }
 
 void main(){
-	gemMain();
+//	gemMain();
 //	if(isCone==1){
 //		coneMain();
 //	}else{
 //		if(renderBrdfMap == 1){
 //			mainBRDFMap();
 //		}else{
-//			mainRenderGeometry();
+			mainRenderGeometry();
 //		}
 //	}
 	

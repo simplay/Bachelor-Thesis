@@ -600,8 +600,8 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 }
 
 void main() {
-//	mainRenderMesh();
-	mainBRDFMap();
+	mainRenderMesh();
+//	mainBRDFMap();
 }
 
 void mainRenderMesh(){
@@ -672,7 +672,7 @@ void mainBRDFMap(){
 	float ww = k1.z - k2.z;
 
 	vec3 totalXYZ  = getRawXYZFromTaylorSeries( uu, vv, ww);
-	totalXYZ = totalXYZ * gainF(k1, k2)*100;
+	totalXYZ = totalXYZ * gainF(k1, k2)*65;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
 	
 	if (isnan(totalXYZ.x *totalXYZ.y *totalXYZ.z)){
@@ -681,5 +681,5 @@ void mainBRDFMap(){
 		totalXYZ.z  = 0.0;
 	}
 	
-	frag_shaded = vec4(gammaCorrect(totalXYZ,2.2), 1.0);
+	frag_shaded = vec4(gammaCorrect(totalXYZ,2.5), 1.0);
 }

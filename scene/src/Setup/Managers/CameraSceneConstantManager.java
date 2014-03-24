@@ -31,13 +31,13 @@ public class CameraSceneConstantManager {
 		constants.add(cs);
 		cs = new CameraSceneConstant("plane1_w", 20.0f, 2.5f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), true);
 		constants.add(cs);
-		cs = new CameraSceneConstant("cylinder1", 15.0f, 4.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
+		cs = new CameraSceneConstant("cylinder1", 10.0f, 4.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
 		constants.add(cs);
 		cs = new CameraSceneConstant("snake1", 2.0f, 20.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
 		constants.add(cs);
 		cs = new CameraSceneConstant("snake2", 2.0f, 1.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
 		constants.add(cs);
-		cs = new CameraSceneConstant("snake3", 0.2f, 15.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
+		cs = new CameraSceneConstant("snake3", 0.1f, 3.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
 		constants.add(cs);
 		cs = new CameraSceneConstant("snake2far", 200.0f, 0.01f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
 		constants.add(cs);

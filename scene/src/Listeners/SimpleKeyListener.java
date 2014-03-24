@@ -163,7 +163,7 @@ public class SimpleKeyListener implements KeyListener{
 		    	
 		    	newLightDir = new Vector4f(tmpLightDir.x, tmpLightDir.y, tmpLightDir.z, oldLightDir.w);
 		    	normDiv =  (float) Math.sqrt( (oldLightDir.x - eps)*(oldLightDir.x - eps)+oldLightDir.y*oldLightDir.y+oldLightDir.z*oldLightDir.z );
-		    	
+		    	System.out.println(newLightDir.toString());
 				newlightSource  = new Light(radiance, newLightDir, "source1");
 				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");		
 		    	sceneManager.addLight(newlightSource);
@@ -192,7 +192,7 @@ public class SimpleKeyListener implements KeyListener{
 		    	
 		    	newLightDir = new Vector4f(tmpLightDir.x, tmpLightDir.y, tmpLightDir.z, oldLightDir.w);
 		    	normDiv =  (float) Math.sqrt( (oldLightDir.x - eps)*(oldLightDir.x - eps)+oldLightDir.y*oldLightDir.y+oldLightDir.z*oldLightDir.z );
-		    	
+		    	System.out.println(newLightDir.toString());
 				newlightSource  = new Light(radiance, newLightDir, "source1");
 				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");		
 		    	sceneManager.addLight(newlightSource);
@@ -219,7 +219,7 @@ public class SimpleKeyListener implements KeyListener{
 		    	
 		    	newLightDir = new Vector4f(tmpLightDir.x, tmpLightDir.y, tmpLightDir.z, oldLightDir.w);
 		    	normDiv =  (float) Math.sqrt( (oldLightDir.x)*(oldLightDir.x)+(oldLightDir.y+eps)*(oldLightDir.y+eps)+oldLightDir.z*oldLightDir.z );
-		    	
+		    	System.out.println(newLightDir.toString());
 				newlightSource  = new Light(radiance, newLightDir, "source1");
 				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");		
 		    	sceneManager.addLight(newlightSource);
@@ -246,7 +246,7 @@ public class SimpleKeyListener implements KeyListener{
 		    	
 		    	newLightDir = new Vector4f(tmpLightDir.x, tmpLightDir.y, tmpLightDir.z, oldLightDir.w);
 		    	normDiv =  (float) Math.sqrt( (oldLightDir.x)*(oldLightDir.x)+(oldLightDir.y+eps)*(oldLightDir.y+eps)+oldLightDir.z*oldLightDir.z );
-		    	
+		    	System.out.println(newLightDir.toString());
 				newlightSource  = new Light(radiance, newLightDir, "source1");
 				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");		
 		    	sceneManager.addLight(newlightSource);
@@ -273,7 +273,7 @@ public class SimpleKeyListener implements KeyListener{
 		    	
 		    	newLightDir = new Vector4f(tmpLightDir.x, tmpLightDir.y, tmpLightDir.z, oldLightDir.w);
 		    	normDiv =  (float) Math.sqrt( (oldLightDir.x)*(oldLightDir.x)+(oldLightDir.y)*(oldLightDir.y)+(oldLightDir.z+eps)*(oldLightDir.z+eps) );
-		    	
+		    	System.out.println(newLightDir.toString());
 				newlightSource  = new Light(radiance, newLightDir, "source1");
 				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");		
 		    	sceneManager.addLight(newlightSource);
@@ -300,7 +300,7 @@ public class SimpleKeyListener implements KeyListener{
 		    	
 		    	newLightDir = new Vector4f(tmpLightDir.x, tmpLightDir.y, tmpLightDir.z, oldLightDir.w);
 		    	normDiv =  (float) Math.sqrt( (oldLightDir.x)*(oldLightDir.x)+(oldLightDir.y)*(oldLightDir.y)+(oldLightDir.z+eps)*(oldLightDir.z+eps) );
-		    	
+		    	System.out.println(newLightDir.toString());
 				newlightSource  = new Light(radiance, newLightDir, "source1");
 				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");		
 		    	sceneManager.addLight(newlightSource);
@@ -315,6 +315,16 @@ public class SimpleKeyListener implements KeyListener{
 		    	
 		    	if(speed > 0.10f) this.speed -= 0.05;
 				break;
+				
+		    case 'b':
+		    	//(0.765515, 0.027558954, -0.6428275, 0.0)
+		    	newLightDir = new Vector4f(0.765515f, 0.027558954f, -0.6428275f, 0.0f);
+		    	System.out.println("overwriten");
+				newlightSource  = new Light(radiance, newLightDir, "source1");
+				newlight = new LightNode(newlightSource, sceneManager.getCamera().getCameraMatrix(), "light source1");		
+		    	sceneManager.addLight(newlightSource);
+		    	renderPanel.getCanvas().repaint();
+		    	break;
 		}
 		controller.handleEvent();
 	}

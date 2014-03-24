@@ -35,7 +35,7 @@ public class MainView {
 	public MainView(MainModel model){
 		this.model = model;
 		renderPanel = new MyRenderPanel(model);
-		this.WindowDim = 500;
+		this.WindowDim = 800;
 		setUpGui();
 	}
 	

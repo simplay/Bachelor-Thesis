@@ -585,14 +585,14 @@ void mainBRDFMap(){
 	vec3 totalXYZ = getRawXYZFromTaylorSeries(uu, vv, ww);
 
 	
-	totalXYZ = totalXYZ*gainF(k1, k2)*55.0*shadowF;
+	totalXYZ = totalXYZ*gainF(k1, k2)*85.0*shadowF;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
 	if(isnan(totalXYZ.x*totalXYZ.y*totalXYZ.z)){
 		totalXYZ.x = 1.0;
 		totalXYZ.y = 1.0;
 		totalXYZ.z = 0.0;
 	}
-	frag_shaded = vec4(gammaCorrect(totalXYZ, 2.2), 1.0);
+	frag_shaded = vec4(gammaCorrect(totalXYZ, 2.5), 1.0);
 }
 
 
