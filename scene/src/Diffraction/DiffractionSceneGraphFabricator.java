@@ -55,7 +55,7 @@ public class DiffractionSceneGraphFabricator {
 	private TransformGroup rootGroup;
 	private SceneConfiguration sceneConfig;
 	private String configName = "sandbox";
-	private boolean specificCam = true;
+	private boolean specificCam = false;
 	
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
 		this.sceneManager = sceneManager;

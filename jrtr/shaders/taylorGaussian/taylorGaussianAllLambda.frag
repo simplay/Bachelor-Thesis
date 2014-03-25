@@ -522,7 +522,7 @@ void gemMain(){
 //	float v = k1.y - k2.y;
 //	float w = k1.z - k2.z;
 	
-	
+
 	
 	float thetaR = asin(sqrt(o_org_pos.x*o_org_pos.x + o_org_pos.y*o_org_pos.y ));
 	float phiR = atan(o_org_pos.y, o_org_pos.x);
@@ -542,8 +542,10 @@ void gemMain(){
 	float w = lightDir.z - Pos.z;
 	
 	
-	
-	
+	float r = 5.50; // roughness factor for: 1.5f seems to look nice
+	float e = r * u / w;
+	float c = exp(-e * e);
+	vec4 anis = vec4(1,1,1,1) * vec4(c, c, c, 1);
 	
 //	float shadowF = getShadowMaskFactor(k1, k2);
 	float lambda_min = 0.38; // 400nm red
@@ -552,11 +554,11 @@ void gemMain(){
 	vec4 cdiff = vec4(0, 0, 0, 1);
 	
 	// 2.5microns
-//	float d = 1.7;
-	float d = 1.55227;
+	float d = 2.5;
+//	float d = 1.55227;
 	
 	// bruteforce spacing
-	d = bruteforcespacing;
+//	d = bruteforcespacing*1;
 	
 	
 	float eps = 0.0;
@@ -570,17 +572,17 @@ void gemMain(){
 //	if(vvv < 0.01){
 		cdiff.xyz += sumContributionAlongDir(uNMM, uuu, d);
 		if(uuu < 0.006) {
-			cdiff.xyz += vec3(1,1,1);
+
 			eps = 1.0;
 		}
 //	}
 	
 //	if(uuu < 0.0){
-		cdiff.xyz += sumContributionAlongDir(vNMM, vvv, d);
+//		cdiff.xyz += sumContributionAlongDir(vNMM, vvv, d);
 //		if(vvv < 0.01) eps = 0.0;
 		if(vvv < 0.006) {
-			cdiff.xyz += vec3(1,1,1);
-			eps = 1.0;
+
+//			eps = 1.0;
 		}
 //	}
 	
@@ -594,11 +596,15 @@ void gemMain(){
 	
 	float value = (getShadowMaskFactor(lightDir, Pos)*gainF(lightDir, Pos));
 	value = (value < 0.0) ? 0.0 : value;
-	
+//	value = getShadowMaskFactor(lightDir, Pos);
 	vec3 pewpew = 1.0*totalXYZ*value;
 	
 	// frag_shaded = vec4(pewpew,1.0);
-	frag_shaded = vec4(gammaCorrect(pewpew, 2.6), 1.0);
+	frag_shaded = anis*vec4(gammaCorrect(pewpew, 2.6), 1.0);
+	
+	
+//	frag_shaded = anis;
+	
 //	frag_shaded = vec4(gammaCorrect(totalXYZ, 2.2), 1.0);
 }
 
