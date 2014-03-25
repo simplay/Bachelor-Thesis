@@ -325,6 +325,18 @@ public class SimpleKeyListener implements KeyListener{
 		    	sceneManager.addLight(newlightSource);
 		    	renderPanel.getCanvas().repaint();
 		    	break;
+		    case 'm':
+		    	Material material = fabric.getMat();
+		    	float oldSpacing = material.getBruteforceSpacing();
+		    	material.setBruteForceSpacing(oldSpacing+0.01f);
+		    	renderPanel.getCanvas().repaint();
+		    	break;
+		    case 'n':
+		    	material = fabric.getMat();
+		    	oldSpacing = material.getBruteforceSpacing();
+		    	material.setBruteForceSpacing(oldSpacing-0.01f);
+		    	renderPanel.getCanvas().repaint();
+		    	break;
 		}
 		controller.handleEvent();
 	}

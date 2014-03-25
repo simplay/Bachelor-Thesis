@@ -32,6 +32,8 @@ public class Material {
 	private float[] weights;
 	private float[] globals;
 	private float[] kValues;
+	// 1 micron
+	private float bruteforceSpacing = 1.0f;
 	
     private int layerCount;
     private int stepCount;
@@ -54,6 +56,10 @@ public class Material {
 	private boolean renderBrdfMap;
 	
     public Material(){}
+    
+    public float getBruteforceSpacing(){
+    	return this.bruteforceSpacing;
+    }
     
     public Texture getBumpMapTexture(){
     	return this.bumpMapTexture;
@@ -130,6 +136,10 @@ public class Material {
     
     public float getLambdaMax(){
     	return this.lambdaMax;
+    }
+    
+    public void setBruteForceSpacing(float value){
+    	this.bruteforceSpacing = value;
     }
     
     public void setStepCount(int stepCount){

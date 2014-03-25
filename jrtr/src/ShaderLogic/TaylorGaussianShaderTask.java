@@ -233,6 +233,11 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		
 //		float dh = scalingFactors[3];
 		System.out.println("resolution: microns per pixel: " + dh);		
+		
+		float bruteforceSpacing = m.getBruteforceSpacing();
+		System.out.println("bruteforce spacing: " + bruteforceSpacing);
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "bruteforcespacing");
+		gl.glUniform1f(id3, bruteforceSpacing);
 	}
 
 	@Override

@@ -28,6 +28,7 @@ uniform float dimX;
 uniform float t0;
 uniform float thetaI;
 uniform float phiI;
+uniform float bruteforcespacing;
 
 // Variables passed in from the vertex shader
 in vec2 frag_texcoord;
@@ -503,7 +504,7 @@ vec3 blend3 (vec3 x){
 }
 //
 void gemMain(){
-	
+
 //	float thetaR = asin(sqrt(o_org_pos.x*o_org_pos.x + o_org_pos.y*o_org_pos.y ));
 //	float phiR = atan(o_org_pos.y, o_org_pos.x);
 //	vec3 k1 = vec3(0.0f);
@@ -551,7 +552,13 @@ void gemMain(){
 	vec4 cdiff = vec4(0, 0, 0, 1);
 	
 	// 2.5microns
-	float d = 1.7;
+//	float d = 1.7;
+	float d = 1.55227;
+	
+	// bruteforce spacing
+	d = bruteforcespacing;
+	
+	
 	float eps = 0.0;
 	
 	float uuu = abs(u);
@@ -562,16 +569,37 @@ void gemMain(){
 	
 //	if(vvv < 0.01){
 		cdiff.xyz += sumContributionAlongDir(uNMM, uuu, d);
-		if(uuu < 0.01) eps = 1.0;
+		if(uuu < 0.006) {
+			cdiff.xyz += vec3(1,1,1);
+			eps = 1.0;
+		}
 //	}
 	
 //	if(uuu < 0.0){
 		cdiff.xyz += sumContributionAlongDir(vNMM, vvv, d);
-		if(vvv < 0.01) eps = 1.0;
+//		if(vvv < 0.01) eps = 0.0;
+		if(vvv < 0.006) {
+			cdiff.xyz += vec3(1,1,1);
+			eps = 1.0;
+		}
 //	}
 	
-	vec3 totalXYZ = 1*cdiff.xyz/5.0 + eps;
-	frag_shaded = vec4(gammaCorrect(totalXYZ, 2.2), 1.0);
+		
+	vec3 totalXYZ = cdiff.xyz/10.0 + eps;
+	
+	
+	//totalXYZ = totalXYZ*gainF(lightDir, Pos)*1.0*shadowF;
+	//totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
+	
+	
+	float value = (getShadowMaskFactor(lightDir, Pos)*gainF(lightDir, Pos));
+	value = (value < 0.0) ? 0.0 : value;
+	
+	vec3 pewpew = 1.0*totalXYZ*value;
+	
+	// frag_shaded = vec4(pewpew,1.0);
+	frag_shaded = vec4(gammaCorrect(pewpew, 2.6), 1.0);
+//	frag_shaded = vec4(gammaCorrect(totalXYZ, 2.2), 1.0);
 }
 
 vec3 sumContributionAlongDir(vec2 boundaries, float dir, float spacing) {
@@ -607,14 +635,14 @@ vec2 getNMMfor(float t, float spacing) {
 }
 
 void main(){
-//	gemMain();
+	gemMain();
 //	if(isCone==1){
 //		coneMain();
 //	}else{
 //		if(renderBrdfMap == 1){
 //			mainBRDFMap();
 //		}else{
-			mainRenderGeometry();
+//			mainRenderGeometry();
 //		}
 //	}
 	
