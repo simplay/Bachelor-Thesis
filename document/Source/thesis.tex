@@ -28,7 +28,16 @@
 \usepackage{float}
 \usepackage{mathtools}
 
-\renewcommand{\algorithmicforall}{\textbf{foreach}}
+
+
+\algnewcommand\algorithmicinput{\textbf{INPUT:}}
+\algnewcommand\INPUT{\item[\algorithmicinput]}
+
+\algnewcommand\algorithmicoutput{\textbf{OUTPUT:}}
+\algnewcommand\OUTPUT{\item[\algorithmicoutput]}
+
+
+\renewcommand{\algorithmicforall}{\textbf{Foreach}}
 \newcommand{\init}{\textbf{INIT }}
 \newcommand{\pluseq}{\mathrel{+}=}
 \newcommand{\asteq}{\mathrel{*}=}
@@ -102,6 +111,8 @@
 \include{Chapters/chapter6}
 \newpage{\pagestyle{empty} \cleardoublepage}
 
+% \include{Chapters/chapter7}
+% \newpage{\pagestyle{empty} \cleardoublepage}
 
 \begin{appendix}
 \include{Chapters/appendix}
