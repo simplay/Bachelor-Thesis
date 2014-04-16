@@ -44,4 +44,5 @@ scene/*.png
 screenshots/*
 *.aux
 *.log
-document/**/*._*
+*.gz
+document/Source/thesis.synctex.gz
