@@ -45,4 +45,4 @@ screenshots/*
 *.aux
 *.log
 *.gz
-document/Source/thesis.synctex.gz
+document/Source/thesis.pdf
