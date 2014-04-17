@@ -32,14 +32,47 @@ Before we can tell how much light is reflected from a given point on a surface t
 \end{figure}
 
 \subsection{Spectral Radiance}
+When rendering an image we have to determine the color of each pixel of the image. Although irradiance tells us how much light is arriving at a point as illustrated in figure $\ref{fig:irradiance}$, it tells us little about the direction that light comes from. This relates to how the human eye perceives the brightness of an illuminated objects when looking at it in a certain direction. 
+
+\begin{figure}[H]
+  \centering
+  \subfigure[Radiance is photon ray density number of photons per area per solid angle.]{
+    \includegraphics[scale=0.3]{background/radiance.png}
+    \label{fig:radiance}
+  }
+~
+  \subfigure[Solid angle is the area of a surface patch on a unit sphere which is spanned by a set of directions]{
+    \includegraphics[scale=0.5]{background/solidangle.png}
+    \label{fig:solidangle}
+  }
+
+\label{fig:radianceBasics}
+\end{figure}
+
+This concepted is described by the radiometric quantity radiance. This is basically a measure of light energy passing through or is emitted off from a small area around a point on a surface towards a given direction during a short period in time. More formally this is the spectral power emerging from an arbitrary point (an infinitimal area around this point) and falls within a given solid angle in specific direction (usually towards the observer) as shown in figure $\ref{fig:radiance}$. Formally, this leads us to the following mathematical formalism: 
+
+\begin{equation}
+ L(\omega)_{\lambda} = \frac{d^2 \Phi_{\lambda}}{dA d\Omega} \approx \frac{\Phi_{\lambda}}{\Omega A}
+\end{equation}
+
+where $L$ is the observed radiance in the unit energy per unit area per solid angle, which is $Wm^-2 sr^-1$ in direction $\omega$ which has an angle $\theta$ between the surface normal and $\omega$, $\Theta$ is the total flux or power emitted, $\theta$ is the angle between the surface normal and the specified direction, $A$ is the area of the surface and $\Omega$ is the solid angle in the unit steradian subtended by the observation or measurement.
+
+It is useful to distinguish between radiance incident at a point on a surface and excitant from that point. Terms for these concepts sometimes used in the graphics literature are surface radiance $L_r$ for the radiance \textit{reflected} from a surface and field radiance $L_i$ for the radiance \textit{incident} at a surface.  
 
 \subsection{BRDF}
 how much light is reflected back from P in a given direction (generally the viewing direction), we first need to know how much light arrives at P from all directions in the hemisphere above the point. 
+
 \subsection{Colorspace}
+
 \subsection{Spectral Rendering}
 
 
+
+
+
 \section{Wave Theory for Light and Diffraction}
+
+
 
 
 \section{Stam's BRDF formulation}
