@@ -12,15 +12,20 @@
 \contentsline {subsection}{\numberline {2.1.4}Spectral Irradiance}{5}{subsection.2.1.4}
 \contentsline {subsection}{\numberline {2.1.5}Spectral Radiance}{6}{subsection.2.1.5}
 \contentsline {subsection}{\numberline {2.1.6}BRDF}{6}{subsection.2.1.6}
-\contentsline {subsection}{\numberline {2.1.7}Colorspace}{7}{subsection.2.1.7}
-\contentsline {subsection}{\numberline {2.1.8}Spectral Rendering}{7}{subsection.2.1.8}
-\contentsline {section}{\numberline {2.2}Wave Theory for Light and Diffraction}{7}{section.2.2}
-\contentsline {section}{\numberline {2.3}Stam's BRDF formulation}{7}{section.2.3}
-\contentsline {chapter}{\numberline {A}Appendix}{11}{appendix.A}
-\contentsline {section}{\numberline {A.1}Schlick's approximation}{11}{section.A.1}
-\contentsline {section}{\numberline {A.2}Spherical Coordinates}{11}{section.A.2}
-\contentsline {section}{\numberline {A.3}Tangent Space}{12}{section.A.3}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{13}{figure.caption.7}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{13}{appendix*.8}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{14}{appendix*.9}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{15}{appendix*.10}
+\contentsline {subsection}{\numberline {2.1.7}Wavespectrum and Colors}{7}{subsection.2.1.7}
+\contentsline {subsection}{\numberline {2.1.8}Colorspace}{9}{subsection.2.1.8}
+\contentsline {subsection}{\numberline {2.1.9}Spectral Rendering}{9}{subsection.2.1.9}
+\contentsline {section}{\numberline {2.2}Wave Theory for Light and Diffraction}{9}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Basics in Wave Theory}{9}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Wave Coherence}{9}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Hyugens Principle}{9}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}Diffraction of Waves}{9}{subsection.2.2.4}
+\contentsline {section}{\numberline {2.3}Stam's BRDF formulation}{9}{section.2.3}
+\contentsline {chapter}{\numberline {A}Appendix}{12}{appendix.A}
+\contentsline {section}{\numberline {A.1}Schlick's approximation}{12}{section.A.1}
+\contentsline {section}{\numberline {A.2}Spherical Coordinates}{12}{section.A.2}
+\contentsline {section}{\numberline {A.3}Tangent Space}{13}{section.A.3}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{14}{figure.caption.9}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{14}{appendix*.10}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{15}{appendix*.11}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{16}{appendix*.12}

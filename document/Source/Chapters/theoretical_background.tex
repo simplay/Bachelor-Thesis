@@ -36,18 +36,20 @@ When rendering an image we have to determine the color of each pixel of the imag
 
 \begin{figure}[H]
   \centering
-  \subfigure[Radiance is photon ray density number of photons per area per solid angle.]{
-    \includegraphics[scale=0.3]{background/radiance.png}
+  \subfigure[Radiances is photon ray density number of photons per area per solid angle.]{
+    \includegraphics[scale=0.25]{background/radiance.png}
     \label{fig:radiance}
   }
 ~
   \subfigure[Solid angle is the area of a surface patch on a unit sphere which is spanned by a set of directions]{
-    \includegraphics[scale=0.5]{background/solidangle.png}
+    \includegraphics[scale=0.33]{background/solidangle.png}
     \label{fig:solidangle}
   }
-
+  
+\caption[radiancesolidangleillustration]{Illustration of concept of radiance and solid angle$\footnotemark$.}
 \label{fig:radianceBasics}
 \end{figure}
+\footnotetext{Similar figute like used in computer graphics class 2012 in chapter colors}
 
 This concepted is described by the radiometric quantity radiance. This is basically a measure of light energy passing through or is emitted off from a small area around a point on a surface towards a given direction during a short period in time. More formally this is the spectral power emerging from an arbitrary point (an infinitimal area around this point) and falls within a given solid angle in specific direction (usually towards the observer) as shown in figure $\ref{fig:radiance}$. Formally, this leads us to the following mathematical formalism: 
 
@@ -55,7 +57,7 @@ This concepted is described by the radiometric quantity radiance. This is basica
  L_{\lambda}(\omega) = \frac{d^2 \Phi_{\lambda}}{dA d\Omega} \approx \frac{\Phi_{\lambda}}{\Omega A}
 \end{equation}
 
-where $L$ is the observed radiance in the unit energy per unit area per solid angle, which is $Wm^-2 sr^-1$ in direction $\omega$ which has an angle $\theta$ between the surface normal and $\omega$, $\Theta$ is the total flux or power emitted, $\theta$ is the angle between the surface normal and the specified direction, $A$ is the area of the surface and $\Omega$ is the solid angle in the unit steradian subtended by the observation or measurement.
+where $L$ is the observed spectral radiance in the unit energy per unit area per solid angle, which is $Wm^-2 sr^-1$ in direction $\omega$ which has an angle $\theta$ between the surface normal and $\omega$, $\Theta$ is the total flux or power emitted, $\theta$ is the angle between the surface normal and the specified direction, $A$ is the area of the surface and $\Omega$ is the solid angle in the unit steradian subtended by the observation or measurement.
 
 It is useful to distinguish between radiance incident at a point on a surface and excitant from that point. Terms for these concepts sometimes used in the graphics literature are surface radiance $L_r$ for the radiance \textit{reflected} from a surface and field radiance $L_i$ for the radiance \textit{incident} at a surface.  
 
@@ -79,7 +81,30 @@ Which formally is for any given wavelength $\lambda$ equivalent to:
   \label{eq:defbrdf}
 \end{align}
 
-Where $L_{r}$ is the reflected radiance, $E_i$ is the irradiance and $\theta_{\text{i}}$ is the angle between $\omega_{\text{i}}$ and the surface normal $\mathbf n$. 
+Where $L_{r}$ is the reflected spectral radiance, $E_i$ is the spectral irradiance and $\theta_{\text{i}}$ is the angle between $\omega_{\text{i}}$ and the surface normal $\mathbf n$. 
+
+\subsection{Wavespectrum and Colors}
+In order to see how crucial the role of human vision plays, let us consider the following definition of color by \textit{Wyszechkiu and Siles}$\footnote{mentioned in Computer Graphics Fundamentals Book from the year 2000}$ stating that \textit{Color is the aspect of visual perception by which an observer may distinguish differences between two structure-free fields of view of the same size and shape such as may be caused by differences in the spectral composition of the radiant energy concerned in the observation}. Therefore, similarly like the humans' perceived sensation of smell and taste, color vision is just another individual sense of perception giving us the ability to distinguish different frequency distribution of light experienced as color.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.35]{background/lightspec.png}
+  \caption[visiblelightspectrum]{Frequency (top) and wavelenght (bottom) of colors of the visible light spectrum$\footnotemark$.}
+  \label{fig:colorspectrum}
+\end{figure}
+\footnotetext{Similar figute like used in computer graphics class 2012 in chapter colors}
+
+In general an eye consists of photoreceptor cells which are responsible for providing ability of color-perception. A schematic of an eye is illustratied in figure $\ref{fig:humaneye}$. Basically, there are two specialized types of photoreceptor cells, cone cells which are responsible for color vision and rod cells, which allow an eye to perceive different brigthness levels.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.35]{background/humaneye.png}
+  \caption[humanayeschematic]{Schematic$\footnotemark$ of photoreceptor cells, cones and rods, in human eye }
+  \label{fig:humaneye}
+\end{figure}
+\footnotetext{image of illustration has been taken from \href{http://en.wikipedia.org/wiki/Bidirectional_reflectance_distribution_function}{wikipedia}}
+
+A human eye is made of three different types of cone cells, having their peak sensivity in sensing color at different wavelength ranges. More precisely, there are cone cells most sensitive to short wavelengths which are between $420 nm$ and $440 nm$, those which are most sensitive in the middle range between $530 nm$ and $550 nm$ and those which have their peak in the long range, from $560 nm$ to $580 nm$. In principle, any color sensation in human color perception as shown in figure $\ref{fig:colorspectrum}$ can therefore be described by just three parameters, corresponding to levels of stimulus of the three types of cone cells.  
 
 \subsection{Colorspace}
 
@@ -90,9 +115,10 @@ Where $L_{r}$ is the reflected radiance, $E_i$ is the irradiance and $\theta_{\t
 
 
 \section{Wave Theory for Light and Diffraction}
-
-
-
+\subsection{Basics in Wave Theory}
+\subsection{Wave Coherence}
+\subsection{Hyugens Principle}
+\subsection{Diffraction of Waves}
 
 \section{Stam's BRDF formulation}
 \label{sec:sumstam}
