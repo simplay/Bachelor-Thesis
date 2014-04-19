@@ -52,7 +52,7 @@ When rendering an image we have to determine the color of each pixel of the imag
 This concepted is described by the radiometric quantity radiance. This is basically a measure of light energy passing through or is emitted off from a small area around a point on a surface towards a given direction during a short period in time. More formally this is the spectral power emerging from an arbitrary point (an infinitimal area around this point) and falls within a given solid angle in specific direction (usually towards the observer) as shown in figure $\ref{fig:radiance}$. Formally, this leads us to the following mathematical formalism: 
 
 \begin{equation}
- L(\omega)_{\lambda} = \frac{d^2 \Phi_{\lambda}}{dA d\Omega} \approx \frac{\Phi_{\lambda}}{\Omega A}
+ L_{\lambda}(\omega) = \frac{d^2 \Phi_{\lambda}}{dA d\Omega} \approx \frac{\Phi_{\lambda}}{\Omega A}
 \end{equation}
 
 where $L$ is the observed radiance in the unit energy per unit area per solid angle, which is $Wm^-2 sr^-1$ in direction $\omega$ which has an angle $\theta$ between the surface normal and $\omega$, $\Theta$ is the total flux or power emitted, $\theta$ is the angle between the surface normal and the specified direction, $A$ is the area of the surface and $\Omega$ is the solid angle in the unit steradian subtended by the observation or measurement.
@@ -60,7 +60,26 @@ where $L$ is the observed radiance in the unit energy per unit area per solid an
 It is useful to distinguish between radiance incident at a point on a surface and excitant from that point. Terms for these concepts sometimes used in the graphics literature are surface radiance $L_r$ for the radiance \textit{reflected} from a surface and field radiance $L_i$ for the radiance \textit{incident} at a surface.  
 
 \subsection{BRDF}
-how much light is reflected back from P in a given direction (generally the viewing direction), we first need to know how much light arrives at P from all directions in the hemisphere above the point. 
+In order to render the colorization of an observed object, a natural question in computer graphics is what portion of the reflected, incident light a viewer will receive, when he looks at an illuminated object. Therefore for any given surfaces which is illuminated from a certain direction $\omega_i$, we can ask ourself how much light is reflected off of any point on this surface towards a viewing direction $\omega_r$. This is where the Bidirectional Reflectance Distribution Function (short: BRDF) comes into play, which is a radiometric quantity telling us how much light is reflected at an opaque surface. Mathematically speaking, the BRDF is the ratio of the reflected radiance pointing to the direction $\omega_r$ to the incident irradiance comming from the inverse direction of $\omega_i$ as illustrated in figure $\ref{fig:brdfillustration}$. 
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[scale=0.25]{brdfdiagram.png}
+  \caption[brdfillustration]{Illistration$\footnotemark$ of the BRDF model, where $\omega_i$ is pointing to the light source and the existing direction is denoted by $\omega_r$. Both direction unit direction vectors defined w.r.t to a surface normal $\mathbf{n}$ for every point on the surface.}
+  \label{fig:brdfillustration}  
+\end{figure}
+\footnotetext{image of illustration has been taken from \href{http://en.wikipedia.org/wiki/Bidirectional_reflectance_distribution_function}{wikipedia}}
+
+Which formally is for any given wavelength $\lambda$ equivalent to:
+
+\begin{align}
+  BRDF_{\lambda}(\omega_i, \omega_r)
+  & = \frac{dL_r(\omega_r)}{dE_i(\omega_i)} \nonumber \\
+  & = \frac{dL_r(\omega_r)}{L_i(\omega_i)cos(\theta_i)d\omega_i}
+  \label{eq:defbrdf}
+\end{align}
+
+Where $L_{r}$ is the reflected radiance, $E_i$ is the irradiance and $\theta_{\text{i}}$ is the angle between $\omega_{\text{i}}$ and the surface normal $\mathbf n$. 
 
 \subsection{Colorspace}
 

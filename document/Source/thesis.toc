@@ -16,11 +16,11 @@
 \contentsline {subsection}{\numberline {2.1.8}Spectral Rendering}{7}{subsection.2.1.8}
 \contentsline {section}{\numberline {2.2}Wave Theory for Light and Diffraction}{7}{section.2.2}
 \contentsline {section}{\numberline {2.3}Stam's BRDF formulation}{7}{section.2.3}
-\contentsline {chapter}{\numberline {A}Appendix}{10}{appendix.A}
-\contentsline {section}{\numberline {A.1}Schlick's approximation}{10}{section.A.1}
-\contentsline {section}{\numberline {A.2}Spherical Coordinates}{10}{section.A.2}
-\contentsline {section}{\numberline {A.3}Tangent Space}{11}{section.A.3}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{12}{figure.caption.6}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{12}{appendix*.7}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{13}{appendix*.8}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{14}{appendix*.9}
+\contentsline {chapter}{\numberline {A}Appendix}{11}{appendix.A}
+\contentsline {section}{\numberline {A.1}Schlick's approximation}{11}{section.A.1}
+\contentsline {section}{\numberline {A.2}Spherical Coordinates}{11}{section.A.2}
+\contentsline {section}{\numberline {A.3}Tangent Space}{12}{section.A.3}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{13}{figure.caption.7}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{13}{appendix*.8}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{14}{appendix*.9}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{15}{appendix*.10}
