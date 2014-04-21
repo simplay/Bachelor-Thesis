@@ -36,22 +36,20 @@ When rendering an image we have to determine the color of each pixel of the imag
 
 \begin{figure}[H]
   \centering
-  \subfigure[Radiances is photon ray density number of photons per area per solid angle.]{
-    \includegraphics[scale=0.25]{background/radiance.png}
+  \subfigure[Radiances is the density of photons per area per solid angle]{
+    \includegraphics[scale=0.6]{background/radiancehemisphere.png}
     \label{fig:radiance}
   }
 ~
-  \subfigure[Solid angle is the area of a surface patch on a unit sphere which is spanned by a set of directions]{
-    \includegraphics[scale=0.33]{background/solidangle.png}
+  \subfigure[Solid angle is the area of a surface patch on a sphere with radius R which is spanned by a set of directions]{  
+    \includegraphics[scale=0.42]{background/solidangle.png}
     \label{fig:solidangle}
   }
   
-\caption[radiancesolidangleillustration]{Illustration of concept of radiance and solid angle$\footnotemark$.}
 \label{fig:radianceBasics}
-\end{figure}
-\footnotetext{Similar figute like used in computer graphics class 2012 in chapter colors}
+\end{figure}s
 
-This concepted is described by the radiometric quantity radiance. This is basically a measure of light energy passing through or is emitted off from a small area around a point on a surface towards a given direction during a short period in time. More formally this is the spectral power emerging from an arbitrary point (an infinitimal area around this point) and falls within a given solid angle in specific direction (usually towards the observer) as shown in figure $\ref{fig:radiance}$. Formally, this leads us to the following mathematical formalism: 
+This concepted is described by the radiometric quantity radiance. Basically, this is a measure of light energy passing through or is emitted off from a small area around a point on a surface towards a given direction during a short period in time. More formally this is the spectral power emerging from an arbitrary point (an infinitimal area around this point) and falls within a given solid angle (see figure$\footnote{Similar figute like used in computer graphics class 2012 in chapter colors}$ $\ref{fig:solidangle}$)in specific direction (usually towards the observer) as shown in figure $\ref{fig:radiance}$. Formally, this leads us to the following mathematical formalism: 
 
 \begin{equation}
  L_{\lambda}(\omega) = \frac{d^2 \Phi_{\lambda}}{dA d\Omega} \approx \frac{\Phi_{\lambda}}{\Omega A}
