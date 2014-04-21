@@ -1,0 +1,18 @@
+\begin{algorithm}[H]
+  \caption{Fragment Shader}
+  \begin{algorithmic}
+    \INPUT $Precomputed \thinspace DFT \thinspace Terms,\thinspace Scene \thinspace Geometry$
+    \ForAll{$Pixel \thinspace p  \in Fragment$}
+      \State $ (u,v) = computeUV(p) $
+      \State $ compute \thinspace A_g $
+      \ForAll{$\lambda \in [380nm, 780nm]$}
+        \State $ perform \thinspace  lookup(u,v) \thinspace in \thinspace Fourierterms $  
+        \State $ P = || P(\frac{u}{\lambda}, \frac{v}{\lambda}) || ^2$
+        \State $ CIE_{XZY} = lookUpColorWeight(\lambda)$
+        \State $ color_{XYZ} \pluseq CIE_{XZY} \cdot P \cdot A_g $
+      \EndFor
+      \OUTPUT $ Transform(color_{XYZ}) $
+    \EndFor
+  \end{algorithmic}
+\label{alg:fragmentshadershort}
+\end{algorithm}
