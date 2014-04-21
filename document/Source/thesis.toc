@@ -22,10 +22,15 @@
 \contentsline {subsection}{\numberline {2.2.4}Diffraction of Waves}{9}{subsection.2.2.4}
 \contentsline {section}{\numberline {2.3}Stam's BRDF formulation}{9}{section.2.3}
 \contentsline {chapter}{\numberline {A}Appendix}{12}{appendix.A}
-\contentsline {section}{\numberline {A.1}Schlick's approximation}{12}{section.A.1}
-\contentsline {section}{\numberline {A.2}Spherical Coordinates}{12}{section.A.2}
-\contentsline {section}{\numberline {A.3}Tangent Space}{13}{section.A.3}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{14}{figure.caption.9}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{14}{appendix*.10}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{15}{appendix*.11}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{16}{appendix*.12}
+\contentsline {section}{\numberline {A.1}Signal Processing Basics}{12}{section.A.1}
+\contentsline {subsection}{\numberline {A.1.1}Fourier Transformation}{12}{subsection.A.1.1}
+\contentsline {subsection}{\numberline {A.1.2}Convolution}{14}{subsection.A.1.2}
+\contentsline {subsection}{\numberline {A.1.3}Taylor Series}{14}{subsection.A.1.3}
+\contentsline {chapter}{\numberline {B}Appendix}{16}{appendix.B}
+\contentsline {section}{\numberline {B.1}Schlick's approximation}{16}{section.B.1}
+\contentsline {section}{\numberline {B.2}Spherical Coordinates}{16}{section.B.2}
+\contentsline {section}{\numberline {B.3}Tangent Space}{17}{section.B.3}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{18}{figure.caption.11}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{18}{appendix*.12}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{19}{appendix*.13}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{20}{appendix*.14}
