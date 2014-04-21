@@ -44,5 +44,5 @@
 \contentsline {section}{\numberline {B.3}Tangent Space}{30}{section.B.3}
 \contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{31}{figure.caption.14}
 \contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{31}{appendix*.15}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{32}{appendix*.16}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{33}{appendix*.17}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{33}{appendix*.16}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{34}{appendix*.17}
