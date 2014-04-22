@@ -11,9 +11,10 @@
 \contentsline {figure}{\numberline {2.3}{\ignorespaces visiblelightspectrum}}{8}{figure.caption.6}
 \contentsline {figure}{\numberline {2.4}{\ignorespaces humanayeschematic}}{8}{figure.caption.7}
 \contentsline {figure}{\numberline {2.5}{\ignorespaces Plots of our color matching functions we used for rendering\relax }}{9}{figure.caption.8}
-\contentsline {figure}{\numberline {2.6}{\ignorespaces $\omega _i$ points toward the light source, $\omega _r$ points toward the camera, $n$ is the surface normal\relax }}{11}{figure.caption.9}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces sinewave}}{11}{figure.caption.9}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces $\omega _i$ points toward the light source, $\omega _r$ points toward the camera, $n$ is the surface normal\relax }}{13}{figure.caption.10}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Comparission between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\mathaccentV {hat}65E{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.\relax }}{26}{figure.caption.12}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Comparission between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\mathaccentV {hat}65E{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.\relax }}{27}{figure.caption.13}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {B.1}{\ignorespaces Cube in world space $(x,y,z)$ showing the tangen space $(u,v,n)$ of its face $(2,1,3)$\relax }}{32}{figure.caption.15}
+\contentsline {figure}{\numberline {B.1}{\ignorespaces Cube in world space $(x,y,z)$ showing the tangen space $(u,v,n)$ of its face $(2,1,3)$\relax }}{33}{figure.caption.16}

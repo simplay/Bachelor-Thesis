@@ -17,32 +17,32 @@
 \contentsline {subsection}{\numberline {2.1.9}Spectral Rendering}{10}{subsection.2.1.9}
 \contentsline {section}{\numberline {2.2}Wave Theory for Light and Diffraction}{10}{section.2.2}
 \contentsline {subsection}{\numberline {2.2.1}Basics in Wave Theory}{10}{subsection.2.2.1}
-\contentsline {subsection}{\numberline {2.2.2}Wave Coherence}{10}{subsection.2.2.2}
-\contentsline {subsection}{\numberline {2.2.3}Hyugens Principle}{10}{subsection.2.2.3}
-\contentsline {subsection}{\numberline {2.2.4}Diffraction of Waves}{10}{subsection.2.2.4}
-\contentsline {section}{\numberline {2.3}Stam's BRDF formulation}{10}{section.2.3}
-\contentsline {chapter}{\numberline {3}Derivations}{14}{chapter.3}
-\contentsline {section}{\numberline {3.1}Adaption of Stam's BRDF}{14}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}BRDF formulation}{14}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}Relative BRDF}{15}{subsection.3.1.2}
-\contentsline {subsection}{\numberline {3.1.3}Taylor approximation for BRDF}{17}{subsection.3.1.3}
-\contentsline {paragraph}{Proof Sketch of 1.}{19}{section*.10}
-\contentsline {paragraph}{Part 2: Find such an N}{19}{section*.11}
-\contentsline {subsection}{\numberline {3.1.4}Sampling: Gaussian Window}{21}{subsection.3.1.4}
-\contentsline {subsection}{\numberline {3.1.5}Final Expression}{21}{subsection.3.1.5}
-\contentsline {section}{\numberline {3.2}Alternative Approach}{22}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}PQ factors}{22}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Interpolation}{25}{subsection.3.2.2}
-\contentsline {chapter}{\numberline {A}Appendix}{27}{appendix.A}
-\contentsline {section}{\numberline {A.1}Signal Processing Basics}{27}{section.A.1}
-\contentsline {subsection}{\numberline {A.1.1}Fourier Transformation}{27}{subsection.A.1.1}
-\contentsline {subsection}{\numberline {A.1.2}Convolution}{29}{subsection.A.1.2}
-\contentsline {subsection}{\numberline {A.1.3}Taylor Series}{29}{subsection.A.1.3}
-\contentsline {chapter}{\numberline {B}Appendix}{31}{appendix.B}
-\contentsline {section}{\numberline {B.1}Schlick's approximation}{31}{section.B.1}
-\contentsline {section}{\numberline {B.2}Spherical Coordinates}{31}{section.B.2}
-\contentsline {section}{\numberline {B.3}Tangent Space}{32}{section.B.3}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{33}{figure.caption.15}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{33}{appendix*.16}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{34}{appendix*.17}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{35}{appendix*.18}
+\contentsline {subsection}{\numberline {2.2.2}Wave Coherence}{12}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Hyugens Principle}{12}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}Diffraction of Waves}{12}{subsection.2.2.4}
+\contentsline {section}{\numberline {2.3}Stam's BRDF formulation}{12}{section.2.3}
+\contentsline {chapter}{\numberline {3}Derivations}{15}{chapter.3}
+\contentsline {section}{\numberline {3.1}Adaption of Stam's BRDF}{15}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}BRDF formulation}{15}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Relative BRDF}{16}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Taylor approximation for BRDF}{18}{subsection.3.1.3}
+\contentsline {paragraph}{Proof Sketch of 1.}{20}{section*.11}
+\contentsline {paragraph}{Part 2: Find such an N}{20}{section*.12}
+\contentsline {subsection}{\numberline {3.1.4}Sampling: Gaussian Window}{22}{subsection.3.1.4}
+\contentsline {subsection}{\numberline {3.1.5}Final Expression}{22}{subsection.3.1.5}
+\contentsline {section}{\numberline {3.2}Alternative Approach}{23}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}PQ factors}{23}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Interpolation}{26}{subsection.3.2.2}
+\contentsline {chapter}{\numberline {A}Appendix}{28}{appendix.A}
+\contentsline {section}{\numberline {A.1}Signal Processing Basics}{28}{section.A.1}
+\contentsline {subsection}{\numberline {A.1.1}Fourier Transformation}{28}{subsection.A.1.1}
+\contentsline {subsection}{\numberline {A.1.2}Convolution}{30}{subsection.A.1.2}
+\contentsline {subsection}{\numberline {A.1.3}Taylor Series}{30}{subsection.A.1.3}
+\contentsline {chapter}{\numberline {B}Appendix}{32}{appendix.B}
+\contentsline {section}{\numberline {B.1}Schlick's approximation}{32}{section.B.1}
+\contentsline {section}{\numberline {B.2}Spherical Coordinates}{32}{section.B.2}
+\contentsline {section}{\numberline {B.3}Tangent Space}{33}{section.B.3}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{34}{figure.caption.16}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{34}{appendix*.17}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{35}{appendix*.18}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{36}{appendix*.19}
