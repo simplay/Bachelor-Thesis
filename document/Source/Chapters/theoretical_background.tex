@@ -36,22 +36,20 @@ When rendering an image we have to determine the color of each pixel of the imag
 
 \begin{figure}[H]
   \centering
-  \subfigure[Radiances is photon ray density number of photons per area per solid angle.]{
-    \includegraphics[scale=0.25]{background/radiance.png}
+  \subfigure[Radiances is the density of photons per area per solid angle]{
+    \includegraphics[scale=0.6]{background/radiancehemisphere.png}
     \label{fig:radiance}
   }
 ~
-  \subfigure[Solid angle is the area of a surface patch on a unit sphere which is spanned by a set of directions]{
-    \includegraphics[scale=0.33]{background/solidangle.png}
+  \subfigure[Solid angle is the area of a surface patch on a sphere with radius R which is spanned by a set of directions]{  
+    \includegraphics[scale=0.42]{background/solidangle.png}
     \label{fig:solidangle}
   }
   
-\caption[radiancesolidangleillustration]{Illustration of concept of radiance and solid angle$\footnotemark$.}
 \label{fig:radianceBasics}
-\end{figure}
-\footnotetext{Similar figute like used in computer graphics class 2012 in chapter colors}
+\end{figure}s
 
-This concepted is described by the radiometric quantity radiance. This is basically a measure of light energy passing through or is emitted off from a small area around a point on a surface towards a given direction during a short period in time. More formally this is the spectral power emerging from an arbitrary point (an infinitimal area around this point) and falls within a given solid angle in specific direction (usually towards the observer) as shown in figure $\ref{fig:radiance}$. Formally, this leads us to the following mathematical formalism: 
+This concepted is described by the radiometric quantity radiance. Basically, this is a measure of light energy passing through or is emitted off from a small area around a point on a surface towards a given direction during a short period in time. More formally this is the spectral power emerging from an arbitrary point (an infinitimal area around this point) and falls within a given solid angle (see figure$\footnote{Similar figute like used in computer graphics class 2012 in chapter colors}$ $\ref{fig:solidangle}$)in specific direction (usually towards the observer) as shown in figure $\ref{fig:radiance}$. Formally, this leads us to the following mathematical formalism: 
 
 \begin{equation}
  L_{\lambda}(\omega) = \frac{d^2 \Phi_{\lambda}}{dA d\Omega} \approx \frac{\Phi_{\lambda}}{\Omega A}
@@ -107,13 +105,33 @@ In general an eye consists of photoreceptor cells which are responsible for prov
 A human eye is made of three different types of cone cells, having their peak sensivity in sensing color at different wavelength ranges. More precisely, there are cone cells most sensitive to short wavelengths which are between $420 nm$ and $440 nm$, those which are most sensitive in the middle range between $530 nm$ and $550 nm$ and those which have their peak in the long range, from $560 nm$ to $580 nm$. In principle, any color sensation in human color perception as shown in figure $\ref{fig:colorspectrum}$ can therefore be described by just three parameters, corresponding to levels of stimulus of the three types of cone cells.  
 
 \subsection{Colorspace}
+In order to render accurately images of how a human observer sees its world, a mathematical model of the human color perception is required. Remember that color sensation is due to a visual stimulus processed by cone cells in an eye. A human eye contains three different types of cone cells. Therefore, one possible approach is to describe each kind of these cone cells as a function of wavelength, returning a certain intensivity. In the early 1920, from a series of experiments the so called CIE XYZ color space was derived, describing response of cone cells of an average human individual, the so called standard observer. Basically, a statistically sufficiently large number of probands were exposed to different target light colors expressed by their wavelength. The task of each proband was to reproduce these target colors by mixing three given primary colors, red-, green- and blue-light. The strength  of each primary color could be manually adjusted by setting their relative intensivity. Those adjustment weights have been measured, aggregated and averaged among all probands for each primary color. This model describes each color as a triple of three real valued numbers$\footnote{note that there are  negative color weights possible in the CIE XYZ colors space. This is why some human perceived color sensations could not be reconstructed using just an additive color model (adding three positively weighted primary values). Therefore, a probabant was also allowed to move one of the primary colors to the target color and instead was supposed to reproduce this new color mix using the two remaining primaries (subtractive model). The value of the selected, moved primary was then interpreted as beeing negative weighted in an additive color model.}$, the so called tristimulus values.
 
+Pragmatically speaking, color spaces describes the range of colors a camera can see, a printer can print or a monitor can display. Thus, formally we can define it as a mapping a range of physically produced colors from mixed light to an objective description of color
+sensations registered in the eye of an observer in terms of tristimulus values. 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.7]{background/somatchingfunctions.png}
+  \caption{Plots of our color matching functions we used for rendering}
+  \label{fig:matchingfunction}
+\end{figure}
+
+Interpolating all measured tristimuli values gives us three basis functions, the CIE color matching functions $\overline{x}(\lambda)$, $\overline{y}(\lambda)$, $\overline{z}(\lambda)$. In figure $\ref{fig:matchingfunction}$ are the numerical description of the chromatic response of the observer. They can be thought of as the spectral sensitivity curves of three linear light detectors yielding the CIE Tristimulus values X, Y and Z. 
+
+The tristimulus values for a color with a spectral power distribution $I(\lambda)$, are given in terms of the standard observer by:
+
+\begin{align}
+    X= \int_{\Lambda} I(\lambda)\,\overline{x}(\lambda)\,d\lambda \nonumber \\
+    Y= \int_{\Lambda} I(\lambda)\,\overline{y}(\lambda)\,d\lambda \nonumber \\
+    Z= \int_{\Lambda} I(\lambda)\,\overline{z}(\lambda)\,d\lambda
+\label{eq:tristimulusvalues}
+\end{align}
+
+Where $\lambda$, is the wavelength of the equivalent monochromatic light spectrum $\Lambda = [380nm, 780nm]$. Note taht it is not possible to build a display that corresponds to the CIE XYZ colorspace. For this reasons it is necessary to design other color spaces, which are physical realizable, offers efficient encoding, are perceptual uniform and have an intuitive color specification. There are simple conversions between XYZ color space, to other color space described as linear transformations.
 
 \subsection{Spectral Rendering}
-
-
-
-
+When rendering an image, most of the time we are using colors described in a certain RGB color space. However, a RGB colorspace results from a colorspace transformation of the tristimulus values, which themself are inherent to the human visual system. Therefore, many physically light phenomenon are poorly modeled when always relying on RGB colors for rendering. Using only RGB colors for rendering is alike we would assume that a given light source emits light of only one particular wavelength. But in reality this is barely the case. Spectral rendering is referring to use a certain wavelength spectrum, e.g. the human visible light spectrum, instead simply using the whole range of RGB values in order to render an illuminated scene. This captures the physical reality of specific light sources way more accurate. Keep in mind that, even when we make use of a spectral rendering approach, we have to convert the final spectra to RGB values, when we want to display an image on an actual display. 
 
 \section{Wave Theory for Light and Diffraction}
 \subsection{Basics in Wave Theory}
