@@ -19,9 +19,9 @@
 \contentsline {subsection}{\numberline {2.2.1}Basics in Wave Theory}{10}{subsection.2.2.1}
 \contentsline {subsection}{\numberline {2.2.2}Wave Interference}{12}{subsection.2.2.2}
 \contentsline {subsection}{\numberline {2.2.3}Wave Coherence}{13}{subsection.2.2.3}
-\contentsline {subsection}{\numberline {2.2.4}Hyugens Principle}{13}{subsection.2.2.4}
-\contentsline {subsection}{\numberline {2.2.5}Diffraction of Waves}{13}{subsection.2.2.5}
-\contentsline {section}{\numberline {2.3}Stam's BRDF formulation}{13}{section.2.3}
+\contentsline {subsection}{\numberline {2.2.4}Huygen's Principle}{14}{subsection.2.2.4}
+\contentsline {subsection}{\numberline {2.2.5}Waves Diffraction}{14}{subsection.2.2.5}
+\contentsline {section}{\numberline {2.3}Stam's BRDF formulation}{14}{section.2.3}
 \contentsline {chapter}{\numberline {3}Derivations}{17}{chapter.3}
 \contentsline {section}{\numberline {3.1}Adaption of Stam's BRDF}{17}{section.3.1}
 \contentsline {subsection}{\numberline {3.1.1}BRDF formulation}{17}{subsection.3.1.1}
