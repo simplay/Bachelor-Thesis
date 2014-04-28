@@ -64,7 +64,7 @@ In order to render the colorization of an observed object, a natural question in
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[scale=0.35]{background/mybrdfmodel.png}
+  \includegraphics[scale=0.5]{background/mybrdfmodel.png}
   \caption[BRDF Model]{Illistration of the BRDF model, where $\omega_i$ is pointing to the light source and the existing direction is denoted by $\omega_r$. Both direction unit direction vectors defined w.r.t to a surface normal $\mathbf{n}$ for every point on the surface.}
   \label{fig:brdfillustration}  
 \end{figure}
@@ -197,6 +197,8 @@ Thus two waves are coherent if they are generated at the same time, having the s
 inject contribution here
 
 \subsection{Huygen's Principle}
+Besides from a wave's phase and amplitude, also its propagation directly affects the interaction between different waves and how they could interfere with each other. This is why it makes sense to formulate a model which allow us to predict the position of a moving wavefront and how it moves in space. This is where Huygen's Principle comes into play. It states that any each point of a wavefront may be regarded as a point source that emits spherical wavelets in every direction. Within the same propagation medium, these wavelets traval at the same speed as their source wavefront. The position of the new wavefront results by superimposing all of these emitted wavelets. Geometrically, the surface that is tangential to the secondary waves can be used in order to determine the future position of the wavfront. Thesrefore, the new wavefront encloses all emitted wavelets. Figure $\ref{fig:huygensprinciple}$ further visualizes Huygen's Prinicple.
+
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.6]{background/huygensprinciple.png}
