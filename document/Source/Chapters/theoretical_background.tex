@@ -176,62 +176,26 @@ Next, after having seen that a wave is simply a traveling disturbance along a me
 \end{itemize}
 
 \subsection{Wave Coherence}
-When considering two waves, traveling on a same medium how is their phase difference changing over time. Considering the changement of their relative phase as a function over time will provides us a quantitative measure of the synchronism of two waves. 
-
-Let us consider a perferct sine wave, which keeps their shape over an infinity amount of moved wavelengths and second wave which is a phase-shifted replica of the first one, both traveling along the same direction on the same medium.  Figure illustrates this scenaro $FIGUREREFERENCE$. 
-
-MERGE
-For this scenario, the relative phase difference is constant over time.
-
-But there is no real perferct sine wave in nature
-
-Let us assume we have given two one dimensional sine waves traveling along the same medium where the second wave is a phase-shifted replica of the first one and thus are in face. Remember that we say that two waves are in phase if their crests and troughs meet at the same place at the same time. Now, when considering their relative phase difference, and there is no signigicant changement, then waves are said being coherent.
-MERGE
- 
-
-to be coherent a wave must be either
-of the same frequency - monochromatic - temporally in phase, have a constant phase difference - have a constant spatial phase relationship, be of the same amplitude 
-
-_Wave coherence occurs when two or more wave sources generate waves at the same time, having the same frequency, amplitude, and phase.  Coherent waves can also be described as synchronous. The frequency is the rate at which a vibration occurs, the amplitude is the maximum extent of that vibration, and the phase refers to the degree of synchronicity between the vibrations.  Waves are considered incoherent or asynchronous if they have no stable phase relationship between them. Path difference describes whether waves will tend to interfere with each other constructively or destructively
-
-
-how is relative phase of two waves changing
-no signigicant changement, then waves are coherent
-for a perferct sine waves which keep their shape over an infinity amount of moved wavelengths, their relative phase is always the same
-but there is no real perferct sine wave in nature
-in nature $sin(wt + p(t))$ where $p(t)$ is describing the phase of a wave as a function over time which i slowly changing.
-property of wave enabling stationary interference
-
-degree of coherence how well can waves cancel out
-spatial coherence
-correlation between waves at different point in space
-ability for two points in space in the extend of a wave to interfere when averaged over time.
-coherence area. the range of seperation between the two points over which there is significant interference
-temporal coherence correlcation between waves observed at different moments in time, tells how well a wave interferes with itself at a different time
-coherenece time is delay over which the phase or amplitude wanders by a significant amount (correlation decreases)
-coherence length is the distance a wave travels during time coherence time.
-
-property of waves that enables temporally and spatially constant interference.
-he coherence of two waves follows from how well correlated the waves are as quantified by the cross-correlation function
-The cross-correlation quantifies the ability to predict the value of the second wave by knowing the value of the first. 
-
-different distinctions of correlation
-
-__Coherence can be classed in two ways: spatial and temporal coherence. 
-
-_Temporal coherence is the measure of the average correlation between the value of a wave and itself delayed by τ, at any pair of times. Temporal coherence tells us how monochromatic a source is. In other words, it characterizes how well a wave can interfere with itself at a different time. The delay over which the phase or amplitude wanders by a significant amount (and hence the correlation decreases by significant amount) is defined as the coherence time cτ
-_correlation or predictable relationship between signals observed at different moments in time. 
-
-_In some systems, such as water waves or optics, wave-like states can extend over one or two dimensions. Spatial coherence describes the ability for two points in space, x1 and x2, in the extent of a wave to interfere, when averaged over time. More precisely, the spatial coherence is the cross-correlation between two points in a wave for all times. If a wave has only 1 value of amplitude over an infinite length, it is perfectly spatially coherent. The range of separation between the two points over which there is significant interference is called the coherence area, Ac.
-_refer to the visibility when a wave-like state is combined with a spatially shifted copy of itself.
-_escribes the correlation between signals at different points in space. Spatial coherence means a strong correlation (fixed phase relationship) between the electric fields at different locations.
-
+\subsubsection{Concept of Coherence}
+When considering waves which are traveling on a shared medium along the same direction, we could examine how their phase difference is changing over time. Formulating the changement of their relative phase as a function of time will provides us a quantitative measure of the synchronism of two waves, the so called wave coherence. In order to better understand this concept, let us consider a perfectly mathematical sine wave and second wave which is a phase-shifted replica of the first one. A property of mathematical waves is that they keep their shape over an infinity amount of moved wavelengths. In our scenario, both waves are traveling along the same direction on the same medium, like exemplarily illustrated in figure $\ref{fig:coherencesinsignal}$.
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.75]{background/simplewavecoherence.png}
-  \caption{coherence}
-  \label{fig:mathcoherentwaves}
+  \includegraphics[scale=0.3]{background/coherencesinsignal.png}
+  \caption{Two mathematical sine waves which are perfectly coherent which means that their phase difference is constant for every point in time.}
+  \label{fig:coherencesinsignal}
 \end{figure}
+
+Taking the difference between the two sine waves from the previous figure yields always a constant number. Therefore, those two waves are said to be coherent and hence perfectly synchronous over time. Notice that this scenario is completly artificial since in nature there are no mathematical sine waves. Rather, the phase difference is then a fuction of time $p(t)$. The more coherent two waves are, the slower this function will change over time. 
+In fact, two waves are said to be coherent if they are either of the same frequency, temporally in phase or have the same amplitude at every point in time.
+Thus two waves are coherent if they are generated at the same time, having the same frequency, amplitude, and phase. Reversely, Waves are considered incoherent or also asynchronous if they have no stable phase difference. This means $p(t)$ is heavly varying over time. Coherence describes the effect of whether waves will tend to interfere with each other constructively or destructively at a certain point in time and space. Thus this is a property of waves that enables stationary interference. The more correlated two waves are, the higher their degree of coherence is. In physics coherence between waves is quantified by the corss-correlation function, which basically predicts the value of a second wave using the value of the first one. There are two basic coherence classifications:
+
+\begin{itemize}
+  \item Spatial coherence is dealing with the question of what is the range of distance between two points in space in the extend of a wave for which there is occuring a significant effect of interference when averaged over time. This is formally answered by considering the correlation between waves at different point in space. The range of distance is also denoted as the coherence area.
+  \item Temporal coherence examines the ability of how well a wave will interfer with itself at different moments in time. Mathematically, this kind of coherence is computed by averaging the measured correlation between the value of the wave and the delayed version of itself at different pairs of time. The Coherence time denotes the time for which the propagating wave is coherent and we therefore can predict its phase using the correlation function. The distance a wave has traveled during the coherence time is denoted as the coherence length.
+\end{itemize}
+
+\subsubsection{Derivation}
+inject contribution here
 
 \subsection{Huygen's Principle}
 \subsection{Waves Diffraction}
