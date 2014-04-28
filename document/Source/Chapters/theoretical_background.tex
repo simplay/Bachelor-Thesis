@@ -60,15 +60,14 @@ where $L$ is the observed spectral radiance in the unit energy per unit area per
 It is useful to distinguish between radiance incident at a point on a surface and excitant from that point. Terms for these concepts sometimes used in the graphics literature are surface radiance $L_r$ for the radiance \textit{reflected} from a surface and field radiance $L_i$ for the radiance \textit{incident} at a surface.  
 
 \subsection{BRDF}
-In order to render the colorization of an observed object, a natural question in computer graphics is what portion of the reflected, incident light a viewer will receive, when he looks at an illuminated object. Therefore for any given surfaces which is illuminated from a certain direction $\omega_i$, we can ask ourself how much light is reflected off of any point on this surface towards a viewing direction $\omega_r$. This is where the Bidirectional Reflectance Distribution Function (short: BRDF) comes into play, which is a radiometric quantity telling us how much light is reflected at an opaque surface. Mathematically speaking, the BRDF is the ratio of the reflected radiance pointing to the direction $\omega_r$ to the incident irradiance comming from the inverse direction of $\omega_i$ as illustrated in figure $\ref{fig:brdfillustration}$. 
+In order to render the colorization of an observed object, a natural question in computer graphics is what portion of the reflected, incident light a viewer will receive, when he looks at an illuminated object. Therefore for any given surfaces which is illuminated from a certain direction $\omega_i$, we can ask ourself how much light is reflected off of any point on this surface towards a viewing direction $\omega_r$. This is where the Bidirectional Reflectance Distribution Function (short: BRDF) comes into play, which is a radiometric quantity telling us how much light is reflected at an opaque surface. Mathematically speaking, the BRDF is the ratio of the reflected radiance pointing to the direction $\omega_r$ to the incident irradiance comming from the inverse direction of $\omega_i$ as illustrated in figure $\ref{fig:brdfillustration}$. Hence the BRDF is a four dimensional function defined by four angles $\theta_i$, $\phi_i$, $\theta_r$ and $\phi_r$.
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[scale=0.25]{brdfdiagram.png}
-  \caption[brdfillustration]{Illistration$\footnotemark$ of the BRDF model, where $\omega_i$ is pointing to the light source and the existing direction is denoted by $\omega_r$. Both direction unit direction vectors defined w.r.t to a surface normal $\mathbf{n}$ for every point on the surface.}
+  \includegraphics[scale=0.35]{background/mybrdfmodel.png}
+  \caption[BRDF Model]{Illistration of the BRDF model, where $\omega_i$ is pointing to the light source and the existing direction is denoted by $\omega_r$. Both direction unit direction vectors defined w.r.t to a surface normal $\mathbf{n}$ for every point on the surface.}
   \label{fig:brdfillustration}  
 \end{figure}
-\footnotetext{image of illustration has been taken from \href{http://en.wikipedia.org/wiki/Bidirectional_reflectance_distribution_function}{wikipedia}}
 
 Which formally is for any given wavelength $\lambda$ equivalent to:
 
@@ -198,8 +197,16 @@ Thus two waves are coherent if they are generated at the same time, having the s
 inject contribution here
 
 \subsection{Huygen's Principle}
-\subsection{Waves Diffraction}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.6]{background/huygensprinciple.png}
+  \caption[Huygen's Principle]{A moving wavefront (blue) encounters an obstacle (a surface in brown colors) and produces a new wavefront (green) as a result of superposition among all secondary wavelets.}
+  \label{fig:huygensprinciple}
+\end{figure}
 
+
+\subsection{Diffraction Gratings}
+\subsection{Waves Diffraction}
 
 \section{Stam's BRDF formulation}
 \label{sec:sumstam}
