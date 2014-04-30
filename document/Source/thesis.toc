@@ -24,29 +24,29 @@
 \contentsline {subsection}{\numberline {2.2.4}Huygen's Principle}{15}{subsection.2.2.4}
 \contentsline {subsection}{\numberline {2.2.5}Diffraction Gratings}{16}{subsection.2.2.5}
 \contentsline {subsection}{\numberline {2.2.6}Waves Diffraction}{16}{subsection.2.2.6}
-\contentsline {section}{\numberline {2.3}Stam's BRDF formulation}{16}{section.2.3}
-\contentsline {chapter}{\numberline {3}Derivations}{19}{chapter.3}
-\contentsline {section}{\numberline {3.1}Adaption of Stam's BRDF}{19}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}BRDF formulation}{19}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}Relative BRDF}{20}{subsection.3.1.2}
-\contentsline {subsection}{\numberline {3.1.3}Taylor approximation for BRDF}{22}{subsection.3.1.3}
-\contentsline {paragraph}{Proof Sketch of 1.}{24}{section*.16}
-\contentsline {paragraph}{Part 2: Find such an N}{24}{section*.17}
-\contentsline {subsection}{\numberline {3.1.4}Sampling: Gaussian Window}{26}{subsection.3.1.4}
-\contentsline {subsection}{\numberline {3.1.5}Final Expression}{26}{subsection.3.1.5}
-\contentsline {section}{\numberline {3.2}Alternative Approach}{27}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}PQ factors}{27}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Interpolation}{30}{subsection.3.2.2}
-\contentsline {chapter}{\numberline {A}Appendix}{32}{appendix.A}
-\contentsline {section}{\numberline {A.1}Signal Processing Basics}{32}{section.A.1}
-\contentsline {subsection}{\numberline {A.1.1}Fourier Transformation}{32}{subsection.A.1.1}
-\contentsline {subsection}{\numberline {A.1.2}Convolution}{34}{subsection.A.1.2}
-\contentsline {subsection}{\numberline {A.1.3}Taylor Series}{34}{subsection.A.1.3}
-\contentsline {chapter}{\numberline {B}Appendix}{36}{appendix.B}
-\contentsline {section}{\numberline {B.1}Schlick's approximation}{36}{section.B.1}
-\contentsline {section}{\numberline {B.2}Spherical Coordinates}{36}{section.B.2}
-\contentsline {section}{\numberline {B.3}Tangent Space}{37}{section.B.3}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{38}{figure.caption.21}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{38}{appendix*.22}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{39}{appendix*.23}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{40}{appendix*.24}
+\contentsline {section}{\numberline {2.3}Stam's BRDF formulation}{17}{section.2.3}
+\contentsline {chapter}{\numberline {3}Derivations}{20}{chapter.3}
+\contentsline {section}{\numberline {3.1}Adaption of Stam's BRDF}{20}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}BRDF formulation}{20}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Relative BRDF}{21}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Taylor approximation for BRDF}{23}{subsection.3.1.3}
+\contentsline {paragraph}{Proof Sketch of 1.}{25}{section*.18}
+\contentsline {paragraph}{Part 2: Find such an N}{25}{section*.19}
+\contentsline {subsection}{\numberline {3.1.4}Sampling: Gaussian Window}{27}{subsection.3.1.4}
+\contentsline {subsection}{\numberline {3.1.5}Final Expression}{27}{subsection.3.1.5}
+\contentsline {section}{\numberline {3.2}Alternative Approach}{28}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}PQ factors}{28}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Interpolation}{31}{subsection.3.2.2}
+\contentsline {chapter}{\numberline {A}Appendix}{33}{appendix.A}
+\contentsline {section}{\numberline {A.1}Signal Processing Basics}{33}{section.A.1}
+\contentsline {subsection}{\numberline {A.1.1}Fourier Transformation}{33}{subsection.A.1.1}
+\contentsline {subsection}{\numberline {A.1.2}Convolution}{35}{subsection.A.1.2}
+\contentsline {subsection}{\numberline {A.1.3}Taylor Series}{35}{subsection.A.1.3}
+\contentsline {chapter}{\numberline {B}Appendix}{37}{appendix.B}
+\contentsline {section}{\numberline {B.1}Schlick's approximation}{37}{section.B.1}
+\contentsline {section}{\numberline {B.2}Spherical Coordinates}{37}{section.B.2}
+\contentsline {section}{\numberline {B.3}Tangent Space}{38}{section.B.3}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{39}{figure.caption.23}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{39}{appendix*.24}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{40}{appendix*.25}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{41}{appendix*.26}
