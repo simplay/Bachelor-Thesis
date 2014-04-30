@@ -1,26 +1,72 @@
 \chapter{Introduction}
 \section{Motivation}
-In Nature, coloring mostly comes from the inherent colors of materials but sometimes colorization has a pure physical origin such as the effect diffraction or interference of light. Both phenomenon are causing the so called structural coloration, which is the production of color through the interaction of visible light with micrioscopically structured surfaces. 
-Color production is die to wave interference with quasiperiodic structures whose periodicity leads to interaction with visible light. Therefore we perceive color when the different wavelengths composing white light are selectively interfered with by matter (absorbed, reflected, refracted, scattered, or diffracted) on their way to our eyes, or when a non-white distribution of light has been emitted.
-In animals, such as feathers of birds and the scales of butterflies, interference is created by a range of photonic mechanisms, including diffraction grating, selective mirrors, photonic crystals.
-The connection beween microscopic structures and coloration has been observed by Robert Hooke in the early seventeenth centrury. The discovery of the wave nature of light led to the conclusion that the cause for the coloration lies in wave interference.
-
-In the field of computer graphics, many researchers have been attempted rendering of structural colors by formulating a the bidirectional reflectance distribution function (BRDF) for this purpose. But most of the techniques so far, however, are either too slow for interactive rendering or rely on simplifying assumption, like modeling light as rays, to achieve real-time performance, which are not able capturing the essence of diffraction at all. 
+As a human being, we visually perceive and experience our whole world in terms of colors, resulting from various kinds of physical light interaction phenomenons. Particularly in biology, there are basically two main causes for color production. Firstly, due to pigmentation, which occures since certain molecules in a biological structure selectively absorb or reflect specific wavelengths from an incident light source. And secondly because of structural colors which are the result of physical interaction of light with a nanostructure, exclusively relying on the structring of the material and not any other property. One particular example for such biological color production are the colors we can see when having a closer look at the illuminated skin of snake species, as shown in figure $\ref{fig:snakespecies}$.
 
 \begin{figure}[H]
   \centering
-  \subfigure[Elaphe Guttata Snake]{
-    \includegraphics[scale=0.1]{ElapheGuttata/1.png}
-    \label{fig:elpahespecies}
-  }
-~
-  \subfigure[Xenopeltis Snake]{
-    \includegraphics[scale=0.37]{XenopeltisUnicolor/3.png}
+  \subfigure[Xenopeltis snake]{
+    \includegraphics[scale=0.39]{background/xenopeltissnake.png}
     \label{fig:xenospeicies}
   }
-  \caption{Effect of diffraction on snake sheds for different species}
+~
+  \subfigure[Elaphe Guttata snake]{
+    \includegraphics[scale=0.39]{background/elaphesnake.png}
+    \label{fig:elpahespecies}
+  }
+  \caption[example biological color production]{Examples of pigmentation color (green circles) and structural color (red circles) on snake species$\footnotemark$.}
   \label{fig:snakespecies}
 \end{figure}
+\footnotetext{image source of figure $\ref{fig:xenospeicies}$ \texttt{http://www.snakes-alive.co.uk/gallery\textunderscore5.html} and figure $\ref{fig:elpahespecies}$ \texttt{http://www.the-livingrainforest.co.uk/living/view\textunderscore price.php?id=464}} 
+
+Comparing both snake species with each other, we observe that the Xenopeltis species expresses structural colors in form of iridescent patterns along its scales way stronger than the Elaphe species does. The reason for this lies on the nanostructure of their skins. A natural diffraction grating is a semitransparent layer of biological nanostructures which exhibits a certain degree of regularity to produce structural colors by diffracting an incident light source. There are a vast amount of additional reasons for producing structural colors in nature, such as thin film interference, intra-cellular photonic crystyls or diffraction gratings. More detailed examples are listed in figure $\ref{fig:structuralcolorexamples}$. 
+
+\begin{figure}[H]
+  \centering
+  \subfigure[Thin Film Inteference soapbubble]{
+    \includegraphics[scale=0.6]{background/soapbubble.png}
+    \label{fig:soapbubble}
+  }
+~
+  \subfigure[Multilayer Interference on abdomen of beetle]{
+    \includegraphics[scale=0.6]{background/beetle.png}
+    \label{fig:beetle}
+  }
+~
+  \subfigure[Photonic crystals in Wings of buttefly]{
+    \includegraphics[scale=0.6]{background/butterflypc.png}
+    \label{fig:butterflyphotoniccristals}
+  }
+
+  \subfigure[Scattering of light on butterfly wing]{
+    \includegraphics[scale=0.6]{background/butterflyscattering.png}
+    \label{fig:butterflyscattering}
+  }
+~
+  \subfigure[Artifical Diffraction Grating on CD]{
+    \includegraphics[scale=0.6]{background/cd.png}
+    \label{fig:cddiffractiongrating}
+  } 
+~
+  \subfigure[Natural Diffraction Grating on snake skin]{
+    \includegraphics[scale=0.6]{background/snakeskin.png}
+    \label{fig:snakediffractiongrating}
+  }   
+  
+  \caption[Structural color examples]{Examples$\footnotemark$ for structural colors on the wings and the abdomen of insects, liquids, synthetic structures, and on scales on the skin of reptiles.}
+  \label{fig:structuralcolorexamples}
+\end{figure}
+\footnotetext{image source of figure:
+\begin{itemize}
+  \item \ref{fig:soapbubble}: \texttt{http://www.ualberta.ca/\textasciitilde pogosyan/teaching/PHYS\textunderscore 130/FALL\textunderscore 2010/lectures/lect33/lecture33.html}
+  \item \ref{fig:beetle}: \texttt{http://www.itp.uni-hannover.de/\textasciitilde zawischa/ITP/multibeam.html}
+  \item \ref{fig:butterflyphotoniccristals}: \texttt{http://upload.wikimedia.org/wikipedia/commons/a/a4/Parides\textunderscore sesostris\textunderscore MHNT\textunderscore dos.jpg}
+  \item \ref{fig:butterflyscattering}: From paper \cite{struccolor}, figure 6.
+  \item \ref{fig:cddiffractiongrating}: \texttt{http://cnx.org/content/m42496/latest/?collection=col11428/latest}
+  \item \ref{fig:snakediffractiongrating}: \texttt{http://www.snakes-alive.co.uk/gallery\textunderscore 5.html}
+  \end{itemize}
+}
+
+Already in the 17th century Robert Hooke was able to relate the cause of structural colors to the the microstructure of a material. During his examinations of peacock feathers he found that the colors could be made disappear by wetting the feathers and further observerd that the feathers are made of tiny ridges. Building on top of the latest knowledge about interference, Newton related structural colors with wave interference. Nowadays, in the field of computer graphics, many researchers have been attempted rendering structural colors but unforunately, most currently available approaches are not able to perfrom interactive rendering or are oversimplified and thus cannot model accurately the effect of diffraction.
 
 \section{Goals}
 The purpose of this thesis is to simulate realistically by rendering structural colors caused by the effect of diffraction on different biological structures in realtime. We focus on structural colors generated by diffraction gratings, in particular our approach applies to surfaces with quasiperiodic structures at the nanometer scale that can be represented as heighfields. such structures are found on the sehds of snkaes, wings of butterflies or the bodies of various insects. we restrict ourself and focus on different snake skins sheds which are acquired nanoscaled heightfields using atomic force microscopy. 
