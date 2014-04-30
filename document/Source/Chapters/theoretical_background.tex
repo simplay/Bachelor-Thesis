@@ -207,27 +207,41 @@ Besides from a wave's phase and amplitude, also its propagation directly affects
   \label{fig:huygensprinciple}
 \end{figure}
 
-
-\subsection{Diffraction Gratings}
 \subsection{Waves Diffraction}
 Revisting Hugen's Principle we know that each point on a wavefront can be considered as a source of a spherical wavelet which propagates in every direction. But what exactly happens when a wave's propagation direction is occluded by an object? What will be the outcome when applying Huygen's Principle for that case? An example scenario for this case is shown in figure $\ref{fig:wavediffraction}$. 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.6]{background/huygensprinciple.png}
-  \caption[Huygen's Principle]{text1}
+  \includegraphics[scale=0.65]{background/diffractiontransmissive.png}
+  \caption[Diffracted Wave]{Illustation$\footnotemark$ of a diffraction scenario in which a plane wavefront passes through a surface with a certain width and how the wave will be bent, also showing the intensity of the resulting wave.}
   \label{fig:wavediffraction}
 \end{figure}
+\footnotetext{Image source:\texttt{http://cronodon.com/images/Single\textunderscore slit\textunderscore diffraction\textunderscore 2b.jpg} } 
 
-Whenever a propagating wavefront is partially occluded by an obstacle, the wave is not only moving in the direction along its propagation, but is also bent around the edges of the obstacle. In physics, this phenomenon is called diffraction. Waves are diffracted due to interference which occures among all wavelets when applying Huygen's Principle for the case when a wavfront hits an obstacle. Generally, the effect of diffraction is most expressed for waves whose wavelength is roughly similar in size to the dimension of the occluding object. Conversely, if the wavelength is hardly similar in size, then there is almost no wave diffraction perceivable at all. This relationship between the strength of wave diffraction and wavelength-obstacle-dimensions is conceptually illustrated in figure $\ref{fig:diffractionrelationshipdimension}$.
+Whenever a propagating wavefront is partially occluded by an obstacle, the wave is not only moving in the direction along its propagation, but is also bent around the edges of the obstacle. In physics, this phenomenon is called diffraction. Waves are diffracted due to interference which occures among all wavelets when applying Huygen's Principle for the case when a wavfront hits an obstacle. Generally, the effect of diffraction is most expressed for waves whose wavelength is roughly similar in size to the dimension of the occluding object. Conversely, if the wavelength is hardly similar in size, then there is almost no wave diffraction perceivable at all. This relationship between the strength of wave diffraction and wavelength-obstacle-dimensions is conceptually illustrated in figure $\ref{fig:diffractionrelationshipdimension}$ when a wave is transmitted through a surface. A reflective example is provided in figure $\ref{fig:huygensprinciple}$.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.6]{background/huygensprinciple.png}
-  \caption[diffractiondiemsnion]{text2}
+  \subfigure[W $\ll$ $\lambda$]{
+  \includegraphics[scale=0.7]{background/Aa2l.png}
+    \label{fig:a1}
+  }
+~
+  \subfigure[W $\approx$ $2 \lambda$]{
+    \includegraphics[scale=0.7]{background/Aastl.png}
+    \label{fig:a2}
+  }
+~
+  \subfigure[W $\approx$ $6 \lambda$]{
+    \includegraphics[scale=0.7]{background/Aa6l.png}
+    \label{fig:a3}
+  }
+  \caption[diffractiondiemsnion]{Illustration$\footnotemark$ of how the effect of diffraction changes when a wave with wavelength $\lambda$ propagates through a slit of width equal $W$.}
   \label{fig:diffractionrelationshipdimension}
 \end{figure}
+\footnotetext{Image taken from:\texttt{http://neutrino.ethz.ch/Vorlesung/FS2013/index.php/vorlesungsskript}, chapter 9, figure 9.14 } 
 
+In everday's life, we can see the direct outcome of the effect of wave diffraction in form of structural colors. There are examples from nature such as the irridecent colors on various snake skins as well as artificial examples such as the colorful patterns notable when having a close look at an illuminated compact disc. All in common having having a surface made of very regular nanostructure which is diffracting an incident light. Such a nanostructure which exhibits a certain degree of regularity is also denoted as diffraction grating. More about this in section $\ref{sec:diffractiongrating}$.
 
 \section{Stam's BRDF formulation}
 \label{sec:sumstam}
