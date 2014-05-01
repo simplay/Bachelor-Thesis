@@ -15,6 +15,10 @@ Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: thesis.bib
+Repeated entry---line 31 of file thesis.bib
+ : @article{struccolor
+ :                    ,
+I'm skipping whatever remains of this entry
 You've used 12 entries,
             4793 wiz_defined-function locations,
             961 strings with 7563 characters,
@@ -56,3 +60,4 @@ warning$ -- 0
 while$ -- 43
 width$ -- 15
 write$ -- 170
+(There was 1 error message)
