@@ -7,6 +7,12 @@
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
+\bibitem[al.10]{struccolor}
+\textsc{al.}, Matin~T.:
+\newblock Correlating Nanostructures with Function: Structurral Colors on the
+  Wings of a Malaysian Bee.
+\newblock   (2010), August
+
 \bibitem[Bar07]{fosa}
 \textsc{Bartsch}, Hans-Jochen:
 \newblock \emph{Taschenbuch Mathematischer Formeln}.
