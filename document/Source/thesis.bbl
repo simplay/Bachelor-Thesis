@@ -7,18 +7,17 @@
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[al.10]{struccolor}
-\textsc{al.}, Matin~T.:
-\newblock Correlating Nanostructures with Function: Structurral Colors on the
-  Wings of a Malaysian Bee.
-\newblock   (2010), August
-
 \bibitem[Bar07]{fosa}
 \textsc{Bartsch}, Hans-Jochen:
 \newblock \emph{Taschenbuch Mathematischer Formeln}.
 \newblock 21th edition.
 \newblock HASNER, 2007. --
 \newblock ISBN 978--3--8348--1232--2
+
+\bibitem[CT12]{reflectancediffmodel}
+\textsc{Cuypers~T.}, et~a.:
+\newblock Reflectance Model for Diffraction.
+\newblock {In: }\emph{ACM Trans. Graph. 31, 5}  (2012), September
 
 \bibitem[DSD14]{diffourp}
 \textsc{D.~S.~Dhillon}, et~a.:
@@ -32,12 +31,24 @@
 \newblock VIEWEG+TEUBNER, 2011. --
 \newblock ISBN 978--3--8348--1232--2
 
+\bibitem[I.N14]{newtonopticks}
+\textsc{I.Newton}:
+\newblock \emph{Opticks, reprinted}.
+\newblock CreateSpace Independent Publishing Platform, 2014. --
+\newblock ISBN 978--1499151312
+
 \bibitem[JG04]{cpugems}
 \textsc{Juan~Guardado}, NVIDIA:
 \newblock Simulating Diffraction.
 \newblock {In: }\emph{GPU Gems}  (2004).
 \newblock
   \url{https://developer.nvidia.com/content/gpu-gems-chapter-8-simulating-diffraction}
+
+\bibitem[MT10]{struccolor}
+\textsc{Matin~T.R.}, et~a.:
+\newblock Correlating Nanostructures with Function: Structurral Colors on the
+  Wings of a Malaysian Bee.
+\newblock   (2010), August
 
 \bibitem[PAT09]{tipler}
 \textsc{Paul A.~Tipler}, Gene~M.:
@@ -53,6 +64,12 @@
 \newblock A K Peters, Ltd, 2009. --
 \newblock ISBN 978--1--56881--469--8
 
+\bibitem[R.H12]{hookemicro}
+\textsc{R.Hooke}:
+\newblock \emph{Micrographia, reprinted}.
+\newblock CreateSpace Independent Publishing Platform, 2012. --
+\newblock ISBN 978--1470079031
+
 \bibitem[RW11]{openglbible}
 \textsc{R.~Wright}, et~a.:
 \newblock \emph{OpenGL SuperBible}.
@@ -61,7 +78,7 @@
 \newblock ISBN 978--0--32--171261--5
 
 \bibitem[Sta99]{diffstam}
-\textsc{Stam}, Jos:
+\textsc{Stam}, J.:
 \newblock Diffraction Shaders.
 \newblock {In: }\emph{SIGGRPAH 99 Conference Proceedings}  (1999), August
 
