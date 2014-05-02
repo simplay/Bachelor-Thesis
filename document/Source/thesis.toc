@@ -24,49 +24,16 @@
 \contentsline {subsection}{\numberline {2.2.4}Huygen's Principle}{17}{subsection.2.2.4}
 \contentsline {subsection}{\numberline {2.2.5}Waves Diffraction}{17}{subsection.2.2.5}
 \contentsline {section}{\numberline {2.3}Stam's BRDF formulation}{19}{section.2.3}
-\contentsline {chapter}{\numberline {3}Derivations}{22}{chapter.3}
-\contentsline {section}{\numberline {3.1}Adaption of Stam's BRDF}{22}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}BRDF formulation}{22}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}Relative BRDF}{23}{subsection.3.1.2}
-\contentsline {subsection}{\numberline {3.1.3}Taylor approximation for BRDF}{25}{subsection.3.1.3}
-\contentsline {paragraph}{Proof Sketch of 1.}{27}{section*.20}
-\contentsline {paragraph}{Part 2: Find such an N}{27}{section*.21}
-\contentsline {subsection}{\numberline {3.1.4}Sampling: Gaussian Window}{29}{subsection.3.1.4}
-\contentsline {subsection}{\numberline {3.1.5}Final Expression}{29}{subsection.3.1.5}
-\contentsline {section}{\numberline {3.2}Alternative Approach}{30}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}PQ factors}{30}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Interpolation}{33}{subsection.3.2.2}
-\contentsline {chapter}{\numberline {4}Implementation}{35}{chapter.4}
-\contentsline {section}{\numberline {4.1}Precomputations in Matlab}{36}{section.4.1}
-\contentsline {section}{\numberline {4.2}Java Renderer}{38}{section.4.2}
-\contentsline {section}{\numberline {4.3}GLSL Diffraction Shader}{40}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Vertex Shader}{40}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}Fragment Shader}{42}{subsection.4.3.2}
-\contentsline {paragraph}{From line 4 to 26:}{44}{section*.29}
-\contentsline {paragraph}{From line 9 to 24:}{44}{section*.30}
-\contentsline {paragraph}{From line 14 to 22:}{44}{section*.31}
-\contentsline {paragraph}{After line 26:}{44}{section*.32}
-\contentsline {section}{\numberline {4.4}Technical details}{44}{section.4.4}
-\contentsline {subsection}{\numberline {4.4.1}Texture lookup}{44}{subsection.4.4.1}
-\contentsline {subsection}{\numberline {4.4.2}Texture Blending}{46}{subsection.4.4.2}
-\contentsline {subsection}{\numberline {4.4.3}Color Transformation}{46}{subsection.4.4.3}
-\contentsline {section}{\numberline {4.5}Discussion}{47}{section.4.5}
-\contentsline {chapter}{\numberline {5}Evaluation and data acquisition}{49}{chapter.5}
-\contentsline {section}{\numberline {5.1}Data Acquisition}{49}{section.5.1}
-\contentsline {section}{\numberline {5.2}Diffraction Gratings}{49}{section.5.2}
-\contentsline {section}{\numberline {5.3}Evaluation}{55}{section.5.3}
-\contentsline {subsection}{\numberline {5.3.1}Precomputation}{56}{subsection.5.3.1}
-\contentsline {subsection}{\numberline {5.3.2}Evaluation graphs}{57}{subsection.5.3.2}
-\contentsline {chapter}{\numberline {A}Appendix}{60}{appendix.A}
-\contentsline {section}{\numberline {A.1}Signal Processing Basics}{60}{section.A.1}
-\contentsline {subsection}{\numberline {A.1.1}Fourier Transformation}{60}{subsection.A.1.1}
-\contentsline {subsection}{\numberline {A.1.2}Convolution}{62}{subsection.A.1.2}
-\contentsline {subsection}{\numberline {A.1.3}Taylor Series}{62}{subsection.A.1.3}
-\contentsline {chapter}{\numberline {B}Appendix}{64}{appendix.B}
-\contentsline {section}{\numberline {B.1}Schlick's approximation}{64}{section.B.1}
-\contentsline {section}{\numberline {B.2}Spherical Coordinates}{64}{section.B.2}
-\contentsline {section}{\numberline {B.3}Tangent Space}{65}{section.B.3}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{66}{figure.caption.48}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{66}{appendix*.49}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{68}{appendix*.50}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{69}{appendix*.51}
+\contentsline {chapter}{\numberline {A}Appendix}{22}{appendix.A}
+\contentsline {section}{\numberline {A.1}Signal Processing Basics}{22}{section.A.1}
+\contentsline {subsection}{\numberline {A.1.1}Fourier Transformation}{22}{subsection.A.1.1}
+\contentsline {subsection}{\numberline {A.1.2}Convolution}{24}{subsection.A.1.2}
+\contentsline {subsection}{\numberline {A.1.3}Taylor Series}{24}{subsection.A.1.3}
+\contentsline {chapter}{\numberline {B}Appendix}{26}{appendix.B}
+\contentsline {section}{\numberline {B.1}Schlick's approximation}{26}{section.B.1}
+\contentsline {section}{\numberline {B.2}Spherical Coordinates}{26}{section.B.2}
+\contentsline {section}{\numberline {B.3}Tangent Space}{27}{section.B.3}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{28}{figure.caption.22}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{28}{appendix*.23}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{29}{appendix*.24}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{30}{appendix*.25}
