@@ -30,5 +30,17 @@
 \contentsline {subfigure}{\numberline {(b)}{\ignorespaces {W $\approx $ $2 \lambda $}}}{20}{figure.caption.19}
 \contentsline {subfigure}{\numberline {(c)}{\ignorespaces {W $\approx $ $6 \lambda $}}}{20}{figure.caption.19}
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Spectometer: When a beam of monochromatic light passes through a grating placed in a spectrometer, images of the sources can be seen through the telescope at different angles.\relax }}{23}{figure.caption.20}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Light directed to parallel to grating:\relax }}{24}{figure.caption.21}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Different Orders of diffraction\relax }}{25}{figure.caption.22}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces White Light beam causes coloured diffraction spectra\relax }}{25}{figure.caption.23}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Relative intensitiies of a diffracted beam of light at wavelength $\lambda =500nm$ on a grating for different number of periods $N$ width slit width of 30 microns and slit seperation of 0.15 mm each. The viewer is 0.5m apart from the grating.\relax }}{26}{figure.caption.24}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Difference of diffraction pattern between a monochromatic (top) and a white (bottom) light spectra for different number of slits.\relax }}{27}{figure.caption.25}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Experimental setup for evaluation: A light beam with direction $L$ hits the surface, representing a grating pattern with periodicity $d$, at the incident plane relative to the surface normal $n$ at angle $\theta $ and emerges at angle $\phi $ with direction $V$.\relax }}{28}{figure.caption.26}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Reflecting grating: When the incident light direction is not parallel to its axis at the grating, there is another $sin(\phi )$ involved. See also the grating equation $\ref {eq:gratingeq}$.\relax }}{28}{figure.caption.27}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Reflectance obtained by using the shading approach described in algorithm $\ref {alg:fragmentshaderall}$ simulating a BRDF which models the effect of diffraction at different viewing angles over the spectrum of visible light.\relax }}{30}{figure.caption.28}
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Reflectance obtained using $N_{min} N_{max}$ optimization apporach\relax }}{32}{figure.caption.30}
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Reflectance obtained using PQ optimization apporach\relax }}{32}{figure.caption.31}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {B.1}{\ignorespaces Cube in world space $(x,y,z)$ showing the tangen space $(u,v,n)$ of its face $(2,1,3)$\relax }}{27}{figure.caption.22}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {B.1}{\ignorespaces Cube in world space $(x,y,z)$ showing the tangen space $(u,v,n)$ of its face $(2,1,3)$\relax }}{38}{figure.caption.34}
