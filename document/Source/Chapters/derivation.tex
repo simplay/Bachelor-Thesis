@@ -1,6 +1,6 @@
 \chapter{Derivations}
-\section{Adaption of Stam's BRDF}
-\subsection{BRDF formulation}
+\section{Problem Statement and Challenges}
+\section{Rendering Equation}
 Lets assume we have given an incoming light source with solid angle $\omega_i$, $\theta_i$ is its angle of incidence, $\omega_r$ is the solid angle for the reflected light. Further let $\lambda$ denote the wavelength and $\Omega$ is the hemisphere we of integration for the incoming light. Then, we are able to formulate a BRDF by using its definition $\ref{eq:defbrdf}$:  
 
 \begin{alignat}{4}
@@ -29,6 +29,14 @@ L_{\lambda}(w_r)
 \end{align}
 
 where $L_{\lambda}(\omega_i)$ is the incoming radiance and $L_{\lambda}(\omega_r)$ is the radiance reflected by the given surface. Note that the integral in equation $\ref{eq:deribrdfwithdirsource}$ vanishes since $\delta(\omega-\omega_i)$ is only equal one if and only if $\omega = \omega_i$.
+
+\section{Reproduce FT by DTFT}
+\section{Adaption of Stam's BRDF discrete height fields}
+\section{Special Coherence and Windowing}
+\section{Reproduce DTFT by DFT}
+\section{Optimization using Taylor Series}
+\section{Spectral Rendering}
+\subsection{BRDF formulation}
 
 We are going to use Stam's main derivation $~\eqref{eq:mainstam}$ for the $BRDF(\omega_i, \omega_r)$ in $\ref{eq:deribrdfwithdirsource}$ by applying the fact that the wavenumber is equal $k=\frac{2\pi}{\lambda}$:
 
@@ -62,8 +70,8 @@ L_{\lambda}(\omega_r)
 
 Where $P_{cont}$ denotes the continuous inverse Fourier-Transform $\ref{eq:icft}$ for the Taylor-Series $\ref{eq:deftaylor}$ of our height field representing the nano-scaled surface structure, i.e. $P(k,l) = \mathcal{F}^{-1}\{p\}(k,l)$ and $P_{dtft}$ is the inverse Discrete Time Fourier Transform $\ref{eq:dtft}$ of $p(x,y) = e^{ikwh(x,y)}$. Furthermore $T_0$ the sampling distance for the discretization of $p(x,y)$ assuming equal and uniform sampling in both dimensions $x$ and $y$.
 
-\subsection{Relative BRDF}
-In this section we are going to explain how to scale our BRDF formulation such that all of its possible output values are mapped into the range $\left[0,1\right]$. Such a relative BRDF formulation will ease our life for later rendering purposes since usually color values are within the range $\left[0,1\right]$, too. Furthermore, this will allow us to properly blend the resulting illumination caused by diffraction with a texture map.
+\subsection{Relative Reflectance}
+In this section we are going to explain how to scale our BRDF formulation such that all of its possible output values are mapped into the range $\left[0,1\right]$. Such a relative reflectance formulation will ease our life for later rendering purposes since usually color values are within the range $\left[0,1\right]$, too. Furthermore, this will allow us to properly blend the resulting illumination caused by diffraction with a texture map.
 
 Let us examine what $L_\lambda(\omega_r)$ will be for $\omega_r = \omega_0 := (0,0,*)$ i.e. specular reflection case, denoted as $L_\lambda^{spec}(\omega_0)$. When we know the expression for $L_\lambda^{spec}(\omega_0)$ we would be able to compute the relative reflected radiance for our problem $\ref{eq:nonrelativebrdffinding}$ by simply taking the fraction between $L_\lambda(\omega_r)$ and $L_\lambda^{spec}(\omega_0)$ which is denoted by: 
 
