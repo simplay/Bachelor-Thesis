@@ -78,6 +78,7 @@ BRDF(\omega_i, \omega_r)
 & = \frac{F^2 G}{A \lambda^2 w^2} \langle \left|P(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})  \right|^2\rangle
 \label{eq:minoradaptedstam}
 \end{align}
+
 Going back to equation $\ref{eq:deribrdfwithdirsource}$ and plugging equation $\ref{eq:minoradaptedstam}$ into it, using the definition of equation $\ref{eq:geometricterm}$ and the equation $\ref{eq:sphericalomega}$ for $\omega$ we will get the following:
 
 \begin{align}
@@ -87,9 +88,8 @@ L_{\lambda}(\omega_r)
 \label{eq:nonrelativebrdffinding}
 \end{align}
 
-Note that the fresnel term $F$ is actually a function of $(w_i, w_r)$ but in order to keep it simple we omitted its arguemts. 
-
-Where $P_{cont}$ denotes the continuous inverse Fourier-Transform $\ref{eq:icft}$ for the Taylor-Series $\ref{eq:deftaylor}$ of our height field representing the nano-scaled surface structure, i.e. $P(k,l) = \mathcal{F}^{-1}\{p\}(k,l)$ and $P_{dtft}$ is the inverse Discrete Time Fourier Transform $\ref{eq:dtft}$ of $p(x,y) = e^{ikwh(x,y)}$. Furthermore $T_0$ the sampling distance for the discretization of $p(x,y)$ assuming equal and uniform sampling in both dimensions $x$ and $y$.
+Note that the fresnel term $F$ is actually a function of $(w_i, w_r)$ but in order to keep it simple, we omitted its arguemts. 
+So far we just plugged Stam's BRDF identity into the rendering equation and hence have not significantly deviated from his formulation. Keep in mind that $P$ deontes the Fourier transform of the provided height field which depends on the viewing and light incidence direction. Thus this Fourier Transform has to be recomputed for every direction. One particular strategy to solve this issue is to approximate $P$ by the Discrete Fourier Transform (DFT)$\footnote{See appendix \ref{chap:appendixsignalprocessing} for further information}$ and seperate its computation such that terms for many directions can be precomputed and then later retrieved by look ups.
 
 \section{Reproduce FT by DTFT}
 
@@ -100,6 +100,8 @@ L_{\lambda}(\omega_r)
 & = I(\lambda) \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \left \langle \left|T_0^2 P_{dtft}\left( \frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda}\right) \right|^2 \right \rangle
 \label{eq:nonrelativebrdffindingreproddtft}
 \end{align}
+
+Furthermore $T_0$ the sampling distance for the discretization of $p(x,y)$ assuming equal and uniform sampling in both dimensions $x$ and $y$.
 
 
 \section{Special Coherence and Windowing}

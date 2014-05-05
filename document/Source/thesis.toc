@@ -24,16 +24,15 @@
 \contentsline {section}{\numberline {2.3}Evaluation}{22}{section.2.3}
 \contentsline {subsection}{\numberline {2.3.1}Precomputation}{23}{subsection.2.3.1}
 \contentsline {subsection}{\numberline {2.3.2}Evaluation graphs}{24}{subsection.2.3.2}
-\contentsline {chapter}{\numberline {A}Appendix}{27}{appendix.A}
-\contentsline {section}{\numberline {A.1}Signal Processing Basics}{27}{section.A.1}
-\contentsline {subsection}{\numberline {A.1.1}Fourier Transformation}{27}{subsection.A.1.1}
-\contentsline {subsection}{\numberline {A.1.2}Convolution}{29}{subsection.A.1.2}
-\contentsline {subsection}{\numberline {A.1.3}Taylor Series}{29}{subsection.A.1.3}
-\contentsline {chapter}{\numberline {B}Appendix}{31}{appendix.B}
-\contentsline {section}{\numberline {B.1}Schlick's approximation}{31}{section.B.1}
-\contentsline {section}{\numberline {B.2}Spherical Coordinates}{31}{section.B.2}
-\contentsline {section}{\numberline {B.3}Tangent Space}{32}{section.B.3}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{33}{figure.caption.21}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{33}{appendix*.22}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{34}{appendix*.23}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{35}{appendix*.24}
+\contentsline {chapter}{\numberline {A}Signal Processing Basics}{27}{appendix.A}
+\contentsline {section}{\numberline {A.1}Fourier Transformation}{27}{section.A.1}
+\contentsline {section}{\numberline {A.2}Convolution}{29}{section.A.2}
+\contentsline {section}{\numberline {A.3}Taylor Series}{29}{section.A.3}
+\contentsline {chapter}{\numberline {B}Appendix}{30}{appendix.B}
+\contentsline {section}{\numberline {B.1}Schlick's approximation}{30}{section.B.1}
+\contentsline {section}{\numberline {B.2}Spherical Coordinates}{30}{section.B.2}
+\contentsline {section}{\numberline {B.3}Tangent Space}{31}{section.B.3}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{32}{figure.caption.21}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{32}{appendix*.22}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{33}{appendix*.23}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{34}{appendix*.24}
