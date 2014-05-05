@@ -89,13 +89,16 @@ L_{\lambda}(\omega_r)
 \end{align}
 
 Note that the fresnel term $F$ is actually a function of $(w_i, w_r)$ but in order to keep it simple, we omitted its arguemts. 
-So far we just plugged Stam's BRDF identity into the rendering equation and hence have not significantly deviated from his formulation. Keep in mind that $P$ deontes the Fourier transform of the provided height field which depends on the viewing and light incidence direction. Thus this Fourier Transform has to be recomputed for every direction. One particular strategy to solve this issue is to approximate $P$ by the Discrete Fourier Transform (DFT)$\footnote{See appendix \ref{chap:appendixsignalprocessing} for further information}$ and seperate its computation such that terms for many directions can be precomputed and then later retrieved by look ups.
+So far we just plugged Stam's BRDF identity into the rendering equation and hence have not significantly deviated from his formulation. Keep in mind that $P$ deontes the Fourier transform of the provided height field which depends on the viewing and light incidence direction. Thus this Fourier Transform has to be recomputed for every direction. One particular strategy to solve this issue is to approximate $P$ by the Discrete Fourier Transform (DFT)$\footnote{See appendix \ref{chap:appendixsignalprocessing} for further information about different kinds of fourier transformations.}$ and seperate its computation such that terms for many directions can be precomputed and then later retrieved by look ups.
 
 \section{Reproduce FT by DTFT}
+add motivation text
+Show thesis graphics
+Some explanations.
+relate to our derivations
 
 \begin{align}
 L_{\lambda}(\omega_r) 
-& = \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{A \lambda^2 cos(\theta_i)cos(\theta_r)  (cos(\theta_i)+cos(\theta_r))^2} \left \langle \left|P \left( \frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda}\right) \right|^2 \right \rangle cos(\theta_i) I(\lambda) \nonumber \\
 & = I(\lambda) \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \left \langle \left|P \left( \frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda}\right) \right|^2 \right \rangle \nonumber \\
 & = I(\lambda) \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \left \langle \left|T_0^2 P_{dtft}\left( \frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda}\right) \right|^2 \right \rangle
 \label{eq:nonrelativebrdffindingreproddtft}
