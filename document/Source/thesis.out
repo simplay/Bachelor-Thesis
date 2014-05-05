@@ -8,7 +8,7 @@
 \BOOKMARK [1][-]{section.1.7}{Optimization\040using\040Taylor\040Series}{chapter.1}% 8
 \BOOKMARK [1][-]{section.1.8}{Spectral\040Rendering}{chapter.1}% 9
 \BOOKMARK [2][-]{subsection.1.8.1}{BRDF\040formulation}{section.1.8}% 10
-\BOOKMARK [2][-]{subsection.1.8.2}{Relative\040BRDF}{section.1.8}% 11
+\BOOKMARK [2][-]{subsection.1.8.2}{Relative\040Reflectance}{section.1.8}% 11
 \BOOKMARK [2][-]{subsection.1.8.3}{Taylor\040approximation\040for\040BRDF}{section.1.8}% 12
 \BOOKMARK [2][-]{subsection.1.8.4}{Sampling:\040Gaussian\040Window}{section.1.8}% 13
 \BOOKMARK [2][-]{subsection.1.8.5}{Final\040Expression}{section.1.8}% 14
@@ -30,7 +30,7 @@
 \BOOKMARK [1][-]{section.B.1}{Schlick's\040approximation}{appendix.B}% 30
 \BOOKMARK [1][-]{section.B.2}{Spherical\040Coordinates}{appendix.B}% 31
 \BOOKMARK [1][-]{section.B.3}{Tangent\040Space}{appendix.B}% 32
-\BOOKMARK [0][-]{figure.caption.19}{List\040of\040Tables}{}% 33
-\BOOKMARK [0][-]{appendix*.20}{List\040of\040Figures}{}% 34
-\BOOKMARK [0][-]{appendix*.21}{List\040of\040Algorithms}{}% 35
-\BOOKMARK [0][-]{appendix*.22}{Bibliography}{}% 36
+\BOOKMARK [0][-]{figure.caption.21}{List\040of\040Tables}{}% 33
+\BOOKMARK [0][-]{appendix*.22}{List\040of\040Figures}{}% 34
+\BOOKMARK [0][-]{appendix*.23}{List\040of\040Algorithms}{}% 35
+\BOOKMARK [0][-]{appendix*.24}{Bibliography}{}% 36

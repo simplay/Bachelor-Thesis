@@ -1,39 +1,39 @@
 \select@language {ngerman}
 \contentsline {chapter}{\numberline {1}Derivations}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}Problem Statement and Challenges}{1}{section.1.1}
-\contentsline {section}{\numberline {1.2}Rendering Equation}{1}{section.1.2}
-\contentsline {section}{\numberline {1.3}Reproduce FT by DTFT}{2}{section.1.3}
-\contentsline {section}{\numberline {1.4}Adaption of Stam's BRDF discrete height fields}{2}{section.1.4}
-\contentsline {section}{\numberline {1.5}Special Coherence and Windowing}{2}{section.1.5}
-\contentsline {section}{\numberline {1.6}Reproduce DTFT by DFT}{2}{section.1.6}
-\contentsline {section}{\numberline {1.7}Optimization using Taylor Series}{2}{section.1.7}
-\contentsline {section}{\numberline {1.8}Spectral Rendering}{2}{section.1.8}
-\contentsline {subsection}{\numberline {1.8.1}BRDF formulation}{2}{subsection.1.8.1}
-\contentsline {subsection}{\numberline {1.8.2}Relative BRDF}{3}{subsection.1.8.2}
-\contentsline {subsection}{\numberline {1.8.3}Taylor approximation for BRDF}{5}{subsection.1.8.3}
-\contentsline {paragraph}{Proof Sketch of 1.}{6}{section*.2}
-\contentsline {paragraph}{Part 2: Find such an N}{6}{section*.3}
-\contentsline {subsection}{\numberline {1.8.4}Sampling: Gaussian Window}{8}{subsection.1.8.4}
-\contentsline {subsection}{\numberline {1.8.5}Final Expression}{9}{subsection.1.8.5}
-\contentsline {section}{\numberline {1.9}Alternative Approach}{9}{section.1.9}
-\contentsline {subsection}{\numberline {1.9.1}PQ factors}{9}{subsection.1.9.1}
-\contentsline {subsection}{\numberline {1.9.2}Interpolation}{12}{subsection.1.9.2}
-\contentsline {chapter}{\numberline {2}Evaluation and data acquisition}{14}{chapter.2}
-\contentsline {section}{\numberline {2.1}Data Acquisition}{14}{section.2.1}
-\contentsline {section}{\numberline {2.2}Diffraction Gratings}{14}{section.2.2}
-\contentsline {section}{\numberline {2.3}Evaluation}{20}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}Precomputation}{21}{subsection.2.3.1}
-\contentsline {subsection}{\numberline {2.3.2}Evaluation graphs}{22}{subsection.2.3.2}
-\contentsline {chapter}{\numberline {A}Appendix}{25}{appendix.A}
-\contentsline {section}{\numberline {A.1}Signal Processing Basics}{25}{section.A.1}
-\contentsline {subsection}{\numberline {A.1.1}Fourier Transformation}{25}{subsection.A.1.1}
-\contentsline {subsection}{\numberline {A.1.2}Convolution}{27}{subsection.A.1.2}
-\contentsline {subsection}{\numberline {A.1.3}Taylor Series}{27}{subsection.A.1.3}
-\contentsline {chapter}{\numberline {B}Appendix}{29}{appendix.B}
-\contentsline {section}{\numberline {B.1}Schlick's approximation}{29}{section.B.1}
-\contentsline {section}{\numberline {B.2}Spherical Coordinates}{29}{section.B.2}
-\contentsline {section}{\numberline {B.3}Tangent Space}{30}{section.B.3}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{31}{figure.caption.19}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{31}{appendix*.20}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{32}{appendix*.21}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{33}{appendix*.22}
+\contentsline {section}{\numberline {1.2}Rendering Equation}{2}{section.1.2}
+\contentsline {section}{\numberline {1.3}Reproduce FT by DTFT}{3}{section.1.3}
+\contentsline {section}{\numberline {1.4}Adaption of Stam's BRDF discrete height fields}{3}{section.1.4}
+\contentsline {section}{\numberline {1.5}Special Coherence and Windowing}{3}{section.1.5}
+\contentsline {section}{\numberline {1.6}Reproduce DTFT by DFT}{3}{section.1.6}
+\contentsline {section}{\numberline {1.7}Optimization using Taylor Series}{3}{section.1.7}
+\contentsline {section}{\numberline {1.8}Spectral Rendering}{3}{section.1.8}
+\contentsline {subsection}{\numberline {1.8.1}BRDF formulation}{3}{subsection.1.8.1}
+\contentsline {subsection}{\numberline {1.8.2}Relative Reflectance}{4}{subsection.1.8.2}
+\contentsline {subsection}{\numberline {1.8.3}Taylor approximation for BRDF}{6}{subsection.1.8.3}
+\contentsline {paragraph}{Proof Sketch of 1.}{7}{section*.4}
+\contentsline {paragraph}{Part 2: Find such an N}{7}{section*.5}
+\contentsline {subsection}{\numberline {1.8.4}Sampling: Gaussian Window}{9}{subsection.1.8.4}
+\contentsline {subsection}{\numberline {1.8.5}Final Expression}{10}{subsection.1.8.5}
+\contentsline {section}{\numberline {1.9}Alternative Approach}{10}{section.1.9}
+\contentsline {subsection}{\numberline {1.9.1}PQ factors}{10}{subsection.1.9.1}
+\contentsline {subsection}{\numberline {1.9.2}Interpolation}{13}{subsection.1.9.2}
+\contentsline {chapter}{\numberline {2}Evaluation and data acquisition}{15}{chapter.2}
+\contentsline {section}{\numberline {2.1}Data Acquisition}{15}{section.2.1}
+\contentsline {section}{\numberline {2.2}Diffraction Gratings}{15}{section.2.2}
+\contentsline {section}{\numberline {2.3}Evaluation}{21}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Precomputation}{22}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Evaluation graphs}{23}{subsection.2.3.2}
+\contentsline {chapter}{\numberline {A}Appendix}{26}{appendix.A}
+\contentsline {section}{\numberline {A.1}Signal Processing Basics}{26}{section.A.1}
+\contentsline {subsection}{\numberline {A.1.1}Fourier Transformation}{26}{subsection.A.1.1}
+\contentsline {subsection}{\numberline {A.1.2}Convolution}{28}{subsection.A.1.2}
+\contentsline {subsection}{\numberline {A.1.3}Taylor Series}{28}{subsection.A.1.3}
+\contentsline {chapter}{\numberline {B}Appendix}{30}{appendix.B}
+\contentsline {section}{\numberline {B.1}Schlick's approximation}{30}{section.B.1}
+\contentsline {section}{\numberline {B.2}Spherical Coordinates}{30}{section.B.2}
+\contentsline {section}{\numberline {B.3}Tangent Space}{31}{section.B.3}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{32}{figure.caption.21}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{32}{appendix*.22}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{33}{appendix*.23}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{34}{appendix*.24}

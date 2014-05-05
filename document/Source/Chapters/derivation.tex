@@ -1,5 +1,43 @@
 \chapter{Derivations}
+
 \section{Problem Statement and Challenges}
+The goal of this thesis is to perform a physically accurate and interactive simulation of structural colors production like shown in figure $\ref{fig:problemstatementoutput}$, which we can see whenever a light source is diffracted on a natural grating. For this purpose we need the to be provided by the following input data as shown in figure $\ref{fig:problemstatement}$:
+\begin{itemize}
+  \item A mesh representing a snake surface$\footnote{Which is in our simulation an actual reconstruction of a real snake skin. These measurements are provided by the Laboratory of Artificial and Natural Evolition at Geneva.See their website:\texttt{www.lanevol.org}.}$ with associated texture coordinates as shown in figure $\ref{fig:strucgeom}$.
+  \item A natural diffraction grating represented as a height field, its maximum height and its pixel-width-correspondence$\footnote{Since the nanostructure is stored as a grayscale image, we need a scale telling us what length and height one pixel cooresponds to in this provided image.}$.
+  \item A vectorfield which describes how fingers on a provided surface of the nanostructrue are aligned as shown in figure $\ref{fig:patchvectorfield}$. 
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \subfigure[Structure Geometry]{
+    \includegraphics[scale=0.40]{derivation/structuregeom.png}
+    \label{fig:strucgeom}
+  }
+~
+  \subfigure[Nanostructure Surface]{
+    \includegraphics[scale=0.40]{derivation/nanostructuresurface.png}
+    \label{fig:nanostruc}
+  }
+~
+  \subfigure[Patch Orientation]{
+    \includegraphics[scale=0.40]{derivation/vectorfieldalongcylinder.png}
+    \label{fig:patchvectorfield}
+  }
+  \caption[Problem Statement]{Input for our simulation}
+  \label{fig:problemstatement}
+\end{figure}
+
+We want to rely on the integral equation $\ref{eq:mainstam}$ derived by J. Stam in his paper $\cite{diffstam}$ about diffraction shaders. This equation formualtes a BRDF modeling the effect of diffraction under the assumption that a given grating can either be formulated as an analytical function or its structure is simple enough beeing modeled relying on statistical methods. These assumptions guarantee that $\ref{eq:mainstam}$ has an explicit solution. However, the complexisty of a biological nanostructures cannot sufficiently and accurately modeled simply using statistical methods. This is why interactive computation at high resolution becomes a hard task, since we cannot evaluate the given integral equation on the fly. Therefore, we have to adapt Stam's equation such that we are able to perform interactive rendering using explicitly provided height fields.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{derivation/renderedstructuredcolors.png}
+  \caption[Problem Statement: Output]{Output: Rendered Structural Colors}
+  \label{fig:problemstatementoutput}
+\end{figure}
+
+
 \section{Rendering Equation}
 Lets assume we have given an incoming light source with solid angle $\omega_i$, $\theta_i$ is its angle of incidence, $\omega_r$ is the solid angle for the reflected light. Further let $\lambda$ denote the wavelength and $\Omega$ is the hemisphere we of integration for the incoming light. Then, we are able to formulate a BRDF by using its definition $\ref{eq:defbrdf}$:  
 
