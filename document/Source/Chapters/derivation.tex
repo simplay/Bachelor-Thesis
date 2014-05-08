@@ -65,6 +65,11 @@ Next, we apply the Fourier Tranformation operator on the discretized singal $\ha
 Equation $\ref{eq:sampledsignalfttodtft}$ tells us that if $\hat{s}$ is sufficiently sampled, then its DTFT corresponds to the FT of $s(x)$ . Notice that the resulting DTFT from the sampled signal has a height of $\frac{A}{T}$ where A is the height of the FT of $s$ and thus is a scaled version of the FT.
 
 \subsection{Spatial Coherence and Windowing}
+before we can derive a final expression in order to approximate a FT by a DFT, we first have to revisit the concept of coherence introduced in section $\ref{sec:wavecoherence}$ of chapter 2. 
+
+
+Stam's BRDf tells us what is the total contribution of all secondary sources which allows us to say what is the reflected spectral radiance at a certain point in space. This is related to stationary interference which itself depends on the coherence of the secondary wave sources. 
+
 
 spatial coherence is the correlation between waves at different points in space usually modeled by a gaussian random process. 
 ability for two points in space to interfere in the extend of a wave when being averages over time
