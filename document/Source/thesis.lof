@@ -33,15 +33,15 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Problem Statement}}{26}{figure.caption.22}
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Problem Statement: Output}}{27}{figure.caption.23}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces FT by DTFT}}{29}{figure.caption.24}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {W $\ll $ $\lambda $}}}{29}{figure.caption.24}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {W $\approx $ $2 \lambda $}}}{29}{figure.caption.24}
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {W $\approx $ $6 \lambda $}}}{29}{figure.caption.24}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Structure Geometry}}}{29}{figure.caption.24}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Nanostructure Surface}}}{29}{figure.caption.24}
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Patch Orientation}}}{29}{figure.caption.24}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Coherence Area using Gaussian Window}}{31}{figure.caption.25}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces DTFT by DFT}}{32}{figure.caption.26}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces FT by DTFT}}{28}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {W $\ll $ $\lambda $}}}{28}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {W $\approx $ $2 \lambda $}}}{28}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {W $\approx $ $6 \lambda $}}}{28}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Structure Geometry}}}{28}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Nanostructure Surface}}}{28}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Patch Orientation}}}{28}{figure.caption.24}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Coherence Area using Gaussian Window}}{29}{figure.caption.25}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces DTFT by DFT}}{30}{figure.caption.26}
 \contentsline {figure}{\numberline {3.6}{\ignorespaces Comparission between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\mathaccentV {hat}65E{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.\relax }}{43}{figure.caption.29}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
