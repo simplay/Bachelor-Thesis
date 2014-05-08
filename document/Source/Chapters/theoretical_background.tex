@@ -242,8 +242,7 @@ In everday's life, we can see the direct outcome of the effect of wave diffracti
 
 \section{Stam's BRDF formulation}
 \label{sec:sumstam}
-The theoretical foundation of this thesis is based on the pioneering work of J.Stam who derived in his paper about Diffraction Shader$\cite{diffstam}$ a BRDF which is modeling the effect of far field diffraction for various analytical anisotropic reflexion models, relying on the so called scalar wave theory of diffraction for which a wave is assumed to be a complex valued scalar. 
-
+The theoretical foundation of this thesis is based on the pioneering work of J.Stam who derived in his paper about Diffraction Shader$\cite{diffstam}$ a BRDF which is modeling the effect of far field diffraction for various analytical anisotropic reflexion models, relying on the so called scalar wave theory of diffraction for which a wave is assumed to be a complex valued scalar. \\
 
 It's noteworthy, that Stam's BRDF formulation does not take into account the polarization of the light. Fortunately, light sources like sunlight and light bulbs are unpolarized. The principal idea behind J. Stam's approach is illustrated in figure $\ref{fig:meaningofstamsapproach}$. 
 \begin{figure}[H]
@@ -252,9 +251,9 @@ It's noteworthy, that Stam's BRDF formulation does not take into account the pol
   \caption[Idea behind Stam's approach]{blup}
   \label{fig:meaningofstamsapproach}  
 \end{figure}
-An incident wave $p_i$ from a a light source encounters a surface, representing a diffraction grating. According to Huygen's Principle, at any point $i$ on the grating, at which the incident wave meets the grating, a secondary, spherical wavelet $p_{r,i}$ will be emitted. A viewer, in the figure indicated by a gray circle, will perceive the superimposed contributation of all wavelets along the surface $S$ (in the figure indicated by a integration symbol), which wil directly follow the laws of wave interference. Therefore the resulting color which an observer sees is the final radiance at that point which itself is affected by stationary interference of all emitting secondary sources due to Huygen's principle. \\ \\
+An incident wave $p_i$ from a a light source encounters a surface, representing a diffraction grating. According to Huygen's Principle, at any point $i$ on the grating, at which the incident wave meets the grating, a secondary, spherical wavelet $p_{r,i}$ will be emitted. A viewer, in the figure indicated by a gray circle, will perceive the superimposed contributation of all wavelets along the surface $S$ (in the figure indicated by a integration symbol), which wil directly follow the laws of wave interference. Therefore the resulting color which an observer sees is the final radiance at that point which itself is affected by stationary interference of all emitting secondary sources due to Huygen's principle. \\
 
-A further assumption in Stam's Paper is, that the emanated waves from the source are stationary, which implies the wave is a superposition of independent monochromatic waves. This further implies that each wave is associated to a definite wavelength $\lambda$. However, directional light sources, such as sunlight fulfills this fact and since we are using these kinds of light sources for our simulations, Stam's model can be used for our modeling purposes. \\ \\
+A further assumption in Stam's Paper is, that the emanated waves from the source are stationary, which implies the wave is a superposition of independent monochromatic waves. This further implies that each wave is associated to a definite wavelength $\lambda$. However, directional light sources, such as sunlight fulfills this fact and since we are using these kinds of light sources for our simulations, Stam's model can be used for our modeling purposes. \\
 
 The main idea of his model is the formulate a BRDF as the Fourier Transform applied on the given height field, representing a surface like shown in figure $fig:geometricsetup$. The classes of surfaces his model is able to support either exhibit a very regular structure or may be considered as a superposition of bumps forming a periodic like structure. Therefore, the surfaces he is dealing with can either be modeled by probabilistic distributions or have a direct analytical representation. Both cases allow him to derive an analytical solution for his BRDF model.
 
@@ -266,26 +265,25 @@ The main idea of his model is the formulate a BRDF as the Fourier Transform appl
 \end{figure}
 \footnotetext{Modified image which originally has been taken from D.H. Dhillon's poster$\cite{diffourp}$.} 
 
-The direction vector of the secondary wavelet can be computet by taking the difference between the incident and viewing direction like in equation $\ref{eq:uvw}$:
+The direction vector of the secondary wavelet can be computet by taking the difference between the incident and viewing direction like shown in equation $\ref{eq:uvw}$:
 \begin{equation}
   (u,v,w) = -\omega_i - \omega_r 
 \label{eq:uvw}
 \end{equation}
+These coordinates will later be used in order to compute the total contributation of all secondary sources used in Stam's BRDF in equation $\ref{eq:mainstam}$. For simplification, let us introduce an auxillary function $\Phi$ defined in equation $\ref{eq:heightfieldphase}$, which models the phase of a wave from the provided height field.
 
-
-auxillary function $\Phi$ which models the phase of a wave from the provided height field.
 \begin{equation}
   \Phi(x,y) = \frac{2 \pi}{\lambda} w h(x,y) 
 \label{eq:heightfieldphase}
 \end{equation}
 
-Then, a secondary wavelet $p$ on emitted off from the surface will looke like:
+Then, any secondary wavelet $p$ which is emitted off from the given surface will be equal:
 \begin{equation}
   p(x,y) = e^{i\Phi(x,y)} 
 \label{eq:px}
 \end{equation}
 
-Then, following the idea presented for figure $\ref{fig:meaningofstamsapproach}$ and the mathematical steps in the appendix, we get the following brdf for the total contribution of all secondary sources:
+using the idea presented for figure $\ref{fig:meaningofstamsapproach}$ and performing all mathematical steps shown in the appendix $\ref{chap:stamsderivations}$, will lead us to the final BRDF representation, modeling the total contribution of all secondary sources reflected off the the provided surface $h$:
 \begin{equation} 
   BRDF_{\lambda}(\omega_i, \omega_r) = \frac{k^2 F^2 G}{4\pi^2 A w^2} \langle \left|P(ku, kv)\right|^2\rangle
 \label{eq:mainstam}
@@ -297,6 +295,15 @@ where $F$ denotes the Fresnel coefficient and $G$ is the so called geometry term
 \label{eq:geometricterm}
 \end{equation}
 
+One last word about the term Fourier Transform Stam uses in his derivation: Conventionally, following the definitions in Mathematics of the Fourier Tranformation, we are dealing with the inverse Fourier Transformation. However, especially in Electrical Engeneering, it is quite common to define this inverse Fourier Transformation by the Fourier Transformation. The reason behind this lies in the fact that we simply could substitude the minus sign like the following equation $\ref{eq:signchangementconvention}$:
+\begin{align}
+\mathcal{F}_{FT}\{f\}(w) 
+& = \int_{\mathds{R}^n} f(x)e^{-iwt} dt \nonumber\\
+& = \int_{\mathds{R}^n} f(x)e^{i\hat{w}t} dt \nonumber\\
+& = \mathcal{F}^{-1}_{FT}\{f\}(w)
+\label{eq:signchangementconvention}
+\end{align} 
+where $\hat{w}$ is equal $-w$.
 
 %%%%%%%% move us somewhere more appropriate
 However, the height field we are dealing with are measured, complex, biological nano-structures and thus far apart from being globally very regular, as already demonstrated in figure $\ref{fig:xenopeltisafm}$. It is also not sufficient superimposing one particular finger (considering it as a bump) since it would not capture the complexity of the measured structure. Therefore, we cannot directly rely on his BRDF model when we want to perform interactive rendering since we do not have an analytical solution and hence are not able to solve the Fourier Transform of the given height field on the fly. 
@@ -324,6 +331,4 @@ Compare our method against Stam's approach$\footnote{A reference implementation 
   \label{fig:stameggratingsbadeg}  
 \end{figure}
 %%%%%%%%%%%% end move us
-
-
 

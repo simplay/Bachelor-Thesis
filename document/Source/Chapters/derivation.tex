@@ -108,9 +108,9 @@ Next, we apply the Fourier Tranformation operator on the discretized singal $\ha
 
 \begin{align}
 \mathcal{F}_{FT}\{\hat{s}\}(w)
-& = \int_{\mathds{R}} \hat{s}[n] e^{-iwx} dx \\
-& = \int_{\mathds{R}} mask(x)s(x) e^{-iwx} dx \\
-& = T\sum_{x=-\infty}^{\infty} \hat{s}[x] e^{-iwx} \\
+& = \int_{\mathds{R}} \hat{s}[n] e^{-iwx} dx \nonumber\\
+& = \int_{\mathds{R}} mask(x)s(x) e^{-iwx} dx \nonumber\\
+& = T\sum_{x=-\infty}^{\infty} \hat{s}[x] e^{-iwx} \nonumber\\
 & = T\mathcal{F}_{DTFT}\{s\}(w)
 \label{eq:sampledsignalfttodtft}
 \end{align} 
