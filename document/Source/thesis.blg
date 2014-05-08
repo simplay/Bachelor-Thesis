@@ -4,8 +4,6 @@ The top-level auxiliary file: thesis.aux
 A level-1 auxiliary file: Chapters/chapter1.aux
 A level-1 auxiliary file: Chapters/theoretical_background.aux
 A level-1 auxiliary file: Chapters/derivation.aux
-A level-1 auxiliary file: Chapters/chapter3.aux
-A level-1 auxiliary file: Chapters/chapter4.aux
 A level-1 auxiliary file: Chapters/appendix_signalprocessing.aux
 A level-1 auxiliary file: Chapters/appendix.aux
 The style file: alphadin.bst
@@ -21,7 +19,7 @@ Repeated entry---line 31 of file thesis.bib
 I'm skipping whatever remains of this entry
 You've used 12 entries,
             4793 wiz_defined-function locations,
-            961 strings with 7563 characters,
+            959 strings with 7565 characters,
 and the built_in function-call counts, 6265 in all, are:
 = -- 642
 > -- 96
