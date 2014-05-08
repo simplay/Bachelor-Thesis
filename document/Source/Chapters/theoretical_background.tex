@@ -307,7 +307,7 @@ where $\hat{w}$ is equal $-w$. \\
 
 The height fields we are dealing with in this work are, however, natural gratings, containing a complex shaped nano-structure and hence far apart from being very regularly aligned. The reason why Stam's approach in its current form is not suitable for our purpose is twofold: First his approach does not capture the complexity of natural gratings accurately well enoug when relying on his his statistical approaches and secondly it is way too slow in order to be usable for interactive rendering since his BRDF needs an evaluation of a Fourier Transform for every directional changement. \\
 
-In the follwing a brief comparission of Stam's and our final approach using two different kinds of gratings, a synthetic, regularly aligned grating and a natural, complex structured grating. The used gratings are shown in figure $fig:stameggratings$.
+In the follwing a brief comparission between Stam's$\footnote{A reference implementation of Stam's Diffraction Shader\cite{diffstam} is provided by Nvidia's GPU Gems at \texttt{http://http.developer.nvidia.com/GPUGems/gpugems\textunderscore 08.html}}$ and our final approach using two different kinds of gratings, a synthetic, regularly aligned grating and a natural, complex structured grating. These gratings are shown in figure $fig:stameggratings$.
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{background/stamgratings.png}
@@ -315,14 +315,16 @@ In the follwing a brief comparission of Stam's and our final approach using two 
   \label{fig:stameggratings}  
 \end{figure}
 
+Figure $\ref{fig:stameggratingsgoodeg}$ shows an example of a case where Stam's approach performs well. Considering the red-line in the figure we notice that the nano-scaled structures of a compact disc are very regularly aligned along the surface. Tracks of a CD are uniformally spaced and bumps along a track are distributed according to the poisson distribution$\footnote{See \texttt{http://en.wikipedia.org/wiki/Poisson\textunderscore distribution}}$. All angles of the diffraction pattern look the same as in the images produced by our apporach.
 
-Compare our method against Stam's approach$\footnote{A reference implementation of Stam's Diffraction Shader\cite{diffstam} is provided by Nvidia's GPU Gems at \texttt{http://http.developer.nvidia.com/GPUGems/gpugems\textunderscore 08.html}}$ for two different gratings, a natural and a synthetic grating, which are shown in figure $\ref{fig:stameggratings}$.
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{background/stamgoodeg.png}
   \caption[Comparing Stam's apporach: Good Example]{Comparission of our approach against a reference implementation of Stam's provided by Nvida Gem. For synthetic diffraction gratings, which have a very regular structure, Stam's apporach is doing well. All angles of the diffraction pattern look the same as in the images produced by our apporach.}
   \label{fig:stameggratingsgoodeg}  
 \end{figure}
+
+Figure $\ref{fig:stameggratingsbadeg}$ shows an attempt to reproduce real structural colors on the skin of the Xenopeltis snake using our method and comparing it to Stam's approach. Even the results of Stam might look appropriate, there are some differences notable such missing colors close to speclar regions, or such as the colordistribution which is rather discrete in Stam's approach. Furthermore, Stam's approach has at some places color contribution, where it should not have.
 
 \begin{figure}[H]
   \centering
