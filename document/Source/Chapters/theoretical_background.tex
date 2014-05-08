@@ -303,18 +303,18 @@ One last word about the term Fourier Transform Stam uses in his derivation: Conv
 & = \mathcal{F}^{-1}_{FT}\{f\}(w)
 \label{eq:signchangementconvention}
 \end{align} 
-where $\hat{w}$ is equal $-w$.
+where $\hat{w}$ is equal $-w$. \\
 
-%%%%%%%% move us somewhere more appropriate
-However, the height field we are dealing with are measured, complex, biological nano-structures and thus far apart from being globally very regular, as already demonstrated in figure $\ref{fig:xenopeltisafm}$. It is also not sufficient superimposing one particular finger (considering it as a bump) since it would not capture the complexity of the measured structure. Therefore, we cannot directly rely on his BRDF model when we want to perform interactive rendering since we do not have an analytical solution and hence are not able to solve the Fourier Transform of the given height field on the fly. 
+The height fields we are dealing with in this work are, however, natural gratings, containing a complex shaped nano-structure and hence far apart from being very regularly aligned. The reason why Stam's approach in its current form is not suitable for our purpose is twofold: First his approach does not capture the complexity of natural gratings accurately well enoug when relying on his his statistical approaches and secondly it is way too slow in order to be usable for interactive rendering since his BRDF needs an evaluation of a Fourier Transform for every directional changement. \\
 
-
+In the follwing a brief comparission of Stam's and our final approach using two different kinds of gratings, a synthetic, regularly aligned grating and a natural, complex structured grating. The used gratings are shown in figure $fig:stameggratings$.
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{background/stamgratings.png}
   \caption[Comparing Stam's apporach: Gratings]{Alignment of nanostructures in diffraction gratings. On the left a complex, natural grating of the Elaphe snake species and on the right a synthetic, very regularly aligned grating of a CD.}
   \label{fig:stameggratings}  
 \end{figure}
+
 
 Compare our method against Stam's approach$\footnote{A reference implementation of Stam's Diffraction Shader\cite{diffstam} is provided by Nvidia's GPU Gems at \texttt{http://http.developer.nvidia.com/GPUGems/gpugems\textunderscore 08.html}}$ for two different gratings, a natural and a synthetic grating, which are shown in figure $\ref{fig:stameggratings}$.
 \begin{figure}[H]
@@ -330,5 +330,6 @@ Compare our method against Stam's approach$\footnote{A reference implementation 
   \caption[Comparing Stam's apporach: Bad Example]{Comparission of our approach(on the right) against a reference implementation of Stam's(on the left) provided by Nvida Gem by trying to render a reproduction of a real Elaphe skin (center) under similar lightning and viewing conditions. For natural diffraction gratings, which have a rather complex structure, Stam's apporach is doing rather bad.}
   \label{fig:stameggratingsbadeg}  
 \end{figure}
-%%%%%%%%%%%% end move us
+
+In the next chapter we are going to adapt Stam's BRDF model such that it will be able to handle the kind of surfaces we are deling with and even will have a runtime complexity which allows to perform interactive rendering.
 
