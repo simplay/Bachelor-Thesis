@@ -25,11 +25,11 @@
 \contentsline {figure}{\numberline {2.9}{\ignorespaces Huygen's Principle}}{17}{figure.caption.14}
 \contentsline {figure}{\numberline {2.10}{\ignorespaces Diffracted Wave}}{18}{figure.caption.15}
 \contentsline {figure}{\numberline {2.11}{\ignorespaces diffractiondiemsnion}}{19}{figure.caption.16}
-\contentsline {figure}{\numberline {2.12}{\ignorespaces Idea behind Stam's approach}}{19}{figure.caption.17}
-\contentsline {figure}{\numberline {2.13}{\ignorespaces Comparing Stam's apporach: Gratings}}{20}{figure.caption.18}
-\contentsline {figure}{\numberline {2.14}{\ignorespaces Comparing Stam's apporach: Good Example}}{20}{figure.caption.19}
-\contentsline {figure}{\numberline {2.15}{\ignorespaces Comparing Stam's apporach: Bad Example}}{21}{figure.caption.20}
-\contentsline {figure}{\numberline {2.16}{\ignorespaces Stam's geometrical setup}}{22}{figure.caption.21}
+\contentsline {figure}{\numberline {2.12}{\ignorespaces Idea behind Stam's approach}}{20}{figure.caption.17}
+\contentsline {figure}{\numberline {2.13}{\ignorespaces Stam's geometrical setup}}{21}{figure.caption.18}
+\contentsline {figure}{\numberline {2.14}{\ignorespaces Comparing Stam's apporach: Gratings}}{22}{figure.caption.19}
+\contentsline {figure}{\numberline {2.15}{\ignorespaces Comparing Stam's apporach: Good Example}}{22}{figure.caption.20}
+\contentsline {figure}{\numberline {2.16}{\ignorespaces Comparing Stam's apporach: Bad Example}}{23}{figure.caption.21}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Problem Statement}}{24}{figure.caption.22}
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Problem Statement: Output}}{25}{figure.caption.23}
@@ -43,4 +43,5 @@
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Comparission between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\mathaccentV {hat}65E{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.\relax }}{39}{figure.caption.27}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {B.1}{\ignorespaces Cube in world space $(x,y,z)$ showing the tangen space $(u,v,n)$ of its face $(2,1,3)$\relax }}{44}{figure.caption.30}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {C.1}{\ignorespaces Cube in world space $(x,y,z)$ showing the tangen space $(u,v,n)$ of its face $(2,1,3)$\relax }}{47}{figure.caption.30}

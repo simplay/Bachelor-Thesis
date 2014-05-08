@@ -41,11 +41,12 @@
 \contentsline {section}{\numberline {A.1}Fourier Transformation}{40}{section.A.1}
 \contentsline {section}{\numberline {A.2}Convolution}{42}{section.A.2}
 \contentsline {section}{\numberline {A.3}Taylor Series}{42}{section.A.3}
-\contentsline {chapter}{\numberline {B}Appendix}{43}{appendix.B}
-\contentsline {section}{\numberline {B.1}Schlick's approximation}{43}{section.B.1}
-\contentsline {section}{\numberline {B.2}Spherical Coordinates}{43}{section.B.2}
-\contentsline {section}{\numberline {B.3}Tangent Space}{44}{section.B.3}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{45}{figure.caption.30}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{45}{appendix*.31}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{46}{appendix*.32}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{47}{appendix*.33}
+\contentsline {chapter}{\numberline {B}Summary of Stam's Derivations}{43}{appendix.B}
+\contentsline {chapter}{\numberline {C}Appendix}{46}{appendix.C}
+\contentsline {section}{\numberline {C.1}Schlick's approximation}{46}{section.C.1}
+\contentsline {section}{\numberline {C.2}Spherical Coordinates}{46}{section.C.2}
+\contentsline {section}{\numberline {C.3}Tangent Space}{47}{section.C.3}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{48}{figure.caption.30}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{48}{appendix*.31}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{49}{appendix*.32}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{50}{appendix*.33}
