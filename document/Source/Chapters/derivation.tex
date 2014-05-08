@@ -88,14 +88,25 @@ L_{\lambda}(\omega_r)
 \label{eq:nonrelativebrdffinding}
 \end{align}
 
-Note that the fresnel term $F$ is actually a function of $(w_i, w_r)$ but in order to keep it simple, we omitted its arguemts. 
-So far we just plugged Stam's BRDF identity into the rendering equation and hence have not significantly deviated from his formulation. Keep in mind that $P$ deontes the Fourier transform of the provided height field which depends on the viewing and light incidence direction. Thus this Fourier Transform has to be recomputed for every direction. One particular strategy to solve this issue is to approximate $P$ by the Discrete Fourier Transform (DFT)$\footnote{See appendix \ref{chap:appendixsignalprocessing} for further information about different kinds of fourier transformations.}$ and seperate its computation such that terms for many directions can be precomputed and then later retrieved by look ups.
+Note that the Fresnel term $F$ is actually a function of $(w_i, w_r)$, but in order to keep the equations simple, we omitted its arguemts. 
+So far we just plugged Stam's BRDF identity into the rendering equation and hence have not significantly deviated from his formulation. Keep in mind that $P$ deontes the Fourier transform of the provided height field which depends on the viewing and incidence light direction. Thus this Fourier Transform has to be recomputed for every direction which will slow down the whole computation quite a lot$\footnote{Even a fast variant of computation the Fourier Transform has a runtime complexitiy of O(N log N) where N is the number of sample.}$. One particular strategy to solve this issue is to approximate $P$ by the Discrete Fourier Transform (DFT)$\footnote{See appendix \ref{chap:appendixsignalprocessing} for further information about different kinds of fourier transformations.}$ and seperate its computation such that terms for many directions can be precomputed and then later retrieved by look ups.
 
 \section{Reproduce FT by DTFT}
+In the previous section, we have found an identity for the reflected spectral radiance $L_{\lambda}(\omega_r)$ when using Stam's BRDF for a given input height field. However, the derived expression requires the computation of the Fourier Transform of our height field$\footnote{actually it requires the computation of the inverse Fourier Transform of a transformed version of the given heightfield, the function p(x,y) defined in equation \ref{eq:px}.}$
+
 add motivation text
 Show thesis graphics
 Some explanations.
 relate to our derivations
+
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[scale=0.6]{derivation/ftbydtft.png}
+  \caption[FT by DTFT]{Illustration of how to approximate the analytical Fourier Transform (FT) $\footnotemark$ of a given continuous signal by a Discrete Time Fourier Transform (DTFT).}
+  \label{fig:ftbydtft}  
+\end{figure}
+\footnotetext{Images of function plots taken from \texttt{http://en.wikipedia.org/wiki/Discrete\textunderscore Fourier\textunderscore transform} and are modified.} 
 
 \begin{align}
 L_{\lambda}(\omega_r) 
