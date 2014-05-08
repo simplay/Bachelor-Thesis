@@ -4,53 +4,44 @@
 \contentsline {figure}{\numberline {1.2}{\ignorespaces Structural color examples}}{2}{figure.caption.3}
 \contentsline {figure}{\numberline {1.3}{\ignorespaces Xenopeltis AFM image}}{3}{figure.caption.4}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Irradiance is the summed up radiance over all directions\relax }}{7}{figure.caption.5}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Irradiance is the summed up radiance over all directions\relax }}{8}{figure.caption.5}
 \contentsline {figure}{\numberline {2.2}{\ignorespaces BRDF Model}}{9}{figure.caption.7}
 \contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Xenopeltis snake}}}{9}{figure.caption.7}
 \contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Elaphe Guttata snake}}}{9}{figure.caption.7}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Thin Film Inteference soapbubble}}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Thin Film Interference soap bubble}}}{9}{figure.caption.7}
 \contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Multilayer Interference on abdomen of beetle}}}{9}{figure.caption.7}
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Photonic crystals in Wings of buttefly}}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Photonic crystals in Wings of butterfly}}}{9}{figure.caption.7}
 \contentsline {subfigure}{\numberline {(d)}{\ignorespaces {Scattering of light on butterfly wing}}}{9}{figure.caption.7}
-\contentsline {subfigure}{\numberline {(e)}{\ignorespaces {Artifical Diffraction Grating on CD}}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(e)}{\ignorespaces {Artificial Diffraction Grating on CD}}}{9}{figure.caption.7}
 \contentsline {subfigure}{\numberline {(f)}{\ignorespaces {Natural Diffraction Grating on snake skin}}}{9}{figure.caption.7}
 \contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Radiances is the density of photons per area per solid angle}}}{9}{figure.caption.7}
 \contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Solid angle is the area of a surface patch on a sphere with radius R which is spanned by a set of directions}}}{9}{figure.caption.7}
 \contentsline {figure}{\numberline {2.3}{\ignorespaces visiblelightspectrum}}{10}{figure.caption.8}
-\contentsline {figure}{\numberline {2.4}{\ignorespaces humanayeschematic}}{10}{figure.caption.9}
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Plots of our color matching functions we used for rendering\relax }}{11}{figure.caption.10}
-\contentsline {figure}{\numberline {2.6}{\ignorespaces sinewave}}{13}{figure.caption.11}
-\contentsline {figure}{\numberline {2.7}{\ignorespaces interference}}{14}{figure.caption.12}
-\contentsline {figure}{\numberline {2.8}{\ignorespaces Two mathematical sine waves which are perfectly coherent which means that their phase difference is constant for every point in time.\relax }}{16}{figure.caption.14}
-\contentsline {figure}{\numberline {2.9}{\ignorespaces Huygen's Principle}}{17}{figure.caption.16}
-\contentsline {figure}{\numberline {2.10}{\ignorespaces Diffracted Wave}}{18}{figure.caption.17}
-\contentsline {figure}{\numberline {2.11}{\ignorespaces diffractiondiemsnion}}{19}{figure.caption.18}
-\contentsline {figure}{\numberline {2.12}{\ignorespaces $\omega _i$ points toward the light source, $\omega _r$ points toward the camera, $n$ is the surface normal\relax }}{20}{figure.caption.19}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {W $\ll $ $\lambda $}}}{20}{figure.caption.19}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {W $\approx $ $2 \lambda $}}}{20}{figure.caption.19}
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {W $\approx $ $6 \lambda $}}}{20}{figure.caption.19}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces humanayeschematic}}{11}{figure.caption.9}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Plots of our color matching functions we used for rendering\relax }}{12}{figure.caption.10}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces sinewave}}{14}{figure.caption.11}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces interference}}{15}{figure.caption.12}
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Two mathematical sine waves which are perfectly coherent which means that their phase difference is constant for every point in time.\relax }}{16}{figure.caption.13}
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Huygen's Principle}}{18}{figure.caption.14}
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Diffracted Wave}}{19}{figure.caption.15}
+\contentsline {figure}{\numberline {2.11}{\ignorespaces diffractiondiemsnion}}{20}{figure.caption.16}
+\contentsline {figure}{\numberline {2.12}{\ignorespaces Idea behind Stam's approach}}{21}{figure.caption.17}
+\contentsline {figure}{\numberline {2.13}{\ignorespaces Stam's geometrical setup}}{22}{figure.caption.18}
+\contentsline {figure}{\numberline {2.14}{\ignorespaces Comparing Stam's apporach: Gratings}}{23}{figure.caption.19}
+\contentsline {figure}{\numberline {2.15}{\ignorespaces Comparing Stam's apporach: Good Example}}{24}{figure.caption.20}
+\contentsline {figure}{\numberline {2.16}{\ignorespaces Comparing Stam's apporach: Bad Example}}{24}{figure.caption.21}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Comparission between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\mathaccentV {hat}65E{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.\relax }}{34}{figure.caption.22}
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Blaze\relax }}{38}{figure.caption.23}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Renderer Architecture\relax }}{39}{figure.caption.24}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces A wireframe mesh represents an object as a set of faces and a set of vertices.\relax }}{40}{figure.caption.25}
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Camera coordinate system where its origin defines the center of projection of camera\relax }}{41}{figure.caption.26}
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Illustration of involved components in order to construct the camera matrix. We introduce some helper vectors $z_c = \frac {e-d}{||e-d||}$, $x_c = \frac {up \times z_c}{||up \times z_c||} $ and $z_c \times x_c$ for the actual construction of the camera matrix\relax }}{41}{figure.caption.27}
-\contentsline {figure}{\numberline {4.6}{\ignorespaces For a directional light source all light rays are in parallel.\relax }}{42}{figure.caption.28}
-\contentsline {figure}{\numberline {4.7}{\ignorespaces $(u,v)$ lookup image\relax }}{45}{figure.caption.33}
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Spectometer: When a beam of monochromatic light passes through a grating placed in a spectrometer, images of the sources can be seen through the telescope at different angles.\relax }}{50}{figure.caption.34}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Light directed to parallel to grating:\relax }}{51}{figure.caption.35}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Different Orders of diffraction\relax }}{52}{figure.caption.36}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces White Light beam causes coloured diffraction spectra\relax }}{52}{figure.caption.37}
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Relative intensitiies of a diffracted beam of light at wavelength $\lambda =500nm$ on a grating for different number of periods $N$ width slit width of 30 microns and slit seperation of 0.15 mm each. The viewer is 0.5m apart from the grating.\relax }}{53}{figure.caption.38}
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Difference of diffraction pattern between a monochromatic (top) and a white (bottom) light spectra for different number of slits.\relax }}{54}{figure.caption.39}
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Experimental setup for evaluation: A light beam with direction $L$ hits the surface, representing a grating pattern with periodicity $d$, at the incident plane relative to the surface normal $n$ at angle $\theta $ and emerges at angle $\phi $ with direction $V$.\relax }}{55}{figure.caption.40}
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Reflecting grating: When the incident light direction is not parallel to its axis at the grating, there is another $sin(\phi )$ involved. See also the grating equation $\ref {eq:gratingeq}$.\relax }}{55}{figure.caption.41}
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Reflectance obtained by using the shading approach described in algorithm $\ref {alg:fragmentshaderall}$ simulating a BRDF which models the effect of diffraction at different viewing angles over the spectrum of visible light.\relax }}{57}{figure.caption.42}
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Reflectance obtained using $N_{min} N_{max}$ optimization apporach\relax }}{59}{figure.caption.44}
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Reflectance obtained using PQ optimization apporach\relax }}{59}{figure.caption.45}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Problem Statement}}{26}{figure.caption.22}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Problem Statement: Output}}{27}{figure.caption.23}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces FT by DTFT}}{29}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {W $\ll $ $\lambda $}}}{29}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {W $\approx $ $2 \lambda $}}}{29}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {W $\approx $ $6 \lambda $}}}{29}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Structure Geometry}}}{29}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Nanostructure Surface}}}{29}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Patch Orientation}}}{29}{figure.caption.24}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Comparission between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\mathaccentV {hat}65E{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.\relax }}{41}{figure.caption.27}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {B.1}{\ignorespaces Cube in world space $(x,y,z)$ showing the tangen space $(u,v,n)$ of its face $(2,1,3)$\relax }}{65}{figure.caption.48}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {C.1}{\ignorespaces Cube in world space $(x,y,z)$ showing the tangen space $(u,v,n)$ of its face $(2,1,3)$\relax }}{49}{figure.caption.30}

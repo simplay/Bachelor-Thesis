@@ -1,11 +1,11 @@
-\chapter{Appendix}
-\section{Signal Processing Basics}
+\chapter{Signal Processing Basics}
+\label{chap:appendixsignalprocessing}
 A signal is a function that conveys information about the behavior or attributes of some phenomenon.
 In the physical world, any quantity exhibiting variation in time or variation in space (such as an image) is potentially a signal that might provide information on the status of a physical system, or convey a message between observers.
 
 The Fourier Transform is an important image processing tool which is used to decompose an image into its sine and cosine components. The output of the transformation represents the image in the Fourier or frequency domain, while the input image is the spatial domain equivalent. In the Fourier domain image, each point represents a particular frequency contained in the spatial domain image. 
 
-\subsection{Fourier Transformation}
+\section{Fourier Transformation}
 The Fourier-Transform is a mathematical tool which allows to transform a given function or rather a given signal from defined over a time- (or spatial-) domain into its corresponding frequency-domain.
  
 Let $f$ an measurable function over $\mathds{R}^n$. Then, the continuous Fourier Transformation(\textbf{FT}), denoted as $\mathcal{F}\{f\}$ of $f$, ignoring all constant factors in the formula, is defined as:
@@ -77,7 +77,7 @@ where
 \label{tab:ftoperatorsdependencies}
 \end{table}
 
-\subsection{Convolution}
+\section{Convolution}
 The convolution $f*g$ of two functions $f$, $g$$\colon \mathds{R}^n \to \mathds{C} $ is defined as:  
 \begin{equation}
   \mathcal (f*g)(t) = \int_{\mathds{R}^n} f(t)g(t-x) dx
@@ -87,7 +87,7 @@ The convolution $f*g$ of two functions $f$, $g$$\colon \mathds{R}^n \to \mathds{
 Note that the Fourier transform of the convolution of two functions is the product of their Fourier transforms. This is equivalent to the fact that Convolution in spatial domain is equivalent to multiplication in frequency domain. Therefore, the inverse Fourier transform of the product of two Fourier transforms is the convolution of the two inverse Fourier transforms.
 Last an illustration of the relationships between the previous presented Fourier transformations and different given input signals. First an concrete example shown in Figure $\ref{fig:contdiscft}$. Table $\ref{tab:ftoperatorsdependencies}$ tells what Fourier transformation operator has to be applied to which kind of input signal and what properties its resulting Fourier transform will have.
 
-\subsection{Taylor Series}
+\section{Taylor Series}
 Taylor series is a representation of a function as an infinite sum of terms that are calculated from the values of the function's derivatives at a single point.
 
 The Taylor series $\mathcal T$ of a real or complex-valued function $f(x)$ that is infinitely differentiable at a real or complex number $a$ is the power series:
