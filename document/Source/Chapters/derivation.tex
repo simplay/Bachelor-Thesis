@@ -39,7 +39,7 @@ We want to rely on the integral equation $\ref{eq:mainstam}$ derived by J. Stam 
 
 
 \section{Rendering Equation}
-As already seen in the theoretical background chapter, colors are associated to radiance. Since we are starting with Stam's BRDF$\footnote{Remember that a BRDF is the portion of a incident light source reflected off a given surface towards a specified viewing direction}$ formulation but want to perform a simulation rendering structural colors, we have to reformulate this BRDF equation such that we will end up with an identity of the reflected spectral radiance. This is where the rendering equation comes into play. Lets assume we have given an incoming light source with solid angle $\omega_i$ and $\theta_i$ is its angle of incidence, $\omega_r$ is the solid angle for the reflected light. Further let $\lambda$ denote the wavelength and $\Omega$ is the hemisphere we of integration for the incoming light. Then, we are able to formulate a BRDF by using its definition $\ref{eq:defbrdf}$:  
+As already discussed in the theoretical background chapter, colors are associated to radiance. Since we are starting with Stam's BRDF$\footnote{Remember that a BRDF is the portion of a incident light source reflected off a given surface towards a specified viewing direction}$ formulation but want to perform a simulation rendering structural colors, we have to reformulate this BRDF equation such that we will end up with an identity of the reflected spectral radiance. This is where the rendering equation comes into play. Lets assume we have given an incoming light source with solid angle $\omega_i$ and $\theta_i$ is its angle of incidence, $\omega_r$ is the solid angle for the reflected light. Further let $\lambda$ denote the wavelength and $\Omega$ is the hemisphere we of integration for the incoming light. Then, we are able to formulate a BRDF by using its definition $\ref{eq:defbrdf}$:  
 
 \begin{alignat}{4}
 & f_r(\omega_i, \omega_r) &&= \frac{dL_r(\omega_r)}{L_i(\omega_i)cos(\theta_i)d\omega_i} \nonumber \\
@@ -89,16 +89,10 @@ L_{\lambda}(\omega_r)
 \end{align}
 
 Note that the Fresnel term $F$ is actually a function of $(w_i, w_r)$, but in order to keep the equations simple, we omitted its arguemts. 
-So far we just plugged Stam's BRDF identity into the rendering equation and hence have not significantly deviated from his formulation. Keep in mind that $P$ deontes the Fourier transform of the provided height field which depends on the viewing and incidence light direction. Thus this Fourier Transform has to be recomputed for every direction which will slow down the whole computation quite a lot$\footnote{Even a fast variant of computation the Fourier Transform has a runtime complexitiy of O(N log N) where N is the number of sample.}$. One particular strategy to solve this issue is to approximate $P$ by the Discrete Fourier Transform (DFT)$\footnote{See appendix \ref{chap:appendixsignalprocessing} for further information about different kinds of fourier transformations.}$ and seperate its computation such that terms for many directions can be precomputed and then later retrieved by look ups.
+So far we just plugged Stam's BRDF identity into the rendering equation and hence have not significantly deviated from his formulation. Keep in mind that $P$ deontes the Fourier transform of the provided height field which depends on the viewing and incidence light direction. Thus this Fourier Transform has to be recomputed for every direction which will slow down the whole computation quite a lot$\footnote{Even a fast variant of computation the Fourier Transform has a runtime complexitiy of O(N log N) where N is the number of sample.}$. One particular strategy to solve this issue is to approximate $P$ by the Discrete Fourier Transform (DFT)$\footnote{See appendix \ref{chap:appendixsignalprocessing} for further information about different kinds of fourier transformations.}$ and seperate its computation such that terms for many directions can be precomputed and then later retrieved by look ups. The approximation of $P$ happens in two steps: First we approximate the Fourier Transform by the Discrete Time Fourier Transform (DTFT) and then, afterwards, we approximate the DTFT by the DFT. For further about basics of signal processing and Fourier Transformations please consult the appendix $\ref{chap:appendixsignalprocessing}$.
 
 \section{Reproduce FT by DTFT}
-In the previous section, we have found an identity for the reflected spectral radiance $L_{\lambda}(\omega_r)$ when using Stam's BRDF for a given input height field. However, the derived expression requires the computation of the Fourier Transform of our height field$\footnote{actually it requires the computation of the inverse Fourier Transform of a transformed version of the given heightfield, the function p(x,y) defined in equation \ref{eq:px}.}$
-
-add motivation text
-Show thesis graphics
-Some explanations.
-relate to our derivations
-
+In the previous section, we have found an identity for the reflected spectral radiance $L_{\lambda}(\omega_r)$ when using Stam's BRDF for a given input height field. However, the derived expression in equation $\ref{eq:nonrelativebrdffinding}$ requires to evaluate the Fourier Transform of our height field$\footnote{actually it requires the computation of the inverse Fourier Transform of a transformed version of the given heightfield, the function p(x,y) defined in equation \ref{eq:px}.}$ for every direction. In this section we explain how to approximate the FT by the DTFT and apply it to our previous derivations. Figure $\ref{fig:ftbydtft}$ graphically shows how to obtain the DTFT from the FT for a one dimensional signal$\footnote{For our case we are dealing with a two dimensional, spatial signal, the given height field. Nevertheless, without any constraints of generality, the explained approach applies to multi dimensional problems.}$ \\ \\
 
 \begin{figure}[ht]
   \centering
@@ -108,15 +102,30 @@ relate to our derivations
 \end{figure}
 \footnotetext{Images of function plots taken from \texttt{http://en.wikipedia.org/wiki/Discrete\textunderscore Fourier\textunderscore transform} and are modified.} 
 
+The first step is to uniformly discretize the given signal since computers are working finite, discrete arithmetic. We rely on the Nyquist–Shannon sampling theorem tells us how dense we have to sample a given signal $s(x)$ such that can be reconstructed its sampled version $\hat{s}[n]$$\footnote{n denotes the number of samples.}$. In particular, a sampled version according to the Nyquist–Shannon sampling theorem will have the same Fourier Transform as its origianl singal. The sampling theorem states that if $f_{max}$ denotes the highest frequency of $s(x)$, then, it has to be sampled by a rate of $f_s$ with $2f_{max} \leq f_s$ in order to be reconstructable. By convention $T = \frac{1}{f_s}$ represent the interval length between two samples. \\ \\
+
+Next, we apply the Fourier Tranformation operator on the discretized singal $\hat{s}$ which gives us the following expression: 
+
+\begin{align}
+\mathcal{F}_{FT}\{\hat{s}\}(w)
+& = \int_{\mathds{R}} \hat{s}[n] e^{-iwx} dx \\
+& = \int_{\mathds{R}} mask(x)s(x) e^{-iwx} dx \\
+& = T\sum_{x=-\infty}^{\infty} \hat{s}[x] e^{-iwx} \\
+& = T\mathcal{F}_{DTFT}\{s\}(w)
+\label{eq:sampledsignalfttodtft}
+\end{align} 
+Equation $\ref{eq:sampledsignalfttodtft}$ tells us that if $\hat{s}$ is sufficiently sampled, then its DTFT corresponds to the FT of $s(x)$ . Notice that the resulting DTFT from the sampled signal has a height of $\frac{A}{T}$ where A is the height of the FT of $s$ and thus is a scaled version of the FT. \\ \\
+ 
+Using the insight gained by equation $\ref{eq:sampledsignalfttodtft}$ allows us to further simplify equation $\ref{eq:nonrelativebrdffinding}$:
+
 \begin{align}
 L_{\lambda}(\omega_r) 
-& = I(\lambda) \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \left \langle \left|P \left( \frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda}\right) \right|^2 \right \rangle \nonumber \\
-& = I(\lambda) \frac{F(\omega_i, \omega_r)^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A (cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r)} \left \langle \left|T_0^2 P_{dtft}\left( \frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda}\right) \right|^2 \right \rangle
+& = I(\lambda) \frac{F^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A w^2 cos(\theta_r)} \left \langle \left|P \left( \frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda}\right) \right|^2 \right \rangle \nonumber \\
+& = I(\lambda) \frac{F^2 (1 + \omega_i \cdot \omega_r)^2}{\lambda^2 A w^2 cos(\theta_r)} \left \langle \left|T^2 P_{dtft}\left( \frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda}\right) \right|^2 \right \rangle
 \label{eq:nonrelativebrdffindingreproddtft}
 \end{align}
 
-Furthermore $T_0$ the sampling distance for the discretization of $p(x,y)$ assuming equal and uniform sampling in both dimensions $x$ and $y$.
-
+Where $P_{dtft}$ is a substitude for $\mathcal{F}_{DTFT}\{s\}(w)$. Furthermore $T$ the sampling distance for the discretization of $p(x,y)$ assuming equal and uniform sampling in both dimensions $x$ and $y$.
 
 \section{Special Coherence and Windowing}
 \section{Reproduce DTFT by DFT}
