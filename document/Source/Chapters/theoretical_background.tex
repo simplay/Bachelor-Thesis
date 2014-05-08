@@ -254,21 +254,22 @@ In everday's life, we can see the direct outcome of the effect of wave diffracti
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{background/stamgratings.png}
-  \caption[Comparing Stam's apporach: Gratings]{blup}
+  \caption[Comparing Stam's apporach: Gratings]{Alignment of nanostructures in diffraction gratings. On the left a complex, natural grating of the Elaphe snake species and on the right a synthetic, very regularly aligned grating of a CD.}
   \label{fig:stameggratings}  
 \end{figure}
 
+Compare our method against Stam's approach$\footnote{A reference implementation of Stam's Diffraction Shader\cite{diffstam} is provided by Nvidia's GPU Gems at \texttt{http://http.developer.nvidia.com/GPUGems/gpugems\textunderscore 08.html}}$ for two different gratings, a natural and a synthetic grating, which are shown in figure $\ref{fig:stameggratings}$.
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{background/stamgoodeg.png}
-  \caption[Comparing Stam's apporach: Good Example]{blup}
+  \caption[Comparing Stam's apporach: Good Example]{Comparission of our approach against a reference implementation of Stam's provided by Nvida Gem. For synthetic diffraction gratings, which have a very regular structure, Stam's apporach is doing well. All angles of the diffraction pattern look the same as in the images produced by our apporach.}
   \label{fig:stameggratingsgoodeg}  
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.4]{background/stambadeg.png}
-  \caption[Comparing Stam's apporach: Bad Example]{blup}
+  \caption[Comparing Stam's apporach: Bad Example]{Comparission of our approach(on the right) against a reference implementation of Stam's(on the left) provided by Nvida Gem by trying to render a reproduction of a real Elaphe skin (center) under similar lightning and viewing conditions. For natural diffraction gratings, which have a rather complex structure, Stam's apporach is doing rather bad.}
   \label{fig:stameggratingsbadeg}  
 \end{figure}
 
@@ -281,7 +282,7 @@ A further assumption in Stam's Paper is, the emanated waves from the source are 
 
 In our simulations we will always assume we have given a directional light source, i.e. sunlight. Hence, Stam's model can be used for our derivations.
 
-For his derivations Stam uses the Kirchhoff integral (ADD REF TO WIKI), which is relating the reflected field to the incoming field. This equation is a formalization of Huygen’s well-known principle that states that if one knows the wavefront at a given moment, the wave at a later time can be deduced by considering each point on the first wave as the source of a new disturbance. Mathematically speaking, once the field  $\psi_1 =  e^{ik\mathbf{x} \cdot \mathbf{s}\mathbf{s}}$ on the surface is known, the field $\psi_2$ everywhere else away from the surface can be computed.
+For his derivations Stam uses the Kirchhoff integral$\footnote{See \texttt{http://en.wikipedia.org/wiki/Kirchhoff\textunderscore integral\textunderscore theorem} for further information.}$, which is relating the reflected field to the incoming field. This equation is a formalization of Huygen’s well-known principle that states that if one knows the wavefront at a given moment, the wave at a later time can be deduced by considering each point on the first wave as the source of a new disturbance. Mathematically speaking, once the field  $\psi_1 =  e^{ik\mathbf{x} \cdot \mathbf{s}\mathbf{s}}$ on the surface is known, the field $\psi_2$ everywhere else away from the surface can be computed.
 More precisely, we want to compute the wave $\psi_2$ equal to the reflection of an incoming planar monochromatic wave $\psi_1 = e^{ik \omega_i * x}$  traveling in the direction $\omega_i$ from a surface $S$ to the light source. Formally, this can be written as:
 
 \begin{equation}
