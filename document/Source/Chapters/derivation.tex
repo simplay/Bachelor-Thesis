@@ -127,11 +127,44 @@ L_{\lambda}(\omega_r)
 
 Where $P_{dtft}$ is a substitude for $\mathcal{F}_{DTFT}\{s\}(w)$. Furthermore $T$ the sampling distance for the discretization of $p(x,y)$ assuming equal and uniform sampling in both dimensions $x$ and $y$.
 
-\section{Special Coherence and Windowing}
+\section{Spatial Coherence and Windowing}
+
+spatial coherence is the correlation between waves at different points in space usually modeled by a gaussian random process. 
+ability for two points in space to interfere in the extend of a wave when being averages over time
+
+coherence area is the range of seperation between any two pairs of point over which there is significant intererence.
+coherence area on the surface of the earth for filtered sunlight is of order 61 microns
+
+sunlight has coherence area of 61 microns
+proof and source in book Optical Coherence and Quantum Optics$\cite{optcoherence}$ on page 153,154
+we decided to choose a coherence area of 65 microns
+
+
+Therefore, since the correlation function of spatial coherence is modeled by a gaussian window and for sunlight its coherence area is equal 65 microns
+we have chosen a spatial window of 65 microns which should capture about 99 percentage of all interference effects, i.e. we set the sandard deviation 4 sigma s equal 65microns. in general a corresponding standard deviation in frequency space is then equal sigma f euqal 1 over 2 pi sigma s for any sigma s.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{derivation/windowinggaussian.png}
+  \caption[Coherence Area using Gaussian Window]{bla}
+  \label{fig:coherenceareagaussianwindow}  
+\end{figure}
 
 
 \section{Reproduce DTFT by DFT}
 \label{sec:gaussianwindow}
+
+MENTION CONVOLUTION THEOREM and explain its meaning and how it is used in this case
+MENTION scales might not be appropriate
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.4]{derivation/dtftbydft.png}
+  \caption[DTFT by DFT]{Illustration of how to approximate the DTFT $\footnotemark$ by the DFT.}
+  \label{fig:dtftbydft}  
+\end{figure}
+\footnotetext{Images of function plots taken from \texttt{http://en.wikipedia.org/wiki/Discrete\textunderscore Fourier\textunderscore transform} and are modified.} 
+
 Practically, we cannot compute the DTFT $\ref{eq:dtft}$ numerically due to finite computer arithmetic, since $w$ is a continuous function for the DTFT. The DFT $\ref{eq:dft}$ of a discrete height field patch is equivalent to the DTFT of an infinitely periodic function consisting of replicas of the same discrete patch. By windowing with a window function that is zero outside the central replica, the convolution of either the DFT or the DTFT of height field with the Fourier Transform of the window becomes equivalent.
 
 Let $window_g$ denote the gaussian window with $4\sigma_s$ $\mu m$ where $\sigma_f = \frac{1}{2\pi\sigma_s}$

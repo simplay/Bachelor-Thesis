@@ -26,7 +26,7 @@
 \BOOKMARK [1][-]{section.3.2}{Rendering\040Equation}{chapter.3}% 26
 \BOOKMARK [1][-]{section.3.3}{Adaption\040of\040Stam's\040BRDF\040discrete\040height\040fields}{chapter.3}% 27
 \BOOKMARK [1][-]{section.3.4}{Reproduce\040FT\040by\040DTFT}{chapter.3}% 28
-\BOOKMARK [1][-]{section.3.5}{Special\040Coherence\040and\040Windowing}{chapter.3}% 29
+\BOOKMARK [1][-]{section.3.5}{Spatial\040Coherence\040and\040Windowing}{chapter.3}% 29
 \BOOKMARK [1][-]{section.3.6}{Reproduce\040DTFT\040by\040DFT}{chapter.3}% 30
 \BOOKMARK [1][-]{section.3.7}{Relative\040Reflectance}{chapter.3}% 31
 \BOOKMARK [1][-]{section.3.8}{Optimization\040using\040Taylor\040Series}{chapter.3}% 32
@@ -43,7 +43,7 @@
 \BOOKMARK [1][-]{section.C.1}{Schlick's\040approximation}{appendix.C}% 43
 \BOOKMARK [1][-]{section.C.2}{Spherical\040Coordinates}{appendix.C}% 44
 \BOOKMARK [1][-]{section.C.3}{Tangent\040Space}{appendix.C}% 45
-\BOOKMARK [0][-]{figure.caption.30}{List\040of\040Tables}{}% 46
-\BOOKMARK [0][-]{appendix*.31}{List\040of\040Figures}{}% 47
-\BOOKMARK [0][-]{appendix*.32}{List\040of\040Algorithms}{}% 48
-\BOOKMARK [0][-]{appendix*.33}{Bibliography}{}% 49
+\BOOKMARK [0][-]{figure.caption.32}{List\040of\040Tables}{}% 46
+\BOOKMARK [0][-]{appendix*.33}{List\040of\040Figures}{}% 47
+\BOOKMARK [0][-]{appendix*.34}{List\040of\040Algorithms}{}% 48
+\BOOKMARK [0][-]{appendix*.35}{Bibliography}{}% 49
