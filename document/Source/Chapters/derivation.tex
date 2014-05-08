@@ -128,14 +128,41 @@ L_{\lambda}(\omega_r)
 Where $P_{dtft}$ is a substitude for $\mathcal{F}_{DTFT}\{s\}(w)$. Furthermore $T$ the sampling distance for the discretization of $p(x,y)$ assuming equal and uniform sampling in both dimensions $x$ and $y$.
 
 \section{Special Coherence and Windowing}
+
+
 \section{Reproduce DTFT by DFT}
-\section{Optimization using Taylor Series}
-\section{Spectral Rendering}
-\subsection{BRDF formulation}
+\label{sec:gaussianwindow}
+Practically, we cannot compute the DTFT $\ref{eq:dtft}$ numerically due to finite computer arithmetic, since $w$ is a continuous function for the DTFT. The DFT $\ref{eq:dft}$ of a discrete height field patch is equivalent to the DTFT of an infinitely periodic function consisting of replicas of the same discrete patch. By windowing with a window function that is zero outside the central replica, the convolution of either the DFT or the DTFT of height field with the Fourier Transform of the window becomes equivalent.
+
+Let $window_g$ denote the gaussian window with $4\sigma_s$ $\mu m$ where $\sigma_f = \frac{1}{2\pi\sigma_s}$
+let us further substitute $\mathbf{t(x,y)}=i^n h(x,y)^n$
+
+\begin{equation}
+\mathcal{F}_{dtft}^{-1}\{\mathbf{t}\}(u,v) = \mathcal{F}_{fft}^{-1}\{\mathbf{t}\}(u,v)window_g(\sigma_f)
+\end{equation} 
+
+Therefore we can deduce the following expression from this:
+
+\begin{align}
+\mathcal{F}_{dtft}^{-1}\{\mathbf{t}\}(u,v)
+& = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \phi(u-w_u, v-w_v) dw_u dw_v \nonumber \\
+& = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} \sum_i \sum_j {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \nonumber \\ 
+& \quad \quad \delta(w_u-w_i, w_v-w_j)\phi(u-w_u, v-w_v) dw_u dw_v \nonumber \\
+& = \sum_i \sum_j \int_{-\infty}^{\infty} \int_{-\infty}^{\infty}  {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \nonumber \\
+& \quad \quad \delta(w_u-w_i, w_v-w_j)\phi(u-w_u, v-w_v) dw_u dw_v \nonumber \\
+& = \sum_i \sum_j {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \phi(u-w_u, v-w_v)
+\end{align}
+
+where 
+
+\begin{equation} \label{eq:gaussweight}
+ \phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}
+\end{equation} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-\subsection{Relative Reflectance}
+\section{Relative Reflectance}
 In this section we are going to explain how to scale our BRDF formulation such that all of its possible output values are mapped into the range $\left[0,1\right]$. Such a relative reflectance formulation will ease our life for later rendering purposes since usually color values are within the range $\left[0,1\right]$, too. Furthermore, this will allow us to properly blend the resulting illumination caused by diffraction with a texture map.
 
 Let us examine what $L_\lambda(\omega_r)$ will be for $\omega_r = \omega_0 := (0,0,*)$ i.e. specular reflection case, denoted as $L_\lambda^{spec}(\omega_0)$. When we know the expression for $L_\lambda^{spec}(\omega_0)$ we would be able to compute the relative reflected radiance for our problem $\ref{eq:nonrelativebrdffinding}$ by simply taking the fraction between $L_\lambda(\omega_r)$ and $L_\lambda^{spec}(\omega_0)$ which is denoted by: 
@@ -229,7 +256,7 @@ X
 
 Where we used the definition $S_x(\lambda)\overline{x}(\lambda)$ in the last step.
 
-\subsection{Taylor approximation for BRDF}
+\section{Optimization using Taylor Series}
 \label{sec:taylorapproximation}
 In this section, we will deliver an approximation for the inverse Fourier Transformation of Stam's auxiliary function $p(x,y)$. This derivation will rely on the definition of Taylor Series expansion $\ref{eq:deftaylor}$. Further, we will provide an error bound for our approximation approach for a given number of iterations. Last, we will extend our current BRDF formula by the findings derived within this section.
 
@@ -379,36 +406,7 @@ X
 \label{eq:xcolexpression}
 \end{align}
 
-\subsection{Sampling: Gaussian Window}
-\label{sec:gaussianwindow}
-Practically, we cannot compute the DTFT $\ref{eq:dtft}$ numerically due to finite computer arithmetic, since $w$ is a continuous function for the DTFT. The DFT $\ref{eq:dft}$ of a discrete height field patch is equivalent to the DTFT of an infinitely periodic function consisting of replicas of the same discrete patch. By windowing with a window function that is zero outside the central replica, the convolution of either the DFT or the DTFT of height field with the Fourier Transform of the window becomes equivalent.
-
-Let $window_g$ denote the gaussian window with $4\sigma_s$ $\mu m$ where $\sigma_f = \frac{1}{2\pi\sigma_s}$
-let us further substitute $\mathbf{t(x,y)}=i^n h(x,y)^n$
-
-\begin{equation}
-\mathcal{F}_{dtft}^{-1}\{\mathbf{t}\}(u,v) = \mathcal{F}_{fft}^{-1}\{\mathbf{t}\}(u,v)window_g(\sigma_f)
-\end{equation} 
-
-Therefore we can deduce the following expression from this:
-
-\begin{align}
-\mathcal{F}_{dtft}^{-1}\{\mathbf{t}\}(u,v)
-& = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \phi(u-w_u, v-w_v) dw_u dw_v \nonumber \\
-& = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} \sum_i \sum_j {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \nonumber \\ 
-& \quad \quad \delta(w_u-w_i, w_v-w_j)\phi(u-w_u, v-w_v) dw_u dw_v \nonumber \\
-& = \sum_i \sum_j \int_{-\infty}^{\infty} \int_{-\infty}^{\infty}  {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \nonumber \\
-& \quad \quad \delta(w_u-w_i, w_v-w_j)\phi(u-w_u, v-w_v) dw_u dw_v \nonumber \\
-& = \sum_i \sum_j {F}_{fft}^{-1}\{\mathbf{t}\}(w_u,w_v) \phi(u-w_u, v-w_v)
-\end{align}
-
-where 
-
-\begin{equation} \label{eq:gaussweight}
- \phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}
-\end{equation} 
-
-\subsection{Final Expression}
+\section{Spectral Rendering}
 As the last step of our series of derivations, we plug all our findings together to one big equation in order to compute the color for each pixel on our mesh in the $CIE_{XYZ}$ colorspace. For any given heigh-field $h(x,y)$ representing a small patch of a nano structure of a surface and the direction vectors $w_s$ and $w_r$ from figure $\ref{fig:geometricsetup}$ the resulting color caused by the effect of diffraction can be computed like: Let 
 
 \begin{equation}
