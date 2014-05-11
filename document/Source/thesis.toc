@@ -21,34 +21,34 @@
 \contentsline {subsection}{\numberline {2.2.3}Wave Coherence}{16}{subsection.2.2.3}
 \contentsline {subsection}{\numberline {2.2.4}Huygen's Principle}{17}{subsection.2.2.4}
 \contentsline {subsection}{\numberline {2.2.5}Waves Diffraction}{18}{subsection.2.2.5}
-\contentsline {section}{\numberline {2.3}Stam's BRDF formulation}{20}{section.2.3}
-\contentsline {chapter}{\numberline {3}Derivations}{26}{chapter.3}
-\contentsline {section}{\numberline {3.1}Problem Statement and Challenges}{26}{section.3.1}
-\contentsline {section}{\numberline {3.2}Approximate a FT by a DFT}{27}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Reproduce FT by DTFT}{27}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Spatial Coherence and Windowing}{28}{subsection.3.2.2}
-\contentsline {subsection}{\numberline {3.2.3}Reproduce DTFT by DFT}{29}{subsection.3.2.3}
-\contentsline {section}{\numberline {3.3}Adaption of Stam's BRDF discrete height fields}{31}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Rendering Equation}{31}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Reflected Radiance of Stam's BRDF}{32}{subsection.3.3.2}
-\contentsline {subsection}{\numberline {3.3.3}Relative Reflectance}{33}{subsection.3.3.3}
-\contentsline {section}{\numberline {3.4}Optimization using Taylor Series}{35}{section.3.4}
-\contentsline {paragraph}{Proof Sketch of 1.}{36}{section*.27}
-\contentsline {paragraph}{Part 2: Find such an N}{36}{section*.28}
-\contentsline {section}{\numberline {3.5}Spectral Rendering}{38}{section.3.5}
-\contentsline {section}{\numberline {3.6}Alternative Approach}{38}{section.3.6}
-\contentsline {subsection}{\numberline {3.6.1}PQ factors}{38}{subsection.3.6.1}
-\contentsline {subsection}{\numberline {3.6.2}Interpolation}{42}{subsection.3.6.2}
-\contentsline {chapter}{\numberline {A}Signal Processing Basics}{44}{appendix.A}
-\contentsline {section}{\numberline {A.1}Fourier Transformation}{44}{section.A.1}
-\contentsline {section}{\numberline {A.2}Convolution}{46}{section.A.2}
-\contentsline {section}{\numberline {A.3}Taylor Series}{46}{section.A.3}
-\contentsline {chapter}{\numberline {B}Summary of Stam's Derivations}{47}{appendix.B}
-\contentsline {chapter}{\numberline {C}Appendix}{50}{appendix.C}
-\contentsline {section}{\numberline {C.1}Schlick's approximation}{50}{section.C.1}
-\contentsline {section}{\numberline {C.2}Spherical Coordinates}{50}{section.C.2}
-\contentsline {section}{\numberline {C.3}Tangent Space}{51}{section.C.3}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{52}{figure.caption.32}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{52}{appendix*.33}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{53}{appendix*.34}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{54}{appendix*.35}
+\contentsline {section}{\numberline {2.3}Stam's BRDF formulation}{19}{section.2.3}
+\contentsline {chapter}{\numberline {3}Derivations}{25}{chapter.3}
+\contentsline {section}{\numberline {3.1}Problem Statement and Challenges}{25}{section.3.1}
+\contentsline {section}{\numberline {3.2}Approximate a FT by a DFT}{26}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Reproduce FT by DTFT}{26}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Spatial Coherence and Windowing}{27}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Reproduce DTFT by DFT}{28}{subsection.3.2.3}
+\contentsline {section}{\numberline {3.3}Adaption of Stam's BRDF discrete height fields}{30}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Rendering Equation}{30}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Reflected Radiance of Stam's BRDF}{31}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Relative Reflectance}{32}{subsection.3.3.3}
+\contentsline {section}{\numberline {3.4}Optimization using Taylor Series}{34}{section.3.4}
+\contentsline {paragraph}{Proof Sketch of 1.}{35}{section*.27}
+\contentsline {paragraph}{Part 2: Find such an N}{35}{section*.28}
+\contentsline {section}{\numberline {3.5}Spectral Rendering}{37}{section.3.5}
+\contentsline {section}{\numberline {3.6}Alternative Approach}{37}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}PQ factors}{37}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}Interpolation}{41}{subsection.3.6.2}
+\contentsline {chapter}{\numberline {A}Signal Processing Basics}{43}{appendix.A}
+\contentsline {section}{\numberline {A.1}Fourier Transformation}{43}{section.A.1}
+\contentsline {section}{\numberline {A.2}Convolution}{45}{section.A.2}
+\contentsline {section}{\numberline {A.3}Taylor Series}{45}{section.A.3}
+\contentsline {chapter}{\numberline {B}Summary of Stam's Derivations}{46}{appendix.B}
+\contentsline {chapter}{\numberline {C}Appendix}{49}{appendix.C}
+\contentsline {section}{\numberline {C.1}Schlick's approximation}{49}{section.C.1}
+\contentsline {section}{\numberline {C.2}Spherical Coordinates}{49}{section.C.2}
+\contentsline {section}{\numberline {C.3}Tangent Space}{50}{section.C.3}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{51}{figure.caption.32}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{51}{appendix*.33}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{52}{appendix*.34}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{53}{appendix*.35}
