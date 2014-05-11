@@ -65,30 +65,12 @@ Next, we apply the Fourier Tranformation operator on the discretized singal $\ha
 Equation $\ref{eq:sampledsignalfttodtft}$ tells us that if $\hat{s}$ is sufficiently sampled, then its DTFT corresponds to the FT of $s(x)$ . Notice that the resulting DTFT from the sampled signal has a height of $\frac{A}{T}$ where A is the height of the FT of $s$ and thus is a scaled version of the FT.
 
 \subsection{Spatial Coherence and Windowing}
-before we can derive a final expression in order to approximate a FT by a DFT, we first have to revisit the concept of coherence introduced in section $\ref{sec:wavecoherence}$ of chapter 2. 
-
-
-Stam's BRDf tells us what is the total contribution of all secondary sources which allows us to say what is the reflected spectral radiance at a certain point in space. This is related to stationary interference which itself depends on the coherence of the secondary wave sources. 
-
-
-spatial coherence is the correlation between waves at different points in space usually modeled by a gaussian random process. 
-ability for two points in space to interfere in the extend of a wave when being averages over time
-
-coherence area is the range of seperation between any two pairs of point over which there is significant intererence.
-coherence area on the surface of the earth for filtered sunlight is of order 61 microns
-
-sunlight has coherence area of 61 microns
-proof and source in book Optical Coherence and Quantum Optics$\cite{optcoherence}$ on page 153,154
-we decided to choose a coherence area of 65 microns
-
-
-Therefore, since the correlation function of spatial coherence is modeled by a gaussian window and for sunlight its coherence area is equal 65 microns
-we have chosen a spatial window of 65 microns which should capture about 99 percentage of all interference effects, i.e. we set the sandard deviation 4 sigma s equal 65microns. in general a corresponding standard deviation in frequency space is then equal sigma f euqal 1 over 2 pi sigma s for any sigma s.
+Before we can derive a final expression in order to approximate a FT by a DFT, we first have to revisit the concept of coherence introduced in section $\ref{sec:wavecoherence}$ of chapter 2. Stam's BRDf tells us what is the total contribution of all secondary sources which allows us to say what is the reflected spectral radiance at a certain point in space. This is related to stationary interference which itself depends on the coherence property of the emitted secondary wave sources. The ability for two points in space to interfere in the extend of a wave when being averages over time is the so called spatial coherence which is usually modeled by a Gaussian Random Process. This concept is illustrated in figure $\ref{fig:coherenceareagaussianwindow}$. An upper bound for the range of seperation between two pairs of point over which there is significant intererence is quantified by the coherence area. For filtered sunlight on earth this is about 65$\mu m$ $\footnote{a proof for this number can be looked up in the book Optical Coherence and Quantum Optics$\cite{optcoherence}$ on page 153 and 154.}$. Therfore, in oder to capture about $99\%$ of these spatial coherence interference effects in our model, the standard deviation of our spatial Gaussian window $\sigma_s$ has to fulfill the equation $4 \sigma_s = 65\mu m$. Notice that the corresponding window in frequency space has then a standard deviation $\sigma_f$ equal to $\frac{1}{2 \pi \sigma_s}$.
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{derivation/windowinggaussian.png}
-  \caption[Coherence Area using Gaussian Window]{bla}
+  \caption[Coherence Area using Gaussian Window]{A plane }
   \label{fig:coherenceareagaussianwindow}  
 \end{figure}
 
