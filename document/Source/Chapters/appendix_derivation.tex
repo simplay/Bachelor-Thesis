@@ -1,0 +1,107 @@
+\chapter{Summary of Stam's Derivations}
+\section{Taylor Series Approximation}
+\label{chap:taylorseriesapproxappendix}
+
+For an $N\mathbb{\in N}$ such that 
+\begin{equation}
+ \sum_{n=0}^{N}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta) \approx P(\alpha,\beta) 
+\end{equation}
+ we have to prove:
+ 
+\begin{enumerate}
+\item Show that there exist such an $N\mathbb{\in N}$s.t the approximation
+holds true.
+\item Find a value for B s.t. this approximation is below a certain error
+bound, for example machine precision $\epsilon$. 
+\end{enumerate}
+
+\subsection{Proof Sketch of 1.}
+
+By the \textbf{ratio test} (see \textbf{{[}1{]}}) 
+It is possible to show that the series $\sum_{n=0}^{N}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$ converges absolutely:
+
+\textbf{Proof}: Consider $\sum_{k=0}^{\infty}\frac{y^{n}}{n!}$ where
+$a_{k}=\frac{y^{k}}{k!}$. By applying the definition of the ratio test for this series it follows: 
+
+\begin{equation}
+ \forall y:limsup_{k\rightarrow\infty}|\frac{a_{k+1}}{a_{k}}|=limsup_{k\rightarrow\infty}\frac{y}{k+1}=0 
+\end{equation}
+
+Thus this series converges absolutely, no matter what value we will
+pick for y.
+
+\subsection{Part 2: Find such an N}
+Let $f(x)=e^{x}$. We can formulate its Taylor-Series, stated above.
+Let $P_{n}(x)$denote the n-th Taylor polynom, 
+
+\begin{equation}
+ P_{n}(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^{k}
+\end{equation}
+
+where $a$ is our developing point (here a is equal zero). 
+
+We can define the error of the n-th Taylor polynom to be $E_{n}(x)=f(x)-P_{n}(x)$.
+the error of the n-th Taylor polynom is difference between the value of the function and the Taylor polynomial
+This directly implies $|E_{n}(x)|=|f(x)-P_{n}(x)|$. By using the Lagrangian Error Bound it follows: 
+
+\begin{equation}
+ |E_{n}(x)|\leq\frac{M}{(n+1)!}|x-a|^{n+1} 
+\end{equation}
+
+with $a=0$, where \textbf{M} is some value satisfying $|f^{(n+1)}(x)|\leq M$ on the interval $I=[a,x]$. Since we are interested in an upper bound of the error and since \textbf{a} is known, we can reformulate the interval as $I=[0,x_{max}]$, where 
+
+\begin{equation}
+ x_{max} = \|i\| k_{max} w_{max} h_{max}
+\end{equation}
+
+We are interested in computing an error bound for $e^{ikwh(x,y)}$. Assuming the following parameters and facts used within Stam's Paper: 
+
+\begin{itemize}
+\item Height of bump: 0.15micro meters
+\item Width of a bump: 0.5micro meters
+\item Length of a bump: 1micro meters
+\item $k=\frac{2\pi}{\lambda}$ is the wavenumber, $\lambda\in[\lambda_{min,}\lambda_{max}]$ and
+thus $k_{max}=\frac{2\pi}{\lambda_{min}}$. Since $(u,v,w) = -\omega_i - \omega_r$ and both are unit direction vectors, 
+each component can have a value in range {[}-2, 2{]}.
+\item for simplification, assume$[\lambda_{min,}\lambda_{max}]=[400nm,700nm].$
+
+\end{itemize}
+
+We get:  
+
+\begin{align}
+x_{max}
+ &= \|i\|*k_{max}*w_{max}*h_{max} \nonumber \\
+ &= k_{max}*w_{max}*h_{max} \nonumber \\
+ &=2*(\frac{2\pi}{4*10^{-7}m})*1.5*10^{-7} \nonumber \\
+ &=1.5\pi
+\end{align}
+
+and it follows for our interval $I=[0,1.5\pi]$. 
+
+Next we are going to find the value for $M$. Since the exponential function is monotonically growing (on the interval I) and the derivative of the \textbf{exp} function is the exponential function itself, we can find such an $M$: 
+\begin{align*}
+ M
+ &=e^{x_{max}} \nonumber \\
+ &=exp(1.5\pi)
+\end{align*}
+
+and $|f^{(n+1)}(x)|\leq M$ holds. With 
+
+\begin{align}
+|E_{n}(x_{max})|
+ &\leq\frac{M}{(n+1)!}|x_{max}-a|^{n+1} \nonumber \\
+ &= \frac{exp(1.5\pi)*(1.5\pi)^{n+1}}{(n+1)!}
+\end{align}
+
+we now can find a value of $n$ for a given bound, i.e. we can find an value of $N\mathbb{\in N}$ s.t. $\frac{exp(1.5\pi)*(1.5\pi)^{N+1}}{(N+1)!}\leq\epsilon$.
+With Octave/Matlab we can see: 
+
+\begin{itemize}
+\item if N=20 then $\epsilon\approx2.9950*10^{-4}$
+\item if N=25 then $\epsilon\approx8.8150*10^{-8}$
+\item if N=30 then $\epsilon\approx1.0050*10^{-11}$
+\end{itemize}
+
+With this approach we have that $\sum_{n=0}^{25}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$ is
+an approximation of $P(u,v)$ with error $\epsilon\approx8.8150*10^{-8}$. This means we can precompute 25 Fourier Transformations in order to approximate P(u,v) having an error $\epsilon\approx8.8150*10^{-8}$. 

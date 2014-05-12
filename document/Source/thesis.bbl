@@ -45,6 +45,12 @@
 \newblock
   \url{https://developer.nvidia.com/content/gpu-gems-chapter-8-simulating-diffraction}
 
+\bibitem[LM95]{optcoherence}
+\textsc{Leonard~Mandel}, Emil~W.:
+\newblock \emph{Optical Coherence and Quantum Optics}.
+\newblock Cambridge University Press, 1995. --
+\newblock ISBN 978--0521417112
+
 \bibitem[MT10]{struccolor}
 \textsc{Matin~T.R.}, et~a.:
 \newblock Correlating Nanostructures with Function: Structurral Colors on the
