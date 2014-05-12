@@ -1,12 +1,12 @@
 \chapter{Implementation}
-In computergraphics, we are interested in synthesizing 2d images from a given scene containing our 3d geometries by using so called shader programs. This process is denoted as rendering. The purpose of shader programs, which are executed directly on the GPU hardware device, is to compute the colorization and illumination of the objects living in our scene. All these computations happen in several stages and depend on the provided scene-input parameters like the camera, light sources, objects material constants and the desired rendering effect one is interested in to model. The shader stages are implemented sequentially as small little programs, the so called vertex-, geometry- and fragment-shaders. Those stages are applied within the rendering pipeline sequentially. 
+In computergraphics, we generally synthesize 2d images from a given scene containing our 3d geometries by using so called shader programs. This process is denoted as rendering. The purpose of shader programs, which are executed directly on a GPU hardware device, is to compute the colorization and illumination of the objects present in our scene. All these computations happen in several stages and depend on the provided scene-input parameters like the camera, light sources, objects material constants and the desired rendering effect one is interested in to model. The shader stages are implemented sequentially as small little programs, the so called vertex-, geometry- and fragment-shaders. Those stages are applied within the rendering pipeline sequentially. \\
 
-Our shaders which we use are written in a high-level language called GLSL, the OpengGL Shading Language. The decision for using OpenGL has been made since my underlying framework, which is responsible for the precomputation of all scene date, is based on another framework, written in Java using JOGL in oder to communicate with the GPU and is also responsible to precompute all the relevant scene data. This framework, the so called jrtr framework, has been developed as an exercise during the class computer graphics held by M. Zwicker which I attended in autumn 2012. The framework itself has been used and extended during this thesis quite a lot. All necessary input data required within our java framework in order to perform the shading is precomputed in Matlab. This is basically addressing all the required precomputations for the provided heigh-fields, referring to computation of the inverse two dimensional Fourier transformations which are further explained within this chapter. The Matlab scripts themself rely on the provided snake nano-scaled sheds images, taken by AFM.
+Our shaders which we use are written in a high-level language called GLSL, the OpengGL Shading Language. The decision for using OpenGL has been made since my underlying framework, which is responsible for the precomputation of all scene date, is based on another framework, written in Java using JOGL in oder to communicate with the GPU and is also responsible to precompute all the relevant scene data. This framework, the so called jrtr framework, has been developed as an exercise during the class computer graphics held by M. Zwicker which I attended in autumn 2012. The framework itself has been used and extended during this thesis quite a lot. The DFT terms of the height field, required for rendering process in our framework is precomputed in Matlab. This is basically addressing all the required precomputations for the provided heigh-fields, referring to computation of the two dimensional Fourier Transformations which are further explained within this chapter. The Matlab scripts themself rely on the provided snake nano-scaled sheds images, taken by AFM. \\
 
 It's noteworthy that all the vertices and their associated data are processed within the vertex-shader, whereas the fragement shader's responsibility is to perform pixelwise rendering, using the input from the vertex shader. Just remember, fragements are determined by a triple of vertices. hence each pixel has assigned a trilinear interpolated value of all input parameters of its spanning vertices.
-Usually, all necessary transformations are applied vertex-wise, considering the vertex-shader as the precomputation stage for the later rendering within the rendering pipeline, in the fragment-shader. In the geometry shader, new vertices around a considered vertex can be created. this is useful for debugging - displaying normals graphically for example.
+Usually, all necessary transformations are applied vertex-wise, considering the vertex-shader as the precomputation stage for the later rendering within the rendering pipeline, in the fragment-shader. In the geometry shader, new vertices around a considered vertex can be created. this is useful for debugging - displaying normals graphically for example. \\
 
-In this part of thesis we are going to explain how we render our BRDF formulation derived in the last section in practice. All the necessary computations in order to simulate the effect of diffraction are performed within a fragment shader. This implies that we are modeling pixelwise the effect of diffraction and hence the overall rendering quality and runtime complexity depends on rendering window's resolution.
+In this part of thesis we are going to explain how we render our BRDF formulation derived in the last section in practice. All the necessary computations in order to simulate the effect of diffraction are performed within a fragment shader. This implies that we are modeling pixelwise the effect of diffraction and hence the overall rendering quality and runtime complexity depends on rendering window's resolution. \\
 
 By the end of this chapter we will have seen how our render works, what we have to precompute and how our shaders work. 
 
@@ -145,7 +145,6 @@ The command fftshift rearranges the output of the ifft2 by moving the zero frequ
     \label{fig:blazeftim20}
   }
   
-  
   \caption{Blaze}
   \label{fig:matlabBlazeFourierImages}
 \end{figure}
@@ -171,7 +170,8 @@ The application program relies on the MVC (Model-View-Controller) architecture p
   \label{fig:wireframemesh}
 \end{figure}
 
-Such a mesh is a special data structure consisting of vertices, each stored as a triple of $xyz$ positions in an float array and triangles, each defined by a triple of vertex-indices which form a fragment each stored in an integer array. It is also possible to assign additional geometry data like a color, normals and texture coordinates associated to each vertex.
+Such a mesh is a special data structure consisting of vertices, each stored as a triple of $xyz$ positions in an float array and triangles, each defined by a triple of vertex-indices which form a fragment each stored in an integer array. It is also possible to assign additional geometry data like a color, normals and texture coordinates associated to each vertex. \\
+
 The whole scene is stored within container data-structures, defined and managed within jrtr. In our case we rely on a scene graph, which contains all geometries and their transformations in a tree like structured hierarchy. The geometries are stored within an container, including all vertex attributes and the material constants. The jrtr rendering engine uses a low-level API, called OpenGL in order to communicate with the graphics processor unit (GPU) where the actual shading happens. Within jrtr's render context object, the whole resource-management for the rendering pipeline takes place. This means all required low-level buffers are allocated, flushed and assigned by the scene data attributes. The GPU's rendering pipeline will use those buffers for its shading process. Its first stage is the vertex shader $\ref{sec:vertexshader}$ followed by the fragment shader $\ref{sec:fragmentshader}$. The jrtr framework also offers the possibility to assign arbitrary shaders.
 
 \section{GLSL Diffraction Shader}
@@ -210,14 +210,15 @@ C = \begin{bmatrix} x_c & y_c & z_c & e \\ 0 & 0 & 0 & 1 \end{bmatrix}
 All vertex shader output will be used within the fragment shader $\ref{sec:fragmentshader}$. In our vertex shader we also compute for every vertex in our current geometry the direction vectors $\omega_i$ and $\omega_r$ described like in figure $\ref{fig:geometricsetup}$. Those direction vectors are transformed onto the tangent space, a local coordinate system spanned by a vertex's normal, tangent and binormal vector. Have a look at the appendix $\ref{sec:tangentspace}$ for further information and insight about the tangent space. The algorithm $\ref{alg:vertexshader}$ stated below shows our vertex shader.
   
 \begin{algorithm}[H]
-  \caption{Vertex diffraction shader}
+  \caption{Vertex diffraction shader pseudo code}
   \begin{algorithmic}
+    \INPUT $N, T, Shape, lightDir$
+    \MOUTPUT $Structural Color on Fragment$
     \ForAll{$Vertex \thinspace v \in Shape$}
-      \State $ vec3 N = normalize(modelM * vec4(normal,0.0)).xyz$
-      \State $ vec3 T = normalize(modelM * vec4(tangent,0.0)).xyz$
-      \State $ vec3 B = normalize(cross(N, T))$
-      \State $ vec3 Pos = ((cop_{w}-position)).xyz$
-      \State $ vec4 lightDir = (directionArray[0])$
+      \State $ vec3 \ N = normalize(modelM * vec4(normal,0.0).xyz)$
+      \State $ vec3 \ T = normalize(modelM * vec4(tangent,0.0).xyz)$
+      \State $ vec3 \ B = normalize(cross(N, T))$
+      \State $ vec3 \ Pos = ((cop_{w}-position)).xyz$
       \State $ lightDir = normalize(lightDir)$
       \State $ l = projectVectorOnTo(lightDir, TangentSpace)$
       \State $ p = projectVectorOnTo(Pos, TangentSpace)$
@@ -228,7 +229,7 @@ All vertex shader output will be used within the fragment shader $\ref{sec:fragm
 \label{alg:vertexshader}
 \end{algorithm}
 
-As already mentioned within our derivations $\ref{sec:dirlighsourceassumption}$, our light source is a directional light source $\ref{fig:dirlightsource}$.
+As already mentioned in section $\ref{sec:dirlighsourceassumption}$, our light source is a directional light source (See figure $\ref{fig:dirlightsource}$).
 
 \begin{figure}[H]
   \centering
@@ -244,8 +245,10 @@ The purpose of a fragment shader is to render per fragment. A fragment is spanne
 The Gaussian window approach derived in section $\ref{sec:gaussianwindow}$ is performed for each discrete $\lambda$ value using a window large enough to span $4\sigma_f$ in both dimensions. For precomputing DFT tables we generally use nanostructure height fields that span at least 65$\mu m^2$ and are sampled with resolution of at least 100nm. This ensures that the spectral response encompasses all the wavelengths in the visible spectrum, i.e. from 380nm to 780nm.
 
 \begin{algorithm}[H]
-  \caption{Fragment diffraction shader}
+  \caption{Fragment diffraction shader pseudo code}
   \begin{algorithmic}[1]
+    \INPUT $Precomputed \thinspace DFT \thinspace Terms,\thinspace Scene \thinspace Geometry$
+    \MOUTPUT $Structural Color on Fragment$
     \ForAll{$Pixel \thinspace p \in Fragment$}
       \State \init $BRDF_{XYZ}, BRDF_{RGB}$ \myto $vec4(0.0)$
       \State $(u,v,w) = -\omega_i - \omega_r$
@@ -259,8 +262,8 @@ The Gaussian window approach derived in section $\ref{sec:gaussianwindow}$ is pe
           \State \init $F_{fft}$  \myto $vec2(0.0)$
           \State $anchorX = int(floor(center.x + lookupCoord.x * fftImWidth)$
           \State $anchorY = int(floor(center.y + lookupCoord.y * fftImHeight)$
-          \For{$(i=(anchorX-winW)$ \myto $(anchorX + winW + 1))$}
-            \For{$(j=(anchorY - winW)$ \myto $(anchorY + winW + 1))$}
+          \For{$(i=(anchorX-winW)$ \myto $(anchorX + winW))$}
+            \For{$(j=(anchorY - winW)$ \myto $(anchorY + winW))$}
               \State $dist = distVecFromOriginTo(i,j)$
               \State $pos = localLookUp(i,j,n)$
               \State $fftVal = rescaledFourierValueAt(pos)$
