@@ -3,20 +3,20 @@ In computergraphics, we generally synthesize 2d images from a given scene contai
 
 Our shaders which we use are written in a high-level language called GLSL, the OpengGL Shading Language. The decision for using OpenGL has been made since my underlying framework, which is responsible for the precomputation of all scene date, is based on another framework, written in Java using JOGL in oder to communicate with the GPU and is also responsible to precompute all the relevant scene data. This framework, the so called jrtr framework, has been developed as an exercise during the class computer graphics held by M. Zwicker which I attended in autumn 2012. The framework itself has been used and extended during this thesis quite a lot. The DFT terms of the height field, required for rendering process in our framework is precomputed in Matlab. This is basically addressing all the required precomputations for the provided heigh-fields, referring to computation of the two dimensional Fourier Transformations which are further explained within this chapter. The Matlab scripts themself rely on the provided snake nano-scaled sheds images, taken by AFM. \\
 
-It's noteworthy that all the vertices and their associated data are processed within the vertex-shader, whereas the fragement shader's responsibility is to perform pixelwise rendering, using the input from the vertex shader. Just remember, fragements are determined by a triple of vertices. hence each pixel has assigned a trilinear interpolated value of all input parameters of its spanning vertices.
-Usually, all necessary transformations are applied vertex-wise, considering the vertex-shader as the precomputation stage for the later rendering within the rendering pipeline, in the fragment-shader. In the geometry shader, new vertices around a considered vertex can be created. this is useful for debugging - displaying normals graphically for example. \\
+It's noteworthy that all the vertices and their associated data are processed within the vertex-shader, whereas the fragement shader's responsibility is to perform pixelwise rendering, using the input from the vertex shader. Just remember, fragements are determined by a triple of vertices. hence each pixel has assigned a trilinear interpolated value of all input parameters of its spanning vertices. Usually, all necessary transformations are applied vertex-wise, considering the vertex-shader as the preprocessing stage for the later rendering within the rendering pipeline, in the fragment-shader. In the geometry shader, new vertices around a considered vertex can be created. this is useful for debugging - displaying normals graphically for example. \\
 
 In this part of thesis we are going to explain how we render our BRDF formulation derived in the last section in practice. All the necessary computations in order to simulate the effect of diffraction are performed within a fragment shader. This implies that we are modeling pixelwise the effect of diffraction and hence the overall rendering quality and runtime complexity depends on rendering window's resolution. \\
 
-By the end of this chapter we will have seen how our render works, what we have to precompute and how our shaders work. 
-
+By the end of this chapter we will have seen how our render works and what we have to precompute. 
 
 \section{Precomputations in Matlab}
 \label{sec:precompmatlabfourierimages}
 Our first task is to precompute the inverse two dimensional discrete Fourier transformations for a given snake shed patch of interest taken by AFM. For that purpose we have written a small Matlab script conceptialized algorithmically in $\ref{alg:matlabprecomp}$. Matlab is a interpreted scripting language which offers a huge collection of mathematical and numerically fast and stable algorithms. Our Matlab script reads a given image, which is representing a nano-scaled height field, and computes its inverse two dimensional DFT by using Matlab's internal inverse fast Fourier Transformation function, denoted by $ifft2$. Note that we only require one color channel of the input image since the input image is representing an height field, encoded by just one color. Basically, we are interested in computing the $ifft2$ for different powers of the input image times the imaginary number $i$ since our taylor series approximation $\ref{sec:taylorapproximation}$ relies on this. Keep in mind that taking the Fourier transformation of an arbitrary function will result in a complex valued output which implies that we will get a complex value for each pixel of our input image. Therefore, for each input image we get as many output images, representing the two dimensional inverse Fourier Transformation, as the minimal amount of taylor terms required for a well-enough approximation. In order to store our output images, we have to use two color channels instead just one like it was for the given input image. Some rendered images are shown in figure $\ref{fig:matlabBlazeFourierImages}$. Instead storing the computed values in plain images, we store our results in binary files. This allows us to have much higher precision for the output values and also it does not waste color channels. In our script every pixel value is normalized by its corresponding Fourier image extrema values such that is it lays in the range $\left[0,1\right]$. Therefore, we have to remember store four scaling factors for each output image as well. Those are the real and imaginary minimum and maximum values. Later, using linear interpolation within the shader, we will get back the rescaled image's original pixel values. 
 
 \begin{algorithm}[H]
-\caption{Precomputation: Fourier images}
+\caption{Precomputation: Pseudo code to generate Fourier terms}
+\textbf{INPUT} \ $heightfieldImg, \ maxH, \ dH, \ termCnt$ \\
+\textbf{OUTPUT} \ $DFT \ terms \ stored \ in \ Files$
 \begin{lstlisting}
 % maxH:    A floating-point number specifying 
 %          the value of maximum height of the 
@@ -26,27 +26,28 @@ Our first task is to precompute the inverse two dimensional discrete Fourier tra
 % dH:      A floating-point number specifying 
 %          the resolution (pixel-size) of the 
 %          'discrete' height-field in MICRONS. 
-%          It must less than 0.1 MICRONS to 
-%          ensure proper response for 
+%          It must be less than 0.1 MICRONS 
+%          to ensure proper response for 
 %          visible-range of light spectrum.
 %
 % termCnt: An integer specifying the number of 
 %          Taylor series terms to use.
 
-function []= ComputeFFTImages(maxH, dh, termCnt)
+function ComputeFFTImages(heightfieldImg, maxH, dh, termCnt)
 dH = dh*1E-6;
-% load patch into patchImg
-patchImg = patchImg.*maxH;
-% perform imrotate(patchImg, angle)
+% load patch into heightfieldImg
+patchImg = heightfieldImg.*maxH;
+% rotate patchImg by 90 degrees
 for t = 0 : termCnt
   patchFFT = power(1j*patchImg, t);
   fftTerm{t+1} = fftshift(ifft2(patchFFT));
   
+  % rescale terms as
   imOut(:,:,1)  = real(fftTerm{t+1});
   imOut(:,:,2)  = imag(fftTerm{t+1});
   imOut(:,:,3)  = 0.5;
   
-  % perform imrotate(imOut, -angle)
+  % rotate imOut by -90 degrees
   % find real and imaginary extrema of 
   % write imOut, extrema, dH, into files.
 end
@@ -54,7 +55,7 @@ end
 \label{alg:matlabprecomp}
 \end{algorithm}
 
-The command fftshift rearranges the output of the ifft2 by moving the zero frequency component to the centre of the image. This is useful for visualizing a Fourier Transform with zero frequency components in the middle of the spectrum.
+The command fftshift rearranges the output of the ifft2 by moving the zero frequency component to the centre of the image. This simplifies the computation of lookup coordinates during rendering.
 
 \label{sec:precompmatlabfft}
 \begin{figure}[H]
