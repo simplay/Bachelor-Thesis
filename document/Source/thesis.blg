@@ -2,10 +2,10 @@ This is BibTeX, Version 0.99d (TeX Live 2013)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis.aux
 A level-1 auxiliary file: Chapters/chapter1.aux
-A level-1 auxiliary file: Chapters/theoretical_background.aux
-A level-1 auxiliary file: Chapters/derivation.aux
+A level-1 auxiliary file: Chapters/chapter3.aux
 A level-1 auxiliary file: Chapters/appendix_signalprocessing.aux
 A level-1 auxiliary file: Chapters/appendix_stam.aux
+A level-1 auxiliary file: Chapters/appendix_derivation.aux
 A level-1 auxiliary file: Chapters/appendix.aux
 The style file: alphadin.bst
 Reallocated singl_function (elt_size=4) to 100 items from 50.
@@ -18,45 +18,45 @@ Repeated entry---line 31 of file thesis.bib
  : @article{struccolor
  :                    ,
 I'm skipping whatever remains of this entry
-You've used 13 entries,
+You've used 14 entries,
             4793 wiz_defined-function locations,
-            966 strings with 7708 characters,
-and the built_in function-call counts, 6845 in all, are:
-= -- 701
-> -- 104
-< -- 123
-+ -- 115
-- -- 33
-* -- 443
-:= -- 1091
-add.period$ -- 19
-call.type$ -- 13
-change.case$ -- 52
-chr.to.int$ -- 13
-cite$ -- 13
-duplicate$ -- 229
-empty$ -- 621
-format.name$ -- 70
-if$ -- 1475
+            971 strings with 7817 characters,
+and the built_in function-call counts, 7197 in all, are:
+= -- 729
+> -- 112
+< -- 125
++ -- 118
+- -- 35
+* -- 462
+:= -- 1153
+add.period$ -- 20
+call.type$ -- 14
+change.case$ -- 56
+chr.to.int$ -- 14
+cite$ -- 14
+duplicate$ -- 246
+empty$ -- 660
+format.name$ -- 76
+if$ -- 1551
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 55
-newline$ -- 89
-num.names$ -- 39
-pop$ -- 83
+missing$ -- 59
+newline$ -- 94
+num.names$ -- 42
+pop$ -- 91
 preamble$ -- 1
-purify$ -- 78
+purify$ -- 84
 quote$ -- 0
-skip$ -- 324
+skip$ -- 341
 stack$ -- 0
-substring$ -- 640
-swap$ -- 37
-text.length$ -- 34
-text.prefix$ -- 5
+substring$ -- 653
+swap$ -- 39
+text.length$ -- 36
+text.prefix$ -- 6
 top$ -- 0
-type$ -- 98
+type$ -- 104
 warning$ -- 0
-while$ -- 47
-width$ -- 16
-write$ -- 183
+while$ -- 50
+width$ -- 17
+write$ -- 194
 (There was 1 error message)
