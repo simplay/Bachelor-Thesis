@@ -1,6 +1,6 @@
 \chapter{Introduction}
 \section{Motivation}
-As a human being, we visually perceive and experience our whole world in terms of colors, resulting from various kinds of physical light interaction phenomenons. Particularly in biology, there are basically two main causes for color production. Firstly, due to pigmentation, which occurs since certain molecules in a biological structure selectively absorb or reflect specific wavelengths from an incident light source. And secondly because of structural colors which are the result of physical interaction of light with a nanostructure, exclusively relying on the structuring of the material and not any other property. One particular example for such biological color production are the colors we can see when having a closer look at the illuminated skin of snake species, as shown in figure $\ref{fig:snakespecies}$.
+As human beings, we visually perceive and experience our whole world in terms of colors, resulting from various physical phenomina involving interaction between light and matter. Particularly in nature, there are basically two main causes for color production. Firstly, due to pigmentation, which occurs since certain molecules in a biological structure selectively absorb or reflect specific wavelengths from an incident light source. And secondly because of structural colors which are the result of physical interaction of light with a nanostructure, exclusively relying on the structuring of the material and not any other property. A natural diffraction grating is a semitransparent layer of biological nano-structures which exhibits a certain degree of regularity to produce structural colors by diffracting an incident light source. One particular example for such biological color production are the colors we can see when having a closer look at the illuminated skin of snakes, as shown in figure $\ref{fig:snakespecies}$.
 
 \begin{figure}[H]
   \centering
@@ -13,12 +13,12 @@ As a human being, we visually perceive and experience our whole world in terms o
     \includegraphics[scale=0.39]{background/elaphesnake.png}
     \label{fig:elpahespecies}
   }
-  \caption[example biological color production]{Examples of pigmentation color (green circles) and structural color (red circles) on snake species$\footnotemark$.}
+  \caption[Example of Biological Color Production]{Examples of pigmentation color (green circles) and structural color (red circles) on different snake species$\footnotemark$.}
   \label{fig:snakespecies}
 \end{figure}
 \footnotetext{image source of figure $\ref{fig:xenospeicies}$ \texttt{http://www.snakes-alive.co.uk/gallery\textunderscore5.html} and figure $\ref{fig:elpahespecies}$ \texttt{http://www.the-livingrainforest.co.uk/living/view\textunderscore price.php?id=464}} 
 
-Comparing both snake species with each other, we observe that the Xenopeltis species expresses structural colors in form of iridescent patterns along its scales way stronger than the Elaphe species does. The reason for this lies on the nanostructure of their skins. A natural diffraction grating is a semitransparent layer of biological nano-structures which exhibits a certain degree of regularity to produce structural colors by diffracting an incident light source. There are a vast amount of additional reasons for producing structural colors in nature, such as thin film interference, intra-cellular photonic crystals or diffraction gratings. More detailed examples are listed in figure $\ref{fig:structuralcolorexamples}$. 
+Some species like Xenopeltis express structural colors in form of iridescent patterns along their scales way strongerthan others like Elaphe species. The reason for this lies on the nanostructure of their skins. There are a vast amount of additional reasons for producing structural colors in nature, such as thin film interference, intra-cellular photonic crystals or diffraction gratings. More detailed examples are shown in figure $\ref{fig:structuralcolorexamples}$. 
 
 \begin{figure}[H]
   \centering
@@ -66,7 +66,9 @@ Comparing both snake species with each other, we observe that the Xenopeltis spe
   \end{itemize}
 }
 
-Already in the 17th century Robert Hooke was able to relate the cause of structural colors to the the microstructure of a material. During his examinations of peacock feathers he found that the colors could be made disappear by wetting the feathers and further observed that the feathers are made of tiny ridges. Building on top of the latest knowledge about interference, Newton related structural colors with wave interference. Nowadays, in the field of computer graphics, many researchers have been attempted rendering structural colors but unfortunately, most currently available approaches are not able to perform interactive rendering or are oversimplified and thus cannot model accurately the effect of diffraction.
+As far back as in the 17th century, Robert Hooke was able to relate the cause of structural colors to the the microstructure of a material. During his examinations of peacock feathers he found that the colors could be made disappear by wetting the feathers and further observed that the feathers are made of tiny ridges. Building on top of the latest knowledge about interference, Newton related structural colors with wave interference. Recently, in the field of computer graphics, many researchers have developed models to render structural colors, but most of the currently available models are not able to perform interactive rendering or are oversimplified and thus cannot model accurately the effect of diffraction. \\
+
+This thesis investigates this particular problem in detail and provides a solution for rendering structural colors due to diffraction on natural gratings.
 
 \section{Goals}
 The purpose of this thesis is firstly, to simulate physically accurate structural colors caused by the effect of diffraction on various biological structures and secondly implement this simulation as a renderer with interactive behaviour. We mainly focus on structural colors generated by natural diffraction gratings. In particular the approach presented in this thesis applies to surfaces with quasiperiodic structures at the nanometer scale which can be represented as height fields stored in gray-scale images. \\
