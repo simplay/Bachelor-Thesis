@@ -36,22 +36,22 @@
 \contentsline {section}{\numberline {3.5}Spectral Rendering}{37}{section.3.5}
 \contentsline {section}{\numberline {3.6}Alternative Approach}{37}{section.3.6}
 \contentsline {subsection}{\numberline {3.6.1}PQ factors}{37}{subsection.3.6.1}
-\contentsline {subsection}{\numberline {3.6.2}Interpolation}{40}{subsection.3.6.2}
-\contentsline {chapter}{\numberline {A}Signal Processing Basics}{42}{appendix.A}
-\contentsline {section}{\numberline {A.1}Fourier Transformation}{42}{section.A.1}
-\contentsline {section}{\numberline {A.2}Convolution}{44}{section.A.2}
-\contentsline {section}{\numberline {A.3}Taylor Series}{44}{section.A.3}
-\contentsline {chapter}{\numberline {B}Summary of Stam's Derivations}{45}{appendix.B}
-\contentsline {chapter}{\numberline {C}Summary of Stam's Derivations}{48}{appendix.C}
-\contentsline {section}{\numberline {C.1}Taylor Series Approximation}{48}{section.C.1}
-\contentsline {subsection}{\numberline {C.1.1}Proof Sketch of 1.}{48}{subsection.C.1.1}
-\contentsline {subsection}{\numberline {C.1.2}Part 2: Find such an N}{48}{subsection.C.1.2}
-\contentsline {chapter}{\numberline {D}Appendix}{51}{appendix.D}
-\contentsline {section}{\numberline {D.1}The 3rd component w}{51}{section.D.1}
-\contentsline {section}{\numberline {D.2}Schlick's approximation}{51}{section.D.2}
-\contentsline {section}{\numberline {D.3}Spherical Coordinates}{52}{section.D.3}
-\contentsline {section}{\numberline {D.4}Tangent Space}{52}{section.D.4}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{54}{figure.caption.30}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{54}{appendix*.31}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{55}{appendix*.32}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{56}{appendix*.33}
+\contentsline {subsection}{\numberline {3.6.2}Interpolation}{41}{subsection.3.6.2}
+\contentsline {chapter}{\numberline {A}Signal Processing Basics}{43}{appendix.A}
+\contentsline {section}{\numberline {A.1}Fourier Transformation}{43}{section.A.1}
+\contentsline {section}{\numberline {A.2}Convolution}{45}{section.A.2}
+\contentsline {section}{\numberline {A.3}Taylor Series}{45}{section.A.3}
+\contentsline {chapter}{\numberline {B}Summary of Stam's Derivations}{46}{appendix.B}
+\contentsline {chapter}{\numberline {C}Summary of Stam's Derivations}{49}{appendix.C}
+\contentsline {section}{\numberline {C.1}Taylor Series Approximation}{49}{section.C.1}
+\contentsline {subsection}{\numberline {C.1.1}Proof Sketch of 1.}{49}{subsection.C.1.1}
+\contentsline {subsection}{\numberline {C.1.2}Part 2: Find such an N}{49}{subsection.C.1.2}
+\contentsline {chapter}{\numberline {D}Appendix}{52}{appendix.D}
+\contentsline {section}{\numberline {D.1}The 3rd component w}{52}{section.D.1}
+\contentsline {section}{\numberline {D.2}Schlick's approximation}{52}{section.D.2}
+\contentsline {section}{\numberline {D.3}Spherical Coordinates}{53}{section.D.3}
+\contentsline {section}{\numberline {D.4}Tangent Space}{53}{section.D.4}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{55}{figure.caption.30}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{55}{appendix*.31}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{56}{appendix*.32}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{57}{appendix*.33}
