@@ -1,5 +1,5 @@
-\contentsline {algorithm}{\numberline {2.1}{\ignorespaces Precomputation: Pseudo code to generate Fourier terms\relax }}{8}{algorithm.2.1}
-\contentsline {algorithm}{\numberline {2.2}{\ignorespaces Vertex diffraction shader pseudo code\relax }}{13}{algorithm.2.2}
-\contentsline {algorithm}{\numberline {2.3}{\ignorespaces Fragment diffraction shader pseudo code\relax }}{15}{algorithm.2.3}
-\contentsline {algorithm}{\numberline {2.4}{\ignorespaces Texture Blending\relax }}{18}{algorithm.2.4}
-\contentsline {algorithm}{\numberline {2.5}{\ignorespaces Sinc interpolation for pq approach\relax }}{19}{algorithm.2.5}
+\contentsline {algorithm}{\numberline {2.1}{\ignorespaces Precomputation: Pseudo code to generate Fourier terms\relax }}{9}{algorithm.2.1}
+\contentsline {algorithm}{\numberline {2.2}{\ignorespaces Vertex diffraction shader pseudo code\relax }}{14}{algorithm.2.2}
+\contentsline {algorithm}{\numberline {2.3}{\ignorespaces Fragment diffraction shader pseudo code\relax }}{16}{algorithm.2.3}
+\contentsline {algorithm}{\numberline {2.4}{\ignorespaces Texture Blending\relax }}{19}{algorithm.2.4}
+\contentsline {algorithm}{\numberline {2.5}{\ignorespaces Sinc interpolation for pq approach\relax }}{20}{algorithm.2.5}
