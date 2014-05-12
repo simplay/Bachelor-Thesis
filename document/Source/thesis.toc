@@ -34,10 +34,10 @@
 \contentsline {subsection}{\numberline {3.3.3}Relative Reflectance}{33}{subsection.3.3.3}
 \contentsline {section}{\numberline {3.4}Optimization using Taylor Series}{35}{section.3.4}
 \contentsline {paragraph}{Proof Sketch of 1.}{36}{section*.27}
-\contentsline {paragraph}{Part 2: Find such an N}{36}{section*.28}
+\contentsline {paragraph}{Part 2: Find such an N}{37}{section*.28}
 \contentsline {section}{\numberline {3.5}Spectral Rendering}{38}{section.3.5}
-\contentsline {section}{\numberline {3.6}Alternative Approach}{38}{section.3.6}
-\contentsline {subsection}{\numberline {3.6.1}PQ factors}{38}{subsection.3.6.1}
+\contentsline {section}{\numberline {3.6}Alternative Approach}{39}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}PQ factors}{39}{subsection.3.6.1}
 \contentsline {subsection}{\numberline {3.6.2}Interpolation}{42}{subsection.3.6.2}
 \contentsline {chapter}{\numberline {A}Signal Processing Basics}{44}{appendix.A}
 \contentsline {section}{\numberline {A.1}Fourier Transformation}{44}{section.A.1}
