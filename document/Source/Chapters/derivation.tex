@@ -391,17 +391,17 @@ where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the Gaussian win
 \label{sec:pq}
 In this section we are presenting an alternative approach to the previous Gaussian window approach 
 $\ref{sec:gaussianwindow}$ 
-in order to solve the issue working with $DTFT$ instead the $DFT$. We assume, that a given surface $S$ is covered by a number of replicas of a provided representative surface patch $f$. In a simplified, one dimensional scenario, mathematically speaking, $f$ is assumed to be a periodic function, i.e. $\forall x \in \mathds{R} : f(x) = f(x+nT)$, where $T$ is its period and $n \in \mathds{N}_{0}$. Thus, the surfaces can be written formally as:
+in order to solve the issue working with $DTFT$ instead the $DFT$. We assume, that a given surface $S$ is covered by a number of replicas of a provided representative surface patch $f$. In a simplified, one dimensional scenario, mathematically speaking, $f$ is assumed to be a repetative function, i.e. $\forall x \in \mathds{R} : S(x) = S(x+nT)$, where $T$ is its period and $n \in \mathds{N}_{0}$. Thus, the surfaces can be written formally as:
 
 \begin{equation}
   S(x) = \sum_{n=0}^N f(x+nT)
 \label{eq:replicatedpatchsurface}
 \end{equation}
 
-What we are looking for is an identity for the inverse Fourier transform of our surface $S$, required in order to simplify the $(X,Y,Z)$ colors from $\ref{eq:xcolexpression}$:
+What we are looking for is an identity for the Fourier Transform$\footnote{Remember that we are using the definiton of Fourier Transform used in electrical engineering where $\mathcal{F}$ actually corresponds to the inverse Fourier Transform.}$ of our surface $S$, required in order to simplify the $(X,Y,Z)$ colors from $\ref{eq:xcolexpression}$:
 
 \begin{align}
-\mathcal{F}^{-1}\{S\}(w)
+\mathcal{F}\{S\}(w)
 & =\int f(x) e^{iwx}dx \nonumber \\
 & =\int_{-\infty}^{\infty} \sum_{n=0}^{N} f(x+nT) e^{iwx}dx \nonumber \\
 & =\sum_{n=0}^{N} \int_{-\infty}^{\infty} f(x+nT) e^{iwx}dx
@@ -419,127 +419,64 @@ dx=dy
 Plugging this substitution back into equation $\ref{eq:pqsinit}$ we will get: 
 
 \begin{align}
-\mathcal{F}^{-1}\{S\}(w)
+\mathcal{F}\{S\}(w)
 & =\sum_{n=0}^{N} \int_{-\infty}^{\infty} f(x+nT) e^{iwx}dx \nonumber \\
 & =\sum_{n=0}^{N} \int_{-\infty}^{\infty} f(y) e^{iw(y-nT)}dy \nonumber \\
 & =\sum_{n=0}^{N} e^{-iwnT} \int_{-\infty}^{\infty} f(y) e^{iwy}dy \nonumber \\
-& =\sum_{n=0}^{N} e^{-iwnT} \mathcal{F}^{-1}\{f\}(w) \nonumber \\
-& =\mathcal{F}^{-1}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT}
+& =\sum_{n=0}^{N} e^{-iwnT} \mathcal{F}\{f\}(w) \nonumber \\
+& =\mathcal{F}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT}
 \label{eq:pqsub}  
 \end{align}
 
-We used the fact that the exponential term $e^{-iwnT}$ is a constant factor when integrating along $dy$ and the identity for the inverse Fourier transform of the function $f$. Next, let us examine the series $\sum_{n=0}^N e^{-iwnT}$ closer:
+We used the fact that the exponential term $e^{-iwnT}$ is a constant factor when integrating along $dy$ and the identity for the Fourier Transform of the function $f$. Next, let us examine the series $\sum_{n=0}^N e^{-iwnT}$ closer:
 
 \begin{align}
 \sum_{n=0}^N e^{-uwnT}
-& =\sum_{n=0}^N (e^{-uwT})^n \nonumber \\
+& =\sum_{n=0}^N (e^{-iwT})^n \nonumber \\
 & =\frac{1-e^{iwT(N+1)}}{1-e^{-iwT}}
 \label{eq:pqgeometricseries}
 \end{align}
 
-We recognize the geometric series identity for the left-hand-side of equation $\ref{eq:pqgeometricseries}$. Since our series is bounded, we can simplify the right-hand-side of equation $\ref{eq:pqgeometricseries}$.
-
-Note that $e^{-ix}$ is a complex number. Every complex number can be written in its polar form, i.e. 
-
-\begin{equation}
-e^{-ix} = cos(x) + i sin(x) 
-\label{eq:polarform}
-\end{equation}
-
-Using the following trigonometric identities
-\begin{gather}
-cos(-x) = cos(x) \nonumber \\
-sin(-x) = -sin(x)
-\end{gather}
-
-combined with $\ref{eq:polarform}$ we can simplify the series $\ref{eq:pqgeometricseries}$ even further to:
+We recognize the geometric series identity for the left-hand-side of equation $\ref{eq:pqgeometricseries}$. Mainly relying on trigonometric identities, equation $\ref{eq:pqsub}$ can further simplified to:  
 
 \begin{align}
-\frac{1-e^{iwT(N+1)}}{1-e^{-iwT}}
-& =\frac{1-cos(wT(N+1)) + i sin(wT(N+1)) }{1-cos(wT) + i sin(wT)}
-\label{eq:pq1minusexp}
+\mathcal{F}\{S\}(w)
+& = (p+iq) \mathcal{F}\{f\}(w)  
+\label{eq:mainfinding1d}
 \end{align}
 
-Equation $\ref{eq:pq1minusexp}$ is still a complex number, denoted as $(p+iq)$. Generally, every complex number can be written as a fraction of two complex numbers. This implies that the complex number $(p+iq)$ can be written as $(p+iq) = \frac{(a+ib)}{(c+id)}$ for any $(a+ib), (c+id) \neq 0$. Let us use the following substitutions: 
-
-\begin{align}
-a& := 1 - cos(wT(N+1))&
-b& =sin(wT(N+1)) \nonumber \\
-c& =1-cos(wT)&
-d& =sin(wT)
-\label{eq:pqabcdsubstitudes}
-\end{align}
-
-Hence, using $\ref{eq:pqabcdsubstitudes}$, it follows 
-
-\begin{equation}
-  \frac{1-e^{iwT(N+1)}}{1-e^{-iwT}} = \frac{(a+ib)}{(c+id)}
-\end{equation}
-
-By rearranging the terms, it follows $(a+ib) = (c+id)(p+iq)$ and by multiplying its right hand-side out we get the following system of equations:
-
-\begin{align}
-(cp-dq)& =a \nonumber \\
-(dp + cq)& =b
-\label{eq:cdadcn}
-\end{align}
-
-After multiplying the first equation of $\ref{eq:cdadcn}$ by $c$ and the second by $d$ and then adding them together, we get using the law of distributivity new identities for $p$ and $q$:
-
-\begin{align}
-p& =\frac{(ac+bd)}{c^2 + d^2} \nonumber \\
-q& =\frac{(bc+ad)}{c^2 + d^2}
-\label{eq:pq1}
-\end{align}
-
-Using some trigonometric identities and putting our substitution from $\ref{eq:pqabcdsubstitudes}$ for $a$, $b$, $c$, $d$ back into the current representation $\ref{eq:pq1}$ of $p$ and $q$ we will get:
+where $p$ and $q$ are defined like:
 
 \begin{align}
 p& =\frac{1}{2}+\frac{1}{2}\left(\frac{cos(wTN)-cos(wT(N+1))}{1-cos(wT)}\right) \nonumber \\
 q& =\frac{sin(wT(N+1))-sin(wTN)-sin(wT)}{2(1-cos(wT))}
 \end{align}
 
-Since we have seen, that $\sum_{n=0}^N e^{-uwnT}$ is a complex number and can be written as $(p+iq)$, we now know an explicit expression for $p$ and $q$. Therefore, the one dimensional inverse Fourier transform of $S$ is equal:
+Please notice, all derivation steps can be found in the appendix in section $\ref{sec:pqonedimappendix}$. \\
+
+Now lets consider our actual problem description. Given a patch of a nanoscaled sureface snake shed represented as a two dimensional heightfield $h(x,y)$. We once again assume that this provided patch is representing the whole surface $S$ of our geometry by some number of replicas of itself. Therefore, $S(x,y) = \sum_{n=0}^{N} h(x+nT_1, y+mT_2)$, assuming the given height field has the dimensions $T_1$ by $T_2$. In order to derive an identity for the two dimensional Fourier transformation of $S$ we can similarly proceed like we did to derive equation $\ref{eq:mainfinding1d}$.
 
 \begin{align}
-\mathcal{F}^{-1}\{S\}(w)
-& =\mathcal{F}^{-1}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT} \nonumber \\
-& = (p+iq) \mathcal{F}^{-1}\{f\}(w)  
-\label{eq:mainfinding1d}
-\end{align}
-
-
-Now lets consider our actual problem description. Given a patch of a nanoscaled sureface snake shed represented as a two dimensional heightfield $h(x,y)$. We once again assume that this provided patch is representing the whole surface $S$ of our geometry by some number of replicas of itself. Therefore, $S(x,y) = \sum_{n=0}^{N} h(x+nT_1, y+mT_2)$, assuming the given height field has the dimensions $T_1$ by $T_2$. In order to derive an identity for the two dimensional inverse Fourier transformation of $S$ we can similarly proceed like we did to derive equation $\ref{eq:mainfinding1d}$.
-
-\begin{align}
-\mathcal{F}^{-1}\{S\}(w_1, w_2)
-& = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} h(x_1 + n_1 T_1, x_2 + n_2 T_2) e^{iw(x_1 + x_2)}dx_1 dx_2 \nonumber \\
-& = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} h(y_1, y_2) e^{iw((y_1 - n_1 T_1) + (y_2 + n_2 T_2))}dx_1 dx_2 \nonumber \\
-& =\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} h(y_1, y_2) e^{iw(y_1 + y_2)} e^{-iw(n_1 T_1 + n_2 T_2)}dy_1 dy_2 \nonumber \\
-& =\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} e^{-iw(n_1 T_1 + n_2 T_2)} \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} Box(y_1, y_2) e^{iw(y_1 + y_2)} dy_1 dy_2 \nonumber \\
-& =\left(\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} e^{-iw(n_1 T_1 + n_2 T_2)}\right) \mathcal{F}^{-1}\{h\}(w_1,w_2) \nonumber \\
-& =\left(\sum_{n_2=0}^{N_1} e^{-iw n_1 T_1}\right) \left(\sum_{n_2=0}^{N_2} e^{-iw n_2 T_2}\right) \mathcal{F}^{-1}\{h\}(w_1,w_2) \nonumber \\
-& =(p_1 + i q_1)(p_2 + i q_2) \mathcal{F}^{-1}\{h\}(w_1,w_2) \nonumber \\
-& =((p_1 p_2 - q_1 q_2) + i(p_1 p_2 + q_1 q_2)) \mathcal{F}^{-1}\{h\}(w_1,w_2) \nonumber \\
-& =(p + iq) \mathcal{F}_{DTFT}^{-1}\{h\}(w_1,w_2)
+\mathcal{F}\{S\}(w_1, w_2)
+& =(p + iq) \mathcal{F}_{DTFT}\{h\}(w_1,w_2)
 \label{eq:pqmainfinding}
 \end{align}
 
-Where we have defined 
+Where all derivation steps can be found in the appendix in section $\ref{sec:pqtwodimappendix}$ and we have defined 
 
 \begin{align}
 p := (p_1 p_2 - q_1 q_2) \nonumber \\ 
 q := (p_1 p_2 + q_1 q_2)
-\label{eq:pqsubst2d}
+\label{eq:pqsubst2}
 \end{align}
 
-For the identity of equation $\ref{eq:pqmainfinding}$ we made use of Green's integration rule which allowed us to split the double integral to the product of two single integrations. Also, we used the definition of the 2-dimensional inverse Fourier transform of the height field function. We applied a similar substitution like we did in $\ref{eq:substitude1dpq}$, but this time twice, once for $x_1$ and once for $x_2$ separately. The last step in equation $\ref{eq:pqmainfinding}$, substituting with $p$ and $q$ in equation $\ref{eq:pqsubst2d}$ will be useful later in the implementation. The insight should be, that the product of two complex numbers is again a complex number. We will have to compute the absolute value of $\mathcal{F}^{-1}\{S\}(w_1,w_2)$ which will then be equal $(p^2 + q^2)^{\frac{1}{2}}\left|\mathcal{F}^{-1}\{h\}(w_1,w_2)\right|$
+For the identity of equation $\ref{eq:pqmainfinding}$ we made use of Green's integration rule which allowed us to split the double integral to the product of two single integrations. Also, we used the definition of the 2-dimensional inverse Fourier transform of the height field function. We applied a similar substitution like we did in $\ref{eq:substitude1dpq}$, but this time twice, once for $x_1$ and once for $x_2$ separately. The last step in equation $\ref{eq:pqmainfinding}$, substituting with $p$ and $q$ in equation $\ref{eq:pqsubst2d}$ will be useful later in the implementation. The insight should be, that the product of two complex numbers is again a complex number. We will have to compute the absolute value of $\mathcal{F}\{S\}(w_1,w_2)$ which will then be equal $(p^2 + q^2)^{\frac{1}{2}}\left|\mathcal{F}\{h\}(w_1,w_2)\right|$
 
 
 \subsection{Interpolation}
 \label{sec:sincinterpolation}
 
-In $\ref{sec:pq}$ we have derived an alternative approach when we are working with a periodic signal instead using the gaussian window approach from $\sec{sec:gaussianwindow}$. Its main finding $\ref{eq:pqmainfinding}$ that we can just integrate over one of its period instead iterating over the whole domain. Nevertheless, this main finding is using the inverse DTFT. Since we are using 
+In $\ref{sec:pq}$ we have derived an alternative approach when we are working with a periodic signal instead using the gaussian window approach from $\ref{sec:gaussianwindow}$. Its main finding $\ref{eq:pqmainfinding}$ that we can just integrate over one of its period instead iterating over the whole domain. Nevertheless, this main finding is using the inverse DTFT. Since we are using 
 
 We are interested in recovering an original analog signal $x(t)$ from its samples $x[t] = $ 
 
