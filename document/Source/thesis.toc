@@ -45,10 +45,11 @@
 \contentsline {section}{\numberline {A.3}Taylor Series}{46}{section.A.3}
 \contentsline {chapter}{\numberline {B}Summary of Stam's Derivations}{47}{appendix.B}
 \contentsline {chapter}{\numberline {C}Appendix}{50}{appendix.C}
-\contentsline {section}{\numberline {C.1}Schlick's approximation}{50}{section.C.1}
-\contentsline {section}{\numberline {C.2}Spherical Coordinates}{50}{section.C.2}
-\contentsline {section}{\numberline {C.3}Tangent Space}{51}{section.C.3}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{52}{figure.caption.32}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{52}{appendix*.33}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{53}{appendix*.34}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{54}{appendix*.35}
+\contentsline {section}{\numberline {C.1}The 3rd component w}{50}{section.C.1}
+\contentsline {section}{\numberline {C.2}Schlick's approximation}{50}{section.C.2}
+\contentsline {section}{\numberline {C.3}Spherical Coordinates}{51}{section.C.3}
+\contentsline {section}{\numberline {C.4}Tangent Space}{51}{section.C.4}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{53}{figure.caption.32}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{53}{appendix*.33}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{54}{appendix*.34}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{55}{appendix*.35}

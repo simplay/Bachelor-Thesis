@@ -215,29 +215,16 @@ L_{\lambda}(\omega_r)
 Where $P_{dtft}$ is a substitude for $\mathcal{F}_{DTFT}\{s\}(w)$. Furthermore $T$ the sampling distance for the discretization of $p(x,y)$ assuming equal and uniform sampling in both dimensions $x$ and $y$.
 
 \subsection{Relative Reflectance}
-In this section we are going to explain how to scale our BRDF formulation such that all of its possible output values are mapped into the range $\left[0,1\right]$. Such a relative reflectance formulation will ease our life for later rendering purposes since usually color values are within the range $\left[0,1\right]$, too. Furthermore, this will allow us to properly blend the resulting illumination caused by diffraction with a texture map.
+In this section we are going to explain how to scale our BRDF formulation such that all of its possible output values are mapped into the range $\left[0,1\right]$. Such a relative reflectance formulation will ease our life for later rendering purposes since usually color values are within the range $\left[0,1\right]$, too. Furthermore, this will allow us to properly blend the resulting illumination caused by diffraction with a texture map. \\
 
-Let us examine what $L_\lambda(\omega_r)$ will be for $\omega_r = \omega_0 := (0,0,*)$ i.e. specular reflection case, denoted as $L_\lambda^{spec}(\omega_0)$. When we know the expression for $L_\lambda^{spec}(\omega_0)$ we would be able to compute the relative reflected radiance for our problem $\ref{eq:nonrelativebrdffinding}$ by simply taking the fraction between $L_\lambda(\omega_r)$ and $L_\lambda^{spec}(\omega_0)$ which is denoted by: 
+Let us examine what $L_\lambda(\omega_r)$ will be for a purely specular surface, for which $\omega_r = \omega_0 = \omega_i$ such that $\omega_0 = (0,0,1)$. For this specular reflection case, the correspinding radiance will be denoted as $L_\lambda^{spec}(\omega_0)$. When we know the expression for $L_\lambda^{spec}(\omega_0)$ we would be able to compute the relative reflected radiance for our problem $\ref{eq:nonrelativebrdffinding}$ by simply taking the fraction between $L_\lambda(\omega_r)$ and $L_\lambda^{spec}(\omega_0)$ which is denoted by: 
 
 \begin{equation}
   \rho_\lambda(\omega_i,\omega_r) = \frac{L_\lambda(\omega_r)}{L_\lambda^{spec}(\omega_0)}
   \label{eq:rohrel}
 \end{equation}
 
-
-Going back to the definition $\ref{eq:uvw}$ of $(u,v,w)= -\omega_i - \omega_r$ and using spherical coordinates $\ref{eq:sphericalcoordinates}$, we get for $w$ the following identity
-
-\begin{align}
-w 
-&= -\omega_i - \omega_r \nonumber \\ 
-&= -(\omega_i + \omega_r) \nonumber \\
-&= -\left( cos(\theta_i)+cos(\theta_r) \right) 
-\label{eq:sphericalomega}
-\end{align}
-
-and therefore $w^2$ is equal $(cos(\theta_i)+cos(\theta_r))^2$. 
-
-But first, let us derive the following expression:
+Notice that the third component $w$ from the vector in equation $\ref{eq:uvw}$ is squared eqaul $(cos(\theta_i)+cos(\theta_r))^2$$\footnote{Consult section $\ref{sec:componentw}$ in the appendix}$. But first, let us derive the following expression:
 
 \begin{align}
 L_\lambda^{spec}(\omega_0) 
@@ -257,21 +244,21 @@ Where $N_{samples}$ is the number of samples of the DTFT $\ref{eq:dtft}$. Thus, 
 \label{eq:lspecrohrel}
 \end{align}
 
-For simplification and a better overview, let us introduce the following expression, the so called gain-factor:
+For simplification and better readability, let us introduce the following expression, the so called gain-factor:
 
 \begin{equation} 
     C(\omega_i,\omega_r) = \frac{F^2(\omega_i,\omega_r)(1 + \omega_i \cdot \omega_r)^2}{F^2(\omega_0,\omega_0)(cos(\theta_i)+cos(\theta_r))^2 cos(\theta_r) N_{samples}^2}
 \label{eq:cfact}
 \end{equation}
 
-Using this substitute, we will end up with the following expression for the relative reflectance radiance from equation $\ref{eq:lspecrohrel}$:
+Using equation $\ref{eq:cfact}$, we will get the following expression for the relative reflectance radiance from equation $\ref{eq:lspecrohrel}$:
 
 \begin{equation}
 \rho_\lambda(\omega_i,\omega_r) =  C(\omega_i,\omega_r) \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle
 \label{eq:cpterm}
 \end{equation}
 
-Using the previous definition for the relative reflectance radiance $\ref{eq:rohrel}$:
+Using the previous definition for the relative reflectance radiance equation $\ref{eq:rohrel}$:
 
 \begin{equation}
  \rho_\lambda(\omega_i,\omega_r) = \frac{L_\lambda(\omega_r)}{L_\lambda^{spec}(\omega_0)} 
@@ -293,20 +280,20 @@ Z = \int_{\lambda}L_\lambda(\omega_r)\overline{z}(\lambda)d\lambda
 \label{eq:tristimrad}
 \end{align}
 
-where $\overline{x}$, $\overline{y}$, $\overline{z}$ are the color matching functions. Using our last finding $\ref{eq:radianceomegarspec}$ for $L_\lambda(\omega_r)$ with the definition for the tristimulus values $\ref{eq:tristimrad}$, we can actually derive an expression for computing the colors for our initial BRDF formula $\ref{eq:initialbrdf}$. 
-Without any loss of generality it satisfies to derive an explicit expression for just one tristimulus term, for example X. Since The other have a similar formulation, except the we have to replace all X with Y or Z respectively. Therefore, we get:
+where $\overline{x}$, $\overline{y}$, $\overline{z}$ are the color matching functions. Combining our last finding from equation $\ref{eq:radianceomegarspec}$ for $L_\lambda(\omega_r)$ with the definition of the tristimulus values from equation $\ref{eq:tristimrad}$, allows us to 
+derive a formula for computing the colors values using Stam's BRDF formula relying on the rendering equation $\ref{eq:initialbrdf}$. Without any loss of generality it suffices to derive an explicit expression for just one tristimulus term, for example Y, the luminance:
 
 \begin{align}
-X 
-& =\int_{\lambda}L_\lambda(\omega_r)\overline{x}(\lambda)d\lambda \nonumber \\
-& =\int_{\lambda}\rho_\lambda(\omega_i,\omega_r)L_\lambda^{spec}(\omega_0) \overline{x}(\lambda)d\lambda \nonumber \\
-& =\int_{\lambda}\rho_\lambda(\omega_i,\omega_r) S(\lambda) \overline{x}(\lambda)d\lambda \nonumber \\
-& =\int_{\lambda} C(\omega_i,\omega_r) \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S(\lambda) \overline{x}(\lambda)d\lambda \nonumber \\
-& = C(\omega_i,\omega_r) \int_{\lambda} \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S(\lambda) \overline{x}(\lambda)d\lambda \nonumber \\
-& = C(\omega_i,\omega_r) \int_{\lambda} \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S_x(\lambda)d\lambda
+Y 
+& =\int_{\lambda}L_\lambda(\omega_r)\overline{y}(\lambda)d\lambda \nonumber \\
+& =\int_{\lambda}\rho_\lambda(\omega_i,\omega_r)L_\lambda^{spec}(\omega_0) \overline{y}(\lambda)d\lambda \nonumber \\
+& =\int_{\lambda}\rho_\lambda(\omega_i,\omega_r) S(\lambda) \overline{y}(\lambda)d\lambda \nonumber \\
+& =\int_{\lambda} C(\omega_i,\omega_r) \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S(\lambda) \overline{y}(\lambda)d\lambda \nonumber \\
+& = C(\omega_i,\omega_r) \int_{\lambda} \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S(\lambda) \overline{y}(\lambda)d\lambda \nonumber \\
+& = C(\omega_i,\omega_r) \int_{\lambda} \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S_y(\lambda)d\lambda
 \end{align}
 
-Where we used the definition $S_x(\lambda)\overline{x}(\lambda)$ in the last step.
+Where we used the definition $S_y(\lambda)\overline{y}(\lambda)$ in the last step.
 
 \section{Optimization using Taylor Series}
 \label{sec:taylorapproximation}
