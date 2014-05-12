@@ -45,7 +45,7 @@ In the previous section, we have found an identity for the reflected spectral ra
 \begin{figure}[ht]
   \centering
   \includegraphics[scale=0.6]{derivation/ftbydtft.png}
-  \caption[FT by DTFT]{Illustration of how to approximate the analytical Fourier Transform (FT) $\footnotemark$ of a given continuous signal by a Discrete Time Fourier Transform (DTFT).}
+  \caption[FT by DTFT]{Illustration of how to approximate the analytical Fourier Transform (FT) $\footnotemark$ of a given continuous signal by a Discrete Time Fourier Transform (DTFT). The DTFT applied on a bandlimited, discretized signal yields a continuous, periodic response in frequency space.}
   \label{fig:ftbydtft}  
 \end{figure}
 \footnotetext{Images of function plots taken from \texttt{http://en.wikipedia.org/wiki/Discrete\textunderscore Fourier\textunderscore transform} and are modified.} 
@@ -95,6 +95,23 @@ Notice that this frequency space window has a standard deviation $\sigma_f$ equa
 
 \subsection{Reproduce DTFT by DFT}
 \label{sec:gaussianwindow}
+
+motivation
+In this section we explain how and under what assumptions the DTFT of a discretized signal$\footnote{E.g. a sampled signal like already presented in figure $\ref{fig:ftbydtft}$}$ can be approximated by a DFT. 
+
+Given a spatial, bandlimited and discretized one dimensional signal $\hat{s}$. Our goal is to approximate this spatial signal in a way such that when taking the DTFT of this approximated signal, it will yield almost the same like taking the DTFT of the original sampled $\hat{s}$. For this purpose we will use the previouse introduced concept of gaussian windows and the so called Convolution Theorem which is a fundamental property of all Fourier Transformations. The Convolution Theorem states that the Fourier Transformation of a product of two functions, $f$ and $g$, is equal to convolving the Fourier Transformations of each individual function. Mathematically, this statement corresponds to equation $\ref{eq:convolutiontheorem}$:
+
+\begin{equation} 
+  \mathcal{F}\{f\cdot g\} = \mathcal{F}\{f\} * \mathcal{F}\{g\}
+  \label{eq:convolutiontheorem}
+\end{equation}
+
+
+The DTFT of $\hat{s}$ is a continuous, periodic signal, since $\hat{s}$ is bandlimited. 
+
+summary: 
+for bandlimited signals within their bandlimts: is the dft of a discrete function equvalent to the dtft of an infinity periodic function, consisting of replicas of the same discreized function by windowing a function that is zero outside the central replica, the convolution of either the dtft or dft of the signal with G becomes equivalent
+
 
 MENTION CONVOLUTION THEOREM and explain its meaning and how it is used in this case
 MENTION scales might not be appropriate
