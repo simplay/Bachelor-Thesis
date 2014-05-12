@@ -1,22 +1,22 @@
 \chapter{Implementation}
-In computergraphics, we are interested in synthesizing 2d images from a given scene containing our 3d geometries by using so called shader programs. This process is denoted as rendering. The purpose of shader programs, which are executed directly on the GPU hardware device, is to compute the colorization and illumination of the objects living in our scene. All these computations happen in several stages and depend on the provided scene-input parameters like the camera, light sources, objects material constants and the desired rendering effect one is interested in to model. The shader stages are implemented sequentially as small little programs, the so called vertex-, geometry- and fragment-shaders. Those stages are applied within the rendering pipeline sequentially. 
+In computergraphics, we generally synthesize 2d images from a given scene containing our 3d geometries by using so called shader programs. This process is denoted as rendering. The purpose of shader programs, which are executed directly on a GPU hardware device, is to compute the colorization and illumination of the objects present in our scene. All these computations happen in several stages and depend on the provided scene-input parameters like the camera, light sources, objects material constants and the desired rendering effect one is interested in to model. The shader stages are implemented sequentially as small little programs, the so called vertex-, geometry- and fragment-shaders. Those stages are applied within the rendering pipeline sequentially. \\
 
-Our shaders which we use are written in a high-level language called GLSL, the OpengGL Shading Language. The decision for using OpenGL has been made since my underlying framework, which is responsible for the precomputation of all scene date, is based on another framework, written in Java using JOGL in oder to communicate with the GPU and is also responsible to precompute all the relevant scene data. This framework, the so called jrtr framework, has been developed as an exercise during the class computer graphics held by M. Zwicker which I attended in autumn 2012. The framework itself has been used and extended during this thesis quite a lot. All necessary input data required within our java framework in order to perform the shading is precomputed in Matlab. This is basically addressing all the required precomputations for the provided heigh-fields, referring to computation of the inverse two dimensional Fourier transformations which are further explained within this chapter. The Matlab scripts themself rely on the provided snake nano-scaled sheds images, taken by AFM.
+Our shaders which we use are written in a high-level language called GLSL, the OpengGL Shading Language. The decision for using OpenGL has been made since my underlying framework, which is responsible for the precomputation of all scene date, is based on another framework, written in Java using JOGL in oder to communicate with the GPU and is also responsible to precompute all the relevant scene data. This framework, the so called jrtr framework, has been developed as an exercise during the class computer graphics held by M. Zwicker which I attended in autumn 2012. The framework itself has been used and extended during this thesis quite a lot. The DFT terms of the height field, required for rendering process in our framework is precomputed in Matlab. This is basically addressing all the required precomputations for the provided heigh-fields, referring to computation of the two dimensional Fourier Transformations which are further explained within this chapter. The Matlab scripts themself rely on the provided snake nano-scaled sheds images, taken by AFM. \\
 
-It's noteworthy that all the vertices and their associated data are processed within the vertex-shader, whereas the fragement shader's responsibility is to perform pixelwise rendering, using the input from the vertex shader. Just remember, fragements are determined by a triple of vertices. hence each pixel has assigned a trilinear interpolated value of all input parameters of its spanning vertices.
-Usually, all necessary transformations are applied vertex-wise, considering the vertex-shader as the precomputation stage for the later rendering within the rendering pipeline, in the fragment-shader. In the geometry shader, new vertices around a considered vertex can be created. this is useful for debugging - displaying normals graphically for example.
+It's noteworthy that all the vertices and their associated data are processed within the vertex-shader, whereas the fragement shader's responsibility is to perform pixelwise rendering, using the input from the vertex shader. Just remember, fragements are determined by a triple of vertices. hence each pixel has assigned a trilinear interpolated value of all input parameters of its spanning vertices. Usually, all necessary transformations are applied vertex-wise, considering the vertex-shader as the preprocessing stage for the later rendering within the rendering pipeline, in the fragment-shader. In the geometry shader, new vertices around a considered vertex can be created. this is useful for debugging - displaying normals graphically for example. \\
 
-In this part of thesis we are going to explain how we render our BRDF formulation derived in the last section in practice. All the necessary computations in order to simulate the effect of diffraction are performed within a fragment shader. This implies that we are modeling pixelwise the effect of diffraction and hence the overall rendering quality and runtime complexity depends on rendering window's resolution.
+In this part of thesis we are going to explain how we render our BRDF formulation derived in the last section in practice. All the necessary computations in order to simulate the effect of diffraction are performed within a fragment shader. This implies that we are modeling pixelwise the effect of diffraction and hence the overall rendering quality and runtime complexity depends on rendering window's resolution. \\
 
-By the end of this chapter we will have seen how our render works, what we have to precompute and how our shaders work. 
-
+By the end of this chapter we will have seen how our render works and what we have to precompute. 
 
 \section{Precomputations in Matlab}
 \label{sec:precompmatlabfourierimages}
 Our first task is to precompute the inverse two dimensional discrete Fourier transformations for a given snake shed patch of interest taken by AFM. For that purpose we have written a small Matlab script conceptialized algorithmically in $\ref{alg:matlabprecomp}$. Matlab is a interpreted scripting language which offers a huge collection of mathematical and numerically fast and stable algorithms. Our Matlab script reads a given image, which is representing a nano-scaled height field, and computes its inverse two dimensional DFT by using Matlab's internal inverse fast Fourier Transformation function, denoted by $ifft2$. Note that we only require one color channel of the input image since the input image is representing an height field, encoded by just one color. Basically, we are interested in computing the $ifft2$ for different powers of the input image times the imaginary number $i$ since our taylor series approximation $\ref{sec:taylorapproximation}$ relies on this. Keep in mind that taking the Fourier transformation of an arbitrary function will result in a complex valued output which implies that we will get a complex value for each pixel of our input image. Therefore, for each input image we get as many output images, representing the two dimensional inverse Fourier Transformation, as the minimal amount of taylor terms required for a well-enough approximation. In order to store our output images, we have to use two color channels instead just one like it was for the given input image. Some rendered images are shown in figure $\ref{fig:matlabBlazeFourierImages}$. Instead storing the computed values in plain images, we store our results in binary files. This allows us to have much higher precision for the output values and also it does not waste color channels. In our script every pixel value is normalized by its corresponding Fourier image extrema values such that is it lays in the range $\left[0,1\right]$. Therefore, we have to remember store four scaling factors for each output image as well. Those are the real and imaginary minimum and maximum values. Later, using linear interpolation within the shader, we will get back the rescaled image's original pixel values. 
 
 \begin{algorithm}[H]
-\caption{Precomputation: Fourier images}
+\caption{Precomputation: Pseudo code to generate Fourier terms}
+\textbf{INPUT} \ $heightfieldImg, \ maxH, \ dH, \ termCnt$ \\
+\textbf{OUTPUT} \ $DFT \ terms \ stored \ in \ Files$
 \begin{lstlisting}
 % maxH:    A floating-point number specifying 
 %          the value of maximum height of the 
@@ -26,27 +26,28 @@ Our first task is to precompute the inverse two dimensional discrete Fourier tra
 % dH:      A floating-point number specifying 
 %          the resolution (pixel-size) of the 
 %          'discrete' height-field in MICRONS. 
-%          It must less than 0.1 MICRONS to 
-%          ensure proper response for 
+%          It must be less than 0.1 MICRONS 
+%          to ensure proper response for 
 %          visible-range of light spectrum.
 %
 % termCnt: An integer specifying the number of 
 %          Taylor series terms to use.
 
-function []= ComputeFFTImages(maxH, dh, termCnt)
+function ComputeFFTImages(heightfieldImg, maxH, dh, termCnt)
 dH = dh*1E-6;
-% load patch into patchImg
-patchImg = patchImg.*maxH;
-% perform imrotate(patchImg, angle)
+% load patch into heightfieldImg
+patchImg = heightfieldImg.*maxH;
+% rotate patchImg by 90 degrees
 for t = 0 : termCnt
   patchFFT = power(1j*patchImg, t);
   fftTerm{t+1} = fftshift(ifft2(patchFFT));
   
+  % rescale terms as
   imOut(:,:,1)  = real(fftTerm{t+1});
   imOut(:,:,2)  = imag(fftTerm{t+1});
   imOut(:,:,3)  = 0.5;
   
-  % perform imrotate(imOut, -angle)
+  % rotate imOut by -90 degrees
   % find real and imaginary extrema of 
   % write imOut, extrema, dH, into files.
 end
@@ -54,7 +55,7 @@ end
 \label{alg:matlabprecomp}
 \end{algorithm}
 
-The command fftshift rearranges the output of the ifft2 by moving the zero frequency component to the centre of the image. This is useful for visualizing a Fourier Transform with zero frequency components in the middle of the spectrum.
+The command fftshift rearranges the output of the ifft2 by moving the zero frequency component to the centre of the image. This simplifies the computation of lookup coordinates during rendering.
 
 \label{sec:precompmatlabfft}
 \begin{figure}[H]
@@ -145,7 +146,6 @@ The command fftshift rearranges the output of the ifft2 by moving the zero frequ
     \label{fig:blazeftim20}
   }
   
-  
   \caption{Blaze}
   \label{fig:matlabBlazeFourierImages}
 \end{figure}
@@ -171,7 +171,8 @@ The application program relies on the MVC (Model-View-Controller) architecture p
   \label{fig:wireframemesh}
 \end{figure}
 
-Such a mesh is a special data structure consisting of vertices, each stored as a triple of $xyz$ positions in an float array and triangles, each defined by a triple of vertex-indices which form a fragment each stored in an integer array. It is also possible to assign additional geometry data like a color, normals and texture coordinates associated to each vertex.
+Such a mesh is a special data structure consisting of vertices, each stored as a triple of $xyz$ positions in an float array and triangles, each defined by a triple of vertex-indices which form a fragment each stored in an integer array. It is also possible to assign additional geometry data like a color, normals and texture coordinates associated to each vertex. \\
+
 The whole scene is stored within container data-structures, defined and managed within jrtr. In our case we rely on a scene graph, which contains all geometries and their transformations in a tree like structured hierarchy. The geometries are stored within an container, including all vertex attributes and the material constants. The jrtr rendering engine uses a low-level API, called OpenGL in order to communicate with the graphics processor unit (GPU) where the actual shading happens. Within jrtr's render context object, the whole resource-management for the rendering pipeline takes place. This means all required low-level buffers are allocated, flushed and assigned by the scene data attributes. The GPU's rendering pipeline will use those buffers for its shading process. Its first stage is the vertex shader $\ref{sec:vertexshader}$ followed by the fragment shader $\ref{sec:fragmentshader}$. The jrtr framework also offers the possibility to assign arbitrary shaders.
 
 \section{GLSL Diffraction Shader}
@@ -210,14 +211,15 @@ C = \begin{bmatrix} x_c & y_c & z_c & e \\ 0 & 0 & 0 & 1 \end{bmatrix}
 All vertex shader output will be used within the fragment shader $\ref{sec:fragmentshader}$. In our vertex shader we also compute for every vertex in our current geometry the direction vectors $\omega_i$ and $\omega_r$ described like in figure $\ref{fig:geometricsetup}$. Those direction vectors are transformed onto the tangent space, a local coordinate system spanned by a vertex's normal, tangent and binormal vector. Have a look at the appendix $\ref{sec:tangentspace}$ for further information and insight about the tangent space. The algorithm $\ref{alg:vertexshader}$ stated below shows our vertex shader.
   
 \begin{algorithm}[H]
-  \caption{Vertex diffraction shader}
+  \caption{Vertex diffraction shader pseudo code}
   \begin{algorithmic}
+    \INPUT $N, T, Shape, lightDir$
+    \MOUTPUT $Structural Color on Fragment$
     \ForAll{$Vertex \thinspace v \in Shape$}
-      \State $ vec3 N = normalize(modelM * vec4(normal,0.0)).xyz$
-      \State $ vec3 T = normalize(modelM * vec4(tangent,0.0)).xyz$
-      \State $ vec3 B = normalize(cross(N, T))$
-      \State $ vec3 Pos = ((cop_{w}-position)).xyz$
-      \State $ vec4 lightDir = (directionArray[0])$
+      \State $ vec3 \ N = normalize(modelM * vec4(normal,0.0).xyz)$
+      \State $ vec3 \ T = normalize(modelM * vec4(tangent,0.0).xyz)$
+      \State $ vec3 \ B = normalize(cross(N, T))$
+      \State $ vec3 \ Pos = ((cop_{w}-position)).xyz$
       \State $ lightDir = normalize(lightDir)$
       \State $ l = projectVectorOnTo(lightDir, TangentSpace)$
       \State $ p = projectVectorOnTo(Pos, TangentSpace)$
@@ -228,7 +230,7 @@ All vertex shader output will be used within the fragment shader $\ref{sec:fragm
 \label{alg:vertexshader}
 \end{algorithm}
 
-As already mentioned within our derivations $\ref{sec:dirlighsourceassumption}$, our light source is a directional light source $\ref{fig:dirlightsource}$.
+As already mentioned in section $\ref{sec:dirlighsourceassumption}$, our light source is a directional light source (See figure $\ref{fig:dirlightsource}$).
 
 \begin{figure}[H]
   \centering
@@ -239,13 +241,15 @@ As already mentioned within our derivations $\ref{sec:dirlighsourceassumption}$,
 
 \subsection{Fragment Shader}
 \label{sec:fragmentshader}
-The purpose of a fragment shader is to render per fragment. A fragment is spanned by three vertices of a given mesh. For each pixel within a fragment in the fragment shader, the output of from its spanning vertices computed in the vertex shaders $\ref{alg:vertexshader}$ is trilinearly interpolated depending on the pixel's position within the fragment. Furthermore, there can be additional input be assigned which is not directly interpolated from the output of vertex shader programs. In our fragment shader $\ref{alg:fragmentshaderall}$ this will be: all the references to the image buffers, containing the Fourier images computed in Matlab $\ref{sec:precompmatlabfourierimages}$, the number steps for the taylor approximation (in our shader 30), the minimal and maximal wavelength, scaling factors, a reference to a lookup table containing the $CIE_{XYZ}$ color weights. Basically the whole computation within our fragment shader relies on the the direction of light and the viewing direction. Our shader performs a numerical integration for our final derived expression $\ref{eq:finalexpression}$ using the trapezoidal-rule with uniform discretization of the wavelength spectrum at $5nm$ step sizes. This implies we are compressing sampled frequencies to the region near to the origin of their frequency domain due to the fact we are dividing the $(u,v)$ by the wavelength. 
-The Gaussian window approach derived in $\ref{sec:gaussianwindow}$ is performed for each discrete $\lambda$ value using a window large enough to span $4\sigma_f$ in both dimensions. For computing DFT tables we generally use nanostructure height fields that span at least 65$\mu m^2$ and are sampled with resolution of at least 100nm. This ensures that the spectral response encompasses al the wavelengths in the visible spectrum, i.e. from 380nm to 780nm.
-For natural structures in nano-scale, most of their spectral energy lies at lower spatial frequencies which maps closer to region $(u,v) = (0,0)$ than higher frequencies. This is why we have chosen to sample $(u,v)$ space non-linearly. 
+The purpose of a fragment shader is to render per fragment. A fragment is spanned by three vertices of a given mesh. For each pixel within a fragment in the fragment shader, the output of from its spanning vertices computed in the vertex shaders $\ref{alg:vertexshader}$ is trilinearly interpolated depending on the pixel's position within the fragment. Furthermore, there can be additional input be assigned which is not directly interpolated from the output of vertex shader programs. In our fragment shader $\ref{alg:fragmentshaderall}$ this will be: all the references to the image buffers, containing the Fourier images computed in Matlab $\ref{sec:precompmatlabfourierimages}$, the number steps for the taylor approximation (in our shader 30), the minimal and maximal wavelength, scaling factors, a reference to a lookup table containing the $CIE_{XYZ}$ color weights. Basically the whole computation within our fragment shader relies on the direction of light and the viewing direction. Our shader performs a numerical integration for our final derived expression in equation $\ref{eq:finalexpression}$ using the trapezoidal-rule with uniform discretization of the wavelength spectrum at $5nm$ step sizes. This implies we are compressing sampled frequencies to the region near to the origin of their frequency domain due to the fact we are dividing the $(u,v)$ by the wavelength and this implies that the $(u,v)$ space is sampeled non-linearly. \\
+
+The Gaussian window approach derived in section $\ref{sec:gaussianwindow}$ is performed for each discrete $\lambda$ value using a window large enough to span $4\sigma_f$ in both dimensions. For precomputing DFT tables we generally use nanostructure height fields that span at least 65$\mu m^2$ and are sampled with resolution of at least 100nm. This ensures that the spectral response encompasses all the wavelengths in the visible spectrum, i.e. from 380nm to 780nm.
 
 \begin{algorithm}[H]
-  \caption{Fragment diffraction shader}
+  \caption{Fragment diffraction shader pseudo code}
   \begin{algorithmic}[1]
+    \INPUT $Precomputed \thinspace DFT \thinspace Terms,\thinspace Scene \thinspace Geometry$
+    \MOUTPUT $Structural Color on Fragment$
     \ForAll{$Pixel \thinspace p \in Fragment$}
       \State \init $BRDF_{XYZ}, BRDF_{RGB}$ \myto $vec4(0.0)$
       \State $(u,v,w) = -\omega_i - \omega_r$
@@ -259,8 +263,8 @@ For natural structures in nano-scale, most of their spectral energy lies at lowe
           \State \init $F_{fft}$  \myto $vec2(0.0)$
           \State $anchorX = int(floor(center.x + lookupCoord.x * fftImWidth)$
           \State $anchorY = int(floor(center.y + lookupCoord.y * fftImHeight)$
-          \For{$(i=(anchorX-winW)$ \myto $(anchorX + winW + 1))$}
-            \For{$(j=(anchorY - winW)$ \myto $(anchorY + winW + 1))$}
+          \For{$(i=(anchorX-winW)$ \myto $(anchorX + winW))$}
+            \For{$(j=(anchorY - winW)$ \myto $(anchorY + winW))$}
               \State $dist = distVecFromOriginTo(i,j)$
               \State $pos = localLookUp(i,j,n)$
               \State $fftVal = rescaledFourierValueAt(pos)$
@@ -282,15 +286,13 @@ For natural structures in nano-scale, most of their spectral energy lies at lowe
 
 
 \myparagraph{From line 4 to 26:} 
-Within this loop happens the uniform sampling along wavelength-space. $ColorWeights(\lambda)$ computes the color weight for the current wavelength $\lambda$ by bilinear interpolation between the color weight for $\ceil{\lambda}$ and $\floor{\lambda}$ which are stored in a external weights-table (assuming this table contains wavelengths in 1nm steps). At line 6: $lookupCoord(u, v, \lambda)$ the coordinates for the texture lookup are computed - See $\ref{eq:scalelook}$. Line 25 sums up the diffraction color contribution for the current wavelength in iteration $\lambda$.  
+This loop performs uniform sampling along wavelength-space. $ColorWeights(\lambda)$ computes the color weight for the current wavelength $\lambda$ by linear interpolation between the color weight for $\ceil{\lambda}$ and $\floor{\lambda}$ which are stored in a external weights-table (assuming this table contains wavelengths in 1nm steps). At line 6: $lookupCoord(u, v, \lambda)$ the coordinates for the texture lookup are computed - See $\ref{eq:scalelook}$. Line 25 sums up the diffraction color contribution for the current wavelength in iteration $\lambda$.  
 
 \myparagraph{From line 9 to 24:} 
-Within this loop happens the Taylor series approximation until a predefined upper bound, denoted by $T$, has been reached.
-Basically, the spectral response is approximated for our current $(u,v,\lambda)$. Furthermore, neighborhood boundaries for the gaussian-window sampling are computed, denoted as anchorX and anchorY.
+This loop performs the Taylor series approximation using T terms. Basically, the spectral response is approximated for our current $(u,v,\lambda)$. Furthermore, neighborhood boundaries for the gaussian-window sampling are computed, denoted as anchorX and anchorY.
 
 \myparagraph{From line 14 to 22:} 
-In this most inner loop, the convolution of the gaussian window with the inverse FFT of the patch is pixel-wise performed. 
-$gaussWeightOf(dist)$ computes the weights $~\eqref{eq:gaussweight}$ from the distance between the current pixel's coordinates and the current neighbor's position in texture space. Local lookup coordinates for the current fourier coefficient $fftVal$ value are computed at line 17 and computed like described in $\ref{eq:gaussianwindowlook}$. The actual texture lookup is performed at line 18 using those local coordinates. Inside $rescaledFourierValueAt$ the values $fftVal$ is rescaled by its extrema, i,e. $(fftVal*Max + Min)$ is computed, since $fftVal$ is normalized $\ref{sec:precompmatlabfft}$. The current $fftVal$ values in iteration is scaled by the current gaussian weight and then summed to the final neighborhood FFT contribution at line 20.
+In this inner most loop, the convolution of the gaussian window with the DFT of the patch is performed. $gaussWeightOf(dist)$ computes the weights in equation $~\eqref{eq:gaussweight}$ from the distance between the current pixel's coordinates and the current neighbor's position in texture space. Local lookup coordinates for the current fourier coefficient $fftVal$ value are computed at line 17 and computed like described in $\ref{eq:gaussianwindowlook}$. The actual texture lookup is performed at line 18 using those local coordinates. Inside $rescaledFourierValueAt$ the values $fftVal$ is rescaled by its extrema, i,e. $(fftVal*Max + Min)$ is computed, since $fftVal$ is normalized $\ref{sec:precompmatlabfft}$. The current $fftVal$ values in iteration is scaled by the current gaussian weight and then summed to the final neighborhood FFT contribution at line 20.
 
 \myparagraph{After line 26:} 
 At line 27 the gain factor $C(\omega_i, \omega_r)$  $\ref{eq:cfact}$ is multiplied by the current computed pixel color like formulated in $\ref{eq:cpterm}$. The gain factor contains the geometric term $ref{eq:geometricterm}$ and the Fresnel term $F$. W approximate $F$ by the Schlick approximation $\ref{eq:schlickapprox}$, using an reactive index at 1.5 since this is close to the measured value from snake sheds.
