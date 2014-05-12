@@ -126,7 +126,7 @@ This is where the convolution theorem comes into play: Applying the DTFT to the 
 
 Lastly, we see that the DTFT of $\hat{s}$ is approximitely the same like convolving a gaussian window by the DFT of $\hat{s_N}$. This also makes sense, since convolving a discrete, periodic signal (DFT of $\hat{s_N}$) by a continuous window function $G$ yiels a continuous, periodic function. \\
 
-In practise, we cannot compute the DTFT $\ref{eq:dtft}$ numerically due to finite computer arithmetic. The DFT $\ref{eq:dft}$ of a discrete height field is equal to the DTFT of an infinitely periodic function consisting of replicas of the same height field. Not, let a spatial gaussian window $g$ having a standard deviation for which $4\sigma_s$ is equal $\mu m$. Then, from before, it followis:
+In practise, we cannot compute the DTFT $\ref{eq:dtft}$ numerically due to finite computer arithmetic and hence working with the DFT is our only option. Furthermore, there are numerically fast algorithmes in order to compute the DFT values of a function, the Fast Fourier Transformation (FFT). The DFT $\ref{eq:dft}$ of a discrete height field is equal to the DTFT of an infinitely periodic function consisting of replicas of the same height field. Not, let a spatial gaussian window $g$ having a standard deviation for which $4\sigma_s$ is equal $\mu m$. Then, from before, it followis:
 
 \begin{equation}
 \mathcal{F}_{dtft}\{\mathbf{s}\} \equiv \mathcal{F}_{dft} \{\mathbf{s}\} * G(\sigma_f)
@@ -291,13 +291,16 @@ Y
 & =\int_{\lambda} C(\omega_i,\omega_r) \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S(\lambda) \overline{y}(\lambda)d\lambda \nonumber \\
 & = C(\omega_i,\omega_r) \int_{\lambda} \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S(\lambda) \overline{y}(\lambda)d\lambda \nonumber \\
 & = C(\omega_i,\omega_r) \int_{\lambda} \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S_y(\lambda)d\lambda
+\label{eq:structuralcolorsslow}
 \end{align}
 
 Where we used the definition $S_y(\lambda)\overline{y}(\lambda)$ in the last step.
 
 \section{Optimization using Taylor Series}
 \label{sec:taylorapproximation}
-In this section, we will deliver an approximation for the Fourier Transformation of Stam's auxiliary function $p(x,y)$. This derivation will rely on the definition of Taylor Series expansion shown in equation $\ref{eq:deftaylor}$. Further, we will provide an error bound for our approximation approach for a given number of terms. Last, we will extend our current BRDF formula by the findings derived within this section. \\
+Our final goal is to render stractural colors resulting by the effect of wave diffraction. So far, we have derived an expression which can be used for rendering. Neverthesless, our current equation $\ref{eq:structuralcolorsslow}$ used for computing structural colors, cannot be used for interactive rendering, since $P_{dtft}$ had do be recomputed for every change in any direction$\footnote{viewing or incident light direction}$. \\
+
+In this section, we will address this issue and deliver an approximation for the Fourier Transformation of Stam's auxiliary function $p(x,y)$. This will allow us to seperate $P_{dtft}$ in a way such that some computional expsensive terms can be precomputed. This derivation will rely on the definition of Taylor Series expansion like shown in equation $\ref{eq:deftaylor}$. Further, we will provide an error bound for our approximation approach for a given number of terms. Last, we will extend our current BRDF formula by the findings derived within this section. \\
 
 Given $p(x,y)=e^{ikwh(x,y)}$ form Stam's Paper $\ref{sec:sumstam}$ where $h(x,y)$ is a given height field. Let $t$ be complex number, and let us consider the power series expansion of the exponential function:
  
@@ -318,16 +321,17 @@ where $i$ is the imaginary unit. For simplification, let us denote $h(x,y)$ as $
  e^{t}
  &=1+(ikwh)+\frac{1}{2!}(ikwh)^{2}+\frac{1}{3!}(ikwh)^{3}+... \nonumber \\
  &=\sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}.
+ \label{eq:expseriesexpr}
 \end{align}
 
-Hence it holds 
+Please note that above's taylor series is convergent for any complex valued number $t$. Thus, plugging quation $\ref{eq:expseriesexpr}$ into the definiton of $p(x,y)$ will give us:
 
 \begin{equation}
   p(x,y)=\sum_{n=0}^{\infty}\frac{(ikwh(x,y))^{n}}{n!}
   \label{eq:pxyseries}
 \end{equation}
 
-Let us now compute the Fourier Transformation $\mathcal{F}$ of equation $\ref{eq:pxyseries}$ form above:
+Next, let us now compute the Fourier Transformation $\mathcal{F}$ of equation $\ref{eq:pxyseries}$ form above:
 
 \begin{align}
   \mathcal{F}\left\{ p\right\}
