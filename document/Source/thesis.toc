@@ -36,16 +36,19 @@
 \contentsline {section}{\numberline {3.5}Spectral Rendering}{37}{section.3.5}
 \contentsline {section}{\numberline {3.6}Alternative Approach}{37}{section.3.6}
 \contentsline {subsection}{\numberline {3.6.1}PQ factors}{37}{subsection.3.6.1}
-\contentsline {subsection}{\numberline {3.6.2}Interpolation}{41}{subsection.3.6.2}
-\contentsline {chapter}{\numberline {A}Signal Processing Basics}{43}{appendix.A}
-\contentsline {section}{\numberline {A.1}Fourier Transformation}{43}{section.A.1}
-\contentsline {section}{\numberline {A.2}Convolution}{45}{section.A.2}
-\contentsline {section}{\numberline {A.3}Taylor Series}{45}{section.A.3}
-\contentsline {chapter}{\numberline {B}Summary of Stam's Derivations}{46}{appendix.B}
-\contentsline {chapter}{\numberline {C}Summary of Stam's Derivations}{49}{appendix.C}
-\contentsline {section}{\numberline {C.1}Taylor Series Approximation}{49}{section.C.1}
-\contentsline {subsection}{\numberline {C.1.1}Proof Sketch of 1.}{49}{subsection.C.1.1}
-\contentsline {subsection}{\numberline {C.1.2}Part 2: Find such an N}{49}{subsection.C.1.2}
+\contentsline {subsection}{\numberline {3.6.2}Interpolation}{40}{subsection.3.6.2}
+\contentsline {chapter}{\numberline {A}Signal Processing Basics}{41}{appendix.A}
+\contentsline {section}{\numberline {A.1}Fourier Transformation}{41}{section.A.1}
+\contentsline {section}{\numberline {A.2}Convolution}{43}{section.A.2}
+\contentsline {section}{\numberline {A.3}Taylor Series}{43}{section.A.3}
+\contentsline {chapter}{\numberline {B}Summary of Stam's Derivations}{44}{appendix.B}
+\contentsline {chapter}{\numberline {C}Summary of Stam's Derivations}{47}{appendix.C}
+\contentsline {section}{\numberline {C.1}Taylor Series Approximation}{47}{section.C.1}
+\contentsline {subsection}{\numberline {C.1.1}Proof Sketch of 1.}{47}{subsection.C.1.1}
+\contentsline {subsection}{\numberline {C.1.2}Part 2: Find such an N}{47}{subsection.C.1.2}
+\contentsline {section}{\numberline {C.2}PQ approach}{49}{section.C.2}
+\contentsline {subsection}{\numberline {C.2.1}One dimensional case}{49}{subsection.C.2.1}
+\contentsline {subsection}{\numberline {C.2.2}Two dimensional case}{51}{subsection.C.2.2}
 \contentsline {chapter}{\numberline {D}Appendix}{52}{appendix.D}
 \contentsline {section}{\numberline {D.1}The 3rd component w}{52}{section.D.1}
 \contentsline {section}{\numberline {D.2}Schlick's approximation}{52}{section.D.2}

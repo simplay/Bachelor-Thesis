@@ -105,3 +105,104 @@ With Octave/Matlab we can see:
 
 With this approach we have that $\sum_{n=0}^{25}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$ is
 an approximation of $P(u,v)$ with error $\epsilon\approx8.8150*10^{-8}$. This means we can precompute 25 Fourier Transformations in order to approximate P(u,v) having an error $\epsilon\approx8.8150*10^{-8}$. 
+
+\section{PQ approach}
+\subsection{One dimensional case}
+\label{sec:pqonedimappendix}
+
+Since our series is bounded, we can simplify the right-hand-side of equation $\ref{eq:pqgeometricseries}$.
+
+Note that $e^{-ix}$ is a complex number. Every complex number can be written in its polar form, i.e. 
+
+\begin{equation}
+e^{-ix} = cos(x) + i sin(x) 
+\label{eq:polarform}
+\end{equation}
+
+Using the following trigonometric identities
+\begin{gather}
+cos(-x) = cos(x) \nonumber \\
+sin(-x) = -sin(x)
+\end{gather}
+
+combined with $\ref{eq:polarform}$ we can simplify the series $\ref{eq:pqgeometricseries}$ even further to:
+
+\begin{align}
+\frac{1-e^{iwT(N+1)}}{1-e^{-iwT}}
+& =\frac{1-cos(wT(N+1)) + i sin(wT(N+1)) }{1-cos(wT) + i sin(wT)}
+\label{eq:pq1minusexp}
+\end{align}
+
+Equation $\ref{eq:pq1minusexp}$ is still a complex number, denoted as $(p+iq)$. Generally, every complex number can be written as a fraction of two complex numbers. This implies that the complex number $(p+iq)$ can be written as $(p+iq) = \frac{(a+ib)}{(c+id)}$ for any $(a+ib), (c+id) \neq 0$. Let us use the following substitutions: 
+
+\begin{align}
+a& := 1 - cos(wT(N+1))&
+b& =sin(wT(N+1)) \nonumber \\
+c& =1-cos(wT)&
+d& =sin(wT)
+\label{eq:pqabcdsubstitudes}
+\end{align}
+
+Hence, using $\ref{eq:pqabcdsubstitudes}$, it follows 
+
+\begin{equation}
+  \frac{1-e^{iwT(N+1)}}{1-e^{-iwT}} = \frac{(a+ib)}{(c+id)}
+\end{equation}
+
+By rearranging the terms, it follows $(a+ib) = (c+id)(p+iq)$ and by multiplying its right hand-side out we get the following system of equations:
+
+\begin{align}
+(cp-dq)& =a \nonumber \\
+(dp + cq)& =b
+\label{eq:cdadcn}
+\end{align}
+
+After multiplying the first equation of $\ref{eq:cdadcn}$ by $c$ and the second by $d$ and then adding them together, we get using the law of distributivity new identities for $p$ and $q$:
+
+\begin{align}
+p& =\frac{(ac+bd)}{c^2 + d^2} \nonumber \\
+q& =\frac{(bc+ad)}{c^2 + d^2}
+\label{eq:pq1}
+\end{align}
+
+Using some trigonometric identities and putting our substitution from $\ref{eq:pqabcdsubstitudes}$ for $a$, $b$, $c$, $d$ back into the current representation $\ref{eq:pq1}$ of $p$ and $q$ we will get:
+
+\begin{align}
+p& =\frac{1}{2}+\frac{1}{2}\left(\frac{cos(wTN)-cos(wT(N+1))}{1-cos(wT)}\right) \nonumber \\
+q& =\frac{sin(wT(N+1))-sin(wTN)-sin(wT)}{2(1-cos(wT))}
+\end{align}
+
+Since we have seen, that $\sum_{n=0}^N e^{-uwnT}$ is a complex number and can be written as $(p+iq)$, we now know an explicit expression for $p$ and $q$. Therefore, the one dimensional inverse Fourier transform of $S$ is equal:
+
+\begin{align}
+\mathcal{F}^{-1}\{S\}(w)
+& =\mathcal{F}^{-1}\{f\}(w) \sum_{n=0}^{N} e^{-iwnT} \nonumber \\
+& = (p+iq) \mathcal{F}^{-1}\{f\}(w)  
+\label{eq:mainfinding1dappendix}
+\end{align}
+
+
+\subsection{Two dimensional case}
+\label{sec:pqtwodimappendix}
+
+\begin{align}
+\mathcal{F}^{-1}\{S\}(w_1, w_2)
+& = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} h(x_1 + n_1 T_1, x_2 + n_2 T_2) e^{iw(x_1 + x_2)}dx_1 dx_2 \nonumber \\
+& = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} h(y_1, y_2) e^{iw((y_1 - n_1 T_1) + (y_2 + n_2 T_2))}dx_1 dx_2 \nonumber \\
+& =\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} h(y_1, y_2) e^{iw(y_1 + y_2)} e^{-iw(n_1 T_1 + n_2 T_2)}dy_1 dy_2 \nonumber \\
+& =\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} e^{-iw(n_1 T_1 + n_2 T_2)} \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} Box(y_1, y_2) e^{iw(y_1 + y_2)} dy_1 dy_2 \nonumber \\
+& =\left(\sum_{n_2=0}^{N_1} \sum_{n_2=0}^{N_2} e^{-iw(n_1 T_1 + n_2 T_2)}\right) \mathcal{F}^{-1}\{h\}(w_1,w_2) \nonumber \\
+& =\left(\sum_{n_2=0}^{N_1} e^{-iw n_1 T_1}\right) \left(\sum_{n_2=0}^{N_2} e^{-iw n_2 T_2}\right) \mathcal{F}^{-1}\{h\}(w_1,w_2) \nonumber \\
+& =(p_1 + i q_1)(p_2 + i q_2) \mathcal{F}^{-1}\{h\}(w_1,w_2) \nonumber \\
+& =((p_1 p_2 - q_1 q_2) + i(p_1 p_2 + q_1 q_2)) \mathcal{F}^{-1}\{h\}(w_1,w_2) \nonumber \\
+& =(p + iq) \mathcal{F}_{DTFT}\{h\}(w_1,w_2)
+\label{eq:pqmainfindingappendix}
+\end{align}
+
+Where we have defined 
+
+\begin{align}
+p := (p_1 p_2 - q_1 q_2) \nonumber \\ 
+q := (p_1 p_2 + q_1 q_2)
+\label{eq:pqsubst2dappendix}
+\end{align}

@@ -42,7 +42,7 @@
 \contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Patch Orientation}}}{27}{figure.caption.24}
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Coherence Area using Gaussian Window}}{28}{figure.caption.25}
 \contentsline {figure}{\numberline {3.5}{\ignorespaces DTFT by DFT}}{29}{figure.caption.26}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Comparission between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\mathaccentV {hat}65E{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.\relax }}{42}{figure.caption.27}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Comparission between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\mathaccentV {hat}65E{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.\relax }}{40}{figure.caption.27}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
