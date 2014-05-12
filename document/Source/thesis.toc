@@ -27,17 +27,17 @@
 \contentsline {section}{\numberline {3.2}Approximate a FT by a DFT}{26}{section.3.2}
 \contentsline {subsection}{\numberline {3.2.1}Reproduce FT by DTFT}{26}{subsection.3.2.1}
 \contentsline {subsection}{\numberline {3.2.2}Spatial Coherence and Windowing}{27}{subsection.3.2.2}
-\contentsline {subsection}{\numberline {3.2.3}Reproduce DTFT by DFT}{28}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.3}Reproduce DTFT by DFT}{29}{subsection.3.2.3}
 \contentsline {section}{\numberline {3.3}Adaption of Stam's BRDF discrete height fields}{30}{section.3.3}
 \contentsline {subsection}{\numberline {3.3.1}Rendering Equation}{30}{subsection.3.3.1}
 \contentsline {subsection}{\numberline {3.3.2}Reflected Radiance of Stam's BRDF}{31}{subsection.3.3.2}
 \contentsline {subsection}{\numberline {3.3.3}Relative Reflectance}{32}{subsection.3.3.3}
 \contentsline {section}{\numberline {3.4}Optimization using Taylor Series}{34}{section.3.4}
 \contentsline {paragraph}{Proof Sketch of 1.}{35}{section*.27}
-\contentsline {paragraph}{Part 2: Find such an N}{35}{section*.28}
+\contentsline {paragraph}{Part 2: Find such an N}{36}{section*.28}
 \contentsline {section}{\numberline {3.5}Spectral Rendering}{37}{section.3.5}
-\contentsline {section}{\numberline {3.6}Alternative Approach}{37}{section.3.6}
-\contentsline {subsection}{\numberline {3.6.1}PQ factors}{37}{subsection.3.6.1}
+\contentsline {section}{\numberline {3.6}Alternative Approach}{38}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}PQ factors}{38}{subsection.3.6.1}
 \contentsline {subsection}{\numberline {3.6.2}Interpolation}{41}{subsection.3.6.2}
 \contentsline {chapter}{\numberline {A}Signal Processing Basics}{43}{appendix.A}
 \contentsline {section}{\numberline {A.1}Fourier Transformation}{43}{section.A.1}

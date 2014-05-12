@@ -65,15 +65,33 @@ Next, we apply the Fourier Tranformation operator on the discretized singal $\ha
 Equation $\ref{eq:sampledsignalfttodtft}$ tells us that if $\hat{s}$ is sufficiently sampled, then its DTFT corresponds to the FT of $s(x)$ . Notice that the resulting DTFT from the sampled signal has a height of $\frac{A}{T}$ where A is the height of the FT of $s$ and thus is a scaled version of the FT.
 
 \subsection{Spatial Coherence and Windowing}
-Before we can derive a final expression in order to approximate a FT by a DFT, we first have to revisit the concept of coherence introduced in section $\ref{sec:wavecoherence}$ of chapter 2. Stam's BRDf tells us what is the total contribution of all secondary sources which allows us to say what is the reflected spectral radiance at a certain point in space. This is related to stationary interference which itself depends on the coherence property of the emitted secondary wave sources. The ability for two points in space to interfere in the extend of a wave when being averages over time is the so called spatial coherence which is usually modeled by a Gaussian Random Process. This concept is illustrated in figure $\ref{fig:coherenceareagaussianwindow}$. An upper bound for the range of seperation between two pairs of point over which there is significant intererence is quantified by the coherence area. For filtered sunlight on earth this is about 65$\mu m$ $\footnote{a proof for this number can be looked up in the book Optical Coherence and Quantum Optics$\cite{optcoherence}$ on page 153 and 154.}$. Therfore, in oder to capture about $99\%$ of these spatial coherence interference effects in our model, the standard deviation of our spatial Gaussian window $\sigma_s$ has to fulfill the equation $4 \sigma_s = 65\mu m$. Notice that the corresponding window in frequency space has then a standard deviation $\sigma_f$ equal to $\frac{1}{2 \pi \sigma_s}$.
+Before we can derive a final expression in order to approximate a FT by a DFT, we first have to revisit the concept of coherence introduced in section $\ref{sec:wavecoherence}$ of chapter 2.Previousely we have seen that Stam's BRDf tells us what is the total contribution of all secondary sources which allows us to say what is the reflected spectral radiance at a certain point in space. This is related to stationary interference which itself depends on the coherence property of the emitted secondary wave sources. The ability for two points in space, $t_1$ and $t_2$, to interfere in the extend of a wave when being averages over time is the so called spatial coherence. The spatial distance between such two points over which there is significant intererence is limited by the quantity coherence area. For filtered sunlight on earth this is equal to 65$\mu m$ $\footnote{A proof for this number can be looked up in the book Optical Coherence and Quantum Optics$\cite{optcoherence}$ on page 153 and 154.}$.
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{derivation/windowinggaussian.png}
-  \caption[Coherence Area using Gaussian Window]{A plane }
+  \caption[Coherence Area using Gaussian Window]{A plane wave encoungers a surface. According to Huygens principle, secondary wavelets are emitted of from this surface. The resulting wave at a certain point in space (here indicated by a gray circle) depends on the inteference among all waves encountering at this position. The amount of significant interference is directly affected by the spatial coherence property of all the wavelets.}
   \label{fig:coherenceareagaussianwindow}  
 \end{figure}
 
+Figure $\ref{fig:coherenceareagaussianwindow}$ illustrates the concept of spatial coherence. A wavefront (blue line) encounters a surface. Due to Hugen's Principle, secondary wavelets are emitted off from the surface. The reflected radiance at a certain point in space, e.g. at a viewer's eye position (denoted by the gray circle), is a result of interference among all wavelets at that point. This interference is directly affected by the spatial coherence property of all the emitted wavelets. \\
+
+In physics spatial coherence is predicted by the cross correlation between $t_1$ and $t_2$ and usually modeled by by a Gaussian Random Process. For any such Gaussian Processes we can use a spatial gaussian window $g(x)$ which is equal:
+
+\begin{equation} 
+  g(x) = \frac{1}{\sqrt{2\pi}\cdot\sigma}\cdot e^{-\frac{x^2}{2\sigma^2}} 
+  \label{eq:gaussianwindowspacial}
+\end{equation} 
+
+We have chosen standard deviation $\sigma_s$ of the window such that it fulfills the equation $4 \sigma_s = 65\mu m$. This is equivalent like saying we want to predict about $99.99\%$$\footnote{Standard deviation values from confidence intervals table of normal distribution provided by Wolfram MatheWorld \texttt{http://mathworld.wolfram.com/StandardDeviation.html}.}$ of the resulting spatial coherence interference effects in our model by a cross correlation function. \\
+
+By applying the Fourier Transformation to the spatial window we get the corresponding window in frequency space will look like:
+\begin{equation} 
+  \hat g(f) = e^{-\frac{f^2}{2\sigma_f^2}}
+  \label{eq:gaussianwindowfrequencyspace}
+\end{equation} 
+
+Notice that this frequency space window has a standard deviation $\sigma_f$ equal to $\frac{1}{2 \pi \sigma_s}$. Those two windows, the spatial- and the frequency space window, will be used in the next section in order to approximate the DTFT by the DFT by a windowing apporach.
 
 \subsection{Reproduce DTFT by DFT}
 \label{sec:gaussianwindow}
