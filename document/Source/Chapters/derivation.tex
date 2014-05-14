@@ -1,5 +1,6 @@
 \chapter{Derivations}
-\label{sec:derivations}
+\label{chap:derivations}
+
 \section{Problem Statement and Challenges}
 The goal of this thesis is to perform a physically accurate and interactive simulation of structural colors production like shown in figure $\ref{fig:problemstatementoutput}$, which we can see whenever a light source is diffracted on a natural grating. For this purpose we need to be provided by the following input data as shown in figure $\ref{fig:problemstatement}$:
 \begin{itemize}
@@ -368,6 +369,7 @@ Y
 \end{align}
 
 \section{Spectral Rendering}
+\label{sec:spectralrendering}
 As the last step of our series of derivations, we plug all our findings together to one big equation in order to compute the color for each pixel on our mesh in the $CIE_{XYZ}$ colorspace. For any given heigh-field $h(x,y)$ representing a small patch of a nano structure of a surface and the direction vectors $w_i$ and $w_r$ from figure $\ref{fig:geometricsetup}$ the resulting color caused by the effect of diffraction can be computed like: Let 
 
 \begin{equation}

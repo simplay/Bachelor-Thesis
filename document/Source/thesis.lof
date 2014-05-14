@@ -4,15 +4,33 @@
 \contentsline {figure}{\numberline {1.2}{\ignorespaces Structural color examples}}{2}{figure.caption.3}
 \contentsline {figure}{\numberline {1.3}{\ignorespaces Xenopeltis AFM image}}{3}{figure.caption.4}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Blaze\relax }}{10}{figure.caption.5}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Renderer Architecture\relax }}{11}{figure.caption.6}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces A wireframe mesh represents an object as a set of faces and a set of vertices.\relax }}{12}{figure.caption.7}
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Camera coordinate system where its origin defines the center of projection of camera\relax }}{13}{figure.caption.8}
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Illustration of involved components in order to construct the camera matrix. We introduce some helper vectors $z_c = \frac {e-d}{||e-d||}$, $x_c = \frac {up \times z_c}{||up \times z_c||} $ and $z_c \times x_c$ for the actual construction of the camera matrix\relax }}{13}{figure.caption.9}
-\contentsline {figure}{\numberline {2.6}{\ignorespaces For a directional light source all light rays are in parallel.\relax }}{14}{figure.caption.10}
-\contentsline {figure}{\numberline {2.7}{\ignorespaces $(u,v)$ lookup image\relax }}{18}{figure.caption.15}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Problem Statement}}{7}{figure.caption.5}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Problem Statement: Output}}{8}{figure.caption.6}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces FT by DTFT}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Xenopeltis snake}}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Elaphe Guttata snake}}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Thin Film Interference soap bubble}}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Multilayer Interference on abdomen of beetle}}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Photonic crystals in Wings of butterfly}}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {Scattering of light on butterfly wing}}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(e)}{\ignorespaces {Artificial Diffraction Grating on CD}}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(f)}{\ignorespaces {Natural Diffraction Grating on snake skin}}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Structure Geometry}}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Nanostructure Surface}}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Patch Orientation}}}{9}{figure.caption.7}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Coherence Area using Gaussian Window}}{10}{figure.caption.8}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces DTFT by DFT}}{11}{figure.caption.9}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Comparission between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\mathaccentV {hat}65E{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.\relax }}{22}{figure.caption.10}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Blaze\relax }}{27}{figure.caption.11}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Renderer Architecture\relax }}{28}{figure.caption.12}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces A wireframe mesh represents an object as a set of faces and a set of vertices.\relax }}{29}{figure.caption.13}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Camera coordinate system where its origin defines the center of projection of camera\relax }}{30}{figure.caption.14}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Illustration of involved components in order to construct the camera matrix. We introduce some helper vectors $z_c = \frac {e-d}{||e-d||}$, $x_c = \frac {up \times z_c}{||up \times z_c||} $ and $z_c \times x_c$ for the actual construction of the camera matrix\relax }}{30}{figure.caption.15}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces For a directional light source all light rays are in parallel.\relax }}{31}{figure.caption.16}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces $(u,v)$ lookup image\relax }}{35}{figure.caption.21}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {D.1}{\ignorespaces Cube in world space $(x,y,z)$ showing the tangen space $(u,v,n)$ of its face $(2,1,3)$\relax }}{35}{figure.caption.18}
+\contentsline {figure}{\numberline {D.1}{\ignorespaces Cube in world space $(x,y,z)$ showing the tangen space $(u,v,n)$ of its face $(2,1,3)$\relax }}{52}{figure.caption.24}
