@@ -9,17 +9,18 @@
 
 
 
-In computer graphics, we generally synthesize 2d images from a given 3d scene description$\footnote{A usual computer graphics scene consist of a viewer's eye, modeled by a virtuel camera, light sources and geometries placed in the world, having some material properties assigned to.}$. This process is denoted as rendering. Basically, rendering involves a mapping of 3d sceene objects to a 2d image plane and the computation of each image pixel's color according to the provided lighting, viewing and material information of the given scene. These pixel colors are computed in several statges in so called shader programs, directly running on the Graphic Processing Unit (GPU) hardware device. In order to interact with a GPU, for our implementations, we rely on the programing interface of OpenGL$\footnote{Official website:\texttt{http://www.opengl.org/}}$, a cross-language, multiplattform API.
+In computer graphics, we generally synthesize 2d images from a given 3d scene description$\footnote{A usual computer graphics scene consist of a viewer's eye, modeled by a virtuel camera, light sources and geometries placed in the world, having some material properties assigned to.}$. This process is denoted as rendering. A usual computer graphics scene consist of a viewer's eye, modeled by a virtuel camera, light sources and geometries placed in the world$\footnote{With the term world we are refering to a global coordinate system which is used in order to place all objects.}$, having some material properties$\footnote{Example material properties are: textures, surface colors, reflectance coefficients, refractive indices and so on.}$ assigned to. In our implementation, scene geometries are modeled by triangular meshes for which each triangle is represented by a triple of vertices. Each vertex has a position, a surface normal and a tangent vector associated with. \\
 
+The process of rendering basically involves a mapping of 3d sceene objects to a 2d image plane and the computation of each image pixel's color according to the provided lighting, viewing and material information of the given scene. These pixel colors are computed in several statges in so called shader programs, directly running on the Graphic Processing Unit (GPU) hardware device. In order to interact with a GPU, for our implementations, we rely on the programing interface of OpenGL$\footnote{Official website:\texttt{http://www.opengl.org/}}$, a cross-language, multiplattform API. In OpenGL, there are two fundamental shading pipeline stages, the vertex- and the fragment shading stage, each applied sequentially.
 
+%% explain shader types purposes
 
-In OpenGL, there are two fundamental shading pipeline stages, the vertex- and the fragment shading stage, each applied sequentially.
-
+%% end safeguard
 
 In this chapter we explain in detail a technique for rendering structural colors due to diffraction effects on natural graings, based on the model we have derived in the previouse chapter $\ref{chap:derivations}$, summarized in section $\ref{sec:spectralrendering}$. For this purpose we implemented a reference framework which is based on a class project of the lecture \emph{Computer Graphics} held by Mr. M. Zwicker which I attended in autum 2012$\footnote{The code of underlying reference framework is written in Java and uses JOGL and GLSL$\footnotemark$ in order to comunicate with the GPU and can be found at \texttt{https://ilias.unibe.ch/}}$. 
 $\footnotetext{JOGL is a Java binding for OpenGL (official website \texttt{http://jogamp.org/jogl/www/}) and GLSL is OpenGL's high-level shading language. Further information can be found on wikipedia: \texttt{http://de.wikipedia.org/wiki/OpenGL\textunderscore Shading\textunderscore Language}}$
 
-Our implementation expects being provided by the following input data$\footnote{All data is provided by the Laboratory of Artificial and Natural Evolition in Geneva. See their website:\texttt{www.lanevol.org}}$:
+For performing the rendering process, our implementation expects being provided by the following input data$\footnote{All data is provided by the Laboratory of Artificial and Natural Evolition in Geneva. See their website:\texttt{www.lanevol.org}}$:
 \begin{itemize}
   \item the structure of snake skin of different species$\footnote{We are using height field data for Elaphe and Xenopeltis snakes individuals like shown in figure $\ref{fig:snakespecies}$}$ represented as discrete valued height fields acquired using AFM and stored as grayscale images.
   \item real measured snake geometry represented as a triangle mesh.
@@ -27,8 +28,17 @@ Our implementation expects being provided by the following input data$\footnote{
 
 More precicely, we have developed a renderer on a Java code basis
 
+Matlab takes heightfield and computes fourier terms
+java code reads these terms and performs rendering based on our model
 
 
+MERGE THIS SOMEWHERE APPROPRIATE
+%
+Notice that all the necessary computations in order to simulate the effect of diffraction are performed within a fragment shader. This implies that we are modeling pixelwise the effect of diffraction and hence the overall rendering quality and runtime complexity depends on rendering window's resolution.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% guard
+
+%% provide kind of overview of this chapter
 
 
 gratings afm images, snake skin
