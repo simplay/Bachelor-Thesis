@@ -416,7 +416,7 @@ The final rendered color for each pixel is a weighted average of different color
 \subsection{Color Transformation}
 \label{subsec:colortransformations}
 
-In our shader we access a table which contains precomputed CIE's color matching functions values from $\lambda_{min} = 380 nm$ to $\lambda_{max} = 780 nm$ in $5 nm$ steps. Such a function value table can be found at downloaded at cvrl.ioo.ucl.ac.uk for example. We compute the $(X,Y,Z)$ $CIE_{XYZ}$ color values as described in $\ref{subsec:colors}$. 
+In our shader we access a table which contains precomputed CIE's color matching functions values from $\lambda_{min} = 380 nm$ to $\lambda_{max} = 780 nm$ in $5 nm$ steps. Such a function value table can be found at downloaded at cvrl.ioo.ucl.ac.uk for example. We compute the $(X,Y,Z)$ $CIE_{XYZ}$ color values as described in section $\ref{sec:colorspace}$. 
 
 
 We can transform the color values into $CIE_{RGB}$ by performing the following linear transformation:
