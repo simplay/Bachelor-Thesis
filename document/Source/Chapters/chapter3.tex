@@ -26,25 +26,15 @@ For performing the rendering process, our implementation expects being provided 
   \item real measured snake geometry represented as a triangle mesh.
 \end{itemize}
 
-More precicely, we have developed a renderer on a Java code basis
+The first processing stage of our implementation is to compute the Fourier Terms of the provided height fields like described in section $\ref{sec:taylorapproximation}$. For this preprocessing purpose we use Matlab relying on its internal, numerically fast, libraries for computing Fourier Transformations$\footnote{Actually we use Matlab's inverse 2d Fast Fourier Transformation (FFT) implementation applied on different powers of quation $\ref{eq:px}$. Further information can be read up in section $\ref{sec:precompmatlabfourierimages}$}$. The next stage is to read these precomputed Fourier Terms into our Java renderer. This program also builds our manually defined rendering scene. The last processing stage of our implementation is rendering of the iridescent colorpatterns due to light diffracted on snake skins. We implemented our diffraction model from chapter $\ref{chap:derivations}$ as OpenGL shaders. Notice that all the necessary computations in order to simulate the effect of diffraction are performed within a fragment shader. This implies that we are modeling pixelwise the effect of diffraction and hence the overall rendering quality and runtime complexity depends on rendering window's resolution. \\
 
-Matlab takes heightfield and computes fourier terms
-java code reads these terms and performs rendering based on our model
+In the following sections of this chapter we are going to explain all render processing stages in detail. First, we discuss, how our precomputation process, using Matlab, actually works. Then, we introduce our Java Framework. It is followed by the main section of this chapter, the explanation how our OpenGL shaders are implemented. The last section discusses an optimization of our fragment shader such that it will have interactive runtime.
 
-
-MERGE THIS SOMEWHERE APPROPRIATE
-%
-Notice that all the necessary computations in order to simulate the effect of diffraction are performed within a fragment shader. This implies that we are modeling pixelwise the effect of diffraction and hence the overall rendering quality and runtime complexity depends on rendering window's resolution.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% guard
 
 %% provide kind of overview of this chapter
 
 
-gratings afm images, snake skin
-real measured snake geometry
-precomputations fourier terms in matlab
-there is implementation in java, based on framework
+
 
 
 
