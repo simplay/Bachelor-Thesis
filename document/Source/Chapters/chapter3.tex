@@ -1,3 +1,27 @@
+In computer graphics, we generally synthesize 2d images from a given 3d scene description. 
+// maybe add a footnote about what is a scnee and so on
+This process is denoted as rendering. Basically, rendering involves a mapping of 3d sceene objects to a 2d image plane and the computation of each image pixel's color according to the provided lighting, viewing and material information of the given scene. These pixel colors are computed in several statges in so called shader programs, directly running on the Graphic Processing Unit (GPU) hardware device. In order to interact with a GPU, for our implementations, we rely on the programing interface of OpenGL, a cross-language, multiplattform API.
+// reference to opengl homepage 
+In OpenGL, there are two fundamental shading pipeline stages, vertex- and fragment shadin, applied sequentially.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \chapter{Implementation}
 In computergraphics, we generally synthesize 2d images from a given scene containing our 3d geometries by using so called shader programs. This process is denoted as rendering. The purpose of shader programs, which are executed directly on a GPU hardware device, is to compute the colorization and illumination of the objects present in our scene. All these computations happen in several stages and depend on the provided scene-input parameters like the camera, light sources, objects material constants and the desired rendering effect one is interested in to model. The shader stages are implemented sequentially as small little programs, the so called vertex-, geometry- and fragment-shaders. Those stages are applied within the rendering pipeline sequentially. \\
 
