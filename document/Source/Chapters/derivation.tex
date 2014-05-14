@@ -1,7 +1,8 @@
 \chapter{Derivations}
+\label{chap:derivations}
 
 \section{Problem Statement and Challenges}
-The goal of this thesis is to perform a physically accurate and interactive simulation of structural colors production like shown in figure $\ref{fig:problemstatementoutput}$, which we can see whenever a light source is diffracted on a natural grating. For this purpose we need the to be provided by the following input data as shown in figure $\ref{fig:problemstatement}$:
+The goal of this thesis is to perform a physically accurate and interactive simulation of structural colors production like shown in figure $\ref{fig:problemstatementoutput}$, which we can see whenever a light source is diffracted on a natural grating. For this purpose we need to be provided by the following input data as shown in figure $\ref{fig:problemstatement}$:
 \begin{itemize}
   \item A mesh representing a snake surface$\footnote{Which is in our simulation an actual reconstruction of a real snake skin. These measurements are provided by the Laboratory of Artificial and Natural Evolition at Geneva.See their website:\texttt{www.lanevol.org}.}$ with associated texture coordinates as shown in figure $\ref{fig:strucgeom}$.
   \item A natural diffraction grating represented as a height field, its maximum height and its pixel-width-correspondence$\footnote{Since the nanostructure is stored as a grayscale image, we need a scale telling us what length and height one pixel cooresponds to in this provided image.}$.
@@ -368,6 +369,7 @@ Y
 \end{align}
 
 \section{Spectral Rendering}
+\label{sec:spectralrendering}
 As the last step of our series of derivations, we plug all our findings together to one big equation in order to compute the color for each pixel on our mesh in the $CIE_{XYZ}$ colorspace. For any given heigh-field $h(x,y)$ representing a small patch of a nano structure of a surface and the direction vectors $w_i$ and $w_r$ from figure $\ref{fig:geometricsetup}$ the resulting color caused by the effect of diffraction can be computed like: Let 
 
 \begin{equation}
@@ -470,7 +472,7 @@ q := (p_1 p_2 + q_1 q_2)
 \label{eq:pqsubst2}
 \end{align}
 
-For the identity of equation $\ref{eq:pqmainfinding}$ we made use of Green's integration rule which allowed us to split the double integral to the product of two single integrations. Also, we used the definition of the 2-dimensional inverse Fourier transform of the height field function. We applied a similar substitution like we did in $\ref{eq:substitude1dpq}$, but this time twice, once for $x_1$ and once for $x_2$ separately. The last step in equation $\ref{eq:pqmainfinding}$, substituting with $p$ and $q$ in equation $\ref{eq:pqsubst2d}$ will be useful later in the implementation. The insight should be, that the product of two complex numbers is again a complex number. We will have to compute the absolute value of $\mathcal{F}\{S\}(w_1,w_2)$ which will then be equal $(p^2 + q^2)^{\frac{1}{2}}\left|\mathcal{F}\{h\}(w_1,w_2)\right|$
+For the identity of equation $\ref{eq:pqmainfinding}$ we made use of Green's integration rule which allowed us to split the double integral to the product of two single integrations. Also, we used the definition of the 2-dimensional inverse Fourier transform of the height field function. We applied a similar substitution like we did in $\ref{eq:substitude1dpq}$, but this time twice, once for $x_1$ and once for $x_2$ separately. The last step in equation $\ref{eq:pqmainfinding}$, substituting with $p$ and $q$ in equation $\ref{eq:pqsubst2dappendix}$ will be useful later in the implementation. The insight should be, that the product of two complex numbers is again a complex number. We will have to compute the absolute value of $\mathcal{F}\{S\}(w_1,w_2)$ which will then be equal $(p^2 + q^2)^{\frac{1}{2}}\left|\mathcal{F}\{h\}(w_1,w_2)\right|$
 
 
 \subsection{Interpolation}
