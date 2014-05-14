@@ -1,6 +1,6 @@
 \select@language {english}
 \contentsline {chapter}{\numberline {1}Implementation}{1}{chapter.1}
-\contentsline {section}{\numberline {1.1}Precomputations in Matlab}{3}{section.1.1}
+\contentsline {section}{\numberline {1.1}Precomputations in Matlab}{2}{section.1.1}
 \contentsline {section}{\numberline {1.2}Java Renderer}{5}{section.1.2}
 \contentsline {section}{\numberline {1.3}GLSL Diffraction Shader}{7}{section.1.3}
 \contentsline {subsection}{\numberline {1.3.1}Vertex Shader}{7}{subsection.1.3.1}
