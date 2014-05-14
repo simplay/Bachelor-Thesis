@@ -1,0 +1,152 @@
+\documentclass[a4paper]{report}
+\usepackage{natbib}
+\bibpunct{[}{]}{,}{a}{}{;}
+\usepackage{fancyheadings}
+\usepackage{iamdip}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{pdfpages}
+\usepackage{lingmacros}
+\usepackage{tree-dvips}
+\usepackage{mathpazo}
+\usepackage[english]{babel}
+\usepackage{fontspec}
+\usepackage{algpseudocode}
+\usepackage[chapter]{algorithm}
+\usepackage{mathrsfs}
+\usepackage{dsfont}
+\usepackage{graphicx}
+\usepackage{wasysym}
+\usepackage[hypcap]{caption}
+\usepackage{subfigure}
+\usepackage{float}
+\usepackage{mathtools}
+
+
+\algnewcommand\algorithmicinput{\textbf{INPUT:}}
+\algnewcommand\INPUT{\item[\algorithmicinput]}
+
+\algnewcommand\algorithmicoutput{\textbf{OUTPUT:}}
+\algnewcommand\MOUTPUT{\item[\algorithmicoutput]}
+
+
+
+\renewcommand{\algorithmicforall}{\textbf{Foreach}}
+\newcommand{\init}{\textbf{INIT }}
+\newcommand{\pluseq}{\mathrel{+}=}
+\newcommand{\asteq}{\mathrel{*}=}
+\newcommand{\myto}{\textbf{TO }}
+\newcommand*\colvec[3][]{
+    \begin{pmatrix}\ifx\relax#1\relax\else#1\\\fi#2\\#3\end{pmatrix}
+}
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\headrulewidth 0.5pt \addtolength{\headheight}{5pt}
+
+\lhead[\fancyplain{}{\rm\thepage}]{\fancyplain{}{\rightmark}}
+\rhead[\fancyplain{}{\leftmark}]{\fancyplain{}{\rm\thepage}}
+\cfoot{}
+
+\graphicspath{{../Figures/}}
+
+\begin{document}
+
+\pagestyle{fancyplain} \thispagestyle{empty}
+
+\title{An Interactive Shader for Natural Diffraction Gratings}
+\author{Michael Single}
+\betreuer{Prof. Dr. Matthias Zwicker}
+\ort{Bern}
+\datum{2014}
+
+\pagenumbering{roman} \setcounter{page}{1}
+\maketitle
+
+\newpage
+\thispagestyle{empty}
+\vspace{8cm}
+\noindent
+{\centerline {\bf \large Abstract}}
+\vspace{1cm}
+
+
+\noindent
+%abstract
+<<<<<<< HEAD
+In nature color production is the result of physical interaction of light with a surface's nanostructure. In his pioneering work, Stam developed reflection models based on wave optics capturing the effect of diffraction on very regular surface structures. We propose an adaption of his BRDF model such that it can handle complex natural gratings. On top of this, we describe a technique for interactively rendering diffraction effects, as a result of physical interaction of light with biological nanostructures such as snake skins. As input data, our method uses discrete height fields of natural gratings acquired by using atomic force microscopy (AFM). Based on Taylor Series Approximation we leverages precomputation to achieve interactive rendering performance (about 5-15 fps). We demonstrate results of our approach using surface nanostructures of different snake species applied on a measured snake geometry. Lastly, we evaluate the qualtiy of our method by a comparision of the maxima for peak viewing angles using the data produced by our method against the maxima resulting by the grating equation.
+=======
+In nature there is color production which is the result of physical interaction of light with a surface's nanostructure. 
+Propose an adaption of J.Stam's work of BRDF reflection models based on wave optics capturing the effect of diffraction for very regular surface structures such that it can handle complex natural gratings. Based on this, we describe a technique for interactive rendering of diffraction effects produced by physical interaction of light with biological nanostructures such as snake skins. As input data, our method uses discrete height fields of natural gratings acquired by using atomic force microscopy (AFM). Based on Taylor Series Approximation we leverages precomputation to achieve interactive performance (about 5-15 fps). We demonstrate results of our approach using various shapes of the surface grating nanostructures. Finally, we evaluate the accuracy of our precomputation-based technique by comparison to measured reflectance data and a reference BRDF construction technique.
+>>>>>>> 4c083f8cfbea49e28eaebe7764cf622d4386ae70
+
+\pagenumbering{roman} \setcounter{page}{1}
+\tableofcontents
+
+\newpage{\pagestyle{empty} \cleardoublepage}
+
+% Hauptdokument
+\pagenumbering{arabic} \setcounter{page}{1}
+\pagestyle{fancy}
+
+\include{Chapters/chapter1}
+\newpage{\pagestyle{empty} \cleardoublepage}
+% 
+% \include{Chapters/theoretical_background}
+% \newpage{\pagestyle{empty} \cleardoublepage}
+% % 
+% \include{Chapters/derivation}
+% \newpage{\pagestyle{empty} \cleardoublepage}
+% 
+\include{Chapters/chapter3}
+\newpage{\pagestyle{empty} \cleardoublepage}
+% 
+% \include{Chapters/chapter4}
+% \newpage{\pagestyle{empty} \cleardoublepage}
+% 
+% \include{Chapters/chapter5}
+% \newpage{\pagestyle{empty} \cleardoublepage}
+% 
+% \include{Chapters/chapter6}
+% \newpage{\pagestyle{empty} \cleardoublepage}
+
+\begin{appendix}
+\include{Chapters/appendix_signalprocessing}
+\newpage{\pagestyle{empty} \cleardoublepage}
+
+\include{Chapters/appendix_stam}
+\newpage{\pagestyle{empty} \cleardoublepage}
+
+\include{Chapters/appendix_derivation}
+\newpage{\pagestyle{empty} \cleardoublepage}
+
+\include{Chapters/appendix}
+\newpage{\pagestyle{empty} \cleardoublepage}
+\end{appendix}
+
+\addcontentsline{toc}{chapter}{\numberline{}List of Tables}
+\listoftables
+
+\addcontentsline{toc}{chapter}{\numberline{}List of Figures}
+\listoffigures
+
+\addcontentsline{toc}{chapter}{\numberline{}List of Algorithms}
+\listofalgorithms
+
+\addcontentsline{toc}{chapter}{\numberline{}Bibliography}
+\bibliographystyle{alphadin}
+\nocite{*}
+\bibliography{thesis}
+
+
+% This is required since 2012!!
+\includepdf{Erklaerung.pdf}
+
+\end{document}
