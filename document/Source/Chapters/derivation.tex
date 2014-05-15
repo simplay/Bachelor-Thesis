@@ -312,20 +312,22 @@ Our final goal is to render stractural colors resulting by the effect of wave di
 In this section, we will address this issue and deliver an approximation for $P_{dtft}$ defined in equation $\ref{eq:dtftheightfield}$.
 This approximation will allow us to seperate $P_{dtft}$ in a certain way such that some computional expsensive terms can be precomputed. The main idea is to formulate $P_{dtft}$ as a series expansion relying on the definition of Taylor Series, like defined in equation $\ref{eq:deftaylor}$. Further, we will provide an error bound for our approximation approach for a given number of terms. Last, we will plug our finding extend our current BRDF formula from equation $\ref{eq:structuralcolorsslow}$ by the findings derived within this section. \\
 
-Given $p(x,y)=e^{ikwh(x,y)}$ form Stam's Paper $\ref{sec:sumstam}$ where $h(x,y)$ is a given height field. Let $t$ be complex number, and let us consider the power series expansion of the exponential function:
+Let us consider $p(x,y)=e^{ikwh(x,y)}$ form Stam's Paper $\ref{sec:sumstam}$ where $h(x,y)$ is a given height field. For any complex number $t$ the power series expansion of the exponential function is equal to:
  
 \begin{equation}
   e^{t}=1+t+\frac{t^{2}}{2!}+\frac{t^{3}}{3!}+...=\sum_{n=0}^{\infty}\frac{t^{n}}{n!}
+  \label{eq:expseriesexpansion}
 \end{equation}
 
-Further, let us define 
+Now, let us define $t$ as a complex valued function, like the the following: 
 \begin{align}
 t 
-= t(x,y) 
+\equiv t(x,y) 
 = ikwh(x,y)
+\label{eq:tfunction}
 \end{align}
- 
-where $i$ is the imaginary unit. For simplification, let us denote $h(x,y)$ as $h$. Then it follows by our previous stated identities: 
+
+where $i$ is the imaginary unit for complex numbers. For simplification, in the reminder of this section we omitted the arguments of $h$. Now, when we use this complex function from equation $\ref{eq:tfunction}$ as an input argument for equation $\ref{eq:expseriesexpansion}$ we get:
 
 \begin{align}
  e^{t}
