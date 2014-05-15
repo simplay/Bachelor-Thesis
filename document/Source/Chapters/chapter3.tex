@@ -71,7 +71,7 @@ end
 \label{alg:matlabprecomp}
 \end{algorithm}
 
-The command fftshift rearranges the output of the ifft2 by moving the zero frequency component to the centre of the image. This simplifies the computation of DFT terms lookup coordinates during rendering.
+They key idea of algorithm $\ref{alg:matlabprecomp}$ is to compute iteratively the Fourier Transformation for different powers of the provided height field. These DFT values are scaled by according to their extrema values. Another note about the command fftshift: It rearranges the output of the ifft2 by moving the zero frequency component to the centre of the image. This simplifies the computation of DFT terms lookup coordinates during rendering.
 
 \label{sec:precompmatlabfft}
 \begin{figure}[H]
