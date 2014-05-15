@@ -18,13 +18,16 @@ In the following sections of this chapter we are going to explain all render pro
 
 \section{Precomputations in Matlab}
 \label{sec:precompmatlabfourierimages}
-Our first task is to precompute the two dimensional discrete Fourier Fransformations$\ref{eq:dftnterm}$ for a given height field, representing a natural grating. For that purpose we have written a small Matlab $\footnote{Matlab is a interpreted scripting language which offers a huge collection of mathematical and numerically fast and stable algorithms.}$ script conceptialized algorithmically in $\ref{alg:matlabprecomp}$. Our Matlab script reads a given image, which is representing a nano-scaled height field, and computes its two dimensional DFT (2dDFT) by using Matlab's internal Fast Fourier Transformation (FFT) function, denoted by $ifft2$$\footnote{Remember, even we are talking about fourier transformations, in our actual computation, we have to compute the inverse fourier transformation. See paragraph $\ref{sec:electricalengeneeringftconvention}$ for further information. Furthermore our height fields are two dimensional and thus we have to compute a 2d inverse fourier transformation.}$. Note that we only require one color channel of the input image, since the input image is representing an height field, encoded by just one color. Keep in mind that taking the Fourier transformation of an arbitrary function will result in a complex valued output which implies that we will get a complex value for frequency pairs of our input image. Therefore, for each input image we get as many output images, representing the 2dDFT, as the minimal number of taylor terms required for a well-enough approximation. In order to store our output images, we have to use two color channels instead of just one like it was for the given input image. Some example visualizations for the Fourier Tranformation are shown in figure $\ref{fig:matlabBlazeFourierImages}$. We store these intermediate results as binary files to offer floating point precision for the run-time computations to ensure higher precision. 
+Our first task is to precompute the two dimensional discrete Fourier Fransformations$\ref{eq:dftnterm}$ for a given height field, representing a natural grating. For that purpose we have written a small Matlab $\footnote{Matlab is a interpreted scripting language which offers a huge collection of mathematical and numerically fast and stable algorithms.}$ script conceptialized algorithmically in $\ref{alg:matlabprecomp}$. Our Matlab script reads a given image, which is representing a nano-scaled height field, and computes its two dimensional DFT (2dDFT) by using Matlab's internal Fast Fourier Transformation (FFT) function, denoted by $ifft2$$\footnote{Remember, even we are talking about fourier transformations, in our actual computation, we have to compute the inverse fourier transformation. See paragraph $\ref{sec:electricalengeneeringftconvention}$ for further information. Furthermore our height fields are two dimensional and thus we have to compute a 2d inverse fourier transformation.}$. Note that we only require one color channel of the input image, since the input image is representing an height field, encoded by just one color. Keep in mind that taking the Fourier transformation of an arbitrary function will result in a complex valued output which implies that we will get a complex value for frequency pairs of our input image. Therefore, for each input image we get as many output images, representing the 2dDFT, as the minimal number of taylor terms required for a well-enough approximation. In order to store our output images, we have to use two color channels instead of just one like it was for the given input image. Some example visualizations for the Fourier Tranformation are shown in figure $\ref{fig:matlabBlazeFourierImages}$. We store these intermediate results as binary files to offer floating point precision for the run-time computations to ensure higher precision. \\
 
+In our script every discrete frequency is normalized by its corresponding DFT extrema$\footnote{We are talking about the i2dFFT of our height fields to the power of n. This is an N by N matrix (assuming the discrete height field was an N by N image), for which each component is a complex number. Hence, there is a a complex extrema as well as a imaginary extrema.}$ in the range $\left[0,1\right]$ and the range extrema are stored seperately for each DFT term. The normalization is computed the following way: 
 
-
-
-
-In our script every discrete frequency is normalized by its corresponding Fourier image extrema values such that is it lays in the range $\left[0,1\right]$. Therefore, we have to remember store four scaling factors for each output image as well. Those are the real and imaginary minimum and maximum values. Later, using linear interpolation within the shader, we will get back the rescaled image's original pixel values. 
+\begin{align}
+  f:\left[x_{min},x_{max}\right]\to \left[0,1\right] \nonumber\\
+  x \mapsto f(x) = \frac{x-x_{min}}{x_{max}-x_{min}}
+\label{eq:dfttermnormalization}
+\end{align}
+Where $x_{min}$ and $x_{max}$ denote the extreme values of a DFT term. Later, during the shading process of our implementation, we have to apply the inverse mapping. This is non-linear interpolation which is required in order to rescaled all frequency values in the DFT terms. 
 
 \begin{algorithm}[H]
 \caption{Precomputation: Pseudo code to generate Fourier terms}
@@ -68,7 +71,7 @@ end
 \label{alg:matlabprecomp}
 \end{algorithm}
 
-The command fftshift rearranges the output of the ifft2 by moving the zero frequency component to the centre of the image. This simplifies the computation of lookup coordinates during rendering.
+The command fftshift rearranges the output of the ifft2 by moving the zero frequency component to the centre of the image. This simplifies the computation of DFT terms lookup coordinates during rendering.
 
 \label{sec:precompmatlabfft}
 \begin{figure}[H]
