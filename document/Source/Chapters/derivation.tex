@@ -345,8 +345,6 @@ and thus gives us a series representation of $p(x,y)$. Next, calculating the Fou
   \label{eq:ftlinopid}
 \end{align}
 
-
-
 Where we have exploited the fact that the Fourier Transformation is a linear operator. Therefore, in equation $\ref{eq:ftlinopid}$, we have shown that the Fourier Transformation of a series is equal to the sum of the Fourier Transformation, applied on each individual series term. Reusing the identifier $P$$\footnote{This identifier P may be subscripted by \emph{dtft} which will denote the DTFT variant of P.}$ in order to determin the Fourier Transformation of Stams definition $p$ from equation $\ref{eq:px}$, equation $\ref{eq:ftlinopid}$ then correspond to:
 
 \begin{equation}
@@ -377,6 +375,8 @@ Y
 & = C(w_i,w_r) \int_{\lambda} \left| \sum_{n=0}^N \frac{(wk)^n}{n!} \mathcal{F}\{i^n h^n\}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2 S_y(\lambda)d\lambda
 \label{eq:xcolexpression}
 \end{align}
+
+Notice that equation $\ref{eq:xcolexpression}$ is contrainted by $N$ and hence is an approximation of equation $\ref{eq:structuralcolorsslow}$. Furthermore, it is possible to seperate out all the Fourier Terms in the summation and precompute them. This is why the approach in equation $\ref{eq:xcolexpression}$ is fast in order to compute structural color values according to our BRDF model.
 
 \section{Spectral Rendering}
 \label{sec:spectralrendering}
