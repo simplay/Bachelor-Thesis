@@ -41,7 +41,7 @@ We want to rely on the integral equation $\ref{eq:mainstam}$ derived by J. Stam 
 
 \section{Approximate a FT by a DFT}
 \subsection{Reproduce FT by DTFT}
-In the previous section, we have found an identity for the reflected spectral radiance $L_{\lambda}(\omega_r)$ when using Stam's BRDF for a given input height field. However, the derived expression in equation $\ref{eq:nonrelativebrdffinding}$ requires to evaluate the Fourier Transform of our height field$\footnote{actually it requires the computation of the inverse Fourier Transform of a transformed version of the given heightfield, the function p(x,y) defined in equation \ref{eq:px}.}$ for every direction. In this section we explain how to approximate the FT by the DTFT and apply it to our previous derivations. Figure $\ref{fig:ftbydtft}$ graphically shows how to obtain the DTFT from the FT for a one dimensional signal$\footnote{For our case we are dealing with a two dimensional, spatial signal, the given height field. Nevertheless, without any constraints of generality, the explained approach applies to multi dimensional problems.}$ \\ \\
+In the previous section, we have found an identity for the reflected spectral radiance $L_{\lambda}(\omega_r)$ when using Stam's BRDF for a given input height field. However, the derived expression in equation $\ref{eq:nonrelativebrdffinding}$ requires to evaluate the Fourier Transform of our height field$\footnote{actually it requires the computation of the inverse Fourier Transform of a transformed version of the given heightfield, the function p(x,y) defined in equation \ref{eq:px}.}$ for every direction. In this section we explain how to approximate the FT by the DTFT and apply it to our previous derivations. Figure $\ref{fig:ftbydtft}$ graphically shows how to obtain the DTFT from the FT for a one dimensional signal$\footnote{For our case we are dealing with a two dimensional, spatial signal, the given height field. Nevertheless, without any constraints of generality, the explained approach applies to multi dimensional problems.}$ \\
 
 \begin{figure}[ht]
   \centering
@@ -50,7 +50,6 @@ In the previous section, we have found an identity for the reflected spectral ra
   \label{fig:ftbydtft}  
 \end{figure}
 \footnotetext{Images of function plots taken from \texttt{http://en.wikipedia.org/wiki/Discrete\textunderscore Fourier\textunderscore transform} and are modified.} 
-
 The first step is to uniformly discretize the given signal since computers are working finite, discrete arithmetic. We rely on the Nyquist–Shannon sampling theorem tells us how dense we have to sample a given signal $s(x)$ such that can be reconstructed its sampled version $\hat{s}[n]$$\footnote{n denotes the number of samples.}$. In particular, a sampled version according to the Nyquist–Shannon sampling theorem will have the same Fourier Transform as its origianl singal. The sampling theorem states that if $f_{max}$ denotes the highest frequency of $s(x)$, then, it has to be sampled by a rate of $f_s$ with $2f_{max} \leq f_s$ in order to be reconstructable. By convention $T = \frac{1}{f_s}$ represent the interval length between two samples. \\ \\
 
 Next, we apply the Fourier Tranformation operator on the discretized singal $\hat{s}$ which gives us the following expression: 
@@ -63,7 +62,16 @@ Next, we apply the Fourier Tranformation operator on the discretized singal $\ha
 & = T\mathcal{F}_{DTFT}\{s\}(w)
 \label{eq:sampledsignalfttodtft}
 \end{align} 
-Equation $\ref{eq:sampledsignalfttodtft}$ tells us that if $\hat{s}$ is sufficiently sampled, then its DTFT corresponds to the FT of $s(x)$ . Notice that the resulting DTFT from the sampled signal has a height of $\frac{A}{T}$ where A is the height of the FT of $s$ and thus is a scaled version of the FT.
+Equation $\ref{eq:sampledsignalfttodtft}$ tells us that if $\hat{s}$ is sufficiently sampled, then its DTFT corresponds to the FT of $s(x)$ . Notice that the resulting DTFT from the sampled signal has a height of $\frac{A}{T}$ where A is the height of the FT of $s$ and thus is a scaled version of the FT. \\
+
+For a given height field $h$, let us compute Stam's auxiliary function $p$ defined as in equation $\ref{eq:px}$. For the reminder of this thesis we introduce the following definition: 
+
+\begin{equation}
+  P_{dtft} \equiv \mathcal{F}_{DTFT}\{p\}
+\label{eq:dtftheightfield}
+\end{equation} 
+
+Therefore $P_{dtft}$ denotes the DTFT of a transformed version of our height field $h$$\footnote{By transformed height field we mean $p(x,y) = e^{i\frac{2 \pi}{\lambda} w h(x,y)} which we get, when pluggin $h$ into equation \ref{eq:heightfieldphase} and this expression again plug into equation \ref{eq:px}.$}$. 
 
 \subsection{Spatial Coherence and Windowing}
 \label{sec:spatialcoherenceandwindowing}
@@ -299,9 +307,10 @@ Where we used the definition $S_y(\lambda)\overline{y}(\lambda)$ in the last ste
 
 \section{Optimization using Taylor Series}
 \label{sec:taylorapproximation}
-Our final goal is to render stractural colors resulting by the effect of wave diffraction. So far, we have derived an expression which can be used for rendering. Neverthesless, our current equation $\ref{eq:structuralcolorsslow}$ used for computing structural colors, cannot be used for interactive rendering, since $P_{dtft}$ had do be recomputed for every change in any direction$\footnote{viewing or incident light direction}$. \\
+Our final goal is to render stractural colors resulting by the effect of wave diffraction. So far, we have derived an expression which can be used for rendering. Neverthesless, our current equation $\ref{eq:structuralcolorsslow}$ used for computing structural colors, cannot directly be used for interactive rendering, since $P_{dtft}$ had do be recomputed for every change in any direction$\footnote{viewing or incident light direction}$. \\
 
-In this section, we will address this issue and deliver an approximation for the Fourier Transformation of Stam's auxiliary function $p(x,y)$. This will allow us to seperate $P_{dtft}$ in a way such that some computional expsensive terms can be precomputed. This derivation will rely on the definition of Taylor Series expansion like shown in equation $\ref{eq:deftaylor}$. Further, we will provide an error bound for our approximation approach for a given number of terms. Last, we will extend our current BRDF formula by the findings derived within this section. \\
+In this section, we will address this issue and deliver an approximation for $P_{dtft}$ defined in equation $\ref{eq:dtftheightfield}$.
+This approximation will allow us to seperate $P_{dtft}$ in a certain way such that some computional expsensive terms can be precomputed. The main idea is to formulate $P_{dtft}$ as a series expansion relying on the definition of Taylor Series, like defined in equation $\ref{eq:deftaylor}$. Further, we will provide an error bound for our approximation approach for a given number of terms. Last, we will extend our current BRDF formula by the findings derived within this section. \\
 
 Given $p(x,y)=e^{ikwh(x,y)}$ form Stam's Paper $\ref{sec:sumstam}$ where $h(x,y)$ is a given height field. Let $t$ be complex number, and let us consider the power series expansion of the exponential function:
  
