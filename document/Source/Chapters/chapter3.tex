@@ -1,70 +1,33 @@
 \chapter{Implementation}
+In computer graphics, we generally synthesize 2d images from a given 3d scene description$\footnote{A usual computer graphics scene consist of a viewer's eye, modeled by a virtuel camera, light sources and geometries placed in the world, having some material properties assigned to.}$. This process is denoted as rendering. A usual computer graphics scene consist of a viewer's eye, modeled by a virtuel camera, light sources and geometries placed in the world$\footnote{With the term world we are refering to a global coordinate system which is used in order to place all objects.}$, having some material properties$\footnote{Example material properties are: textures, surface colors, reflectance coefficients, refractive indices and so on.}$ assigned to. In our implementation, scene geometries are modeled by triangular meshes for which each triangle is represented by a triple of vertices. Each vertex has a position, a surface normal and a tangent vector associated with. \\
 
+The process of rendering basically involves a mapping of 3d sceene objects to a 2d image plane and the computation of each image pixel's color according to the provided lighting, viewing and material information of the given scene. These pixel colors are computed in several statges in so called shader programs, directly running on the Graphic Processing Unit (GPU) hardware device. In order to interact with a GPU, for our implementations, we rely on the programing interface of OpenGL$\footnote{Official website:\texttt{http://www.opengl.org/}}$, a cross-language, multiplattform API. In OpenGL, there are two fundamental shading pipeline stages, the vertex- and the fragment shading stage, each applied sequentially. Vertex shaders apply all transformations to the mesh vertices and pass this data to the fragment shaders. Fragment shaders receive linearly interpolated vertex data of a particular triangle. They are responsible to compute the color of his triangle. \\
 
-
-
-
-
-
-
-
-
-In computer graphics, we generally synthesize 2d images from a given 3d scene description. 
-% maybe add a footnote about what is a scnee and so on
-This process is denoted as rendering. Basically, rendering involves a mapping of 3d sceene objects to a 2d image plane and the computation of each image pixel's color according to the provided lighting, viewing and material information of the given scene. These pixel colors are computed in several statges in so called shader programs, directly running on the Graphic Processing Unit (GPU) hardware device. In order to interact with a GPU, for our implementations, we rely on the programing interface of OpenGL$\footnote{Official website:\texttt{http://www.opengl.org/}}$, a cross-language, multiplattform API.
-
-
-
-In OpenGL, there are two fundamental shading pipeline stages, the vertex- and the fragment shading stage, each applied sequentially.
-
-
-In this chapter we explain in detail a technique for rendering structural colors due to diffraction effects on natural graings, based on the model we have derived in the previouse chapter $\ref{chap:derivations}$, summarized in section $\ref{sec:spectralrendering}$. For this purpose we implemented a reference framework which is based on a class project of the lecture \emph{Computer Graphics} held by Mr. M. Zwicker which I attended in autum 2012$\footnote{The code of underlying reference framework is written in Java and uses JOGL and GLSL$\footnotemark$ in order to comunicate with the GPU and can be found at \texttt{https://ilias.unibe.ch/}}$. 
+In this chapter we explain in detail a technique for rendering structural colors due to diffraction effects on natural graings, based on the model we have derived in the previouse chapter $\ref{chap:derivations}$, summarized in section $\ref{sec:spectralrendering}$. For this purpose we implemented a reference framework which is based on a class project of the lecture \emph{Computer Graphics} held by Mr. M. Zwicker which I attended in autum 2012$\footnote{The code of underlying reference framework is written in Java and uses JOGL and GLSL$\footnotemark$ in order to comunicate with the GPU and can be found at \texttt{https://ilias.unibe.ch/}}$. \\
 $\footnotetext{JOGL is a Java binding for OpenGL (official website \texttt{http://jogamp.org/jogl/www/}) and GLSL is OpenGL's high-level shading language. Further information can be found on wikipedia: \texttt{http://de.wikipedia.org/wiki/OpenGL\textunderscore Shading\textunderscore Language}}$
 
-Our implementation expects being provided by the following input data$\footnote{All data is provided by the Laboratory of Artificial and Natural Evolition in Geneva. See their website:\texttt{www.lanevol.org}}$:
+For performing the rendering process, our implementation expects being provided by the following input data$\footnote{All data is provided by the Laboratory of Artificial and Natural Evolition in Geneva. See their website:\texttt{www.lanevol.org}}$:
 \begin{itemize}
   \item the structure of snake skin of different species$\footnote{We are using height field data for Elaphe and Xenopeltis snakes individuals like shown in figure $\ref{fig:snakespecies}$}$ represented as discrete valued height fields acquired using AFM and stored as grayscale images.
   \item real measured snake geometry represented as a triangle mesh.
 \end{itemize}
 
+The first processing stage of our implementation is to compute the Fourier Terms of the provided height fields like described in section $\ref{sec:taylorapproximation}$. For this preprocessing purpose we use Matlab relying on its internal, numerically fast, libraries for computing Fourier Transformations$\footnote{Actually we use Matlab's inverse 2d Fast Fourier Transformation (FFT) implementation applied on different powers of quation $\ref{eq:px}$. Further information can be read up in section $\ref{sec:precompmatlabfourierimages}$}$. The next stage is to read these precomputed Fourier Terms into our Java renderer. This program also builds our manually defined rendering scene. The last processing stage of our implementation is rendering of the iridescent colorpatterns due to light diffracted on snake skins. We implemented our diffraction model from chapter $\ref{chap:derivations}$ as OpenGL shaders. Notice that all the necessary computations in order to simulate the effect of diffraction are performed within a fragment shader. This implies that we are modeling pixelwise the effect of diffraction and hence the overall rendering quality and runtime complexity depends on rendering window's resolution. \\
 
-
-
-
-gratings afm images, snake skin
-real measured snake geometry
-precomputations fourier terms in matlab
-there is implementation in java, based on framework
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-In computergraphics, we generally synthesize 2d images from a given scene containing our 3d geometries by using so called shader programs. This process is denoted as rendering. The purpose of shader programs, which are executed directly on a GPU hardware device, is to compute the colorization and illumination of the objects present in our scene. All these computations happen in several stages and depend on the provided scene-input parameters like the camera, light sources, objects material constants and the desired rendering effect one is interested in to model. The shader stages are implemented sequentially as small little programs, the so called vertex-, geometry- and fragment-shaders. Those stages are applied within the rendering pipeline sequentially. \\
-
-Our shaders which we use are written in a high-level language called GLSL, the OpengGL Shading Language. The decision for using OpenGL has been made since my underlying framework, which is responsible for the precomputation of all scene date, is based on another framework, written in Java using JOGL in oder to communicate with the GPU and is also responsible to precompute all the relevant scene data. This framework, the so called jrtr framework, has been developed as an exercise during the class computer graphics held by M. Zwicker which I attended in autumn 2012. The framework itself has been used and extended during this thesis quite a lot. The DFT terms of the height field, required for rendering process in our framework is precomputed in Matlab. This is basically addressing all the required precomputations for the provided heigh-fields, referring to computation of the two dimensional Fourier Transformations which are further explained within this chapter. The Matlab scripts themself rely on the provided snake nano-scaled sheds images, taken by AFM. \\
-
-It's noteworthy that all the vertices and their associated data are processed within the vertex-shader, whereas the fragement shader's responsibility is to perform pixelwise rendering, using the input from the vertex shader. Just remember, fragements are determined by a triple of vertices. hence each pixel has assigned a trilinear interpolated value of all input parameters of its spanning vertices. Usually, all necessary transformations are applied vertex-wise, considering the vertex-shader as the preprocessing stage for the later rendering within the rendering pipeline, in the fragment-shader. In the geometry shader, new vertices around a considered vertex can be created. this is useful for debugging - displaying normals graphically for example. \\
-
-In this part of thesis we are going to explain how we render our BRDF formulation derived in the last section in practice. All the necessary computations in order to simulate the effect of diffraction are performed within a fragment shader. This implies that we are modeling pixelwise the effect of diffraction and hence the overall rendering quality and runtime complexity depends on rendering window's resolution. \\
-
-By the end of this chapter we will have seen how our render works and what we have to precompute. 
+In the following sections of this chapter we are going to explain all render processing stages in detail. First, we discuss, how our precomputation process, using Matlab, actually works. Then, we introduce our Java Framework. It is followed by the main section of this chapter, the explanation how our OpenGL shaders are implemented. The last section discusses an optimization of our fragment shader such that it will have interactive runtime.
 
 \section{Precomputations in Matlab}
 \label{sec:precompmatlabfourierimages}
-Our first task is to precompute the inverse two dimensional discrete Fourier transformations for a given snake shed patch of interest taken by AFM. For that purpose we have written a small Matlab script conceptialized algorithmically in $\ref{alg:matlabprecomp}$. Matlab is a interpreted scripting language which offers a huge collection of mathematical and numerically fast and stable algorithms. Our Matlab script reads a given image, which is representing a nano-scaled height field, and computes its inverse two dimensional DFT by using Matlab's internal inverse fast Fourier Transformation function, denoted by $ifft2$. Note that we only require one color channel of the input image since the input image is representing an height field, encoded by just one color. Basically, we are interested in computing the $ifft2$ for different powers of the input image times the imaginary number $i$ since our taylor series approximation $\ref{sec:taylorapproximation}$ relies on this. Keep in mind that taking the Fourier transformation of an arbitrary function will result in a complex valued output which implies that we will get a complex value for each pixel of our input image. Therefore, for each input image we get as many output images, representing the two dimensional inverse Fourier Transformation, as the minimal amount of taylor terms required for a well-enough approximation. In order to store our output images, we have to use two color channels instead just one like it was for the given input image. Some rendered images are shown in figure $\ref{fig:matlabBlazeFourierImages}$. Instead storing the computed values in plain images, we store our results in binary files. This allows us to have much higher precision for the output values and also it does not waste color channels. In our script every pixel value is normalized by its corresponding Fourier image extrema values such that is it lays in the range $\left[0,1\right]$. Therefore, we have to remember store four scaling factors for each output image as well. Those are the real and imaginary minimum and maximum values. Later, using linear interpolation within the shader, we will get back the rescaled image's original pixel values. 
+Our first task is to precompute the two dimensional discrete Fourier Fransformations$\ref{eq:dftnterm}$ for a given height field, representing a natural grating. For that purpose we have written a small Matlab $\footnote{Matlab is a interpreted scripting language which offers a huge collection of mathematical and numerically fast and stable algorithms.}$ script conceptialized in algorithm $\ref{alg:matlabprecomp}$. Our Matlab script reads a given image, which is representing a nano-scaled height field, and computes its two dimensional DFT (2dDFT) by using Matlab's internal Fast Fourier Transformation (FFT) function, denoted by $ifft2$$\footnote{Remember, even we are talking about fourier transformations, in our actual computation, we have to compute the inverse fourier transformation. See paragraph $\ref{sec:electricalengeneeringftconvention}$ for further information. Furthermore our height fields are two dimensional and thus we have to compute a 2d inverse fourier transformation.}$. Note that we only require one color channel of the input image, since the input image is representing an height field, encoded by just one color. Keep in mind that taking the Fourier transformation of an arbitrary function will result in a complex valued output which implies that we will get a complex value for frequency pairs of our input image. Therefore, for each input image we get as many output images, representing the 2dDFT, as the minimal number of taylor terms required for a well-enough approximation. In order to store our output images, we have to use two color channels instead of just one like it was for the given input image. Some example visualizations for the Fourier Tranformation are shown in figure $\ref{fig:matlabBlazeFourierImages}$. We store these intermediate results as binary files to offer floating point precision for the run-time computations to ensure higher precision. \\
+
+In our script every discrete frequency is normalized by its corresponding DFT extrema$\footnote{We are talking about the i2dFFT of our height fields to the power of n. This is an N by N matrix (assuming the discrete height field was an N by N image), for which each component is a complex number. Hence, there is a a complex extrema as well as a imaginary extrema.}$ in the range $\left[0,1\right]$ and the range extrema are stored seperately for each DFT term. The normalization is computed the following way: 
+
+\begin{align}
+  f:\left[x_{min},x_{max}\right]\to \left[0,1\right] \nonumber\\
+  x \mapsto f(x) = \frac{x-x_{min}}{x_{max}-x_{min}}
+\label{eq:dfttermnormalization}
+\end{align}
+Where $x_{min}$ and $x_{max}$ denote the extreme values of a DFT term. Later, during the shading process of our implementation, we have to apply the inverse mapping. This is non-linear interpolation which is required in order to rescaled all frequency values in the DFT terms. 
 
 \begin{algorithm}[H]
 \caption{Precomputation: Pseudo code to generate Fourier terms}
@@ -108,17 +71,17 @@ end
 \label{alg:matlabprecomp}
 \end{algorithm}
 
-The command fftshift rearranges the output of the ifft2 by moving the zero frequency component to the centre of the image. This simplifies the computation of lookup coordinates during rendering.
+They key idea of algorithm $\ref{alg:matlabprecomp}$ is to compute iteratively the Fourier Transformation for different powers of the provided height field. These DFT values are scaled by according to their extrema values. Another note about the command fftshift: It rearranges the output of the ifft2 by moving the zero frequency component to the centre of the image. This simplifies the computation of DFT terms lookup coordinates during rendering.
 
 \label{sec:precompmatlabfft}
 \begin{figure}[H]
   \centering
-  \subfigure[Blaze Patch]{
+  \subfigure[Heightfield of a Blazed Grating]{
     \includegraphics[scale=0.25]{implementation/hf/blaze/blazeBig.png}
     \label{fig:matlabBlazePatch}
   }
 ~
-  \subfigure[Extrema Plot]{
+  \subfigure[Plot of extreme values for different powers of blazed grating]{
     \includegraphics[scale=0.4]{implementation/hf/blaze/extrema.png}
     \label{fig:extremaBlaze}  
   }
@@ -199,11 +162,11 @@ The command fftshift rearranges the output of the ifft2 by moving the zero frequ
     \label{fig:blazeftim20}
   }
   
-  \caption{Blaze}
+  \caption[DFT Terms for a Blazed grating]{A visualization of DFT terms for a height field of a Blazed Grating.}
   \label{fig:matlabBlazeFourierImages}
 \end{figure}
 
-In figure $\ref{fig:matlabBlazeFourierImages}$ we see some Fourier images rendered by our Matlab script for the blaze grating $\ref{fig:matlabBlazePatch}$ used as input image. For example figure $\ref{fig:blazeftimre4}$ represents the two dimensional Fourier transform of the input image to the power of four times the imgaginary number $i$ stored in a RGB image. Note that the red color channel $\ref{fig:blazeftre4}$ contains the real- and the green color channel $\ref{fig:blazeftre4}$ the imaginary part of the Fourier transform. The plot in figure $\ref{fig:extremaBlaze}$ shows the development of blaze grating's extreme values for different powers. 
+In figure $\ref{fig:matlabBlazeFourierImages}$ we see examples of a visualization of Fourier Transformations generated by our Matlab script for a blazed grating$\footnote{A blazed grating is a height field consisting of ramps, periodically aligned on a given surface.}$ as an input height field image, shown in figure $\ref{fig:matlabBlazePatch}$. Figure $\ref{fig:extremaBlaze}$ shows plots of the extreme values of DFT terms for different powers of the blazed grating. We recognize that, the higher the power of the grating becomes, the closer the extreme values of the corresponding DFT terms get. The figure line from figure $\ref{fig:blazeftimre0}$ until figure $\ref{fig:blazeftimre20}$ show us example visualizations of DFT terms for different powers of our grating's height field. Remember that DFT terms are complex valued matrices of dimension as their height field has. In this visualization, all real part values are stored in the red- and the imaginary parts in the green color channel of an DFT image. The figure line from figure $\ref{fig:blazeftre0}$ till figure $\ref{fig:blazeftre20}$ show us the real part images from above's line corresponding figures. Similarly for the figur line from figure $\ref{fig:blazeftim0}$ until figure $\ref{fig:blazeftim20}$ showing the correspinding imaginary part DFT term images.
 
 \section{Java Renderer}
 In autumn 2012, during the semester I have attented the class computer graphics held by M. Zwicker where we have developed a real time renderer program written in java. The architecture of the program is divided into two parts: a rendering engine, the so called jrtr (java real time renderer) and an application program. Figure $\ref{fig:rendererArchitecture}$ outlines the architecture of our renderer. 
