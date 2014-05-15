@@ -28,7 +28,7 @@
 \contentsline {subsection}{\numberline {2.3.2}Reflected Radiance of Stam's BRDF}{27}{subsection.2.3.2}
 \contentsline {subsection}{\numberline {2.3.3}Relative Reflectance}{28}{subsection.2.3.3}
 \contentsline {section}{\numberline {2.4}Optimization using Taylor Series}{30}{section.2.4}
-\contentsline {section}{\numberline {2.5}Spectral Rendering}{32}{section.2.5}
+\contentsline {section}{\numberline {2.5}Spectral Rendering}{33}{section.2.5}
 \contentsline {section}{\numberline {2.6}Alternative Approach}{33}{section.2.6}
 \contentsline {subsection}{\numberline {2.6.1}PQ factors}{33}{subsection.2.6.1}
 \contentsline {subsection}{\numberline {2.6.2}Interpolation}{35}{subsection.2.6.2}
