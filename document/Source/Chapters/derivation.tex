@@ -41,7 +41,7 @@ We want to rely on the integral equation $\ref{eq:mainstam}$ derived by J. Stam 
 
 \section{Approximate a FT by a DFT}
 \subsection{Reproduce FT by DTFT}
-In the previous section, we have found an identity for the reflected spectral radiance $L_{\lambda}(\omega_r)$ when using Stam's BRDF for a given input height field. However, the derived expression in equation $\ref{eq:nonrelativebrdffinding}$ requires to evaluate the Fourier Transform of our height field$\footnote{actually it requires the computation of the inverse Fourier Transform of a transformed version of the given heightfield, the function p(x,y) defined in equation \ref{eq:px}.}$ for every direction. In this section we explain how to approximate the FT by the DTFT and apply it to our previous derivations. Figure $\ref{fig:ftbydtft}$ graphically shows how to obtain the DTFT from the FT for a one dimensional signal$\footnote{For our case we are dealing with a two dimensional, spatial signal, the given height field. Nevertheless, without any constraints of generality, the explained approach applies to multi dimensional problems.}$ \\ \\
+In the previous section, we have found an identity for the reflected spectral radiance $L_{\lambda}(\omega_r)$ when using Stam's BRDF for a given input height field. However, the derived expression in equation $\ref{eq:nonrelativebrdffinding}$ requires to evaluate the Fourier Transform of our height field$\footnote{actually it requires the computation of the inverse Fourier Transform of a transformed version of the given heightfield, the function p(x,y) defined in equation \ref{eq:px}.}$ for every direction. In this section we explain how to approximate the FT by the DTFT and apply it to our previous derivations. Figure $\ref{fig:ftbydtft}$ graphically shows how to obtain the DTFT from the FT for a one dimensional signal$\footnote{For our case we are dealing with a two dimensional, spatial signal, the given height field. Nevertheless, without any constraints of generality, the explained approach applies to multi dimensional problems.}$ \\
 
 \begin{figure}[ht]
   \centering
@@ -50,7 +50,6 @@ In the previous section, we have found an identity for the reflected spectral ra
   \label{fig:ftbydtft}  
 \end{figure}
 \footnotetext{Images of function plots taken from \texttt{http://en.wikipedia.org/wiki/Discrete\textunderscore Fourier\textunderscore transform} and are modified.} 
-
 The first step is to uniformly discretize the given signal since computers are working finite, discrete arithmetic. We rely on the Nyquist–Shannon sampling theorem tells us how dense we have to sample a given signal $s(x)$ such that can be reconstructed its sampled version $\hat{s}[n]$$\footnote{n denotes the number of samples.}$. In particular, a sampled version according to the Nyquist–Shannon sampling theorem will have the same Fourier Transform as its origianl singal. The sampling theorem states that if $f_{max}$ denotes the highest frequency of $s(x)$, then, it has to be sampled by a rate of $f_s$ with $2f_{max} \leq f_s$ in order to be reconstructable. By convention $T = \frac{1}{f_s}$ represent the interval length between two samples. \\ \\
 
 Next, we apply the Fourier Tranformation operator on the discretized singal $\hat{s}$ which gives us the following expression: 
@@ -63,7 +62,16 @@ Next, we apply the Fourier Tranformation operator on the discretized singal $\ha
 & = T\mathcal{F}_{DTFT}\{s\}(w)
 \label{eq:sampledsignalfttodtft}
 \end{align} 
-Equation $\ref{eq:sampledsignalfttodtft}$ tells us that if $\hat{s}$ is sufficiently sampled, then its DTFT corresponds to the FT of $s(x)$ . Notice that the resulting DTFT from the sampled signal has a height of $\frac{A}{T}$ where A is the height of the FT of $s$ and thus is a scaled version of the FT.
+Equation $\ref{eq:sampledsignalfttodtft}$ tells us that if $\hat{s}$ is sufficiently sampled, then its DTFT corresponds to the FT of $s(x)$ . Notice that the resulting DTFT from the sampled signal has a height of $\frac{A}{T}$ where A is the height of the FT of $s$ and thus is a scaled version of the FT. \\
+
+For a given height field $h$, let us compute Stam's auxiliary function $p$ defined as in equation $\ref{eq:px}$. For the reminder of this thesis we introduce the following definition: 
+
+\begin{equation}
+  P_{dtft} \equiv \mathcal{F}_{DTFT}\{p\}
+\label{eq:dtftheightfield}
+\end{equation} 
+
+Therefore $P_{dtft}$ denotes the DTFT of a transformed version of our height field $h$$\footnote{By transformed height field we mean $p(x,y) = e^{i\frac{2 \pi}{\lambda} w h(x,y)} which we get, when pluggin $h$ into equation \ref{eq:heightfieldphase} and this expression again plug into equation \ref{eq:px}.$}$. 
 
 \subsection{Spatial Coherence and Windowing}
 \label{sec:spatialcoherenceandwindowing}
@@ -299,40 +307,36 @@ Where we used the definition $S_y(\lambda)\overline{y}(\lambda)$ in the last ste
 
 \section{Optimization using Taylor Series}
 \label{sec:taylorapproximation}
-Our final goal is to render stractural colors resulting by the effect of wave diffraction. So far, we have derived an expression which can be used for rendering. Neverthesless, our current equation $\ref{eq:structuralcolorsslow}$ used for computing structural colors, cannot be used for interactive rendering, since $P_{dtft}$ had do be recomputed for every change in any direction$\footnote{viewing or incident light direction}$. \\
+Our final goal is to render stractural colors resulting by the effect of wave diffraction. So far, we have derived an expression which can be used for rendering. Neverthesless, our current equation $\ref{eq:structuralcolorsslow}$ used for computing structural colors, cannot directly be used for interactive rendering, since $P_{dtft}$ had do be recomputed for every change in any direction$\footnote{According to changes in viewing- or incident light direction.}$. \\
 
-In this section, we will address this issue and deliver an approximation for the Fourier Transformation of Stam's auxiliary function $p(x,y)$. This will allow us to seperate $P_{dtft}$ in a way such that some computional expsensive terms can be precomputed. This derivation will rely on the definition of Taylor Series expansion like shown in equation $\ref{eq:deftaylor}$. Further, we will provide an error bound for our approximation approach for a given number of terms. Last, we will extend our current BRDF formula by the findings derived within this section. \\
+In this section, we will address this issue and deliver an approximation for $P_{dtft}$ defined in equation $\ref{eq:dtftheightfield}$.
+This approximation will allow us to seperate $P_{dtft}$ in a certain way such that some computional expsensive terms can be precomputed. The main idea is to formulate $P_{dtft}$ as a series expansion relying on the definition of Taylor Series, like defined in equation $\ref{eq:deftaylor}$. Further, we will provide an error bound for our approximation approach for a given number of terms. Last, we will plug our finding extend our current BRDF formula from equation $\ref{eq:structuralcolorsslow}$ by the findings derived within this section. \\
 
-Given $p(x,y)=e^{ikwh(x,y)}$ form Stam's Paper $\ref{sec:sumstam}$ where $h(x,y)$ is a given height field. Let $t$ be complex number, and let us consider the power series expansion of the exponential function:
+Let us consider $p(x,y)=e^{ikwh(x,y)}$ form Stam's Paper $\ref{sec:sumstam}$ where $h(x,y)$ is a given height field. For any complex number $t$ the power series expansion of the exponential function is equal to:
  
 \begin{equation}
   e^{t}=1+t+\frac{t^{2}}{2!}+\frac{t^{3}}{3!}+...=\sum_{n=0}^{\infty}\frac{t^{n}}{n!}
+  \label{eq:expseriesexpansion}
 \end{equation}
 
-Further, let us define 
-\begin{align}
-t 
-= t(x,y) 
-= ikwh(x,y)
-\end{align}
- 
-where $i$ is the imaginary unit. For simplification, let us denote $h(x,y)$ as $h$. Then it follows by our previous stated identities: 
+Now, when we use the exponent$\footnote{This exponent is a complex valued function, equal to ikwh(x,y).}$ of $p(x,y)$ as an input argument for equation $\ref{eq:expseriesexpansion}$ we get:
 
 \begin{align}
  e^{t}
+ &=e^{ikwh} \nonumber \\
  &=1+(ikwh)+\frac{1}{2!}(ikwh)^{2}+\frac{1}{3!}(ikwh)^{3}+... \nonumber \\
  &=\sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}.
  \label{eq:expseriesexpr}
 \end{align}
 
-Please note that above's taylor series is convergent for any complex valued number $t$. Thus, plugging quation $\ref{eq:expseriesexpr}$ into the definiton of $p(x,y)$ will give us:
+where $i$ is the imaginary unit for complex numbers. For simplification, in the reminder of this section we omitted the arguments of $h$. Equation $\ref{eq:expseriesexpr}$ gives us an expression for an exponential series expansion for an for the exponent of $p(x,y)$. Please note that above's taylor series is convergent for any complex valued number. Therefore the equation $\ref{eq:expseriesexpr}$ is equal to
 
 \begin{equation}
   p(x,y)=\sum_{n=0}^{\infty}\frac{(ikwh(x,y))^{n}}{n!}
   \label{eq:pxyseries}
 \end{equation}
 
-Next, let us now compute the Fourier Transformation $\mathcal{F}$ of equation $\ref{eq:pxyseries}$ form above:
+and thus gives us a series representation of $p(x,y)$. Next, calculating the Fourier Transformation $\mathcal{F}$ of equation $\ref{eq:pxyseries}$ gives us the identity:
 
 \begin{align}
   \mathcal{F}\left\{ p\right\}
@@ -342,31 +346,38 @@ Next, let us now compute the Fourier Transformation $\mathcal{F}$ of equation $\
   \label{eq:ftlinopid}
 \end{align}
 
-Where we have used the fact that the Fourier Transformation is a linear operator. Therefor, from equation $\ref{eq:ftlinopid}$ it follows: $P(\alpha,\beta)=\sum_{n=0}^{\infty}\frac{(ikw)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$ for which $\mathcal{F}\left\{ h{}^{n}\right\} (u,v)$.
+Where we have exploited the fact that the Fourier Transformation is a linear operator. Therefore, in equation $\ref{eq:ftlinopid}$, we have shown that the Fourier Transformation of a series is equal to the sum of the Fourier Transformation, applied on each individual series term. Reusing the identifier $P$$\footnote{This identifier P may be subscripted by \emph{dtft} which will denote the DTFT variant of P.}$ in order to determin the Fourier Transformation of Stams definition $p$ from equation $\ref{eq:px}$, equation $\ref{eq:ftlinopid}$ then correspond to:
 
-Next we are going to look for an $N\mathbb{\in N}$ such that 
 \begin{equation}
- \sum_{n=0}^{N}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta) \approx P(\alpha,\beta) 
+  P(\alpha,\beta)=\sum_{n=0}^{\infty}\frac{(ikw)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)
 \end{equation}
 
-is a good approximation. But first, the following two facts would have to be proven$\footnote{Please have a look in section $\ref{chap:taylorseriesapproxappendix}$ in the appendix}$:
+Up to now we have found a infinity series representation for $P_{dtft}$. Next we are going to look for an upper bound $N\mathbb{\in N}$ such that 
+
+\begin{align}
+  \tilde{P}_{N}(\alpha,\beta)
+  :=\sum_{n=0}^{N}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)
+  \approx P(\alpha,\beta)
+  \label{eq:taylorseriesapproximationofp} 
+\end{align}
+
+$\tilde{P}_{N}$ is a good approximation of $P$, i.e. their absolute difference is small$\footnote{Mathematically speaking, this statement correspond to $|| \tilde{P}_{N} - P|| \leq \epsilon$, where $\epsilon$ > 0 is a small number.}$. But first, the following two facts would have to be proven$\footnote{Please have a look in section $\ref{chap:taylorseriesapproxappendix}$ in the appendix}$:
 
 \begin{enumerate}
-\item Show that there exist such an $N\mathbb{\in N}$ s.t the approximation
-holds true.
-\item Find a value for $B$ s.t. this approximation is below a certain error
-bound, for example machine precision $\epsilon$. 
+\item Show that there exist such an $N\mathbb{\in N}$ s.t. the approximation of equation $\ref{eq:taylorseriesapproximationofp}$ holds true.
+\item Find a value for $N$ s.t. this approximation is below a certain error bound, e.g. close to machine precision $\epsilon$. 
 \end{enumerate}
 
-
-Using now our approximation for $P_{dtft} = \mathcal{F}^{-1}\{p\}(u,v)$ for the tristimulus value Y, we will get:
+Assuming these facts are proven and there actually exists such an $N$, we can make use of the taylor series approximation from equation $\ref{eq:taylorseriesapproximationofp}$ and use it for approximating $P_{dtft}$. This idea allows us to adapt equation $\ref{eq:structuralcolorsslow}$, which is used for computing the structural colors of our BRDF model, in nummerically fast way. E.g. the equation for the luminance is then be equal:
 
 \begin{align}
 Y 
 & = C(w_i,w_r) \int_{\lambda} \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S_y(\lambda)d\lambda \nonumber \\
-& = C(w_i,w_r) \int_{\lambda} \left| \sum_{n=0}^N \frac{(wk)^n}{n!} \mathcal{F}^{-1}\{i^n h^n\}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2 S_y(\lambda)d\lambda
+& = C(w_i,w_r) \int_{\lambda} \left| \sum_{n=0}^N \frac{(wk)^n}{n!} \mathcal{F}\{i^n h^n\}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2 S_y(\lambda)d\lambda
 \label{eq:xcolexpression}
 \end{align}
+
+Notice that equation $\ref{eq:xcolexpression}$ is contrainted by $N$ and hence is an approximation of equation $\ref{eq:structuralcolorsslow}$. Furthermore, it is possible to seperate out all the Fourier Terms in the summation and precompute them. This is why the approach in equation $\ref{eq:xcolexpression}$ is fast in order to compute structural color values according to our BRDF model.
 
 \section{Spectral Rendering}
 \label{sec:spectralrendering}
