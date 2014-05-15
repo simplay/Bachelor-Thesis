@@ -319,31 +319,24 @@ Let us consider $p(x,y)=e^{ikwh(x,y)}$ form Stam's Paper $\ref{sec:sumstam}$ whe
   \label{eq:expseriesexpansion}
 \end{equation}
 
-Now, let us define $t$ as a complex valued function, like the the following: 
-\begin{align}
-t 
-\equiv t(x,y) 
-= ikwh(x,y)
-\label{eq:tfunction}
-\end{align}
-
-where $i$ is the imaginary unit for complex numbers. For simplification, in the reminder of this section we omitted the arguments of $h$. Now, when we use this complex function from equation $\ref{eq:tfunction}$ as an input argument for equation $\ref{eq:expseriesexpansion}$ we get:
+Now, when we use the exponent$\footnote{This exponent is a complex valued function, equal to ikwh(x,y).}$ of $p(x,y)$ as an input argument for equation $\ref{eq:expseriesexpansion}$ we get:
 
 \begin{align}
  e^{t}
+ &=e^{ikwh} \nonumber \\
  &=1+(ikwh)+\frac{1}{2!}(ikwh)^{2}+\frac{1}{3!}(ikwh)^{3}+... \nonumber \\
  &=\sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}.
  \label{eq:expseriesexpr}
 \end{align}
 
-Please note that above's taylor series is convergent for any complex valued number $t$. Thus, plugging quation $\ref{eq:expseriesexpr}$ into the definiton of $p(x,y)$ will give us:
+where $i$ is the imaginary unit for complex numbers. For simplification, in the reminder of this section we omitted the arguments of $h$. Equation $\ref{eq:expseriesexpr}$ gives us an expression for an exponential series expansion for an for the exponent of $p(x,y)$. Please note that above's taylor series is convergent for any complex valued number. Therefore the equation $\ref{eq:expseriesexpr}$ is equal to
 
 \begin{equation}
   p(x,y)=\sum_{n=0}^{\infty}\frac{(ikwh(x,y))^{n}}{n!}
   \label{eq:pxyseries}
 \end{equation}
 
-Next, let us now compute the Fourier Transformation $\mathcal{F}$ of equation $\ref{eq:pxyseries}$ form above:
+and thus gives us a series representation of $p(x,y)$. Next, let us now compute the Fourier Transformation $\mathcal{F}$ of equation $\ref{eq:pxyseries}$ form above:
 
 \begin{align}
   \mathcal{F}\left\{ p\right\}
