@@ -336,8 +336,7 @@ where $i$ is the imaginary unit for complex numbers. For simplification, in the 
   \label{eq:pxyseries}
 \end{equation}
 
-and thus gives us a series representation of $p(x,y)$. Next, let us now compute the Fourier Transformation $\mathcal{F}$ of equation $\ref{eq:pxyseries}$ form above:
-
+and thus gives us a series representation of $p(x,y)$. Next, calculating the Fourier Transformation $\mathcal{F}$ of equation $\ref{eq:pxyseries}$ gives us the identity:
 \begin{align}
   \mathcal{F}\left\{ p\right\}
   & \equiv \mathcal{F}\left\{ \sum_{n=0}^{\infty}\frac{(ikwh)^{n}}{n!}.\right\} \nonumber \\
@@ -346,14 +345,25 @@ and thus gives us a series representation of $p(x,y)$. Next, let us now compute 
   \label{eq:ftlinopid}
 \end{align}
 
-Where we have used the fact that the Fourier Transformation is a linear operator. Therefor, from equation $\ref{eq:ftlinopid}$ it follows: $P(\alpha,\beta)=\sum_{n=0}^{\infty}\frac{(ikw)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$ for which $\mathcal{F}\left\{ h{}^{n}\right\} (u,v)$.
 
-Next we are going to look for an $N\mathbb{\in N}$ such that 
+
+Where we have exploited the fact that the Fourier Transformation is a linear operator. Therefore, in equation $\ref{eq:ftlinopid}$, we have shown that the Fourier Transformation of a series is equal to the sum of the Fourier Transformation, applied on each individual series term. Reusing the identifier $P$$\footnote{This identifier P may be subscripted by \emph{dtft} which will denote the DTFT variant of P.}$ in order to determin the Fourier Transformation of Stams definition $p$ from equation $\ref{eq:px}$, equation $\ref{eq:ftlinopid}$ then correspond to:
+
 \begin{equation}
- \sum_{n=0}^{N}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta) \approx P(\alpha,\beta) 
+  P(\alpha,\beta)=\sum_{n=0}^{\infty}\frac{(ikw)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)
 \end{equation}
 
-is a good approximation. But first, the following two facts would have to be proven$\footnote{Please have a look in section $\ref{chap:taylorseriesapproxappendix}$ in the appendix}$:
+Up to now we have found a infinity series representation for $P_{dtft}$. Next we are going to look for an upper bound $N\mathbb{\in N}$ such that 
+
+%%%%%%%%% make P tilde fix it
+\begin{align}
+  \tilde{P}_{N}(\alpha,\beta)
+  :=\sum_{n=0}^{N}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)
+  \approx P(\alpha,\beta) 
+\end{align}
+%%%%%%%%%%%
+
+$\tilde{P}_{N}$ is a good approximation of $P$, i.e their absolute difference is small$\footnote{Mathematically speaking, this statement correspond to $|| \tilde{P}_{N} - P|| \leq \epsilon$, where $\epsilon$ > 0 is a small number.}$. But first, the following two facts would have to be proven$\footnote{Please have a look in section $\ref{chap:taylorseriesapproxappendix}$ in the appendix}$:
 
 \begin{enumerate}
 \item Show that there exist such an $N\mathbb{\in N}$ s.t the approximation
@@ -362,9 +372,7 @@ holds true.
 bound, for example machine precision $\epsilon$. 
 \end{enumerate}
 
-
-Using now our approximation for $P_{dtft} = \mathcal{F}^{-1}\{p\}(u,v)$ for the tristimulus value Y, we will get:
-
+Assuming these facts are proven and there actually exists such an $N$, we can make use of $P_{dtft}$ from  for the tristimulus value Y,  from equation $\ref{eq:structuralcolorsslow}$ and we will get:
 \begin{align}
 Y 
 & = C(w_i,w_r) \int_{\lambda} \langle \left|P_{dtft}(\frac{2\pi u}{\lambda}, \frac{2\pi v}{\lambda})\right|^2\rangle S_y(\lambda)d\lambda \nonumber \\
