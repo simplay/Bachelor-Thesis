@@ -312,7 +312,7 @@ Our final goal is to render stractural colors resulting by the effect of wave di
 In this section, we will address this issue and deliver an approximation for $P_{dtft}$ defined in equation $\ref{eq:dtftheightfield}$.
 This approximation will allow us to seperate $P_{dtft}$ in a certain way such that some computional expsensive terms can be precomputed. The main idea is to formulate $P_{dtft}$ as a series expansion relying on the definition of Taylor Series, like defined in equation $\ref{eq:deftaylor}$. Further, we will provide an error bound for our approximation approach for a given number of terms. Last, we will plug our finding extend our current BRDF formula from equation $\ref{eq:structuralcolorsslow}$ by the findings derived within this section. \\
 
-Let us consider $p(x,y)=e^{ikwh(x,y)}$ form Stam's Paper $\ref{sec:sumstam}$ where $h(x,y)$ is a given height field. For any complex number $t$ the power series expansion of the exponential function is equal to:
+Let us consider $p(x,y)=e^{ikwh(x,y)}$ form Stam's Paper $\ref{sec:sumstam}$ where $h(x,y)$ is a given height field and $k = \frac{2 \pi}{\lambda}$ denotes the wavenumber of wavelenght $\lambda$. For any complex number $t$ the power series expansion of the exponential function is equal to:
  
 \begin{equation}
   e^{t}=1+t+\frac{t^{2}}{2!}+\frac{t^{3}}{3!}+...=\sum_{n=0}^{\infty}\frac{t^{n}}{n!}
@@ -381,28 +381,23 @@ Notice that equation $\ref{eq:xcolexpression}$ is contrainted by $N$ and hence i
 
 \section{Spectral Rendering}
 \label{sec:spectralrendering}
-As the last step of our series of derivations, we plug all our findings together to one big equation in order to compute the color for each pixel on our mesh in the $CIE_{XYZ}$ colorspace. For any given heigh-field $h(x,y)$ representing a small patch of a nano structure of a surface and the direction vectors $w_i$ and $w_r$ from figure $\ref{fig:geometricsetup}$ the resulting color caused by the effect of diffraction can be computed like: Let 
+As the last step of our series of derivations, we plug all our findings together to one big equation. in order to compute the color for each pixel on our mesh in the $CIE_{XYZ}$ colorspace. For any given heigh-field $h(x,y)$ representing a grating of a nano structure and for given direction vectors $w_i$ and $w_r$ as shown in figure $\ref{fig:geometricsetup}$ the resulting color caused by the effect of diffraction can be computed the following way:
 
 \begin{equation}
-DFT_{n}\{h\} \equiv {F}_{dft}\{(ih)^n\}
-\label{eq:dftnterm}
+DFT_{n}\{h\}(u,v) = {F}_{dft}\{i^n h^n\}(\frac{2\pi u}{\lambda},\frac{2\pi v}{\lambda})
 \end{equation}
 
 \begin{equation}
-P_{\lambda}(u,v) = {F}_{dft}\{i^n h^n\}(\frac{2\pi u}{\lambda},\frac{2\pi v}{\lambda})
+  W_{n}(u,v) = \sum_{(r,s) \in \mathcal{N}_1(u,v)} \left| DFT_{n}\{h\}(u-w_r, v-w_s) \right|^2 \phi(u-w_r, v-w_s)
 \end{equation}
-
-Then our final expression using our previous derivations will look like:
+where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the Gaussian window from equation $\ref{sec:gaussianwindow}$ and $\mathcal{N}_1(u,v)$ denotes the one-neighborhood around $(u,v)$. Then $\forall (u,v,w)$ liked defined in equation $\ref{eq:uvw}$, our final expression for computing structural colors due to diffraction, using our previous derivations, will be equal:
 
 \begin{equation}
 \begin{split}
-\colvec[X]{Y}{Z}& = C(\omega_i,\omega_r) \int_{\lambda} \sum_{n=0}^N  \frac{(wk)^n}{n!} \sum_{(r,s) \in \mathcal{N}_1(u,v)} \left| P_{\lambda}(u-w_r,v-w_s) \right|^2 \\
-& \quad \quad  \phi(u-w_r, v-w_s) \colvec[S_x(\lambda)]{S_y(\lambda)}{S_z(\lambda)}d\lambda
+\colvec[X]{Y}{Z}& = C(\omega_i,\omega_r) \int \limits_{\lambda} \sum_{n=0}^N  \frac{(2 \pi w)^n}{\lambda^n n!} W_{n}(u,v) \colvec[S_x(\lambda)]{S_y(\lambda)}{S_z(\lambda)}d\lambda
 \end{split}
 \label{eq:finalexpression}
 \end{equation}
-
-where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the Gaussian window $\ref{sec:gaussianwindow}$.
 
 \section{Alternative Approach}
 \subsection{PQ factors}
