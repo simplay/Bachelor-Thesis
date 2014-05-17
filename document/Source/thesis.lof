@@ -33,8 +33,8 @@
 \contentsline {figure}{\numberline {2.6}{\ignorespaces Comparission between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\mathaccentV {hat}65E{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.\relax }}{36}{figure.caption.24}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces DFT Terms for a Blazed grating}}{41}{figure.caption.25}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Renderer Architecture\relax }}{42}{figure.caption.26}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces A wireframe mesh represents an object as a set of faces and a set of vertices.\relax }}{43}{figure.caption.27}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Renderer Architecture}}{42}{figure.caption.26}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Triangular Mesh}}{43}{figure.caption.27}
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Camera coordinate system where its origin defines the center of projection of camera\relax }}{44}{figure.caption.28}
 \contentsline {figure}{\numberline {3.5}{\ignorespaces Illustration of involved components in order to construct the camera matrix. We introduce some helper vectors $z_c = \frac {e-d}{||e-d||}$, $x_c = \frac {up \times z_c}{||up \times z_c||} $ and $z_c \times x_c$ for the actual construction of the camera matrix\relax }}{44}{figure.caption.29}
 \contentsline {figure}{\numberline {3.6}{\ignorespaces For a directional light source all light rays are in parallel.\relax }}{45}{figure.caption.30}

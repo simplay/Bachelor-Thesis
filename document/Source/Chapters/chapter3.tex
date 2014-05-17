@@ -174,7 +174,7 @@ This section explains the architecture of the rendering program which I implemen
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.7]{implementation/framework.png}
-  \caption[Renderer Architecture]{Renderer Architecture}
+  \caption[Renderer Architecture]{Schematical architecture of our Java renderer.}
   \label{fig:rendererArchitecture}
 \end{figure}
 
@@ -183,9 +183,10 @@ The application program relies on the MVC (Model-View-Controller) architecture p
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.7]{implementation/wireframemesh.png}
-  \caption[Triangular Mesh]{A triangular mesh represents an object as a set of triangles and a set of vertices.}
+  \caption[Triangular Mesh]{Representation$\footnotemark$ of a triangular mesh represents an object as a set of triangles and a set of vertices.}
   \label{fig:wireframemesh}
 \end{figure}
+\footnotetext{Modified image which originally has been taken from \texttt{http://en.wikipedia.org/wiki/Polygon\textunderscore mesh}}
 
 Such a mesh is a special data structure consisting of vertices, each stored as a triplet of $x$, $y$, $z$ positions in an float array and triangles, each defined by a triple of vertex-indices which form a triangle and stored in an integer array. It is also possible to assign additional geometry data like surface color, normals and texture coordinates associated with each vertex. \\
 
