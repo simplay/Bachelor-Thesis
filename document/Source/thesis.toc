@@ -66,5 +66,5 @@
 \contentsline {section}{\numberline {D.4}Tangent Space}{65}{section.D.4}
 \contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{67}{figure.caption.38}
 \contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{67}{appendix*.39}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{69}{appendix*.40}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{70}{appendix*.41}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{68}{appendix*.40}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{69}{appendix*.41}
