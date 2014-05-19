@@ -308,6 +308,34 @@ The output of our vertex shader is on the one side the transformed vertex postio
 
 \subsection{Fragment Shader}
 \label{sec:fragmentshader}
+%%%%%%%%%%
+%% fragment shader basics
+The fragment shader is the OpenGL pipeline stage after a primitive is rasterized
+
+vertices span a triangle
+each vertex position is transformed onto the image plane 
+
+
+The fragment shader on the other hand takes care of how the pixels between the vertices look. They are interpolated between the defined vertices following specific rules.
+where the image is calculated and the pixels between the vertices are filled in or coloured.
+
+The term fragment is used because rasterization breaks up each geometric primitive, such as a triangle, into pixel-sized fragments for each pixel that the primitive covers. A fragment has an associated pixel location, a depth value, and a set of interpolated parameters such as a color, a secondary (specular) color, and one or more texture coordinate sets. These various interpolated parameters are derived from the transformed vertices that make up the particular geometric primitive used to generate the fragments
+
+output
+a depth value, either written by the fragment shader or passed through from the screen-space fragment's Z value.
+%%%%%%%%%
+
+
+
+In the previous section we gave an introduction to the first shading stage of the OpenGL rendering pipeline by explaining the basics of a vertex shaders. Furthermore we discussed the idea of our vertex shading algorithm. The main task of our vertex shader is to compute the light and viewing direction vectors $\omega_i$ and $\omega_r$ defined like in figure $\ref{fig:geometricsetup}$. In this section we explain how the color values of structural colors resulting from our BRDF model are computed by a fragment shader. 
+
+Fur this purpose using the precompute DFT terms like explain in section $\ref{sec:precompmatlabfourierimages}$  from section $d$ and the vertex shader output from section.
+
+Explain how we can compute 
+
+$\ref{sec:vertexshader}$
+
+
 The purpose of a fragment shader is to render per fragment. A fragment is spanned by three vertices of a given mesh. For each pixel within a fragment in the fragment shader, the output of from its spanning vertices computed in the vertex shaders $\ref{alg:vertexshader}$ is trilinearly interpolated depending on the pixel's position within the fragment. Furthermore, there can be additional input be assigned which is not directly interpolated from the output of vertex shader programs. In our fragment shader $\ref{alg:fragmentshaderall}$ this will be: all the references to the image buffers, containing the Fourier images computed in Matlab $\ref{sec:precompmatlabfourierimages}$, the number steps for the taylor approximation (in our shader 30), the minimal and maximal wavelength, scaling factors, a reference to a lookup table containing the $CIE_{XYZ}$ color weights. Basically the whole computation within our fragment shader relies on the direction of light and the viewing direction. Our shader performs a numerical integration for our final derived expression in equation $\ref{eq:finalexpression}$ using the trapezoidal-rule with uniform discretization of the wavelength spectrum at $5nm$ step sizes. This implies we are compressing sampled frequencies to the region near to the origin of their frequency domain due to the fact we are dividing the $(u,v)$ by the wavelength and this implies that the $(u,v)$ space is sampeled non-linearly. \\
 
 The Gaussian window approach derived in section $\ref{sec:gaussianwindow}$ is performed for each discrete $\lambda$ value using a window large enough to span $4\sigma_f$ in both dimensions. For precomputing DFT tables we generally use nanostructure height fields that span at least 65$\mu m^2$ and are sampled with resolution of at least 100nm. This ensures that the spectral response encompasses all the wavelengths in the visible spectrum, i.e. from 380nm to 780nm.
@@ -317,7 +345,7 @@ The Gaussian window approach derived in section $\ref{sec:gaussianwindow}$ is pe
   \begin{table}[H]
     \begin{tabular}{@{}lll@{}}
       \textbf{Input:} & Precomputed DFT Terms  \\
-      & Scene Geometry  \\
+      & Mesh Triangles  \\
       & $\omega_i$ and $\omega_r$  \\
       \textbf{Output:} & Structural Color of a pixel \\
     \end{tabular} 
