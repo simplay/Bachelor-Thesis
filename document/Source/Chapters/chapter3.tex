@@ -208,6 +208,7 @@ In the following let us consider the whole transformation, applied in the vertex
 into the perspective projected position as seen by a observer $p_{projective}$ looks like the following:
 \begin{equation}
   p_{projective} = P \cdot C^{-1} \cdot M \cdot p_{local}
+  \label{eq:vertextransformation}
 \end{equation}
 
 where $P$, $C^{-1}$ and $M$ are transformation matrices$\footnote{These tranformation matrices are linear transformations expressed in homogenous coordinates.}$, defined the following way:
@@ -251,12 +252,12 @@ As we can see, $x_c$, $y_c$ and $z_c$ are independent unit vectors. Therefore, t
 C = \begin{bmatrix} x_c & y_c & z_c & e \\ 0 & 0 & 0 & 1 \end{bmatrix}
 \end{equation}
 
-In our vertex shader we also compute for every vertex in our current geometry the direction vectors $\omega_i$ and $\omega_r$ described like in figure $\ref{fig:geometricsetup}$. Those direction vectors are transformed onto the tangent space, a local coordinate system spanned by a vertex's normal, tangent and binormal vector. Have a look at the appendix $\ref{sec:tangentspace}$ for further information and insight about the tangent space. The algorithm $\ref{alg:vertexshader}$ stated below shows our vertex shader.
+In our vertex shader, besides the transforming the vertex position like described in equation $\ref{eq:vertextransformation}$, for every vertex we also compute the direction vectors $\omega_i$ and $\omega_r$ described like in figure $\ref{fig:geometricsetup}$. Those direction vectors are transformed onto the tangent space, a local coordinate system spanned by a vertex's normal, tangent and binormal vector. For further information and more insight about the the tangent space, please bave a look at the appendix in the section $\ref{sec:tangentspace}$. The algorithmic idea of our vertex shader, stating all its computational steps, is conceptualized in algorithm $\ref{alg:vertexshader}$.
   
 \begin{algorithm}[H]
   \caption{Vertex diffraction shader pseudo code}
   \begin{algorithmic}
-    \INPUT $N, T, Shape, lightDir$
+    \INPUT $Vertices, N, T, Shape, lightDir$
     \MOUTPUT $Structural Color on Fragment$
     \ForAll{$Vertex \thinspace v \in Shape$}
       \State $ vec3 \ N = normalize(modelM * vec4(normal,0.0).xyz)$
@@ -264,14 +265,17 @@ In our vertex shader we also compute for every vertex in our current geometry th
       \State $ vec3 \ B = normalize(cross(N, T))$
       \State $ vec3 \ Pos = ((cop_{w}-position)).xyz$
       \State $ lightDir = normalize(lightDir)$
-      \State $ l = projectVectorOnTo(lightDir, TangentSpace)$
-      \State $ p = projectVectorOnTo(Pos, TangentSpace)$
+      \State $ \omega_i = projectVectorOnTo(lightDir, TangentSpace)$
+      \State $ \omega_r = projectVectorOnTo(Pos, TangentSpace)$
       \State $normalize(l); normalize(p)$
       \State $p_{per} = P \cdot C^{-1} \cdot M \cdot p_{obj}$
     \EndFor
   \end{algorithmic}
 \label{alg:vertexshader}
 \end{algorithm}
+
+% brief description of algo steps
+As an input For every vertex of a mesh
 
 As already mentioned in section $\ref{sec:dirlighsourceassumption}$, our light source is a directional light source (See figure $\ref{fig:dirlightsource}$).
 
