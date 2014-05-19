@@ -195,23 +195,20 @@ All required configuration, in oder to communicate with the GPU through OpenGL, 
 \section{GLSL Diffraction Shader}
 \subsection{Vertex Shader}
 \label{sec:vertexshader}
-
-%purpose
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 In our implementation we want to simulate the structural colors a viewer sees when light diffracted is on grating, e.g. on the skin of a snake. For this purpose, we reproduce a 2d image of a given 3d scene as seen from the perspective of a viewer for given lightning conditions. The color computation of an image is performed in the GPU shaders of the rendering pipeline. In OpenGL, there are two basic shading stages performed to rendern an image whereas the vertex shader is the first shading stage in the rendering pipeline. \\
 
 As an input, a vertex shader receives one vertex of a mesh and other vertex data such as a vertex normals. It only can access this data and has no information about the neighborhood of a vertex or the topology of its corresponding shape. Since vertex positions of a shape are defined in a local coordinate system$\footnote{Defining the positions of a shape in a local coordinate system simplifies its modeling process and allows us to apply transformations to a shape.}$ and we want to render an image of the perspective of viewer, we have to transform the locally defined positions to a perspectively projected viewer space. Therefore, the main purpose$\footnote{Furthermore, texture coordinates used for texture-lookup within the fragment shader and per vertex lightning can be computed.}$ of a vertex shader is to tranform the position of vertices. Notice that a vertex shader can manipulate the position of a vertices, but cannot generate additional mesh vertices. Therfore, the output of any vertex shader is a transformed vertex position. Keep in mind that all vertex shader outputs will be used within the fragment shader. For an example, please have a look at our fragment shader $\ref{sec:fragmentshader}$. \\
 
 In the following let us consider the whole transformation, applied in the vertex shader, in depth. Let $p_{local}$ denote the position of a shape vertex, defined in a local coordinate system. Then the transformation from $p_{local}$
 into the perspective projected position as seen by a observer $p_{projective}$ looks like the following:
+
 \begin{equation}
   p_{projective} = P \cdot C^{-1} \cdot M \cdot p_{local}
   \label{eq:vertextransformation}
 \end{equation}
 
 where $P$, $C^{-1}$ and $M$ are transformation matrices$\footnote{These tranformation matrices are linear transformations expressed in homogenous coordinates.}$, defined the following way:
+
 \begin{description}
 \item[Model matrix $M$:] Each vertex position of a shape is initially defined in a local coordinate system. To make is feasible to place and transform shapes in a scene, a reference coordinate system, the so called world space, has to be introduced. Hence, for every shape a matrix $M$ is associated, defining the transformation from its local coordinate system into the world space. 
 \item[Camera matrix $C$:] A camera models how the eye of a viewer sees an object, defined in world space like shown in figure $\ref{fig:cameracoordinatesystem}$. For calculating the transformation matrix $C$, a viewer's eye position and viewing direction, each defined in world space, are required. Therefore, $C$ denotes a transformation from coordinates defined in camera space into the world space. Thus, in order to transform a position from world space to camera space, we have to use the inverse of $C$, denoted by $C^{-1}$. 
@@ -248,30 +245,39 @@ The mathematical representation of these vectors, $x_c$, $y_c$ and $z_c$, spanni
 \end{align}
 
 As we can see, $x_c$, $y_c$ and $z_c$ are independent unit vectors. Therefore, they span a 3d space, the so called camera matrix. In order to express a coordinate in camera space, we have to project it onto these unit vectos. Using a homogenous coordinates representation, this a projection onto these unit vectors can be formulated by the transformation matrix $C$:
+
 \begin{equation}
   C = \begin{bmatrix} x_c & y_c & z_c & e \\ 0 & 0 & 0 & 1 \end{bmatrix}
   \label{eq:cameramatrixeq}
 \end{equation}
 
 In our vertex shader, besides transforming the vertex positions like described in equation $\ref{eq:vertextransformation}$, for every vertex, we also compute the direction vectors $\omega_i$ and $\omega_r$ described like in figure $\ref{fig:geometricsetup}$. Those direction vectors are transformed onto the tangent space, a local coordinate system spanned by a vertex's normal, tangent and binormal vector. For further information and more insight about the the tangent space, please bave a look at the appendix in the section $\ref{sec:tangentspace}$. The algorithmic idea of our vertex shader, stating all its computational steps, is conceptualized in algorithm $\ref{alg:vertexshader}$.
-  
+  \emph{}
 \begin{algorithm}[H]
 \caption{Vertex diffraction shader pseudo code}
-\textbf{Input:} $Vertices,\ tranformation \ matrices,\ N,\ T,\ lightDir$ \\
-\textbf{Output:} $\omega_i,\ \omega_r,\ p_{per}$ \\
+\begin{table}[H]
+  \begin{tabular}{@{}lll@{}}
+    \textbf{Input:} & \emph{Mesh} with vertex \emph{normals} and \emph{tangents}  \\
+    & Space tranformations $\{M, C^{-1}, P\}$  \\
+    & Light direction \emph{lightDirection}  \\
+    \textbf{Output:} & Incident light and viewer direction $\omega_i,\ \omega_r$ \\
+    & Transformed position $p_{per}$ \\
+  \end{tabular} 
+\end{table}
+\textbf{Procedures:} $normalize()$, $span()$, $projectVectorOnTo()$  \\
 \setlength{\fboxrule}{0pt} 
 \begin{boxedminipage}{1.0\textwidth}
   \begin{algorithmic}[1]
-      \ForAll{$Vertex \thinspace v \in Shape$}
-        \State $ vec3 \ N = normalize(modelM * vec4(normal,0.0).xyz)$
-        \State $ vec3 \ T = normalize(modelM * vec4(tangent,0.0).xyz)$
+      \ForAll{$VertexPosition \thinspace position \in Mesh$}
+        \State $ vec3 \ N = normalize(M * vec4(normal,0.0).xyz)$
+        \State $ vec3 \ T = normalize(M * vec4(tangent,0.0).xyz)$
         \State $ vec3 \ B = normalize(cross(N, T))$
         \State $ TangentSpace = span(N, T, B)$
-        \State $ vec3 \ Pos = ((cop_{w}-position)).xyz$
-        \State $ lightDir = normalize(lightDir)$
+        \State $ viewerDir = ((cop_{w}-position)).xyz$
+        \State $ lightDir = normalize(lightDirection)$
         \State $ \omega_i = projectVectorOnTo(lightDir, TangentSpace)$
-        \State $ \omega_r = projectVectorOnTo(Pos, TangentSpace)$
-        \State $normalize(l); normalize(p)$
+        \State $ \omega_r = projectVectorOnTo(viewerDir, TangentSpace)$
+        \State $normalize(\omega_i); \ normalize(\omega_r)$
         \State $p_{per} = P \cdot C^{-1} \cdot M \cdot p_{obj}$
       \EndFor
   \end{algorithmic}
