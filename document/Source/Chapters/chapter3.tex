@@ -204,41 +204,50 @@ In our implementation we want to simulate the structural colors a viewer sees wh
 
 As an input, a vertex shader receives one vertex of a mesh and other vertex data such as a vertex normals. It only can access this data and has no information about the neighborhood of a vertex or the topology of its corresponding shape. Since vertex positions of a shape are defined in a local coordinate system$\footnote{Defining the positions of a shape in a local coordinate system simplifies its modeling process and allows us to apply transformations to a shape.}$ and we want to render an image of the perspective of viewer, we have to transform the locally defined positions to a perspectively projected viewer space. Therefore, the main purpose$\footnote{Furthermore, texture coordinates used for texture-lookup within the fragment shader and per vertex lightning can be computed.}$ of a vertex shader is to tranform the position of vertices. Notice that a vertex shader can manipulate the position of a vertices, but cannot generate additional mesh vertices. Therfore, the output of any vertex shader is a transformed vertex position. \\
 
-
-viewer modeled by a camera
-
-
-
-Let $p_{local}$ denote the position of a shape vertex, defined in a local coordinate system. Then the transformation from $p_{local}$
+In the following let us consider the whole transformation, applied in the vertex shader, in depth. Let $p_{local}$ denote the position of a shape vertex, defined in a local coordinate system. Then the transformation from $p_{local}$
 into the perspective projected position as seen by a observer $p_{projective}$ looks like the following:
 \begin{equation}
   p_{projective} = P \cdot C^{-1} \cdot M \cdot p_{local}
 \end{equation}
 
-Each matrix 
+where $P$, $C^{-1}$ and $M$ are transformation matrices$\footnote{These tranformation matrices are linear transformations expressed in homogenous coordinates.}$, defined the following way:
+\begin{description}
+\item[Model matrix $M$:] Each vertex position of a shape is initially defined in a local coordinate system. To make is feasible to place and transform shapes in a scene, a reference coordinate system, the so called world space, has to be introduced. Hence, for every shape a matrix $M$ is associated, defining the transformation from its local coordinate system into the world space. 
+\item[Camera matrix $C$:] A camera models how the eye of a viewer sees an object, defined in world space like shown in figure $\ref{fig:cameracoordinatesystem}$. For calculating the transformation matrix $C$, a viewer's eye position and viewing direction, each defined in world space, are required. Therefore, $C$ denotes a transformation from coordinates defined in camera space into the world space. Thus, in order to transform a position from world space to camera space, we have to use the inverse of $C$, denoted by $C^{-1}$. 
+\item[Frustum $P$:] The Matrix P defines a perspective projection onto image plance, i.e. for any given position in camera space, $P$ determines the corresponding 2d image coordinate. Persepctive projections project along rays that converge in center of projection.
+\end{description}
 
-Where $M$ is a transformation from the local space to a reference coordinate system, called world space.
 
-
-
-
- $C^{-1}$ camera matrix $C$ and $P$ the projection matrix. The camera matrix defines transformation from camera to world coordinates as shown in figure $\ref{fig:cameracoordinatesystem}$.
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.7]{implementation/cameracoodsyst.png}
-  \caption[Camera Coordinate System]{Camera coordinate system where its origin defines the center of projection of camera}
+  \caption[Camera Coordinate System]{Illustration$\footnotemark$ of the Camera coordinate system where its origin defines the center of projection of camera.}
   \label{fig:cameracoordinatesystem}
 \end{figure}
+\footnotetext{This image has been taken from the lecture slides of computer graphics class 2012 which can be found on ilias.}
 
-The camera matrix is constructed from its center of projection $e$, the position the cameras looks at $d$ and up vector denoted by $up$ given in world coordinates like illustrated in figure $\ref{fig:cameramatrix}$
+The camera matrix $C$ is constructed from its center of projection $e$, the position $d$ where the cameras looks at and a direction vector $up$, defining what is the direction in camera space pointing upwards. These components, $e$, $d$ and $up$, are defined in world coordinates. Figure $\ref{fig:cameramatrix}$ illustrates this geometrical setup.
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.35]{implementation/cameramatrix.png}
-  \caption[Camera Matrix]{Illustration of involved components in order to construct the camera matrix. We introduce some helper vectors $z_c = \frac{e-d}{||e-d||}$, $x_c = \frac{up \times z_c}{||up \times z_c||} $ and $z_c \times x_c$ for the actual construction of the camera matrix}
+  \caption[Camera Matrix]{Illustration$\footnotemark$ of involved components in order to construct the camera matrix $C$. The eye-vector $e$ denotes the positon of the camera in space, $d$ is the position the camera looks at, and $up$ denotes the cameras height. The camera space is spanned by the vectors helper vectors $x_c$, $y_c$ and $z_c$. Notice that objects we look at are in front of us, and thus have negative $z$ values}
   \label{fig:cameramatrix}
 \end{figure}
+\footnotetext{This image has been taken from the lecture slides of computer graphics class 2012 which can be found on ilias.}
+
+
+
+
+
+\begin{align}
+  &z_c = \frac{e-d}{||e-d||} \nonumber \\
+  &x_c = \frac{up \times z_c}{||up \times z_c||} \nonumber \\
+  &y_c = z_c \times x_c
+  \label{eq:cameraspacespanningvectors}
+\end{align}
+
 
 The mathematical representation of the camera matrix, using the helper vectors introduced in figure $\ref{fig:cameramatrix}$, looks like:
 
@@ -273,9 +282,10 @@ As already mentioned in section $\ref{sec:dirlighsourceassumption}$, our light s
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.45]{implementation/dirlightsource.png}
-  \caption[Rays of a Directional Light]{For a directional light source all light rays are in parallel.}
+  \caption[Rays of a Directional Light]{Illustration$\footnotemark$ of our light source setup. For a directional light source, all light rays are in parallel.}
   \label{fig:dirlightsource}
 \end{figure}
+\footnotetext{This image has been taken from the lecture slides of computer graphics class 2012 which can be found on ilias.}
 
 \subsection{Fragment Shader}
 \label{sec:fragmentshader}

@@ -37,34 +37,34 @@
 \contentsline {section}{\numberline {3.2}Java Renderer}{42}{section.3.2}
 \contentsline {section}{\numberline {3.3}GLSL Diffraction Shader}{43}{section.3.3}
 \contentsline {subsection}{\numberline {3.3.1}Vertex Shader}{43}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Fragment Shader}{46}{subsection.3.3.2}
-\contentsline {paragraph}{From line 4 to 26:}{47}{section*.31}
-\contentsline {paragraph}{From line 9 to 24:}{47}{section*.32}
-\contentsline {paragraph}{From line 14 to 22:}{48}{section*.33}
-\contentsline {paragraph}{After line 26:}{48}{section*.34}
-\contentsline {section}{\numberline {3.4}Technical details}{48}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}Texture lookup}{48}{subsection.3.4.1}
-\contentsline {subsection}{\numberline {3.4.2}Texture Blending}{50}{subsection.3.4.2}
-\contentsline {subsection}{\numberline {3.4.3}Color Transformation}{50}{subsection.3.4.3}
-\contentsline {section}{\numberline {3.5}Discussion}{51}{section.3.5}
-\contentsline {chapter}{\numberline {A}Signal Processing Basics}{53}{appendix.A}
-\contentsline {section}{\numberline {A.1}Fourier Transformation}{53}{section.A.1}
-\contentsline {section}{\numberline {A.2}Convolution}{55}{section.A.2}
-\contentsline {section}{\numberline {A.3}Taylor Series}{55}{section.A.3}
-\contentsline {chapter}{\numberline {B}Summary of Stam's Derivations}{56}{appendix.B}
-\contentsline {chapter}{\numberline {C}Summary of Stam's Derivations}{59}{appendix.C}
-\contentsline {section}{\numberline {C.1}Taylor Series Approximation}{59}{section.C.1}
-\contentsline {subsection}{\numberline {C.1.1}Proof Sketch of 1.}{59}{subsection.C.1.1}
-\contentsline {subsection}{\numberline {C.1.2}Part 2: Find such an N}{59}{subsection.C.1.2}
-\contentsline {section}{\numberline {C.2}PQ approach}{61}{section.C.2}
-\contentsline {subsection}{\numberline {C.2.1}One dimensional case}{61}{subsection.C.2.1}
-\contentsline {subsection}{\numberline {C.2.2}Two dimensional case}{63}{subsection.C.2.2}
-\contentsline {chapter}{\numberline {D}Appendix}{64}{appendix.D}
-\contentsline {section}{\numberline {D.1}The 3rd component w}{64}{section.D.1}
-\contentsline {section}{\numberline {D.2}Schlick's approximation}{64}{section.D.2}
-\contentsline {section}{\numberline {D.3}Spherical Coordinates}{65}{section.D.3}
-\contentsline {section}{\numberline {D.4}Tangent Space}{65}{section.D.4}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{67}{figure.caption.38}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{67}{appendix*.39}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{68}{appendix*.40}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{69}{appendix*.41}
+\contentsline {subsection}{\numberline {3.3.2}Fragment Shader}{47}{subsection.3.3.2}
+\contentsline {paragraph}{From line 4 to 26:}{48}{section*.31}
+\contentsline {paragraph}{From line 9 to 24:}{48}{section*.32}
+\contentsline {paragraph}{From line 14 to 22:}{49}{section*.33}
+\contentsline {paragraph}{After line 26:}{49}{section*.34}
+\contentsline {section}{\numberline {3.4}Technical details}{49}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Texture lookup}{49}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Texture Blending}{51}{subsection.3.4.2}
+\contentsline {subsection}{\numberline {3.4.3}Color Transformation}{51}{subsection.3.4.3}
+\contentsline {section}{\numberline {3.5}Discussion}{52}{section.3.5}
+\contentsline {chapter}{\numberline {A}Signal Processing Basics}{54}{appendix.A}
+\contentsline {section}{\numberline {A.1}Fourier Transformation}{54}{section.A.1}
+\contentsline {section}{\numberline {A.2}Convolution}{56}{section.A.2}
+\contentsline {section}{\numberline {A.3}Taylor Series}{56}{section.A.3}
+\contentsline {chapter}{\numberline {B}Summary of Stam's Derivations}{57}{appendix.B}
+\contentsline {chapter}{\numberline {C}Summary of Stam's Derivations}{60}{appendix.C}
+\contentsline {section}{\numberline {C.1}Taylor Series Approximation}{60}{section.C.1}
+\contentsline {subsection}{\numberline {C.1.1}Proof Sketch of 1.}{60}{subsection.C.1.1}
+\contentsline {subsection}{\numberline {C.1.2}Part 2: Find such an N}{60}{subsection.C.1.2}
+\contentsline {section}{\numberline {C.2}PQ approach}{62}{section.C.2}
+\contentsline {subsection}{\numberline {C.2.1}One dimensional case}{62}{subsection.C.2.1}
+\contentsline {subsection}{\numberline {C.2.2}Two dimensional case}{64}{subsection.C.2.2}
+\contentsline {chapter}{\numberline {D}Appendix}{65}{appendix.D}
+\contentsline {section}{\numberline {D.1}The 3rd component w}{65}{section.D.1}
+\contentsline {section}{\numberline {D.2}Schlick's approximation}{65}{section.D.2}
+\contentsline {section}{\numberline {D.3}Spherical Coordinates}{66}{section.D.3}
+\contentsline {section}{\numberline {D.4}Tangent Space}{66}{section.D.4}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{68}{figure.caption.38}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{68}{appendix*.39}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{69}{appendix*.40}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{70}{appendix*.41}
