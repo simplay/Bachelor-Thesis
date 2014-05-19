@@ -381,6 +381,14 @@ Notice that equation $\ref{eq:xcolexpression}$ is contrainted by $N$ and hence i
 
 \section{Spectral Rendering}
 \label{sec:spectralrendering}
+
+% write what is Lambda
+% write initial text
+% from given starting point: Eqn, we derived xyz
+% using tristimulus values in order to compute XYZ_CIE colors 
+% describe listed equations, and what they are for
+
+
 As the last step of our series of derivations, we plug all our findings together to one big equation. in order to compute the color for each pixel on our mesh in the $CIE_{XYZ}$ colorspace. For any given heigh-field $h(x,y)$ representing a grating of a nano structure and for given direction vectors $w_i$ and $w_r$ as shown in figure $\ref{fig:geometricsetup}$ the resulting color caused by the effect of diffraction can be computed the following way:
 
 \begin{equation}
@@ -390,11 +398,11 @@ DFT_{n}\{h\}(u,v) = {F}_{dft}\{i^n h^n\}(\frac{2\pi u}{\lambda},\frac{2\pi v}{\l
 \begin{equation}
   W_{n}(u,v) = \sum_{(r,s) \in \mathcal{N}_1(u,v)} \left| DFT_{n}\{h\}(u-w_r, v-w_s) \right|^2 \phi(u-w_r, v-w_s)
 \end{equation}
-where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the Gaussian window from equation $\ref{sec:gaussianwindow}$ and $\mathcal{N}_1(u,v)$ denotes the one-neighborhood around $(u,v)$. Then $\forall (u,v,w)$ liked defined in equation $\ref{eq:uvw}$, our final expression for computing structural colors due to diffraction, using our previous derivations, will be equal:
+where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the Gaussian window from equation $\ref{sec:gaussianwindow}$ and $\mathcal{N}_1(u,v)$ denotes the one-neighborhood around $(u,v)$. Then $\forall (u,v,w)$ like defined in equation $\ref{eq:uvw}$, our final expression for computing structural colors due to diffraction, using all our previous derivations, will be equal:
 
 \begin{equation}
 \begin{split}
-\colvec[X]{Y}{Z}& = C(\omega_i,\omega_r) \int \limits_{\lambda} \sum_{n=0}^N  \frac{(2 \pi w)^n}{\lambda^n n!} W_{n}(u,v) \colvec[S_x(\lambda)]{S_y(\lambda)}{S_z(\lambda)}d\lambda
+\colvec[X]{Y}{Z}& = C(\omega_i,\omega_r) \int \limits_{\Lambda} \sum_{n=0}^N  \frac{(2 \pi w)^n}{\lambda^n n!} W_{n}(u,v) \colvec[S_x(\lambda)]{S_y(\lambda)}{S_z(\lambda)}d\lambda
 \end{split}
 \label{eq:finalexpression}
 \end{equation}
@@ -488,7 +496,6 @@ For the identity of equation $\ref{eq:pqmainfinding}$ we made use of Green's int
 
 \subsection{Interpolation}
 \label{sec:sincinterpolation}
-
 In $\ref{sec:pq}$ we have derived an alternative approach when we are working with a periodic signal instead using the gaussian window approach from $\ref{sec:gaussianwindow}$. Its main finding $\ref{eq:pqmainfinding}$ that we can just integrate over one of its period instead iterating over the whole domain. Nevertheless, this main finding is using the inverse DTFT. Since we are using 
 
 We are interested in recovering an original analog signal $x(t)$ from its samples $x[t] = $ 
@@ -505,6 +512,6 @@ When $x[n]$ represents time samples at interval $T$ of a continuous function, th
 \begin{figure}[ht]
   \centering
   \includegraphics[scale=0.8]{background/sincreconstructed.png}
-  \caption{Comparission between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\hat{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.}
+  \caption[Sinc Interpolation Approximation]{Comparission between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\hat{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.}
   \label{fig:plotsincinterpolation}  
 \end{figure}

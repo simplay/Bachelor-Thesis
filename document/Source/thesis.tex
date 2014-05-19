@@ -18,7 +18,7 @@
 \usepackage[english]{babel}
 \usepackage{fontspec}
 \usepackage{algpseudocode}
-\usepackage[chapter]{algorithm}
+\usepackage{algorithm}
 \usepackage{mathrsfs}
 \usepackage{dsfont}
 \usepackage{graphicx}
@@ -27,13 +27,18 @@
 \usepackage{subfigure}
 \usepackage{float}
 \usepackage{mathtools}
+\usepackage{mdwlist}
+% \usepackage[ruled,vlined]{algorithm2e}
+% \usepackage[linesnumbered]{algorithm2e}
 
+% \SetAlCapSkip{1em}
+% \SetKwInput{KwInput}{Input}
+% \SetKwInput{KwOutput}{Output}
 
-\algnewcommand\algorithmicinput{\textbf{INPUT:}}
-\algnewcommand\INPUT{\item[\algorithmicinput]}
-
-\algnewcommand\algorithmicoutput{\textbf{OUTPUT:}}
-\algnewcommand\MOUTPUT{\item[\algorithmicoutput]}
+\usepackage[hmargin=3cm]{geometry}
+% \usepackage{algorithm}
+% \usepackage{algorithmic}
+\usepackage{boxedminipage}
 
 
 
@@ -91,9 +96,9 @@ In nature color production is the result of physical interaction of light with a
 \pagenumbering{arabic} \setcounter{page}{1}
 \pagestyle{fancy}
 
-% \include{Chapters/chapter1}
-% \newpage{\pagestyle{empty} \cleardoublepage}
-% % 
+\include{Chapters/chapter1}
+\newpage{\pagestyle{empty} \cleardoublepage}
+% 
 \include{Chapters/theoretical_background}
 \newpage{\pagestyle{empty} \cleardoublepage}
 % % % 
