@@ -1,37 +1,87 @@
 \select@language {english}
-\contentsline {chapter}{\numberline {1}Implementation}{1}{chapter.1}
-\contentsline {section}{\numberline {1.1}Precomputations in Matlab}{2}{section.1.1}
-\contentsline {section}{\numberline {1.2}Java Renderer}{6}{section.1.2}
-\contentsline {section}{\numberline {1.3}GLSL Diffraction Shader}{7}{section.1.3}
-\contentsline {subsection}{\numberline {1.3.1}Vertex Shader}{7}{subsection.1.3.1}
-\contentsline {subsection}{\numberline {1.3.2}Fragment Shader}{11}{subsection.1.3.2}
-\contentsline {paragraph}{From line 4 to 26:}{13}{section*.10}
-\contentsline {paragraph}{From line 9 to 24:}{13}{section*.11}
-\contentsline {paragraph}{From line 14 to 22:}{13}{section*.12}
-\contentsline {paragraph}{After line 26:}{13}{section*.13}
-\contentsline {section}{\numberline {1.4}Technical details}{13}{section.1.4}
-\contentsline {subsection}{\numberline {1.4.1}Texture lookup}{13}{subsection.1.4.1}
-\contentsline {subsection}{\numberline {1.4.2}Texture Blending}{15}{subsection.1.4.2}
-\contentsline {subsection}{\numberline {1.4.3}Color Transformation}{15}{subsection.1.4.3}
-\contentsline {section}{\numberline {1.5}Discussion}{16}{section.1.5}
-\contentsline {chapter}{\numberline {A}Signal Processing Basics}{18}{appendix.A}
-\contentsline {section}{\numberline {A.1}Fourier Transformation}{18}{section.A.1}
-\contentsline {section}{\numberline {A.2}Convolution}{20}{section.A.2}
-\contentsline {section}{\numberline {A.3}Taylor Series}{20}{section.A.3}
-\contentsline {chapter}{\numberline {B}Summary of Stam's Derivations}{21}{appendix.B}
-\contentsline {chapter}{\numberline {C}Summary of Stam's Derivations}{24}{appendix.C}
-\contentsline {section}{\numberline {C.1}Taylor Series Approximation}{24}{section.C.1}
-\contentsline {subsection}{\numberline {C.1.1}Proof Sketch of 1.}{24}{subsection.C.1.1}
-\contentsline {subsection}{\numberline {C.1.2}Part 2: Find such an N}{24}{subsection.C.1.2}
-\contentsline {section}{\numberline {C.2}PQ approach}{26}{section.C.2}
-\contentsline {subsection}{\numberline {C.2.1}One dimensional case}{26}{subsection.C.2.1}
-\contentsline {subsection}{\numberline {C.2.2}Two dimensional case}{27}{subsection.C.2.2}
-\contentsline {chapter}{\numberline {D}Appendix}{29}{appendix.D}
-\contentsline {section}{\numberline {D.1}The 3rd component w}{29}{section.D.1}
-\contentsline {section}{\numberline {D.2}Schlick's approximation}{29}{section.D.2}
-\contentsline {section}{\numberline {D.3}Spherical Coordinates}{30}{section.D.3}
-\contentsline {section}{\numberline {D.4}Tangent Space}{30}{section.D.4}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{31}{figure.caption.17}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{31}{appendix*.18}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{32}{appendix*.19}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{33}{appendix*.20}
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Motivation}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Goals}{3}{section.1.2}
+\contentsline {section}{\numberline {1.3}Previous work}{4}{section.1.3}
+\contentsline {section}{\numberline {1.4}Thesis Structure}{5}{section.1.4}
+\contentsline {chapter}{\numberline {2}Theoretical Background}{6}{chapter.2}
+\contentsline {section}{\numberline {2.1}Basics in Modeling Light in Computer Graphics}{6}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Radiometry}{6}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Spectral Energy}{6}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}Spectral Power}{7}{subsection.2.1.3}
+\contentsline {subsection}{\numberline {2.1.4}Spectral Irradiance}{7}{subsection.2.1.4}
+\contentsline {subsection}{\numberline {2.1.5}Spectral Radiance}{7}{subsection.2.1.5}
+\contentsline {subsection}{\numberline {2.1.6}BRDF}{8}{subsection.2.1.6}
+\contentsline {subsection}{\numberline {2.1.7}Wavespectrum and Colors}{9}{subsection.2.1.7}
+\contentsline {subsection}{\numberline {2.1.8}Colorspace}{10}{subsection.2.1.8}
+\contentsline {subsection}{\numberline {2.1.9}Spectral Rendering}{12}{subsection.2.1.9}
+\contentsline {section}{\numberline {2.2}Wave Theory for Light and Diffraction}{12}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Basics in Wave Theory}{12}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Wave Interference}{13}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Wave Coherence}{15}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}Huygen's Principle}{16}{subsection.2.2.4}
+\contentsline {subsection}{\numberline {2.2.5}Waves Diffraction}{16}{subsection.2.2.5}
+\contentsline {section}{\numberline {2.3}Stam's BRDF formulation}{18}{section.2.3}
+\contentsline {chapter}{\numberline {3}Derivations}{24}{chapter.3}
+\contentsline {section}{\numberline {3.1}Problem Statement and Challenges}{24}{section.3.1}
+\contentsline {section}{\numberline {3.2}Approximate a FT by a DFT}{25}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Reproduce FT by DTFT}{25}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Spatial Coherence and Windowing}{26}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Reproduce DTFT by DFT}{28}{subsection.3.2.3}
+\contentsline {section}{\numberline {3.3}Adaption of Stam's BRDF discrete height fields}{30}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Rendering Equation}{30}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Reflected Radiance of Stam's BRDF}{31}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Relative Reflectance}{32}{subsection.3.3.3}
+\contentsline {section}{\numberline {3.4}Optimization using Taylor Series}{34}{section.3.4}
+\contentsline {section}{\numberline {3.5}Spectral Rendering}{36}{section.3.5}
+\contentsline {section}{\numberline {3.6}Alternative Approach}{36}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}PQ factors}{36}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}Interpolation}{39}{subsection.3.6.2}
+\contentsline {chapter}{\numberline {4}Implementation}{40}{chapter.4}
+\contentsline {section}{\numberline {4.1}Precomputations in Matlab}{41}{section.4.1}
+\contentsline {section}{\numberline {4.2}Java Renderer}{45}{section.4.2}
+\contentsline {section}{\numberline {4.3}GLSL Diffraction Shader}{46}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Vertex Shader}{46}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Fragment Shader}{50}{subsection.4.3.2}
+\contentsline {paragraph}{From line 4 to 26:}{52}{section*.36}
+\contentsline {paragraph}{From line 9 to 24:}{52}{section*.37}
+\contentsline {paragraph}{From line 14 to 22:}{52}{section*.38}
+\contentsline {paragraph}{After line 26:}{52}{section*.39}
+\contentsline {section}{\numberline {4.4}Technical details}{52}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Texture lookup}{52}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}Texture Blending}{54}{subsection.4.4.2}
+\contentsline {subsection}{\numberline {4.4.3}Color Transformation}{54}{subsection.4.4.3}
+\contentsline {section}{\numberline {4.5}Discussion}{55}{section.4.5}
+\contentsline {chapter}{\numberline {5}Evaluation and data acquisition}{57}{chapter.5}
+\contentsline {section}{\numberline {5.1}Data Acquisition}{57}{section.5.1}
+\contentsline {section}{\numberline {5.2}Diffraction Gratings}{57}{section.5.2}
+\contentsline {section}{\numberline {5.3}Evaluation}{63}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Precomputation}{64}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Evaluation graphs}{65}{subsection.5.3.2}
+\contentsline {chapter}{\numberline {6}Results}{69}{chapter.6}
+\contentsline {section}{\numberline {6.1}BRDF maps}{69}{section.6.1}
+\contentsline {section}{\numberline {6.2}Snake surface geometries}{78}{section.6.2}
+\contentsline {chapter}{\numberline {7}Conclusion}{84}{chapter.7}
+\contentsline {section}{\numberline {7.1}Review}{84}{section.7.1}
+\contentsline {section}{\numberline {7.2}Personal Experiences}{85}{section.7.2}
+\contentsline {section}{\numberline {7.3}Acknowledgment}{85}{section.7.3}
+\contentsline {chapter}{\numberline {A}Signal Processing Basics}{86}{appendix.A}
+\contentsline {section}{\numberline {A.1}Fourier Transformation}{86}{section.A.1}
+\contentsline {section}{\numberline {A.2}Convolution}{88}{section.A.2}
+\contentsline {section}{\numberline {A.3}Taylor Series}{88}{section.A.3}
+\contentsline {chapter}{\numberline {B}Summary of Stam's Derivations}{89}{appendix.B}
+\contentsline {chapter}{\numberline {C}Derivation Steps in Detail}{92}{appendix.C}
+\contentsline {section}{\numberline {C.1}Taylor Series Approximation}{92}{section.C.1}
+\contentsline {subsection}{\numberline {C.1.1}Proof Sketch of 1.}{92}{subsection.C.1.1}
+\contentsline {subsection}{\numberline {C.1.2}Part 2: Find such an N}{92}{subsection.C.1.2}
+\contentsline {section}{\numberline {C.2}PQ approach}{94}{section.C.2}
+\contentsline {subsection}{\numberline {C.2.1}One dimensional case}{94}{subsection.C.2.1}
+\contentsline {subsection}{\numberline {C.2.2}Two dimensional case}{95}{subsection.C.2.2}
+\contentsline {chapter}{\numberline {D}Miscellaneous Transformations}{97}{appendix.D}
+\contentsline {section}{\numberline {D.1}Fresnel Term - Schlick's approximation}{97}{section.D.1}
+\contentsline {section}{\numberline {D.2}Spherical Coordinates and Space Transformation}{97}{section.D.2}
+\contentsline {section}{\numberline {D.3}Tangent Space}{98}{section.D.3}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{99}{figure.caption.75}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{99}{appendix*.76}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{101}{appendix*.77}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{102}{appendix*.78}

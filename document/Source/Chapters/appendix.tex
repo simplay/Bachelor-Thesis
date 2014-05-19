@@ -1,19 +1,5 @@
-\chapter{Appendix}
-\section{The 3rd component w}
-\label{sec:componentw}
-From the definition $\ref{eq:uvw}$ of $(u,v,w)= -\omega_i - \omega_r$ and using spherical coordinates $\ref{eq:sphericalcoordinates}$, we get for $w$ the following identity:
-
-\begin{align}
-w 
-&= -\omega_i - \omega_r \nonumber \\ 
-&= -(\omega_i + \omega_r) \nonumber \\
-&= -\left( cos(\theta_i)+cos(\theta_r) \right) 
-\label{eq:sphericalomega}
-\end{align}
-
-and therefore $w^2$ is equal $(cos(\theta_i)+cos(\theta_r))^2$. 
-
-\section{Schlick's approximation}
+\chapter{Miscellaneous Transformations}
+\section{Fresnel Term - Schlick's approximation}
 The Fresnel's equations describe the reflection and transmission of electromagnetic waves at an interface. That is, they give the reflection and transmission coefficients for waves parallel and perpendicular to the plane of incidence. Schlick's approximation is a formula for approximating the contribution of the Fresnel term where the specular reflection coefficient $R$ can be approximated by:
 
 \begin{equation}
@@ -30,7 +16,7 @@ and
 where $\theta$ is the angle between the viewing direction and the half-angle direction, which is halfway between the incident 
 light direction and the viewing direction, hence $\cos\theta=(H\cdot V)$. And $n_1,\,n_2$ are the indices of refraction of the two medias at the interface and $R_0$ is the reflection coefficient for light incoming parallel to the normal (i.e., the value of the Fresnel term when $\theta = 0$ or minimal reflection). In computer graphics, one of the interfaces is usually air, meaning that $n_1$ very well can be approximated as 1.
 
-\section{Spherical Coordinates}
+\section{Spherical Coordinates and Space Transformation}
 \label{sec:sphericalcoordinates}
 $\forall \colvec[x]{y}{z} \in \mathbb{R}^3 : \exists r \in [0,\infty) \exists \phi \in [0,2\pi] \exists \theta \in [0,\pi] $ s.t.
 \begin{equation*}
@@ -38,6 +24,18 @@ $\forall \colvec[x]{y}{z} \in \mathbb{R}^3 : \exists r \in [0,\infty) \exists \p
 \label{eq:sphericalcoordinates}
 \end{equation*}
 
+\label{sec:componentw}
+From the definition $\ref{eq:uvw}$ of $(u,v,w)= -\omega_i - \omega_r$ and using spherical coordinates $\ref{eq:sphericalcoordinates}$, we get for $w$ the following identity:
+
+\begin{align}
+w 
+&= -\omega_i - \omega_r \nonumber \\ 
+&= -(\omega_i + \omega_r) \nonumber \\
+&= -\left( cos(\theta_i)+cos(\theta_r) \right) 
+\label{eq:sphericalomega}
+\end{align}
+
+and therefore $w^2$ is equal $(cos(\theta_i)+cos(\theta_r))^2$. 
 
 \section{Tangent Space}
 \label{sec:tangentspace}
@@ -53,9 +51,3 @@ To make this point clear an example: Even we would rotate the cube in figure $\r
   \caption[Illustration of a Tangent Space]{Cube in world space $(x,y,z)$ showing the tangen space $(u,v,n)$ of its face $(2,1,3)$}
   \label{fig:cubeintangentspace}
 \end{figure}
-
-
-
-
-
-
