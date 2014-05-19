@@ -200,37 +200,29 @@ All required configuration, in oder to communicate with the GPU through OpenGL, 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-render: produce a 2d image of a 3d scene as seen from the perspective of a viewer
+In our implementation we want to simulate the structural colors a viewer sees when light diffracted is on grating, e.g. on the skin of a snake. For this purpose, we reproduce a 2d image of a given 3d scene as seen from the perspective of a viewer for given lightning conditions. The color computation of an image is performed in the GPU shaders of the rendering pipeline. In OpenGL, there are two basic shading stages performed to rendern an image whereas the vertex shader is the first shading stage in the rendering pipeline. \\
 
-In rendering we are interested in reproducing a 2d image of a given 3d scene as seen from the perspective of a viewer. 
-us: 
+As an input, a vertex shader receives one vertex of a mesh and other vertex data such as a vertex normals. It only can access this data and has no information about the neighborhood of a vertex or the topology of its corresponding shape. Since vertex positions of a shape are defined in a local coordinate system$\footnote{Defining the positions of a shape in a local coordinate system simplifies its modeling process and allows us to apply transformations to a shape.}$ and we want to render an image of the perspective of viewer, we have to transform the locally defined positions to a perspectively projected viewer space. Therefore, the main purpose$\footnote{Furthermore, texture coordinates used for texture-lookup within the fragment shader and per vertex lightning can be computed.}$ of a vertex shader is to tranform the position of vertices. Notice that a vertex shader can manipulate the position of a vertices, but cannot generate additional mesh vertices. Therfore, the output of any vertex shader is a transformed vertex position. \\
 
-In our implementation we want to simulate the structural colors a viewer sees when light diffracted is on grating, e.g. on the skin of a snake. For this purpose, we reproduce a 2d image of a given 3d scene as seen from the perspective of a viewer for given lightning conditions. The color computation of an image is performed in the GPU shaders of the rendering pipeline. In OpenGL, there are two basic shading stages performed to rendern an image whereas the vertex shader is the first shading stage in the rendering pipeline. 
 
-As an input, a vertex shader receives one vertex of a mesh and other vertex data such as a vertex normals. It only can access this data and has no information about the neighborhood of a vertex or the topology of its corresponding shape. Since vertex positions of a shape are defined in a local coordinate system$\footnote{Defining the positions of a shape in a local coordinate system simplifies its modeling process and allows us to apply transformations to a shape.}$ and we want to render an image of the perspective of viewer, we have to transform the locally defined positions to a perspectively projected viewer space. Therefore, the main purpose$\footnote{Furthermore, texture coordinates used for texture-lookup within the fragment shader and per vertex lightning can be computed.}$ of a vertex shader is to tranform the position of vertices. Notice that a vertex shader can manipulate the position of a vertices, but cannot generate additional mesh vertices. Therfore, the output of any vertex shader is a transformed vertex position.
+viewer modeled by a camera
 
 
 
-
-
-
-
-write purpose of vertex shader
-then what input it takes
-and then is output and how reads it
-
-then concepts
-then 
-
-
-
-The Vertex shader is the first shading stage within our rendering pipeline and responsible for computing all necessary per vertex data. Usually, within a vertex shader each vertex position is transformed into a projective space:
-
+Let $p_{local}$ denote the position of a shape vertex, defined in a local coordinate system. Then the transformation from $p_{local}$
+into the perspective projected position as seen by a observer $p_{projective}$ looks like the following:
 \begin{equation}
-  p_{projective} = P \cdot C^{-1} \cdot M \cdot p_{obj}
+  p_{projective} = P \cdot C^{-1} \cdot M \cdot p_{local}
 \end{equation}
 
-Where M is a transformation from the local object space to the reference coordinate system, called world space, $C^{-1}$ camera matrix C and $P$ the projection matrix. The camera matrix defines transformation from camera to world coordinates as shown in figure $\ref{fig:cameracoordinatesystem}$.
+Each matrix 
+
+Where $M$ is a transformation from the local space to a reference coordinate system, called world space.
+
+
+
+
+ $C^{-1}$ camera matrix $C$ and $P$ the projection matrix. The camera matrix defines transformation from camera to world coordinates as shown in figure $\ref{fig:cameracoordinatesystem}$.
 
 \begin{figure}[H]
   \centering
