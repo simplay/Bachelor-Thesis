@@ -256,10 +256,12 @@ As we can see, $x_c$, $y_c$ and $z_c$ are independent unit vectors. Therefore, t
 In our vertex shader, besides transforming the vertex positions like described in equation $\ref{eq:vertextransformation}$, for every vertex, we also compute the direction vectors $\omega_i$ and $\omega_r$ described like in figure $\ref{fig:geometricsetup}$. Those direction vectors are transformed onto the tangent space, a local coordinate system spanned by a vertex's normal, tangent and binormal vector. For further information and more insight about the the tangent space, please bave a look at the appendix in the section $\ref{sec:tangentspace}$. The algorithmic idea of our vertex shader, stating all its computational steps, is conceptualized in algorithm $\ref{alg:vertexshader}$.
   
 \begin{algorithm}[H]
-  \caption{Vertex diffraction shader pseudo code}
-  \begin{algorithmic}
-    \INPUT $Vertices,\ tranformation \ matrices,\ N,\ T,\ lightDir$
-    \MOUTPUT $\omega_i,\ \omega_r,\ p_{per}$ 
+\caption{Vertex diffraction shader pseudo code}
+\textbf{Input:} $Vertices,\ tranformation \ matrices,\ N,\ T,\ lightDir$ \\
+\textbf{Output:} $\omega_i,\ \omega_r,\ p_{per}$ \\
+\setlength{\fboxrule}{0pt} 
+\begin{boxedminipage}{1.0\textwidth}
+  \begin{algorithmic}[1]
       \ForAll{$Vertex \thinspace v \in Shape$}
         \State $ vec3 \ N = normalize(modelM * vec4(normal,0.0).xyz)$
         \State $ vec3 \ T = normalize(modelM * vec4(tangent,0.0).xyz)$
@@ -272,8 +274,9 @@ In our vertex shader, besides transforming the vertex positions like described i
         \State $normalize(l); normalize(p)$
         \State $p_{per} = P \cdot C^{-1} \cdot M \cdot p_{obj}$
       \EndFor
-      
   \end{algorithmic}
+  \end{boxedminipage}
+  \vskip1.5pt
 \label{alg:vertexshader}
 \end{algorithm}
 
@@ -298,9 +301,11 @@ The Gaussian window approach derived in section $\ref{sec:gaussianwindow}$ is pe
 
 \begin{algorithm}[H]
   \caption{Fragment diffraction shader pseudo code}
+  \textbf{Input:} $Precomputed \thinspace DFT \thinspace Terms,\thinspace Scene \thinspace Geometry$ \\
+  \textbf{Output:} $Structural Color on Fragment$ \\
+  \setlength{\fboxrule}{0pt} 
+  \begin{boxedminipage}{1.0\textwidth}
   \begin{algorithmic}[1]
-    \INPUT $Precomputed \thinspace DFT \thinspace Terms,\thinspace Scene \thinspace Geometry$
-    \MOUTPUT $Structural Color on Fragment$
     \ForAll{$Pixel \thinspace p \in Fragment$}
       \State \init $BRDF_{XYZ}, BRDF_{RGB}$ \myto $vec4(0.0)$
       \State $(u,v,w) = -\omega_i - \omega_r$
@@ -332,6 +337,8 @@ The Gaussian window approach derived in section $\ref{sec:gaussianwindow}$ is pe
       \State $BRDF_{RGB}= gammaCorrect(BRDF_{RGB})$
     \EndFor
   \end{algorithmic}
+  \end{boxedminipage}
+  \vskip1.5pt
   \label{alg:fragmentshaderall}
 \end{algorithm}
 
