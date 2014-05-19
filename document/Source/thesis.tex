@@ -18,7 +18,7 @@
 \usepackage[english]{babel}
 \usepackage{fontspec}
 \usepackage{algpseudocode}
-\usepackage[chapter]{algorithm}
+% \usepackage{algorithm}
 \usepackage{mathrsfs}
 \usepackage{dsfont}
 \usepackage{graphicx}
@@ -27,15 +27,13 @@
 \usepackage{subfigure}
 \usepackage{float}
 \usepackage{mathtools}
+\usepackage{mdwlist}
+\usepackage[ruled,vlined]{algorithm2e}
+% \usepackage[linesnumbered]{algorithm2e}
 
-
-\algnewcommand\algorithmicinput{\textbf{INPUT:}}
-\algnewcommand\INPUT{\item[\algorithmicinput]}
-
-\algnewcommand\algorithmicoutput{\textbf{OUTPUT:}}
-\algnewcommand\MOUTPUT{\item[\algorithmicoutput]}
-
-
+\SetAlCapSkip{1em}
+\SetKwInput{KwInput}{Input}
+\SetKwInput{KwOutput}{Output}
 
 \renewcommand{\algorithmicforall}{\textbf{Foreach}}
 \newcommand{\init}{\textbf{INIT }}
@@ -82,6 +80,21 @@
 %abstract
 In nature color production is the result of physical interaction of light with a surface's nanostructure. In his pioneering work, Stam developed limited reflection models based on wave optics, capturing the effect of diffraction on very regular surface structures. We propose an adaption of his BRDF model such that it can handle complex natural gratings. On top of this, we describe a technique for interactively rendering diffraction effects, as a result of physical interaction of light with biological nanostructures such as snake skins. As input data, our method uses discrete height fields of natural gratings acquired by using atomic force microscopy (AFM). Based on Taylor Series approximation we leverages precomputation to achieve interactive rendering performance (about 5-15 fps). We demonstrate results of our approach using surface nanostructures of different snake species applied on a measured snake geometry. Lastly, we evaluate the qualtiy of our method by a comparision of the maxima for peak viewing angles using the data produced by our method against the maxima resulting by the grating equation.
 
+
+
+
+\begin{algorithm}
+\DontPrintSemicolon
+\KwInput{Foo}
+\KwOutput{B}
+\caption{$sdf$}
+  \begin{algorithmic}[1]
+    \State $ TangentSpace = span(N, T, B)$
+  \end{algorithmic}
+\end{algorithm}
+
+
+
 \pagenumbering{roman} \setcounter{page}{1}
 \tableofcontents
 
@@ -94,14 +107,14 @@ In nature color production is the result of physical interaction of light with a
 % \include{Chapters/chapter1}
 % \newpage{\pagestyle{empty} \cleardoublepage}
 % % 
-\include{Chapters/theoretical_background}
-\newpage{\pagestyle{empty} \cleardoublepage}
-% % % 
-\include{Chapters/derivation}
-\newpage{\pagestyle{empty} \cleardoublepage}
-% 
-\include{Chapters/chapter3}
-\newpage{\pagestyle{empty} \cleardoublepage}
+% \include{Chapters/theoretical_background}
+% \newpage{\pagestyle{empty} \cleardoublepage}
+% % % % 
+% \include{Chapters/derivation}
+% \newpage{\pagestyle{empty} \cleardoublepage}
+% % 
+% \include{Chapters/chapter3}
+% \newpage{\pagestyle{empty} \cleardoublepage}
 % 
 % \include{Chapters/chapter4}
 % \newpage{\pagestyle{empty} \cleardoublepage}

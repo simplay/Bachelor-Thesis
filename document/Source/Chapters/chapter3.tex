@@ -249,27 +249,30 @@ The mathematical representation of these vectors, $x_c$, $y_c$ and $z_c$, spanni
 
 As we can see, $x_c$, $y_c$ and $z_c$ are independent unit vectors. Therefore, they span a 3d space, the so called camera matrix. In order to express a coordinate in camera space, we have to project it onto these unit vectos. Using a homogenous coordinates representation, this a projection onto these unit vectors can be formulated by the transformation matrix $C$:
 \begin{equation}
-C = \begin{bmatrix} x_c & y_c & z_c & e \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  C = \begin{bmatrix} x_c & y_c & z_c & e \\ 0 & 0 & 0 & 1 \end{bmatrix}
+  \label{eq:cameramatrixeq}
 \end{equation}
 
-In our vertex shader, besides the transforming the vertex position like described in equation $\ref{eq:vertextransformation}$, for every vertex we also compute the direction vectors $\omega_i$ and $\omega_r$ described like in figure $\ref{fig:geometricsetup}$. Those direction vectors are transformed onto the tangent space, a local coordinate system spanned by a vertex's normal, tangent and binormal vector. For further information and more insight about the the tangent space, please bave a look at the appendix in the section $\ref{sec:tangentspace}$. The algorithmic idea of our vertex shader, stating all its computational steps, is conceptualized in algorithm $\ref{alg:vertexshader}$.
+In our vertex shader, besides transforming the vertex positions like described in equation $\ref{eq:vertextransformation}$, for every vertex, we also compute the direction vectors $\omega_i$ and $\omega_r$ described like in figure $\ref{fig:geometricsetup}$. Those direction vectors are transformed onto the tangent space, a local coordinate system spanned by a vertex's normal, tangent and binormal vector. For further information and more insight about the the tangent space, please bave a look at the appendix in the section $\ref{sec:tangentspace}$. The algorithmic idea of our vertex shader, stating all its computational steps, is conceptualized in algorithm $\ref{alg:vertexshader}$.
   
 \begin{algorithm}[H]
   \caption{Vertex diffraction shader pseudo code}
   \begin{algorithmic}
-    \INPUT $Vertices, N, T, Shape, lightDir$
-    \MOUTPUT $Structural Color on Fragment$
-    \ForAll{$Vertex \thinspace v \in Shape$}
-      \State $ vec3 \ N = normalize(modelM * vec4(normal,0.0).xyz)$
-      \State $ vec3 \ T = normalize(modelM * vec4(tangent,0.0).xyz)$
-      \State $ vec3 \ B = normalize(cross(N, T))$
-      \State $ vec3 \ Pos = ((cop_{w}-position)).xyz$
-      \State $ lightDir = normalize(lightDir)$
-      \State $ \omega_i = projectVectorOnTo(lightDir, TangentSpace)$
-      \State $ \omega_r = projectVectorOnTo(Pos, TangentSpace)$
-      \State $normalize(l); normalize(p)$
-      \State $p_{per} = P \cdot C^{-1} \cdot M \cdot p_{obj}$
-    \EndFor
+    \INPUT $Vertices,\ tranformation \ matrices,\ N,\ T,\ lightDir$
+    \MOUTPUT $\omega_i,\ \omega_r,\ p_{per}$ 
+      \ForAll{$Vertex \thinspace v \in Shape$}
+        \State $ vec3 \ N = normalize(modelM * vec4(normal,0.0).xyz)$
+        \State $ vec3 \ T = normalize(modelM * vec4(tangent,0.0).xyz)$
+        \State $ vec3 \ B = normalize(cross(N, T))$
+        \State $ TangentSpace = span(N, T, B)$
+        \State $ vec3 \ Pos = ((cop_{w}-position)).xyz$
+        \State $ lightDir = normalize(lightDir)$
+        \State $ \omega_i = projectVectorOnTo(lightDir, TangentSpace)$
+        \State $ \omega_r = projectVectorOnTo(Pos, TangentSpace)$
+        \State $normalize(l); normalize(p)$
+        \State $p_{per} = P \cdot C^{-1} \cdot M \cdot p_{obj}$
+      \EndFor
+      
   \end{algorithmic}
 \label{alg:vertexshader}
 \end{algorithm}

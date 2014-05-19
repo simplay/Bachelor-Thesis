@@ -1,46 +1,6 @@
 \select@language {english}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces Irradiance}}{3}{figure.caption.2}
-\contentsline {figure}{\numberline {1.2}{\ignorespaces BRDF Model}}{4}{figure.caption.4}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Radiances is the density of photons per area per solid angle}}}{4}{figure.caption.4}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Solid angle is the area of a surface patch on a sphere with radius R which is spanned by a set of directions}}}{4}{figure.caption.4}
-\contentsline {figure}{\numberline {1.3}{\ignorespaces visiblelightspectrum}}{5}{figure.caption.5}
-\contentsline {figure}{\numberline {1.4}{\ignorespaces humanayeschematic}}{6}{figure.caption.6}
-\contentsline {figure}{\numberline {1.5}{\ignorespaces Color Matching Functions}}{7}{figure.caption.7}
-\contentsline {figure}{\numberline {1.6}{\ignorespaces sinewave}}{9}{figure.caption.8}
-\contentsline {figure}{\numberline {1.7}{\ignorespaces interference}}{10}{figure.caption.9}
-\contentsline {figure}{\numberline {1.8}{\ignorespaces Wave Coherence}}{11}{figure.caption.10}
-\contentsline {figure}{\numberline {1.9}{\ignorespaces Huygen's Principle}}{13}{figure.caption.11}
-\contentsline {figure}{\numberline {1.10}{\ignorespaces Diffracted Wave}}{13}{figure.caption.12}
-\contentsline {figure}{\numberline {1.11}{\ignorespaces Diffraction for different $\texttt {Wavelength/Slit-Width}$ ratio}}{14}{figure.caption.13}
-\contentsline {figure}{\numberline {1.12}{\ignorespaces Idea behind Stam's approach}}{15}{figure.caption.14}
-\contentsline {figure}{\numberline {1.13}{\ignorespaces Stam's geometrical setup}}{16}{figure.caption.15}
-\contentsline {figure}{\numberline {1.14}{\ignorespaces Comparing Stam's apporach: Gratings}}{18}{figure.caption.16}
-\contentsline {figure}{\numberline {1.15}{\ignorespaces Comparing Stam's apporach: Good Example}}{18}{figure.caption.17}
-\contentsline {figure}{\numberline {1.16}{\ignorespaces Comparing Stam's apporach: Bad Example}}{19}{figure.caption.18}
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Problem Statement}}{20}{figure.caption.19}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Problem Statement: Output}}{21}{figure.caption.20}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces FT by DTFT}}{22}{figure.caption.21}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {W $\ll $ $\lambda $}}}{22}{figure.caption.21}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {W $\approx $ $2 \lambda $}}}{22}{figure.caption.21}
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {W $\approx $ $6 \lambda $}}}{22}{figure.caption.21}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Structure Geometry}}}{22}{figure.caption.21}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Nanostructure Surface}}}{22}{figure.caption.21}
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Patch Orientation}}}{22}{figure.caption.21}
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Coherence Area using Gaussian Window}}{23}{figure.caption.22}
-\contentsline {figure}{\numberline {2.5}{\ignorespaces DTFT by DFT}}{24}{figure.caption.23}
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Sinc Interpolation Approximation}}{36}{figure.caption.24}
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces DFT Terms for a Blazed grating}}{41}{figure.caption.25}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Renderer Architecture}}{42}{figure.caption.26}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Triangular Mesh}}{43}{figure.caption.27}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Camera Coordinate System}}{45}{figure.caption.28}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Camera Matrix}}{45}{figure.caption.29}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Rays of a Directional Light}}{47}{figure.caption.30}
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Lookup in DFT Terms}}{50}{figure.caption.35}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {D.1}{\ignorespaces Illustration of a Tangent Space}}{67}{figure.caption.38}
+\contentsline {figure}{\numberline {D.1}{\ignorespaces Illustration of a Tangent Space}}{14}{figure.caption.5}
