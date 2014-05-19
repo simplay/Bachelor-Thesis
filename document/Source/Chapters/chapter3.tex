@@ -197,33 +197,32 @@ All required configuration, in oder to communicate with the GPU through OpenGL, 
 \label{sec:vertexshader}
 
 %purpose
-Der Vertexshader erlaubt uns jeden Vertex einzeln zu modifizieren. Wir können und müssen die Modelview-Transformation sowie die Perspective-Transformation selbst übernehmen. Wollen wir klassisches Gouraud Shading müssen wir dies auch selbst übernehmen. 
-
-Vertex shaders are special functions used to manipulate the vertex data by usi
-ng mathematical
-operations. Basic vertices are stored with an X, Y,
-and
-Z position. Another addition is the color of a vertex.
-Using vertex shaders you can manipulate the position and colors, changing only their values and not the way
-the
-ir
-data is stored. Color
-s and position are very basic but are whats needed to build up to vertex shading
-examples that can do things like manipulate the vertex position to create more fuid animations.
 
 
-Im heutigen Artikel werden wir uns mit den Grundlagen der GLSL Shader Programmierung vertraut machen. Ausgangspunkt für unsere Betrachtungen ist das OpenGL
-Vertex Shaders enable an unlimited palette of visual effects that can be rendered in real time.
- output: Im Vertex Shader berechnete Texturkoordinaten, die im Fragment Shader berechnete Pixelfarbe usw.
- 
- in-Variablen dienen zur Parameterübergabe an eine Funktion oder einen Shader (von einem anderen Shader Bsp. Vertex Shader -> Fragment Shader).
- Der Fragment Shader benötigt als Parameter die vom Vertex Shader bereitgestellten Texturkoordinaten. Mithilfe dieser Daten werden im Fragment Shader für jedes Pixel interpolierte Texturkoordinaten berechnet, um den korrekten Farbwert aus der Textur auslesen zu können.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+render: produce a 2d image of a 3d scene as seen from the perspective of a viewer
 
-Vertex-Shader dient dazu, die Geometrie einer Szene zu manipulieren
- Koordinaten der Vertices der Oberflächen transformiert (mesh)
- So lässt sich die Form von Objekten (nur bereits bestehende Obj) beeinflussen, was sich wiederum auch in ihrer Beleuchtung niederschlägt
- Vertex-Shadern sind Effekte wie Vertex Lighting, Terrain-/Objektdeformation, Wasserwellen oder Fischaugenobjektiv möglich
- Der Shader hat dabei nur Zugriff auf den gerade behandelten Vertex (inkl. seiner Texturkoordinaten, Normalen und sonstiger übergebener Daten), aber nicht etwa auf Nachbar-Vertices, die Topologie oder Ähnliches.
+In rendering we are interested in reproducing a 2d image of a given 3d scene as seen from the perspective of a viewer. 
+us: 
+
+In our implementation we want to simulate the structural colors a viewer sees when light diffracted is on grating, e.g. on the skin of a snake. For this purpose, we reproduce a 2d image of a given 3d scene as seen from the perspective of a viewer for given lightning conditions. The color computation of an image is performed in the GPU shaders of the rendering pipeline. In OpenGL, there are two basic shading stages performed to rendern an image whereas the vertex shader is the first shading stage in the rendering pipeline. 
+
+As an input, a vertex shader receives one vertex of a mesh and other vertex data such as a vertex normals. It only can access this data and has no information about the neighborhood of a vertex or the topology of its corresponding shape. Since vertex positions of a shape are defined in a local coordinate system$\footnote{Defining the positions of a shape in a local coordinate system simplifies its modeling process and allows us to apply transformations to a shape.}$ and we want to render an image of the perspective of viewer, we have to transform the locally defined positions to a perspectively projected viewer space. Therefore, the main purpose$\footnote{Furthermore, texture coordinates used for texture-lookup within the fragment shader and per vertex lightning can be computed.}$ of a vertex shader is to tranform the position of vertices. Notice that a vertex shader can manipulate the position of a vertices, but cannot generate additional mesh vertices. Therfore, the output of any vertex shader is a transformed vertex position.
+
+
+
+
+
+
+
+write purpose of vertex shader
+then what input it takes
+and then is output and how reads it
+
+then concepts
+then 
+
+
 
 The Vertex shader is the first shading stage within our rendering pipeline and responsible for computing all necessary per vertex data. Usually, within a vertex shader each vertex position is transformed into a projective space:
 
