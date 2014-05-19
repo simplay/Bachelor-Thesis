@@ -314,8 +314,16 @@ The Gaussian window approach derived in section $\ref{sec:gaussianwindow}$ is pe
 
 \begin{algorithm}[H]
   \caption{Fragment diffraction shader pseudo code}
-  \textbf{Input:} $Precomputed \thinspace DFT \thinspace Terms,\thinspace Scene \thinspace Geometry$ \\
-  \textbf{Output:} $Structural Color on Fragment$ \\
+  \begin{table}[H]
+    \begin{tabular}{@{}lll@{}}
+      \textbf{Input:} & Precomputed DFT Terms  \\
+      & Scene Geometry  \\
+      & $\omega_i$ and $\omega_r$  \\
+      \textbf{Output:} & Structural Color of a pixel \\
+    \end{tabular} 
+  \end{table}
+  \textbf{Procedures:} the LIST  \\
+  
   \setlength{\fboxrule}{0pt} 
   \begin{boxedminipage}{1.0\textwidth}
   \begin{algorithmic}[1]
