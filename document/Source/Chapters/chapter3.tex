@@ -252,7 +252,7 @@ As we can see, $x_c$, $y_c$ and $z_c$ are independent unit vectors. Therefore, t
 \end{equation}
 
 In our vertex shader, besides transforming the vertex positions like described in equation $\ref{eq:vertextransformation}$, for every vertex, we also compute the direction vectors $\omega_i$ and $\omega_r$ described like in figure $\ref{fig:geometricsetup}$. Those direction vectors are transformed onto the tangent space, a local coordinate system spanned by a vertex's normal, tangent and binormal vector. For further information and more insight about the the tangent space, please bave a look at the appendix in the section $\ref{sec:tangentspace}$. The algorithmic idea of our vertex shader, stating all its computational steps, is conceptualized in algorithm $\ref{alg:vertexshader}$.
-  \emph{}
+
 \begin{algorithm}[H]
 \caption{Vertex diffraction shader pseudo code}
 \begin{table}[H]
@@ -286,10 +286,7 @@ In our vertex shader, besides transforming the vertex positions like described i
 \label{alg:vertexshader}
 \end{algorithm}
 
-% brief description of algo steps
-As an input For every vertex of a mesh
-
-As already mentioned in section $\ref{sec:dirlighsourceassumption}$, our light source is a directional light source (See figure $\ref{fig:dirlightsource}$).
+As input, our vertex shader algorithme $\ref{alg:vertexshader}$ takes a mesh with of a given scene shape. Each of this vertexc should have a normal and a tangent assigned to. Furthermore, the direction of the scene light is required. For our implementation we always used directional light sources. An example of an directional light source is given in figure $\ref{fig:dirlightsource}$. 
 
 \begin{figure}[H]
   \centering
@@ -298,6 +295,16 @@ As already mentioned in section $\ref{sec:dirlighsourceassumption}$, our light s
   \label{fig:dirlightsource}
 \end{figure}
 \footnotetext{This image has been taken from the lecture slides of computer graphics class 2012 which can be found on ilias.}
+
+Last, in order to transform the positions of our mesh like described in equation $\ref{eq:vertextransformation}$, we also have to pass these transformation matrices$\footnote{When speaking about transformation matrices, we are refering to the model, camera and frustum matrix.}$. For simplification purposes, we introduced the following helper procedures used in the vertex shading algorithm:
+
+\begin{description}
+  \item[normalize():] Computes the normalized version of a given input vector.
+  \item[span():] Assembles a matrix from a given set of vectors. This matrix spanes a vector space.
+  \item[projectVectorOnTo():] Takes two arguments, a vector and a matrix. The first argument is projected onto each column of a given matrix. And returns a vector living the space spaned by the given argument matrix.
+\end{description}
+
+The output of our vertex shader is on the one side the transformed vertex postion and on the other side the incident light $\omega_i$ and viewing direction $\omega_r$ both transformed into the tangent space. The output of the vertex shader is used as the input of the fragment shader, discussed in the next section.
 
 \subsection{Fragment Shader}
 \label{sec:fragmentshader}
