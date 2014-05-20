@@ -327,6 +327,15 @@ a depth value, either written by the fragment shader or passed through from the 
 
 output produced by rasterizer  
 
+
+
+
+%intro blas
+
+
+
+In the previous section we gave an introduction to the first shading stage of the OpenGL rendering pipeline by explaining the basics of a vertex shaders. Furthermore, we conceptually discussed the idea behind our vertex shading algorithm formulated in algorithm $\ref{alg:vertexshader}$. Summarized, the main purpose of our vertex shader is to compute the light- and viewing-direction vectors $\omega_i$ and $\omega_r$ defined like in figure $\ref{fig:geometricsetup}$. \\
+
 % fragment and rasterizer
 After the vertex-shading stage, the next stage in the OpenGL rendering pipeline is the \emph{rasterization} of mesh triangles. As an input, a rasterizer takes a triple of mesh-triangle spaning vertices, each previousely processed by a vertex shader. For each pixel lying inside the current mesh triangle, a rasterizer computes its corresponding position in the triangle. According to its computed position, a pixel also gets interpolated values of the vertices attributes of its mesh triangle assigned. The set of interpolated vertex attributes together with the computes position of a pixel is denoted as a fragment. Figure $\ref{fig:trianglerasterization}$ conceptualizes the idea of processed set of fragment computed by a rasterizer.
 
@@ -340,21 +349,19 @@ After the vertex-shading stage, the next stage in the OpenGL rendering pipeline 
 %% end rasterizer
 
 
-%intro blas
-In the previous section we gave an introduction to the first shading stage of the OpenGL rendering pipeline by explaining the basics of a vertex shaders. Furthermore, we conceptually discussed the idea behind our vertex shading algorithm formulated in algorithm $\ref{alg:vertexshader}$. Summarized, the main purpose of our vertex shader is to compute the light- and viewing-direction vectors $\omega_i$ and $\omega_r$ defined like in figure $\ref{fig:geometricsetup}$. In this section we explain how the color values of the structural colors, resulting from our BRDF model, are computed by a fragment shader. 
+In this section we explain how to render structural colors resulting due to light diffracted on a natural grating, based on the model described in section $\ref{sec:spectralrendering}$. The color values of the produced structural colors, resulting from our model, are computed by our fragment shader which expects being provided by the follwoing input:
+
+\begin{itemize}
+  \item Precompute DFT terms of the provided height field as explain in section $\ref{sec:precompmatlabfourierimages}$.
+  \item The processed output, produced during the vertex shading stage (see section $\ref{sec:vertexshader}$), which is, the light- and viewing-direction vectors $\omega_i$ and $\omega_r$.
+  \item Fragments produced during the rasterization stage.
+\end{itemize}
+
+%% glue bla
 
 
-In oder to render structural colors due light diffracted on a grating, our fragment shader expects being provided by the precompute height field DFT terms as explain in section $\ref{sec:precompmatlabfourierimages}$ and by the processed output of the verte shading process, which is, the light- and viewing-direction vectors $\omega_i$ and $\omega_r$ used in our model described in section $\ref{sec:spectralrendering}$.
 
-
-
-from section $d$ and the vertex shader output from section.
-
-Explain how we can compute 
-
-$\ref{sec:vertexshader}$
 % end safety zone
-
 
 
 % god old fun
