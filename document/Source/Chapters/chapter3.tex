@@ -325,6 +325,22 @@ output
 a depth value, either written by the fragment shader or passed through from the screen-space fragment's Z value.
 %%%%%%%%%
 
+output produced by rasterizer  
+
+A rasterizer takes three vertices, spaning a mesh triangle, which were processed by a vertex shader and compt
+
+% fragment and rasterizer
+After the vertex shading process, the rasterization stage is applied in the rendering pipeline. The input of a rasterizer is a mesh triangle, spaned by three, by a vertex shader transformed, vertices. For each pixel lying inside the current mesh triangle, a rasterizer computes its position in the triangle. Also, it interpolates the values of all vertex attribues of the vertices spaning the mesh triangle, according to a pixel's positon in the triangle. The set of values for a pixel, computed by interpolated values of mesh triangle vertices, are denoted as a fragment. Figure $\ref{fig:trianglerasterization}$ shows output fragmentsm computed by a rasterizer in the OpenGL rendering pipeline.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.25]{implementation/rasterizedtriangle.png}
+  \caption[Triangle Rasterization]{Illustration$\footnotemark$ of fragments covered by mesh triangle computed by the OpengGL rasterizer.}
+  \label{fig:trianglerasterization}
+\end{figure}
+\footnotetext{\texttt{http://en.wikibooks.org/wiki/GLSL\textunderscore Programming/Rasterization}}
+
+%% end rasterizer
 
 
 In the previous section we gave an introduction to the first shading stage of the OpenGL rendering pipeline by explaining the basics of a vertex shaders. Furthermore we discussed the idea of our vertex shading algorithm. The main task of our vertex shader is to compute the light and viewing direction vectors $\omega_i$ and $\omega_r$ defined like in figure $\ref{fig:geometricsetup}$. In this section we explain how the color values of structural colors resulting from our BRDF model are computed by a fragment shader. 
