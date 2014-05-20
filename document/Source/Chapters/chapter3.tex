@@ -341,9 +341,14 @@ After the vertex-shading stage, the next stage in the OpenGL rendering pipeline 
 
 
 %intro blas
-In the previous section we gave an introduction to the first shading stage of the OpenGL rendering pipeline by explaining the basics of a vertex shaders. Furthermore we discussed the idea of our vertex shading algorithm. The main task of our vertex shader is to compute the light and viewing direction vectors $\omega_i$ and $\omega_r$ defined like in figure $\ref{fig:geometricsetup}$. In this section we explain how the color values of structural colors resulting from our BRDF model are computed by a fragment shader. 
+In the previous section we gave an introduction to the first shading stage of the OpenGL rendering pipeline by explaining the basics of a vertex shaders. Furthermore, we conceptually discussed the idea behind our vertex shading algorithm formulated in algorithm $\ref{alg:vertexshader}$. Summarized, the main purpose of our vertex shader is to compute the light- and viewing-direction vectors $\omega_i$ and $\omega_r$ defined like in figure $\ref{fig:geometricsetup}$. In this section we explain how the color values of the structural colors, resulting from our BRDF model, are computed by a fragment shader. 
 
-Fur this purpose using the precompute DFT terms like explain in section $\ref{sec:precompmatlabfourierimages}$  from section $d$ and the vertex shader output from section.
+
+In oder to render structural colors due light diffracted on a grating, our fragment shader expects being provided by the precompute height field DFT terms as explain in section $\ref{sec:precompmatlabfourierimages}$ and by the processed output of the verte shading process, which is, the light- and viewing-direction vectors $\omega_i$ and $\omega_r$ used in our model described in section $\ref{sec:spectralrendering}$.
+
+
+
+from section $d$ and the vertex shader output from section.
 
 Explain how we can compute 
 
