@@ -427,19 +427,13 @@ At line 27 the gain factor $C(\omega_i, \omega_r)$ from equation $\ref{eq:cfact}
 \section{Technical details}
 \subsection{Texture lookup}
 \label{sec:texturelookupcoords}
-In a GLSL shader the texture coordinates are normalized which means that the size of the texture maps to the coordinates on the range $[0,1]$ in each dimension. By convention the the bottom left corner of an image has the coordinates $(0,0)$, whereas the top right corner has the value $(1,1)$ assigned. 
+In our fragment shader we want to access DFT coefficients of our height field at a given location $(u,v)$ (like defined in equation $\ref{eq:uvw}$) to compute strucural colors according to equation $\ref{eq:finalexpression}$. \\
 
-Given a nano-scaled surface patch P with a resolution $A$ by $A$ microns stored as an $N$ by $N$ pixel image $I$.
-Then one pixel in any direction corresponds to $dH = \frac{A}{N} \mu m$. 
-In Matlab we compute a series of $n$ output images $\{I_{out_1},...,I_{out_n}\}$ from $I$, which we will use for the lookup in our shader - See figure $\ref{fig:lookupexample}$. For the lookup we use scaled and shifted $(u,v)$ coordinates from $\ref{eq:uvw}$. 
+For any given nano-scaled surface patch $P$ with a resolution of $A$ by $A$ $\mu m$, stored as a $N$ by $N$ pixel image $I$, one pixel in any direction corresponds to $dH = \frac{A}{N} \mu m$. In Matlab we computed a series of $n$ output DFT terms $\{I_{out_1},...,I_{out_n}\}$ from this image $I$, where the n-th image represents the DFT coefficients for the n-th DFT term in our Taylor Series approximation. Notice, that every DFT image value $(u,v)$ is in the range $[-\frac{f_s}{2}, \frac{f_s}{2}]^2$ where $f_s$ is the sampling frequency equal to $\frac{1}{dH}$. \\
 
-Since the zero frequency component of output images was shifted towards the centre of each image, we have to shift $u$, $v$ to the center of the current $N$ by $N$ pixel image by a bias $b$. Mathematically, the bias is a constant value is computed the following:
+In order to get access to these image within our shader, we have to pass them as GLSL textures. In a GLSL shader the texture coordinates are normalized, which means that the size of the texture maps to the coordinates on the range $[0,1]$ in each dimension. By convention the the bottom left corner of an image has the coordinates $(0,0)$, whereas the top right corner has the value $(1,1)$ assigned. \\ 
 
-\begin{align}
-    b
-    &= (N \% 2 == 0) \quad ? \quad \frac{N}{2} : \frac{N-1}{2}
-\label{eq:bias}
-\end{align}
+However, $u$, $v$ coordinates are assumed to be in range $[-\frac{f_s}{2}, \frac{f_s}{2}]$, but GLSL texture coordinates are in range $[0,1]$. Therefore, for every computed lookup coordinate pair $(u,v)$, we have to apply a affine tranformation to be in the correct range. Figure $\ref{fig:lookupexample}$.  illustrates this issue of different lookup ranges. In general, an afine tranformation is a mapping of the form $f(x) = sx + b$ where $s$ is a scaling and $b$ is a translation, denoting a bias value. 
 
 \begin{figure}[H]
   \centering
@@ -448,9 +442,18 @@ Since the zero frequency component of output images was shifted towards the cent
 \label{fig:lookupexample}
 \end{figure}
 
-For the scaling we have to think a little further: lets consider a $T$ periodic signal in time, i.e. $x(t) = x(t+nT)$ for any integer n. After applying the DFT, we have its discrete spectrum $X[n]$ with frequency interval $w0 = 2pi / T$ and time interval $t0$. Let $k = \frac{2 \pi}{\lambda}$ denote the wavenumber for the current wavelength $\lambda$.
-Then the signal is both periodic with time period $T$ and discrete with time interval $t_0$ then its spectrum should be both discrete with frequency interval $w_0$ and periodic with frequency period $\Omega = \frac{2 \pi}{t_0}$. This gives us the idea how to discretize the spectrum: Let us consider our Patch $P$ assuming it is distributed as a periodic function on our surface. Then, its frequency interval along the x direction is $w_0 = \frac{2 \pi}{T} = \frac{2 \pi}{N*dH}$. 
-Thus only wave numbers that are integer multiples of $w_0$ after a multiplication with $u$ must be considered, i.e. $ku$ is integer multiple of $w_0$. Hence the lookup for the u-direction will look like:
+Since the zero frequency component of DFT images is shifted towards its centre position, we have to shift $u$, $v$ to the center of the current $N$ by $N$ pixel image by a bias $b$. Mathematically, the bias is a constant value is computed the following equation:
+
+\begin{align}
+    b
+    &= (N \% 2 == 0) \quad ? \quad \frac{N}{2} : \frac{N-1}{2}
+\label{eq:bias}
+\end{align}
+
+
+
+For the scaling we have to think a little further: lets consider a $T$ periodic signal in time, i.e. $x(t) = x(t+nT)$ for any integer n. After applying the DFT, we have its discrete spectrum $X[n]$ with frequency interval $w0 = 2pi / T$ and time interval $dH$. Let $k = \frac{2 \pi}{\lambda}$ denote the wavenumber for the current wavelength $\lambda$.
+Then the signal is both periodic with time period $T$ and discrete with time interval $dh$ then its spectrum should be both discrete with frequency interval $w_0$ and periodic with frequency period $\Omega = \frac{2 \pi}{dH}$. This gives us the idea how to discretize the spectrum: Let us consider our Patch $P$ assuming it is distributed as a periodic function on our surface. Then, its frequency interval along the x direction is $w_0 = \frac{2 \pi}{T} = \frac{2 \pi}{N*dH}$. Thus only wave numbers that are integer multiples of $w_0$ after a multiplication with $u$ must be considered, i.e. $ku$ is integer multiple of $w_0$. Hence the lookup for the u-direction will look like:
 
 \begin{align}
     \frac{ku}{w_0} 
