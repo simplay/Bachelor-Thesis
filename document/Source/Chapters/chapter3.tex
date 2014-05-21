@@ -27,6 +27,7 @@ In our script every discrete frequency is normalized by its corresponding DFT ex
   x \mapsto f(x) = \frac{x-x_{min}}{x_{max}-x_{min}}
 \label{eq:dfttermnormalization}
 \end{align}
+
 Where $x_{min}$ and $x_{max}$ denote the extreme values of a DFT term. Later, during the shading process of our implementation, we have to apply the inverse mapping. This is non-linear interpolation which is required in order to rescaled all frequency values in the DFT terms. 
 
 \begin{algorithm}[H]
@@ -324,6 +325,7 @@ A fragment shader as shown in figure $FIGUREFRSGEMNTSHADER$, is the OpenGL pipel
 
 %% TODO FIGUREFRSGEMNTSHADER
 
+\label{sec:inputlists}
 In this section we explain how to render structural colors resulting due to light diffracted on a natural grating, based on the model described in section $\ref{sec:spectralrendering}$. The color values of the produced structural colors, resulting from our model, are computed by our fragment shader which expects being provided by the follwoing input:
 
 \begin{itemize}
@@ -336,21 +338,21 @@ Apart from these basic, varying input values, the following set of shading const
 
 \begin{itemize}
   \item The number of iterations used for the taylor series approximation, determining the the approximation accuracy.
-  \item The wavelength spectrum $\[\lambda_{min}, \lambda_{max}\]$ with a certain discretizing level $\lambda_{step}$.
+  \item The wavelength spectrum $\Lambda = [\lambda_{min}, \lambda_{max}]$ with a certain discretizing level $\lambda_{step}$.
   \item The color weights of the $CIE_{XYZ}$ color matching functions.
   \item THe height field image resolution and its pixel to width correspondance.
 \end{itemize}
 
-
-%TODO briefly eplain idea of fragment sshading algorithm
-
 % ease us
-Our fragment shader performs a numerical integration over the given wavelength spectrum for our final derived expression in equation $\ref{eq:finalexpression}$. For integration it uses the trapezoidal-rule with uniform discretization of the wavelength spectrum at $\lambda_{step}=5nm$ step sizes. This implies we are compressing sampled frequencies to the region near the origin due to the fact we are dividing the $(u,v)$ by the wavelength $\lambda$ and this implies that the $(u,v)$ space is sampeled non-linearly. 
+Using all these inputs, our fragment shader performs a numerical integration over the given wavelength spectrum $\Lambda$ for our final derived expression, stated in equation $\ref{eq:finalexpression}$. For this integration we use the trapezoidal-rule with uniform discretization of the wavelength spectrum at $\lambda_{step}=5nm$ step sizes. This implies we are compressing sampled frequencies to the region near the origin due to the fact we are dividing the $(u,v)$ by the wavelength $\lambda$ and this implies that the $(u,v)$ space is sampeled non-linearly. \\
 
-The Gaussian window approach derived in section $\ref{sec:gaussianwindow}$ is performed for each discrete $\lambda$ value using a window large enough to span $4\sigma_f$ in both dimensions. For precomputing DFT tables we generally use nanostructure height fields that span at least 65$\mu m^2$ and are sampled with resolution of at least 100nm. This ensures that the spectral response encompasses all the wavelengths in the visible spectrum, i.e. from 380nm to 780nm.
-% end ease zs
+In section $\ref{sec:gaussianwindow}$ we have seen that we have to multiply our DFT terms by a Gaussian Window in order to approximate the DTFT which our model is based on. This windowing approach is performed for each discrete $\lambda$ value using a window large enough to span $4\sigma_f$ in both dimensions. Our DFT terms are computed from height fields that span at least 65$\mu m^2$ and are sampled at a resolution of at least 100$\mu m$ . 
+This ensures that the spectral response encompasses all the wavelengths in the visible spectrum. \\
 
-% TODO: add glue bla, refering to algorithm $\ref{alg:fragmentshaderall}$ telling going to explain it next... but first routines
+\label{sec:proceduresdescripton}
+Next, we will discuss the actual fragment shading algorithm, listed in algorithm $\ref{alg:fragmentshaderall}$. But before doing so, let us first introduce some helper procedures which are used by our fragment shading algorithm. 
+
+% TODO procedure listing
 % TODO: routines with expl. text
 % TODO glue bla (routines, procedure)
 
@@ -362,9 +364,16 @@ The Gaussian window approach derived in section $\ref{sec:gaussianwindow}$ is pe
       & Mesh Triangles  \\
       & $\omega_i$ and $\omega_r$  \\
       \textbf{Output:} & Structural Color of a pixel \\
+      \textbf{Procedures$\footnotemark$:} & $\emph{getColorWeights}$: get colormatching value for wavelength $\lambda$ \\
+      & $\emph{getlookupCoords}$: get lookup coordinate of given viewing- and light direction \\
+      & $\emph{distVecFromOriginTo}$: get direction vector from origin to a given position \\
+      & $\emph{getLocalLookUp}$: computes lookup coordinate to dertermine DFT value for windwowing. \\
+      & $\emph{rescaledFourierValueAt}$: rescales dft terms according to equation \ref{eq:dfttermnormalization}\\
+      & $\emph{gaussWeightOf}$: computes gaussian window according to equation \ref{eq:gaussweight} \\
+      & $\emph{dot}$: computes the dot-product of two given vectors \\
+      & $\emph{gammaCorrect}$: apply camma correction on rgb vector \\  
     \end{tabular} 
   \end{table}
-  \textbf{Procedures:} the LIST  \\
   
   \setlength{\fboxrule}{0pt} 
   \begin{boxedminipage}{1.0\textwidth}
@@ -373,8 +382,8 @@ The Gaussian window approach derived in section $\ref{sec:gaussianwindow}$ is pe
       \State \init $BRDF_{XYZ}, BRDF_{RGB}$ \myto $vec4(0.0)$
       \State $(u,v,w) = -\omega_i - \omega_r$
       \For{$(\lambda = \lambda_{min};\thinspace \lambda \leq \lambda_{max};\thinspace \lambda = \lambda + \lambda_{step})$}
-        \State $xyzWeights = ColorWeights(\lambda)$
-        \State $lookupCoord = lookupCoord(u, v, \lambda)$
+        \State $xyzWeights = getColorWeights(\lambda)$
+        \State $lookupCoord = getlookupCoords(u, v, \lambda)$
         \State \init $P$ \myto $vec2(0.0)$
         \State $k = \frac{2\pi}{\lambda}$
         \For{$(n = 0$ \myto $T)$}
@@ -385,7 +394,7 @@ The Gaussian window approach derived in section $\ref{sec:gaussianwindow}$ is pe
           \For{$(i=(anchorX-winW)$ \myto $(anchorX + winW))$}
             \For{$(j=(anchorY - winW)$ \myto $(anchorY + winW))$}
               \State $dist = distVecFromOriginTo(i,j)$
-              \State $pos = localLookUp(i,j,n)$
+              \State $pos = getLocalLookUp(i,j,n)$
               \State $fftVal = rescaledFourierValueAt(pos)$
               \State $fftVal \asteq gaussWeightOf(dist)$
               \State $F_{fft} \pluseq fftVal$
@@ -404,7 +413,9 @@ The Gaussian window approach derived in section $\ref{sec:gaussianwindow}$ is pe
   \vskip1.5pt
   \label{alg:fragmentshaderall}
 \end{algorithm}
+\footnotetext{Please have a look at section $\ref{sec:proceduresdescripton}$ to see a description of these procedures in detail} 
 
+Please note that for simplification purposes we omitted some inpute values in algorithm $\ref{alg:fragmentshaderall}$. A complete input value list can be found in section $\ref{sec:inputlists}$. Last, a a brief description of some code sections of our fragment shading algorithm:
 
 \myparagraph{From line 4 to 26:} 
 This loop performs uniform sampling along wavelength-space. $ColorWeights(\lambda)$ computes the color weight for the current wavelength $\lambda$ by linear interpolation between the color weight for $\ceil{\lambda}$ and $\floor{\lambda}$ which are stored in a external weights-table (assuming this table contains wavelengths in 1nm steps). At line 6: $lookupCoord(u, v, \lambda)$ the coordinates for the texture lookup are computed - See $\ref{eq:scalelook}$. Line 25 sums up the diffraction color contribution for the current wavelength in iteration $\lambda$.  
@@ -417,9 +428,7 @@ In this inner most loop, the convolution of the gaussian window with the DFT of 
 
 \myparagraph{After line 26:} 
 At line 27 the gain factor $C(\omega_i, \omega_r)$  $\ref{eq:cfact}$ is multiplied by the current computed pixel color like formulated in $\ref{eq:cpterm}$. The gain factor contains the geometric term $ref{eq:geometricterm}$ and the Fresnel term $F$. W approximate $F$ by the Schlick approximation $\ref{eq:schlickapprox}$, using an reactive index at 1.5 since this is close to the measured value from snake sheds.
-Our BRDF values are scaled by s shadowing function as described in (SEE REFERENCES - PAPER), since most of the grooves in the snake skin nano-structures would from a V-cavity along the plane for a wave front with their top-edges at almost the same height.
-
-Last, we transform our colors from the $CIE_XYZ$ colorspace to the $CIE_RGB$ space using the CIE Standard Illuminant D65, followed by a gamma correction. See $\ref{subsec:colortransformations}$ for further insight.
+Our BRDF values are scaled by s shadowing function as described in (SEE REFERENCES - PAPER), since most of the grooves in the snake skin nano-structures would from a V-cavity along the plane for a wave front with their top-edges at almost the same height. Last, we transform our colors from the $CIE_XYZ$ colorspace to the $CIE_RGB$ space using the CIE Standard Illuminant D65, followed by a gamma correction. See $\ref{subsec:colortransformations}$ for further insight.
 
 \section{Technical details}
 \subsection{Texture lookup}
