@@ -27,6 +27,7 @@ In our script every discrete frequency is normalized by its corresponding DFT ex
   x \mapsto f(x) = \frac{x-x_{min}}{x_{max}-x_{min}}
 \label{eq:dfttermnormalization}
 \end{align}
+
 Where $x_{min}$ and $x_{max}$ denote the extreme values of a DFT term. Later, during the shading process of our implementation, we have to apply the inverse mapping. This is non-linear interpolation which is required in order to rescaled all frequency values in the DFT terms. 
 
 \begin{algorithm}[H]
@@ -198,7 +199,7 @@ All required configuration, in oder to communicate with the GPU through OpenGL, 
 In our implementation we want to simulate the structural colors a viewer sees when light diffracted is on grating, e.g. on the skin of a snake. For this purpose, we reproduce a 2d image of a given 3d scene as seen from the perspective of a viewer for given lightning conditions. The color computation of an image is performed in the GPU shaders of the rendering pipeline. In OpenGL, there are two basic shading stages performed to rendern an image whereas the vertex shader is the first shading stage in the rendering pipeline. \\
 
 As an input, a vertex shader receives one vertex of a mesh and other vertex data such as a vertex normals. It only can access this data and has no information about the neighborhood of a vertex or the topology of its corresponding shape. Since vertex positions of a shape are defined in a local coordinate system$\footnote{Defining the positions of a shape in a local coordinate system simplifies its modeling process and allows us to apply transformations to a shape.}$ and we want to render an image of the perspective of viewer, we have to transform the locally defined positions to a perspectively projected viewer space. Therefore, the main purpose$\footnote{Furthermore, texture coordinates used for texture-lookup within the fragment shader and per vertex lightning can be computed.}$ of a vertex shader is to tranform the position of vertices. Notice that a vertex shader can manipulate the position of a vertices, but cannot generate additional mesh vertices. Therfore, the output of any vertex shader is a transformed vertex position. Keep in mind that all vertex shader outputs will be used within the fragment shader. For an example, please have a look at our fragment shader $\ref{sec:fragmentshader}$. \\
-
+% TODO add an illustration of a vertex shader here, SHOW shader pipeline (stages: vertex shader, raterizer, fragment shader)illustration here
 In the following let us consider the whole transformation, applied in the vertex shader, in depth. Let $p_{local}$ denote the position of a shape vertex, defined in a local coordinate system. Then the transformation from $p_{local}$
 into the perspective projected position as seen by a observer $p_{projective}$ looks like the following:
 
@@ -308,21 +309,66 @@ The output of our vertex shader is on the one side the transformed vertex postio
 
 \subsection{Fragment Shader}
 \label{sec:fragmentshader}
-The purpose of a fragment shader is to render per fragment. A fragment is spanned by three vertices of a given mesh. For each pixel within a fragment in the fragment shader, the output of from its spanning vertices computed in the vertex shaders $\ref{alg:vertexshader}$ is trilinearly interpolated depending on the pixel's position within the fragment. Furthermore, there can be additional input be assigned which is not directly interpolated from the output of vertex shader programs. In our fragment shader $\ref{alg:fragmentshaderall}$ this will be: all the references to the image buffers, containing the Fourier images computed in Matlab $\ref{sec:precompmatlabfourierimages}$, the number steps for the taylor approximation (in our shader 30), the minimal and maximal wavelength, scaling factors, a reference to a lookup table containing the $CIE_{XYZ}$ color weights. Basically the whole computation within our fragment shader relies on the direction of light and the viewing direction. Our shader performs a numerical integration for our final derived expression in equation $\ref{eq:finalexpression}$ using the trapezoidal-rule with uniform discretization of the wavelength spectrum at $5nm$ step sizes. This implies we are compressing sampled frequencies to the region near to the origin of their frequency domain due to the fact we are dividing the $(u,v)$ by the wavelength and this implies that the $(u,v)$ space is sampeled non-linearly. \\
+In the previous section we gave an introduction to the first shading stage of the OpenGL rendering pipeline by explaining the basics of a vertex shaders. Furthermore, we conceptually discussed the idea behind our vertex shading algorithm formulated in algorithm $\ref{alg:vertexshader}$. Summarized, the main purpose of our vertex shader is to compute the light- and viewing-direction vectors $\omega_i$ and $\omega_r$ defined like in figure $\ref{fig:geometricsetup}$. \\
 
-The Gaussian window approach derived in section $\ref{sec:gaussianwindow}$ is performed for each discrete $\lambda$ value using a window large enough to span $4\sigma_f$ in both dimensions. For precomputing DFT tables we generally use nanostructure height fields that span at least 65$\mu m^2$ and are sampled with resolution of at least 100nm. This ensures that the spectral response encompasses all the wavelengths in the visible spectrum, i.e. from 380nm to 780nm.
+After the vertex-shading stage, the next stage in the OpenGL rendering pipeline is the \emph{rasterization} of mesh triangles. As an input, a rasterizer takes a triple of mesh-triangle spaning vertices, each previousely processed by a vertex shader. For each pixel lying inside the current mesh triangle, a rasterizer computes its corresponding position in the triangle. According to its computed position, a pixel also gets interpolated values of the vertices attributes of its mesh triangle assigned. The set of interpolated vertex attributes together with the computes position of a pixel is denoted as a fragment. Figure $\ref{fig:trianglerasterization}$ conceptualizes the idea of processed set of fragment computed by a rasterizer.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.25]{implementation/rasterizedtriangle.png}
+  \caption[Triangle Rasterization]{Illustration$\footnotemark$ of fragments covered by mesh triangle computed by the OpengGL rasterizer.}
+  \label{fig:trianglerasterization}
+\end{figure}
+\footnotetext{This image was taken from \texttt{http://en.wikibooks.org/wiki/GLSL\textunderscore Programming/Rasterization}}
+
+A fragment shader as shown in figure $FIGUREFRSGEMNTSHADER$, is the OpenGL pipeline stage subsequent after a mesh triangle is rasterized in the rasterization stage. As input value, a fragment shader takes at least a fragment computed by the rasterizer. It is also pissible to assign custome, non-interpolated values to a fragment shader. For each fragment in the fragment shading stage, a color value is computed. Furthermore, a fragment shader computes a depth value for each of its fragments, determining their visbility. Since all existing scene vertices were perspectively projected onto the 2d image plane, the rasterizer could have produced several fragments having assigned the same pixel position. Therefore, among all fragments with the same pixel position, the outputed pixel color is equal to the color of that fragment, which depth is closest to the viewer.
+
+%% TODO FIGUREFRSGEMNTSHADER
+
+\label{sec:inputlists}
+In this section we explain how to render structural colors resulting due to light diffracted on a natural grating, based on the model described in section $\ref{sec:spectralrendering}$. The color values of the produced structural colors, resulting from our model, are computed by our fragment shader which expects being provided by the follwoing input:
+
+\begin{itemize}
+  \item Precompute DFT terms of the provided height field as explain in section $\ref{sec:precompmatlabfourierimages}$.
+  \item The processed output, produced during the vertex shading stage (see section $\ref{sec:vertexshader}$), which is, the light- and viewing-direction vectors $\omega_i$ and $\omega_r$.
+  \item Fragments produced during the rasterization stage using the output of our vertex shader.
+\end{itemize}
+
+Apart from these basic, varying input values, the following set of shading constants are initialized:
+
+\begin{itemize}
+  \item The number of iterations used for the taylor series approximation, determining the the approximation accuracy.
+  \item The wavelength spectrum $\Lambda = [\lambda_{min}, \lambda_{max}]$ with a certain discretizing level $\lambda_{step}$.
+  \item The color weights of the $CIE_{XYZ}$ color matching functions.
+  \item THe height field image resolution and its pixel to width correspondance.
+\end{itemize}
+
+By Using all these inputs, our fragment shader performs a numerical integration over the given wavelength spectrum $\Lambda$ for our final derived expression, stated in equation $\ref{eq:finalexpression}$. For this integration we use the trapezoidal-rule with uniform discretization of the wavelength spectrum at $\lambda_{step}=5nm$ step sizes. This implies we are compressing sampled frequencies to the region near the origin due to the fact we are dividing the $(u,v)$ by the wavelength $\lambda$ and this implies that the $(u,v)$ space is sampeled non-linearly. \\
+
+In section $\ref{sec:gaussianwindow}$ we have seen that we have to multiply our DFT terms by a Gaussian Window in order to approximate the DTFT which our model is based on. This windowing approach is performed for each discrete $\lambda$ value using a window large enough to span $4\sigma_f$ in both dimensions. Our DFT terms are computed from height fields that span at least 65$\mu m^2$ and are sampled at a resolution of at least 100$\mu m$ . 
+This ensures that the spectral response encompasses all the wavelengths in the visible spectrum. \\
+
+\label{sec:proceduresdescripton}
+Next, we will discuss the actual fragment shading algorithm, listed in algorithm $\ref{alg:fragmentshaderall}$. Note, that our fragment shading algorithm uses some helper procedures. The two most fundamental one is the $\textbf{getlookupCoords}$ which computes the lookup coordinates in the DFT terms for a given (u,v) defined like in equation $\ref{eq:uvw}$ and a wavelength $\lambda$. The actual computation these coordinates is described in section $\ref{sec:texturelookupcoords}$. Notice that the routine $\textbf{getLocalLookUp}$ computes a local lookup coordinates used during the gaussian window approximation explained in section $\ref{sec:gaussianwindow}$. The routine $\textbf{distVecFromOriginTo}$ is used to compute the direction vector from the current position of a fragment in texture space, to one of its texture space living 1-neighborhood neighbors.
 
 \begin{algorithm}[H]
   \caption{Fragment diffraction shader pseudo code}
   \begin{table}[H]
     \begin{tabular}{@{}lll@{}}
       \textbf{Input:} & Precomputed DFT Terms  \\
-      & Scene Geometry  \\
+      & Mesh Triangles  \\
       & $\omega_i$ and $\omega_r$  \\
       \textbf{Output:} & Structural Color of a pixel \\
+      \textbf{Procedures$\footnotemark$:} & $\emph{getColorWeights}$: get colormatching value for wavelength $\lambda$ \\
+      & $\emph{getlookupCoords}$: get lookup coordinate of given viewing- and light direction \\
+      & $\emph{distVecFromOriginTo}$: get direction vector from origin to a given position \\
+      & $\emph{getLocalLookUp}$: computes lookup coordinate to dertermine DFT value for windwowing. \\
+      & $\emph{rescaledFourierValueAt}$: rescales dft terms according to equation \ref{eq:dfttermnormalization}\\
+      & $\emph{gaussWeightOf}$: computes gaussian window according to equation \ref{eq:gaussweight} \\
+      & $\emph{dot}$: computes the dot-product of two given vectors \\
+      & $\emph{gammaCorrect}$: apply camma correction on rgb vector \\  
     \end{tabular} 
   \end{table}
-  \textbf{Procedures:} the LIST  \\
   
   \setlength{\fboxrule}{0pt} 
   \begin{boxedminipage}{1.0\textwidth}
@@ -331,8 +377,8 @@ The Gaussian window approach derived in section $\ref{sec:gaussianwindow}$ is pe
       \State \init $BRDF_{XYZ}, BRDF_{RGB}$ \myto $vec4(0.0)$
       \State $(u,v,w) = -\omega_i - \omega_r$
       \For{$(\lambda = \lambda_{min};\thinspace \lambda \leq \lambda_{max};\thinspace \lambda = \lambda + \lambda_{step})$}
-        \State $xyzWeights = ColorWeights(\lambda)$
-        \State $lookupCoord = lookupCoord(u, v, \lambda)$
+        \State $xyzWeights = getColorWeights(\lambda)$
+        \State $lookupCoord = getlookupCoords(u, v, \lambda)$
         \State \init $P$ \myto $vec2(0.0)$
         \State $k = \frac{2\pi}{\lambda}$
         \For{$(n = 0$ \myto $T)$}
@@ -343,7 +389,7 @@ The Gaussian window approach derived in section $\ref{sec:gaussianwindow}$ is pe
           \For{$(i=(anchorX-winW)$ \myto $(anchorX + winW))$}
             \For{$(j=(anchorY - winW)$ \myto $(anchorY + winW))$}
               \State $dist = distVecFromOriginTo(i,j)$
-              \State $pos = localLookUp(i,j,n)$
+              \State $pos = getLocalLookUp(i,j,n)$
               \State $fftVal = rescaledFourierValueAt(pos)$
               \State $fftVal \asteq gaussWeightOf(dist)$
               \State $F_{fft} \pluseq fftVal$
@@ -362,25 +408,25 @@ The Gaussian window approach derived in section $\ref{sec:gaussianwindow}$ is pe
   \vskip1.5pt
   \label{alg:fragmentshaderall}
 \end{algorithm}
+\footnotetext{Please have a look at section $\ref{sec:proceduresdescripton}$ to see further descriptions of these procedures.} 
 
+Please note that for simplification purposes we omitted some inpute values in algorithm $\ref{alg:fragmentshaderall}$. A complete input value list can be found in section $\ref{sec:inputlists}$. Last, a a brief description of some code sections of our fragment shading algorithm:
 
 \myparagraph{From line 4 to 26:} 
-This loop performs uniform sampling along wavelength-space. $ColorWeights(\lambda)$ computes the color weight for the current wavelength $\lambda$ by linear interpolation between the color weight for $\ceil{\lambda}$ and $\floor{\lambda}$ which are stored in a external weights-table (assuming this table contains wavelengths in 1nm steps). At line 6: $lookupCoord(u, v, \lambda)$ the coordinates for the texture lookup are computed - See $\ref{eq:scalelook}$. Line 25 sums up the diffraction color contribution for the current wavelength in iteration $\lambda$.  
+This loop performs uniform sampling along wavelength spectrum $\Lambda$ for the spectral integration seen in section $\ref{sec:spectralrendering}$. The procedure $ColorWeights(\lambda)$ computes the color weight for the current wavelength $\lambda$ by a linear interpolation between the color weight and the values $\ceil{\lambda}$ and $\floor{\lambda}$. The color weights are stored in a external table accessed by our fragment shader$\footnote{This color weight table contains data for lambda steps in size of 1nm}$. At line 6 the procedure call $lookupCoord(u, v, \lambda)$ returns the coordinates for the texture lookup which are computed like described in equation $\ref{eq:scalelook}$. At Line 25 the diffraction color contribution, computed during the integration over the wavelength spectrum for each wavelength $\lambda$, is accumulated.
 
 \myparagraph{From line 9 to 24:} 
-This loop performs the Taylor series approximation using T terms. Basically, the spectral response is approximated for our current $(u,v,\lambda)$. Furthermore, neighborhood boundaries for the gaussian-window sampling are computed, denoted as anchorX and anchorY.
+This loop performs the Taylor series approximation using a predefined number of iterations. Basically, the spectral response is approximated for our current value for $(u,v,\lambda)$. According to section $\ref{sec:gaussianwindow}$, we can approximate a DTFT by multiplying a gaussian winodw by DFT terms. When interpreting our DFT terms by a set of matrices, a particular DFT term value, corresponding to the position of a given fragment, can be looked up at the index ($anchorX$, $anchorY$). For our the Gaussian-Windowing approach we use a one-neighborhood around ($anchorX$, $anchorY$) in order to approximate the DFT value for a fragment.
 
 \myparagraph{From line 14 to 22:} 
-In this inner most loop, the convolution of the gaussian window with the DFT of the patch is performed. $gaussWeightOf(dist)$ computes the weights in equation $~\eqref{eq:gaussweight}$ from the distance between the current pixel's coordinates and the current neighbor's position in texture space. Local lookup coordinates for the current fourier coefficient $fftVal$ value are computed at line 17 and computed like described in $\ref{eq:gaussianwindowlook}$. The actual texture lookup is performed at line 18 using those local coordinates. Inside $rescaledFourierValueAt$ the values $fftVal$ is rescaled by its extrema, i,e. $(fftVal*Max + Min)$ is computed, since $fftVal$ is normalized $\ref{sec:precompmatlabfft}$. The current $fftVal$ values in iteration is scaled by the current gaussian weight and then summed to the final neighborhood FFT contribution at line 20.
+In this inner most loop, the convolution of the gaussian window with the DFT terms of the given height field is performed. The routine $gaussWeightOf(dist)$ computes the weights in equation $~\eqref{eq:gaussweight}$ from the distance between the current fragment's position and the current neighbor's position in texture space. Local lookup coordinates for the current fourier coefficient $fftVal$ value, stored in the DFT terms, are computed at line 17 and computed like described in equation $\ref{eq:gaussianwindowlook}$. The actual texture lookup is performed at line 18 using those local coordinates. Inside the procedure $rescaledFourierValueAt$ the values of $fftVal$ are rescaled by its extrema values$\footnote{This extrema values were precomputed in Matlab during the precomputation stage and are passed as an input to our fragment shader.}$, since $fftVal$ is normalized according to the description from section $\ref{sec:precompmatlabfft}$. The current $fftVal$ value in iteration is scaled by the current Gaussian Window weight and then summed to the final neighborhood FFT contribution at line 20.
 
 \myparagraph{After line 26:} 
-At line 27 the gain factor $C(\omega_i, \omega_r)$  $\ref{eq:cfact}$ is multiplied by the current computed pixel color like formulated in $\ref{eq:cpterm}$. The gain factor contains the geometric term $ref{eq:geometricterm}$ and the Fresnel term $F$. W approximate $F$ by the Schlick approximation $\ref{eq:schlickapprox}$, using an reactive index at 1.5 since this is close to the measured value from snake sheds.
-Our BRDF values are scaled by s shadowing function as described in (SEE REFERENCES - PAPER), since most of the grooves in the snake skin nano-structures would from a V-cavity along the plane for a wave front with their top-edges at almost the same height.
-
-Last, we transform our colors from the $CIE_XYZ$ colorspace to the $CIE_RGB$ space using the CIE Standard Illuminant D65, followed by a gamma correction. See $\ref{subsec:colortransformations}$ for further insight.
+At line 27 the gain factor $C(\omega_i, \omega_r)$ from equation $\ref{eq:cfact}$ is multiplied by the computed pixel color like formulated in equation $\ref{eq:cpterm}$. The gain factor contains the geometric term of equation $\ref{eq:geometricterm}$ and the Fresnel term $F$. For computing the Fresnel term we use the Schlick approximation defined in equation $\ref{eq:schlickapprox}$, using an refractive index of 1.5 since this is close to the measured value from snake sheds. Our BRDF values are scaled by a shadowing function as described in the appendix of the paper$\cite{diffstam}$. The reason or this is that the nanostructure of a snake skins is grooved forming V-cavities. therefore some regions on the snake surface is shadowed. Last, we transform our colors from the $CIE_XYZ$ colorspace to the $CIE_RGB$ space using the CIE Standard Illuminant $D65$. Last we apply a gamma correction on our computed RGB color values. Consult the section $\ref{subsec:colortransformations}$ for further insight.
 
 \section{Technical details}
 \subsection{Texture lookup}
+\label{sec:texturelookupcoords}
 In a GLSL shader the texture coordinates are normalized which means that the size of the texture maps to the coordinates on the range $[0,1]$ in each dimension. By convention the the bottom left corner of an image has the coordinates $(0,0)$, whereas the top right corner has the value $(1,1)$ assigned. 
 
 Given a nano-scaled surface patch P with a resolution $A$ by $A$ microns stored as an $N$ by $N$ pixel image $I$.
@@ -442,10 +488,7 @@ The final rendered color for each pixel is a weighted average of different color
 \subsection{Color Transformation}
 \label{subsec:colortransformations}
 
-In our shader we access a table which contains precomputed CIE's color matching functions values from $\lambda_{min} = 380 nm$ to $\lambda_{max} = 780 nm$ in $5 nm$ steps. Such a function value table can be found at downloaded at cvrl.ioo.ucl.ac.uk for example. We compute the $(X,Y,Z)$ $CIE_{XYZ}$ color values as described in section $\ref{sec:colorspace}$. 
-
-
-We can transform the color values into $CIE_{RGB}$ by performing the following linear transformation:
+In our shader we access a table which contains precomputed CIE's color matching functions values$\footnote{Such a function value table can be found at \texttt{cvrl.ioo.ucl.ac.uk} for example}$ from $\lambda_{min} = 380 nm$ to $\lambda_{max} = 780 nm$ in $5 nm$ steps. We compute the $(X,Y,Z)$ $CIE_{XYZ}$ color values as described in section $\ref{sec:colorspace}$. We can transform the color values into $CIE_{RGB}$ by performing the following linear transformation:
 
 \begin{equation}
 \begin{bmatrix}R\\G\\B\end{bmatrix} = M \cdot \begin{bmatrix}X\\Y\\Z\end{bmatrix}
@@ -467,6 +510,11 @@ Last we perfrom gamma correction on each pixel's $(R,G,B)$ value. Gamma correcti
 
 \section{Discussion}
 \label{sec:impldiscus}
+%%TODO compare vertex vs. fragment shading approach regarding performance and accuracy
+%%TODO performance depends on number of vertices of mesh vs number of fragments i.e. pixelresolution of rendered image
+%% accuracy can be increased by refining mesh vs increasing pixel resolution of rendered image
+%% notice, that fs produces smoother results for non-smooth geometric (e.g. cube, along edges, corner) than vertex shader, since fragment are interpolated %% values.
+%%TODO: Restructure, first paragraph about compare shading approaches, then optimization nmin,max, then pq, implementation of pq approach
 The fragment shader algorithm described in $\ref{alg:fragmentshaderall}$ performs the gaussian window approach by sampling over the whole wavelength spectrum in uniform step sizes. This algorithm is valid but also slow since we iterate for each pixel over the whole lambda spectrum. Furthermore, for any pixel, we iterate over its 1 neighborhood. Considering the loop for the taylor approximation as well, we will have a run-time complexity of $O(\#spectrtumIter \cdot \#taylorIter \cdot neighborhoodRadius^2)$. 
 Hence, Instead sampling over the whole wavelength spectrum, we could instead integrate over just a few required lambdas which are elicited like the following: Lets consider $(u,v,w)$ defined as $\ref{eq:uvw}$. Let $d$ be the spacing between two slits of a grating. For any $L(\lambda) \neq 0$ it follows $\lambda_{n}^{u} = \frac{d u}{n}$ and $\lambda_{n}^{v} = \frac{d u}{n}$. For $n = 0$ there it follows $(u,v)=(0,0)$. 
 If $u,v > 0$
