@@ -343,18 +343,13 @@ Apart from these basic, varying input values, the following set of shading const
   \item THe height field image resolution and its pixel to width correspondance.
 \end{itemize}
 
-% ease us
-Using all these inputs, our fragment shader performs a numerical integration over the given wavelength spectrum $\Lambda$ for our final derived expression, stated in equation $\ref{eq:finalexpression}$. For this integration we use the trapezoidal-rule with uniform discretization of the wavelength spectrum at $\lambda_{step}=5nm$ step sizes. This implies we are compressing sampled frequencies to the region near the origin due to the fact we are dividing the $(u,v)$ by the wavelength $\lambda$ and this implies that the $(u,v)$ space is sampeled non-linearly. \\
+By Using all these inputs, our fragment shader performs a numerical integration over the given wavelength spectrum $\Lambda$ for our final derived expression, stated in equation $\ref{eq:finalexpression}$. For this integration we use the trapezoidal-rule with uniform discretization of the wavelength spectrum at $\lambda_{step}=5nm$ step sizes. This implies we are compressing sampled frequencies to the region near the origin due to the fact we are dividing the $(u,v)$ by the wavelength $\lambda$ and this implies that the $(u,v)$ space is sampeled non-linearly. \\
 
 In section $\ref{sec:gaussianwindow}$ we have seen that we have to multiply our DFT terms by a Gaussian Window in order to approximate the DTFT which our model is based on. This windowing approach is performed for each discrete $\lambda$ value using a window large enough to span $4\sigma_f$ in both dimensions. Our DFT terms are computed from height fields that span at least 65$\mu m^2$ and are sampled at a resolution of at least 100$\mu m$ . 
 This ensures that the spectral response encompasses all the wavelengths in the visible spectrum. \\
 
 \label{sec:proceduresdescripton}
-Next, we will discuss the actual fragment shading algorithm, listed in algorithm $\ref{alg:fragmentshaderall}$. But before doing so, let us first introduce some helper procedures which are used by our fragment shading algorithm. 
-
-% TODO procedure listing
-% TODO: routines with expl. text
-% TODO glue bla (routines, procedure)
+Next, we will discuss the actual fragment shading algorithm, listed in algorithm $\ref{alg:fragmentshaderall}$. Note, that our fragment shading algorithm uses some helper procedures. The two most fundamental one is the $\textbf{getlookupCoords}$ which computes the lookup coordinates in the DFT terms for a given (u,v) defined like in equation $\ref{eq:uvw}$ and a wavelength $\lambda$. The actual computation these coordinates is described in section $\ref{sec:texturelookupcoords}$. Notice that the routine $\textbf{getLocalLookUp}$ computes a local lookup coordinates used during the gaussian window approximation explained in section $\ref{sec:gaussianwindow}$. The routine $\textbf{distVecFromOriginTo}$ is used to compute the direction vector from the current position of a fragment in texture space, to one of its texture space living 1-neighborhood neighbors.
 
 \begin{algorithm}[H]
   \caption{Fragment diffraction shader pseudo code}
@@ -413,7 +408,7 @@ Next, we will discuss the actual fragment shading algorithm, listed in algorithm
   \vskip1.5pt
   \label{alg:fragmentshaderall}
 \end{algorithm}
-\footnotetext{Please have a look at section $\ref{sec:proceduresdescripton}$ to see a description of these procedures in detail} 
+\footnotetext{Please have a look at section $\ref{sec:proceduresdescripton}$ to see further descriptions of these procedures.} 
 
 Please note that for simplification purposes we omitted some inpute values in algorithm $\ref{alg:fragmentshaderall}$. A complete input value list can be found in section $\ref{sec:inputlists}$. Last, a a brief description of some code sections of our fragment shading algorithm:
 
@@ -431,6 +426,7 @@ At line 27 the gain factor $C(\omega_i, \omega_r)$ from equation $\ref{eq:cfact}
 
 \section{Technical details}
 \subsection{Texture lookup}
+\label{sec:texturelookupcoords}
 In a GLSL shader the texture coordinates are normalized which means that the size of the texture maps to the coordinates on the range $[0,1]$ in each dimension. By convention the the bottom left corner of an image has the coordinates $(0,0)$, whereas the top right corner has the value $(1,1)$ assigned. 
 
 Given a nano-scaled surface patch P with a resolution $A$ by $A$ microns stored as an $N$ by $N$ pixel image $I$.
