@@ -32,23 +32,26 @@
 \contentsline {subsection}{\numberline {2.4.2}Texture Blending}{34}{subsection.2.4.2}
 \contentsline {subsection}{\numberline {2.4.3}Color Transformation}{34}{subsection.2.4.3}
 \contentsline {section}{\numberline {2.5}Discussion}{35}{section.2.5}
-\contentsline {chapter}{\numberline {A}Signal Processing Basics}{37}{appendix.A}
-\contentsline {section}{\numberline {A.1}Fourier Transformation}{37}{section.A.1}
-\contentsline {section}{\numberline {A.2}Convolution}{39}{section.A.2}
-\contentsline {section}{\numberline {A.3}Taylor Series}{39}{section.A.3}
-\contentsline {chapter}{\numberline {B}Summary of Stam's Derivations}{40}{appendix.B}
-\contentsline {chapter}{\numberline {C}Derivation Steps in Detail}{43}{appendix.C}
-\contentsline {section}{\numberline {C.1}Taylor Series Approximation}{43}{section.C.1}
-\contentsline {subsection}{\numberline {C.1.1}Proof Sketch of 1.}{43}{subsection.C.1.1}
-\contentsline {subsection}{\numberline {C.1.2}Part 2: Find such an N}{43}{subsection.C.1.2}
-\contentsline {section}{\numberline {C.2}PQ approach}{45}{section.C.2}
-\contentsline {subsection}{\numberline {C.2.1}One dimensional case}{45}{subsection.C.2.1}
-\contentsline {subsection}{\numberline {C.2.2}Two dimensional case}{46}{subsection.C.2.2}
-\contentsline {chapter}{\numberline {D}Miscellaneous Transformations}{48}{appendix.D}
-\contentsline {section}{\numberline {D.1}Fresnel Term - Schlick's approximation}{48}{section.D.1}
-\contentsline {section}{\numberline {D.2}Spherical Coordinates and Space Transformation}{48}{section.D.2}
-\contentsline {section}{\numberline {D.3}Tangent Space}{49}{section.D.3}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{50}{figure.caption.28}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{50}{appendix*.29}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{51}{appendix*.30}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{52}{appendix*.31}
+\contentsline {subsection}{\numberline {2.5.1}Comparison: per Fragment-vs. per Vertex-Shading}{35}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.5.2}Optimization of Fragment Shading: NMM Approach}{35}{subsection.2.5.2}
+\contentsline {subsection}{\numberline {2.5.3}The PQ Shading Approach}{36}{subsection.2.5.3}
+\contentsline {chapter}{\numberline {A}Signal Processing Basics}{38}{appendix.A}
+\contentsline {section}{\numberline {A.1}Fourier Transformation}{38}{section.A.1}
+\contentsline {section}{\numberline {A.2}Convolution}{40}{section.A.2}
+\contentsline {section}{\numberline {A.3}Taylor Series}{40}{section.A.3}
+\contentsline {chapter}{\numberline {B}Summary of Stam's Derivations}{41}{appendix.B}
+\contentsline {chapter}{\numberline {C}Derivation Steps in Detail}{44}{appendix.C}
+\contentsline {section}{\numberline {C.1}Taylor Series Approximation}{44}{section.C.1}
+\contentsline {subsection}{\numberline {C.1.1}Proof Sketch of 1.}{44}{subsection.C.1.1}
+\contentsline {subsection}{\numberline {C.1.2}Part 2: Find such an N}{44}{subsection.C.1.2}
+\contentsline {section}{\numberline {C.2}PQ approach}{46}{section.C.2}
+\contentsline {subsection}{\numberline {C.2.1}One dimensional case}{46}{subsection.C.2.1}
+\contentsline {subsection}{\numberline {C.2.2}Two dimensional case}{47}{subsection.C.2.2}
+\contentsline {chapter}{\numberline {D}Miscellaneous Transformations}{49}{appendix.D}
+\contentsline {section}{\numberline {D.1}Fresnel Term - Schlick's approximation}{49}{section.D.1}
+\contentsline {section}{\numberline {D.2}Spherical Coordinates and Space Transformation}{49}{section.D.2}
+\contentsline {section}{\numberline {D.3}Tangent Space}{50}{section.D.3}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{51}{figure.caption.29}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{51}{appendix*.30}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{52}{appendix*.31}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{53}{appendix*.32}
