@@ -494,7 +494,7 @@ Note that for the Windowing Approach, used in algorthm $\ref{alg:fragmentshadera
 \end{equation}
 
 \subsection{Texture Blending}
-The final rendered color for each pixel is a weighted average of different color components, such as the diffraction color, the texture color and the diffuse color. In our shader the diffraction color is weighted by a constant $w_{diffuse}$ denoting the weight of the diffuse color part. The texture color is once scales by the absolute value of the Fresnel Term $F$ and once by $1-w_{diffuse}$. 
+So far, we have seen how to render structural colors caused when light is diffracted on a grating. But usually, many objects, such as a snake mesh, also have a texture associated with. Therefore, will have a closer look how to combine colors of a given texture with computed structural colors. For this purpose we will use a so called texture blending approach. This means that, for each pixel, its final rendered color is a weighted average of different color components, such as the diffraction color, the texture color and the diffuse color. In our shader the diffraction color is weighted by a constant $w_{diffuse}$, denoting the weight of the diffuse color part. The texture color is once scales by the absolute value of the Fresnel Term $F$ and once by $1-w_{diffuse}$. Algorithm $\ref{alg:textureblending}$ shows in depth how our texture blending is implemented:
 
 \begin{algorithm}[H]
 \caption{Texture Blending}
