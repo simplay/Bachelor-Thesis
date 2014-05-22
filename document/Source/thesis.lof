@@ -17,9 +17,9 @@
 \contentsline {figure}{\numberline {2.5}{\ignorespaces Camera Matrix}}{25}{figure.caption.12}
 \contentsline {figure}{\numberline {2.6}{\ignorespaces Rays of a Directional Light}}{27}{figure.caption.14}
 \contentsline {figure}{\numberline {2.7}{\ignorespaces Triangle Rasterization}}{28}{figure.caption.15}
-\contentsline {figure}{\numberline {2.8}{\ignorespaces Lookup in DFT Terms}}{32}{figure.caption.21}
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Lookup DFT Coefficients in Textures}}{32}{figure.caption.21}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {D.1}{\ignorespaces Illustration of a Tangent Space}}{48}{figure.caption.24}
+\contentsline {figure}{\numberline {D.1}{\ignorespaces Illustration of a Tangent Space}}{50}{figure.caption.30}
