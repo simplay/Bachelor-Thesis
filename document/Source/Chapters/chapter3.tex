@@ -494,14 +494,30 @@ Note that for the Windowing Approach, used in algorthm $\ref{alg:fragmentshadera
 \end{equation}
 
 \subsection{Texture Blending}
-The final rendered color for each pixel is a weighted average of different color components, such as the diffraction color, the texture color and the diffuse color. In our shader the diffraction color is weighted by a constant $w_{diffuse}$. the texture color is once scales by a binary weight determined by the absolute value of the Fresnel Term $F$ and once by $1-w_{diffuse}$. 
+The final rendered color for each pixel is a weighted average of different color components, such as the diffraction color, the texture color and the diffuse color. In our shader the diffraction color is weighted by a constant $w_{diffuse}$ denoting the weight of the diffuse color part. The texture color is once scales by the absolute value of the Fresnel Term $F$ and once by $1-w_{diffuse}$. 
 
 \begin{algorithm}[H]
-  \caption{Texture Blending}
-  \begin{algorithmic}
-    \State $\alpha = (abs(F) > 1) ? 1 : 0$
-    \State $c_{out} =(1-w_{diffuse})*c_{diffraction} + (1-\alpha)*c_{texture} + w_{diffuse}*c_{texture})$
+\caption{Texture Blending}
+\begin{table}[H]
+  \begin{tabular}{@{}lll@{}}
+    \textbf{Input:} & $c_{texture}:$ Texture color at given fragment postion \\
+    & $c_{diffraction}:$ Structural color at given fragment postion \\
+    \textbf{Output:} & $c_{out}:$ Mixed fragment texture- and structural-color \\
+  \end{tabular} 
+\end{table}
+\setlength{\fboxrule}{0pt} 
+\begin{boxedminipage}{1.0\textwidth}
+  \begin{algorithmic}[1]
+    \State $\alpha = abs(F)$
+    \If{$(\alpha > 1)$} \State $\alpha = 1$ \EndIf
+    \State $diffraction_{diff} = (1-w_{diffuse}) \cdot c_{diffraction}$
+    \State $text_{spec} = (1-\alpha) \cdot c_{texture}$
+    \State $text_{diff} = w_{diffuse} \cdot c_{texture}$
+    \State $c_{out} = diffraction_{diff} + text_{spec} + text_{diff}$
   \end{algorithmic}
+  \end{boxedminipage}
+  \vskip1.5pt
+\label{alg:textureblending}
 \end{algorithm}
 
 \subsection{Color Transformation}
@@ -522,7 +538,7 @@ where one possible transformation is:
 There are some other color space transformation. The shader uses the CIE Standard Illuminant D65 which is intended to represent average daylight. Using D65 the whole colorspace transformation will look like:
 
 \begin{equation}
-\begin{bmatrix}R\\G\\B\end{bmatrix} = M \cdot \begin{bmatrix}X \cdot D65.x \\ Y \cdot D65.y \\Z \cdot D65.z \end{bmatrix} 
+\begin{bmatrix}R\\G\\B\end{bmatrix} = M \cdot \begin{bmatrix}X / D65.x \\ Y / D65.y \\Z / D65.z \end{bmatrix} 
 \end{equation}
 
 Last we perfrom gamma correction on each pixel's $(R,G,B)$ value. Gamma correction is a non linear transformation which controls the overall brightness of an image.
