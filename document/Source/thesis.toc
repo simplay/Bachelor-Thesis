@@ -51,7 +51,7 @@
 \contentsline {section}{\numberline {D.1}Fresnel Term - Schlick's approximation}{49}{section.D.1}
 \contentsline {section}{\numberline {D.2}Spherical Coordinates and Space Transformation}{49}{section.D.2}
 \contentsline {section}{\numberline {D.3}Tangent Space}{50}{section.D.3}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{51}{figure.caption.29}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{51}{appendix*.30}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{52}{appendix*.31}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{53}{appendix*.32}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{51}{figure.caption.30}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{51}{appendix*.31}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{52}{appendix*.32}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{53}{appendix*.33}

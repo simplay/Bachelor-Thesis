@@ -575,21 +575,29 @@ Our goal is to optimize this runtime. Instead sampling over the whole wavelength
 By transforming those equations in the equation colletion $\ref{eq:nminmaxapproximation}$ to $(\lambda_{min}^{u}, \lambda_{min}^{u})$ and $(\lambda_{min}^{v}, \lambda_{min}^{v})$ respectively, we can reduce the total number of required iterations in our fragment shader. We denote this optimization by the $n_{min}$, $n_{max}$ (NMM) shading approach. 
 
 \subsection{The PQ Shading Approach}
-Another variant is the $PQ$ approach described in chapter 2 $\ref{sec:pq}$. Depending on the interpolation method, there are two possible variants we can think of as described in $\ref{sec:sincinterpolation}$. Either we try to interpolate linearly or use sinc interpolation.
-The first variant does not require to iterate over a pixel's neighborhood, it is also faster than the gaussian window approach. One could think of a combination of those tho optimization approaches. Keep in mind, both of these approaches are further approximation. The quality of the rendered images will suffer using those two approaches. The second variant, using the sinc function interpolation is well understood in the field of signal processing and will give us reliable results. The drawback of this approach is that we again have to iterate over a neighborhood within the fragment shader which will slow down the whole shading. The following algorithm describes the modification of the fragment shader  $\ref{alg:fragmentshaderall}$ in oder to use sinc interpolation for the PQ approach $\ref{sec:pq}$.  
+Another variant is the $PQ$ approach described in section $\ref{sec:pq}$. In section $\ref{sec:sincinterpolation}$ we described how to interpolate the values relying on sinc functions. Another approach would be simple to perform a linear interpolation. This last variant does not require to iterate over a pixel's neighborhood. This it has a faster runtime complexity faster than any windowing approach. Using the sinc function interpolation is well understood in the field of signal processing and will give us reliable results. The drawback of this approach is that we again have to iterate over a pixel's neighborhood within the fragment shader. This once again will slow down the whole shading. Algorithm $\ref{alg:sincinterpolation}$ describes the modification of the fragment shader in algorithm $\ref{alg:fragmentshaderall}$ in oder to use sinc interpolation for the PQ approach instead using a gaussian window:
 
 \begin{algorithm}[H]
-  \caption{Sinc interpolation for PQ approach}
-  \begin{algorithmic}
+\caption{Sinc interpolation for PQ approach}
+\begin{table}[H]
+  \begin{tabular}{@{}lll@{}}
+    \textbf{Input:} & same input as in algorithme $\ref{alg:fragmentshaderall}$ \\
+    \textbf{Output:} & $c_p:$ Structural Color based in the PQ approach (See section $\ref{sec:pq}$) \\
+  \end{tabular} 
+\end{table}
+\setlength{\fboxrule}{0pt} 
+\begin{boxedminipage}{1.0\textwidth}
+  \begin{algorithmic}[1]
     \ForAll{$Pixel \thinspace p \in Image \thinspace I$}
       \State $w_p = \sum_{(i,j) \in \mathcal{N}_{1}(p)} sinc(\Delta_{p,(i,j)} \cdot \pi + \epsilon) \cdot I(i,j)$
       \State $c_p = w_p \cdot (p^2 + q^2)^{\frac{1}{2}}$
-      \State $render(c_p)$
     \EndFor
   \end{algorithmic}
-  \label{alg:sincinterpolation}
+  \end{boxedminipage}
+  \vskip1.5pt
+\label{alg:sincinterpolation}
 \end{algorithm}
 
-In a fragment shader we compute for each pixel $p$ in the current fragment its reconstructed function value $f(p)$ stores in $w_p$. $w_p$ is the reconstructed signal value at $f(p)$ by the sinc function as described in $\ref{sec:sincinterpolation}$.
-We calculate the distance $\Delta_{p,(i,j)}$ between the current pixel $p$ and each of its neighbor pixels $(i,j) \in \mathcal{N}_{1}(p)$ in its one-neighborhood. Multiplying this distance by $\pi$ gives us the an angle used for the sinc function interpilation. We add a small integer $\epsilon$ in order to avoid division by zeros side-effects.
+In a fragment shader, for every fragment $p$ we compute its reconstructed function value $f(p)$ stored in $w_p$. The value $w_p$ is the reconstructed signal value at $f(p)$ by the sinc function as described in section $\ref{sec:sincinterpolation}$.
+Similar like for the gaussian winodwing approach, we calculate the distance $\Delta_{p,(i,j)}$ between the current fragment position $p$ and each of its neighbors $(i,j) \in \mathcal{N}_{1}(p)$ in its one-neighborhood. Multiplying this distance by $\pi$ gives us the an angle used for the sinc function interpolation. Notice that, in order to avoid division by zeros side-effects, we add a small integer $\epsilon$ to our angle value.
 
