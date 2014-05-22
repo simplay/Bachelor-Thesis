@@ -80,13 +80,18 @@ For Xenopeltis surface grating $\ref{fig:xenogratingpatch}$, we observe diffract
 \label{fig:brdfmapsdiffpatches}
 \end{figure}
 
-TODO:  CHANGE PQ, N MIN MAX IMAGE SINCE SINC INTERPOL IS MISSING
-Figure $\ref{fig:brdfmapsdiffrenderingapproaches}$ shows a the BRDF maps of all our BRDF models applied on the Blaze grating. The most left figure $\ref{fig:brdfmapblazeallLambda}$ is showing the ground truth result for the Blazed grating used in order to compare with our other rendering approaches.
+%%TODO eplain what gound truth is refering to, what it is supposed to denote.
 
-Figure $\ref{fig:brdfmapblazeonlyreq}$ shows the BRDF map for the $N_{min}, N_{max}$ approach which we assume to be close to the ground truth since its corresponding evaluation plots $\ref{fig:blazneval}$ already were closely matching. Nevertheless there is a small difference notable: since in the actual technical implementation of the $N_{min}, N_{max}$ shading approach treats the center of the BRDF map as a separate case, i.e. everything around a small $\epsilon$-circumference has white color assigned 
-we note a white circular spot around the map center. Except this fact, the BRDF map resembles the ground truth.
+Figure $\ref{fig:brdfmapsdiffrenderingapproaches}$ shows BRDF maps of all our BRDF models applied on the Blaze grating. Figure $\ref{fig:brdfmapblazeallLambda}$ shows the FLSS shading approach result for our blazed grating and it is used in order to compare with our other rendering approaches. \\
 
-Figure $\ref{fig:brdfmapblazepq}$ shows the BRDF map for the PQ approach which relies on sinc-interpolation. As expected, after having considered the corresponding evaluation plots shown in figure$\ref{fig:blazepqeval}$, the PQ BRDF map and the ground truth are visual alike. Compared to the evaluation plots, the PQ BRDF maps even persuade more. One difference we notice is that the first order is a little spread. This effect is would be strengthened when using linear interpolation instead of sinc-interpolation.
+%%TODO intruduce somehere NMM approach $N_{min}, N_{max}$
+Figure $\ref{fig:brdfmapblazeonlyreq}$ shows the BRDF map for the NMM approach which is close to the FLSS approach, verified in section $\ref{sec:approachesverifications}$, just like in the case of corresponding evaluation plots $\ref{fig:blazneval}$ already were closely matching. Nevertheless there is a small, noticable difference: 
+
+%TODO: rework this: first explain differences and them apply the reasoning.
+since in the actual technical implementation of the NMM shading approach treats the center of the BRDF map as a separate case, i.e. everything around a small $\epsilon$-circumference has white color assigned we note a white circular spot around the map center. Except this fact, the BRDF map resembles the FLSS results. \\
+%% end unsafe
+
+Figure $\ref{fig:brdfmapblazepq}$ shows the BRDF map for the PQ approach which relies on sinc-interpolation. The PQ BRDF map and the FLSS results are visual alike. Compared to the evaluation plots, the PQ BRDF maps even persuade more. One difference we notice is that the first order is a little spread. This effect is would be strengthened when using linear interpolation instead of sinc-interpolation. \\
 
 Last, let us consider figure $\ref{fig:brdfmapblazegem}$ which shows the BRDF map produced by using the implementation of Nvidia Gem's implementation (ADD REFERENCE) of Stam's BRDF model, when constrainting the y-axisis of the BRDF map. This model does not consider much more than the spacing $d$ of a given grating. It also always produces highly symmetric results. It also does not render different orders of diffraction rather than the zero and first order.   
 
