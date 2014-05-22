@@ -1,8 +1,17 @@
 \chapter{Results}
-\section{BRDF maps}
-In this chapter we examine the rendered output resulting by the implementation of our BRDF models applied on different input patches such as Blaze grating or Elaphe $\ref{fig:elpahespecies}$ and Xenopeltis $\ref{fig:xenospeicies}$ snake nano-scaled surface sheds. We going to discuss and compare both, their BRDF maps $\ref{fig:brdfmapexplanation}$ and the corresponding renderings on a snake geometry $\ref{sec:snakegeomrenderings}$ for various input parameters. Last we also show a real experimental image showing the effect of diffraction for similar parameters like we have. 
-A BRDF map shows a shader's output for all possible viewing directions for a given, fixed, incident light direction. We assume that each viewing direction is in spherical coordinates form $\ref{sec:sphericalcoordinates}$ $(\theta_v, \phi_v)$ and is represented in the map at point $(x,y) = (sin(\theta_v)cos(\phi_v), sin(\theta_v)sin(\phi_v))$ with its origin at the map-center. The light direction for normal incidence $(\theta_i, \phi_i)$ has been fixed to $(0,\pi)$ for our rendered results.
+In this chapter we examine the rendered output results of our implementation of our BRDF models applied to different input patches such as Blaze grating or Elaphe $\ref{fig:elpahespecies}$ and Xenopeltis $\ref{fig:xenospeicies}$ snake nano-scaled surface sheds. We are discussing and comparing both, their BRDF maps $\ref{fig:brdfmapexplanation}$ and the corresponding renderings on a snake geometry like shown in section $\ref{sec:snakegeomrenderings}$ for various input parameters. Last we also show a real experimental image showing the effect of diffraction for similar parameters like we have.
 
+\section{BRDF maps}
+A BRDF map shows a shader's output for all possible viewing directions for a given, fixed, incident light direction. We assume that each viewing direction is expressed in spherical coordinates (See appendix $\ref{sec:sphericalcoordinates}$) $(\theta_v, \phi_v)$ and is represented in the map at point 
+
+\begin{align}
+(x,y) = (sin(\theta_v)cos(\phi_v), sin(\theta_v)sin(\phi_v))
+\end{align}
+
+with its origin at the map-center. The light direction for normal incidence $(\theta_i, \phi_i)$ has been fixed to $(0,0)$ for our rendered results.
+
+%%TODO replace this graphics by (latest state of paper)
+%%TODO add sources!!!!!!!!!!!!!
 \begin{figure}[H]
   \centering
   \subfigure[BRDF map schema]{
@@ -16,7 +25,7 @@ A BRDF map shows a shader's output for all possible viewing directions for a giv
   }
 ~
 
-\caption{BRDF maps for different patches: $\Theta=(\theta,\phi)$ is the direction of light propagation}
+\caption{BRDF maps for different patches: $\Theta=(\theta_i,\phi_i)$ is the direction of light propagation}
 \label{fig:brdfmapexplanation}
 \end{figure}
 

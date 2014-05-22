@@ -1,4 +1,4 @@
-\chapter{Evaluation and data acquisition}
+\chapter{Evaluation and Data Acquisition}
 %TODO 2-3 sentences explainitng the scope of this chapter
 \section{Data Acquisition}
 Our goal is to perform physically accurate simulations of diffraction effects due to natural gratings. As for every simulation, its outcome highly depends on the input data and thus we also require measurements$\footnote{All measured data has been provided by the Laboratory of Artificial and Natural Evolition at Genava - Website:\texttt{www.lanevol.org}}$ of real natural gratings. For that purpose, samples of skin sheds of Xenopeltis and Elaphe snake species were fixed on a glass plate and then, by using an Atomic Force Microscope (AFM), their surface topography was measured and stored as grayscale images, indicating the depth. In general, an AFM is a microscope that uses a tiny probe mounted on a cantilever to scan the surface of an object. The probe is extremely close to the surface, but does not touch it. As the probe traverses the surface, attractive and repulsive forces arising between it and the atoms on the surface induce forces on the probe that bend the cantilever. The amount of bending is measured and recorded, providing a depth-map of the atoms on the surface. An Atomic force microscope is a very high-resolution probe scannings, with demonstrated resolution on the order of a fraction of a nanometer, which is more than 1000 times better than the optical diffraction limit.
@@ -11,7 +11,7 @@ In general, if the spacing between slits is wider than the wavelength of the inc
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.7]{evaluation/spectrometer.jpg}
-  \caption{Spectometer: When a beam of monochromatic light passes through a grating placed in a spectrometer, images of the sources can be seen through the telescope at different angles.}
+  \caption[Spectometer]{Spectometer: When a beam of monochromatic light passes through a grating placed in a spectrometer, images of the sources can be seen through the telescope at different angles.}
 \label{fig:spectometer}
 \end{figure}
 
@@ -36,7 +36,7 @@ where $m \in \mathds{N}_0$ is the order of diffraction. Because $d$ is very smal
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.7]{evaluation/GratingSurface.png}
-  \caption{Different Orders of diffraction}
+  \caption[Diffraction Orders]{Different Orders of diffraction}
 \label{fig:gratingdiffractionorders}
 \end{figure}
 
@@ -45,7 +45,7 @@ When a narrow beam of white light is directed at a diffraction grating along its
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.7]{evaluation/coloredspectrum.jpg}
-  \caption{White Light beam causes coloured diffraction spectra}
+  \caption[Diffracted White Light]{White Light beam causes coloured diffraction spectra}
   \label{fig:diffractionSpectrum}
 \end{figure}
 
@@ -55,7 +55,7 @@ Figure $\ref{fig:nslitdiffractionintensity}$ shows the relative intensity result
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.35]{evaluation/nslitdiffraction.png}
-  \caption{Relative intensities of a diffracted beam of light at wavelength $\lambda=500nm$ on a grating for different number of periods $N$ width slit width of 30 microns and slit separation of 0.15 mm each. The viewer is 0.5m apart from the grating.}
+  \caption[Intensity Plots for Different Number of Slits]{Relative intensities of a diffracted beam of light at wavelength $\lambda=500nm$ on a grating for different number of periods $N$ width slit width of 30 microns and slit separation of 0.15 mm each. The viewer is 0.5m apart from the grating.}
   \label{fig:nslitdiffractionintensity}
 \end{figure}
 
@@ -77,11 +77,11 @@ Figure $\ref{fig:nslitdiffractionintensity}$ shows the relative intensity result
 \label{fig:diffractionslits}
 \end{figure}
 
-\section{Evaluation}
+\section{Verifications}
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.65]{evaluation/evalsetup.png}
-  \caption{Experimental setup for evaluation: A light beam with direction $L$ hits the surface, representing a grating pattern with periodicity $d$, at the incident plane relative to the surface normal $n$ at angle $\theta$ and emerges at angle $\phi$ with direction $V$.}
+  \caption[Experimental Setup]{Experimental setup for evaluation: A light beam with direction $L$ hits the surface, representing a grating pattern with periodicity $d$, at the incident plane relative to the surface normal $n$ at angle $\theta$ and emerges at angle $\phi$ with direction $V$.}
   \label{fig:experimentalsetup}
 \end{figure}
 
@@ -90,7 +90,7 @@ The physical reliability of our BRDF models has been verified by applying those 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.45]{evaluation/reflgrating.png}
-  \caption{Reflecting grating: When the incident light direction is not parallel to its axis at the grating, there is another $sin(\phi)$ involved. See also the grating equation $\ref{eq:gratingeq}$.}
+  \caption[Reflective Grating]{Reflecting grating: When the incident light direction is not parallel to its axis at the grating, there is another $sin(\phi)$ involved. See also the grating equation $\ref{eq:gratingeq}$.}
   \label{fig:reflgrating}
 \end{figure}
 
@@ -104,7 +104,7 @@ The maximum in intensity is given by the grating equation derived from the equat
 In our evaluation we are interested in the first order diffraction, i.e. m equals one which. We further assume that the incident light direction $\omega_i$ is given. In contrast the direction of the reflected wave $\omega_r$ is not given.
 In Mathematics, a three dimensional direction vector is fully defined by two two angles, i.e. it can be represented by spherical coordinates with radius $r = 1$. By convention, we denote those two vectors by $\theta$ and $\phi$ like in figure $\ref{fig:experimentalsetup}$. Hence, $\theta_i$, $\phi_i$ and $\phi_r$ are given constants whereas $\theta_i$ is a free parameter for our evaluation simulation. Therefore, we are going to compare the maxima for peak viewing angles corresponding to each wavelength using data produced by our method against the maxima resulting by the grating equation $\ref{eq:gratingeq}$.
 
-\subsection{Precomputation}
+\subsection{Numerical Comparisons}
 \label{sec:evalprecomp}
 For evaluation purposes we have implemented our BRDF models in java. We once again use our geometrical setup as illustrated in figure $\ref{fig:geometricsetup}$ where $\theta_i$, $\phi_i$ and $\phi_r$ are provided as input values and $\theta_i$ is a free parameter. Within our evaluation we have set them to $\theta_i = 75$ $\phi_i = 0$ $\phi_r = 180$ degrees. The wavelength space $\Lambda$ and the range $\Theta$ of our free parameter $\theta_i$ are discretized in equidistant steps whereas their step sizes are given as input arguments for our Java program:
 
@@ -140,21 +140,21 @@ We will plot this matrix and compare its graph against the grating equation for 
 \label{alg:evalmatlab}
 \end{algorithm}
 
-\subsection{Evaluation graphs}
+\subsection{Virtual Testbench}
 
 \begin{figure}[H]
   \centering
-  \subfigure[Blaze grating]{
+  \subfigure[Blazed Grating]{
     \includegraphics[scale=0.42]{evaluation/blazeHR.png}
     \label{fig:blazeval}
   }
 ~
-  \subfigure[Xenopeltis grating]{
+  \subfigure[Xenopeltis Grating]{
     \includegraphics[scale=0.42]{evaluation/XenoHR.png}
     \label{fig:xenopeltiseval}
   }
 ~
-\subfigure[Elaphe grating]{
+\subfigure[Elaphe Grating]{
   \includegraphics[scale=0.75]{evaluation/ElapheHR.png}
   \label{fig:elapheeval}
 }
@@ -177,7 +177,7 @@ In this section we discuss the quality of our BRDF models applied to different s
     Xenopeltis grating $\ref{fig:xenogratingpatch}$ & 1552.27 & 0.45 \\
     \hline  
   \end{tabular}
-\caption{Statistics of periodicity $d$ of our used gratings $\ref{fig:gratingpatches}$ estimated by using the grating equation $\ref{eq:gratingeq}$. This table was provided by Mr. D.Singh.}
+\caption[Estimated Grating Spacings]{Statistics of periodicity $d$ of our used gratings $\ref{fig:gratingpatches}$ estimated by using the grating equation $\ref{eq:gratingeq}$. This table was provided by Mr. D.Singh.}
 \label{tab:gratingsmeanvariance}
 \end{table}
 
