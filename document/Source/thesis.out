@@ -4,7 +4,7 @@
 \BOOKMARK [2][-]{subsection.1.2.1}{Reproduce\040FT\040by\040DTFT}{section.1.2}% 4
 \BOOKMARK [2][-]{subsection.1.2.2}{Spatial\040Coherence\040and\040Windowing}{section.1.2}% 5
 \BOOKMARK [2][-]{subsection.1.2.3}{Reproduce\040DTFT\040by\040DFT}{section.1.2}% 6
-\BOOKMARK [1][-]{section.1.3}{Adaption\040of\040Stam's\040BRDF\040discrete\040height\040fields}{chapter.1}% 7
+\BOOKMARK [1][-]{section.1.3}{Adaption\040of\040Stam's\040BRDF\040Discrete\040Height\040Fields}{chapter.1}% 7
 \BOOKMARK [2][-]{subsection.1.3.1}{Rendering\040Equation}{section.1.3}% 8
 \BOOKMARK [2][-]{subsection.1.3.2}{Reflected\040Radiance\040of\040Stam's\040BRDF}{section.1.3}% 9
 \BOOKMARK [2][-]{subsection.1.3.3}{Relative\040Reflectance}{section.1.3}% 10
@@ -19,8 +19,8 @@
 \BOOKMARK [1][-]{section.2.3}{GLSL\040Diffraction\040Shader}{chapter.2}% 19
 \BOOKMARK [2][-]{subsection.2.3.1}{Vertex\040Shader}{section.2.3}% 20
 \BOOKMARK [2][-]{subsection.2.3.2}{Fragment\040Shader}{section.2.3}% 21
-\BOOKMARK [1][-]{section.2.4}{Technical\040details}{chapter.2}% 22
-\BOOKMARK [2][-]{subsection.2.4.1}{Texture\040lookup}{section.2.4}% 23
+\BOOKMARK [1][-]{section.2.4}{Technical\040Details}{chapter.2}% 22
+\BOOKMARK [2][-]{subsection.2.4.1}{Texture\040Lookup}{section.2.4}% 23
 \BOOKMARK [2][-]{subsection.2.4.2}{Texture\040Blending}{section.2.4}% 24
 \BOOKMARK [2][-]{subsection.2.4.3}{Color\040Transformation}{section.2.4}% 25
 \BOOKMARK [1][-]{section.2.5}{Discussion}{chapter.2}% 26

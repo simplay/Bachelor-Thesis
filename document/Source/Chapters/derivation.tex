@@ -160,7 +160,7 @@ where
   \label{eq:gaussweight}
 \end{equation} 
 
-\section{Adaption of Stam's BRDF discrete height fields}
+\section{Adaption of Stam's BRDF Discrete Height Fields}
 \subsection{Rendering Equation}
 As already discussed in the theoretical background chapter, colors are associated to radiance. Since we are starting with Stam's BRDF$\footnote{Remember that a BRDF is the portion of a incident light source reflected off a given surface towards a specified viewing direction.}$ formulation but want to perform a simulation rendering structural colors, we have to reformulate this BRDF equation such that we will end up with an identity of the reflected spectral radiance. This is where the rendering equation comes into play. Lets assume we have given an incoming light source with solid angle $\omega_i$ and $\theta_i$ is its angle of incidence, $\omega_r$ is the solid angle for the reflected light. Further let $\lambda$ denote the wavelength$\footnote{Notice that, to keep our terms simple, we have droped all $\lambda$ subscripts for spectral radiance quantites.}$ and $\Omega$ is the hemisphere of integration for the incoming light. Then, we are able to formulate a $BRDF_\lambda$ by using its definition $\ref{eq:defbrdf}$:  
 

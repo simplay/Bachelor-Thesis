@@ -359,14 +359,14 @@ Next, we will discuss the actual fragment shading algorithm, listed in algorithm
       & Mesh Triangles  \\
       & $\omega_i$ and $\omega_r$  \\
       \textbf{Output:} & Structural Color of a pixel \\
-      \textbf{Procedures$\footnotemark$:} & $\emph{getColorWeights}$: get colormatching value for wavelength $\lambda$ \\
-      & $\emph{getlookupCoords}$: get lookup coordinate of given viewing- and light direction \\
+      \textbf{Procedures$\footnotemark$:} & $\emph{getColorWeights}$: get colormatching value for wavelength $\lambda$(see section \ref{sec:colorspace})\\
+      & $\emph{getlookupCoords}$: get lookup coordinate(Eq.\ref{eq:ublookup}) by viewing-\& light direction \\
       & $\emph{distVecFromOriginTo}$: get direction vector from origin to a given position \\
-      & $\emph{getLocalLookUp}$: computes lookup coordinate to dertermine DFT value for windwowing. \\
+      & $\emph{getLocalLookUp}$: get lookup coordinate(Eq.\ref{eq:gaussianwindowlook}) of DFT windwowing values \\
       & $\emph{rescaledFourierValueAt}$: rescales dft terms according to equation \ref{eq:dfttermnormalization}\\
       & $\emph{gaussWeightOf}$: computes gaussian window according to equation \ref{eq:gaussweight} \\
       & $\emph{dot}$: computes the dot-product of two given vectors \\
-      & $\emph{gammaCorrect}$: apply camma correction on rgb vector \\  
+      & $\emph{gammaCorrect}$: apply camma correction on RGB vector(see section \ref{subsec:colortransformations}) \\  
     \end{tabular} 
   \end{table}
   
@@ -424,8 +424,8 @@ In this inner most loop, the convolution of the gaussian window with the DFT ter
 \myparagraph{After line 26:} 
 At line 27 the gain factor $C(\omega_i, \omega_r)$ from equation $\ref{eq:cfact}$ is multiplied by the computed pixel color like formulated in equation $\ref{eq:cpterm}$. The gain factor contains the geometric term of equation $\ref{eq:geometricterm}$ and the Fresnel term $F$. For computing the Fresnel term we use the Schlick approximation defined in equation $\ref{eq:schlickapprox}$, using an refractive index of 1.5 since this is close to the measured value from snake sheds. Our BRDF values are scaled by a shadowing function as described in the appendix of the paper$\cite{diffstam}$. The reason or this is that the nanostructure of a snake skins is grooved forming V-cavities. therefore some regions on the snake surface is shadowed. Last, we transform our colors from the $CIE_XYZ$ colorspace to the $CIE_RGB$ space using the CIE Standard Illuminant $D65$. Last we apply a gamma correction on our computed RGB color values. Consult the section $\ref{subsec:colortransformations}$ for further insight.
 
-\section{Technical details}
-\subsection{Texture lookup}
+\section{Technical Details}
+\subsection{Texture Lookup}
 \label{sec:texturelookupcoords}
 In our fragment shader we want to access DFT coefficients of our height field at a given location $(u,v)$ (defined like in equation $\ref{eq:uvw}$) to compute strucural colors according to equation $\ref{eq:finalexpression}$. \\
 
@@ -516,7 +516,7 @@ In our shader we access a table which contains precomputed CIE's color matching 
 where one possible transformation is: 
 
 \begin{equation}
-M = \begin{bmatrix} 0.41847 & -0.15866 & -0.082835\\ -0.091169 & 0.25243 & 0.015708\\ 0.00092090 & -0.0025498 & 0.17860 \end{bmatrix}
+  M = \begin{bmatrix} 0.41847 & -0.15866 & -0.082835\\ -0.091169 & 0.25243 & 0.015708\\ 0.00092090 & -0.0025498 & 0.17860 \end{bmatrix}
 \end{equation}
 
 There are some other color space transformation. The shader uses the CIE Standard Illuminant D65 which is intended to represent average daylight. Using D65 the whole colorspace transformation will look like:
