@@ -1,3 +1,5 @@
 \select@language {english}
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {1.1}{\ignorespaces Statistics of periodicity $d$ of our used gratings $\ref {fig:gratingpatches}$ estimated by using the grating equation $\ref {eq:gratingeq}$. This table was provided by Mr. D.Singh.\relax }}{10}{table.caption.11}
+\contentsline {table}{\numberline {1.1}{\ignorespaces Estimated Grating Spacings}}{10}{table.caption.11}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Hardware Specifications}}{21}{table.caption.27}
