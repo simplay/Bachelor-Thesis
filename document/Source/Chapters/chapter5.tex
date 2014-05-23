@@ -112,12 +112,12 @@ Last, let us consider figure $\ref{fig:brdfmapblazegem}$ which shows the BRDF ma
     \label{fig:brdfmapblazeonlyreq}
   }
 ~
-  \subfigure[PQ with Sinc-Interpolation]{
+  \subfigure[PQ]{
     \includegraphics[scale=0.09]{results/methodComp/pqsincinterpol}
     \label{fig:brdfmapblazepq}
   }
 ~
-  \subfigure[Nvidia Gem's Approach]{
+  \subfigure[Nvidia Gem]{
     \includegraphics[scale=0.09]{results/methodComp/gem.png}
     \label{fig:brdfmapblazegem}
   }
@@ -126,9 +126,8 @@ Last, let us consider figure $\ref{fig:brdfmapblazegem}$ which shows the BRDF ma
 \label{fig:brdfmapsdiffrenderingapproaches}
 \end{figure}
 
-Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdifflambdastepselaphe65}$ show the BRDF maps for different wavelength step sizes used in the fragment shader for the full lambda space sampling approach applied on the Blaze grating and the Elpahe snake shed, respectively. Within our fragment shaders the most outer loop iterate over the range $[380nm, 780nm]$ for fixed step sizes $\lambda_{step}$ which basically constitutes the integration over the wavelength spectrum. Therefore, having bigger step sizes implies having fewer step sizes which will fasten up the overall runtime of a shader but will also introduce artifacts and therefore lower the overall shading qualtity. For Elaphe surface grating, artifacts are perceptional arising when $\lambda_{step} \leq 10nm$. Results produced by using $5nm$ step sizes do not differ from those produced by using $\lambda_{step}= 1nm$ which allows us to set $\lambda_{step}$ equal 5nm. For a Blazed grating we may chose even bigger step sized without losing any rendering quality.   
+Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdifflambdastepselaphe65}$ show the BRDF maps for different wavelength step sizes used in the fragment shader for the FLSS approach applied on the blazed grating and the Elpahe snake shed, respectively. Within our fragment shaders the outermost loop iterates over the range $[380nm, 780nm]$ for a given step size $\lambda_{step}$ to integrate over the wavelength spectrum. Having bigger step sizes implies having fewer $\lambda$-samples which will reduce the overall runtime of a shader but, it will also introduce artifacts and therefore lower the overall shading qualtity. For Elaphe surface grating, artifacts are perceivable when $\lambda_{step} \leq 10nm$. Results produced by using $5nm$ step sizes do not differ from those produced by using $\lambda_{step}= 1nm$. This allows us to set $\lambda_{step}$ at 5nm. For a Blazed grating we may chose even bigger step sized without losing any rendering quality(see figure $\ref{fig:brdfmapsdifflambdastepsblaze}$).   
 
-% blaze steps
 \begin{figure}[H]
   \centering
   \subfigure[$\lambda_{step=1 nm}$]{
