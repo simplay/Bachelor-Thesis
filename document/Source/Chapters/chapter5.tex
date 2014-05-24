@@ -10,8 +10,6 @@ A BRDF map shows a shader's output for all possible viewing directions for a giv
 
 with its origin at the map-center. The light direction for normal incidence $(\theta_i, \phi_i)$ has been fixed to $(0,0)$ for our rendered results.
 
-%%TODO replace this graphics by (latest state of paper)
-%%TODO add sources!!!!!!!!!!!!!
 \begin{figure}[H]
   \centering
   \subfigure[BRDF map schema]{
@@ -19,7 +17,7 @@ with its origin at the map-center. The light direction for normal incidence $(\t
     \label{fig:brdfmapschema}
   }
 ~
-  \subfigure[Light reflection geometrical setting]{
+  \subfigure[Light reflection geometrical setup]{
     \includegraphics[scale=0.7]{results/Lightreflectiongeometry.png}
     \label{fig:lightreflectiongeometry}
   }
@@ -59,7 +57,7 @@ with its origin at the map-center. The light direction for normal incidence $(\t
 \label{fig:gratingpatches}
 \end{figure}
 
-Figure $\ref{fig:brdfmapsdiffpatches}$ shows the BRDF maps of the full lambda space sampling approach (\textbf{FLSS}) as described in section $\ref{sec:fragmentshader}$ applied on different nanoscale surface gratings as shown in figure $\ref{fig:gratingpatches}$. In Subfigure $\ref{fig:brdfmapBlaze}$ we see the BRDF map for the Blazed grating, showing high relative brightness for its first order diffraction, i.e. for the Blazed gratings most of the diffracted spectral energy lies in its first order. Note that for Blazed grating their first-order diffracted light returns along the same path as the incident light. Higher diffraction modes are still perceivable (second and higher diffraction orders) but with a much lower relative brightness. The asymmetry of the pattern is due to the asymmetric geometry of the grating $\ref{fig:blazegratingpatch}$. \\
+Figure $\ref{fig:brdfmapsdiffpatches}$ shows the BRDF maps of the full lambda space sampling approach (\textbf{FLSS}) as described in section $\ref{sec:fragmentshader}$ applied on different nanoscale surface gratings as shown in figure $\ref{fig:gratingpatches}$. In Subfigure $\ref{fig:brdfmapBlaze}$ we see the BRDF map for the Blazed grating, showing high relative brightness for its first order diffraction, i.e. for the Blazed gratings most of the diffracted spectral energy lies in its first order. Notice that the surface of blazed grating is forming a step structure for which the angle between the step normal and the grating normal is denoted by $\emph{blaze angle}$. Every blazed grating is manufactred in the Littrow$\footnote{For further information please see \texttt{http://en.wikipedia.org/wiki/Blazed\textunderscore grating}.}$ configuration. This means that the blaze angle is chosen such that the diffraction angle and incidence angle are identical. Thus it a blazed grating has maximize efficiency for the wavelength of the used light. Higher diffraction modes are still perceivable (second and higher diffraction orders) but with a much lower relative brightness. The asymmetry of the pattern is due to the asymmetric geometry of the grating $\ref{fig:blazegratingpatch}$. \\
 
 The finger-like structures contained in the Elaphe surface grating $\ref{fig:elpahegratingpatch}$ are quite regularly aligned and hence diffraction occurs along the horizontal axis for the BRDF map as shown in figure $\ref{fig:brdfmapElaphe}$. The reason for not seeing any strong diffraction color contribution along other directions in the BRDF map is due to the fact that these ‘nano-fingers’ overlap across layers and thus do not exhibit any well-formed periodicity along finger direction. \\
 
@@ -91,15 +89,15 @@ For Xenopeltis surface grating $\ref{fig:xenogratingpatch}$, we observe diffract
 Figure $\ref{fig:brdfmapsdiffrenderingapproaches}$ shows BRDF maps of all our BRDF models applied on the Blaze grating. Figure $\ref{fig:brdfmapblazeallLambda}$ shows the FLSS shading approach result for our blazed grating and it is used in order to compare with our other rendering approaches. \\
 
 %%TODO intruduce somehere NMM approach $N_{min}, N_{max}$
-Figure $\ref{fig:brdfmapblazeonlyreq}$ shows the BRDF map for the NMM approach which is close to the FLSS approach, verified in section $\ref{sec:approachesverifications}$, just like in the case of corresponding evaluation plots $\ref{fig:blazneval}$ already were closely matching. Nevertheless there is a small, noticable difference: 
+Figure $\ref{fig:brdfmapblazeonlyreq}$ shows the BRDF map for the NMM approach which is close to the FLSS approach, verified in section $\ref{sec:approachesverifications}$, just like in the case of corresponding evaluation in figure $\ref{fig:blazneval}$. Nevertheless there is a small, noticable difference: 
 
 %TODO: rework this: first explain differences and them apply the reasoning.
 since in the actual technical implementation of the NMM shading approach treats the center of the BRDF map as a separate case, i.e. everything around a small $\epsilon$-circumference has white color assigned we note a white circular spot around the map center. Except this fact, the BRDF map resembles the FLSS results. \\
 %% end unsafe
 
-Figure $\ref{fig:brdfmapblazepq}$ shows the BRDF map for the PQ approach which relies on sinc-interpolation. The PQ BRDF map and the FLSS results are visual alike. Compared to the evaluation plots, the PQ BRDF maps even persuade more. One difference we notice is that the first order is a little spread. This effect is would be strengthened when using linear interpolation instead of sinc-interpolation. \\
+Figure $\ref{fig:brdfmapblazepq}$ shows the BRDF map for the PQ approach which relies on sinc-interpolation. The PQ BRDF map and the FLSS results are visual alike. Compared to the evaluation plots in figure $\ref{fig:evaluationdiffshaderpq}$, the BRDF maps even persuade more. Compared to FLSS, one difference we notice is that the first order of diffraction is a little spread for the PQ approach. Without$\footnote{Note that if we do not perform a sinc-interpolation this would correspond to apply a linear interpolation instead.}$ applying a sinc-interpolation, this spreading effect would be even strengthened. \\
 
-Last, let us consider figure $\ref{fig:brdfmapblazegem}$ which shows the BRDF map produced by using the implementation of Nvidia Gem's implementation (ADD REFERENCE) of Stam's BRDF model, when constrainting the y-axisis of the BRDF map. This model does not consider much more than the spacing $d$ of a given grating. It also always produces highly symmetric results. It also does not render different orders of diffraction rather than the zero and first order.   
+Last, let us consider figure $\ref{fig:brdfmapblazegem}$ which shows the BRDF map produced by using Nvidia Gem's implementation $\cite{cpugems}$ of Stam's BRDF model when constrainting the y-axis of the BRDF map. This correspind to a 1d diffraction grating, along the x-axis. This model only uses the spacing $d$ of a given grating. It also always produces highly symmetric results.   
 
 % brdf maps patches
 \begin{figure}[H]
@@ -114,12 +112,12 @@ Last, let us consider figure $\ref{fig:brdfmapblazegem}$ which shows the BRDF ma
     \label{fig:brdfmapblazeonlyreq}
   }
 ~
-  \subfigure[PQ with Sinc-Interpolation]{
+  \subfigure[PQ]{
     \includegraphics[scale=0.09]{results/methodComp/pqsincinterpol}
     \label{fig:brdfmapblazepq}
   }
 ~
-  \subfigure[Nvidia Gem's Approach]{
+  \subfigure[Nvidia Gem]{
     \includegraphics[scale=0.09]{results/methodComp/gem.png}
     \label{fig:brdfmapblazegem}
   }
@@ -128,9 +126,8 @@ Last, let us consider figure $\ref{fig:brdfmapblazegem}$ which shows the BRDF ma
 \label{fig:brdfmapsdiffrenderingapproaches}
 \end{figure}
 
-Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdifflambdastepselaphe65}$ show the BRDF maps for different wavelength step sizes used in the fragment shader for the full lambda space sampling approach applied on the Blaze grating and the Elpahe snake shed, respectively. Within our fragment shaders the most outer loop iterate over the range $[380nm, 780nm]$ for fixed step sizes $\lambda_{step}$ which basically constitutes the integration over the wavelength spectrum. Therefore, having bigger step sizes implies having fewer step sizes which will fasten up the overall runtime of a shader but will also introduce artifacts and therefore lower the overall shading qualtity. For Elaphe surface grating, artifacts are perceptional arising when $\lambda_{step} \leq 10nm$. Results produced by using $5nm$ step sizes do not differ from those produced by using $\lambda_{step}= 1nm$ which allows us to set $\lambda_{step}$ equal 5nm. For a Blazed grating we may chose even bigger step sized without losing any rendering quality.   
+Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdifflambdastepselaphe65}$ show the BRDF maps for different wavelength step sizes used in the fragment shader for the FLSS approach applied on the blazed grating and the Elpahe snake shed, respectively. Within our fragment shaders the outermost loop iterates over the range $[380nm, 780nm]$ for a given step size $\lambda_{step}$ to integrate over the wavelength spectrum. Having bigger step sizes implies having fewer $\lambda$-samples which will reduce the overall runtime of a shader but, it will also introduce artifacts and therefore lower the overall shading qualtity. For Elaphe surface grating, artifacts are perceivable when $\lambda_{step} \leq 10nm$. Results produced by using $5nm$ step sizes do not differ from those produced by using $\lambda_{step}= 1nm$. This allows us to set $\lambda_{step}$ at 5nm. For a Blazed grating we may chose even bigger step sized without losing any rendering quality(see figure $\ref{fig:brdfmapsdifflambdastepsblaze}$).   
 
-% blaze steps
 \begin{figure}[H]
   \centering
   \subfigure[$\lambda_{step=1 nm}$]{
@@ -205,7 +202,7 @@ Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdif
 \end{figure}
 
 
-The Figures $\ref{fig:pqblaze}$, $\ref{fig:pqxeno}$, $\ref{fig:pqelaphe}$ show a comparison of the BRDF maps produced by full lambda space sampling approach (on the left) and the PQ shading approach (on the right) applied on all our patches. For Blazed grating, as already mentioned, we notice that both approaches resemble each other. We also notice that for PQ map, the first order diffraction color contribution is spread. For Elaphe and Xenopeltis grating we notice similar shaped BRDF patterns, even when the angle of light varies, but nevertheless, they also contain some artifacts. This also holds true when we linearly interpolate instead relying on sinc-interpolation.
+The Figures $\ref{fig:pqblaze}$, $\ref{fig:pqelaphe}$, $\ref{fig:pqxeno}$  show a comparison of the BRDF maps produced by the FLSS approach (on the left) and the PQ shading approach (on the right) applied on all our patches. For Blazed grating, as already mentioned, we notice that both approaches, FLSS and PQ, resemble each other. We also notice that for PQ map, the first order diffraction color contribution is spread. For Elaphe and Xenopeltis grating we notice similar shaped BRDF patterns, even when the angle of light varies, but nevertheless, they also contain some artifacts. For the PQ approach, this also holds true when we do not apply we a sinc-interpolation like shown in figure $\ref{fig:pqBlaze}$.
 
 %pq blaze
 \begin{figure}[H]
@@ -250,32 +247,32 @@ The Figures $\ref{fig:pqblaze}$, $\ref{fig:pqxeno}$, $\ref{fig:pqelaphe}$ show a
 %pq xeno
 \begin{figure}[H]
   \centering
-  \subfigure[Full Lambda Sampling: Xeno grating $\theta_i = 0 degree$]{
+  \subfigure[Full Lambda Sampling: Xeno grating $\theta_i = 0 \degree$]{
     \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/a_xeno_t_i=0.png}
     \label{fig:fullLambdaXenoti0}
   }
 ~
-  \subfigure[PQ Approach: Xeno grating $\theta_i = 0 degree$]{
+  \subfigure[PQ Approach: Xeno grating $\theta_i = 0 \degree$]{
     \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/a_pq_t_i=0.png}
     \label{fig:pqXenoti0}
   }
 
-  \subfigure[Full Lambda Sampling: Xeno grating $\theta_i = 10 degree$]{
+  \subfigure[Full Lambda Sampling: Xeno grating $\theta_i = 10 \degree$]{
     \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/b_xeno_t_i=10.png}
     \label{fig:fullLambdaXenoti10}
   }
 ~
-  \subfigure[PQ Approach: Xeno grating $\theta_i = 10 degree$]{
+  \subfigure[PQ Approach: Xeno grating $\theta_i = 10 \degree$]{
     \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/b_pq_t_i=10.png}
     \label{fig:pqXenoti10}
   }
   
-  \subfigure[Full Lambda Sampling: Xeno grating $\theta_i = 20 degree$]{
+  \subfigure[Full Lambda Sampling: Xeno grating $\theta_i = 20 \degree $]{
     \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/c_xeno_t_i=20.png}
     \label{fig:fullLambdaXenoti20}
   }
 ~
-  \subfigure[PQ Approach: Xeno grating $\theta_i = 20 degree$]{
+  \subfigure[PQ Approach: Xeno grating $\theta_i = 20 \degree $]{
     \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/c_pq_t_i=20.png}
     \label{fig:pqXenoti20}
   }
@@ -284,7 +281,7 @@ The Figures $\ref{fig:pqblaze}$, $\ref{fig:pqxeno}$, $\ref{fig:pqelaphe}$ show a
 \label{fig:pqxeno}
 \end{figure}
 
-Figure $\ref{fig:brdfmapsdiffsigmasizeblaze}$ shows BRDF map for the full lambda sampling approach applied on the Blazed grating, varying the value for the spacial variance $\sigma_s$. This is similar to consider the output of different coherence lengths for our incident light. The lower the coherence length, the fewer interacting grating periods produce produce blurred diffraction bands for different $\lambda$ which overlap to produce poorly resolved colors.
+Figure $\ref{fig:brdfmapsdiffsigmasizeblaze}$ shows BRDF maps for the full lambda sampling approach applied to the Blazed grating, while varying the value for the spatial variance $\sigma_s$. This akin to changing the coherence length for the incident light. The lower the coherence length, the fewer interacting grating periods produce blurred diffraction bands for different $\lambda$ which overlap to produce poorly resolved colors.
 
 %sigma var
 \begin{figure}[H]
@@ -320,12 +317,11 @@ Figure $\ref{fig:brdfmapsdiffsigmasizeblaze}$ shows BRDF map for the full lambda
   }
   
   
-\caption{Blazed grating at $2.5 \mu m$: Different $\sigma_s$ sizes}
+\caption{Blazed grating with periodicity of $2.5 \mu m$: Different $\sigma_s$}
 \label{fig:brdfmapsdiffsigmasizeblaze}
 \end{figure}
 
-The figures $\ref{fig:brdfmapstayloriterationsblaze}$ and $\ref{fig:brdfmapstayloriterationselaphe65}$ show the BRDF maps of the full lambda space approach using different values for $N$ used for the taylor series approximation used within our fragment shaders. For both input patches we clearly visually observe the convergence of the taylor series for higher values for N.
-We visually observe convergence of the Taylor series for all our from a certain value of $N$. In section $\ref{sec:taylorapproximation}$ we already provided a proof for the convergence for a specific geometrical set up which could be applied easily to another setup. The higher the value of $N$ the less the BRDF map changes. For the Blazed grating, we do not see much changing patterns for $N \geq 7$ and for the Elaphe surface grating $N \geq 9$. In general it is rather hard to say for what value of $N$ we have visual convergence since in algorithm $\ref{alg:matlabprecomp}$ we compute the inverse FFT of $power(1j*patchImg, t)$ which is equivalent to $iFFT(patchImg)^n \cdot i^n$. Since we multiply this by $i^n$ there are four possible series where each converges within its own convergence radius.
+Figures $\ref{fig:brdfmapstayloriterationsblaze}$ and $\ref{fig:brdfmapstayloriterationselaphe65}$ show the BRDF maps the reference-, FLSS approach using different values for $N$ in the taylor series approximation. For both input patches we clearly visually observe the convergence of the taylor series for higher values of N. We visually observe convergence of the Taylor series for all our patches a very large value of $N$$\footnote{Using N equal to 39 lead to visual convergence for all our used gratings.}$. In section $\ref{sec:taylorapproximation}$ we already provided a proof for the convergence for a specific geometrical set up which could be applied easily to another setup. The higher the value of $N$ the less the BRDF map changes. For the Blazed grating, we do not see much changing patterns for $N \geq 7$ and for the Elaphe surface grating $N \geq 9$. In general it is rather hard to say for what value of $N$ we have visual convergence since in algorithm $\ref{alg:matlabprecomp}$ we compute the inverse FFT of $power(1j*patchImg, t)$ which is equivalent to $iFFT(patchImg)^n \cdot i^n$. Since we multiply this by $i^n$ there are four possible series where each converges within its own convergence radius.
 
 %taylor var blaze
 \begin{figure}[H]
@@ -448,17 +444,17 @@ Figure $\ref{fig:brdfmapsxenodiffthetaiangles}$ shows the BRDF maps of the full 
 % brdf maps xeno angles
 \begin{figure}[H]
   \centering
-  \subfigure[Xeno grating $\theta_i=0$]{
+  \subfigure[Xeno grating $\theta_i=0 \degree$]{
     \includegraphics[scale=0.12]{results/different_theta_i_angles/xenopeltis/xeno_t_i=0.png}
     \label{fig:brdfmapXenoti0}
   }
 ~
-  \subfigure[Xeno grating $\theta_i=10$]{
+  \subfigure[Xeno grating $\theta_i=10 \degree$]{
     \includegraphics[scale=0.12]{results/different_theta_i_angles/xenopeltis/xeno_t_i=10.png}
     \label{fig:brdfmapXenoti10}
   }
 ~
-  \subfigure[Xeno grating $\theta_i=20$]{
+  \subfigure[Xeno grating $\theta_i=20 \degree$]{
     \includegraphics[scale=0.12]{results/different_theta_i_angles/xenopeltis/xeno_t_i=20.png}
     \label{fig:brdfmapXenoti20}
   }
