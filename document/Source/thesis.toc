@@ -5,22 +5,22 @@
 \contentsline {section}{\numberline {1.3}GLSL Diffraction Shader}{7}{section.1.3}
 \contentsline {subsection}{\numberline {1.3.1}Vertex Shader}{7}{subsection.1.3.1}
 \contentsline {subsection}{\numberline {1.3.2}Fragment Shader}{11}{subsection.1.3.2}
-\contentsline {paragraph}{From line 4 to 26:}{15}{section*.12}
-\contentsline {paragraph}{From line 9 to 24:}{15}{section*.13}
-\contentsline {paragraph}{From line 14 to 22:}{15}{section*.14}
-\contentsline {paragraph}{After line 26:}{15}{section*.15}
-\contentsline {section}{\numberline {1.4}Technical Details}{16}{section.1.4}
-\contentsline {subsection}{\numberline {1.4.1}Texture Lookup}{16}{subsection.1.4.1}
-\contentsline {paragraph}{Translation component $b$ of affine tranformation:}{17}{section*.17}
-\contentsline {paragraph}{Scaling component $s$ of affine transformation:}{17}{section*.18}
-\contentsline {paragraph}{Final affine transformation:}{17}{section*.19}
-\contentsline {subsection}{\numberline {1.4.2}Texture Blending}{18}{subsection.1.4.2}
-\contentsline {subsection}{\numberline {1.4.3}Color Transformation}{18}{subsection.1.4.3}
-\contentsline {section}{\numberline {1.5}Discussion}{19}{section.1.5}
-\contentsline {subsection}{\numberline {1.5.1}Comparison: per Fragment-vs. per Vertex-Shading}{19}{subsection.1.5.1}
-\contentsline {subsection}{\numberline {1.5.2}Optimization of Fragment Shading: NMM Approach}{19}{subsection.1.5.2}
-\contentsline {subsection}{\numberline {1.5.3}The PQ Shading Approach}{20}{subsection.1.5.3}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{22}{table.caption.22}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{22}{appendix*.23}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{23}{appendix*.24}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{24}{appendix*.25}
+\contentsline {paragraph}{From line 4 to 26:}{16}{section*.13}
+\contentsline {paragraph}{From line 9 to 24:}{16}{section*.14}
+\contentsline {paragraph}{From line 14 to 22:}{16}{section*.15}
+\contentsline {paragraph}{After line 26:}{16}{section*.16}
+\contentsline {section}{\numberline {1.4}Technical Details}{17}{section.1.4}
+\contentsline {subsection}{\numberline {1.4.1}Texture Lookup}{17}{subsection.1.4.1}
+\contentsline {paragraph}{Translation component $b$ of affine tranformation:}{18}{section*.18}
+\contentsline {paragraph}{Scaling component $s$ of affine transformation:}{18}{section*.19}
+\contentsline {paragraph}{Final affine transformation:}{18}{section*.20}
+\contentsline {subsection}{\numberline {1.4.2}Texture Blending}{19}{subsection.1.4.2}
+\contentsline {subsection}{\numberline {1.4.3}Color Transformation}{19}{subsection.1.4.3}
+\contentsline {section}{\numberline {1.5}Discussion}{20}{section.1.5}
+\contentsline {subsection}{\numberline {1.5.1}Comparison: per Fragment-vs. per Vertex-Shading}{20}{subsection.1.5.1}
+\contentsline {subsection}{\numberline {1.5.2}Optimization of Fragment Shading: NMM Approach}{20}{subsection.1.5.2}
+\contentsline {subsection}{\numberline {1.5.3}The PQ Shading Approach}{21}{subsection.1.5.3}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{23}{table.caption.23}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{23}{appendix*.24}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{24}{appendix*.25}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{25}{appendix*.26}

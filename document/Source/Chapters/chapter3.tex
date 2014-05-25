@@ -328,9 +328,14 @@ After the vertex-shading stage, the next stage in the OpenGL rendering pipeline 
 \end{figure}
 \footnotetext{This image was taken from \texttt{http://en.wikibooks.org/wiki/GLSL\textunderscore Programming/Rasterization}}
 
-A fragment shader as shown in figure $FIGUREFRSGEMNTSHADER$, is the OpenGL pipeline stage subsequent after a mesh triangle is rasterized in the rasterization stage. As input value, a fragment shader takes at least a fragment computed by the rasterizer. It is also pissible to assign custome, non-interpolated values to a fragment shader. For each fragment in the fragment shading stage, a color value is computed. Furthermore, a fragment shader computes a depth value for each of its fragments, determining their visbility. Since all existing scene vertices were perspectively projected onto the 2d image plane, the rasterizer could have produced several fragments having assigned the same pixel position. Therefore, among all fragments with the same pixel position, the outputed pixel color is equal to the color of that fragment, which depth is closest to the viewer.
+A fragment shader as shown in figure $\ref{fig:fragmentshaderpipe}$, is the OpenGL pipeline stage subsequent after a mesh triangle is rasterized in the rasterization stage. As input value, a fragment shader takes at least a fragment computed by the rasterizer. It is also pissible to assign custome, non-interpolated values to a fragment shader. For each fragment in the fragment shading stage, a color value is computed. Furthermore, a fragment shader computes a depth value for each of its fragments, determining their visbility. Since all existing scene vertices were perspectively projected onto the 2d image plane, the rasterizer could have produced several fragments having assigned the same pixel position. Therefore, among all fragments with the same pixel position, the outputed pixel color is equal to the color of that fragment, which depth is closest to the viewer.
 
-%% TODO FIGUREFRSGEMNTSHADER
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{implementation/fragmentshader.png}
+  \caption[Fragment Shader]{Illustration of fragment shader in OpenGL's rendering pipeline.}
+  \label{fig:fragmentshaderpipe}
+\end{figure}
 
 \label{sec:inputlists}
 In this section we explain how to render structural colors resulting due to light diffracted on a natural grating, based on the model described in section $\ref{sec:spectralrendering}$. The color values of the produced structural colors, resulting from our model, are computed by our fragment shader which expects being provided by the follwoing input:
