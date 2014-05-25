@@ -19,8 +19,8 @@
 \contentsline {section}{\numberline {1.5}Discussion}{20}{section.1.5}
 \contentsline {subsection}{\numberline {1.5.1}Comparison: per Fragment-vs. per Vertex-Shading}{20}{subsection.1.5.1}
 \contentsline {subsection}{\numberline {1.5.2}Optimization of Fragment Shading: NMM Approach}{20}{subsection.1.5.2}
-\contentsline {subsection}{\numberline {1.5.3}The PQ Shading Approach}{21}{subsection.1.5.3}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{23}{table.caption.23}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{23}{appendix*.24}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{24}{appendix*.25}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{25}{appendix*.26}
+\contentsline {subsection}{\numberline {1.5.3}The PQ Shading Approach}{22}{subsection.1.5.3}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{24}{table.caption.24}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{24}{appendix*.25}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{25}{appendix*.26}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{26}{appendix*.27}
