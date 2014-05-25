@@ -12,18 +12,15 @@
 \contentsline {section}{\numberline {1.4}Technical Details}{17}{section.1.4}
 \contentsline {subsection}{\numberline {1.4.1}Texture Lookup}{17}{subsection.1.4.1}
 \contentsline {paragraph}{Translation component $b$ of affine tranformation:}{18}{section*.18}
-\contentsline {paragraph}{Scaling component $s$ of affine transformation:}{18}{section*.19}
-\contentsline {paragraph}{Final affine transformation:}{18}{section*.20}
+\contentsline {paragraph}{Scaling component $s$ of affine transformation:}{19}{section*.19}
+\contentsline {paragraph}{Final affine transformation:}{19}{section*.20}
 \contentsline {subsection}{\numberline {1.4.2}Texture Blending}{19}{subsection.1.4.2}
-\contentsline {subsection}{\numberline {1.4.3}Color Transformation}{19}{subsection.1.4.3}
-\contentsline {section}{\numberline {1.5}Discussion}{20}{section.1.5}
-\contentsline {subsection}{\numberline {1.5.1}Comparison: per Fragment-vs. per Vertex-Shading}{20}{subsection.1.5.1}
-\contentsline {subsection}{\numberline {1.5.2}Optimization of Fragment Shading: NMM Approach}{20}{subsection.1.5.2}
+\contentsline {subsection}{\numberline {1.4.3}Color Transformation}{20}{subsection.1.4.3}
+\contentsline {section}{\numberline {1.5}Discussion}{21}{section.1.5}
+\contentsline {subsection}{\numberline {1.5.1}Comparison: per Fragment-vs. per Vertex-Shading}{21}{subsection.1.5.1}
+\contentsline {subsection}{\numberline {1.5.2}Optimization of Fragment Shading: NMM Approach}{21}{subsection.1.5.2}
 \contentsline {subsection}{\numberline {1.5.3}The PQ Shading Approach}{22}{subsection.1.5.3}
-\contentsline {chapter}{\numberline {2}Results}{24}{chapter.2}
-\contentsline {section}{\numberline {2.1}BRDF maps}{24}{section.2.1}
-\contentsline {section}{\numberline {2.2}Snake surface geometries}{33}{section.2.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{39}{figure.caption.44}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{39}{appendix*.45}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{40}{appendix*.46}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{41}{appendix*.47}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{24}{table.caption.24}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{24}{appendix*.25}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{25}{appendix*.26}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{26}{appendix*.27}

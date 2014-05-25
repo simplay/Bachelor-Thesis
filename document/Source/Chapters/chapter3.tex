@@ -450,8 +450,8 @@ However, $u$, $v$ coordinates are assumed to be in range $[-\frac{f_s}{2}, \frac
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.7]{implementation/lookupexampleAmReIm4.png}
-  \caption[Lookup DFT Coefficients in Textures]{Illustration of $(u,v)$ lookup using GLSL textures.}
+  \includegraphics[scale=0.7]{implementation/lookup.png}
+  \caption[Lookup DFT Coefficients in Textures]{Illustration of $(u,v)$ lookup using GLSL textures: texture voordinates are shown in blue color, u-v coordinates are shown in green color.}
 \label{fig:lookupexample}
 \end{figure}
 
@@ -490,19 +490,19 @@ Thus, only wavenumbers that are integer multiples of $w_0$ after a multiplicatio
 The lookup for the $v$-direction will be equal $s(v)$ defined like in equation $\ref{eq:scalelook}$.
 
 \myparagraph{Final affine transformation:}
-Using the translation from equation $\ref{eq:bias}$ and the scaling from equation $\ref{eq:scalelook}$, the tranfromed texture lookup-coorinates $(u_{lookup}, v_{lookup})$ for a given wavelength $\lambda$ is equal to:
+Using the translation from equation $\ref{eq:bias}$ and the scaling from equation $\ref{eq:scalelook}$, the tranfromed texture lookup-coorinates $(u_{look}, v_{look})$ for a given wavelength $\lambda$ is equal to:
 
 \begin{align}
-  (u_{lookup}, v_{lookup}) 
+  (u_{look}, v_{look}) 
   &= \left(s(u)+b,s(v)+b \right) \nonumber \\
   &= \left( \frac{u N dH}{\lambda} + b, \frac{v N dH}{\lambda} + b \right)
 \label{eq:ublookup}
 \end{align}  
 
-Note that for the Windowing Approach, used in algorthm $\ref{alg:fragmentshaderall}$, we are visiting a one-pixel-neighborhood around each $(u,v)$ coordinate pair. For any position $(i,j)$ of its neighbor-pixels, these local coordinates $(u_{lookup}^{local_i}, v_{lookup}^{local_j})$ around the origin $(u_{lookup}, v_{lookup})$ from equation $\ref{eq:ublookup}$ are equal to:
+Note that for the Windowing Approach, used in algorthm $\ref{alg:fragmentshaderall}$, we are visiting a one-pixel-neighborhood around each $(u,v)$ coordinate pair. For any position $(i,j)$ of its neighbor-pixels, these local coordinates $(u_{look}^{local_i}, v_{look}^{local_j})$ around the origin $(u_{look}, v_{look})$ from equation $\ref{eq:ublookup}$ are equal to:
 
 \begin{equation}
-  (u_{lookup}^{local_i}, v_{lookup}^{local_j}) = (i,j)-(u_{lookup}, v_{lookup})
+  (u_{look}^{local_i}, v_{look}^{local_j}) = (i,j)-(u_{look}, v_{look})
 \label{eq:gaussianwindowlook}
 \end{equation}
 
