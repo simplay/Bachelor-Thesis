@@ -1,0 +1,5 @@
+\contentsline {algorithm}{\numberline {1}{\ignorespaces Precomputation: Pseudo code to generate Fourier terms\relax }}{4}{algorithm.1}
+\contentsline {algorithm}{\numberline {2}{\ignorespaces Vertex diffraction shader pseudo code\relax }}{10}{algorithm.2}
+\contentsline {algorithm}{\numberline {3}{\ignorespaces Fragment diffraction shader pseudo code\relax }}{14}{algorithm.3}
+\contentsline {algorithm}{\numberline {4}{\ignorespaces Texture Blending\relax }}{18}{algorithm.4}
+\contentsline {algorithm}{\numberline {5}{\ignorespaces Sinc interpolation for PQ approach\relax }}{20}{algorithm.5}
