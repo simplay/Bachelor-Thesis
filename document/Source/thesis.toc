@@ -1,8 +1,26 @@
 \select@language {english}
-\contentsline {chapter}{\numberline {1}Results}{1}{chapter.1}
-\contentsline {section}{\numberline {1.1}BRDF maps}{1}{section.1.1}
-\contentsline {section}{\numberline {1.2}Snake surface geometries}{10}{section.1.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{16}{figure.caption.21}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{16}{appendix*.22}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{17}{appendix*.23}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{18}{appendix*.24}
+\contentsline {chapter}{\numberline {1}Implementation}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Precomputations in Matlab}{2}{section.1.1}
+\contentsline {section}{\numberline {1.2}Java Renderer}{6}{section.1.2}
+\contentsline {section}{\numberline {1.3}GLSL Diffraction Shader}{8}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Vertex Shader}{8}{subsection.1.3.1}
+\contentsline {subsection}{\numberline {1.3.2}Fragment Shader}{12}{subsection.1.3.2}
+\contentsline {paragraph}{From line 4 to 26:}{16}{section*.15}
+\contentsline {paragraph}{From line 9 to 24:}{16}{section*.16}
+\contentsline {paragraph}{From line 14 to 22:}{16}{section*.17}
+\contentsline {paragraph}{After line 26:}{16}{section*.18}
+\contentsline {section}{\numberline {1.4}Technical Details}{17}{section.1.4}
+\contentsline {subsection}{\numberline {1.4.1}Texture Lookup}{17}{subsection.1.4.1}
+\contentsline {paragraph}{Translation component $b$ of affine tranformation:}{18}{section*.20}
+\contentsline {paragraph}{Scaling component $s$ of affine transformation:}{19}{section*.21}
+\contentsline {paragraph}{Final affine transformation:}{19}{section*.22}
+\contentsline {subsection}{\numberline {1.4.2}Texture Blending}{19}{subsection.1.4.2}
+\contentsline {subsection}{\numberline {1.4.3}Color Transformation}{20}{subsection.1.4.3}
+\contentsline {section}{\numberline {1.5}Discussion}{21}{section.1.5}
+\contentsline {subsection}{\numberline {1.5.1}Comparison: per Fragment-vs. per Vertex-Shading}{21}{subsection.1.5.1}
+\contentsline {subsection}{\numberline {1.5.2}Optimization of Fragment Shading: NMM Approach}{21}{subsection.1.5.2}
+\contentsline {subsection}{\numberline {1.5.3}The PQ Shading Approach}{22}{subsection.1.5.3}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{24}{table.caption.26}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{24}{appendix*.27}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{25}{appendix*.28}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{26}{appendix*.29}
