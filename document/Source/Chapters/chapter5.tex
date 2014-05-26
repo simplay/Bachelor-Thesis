@@ -197,7 +197,19 @@ Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdif
 \end{figure}
 
 
-The Figures $\ref{fig:pqblaze}$, $\ref{fig:pqelaphe}$, $\ref{fig:pqxeno}$  show a comparison of the BRDF maps produced by the FLSS approach (on the left) and the PQ shading approach (on the right) applied on all our patches. For Blazed grating, as already mentioned, we notice that both approaches, FLSS and PQ, resemble each other. We also notice that for PQ map, the first order diffraction color contribution is spread. For Elaphe and Xenopeltis grating we notice similar shaped BRDF patterns, even when the angle of light varies, but nevertheless, they also contain some artifacts. For the PQ approach, this also holds true when we do not apply we a sinc-interpolation like shown in figure $\ref{fig:pqBlaze}$.
+The Figures $\ref{fig:pqblaze}$, $\ref{fig:pqelaphe}$, $\ref{fig:pqxeno}$  show a comparison of the BRDF maps produced by the FLSS approach (on the left) and the PQ shading approach (on the right) applied on all our patches. For Blazed grating, as already mentioned, we notice that both approaches, FLSS and PQ, resemble each other. We also notice that for PQ map, the first order diffraction color contribution is spread. For Elaphe and Xenopeltis grating we notice similar shaped BRDF patterns, even when the angle of light varies, but nevertheless, they also contain some artifacts. 
+
+
+%% unsafe
+For Blazed grating most of its energy lies in the first order of diffraction at its blaze angle. This means most of the color contribution visible on the corresponding BRDF map lies at this angle. According to evaluation for the pq aproach we see color fringes at this first order modes. comparing this to FLSS bad correspondance
+resembles evaluation plots of PQ apporach in evaluation chapter, see figure FIGUREPQ
+not appropriate approximation approach
+%% END unsafe
+
+
+
+
+For the PQ approach, this also holds true when we do not apply we a sinc-interpolation like shown in figure $\ref{fig:pqBlaze}$.
 
 %pq blaze
 \begin{figure}[H]
@@ -438,10 +450,8 @@ In algorithm $\ref{alg:matlabprecomp}$ we compute the DFT terms of a provided he
 \label{fig:brdfmapstayloriterationselaphe65}
 \end{figure}
 
-
 Figure $\ref{fig:brdfmapsxenodiffthetaiangles}$ shows the BRDF maps of the full lambda shading approach applied on the Xenopeltis snake shed, using different $\theta_i$ incident angles. When slightly moving the incident angle $\theta_i$, we can observe how the brdf map changes. For higher values of $\theta_i$ we start seeing diffraction color contribution on the right side of the BRDF map. 
 
-% brdf maps xeno angles
 \begin{figure}[H]
   \centering
   \subfigure[Xeno grating $\theta_i=0 \degree$]{
