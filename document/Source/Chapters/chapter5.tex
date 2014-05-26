@@ -196,22 +196,10 @@ Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdif
 \label{fig:brdfmapsdifflambdastepselaphe65}
 \end{figure}
 
+The figures $\ref{fig:pqblaze}$, $\ref{fig:pqelaphe}$, $\ref{fig:pqxeno}$ show a comparison of the BRDF maps produced by the FLSS approach (on the left) and the PQ shading approach (on the right) applied on all our patches. For Blazed grating, as already mentioned, we notice that both approaches, FLSS and PQ, resemble each other. We also notice that for PQ map, the first order diffraction color contribution is spread. For the Elaphe and Xenopeltis grating we notice similar shaped BRDF patterns, even when the angle of light varies, but nevertheless, they also contain some artifacts. \\
 
-The Figures $\ref{fig:pqblaze}$, $\ref{fig:pqelaphe}$, $\ref{fig:pqxeno}$  show a comparison of the BRDF maps produced by the FLSS approach (on the left) and the PQ shading approach (on the right) applied on all our patches. For Blazed grating, as already mentioned, we notice that both approaches, FLSS and PQ, resemble each other. We also notice that for PQ map, the first order diffraction color contribution is spread. For Elaphe and Xenopeltis grating we notice similar shaped BRDF patterns, even when the angle of light varies, but nevertheless, they also contain some artifacts. 
+In genral, a Blazed Grating is manufactured in a way that a large fraction of the incident light is diffracted preferentially into the first order. Therefore, most of the energy in its BRDF map lies in the first order of diffraction at its blaze angle. This implies that largest portion of the color contribution, visible on the corresponding BRDF map, lies at that angle. In figure $\ref{fig:pqblaze}$, in contrast to the results produced by the FLSS approach, we see color fringes at the first order modes in the BRDF map produced by our PQ approach. This implies that the PQ approach does not produce reliable results which also affirmes our evaluation plots shown in figure $\ref{fig:evaluationdiffshaderpq}$. A similar argumentation hold true for the PQ approach, when we do not apply we a sinc-interpolation like shown in figure $\ref{fig:pqBlaze}$.
 
-
-%% unsafe
-For Blazed grating most of its energy lies in the first order of diffraction at its blaze angle. This means most of the color contribution visible on the corresponding BRDF map lies at this angle. According to evaluation for the pq aproach we see color fringes at this first order modes. comparing this to FLSS bad correspondance
-resembles evaluation plots of PQ apporach in evaluation chapter, see figure FIGUREPQ
-not appropriate approximation approach
-%% END unsafe
-
-
-
-
-For the PQ approach, this also holds true when we do not apply we a sinc-interpolation like shown in figure $\ref{fig:pqBlaze}$.
-
-%pq blaze
 \begin{figure}[H]
   \centering
   \subfigure[Full Lambda Sampling: Blazed grating]{
