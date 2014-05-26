@@ -316,25 +316,14 @@ Figure $\ref{fig:brdfmapsdiffsigmasizeblaze}$ shows BRDF maps for the full lambd
 \label{fig:brdfmapsdiffsigmasizeblaze}
 \end{figure}
 
-Figures $\ref{fig:brdfmapstayloriterationsblaze}$ and $\ref{fig:brdfmapstayloriterationselaphe65}$ show the BRDF maps the reference-, FLSS approach using different values for $N$ in the taylor series approximation. For both input patches we clearly visually observe the convergence of the taylor series for higher values of N. We visually observe convergence of the Taylor series for all our patches a very large value of $N$$\footnote{Using N equal to 39 lead to visual convergence for all our used gratings.}$. 
+Figures $\ref{fig:brdfmapstayloriterationsblaze}$ and $\ref{fig:brdfmapstayloriterationselaphe65}$ show the BRDF maps the reference-, FLSS approach using different values for $N$ in the taylor series approximation. For both input patches we clearly visually observe the convergence of the taylor series for higher values of N. We visually observe convergence of the Taylor series for all our patches a very large value of $N$$\footnote{Using N equal to 39 lead to visual convergence for all our used gratings.}$. \\
 
+Like discussed in section $\ref{sec:taylorapproximation}$ there exists a certain value of $N$ for which our approach convergeces. For all our shading approaches, applied on our gratings, we visually observed a convergence of their BRDF maps when using $N \geq 39$ DFT terms. Furthermore, for a Blazed grating it satisfies to use only $N \geq 7$ - and for an Elaphe grating only $N \geq 9$ DFT terms. Notice, that these numbers of required DFT terms were empirically determined by trial and error strategy. \\
 
-% NEW
-In section $\ref{sec:taylorapproximation}$
+However, by making use of taylor error term estimates, like introduced in the appendix section $\ref{chap:taylorseriesapproxappendix}$, we can derive an upper bound for $N$. Since this computation is dependent on many aspects, such as on the grating spacing, the pixel-width correspondance, the used lambda space for sampling, it is usually simpler to determine empirically actual values for $N$. \\
 
-For all our gratings we observed visually a convergence of our shading approaches when using $N \geq 39$ DFT terms. Furthermore, for a Blazed grating it satisfied to use only $N \geq 7$ and for an Elapge grating only $N \geq 9$ DFT terms. Notice, that these values of terms were determined empirically by try and error. 
+In algorithm $\ref{alg:matlabprecomp}$ we compute the DFT terms of a provided height field $h$ raised to the power of the imaginary number i times an integer, i.e. we evaluate the expression $DFT(h)^n \cdot i^n$. Since we multiply our height field by $i^n$ and then apply the DFT operator, basically, there exist four possible convergence images, each having its own convergence radius.
 
-However, by using taylor error term estimates, like introduced in the appendix $APPENDIXSECTION$, we can derive an upper bound for $N$. But, since this computation is dependent on many aspects, such as grating spacing, pixel-width correspondance, used lambda space for sampling and so on, it is usually way simpler to determine empirically values for N 
-
-In general it is rather hard to say for what value of $N$ we have visual convergence since in algorithm $\ref{alg:matlabprecomp}$ we compute the inverse FFT of $power(1j*patchImg, t)$ which is equivalent to $iFFT(patchImg)^n \cdot i^n$. Since we multiply this by $i^n$ there are four possible series where each converges within its own convergence radius.
-% END NEW
-
-
-% UNSAFE
-In section $\ref{sec:taylorapproximation}$ we already provided a proof for the convergence for a specific geometrical set up which could be applied easily to another setup. The higher the value of $N$ the less the BRDF map changes. For the Blazed grating, we do not see much changing patterns for $N \geq 7$ and for the Elaphe surface grating $N \geq 9$. In general it is rather hard to say for what value of $N$ we have visual convergence since in algorithm $\ref{alg:matlabprecomp}$ we compute the inverse FFT of $power(1j*patchImg, t)$ which is equivalent to $iFFT(patchImg)^n \cdot i^n$. Since we multiply this by $i^n$ there are four possible series where each converges within its own convergence radius.
-% END UNSAFE
-
-%taylor var blaze
 \begin{figure}[H]
   \centering
   \subfigure[$N=0$]{
