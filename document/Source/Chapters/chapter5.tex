@@ -80,7 +80,7 @@ For Xenopeltis surface grating $\ref{fig:xenogratingpatch}$, we observe diffract
     \label{fig:brdfmapXeno}
   }
 
-\caption[BRDF Map FLSS of our Gratings]{BRDF maps for different patches}
+\caption[BRDF Map of FLSS approach on Gratings]{BRDF maps for different patches}
 \label{fig:brdfmapsdiffpatches}
 \end{figure}
 
@@ -316,7 +316,23 @@ Figure $\ref{fig:brdfmapsdiffsigmasizeblaze}$ shows BRDF maps for the full lambd
 \label{fig:brdfmapsdiffsigmasizeblaze}
 \end{figure}
 
-Figures $\ref{fig:brdfmapstayloriterationsblaze}$ and $\ref{fig:brdfmapstayloriterationselaphe65}$ show the BRDF maps the reference-, FLSS approach using different values for $N$ in the taylor series approximation. For both input patches we clearly visually observe the convergence of the taylor series for higher values of N. We visually observe convergence of the Taylor series for all our patches a very large value of $N$$\footnote{Using N equal to 39 lead to visual convergence for all our used gratings.}$. In section $\ref{sec:taylorapproximation}$ we already provided a proof for the convergence for a specific geometrical set up which could be applied easily to another setup. The higher the value of $N$ the less the BRDF map changes. For the Blazed grating, we do not see much changing patterns for $N \geq 7$ and for the Elaphe surface grating $N \geq 9$. In general it is rather hard to say for what value of $N$ we have visual convergence since in algorithm $\ref{alg:matlabprecomp}$ we compute the inverse FFT of $power(1j*patchImg, t)$ which is equivalent to $iFFT(patchImg)^n \cdot i^n$. Since we multiply this by $i^n$ there are four possible series where each converges within its own convergence radius.
+Figures $\ref{fig:brdfmapstayloriterationsblaze}$ and $\ref{fig:brdfmapstayloriterationselaphe65}$ show the BRDF maps the reference-, FLSS approach using different values for $N$ in the taylor series approximation. For both input patches we clearly visually observe the convergence of the taylor series for higher values of N. We visually observe convergence of the Taylor series for all our patches a very large value of $N$$\footnote{Using N equal to 39 lead to visual convergence for all our used gratings.}$. 
+
+
+% NEW
+In section $\ref{sec:taylorapproximation}$
+
+For all our gratings we observed visually a convergence of our shading approaches when using $N \geq 39$ DFT terms. Furthermore, for a Blazed grating it satisfied to use only $N \geq 7$ and for an Elapge grating only $N \geq 9$ DFT terms. Notice, that these values of terms were determined empirically by try and error. 
+
+However, by using taylor error term estimates, like introduced in the appendix $APPENDIXSECTION$, we can derive an upper bound for $N$. But, since this computation is dependent on many aspects, such as grating spacing, pixel-width correspondance, used lambda space for sampling and so on, it is usually way simpler to determine empirically values for N 
+
+In general it is rather hard to say for what value of $N$ we have visual convergence since in algorithm $\ref{alg:matlabprecomp}$ we compute the inverse FFT of $power(1j*patchImg, t)$ which is equivalent to $iFFT(patchImg)^n \cdot i^n$. Since we multiply this by $i^n$ there are four possible series where each converges within its own convergence radius.
+% END NEW
+
+
+% UNSAFE
+In section $\ref{sec:taylorapproximation}$ we already provided a proof for the convergence for a specific geometrical set up which could be applied easily to another setup. The higher the value of $N$ the less the BRDF map changes. For the Blazed grating, we do not see much changing patterns for $N \geq 7$ and for the Elaphe surface grating $N \geq 9$. In general it is rather hard to say for what value of $N$ we have visual convergence since in algorithm $\ref{alg:matlabprecomp}$ we compute the inverse FFT of $power(1j*patchImg, t)$ which is equivalent to $iFFT(patchImg)^n \cdot i^n$. Since we multiply this by $i^n$ there are four possible series where each converges within its own convergence radius.
+% END UNSAFE
 
 %taylor var blaze
 \begin{figure}[H]
