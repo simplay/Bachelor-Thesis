@@ -53,7 +53,7 @@ with its origin at the map-center. The light direction for normal incidence $(\t
     \label{fig:xenogratingpatch}
   }
 
-\caption[Our Gratings]{Cutouts of our nano-scaled surface gratings used for rendering within our shader with a scale indicator (red line) for each patch. Note that for rendering, we use larger patches.}
+\caption[Our Diffraction Gratings]{Cutouts of our nano-scaled surface gratings used for rendering within our shader with a scale indicator (red line) for each patch. Note that for rendering, we use larger patches.}
 \label{fig:gratingpatches}
 \end{figure}
 
@@ -80,7 +80,7 @@ For Xenopeltis surface grating $\ref{fig:xenogratingpatch}$, we observe diffract
     \label{fig:brdfmapXeno}
   }
 
-\caption[BRDF Map FLSS of our Gratings]{BRDF maps for different patches}
+\caption[BRDF Map: FLSS Approach applied on various Gratings]{BRDF maps for different patches}
 \label{fig:brdfmapsdiffpatches}
 \end{figure}
 
@@ -88,11 +88,7 @@ For Xenopeltis surface grating $\ref{fig:xenogratingpatch}$, we observe diffract
 
 Figure $\ref{fig:brdfmapsdiffrenderingapproaches}$ shows BRDF maps of all our BRDF models applied on the Blaze grating. Figure $\ref{fig:brdfmapblazeallLambda}$ shows the FLSS shading approach result for our blazed grating and it is used in order to compare with our other rendering approaches. \\
 
-Figure $\ref{fig:brdfmapblazeonlyreq}$ shows the BRDF map for the NMM approach, introduces in section $\ref{sec:nmmapproach}$, which is close to the FLSS approach, verified in section $\ref{sec:approachesverifications}$, just like in the case of corresponding evaluation in figure $\ref{fig:blazneval}$. Nevertheless there is a small, noticable difference: 
-
-%TODO: rework this: first explain differences and them apply the reasoning.
-since in the actual technical implementation of the NMM shading approach treats the center of the BRDF map as a separate case, i.e. everything around a small $\epsilon$-circumference has white color assigned we note a white circular spot around the map center. Except this fact, the BRDF map resembles the FLSS results. \\
-%% end unsafe
+Figure $\ref{fig:brdfmapblazeonlyreq}$ shows the BRDF map for the NMM approach, introduces in section $\ref{sec:nmmapproach}$, which is close to the FLSS approach, verified in section $\ref{sec:approachesverifications}$, just like in the case of corresponding evaluation in figure $\ref{fig:blazneval}$. Nevertheless there is a small, noticable difference: For the NMM approach we see a white, circular spot around the map center. Nevertheless, appart from this white spot, the NMM approach resembles the FLSS approach. The reason for this differences is due to the fact that the NMM approach threats the center of a BRDF map as a special case, like described in section $\ref{sec:nmmapproach}$. Technically, every location around a small $\epsilon$-circumference from the map center gets white color assigned. \\
 
 Figure $\ref{fig:brdfmapblazepq}$ shows the BRDF map for the PQ approach which relies on sinc-interpolation. The PQ BRDF map and the FLSS results are visual alike. Compared to the evaluation plots in figure $\ref{fig:evaluationdiffshaderpq}$, the BRDF maps even persuade more. Compared to FLSS, one difference we notice is that the first order of diffraction is a little spread for the PQ approach. Without$\footnote{Note that if we do not perform a sinc-interpolation this would correspond to apply a linear interpolation instead.}$ applying a sinc-interpolation, this spreading effect would be even strengthened. \\
 
@@ -121,7 +117,7 @@ Last, let us consider figure $\ref{fig:brdfmapblazegem}$ which shows the BRDF ma
     \label{fig:brdfmapblazegem}
   }
     
-\caption[BRDF Map using our Approaches for Blazed Grating]{BRDF maps for Blazed grating comparing our different rendering approaches}
+\caption[BRDF Map: Our Approaches applied on a Blazed Grating]{BRDF maps for Blazed grating comparing our different rendering approaches}
 \label{fig:brdfmapsdiffrenderingapproaches}
 \end{figure}
 
@@ -159,7 +155,7 @@ Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdif
     \label{fig:brdfmapsDiffLambdaStepsL100Blaze}
   }
   
-\caption[BRDF Map varying step sizes FLSS Blazed Grating]{Blazed grating at $2.5 \mu m$: Different $\lambda$ step sizes}
+\caption[BRDF Map: Varying step sizes FLSS Blazed Grating]{Blazed grating at $2.5 \mu m$: Different $\lambda$ step sizes}
 \label{fig:brdfmapsdifflambdastepsblaze}
 \end{figure}
 
@@ -196,22 +192,22 @@ Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdif
     \label{fig:brdfmapsDiffLambdaStepsL100Elaphe65}
   }
   
-\caption[BRDF Map varying step sizes FLSS Elaphe Grating]{Elaphe grating at $65 \mu m$: Different $\lambda$ step sizes}
+\caption[BRDF Map: Varying step sizes FLSS Elaphe Grating]{Elaphe grating at $65 \mu m$: Different $\lambda$ step sizes}
 \label{fig:brdfmapsdifflambdastepselaphe65}
 \end{figure}
 
+The figures $\ref{fig:pqblaze}$, $\ref{fig:pqelaphe}$, $\ref{fig:pqxeno}$ show a comparison of the BRDF maps produced by the FLSS approach (on the left) and the PQ shading approach (on the right) applied on all our patches. For Blazed grating, as already mentioned, we notice that both approaches, FLSS and PQ, resemble each other. We also notice that for PQ map, the first order diffraction color contribution is spread. For the Elaphe and Xenopeltis grating we notice similar shaped BRDF patterns, even when the angle of light varies, but nevertheless, they also contain some artifacts. \\
 
-The Figures $\ref{fig:pqblaze}$, $\ref{fig:pqelaphe}$, $\ref{fig:pqxeno}$  show a comparison of the BRDF maps produced by the FLSS approach (on the left) and the PQ shading approach (on the right) applied on all our patches. For Blazed grating, as already mentioned, we notice that both approaches, FLSS and PQ, resemble each other. We also notice that for PQ map, the first order diffraction color contribution is spread. For Elaphe and Xenopeltis grating we notice similar shaped BRDF patterns, even when the angle of light varies, but nevertheless, they also contain some artifacts. For the PQ approach, this also holds true when we do not apply we a sinc-interpolation like shown in figure $\ref{fig:pqBlaze}$.
+In genral, a Blazed Grating is manufactured in a way that a large fraction of the incident light is diffracted preferentially into the first order. Therefore, most of the energy in its BRDF map lies in the first order of diffraction at its blaze angle. This implies that largest portion of the color contribution, visible on the corresponding BRDF map, lies at that angle. In figure $\ref{fig:pqblaze}$, in contrast to the results produced by the FLSS approach, we see color fringes at the first order modes in the BRDF map produced by our PQ approach. This implies that the PQ approach does not produce reliable results which also affirmes our evaluation plots shown in figure $\ref{fig:evaluationdiffshaderpq}$. A similar argumentation hold true for the PQ approach, when we do not apply we a sinc-interpolation like shown in figure $\ref{fig:pqBlaze}$.
 
-%pq blaze
 \begin{figure}[H]
   \centering
-  \subfigure[Full Lambda Sampling: Blazed grating]{
+  \subfigure[FLSS Approach: Blazed grating]{
     \includegraphics[scale=0.12]{results/PQapproach_vs_sampleAll/blaze/fftBlazeHeight_0.25Microns_allL_weak_scale_g=1.1.png}
     \label{fig:fullLambdaBlaze}
   }
 ~
-  \subfigure[Full Lambda Sampling brightened: Blazed grating]{
+  \subfigure[FLSS Approach brightened: Blazed grating]{
             \includegraphics[scale=0.12]{results/PQapproach_vs_sampleAll/blaze/fftBlazeHeight_0.25Microns_allL_weak_scale_g=2.2_scale=100.png}
     \label{fig:fullLambdaBrightenedBlaze}
   }
@@ -220,15 +216,13 @@ The Figures $\ref{fig:pqblaze}$, $\ref{fig:pqelaphe}$, $\ref{fig:pqxeno}$  show 
     \includegraphics[scale=0.12]{results/PQapproach_vs_sampleAll/blaze/pq.png}
     \label{fig:pqBlaze}
   }
-  
-\caption{Blazed grating: PQ approach vs full lambda space sampling}
+\caption[BRDF Map: PQ vs FLSS Approach on Blazed Grating]{A comparison between the PQ- and the FLSS approach applied on an Blazed grating.}
 \label{fig:pqblaze}
 \end{figure}
 
-%pq elaphe
 \begin{figure}[H]
   \centering
-  \subfigure[Full Lambda Sampling: Elaphe grating]{
+  \subfigure[FLSS Approach: Elaphe grating]{
     \includegraphics[scale=0.2]{results/PQapproach_vs_sampleAll/elaphe/elaph65.png}
     \label{fig:fullLambdaElaphe}
   }
@@ -238,51 +232,48 @@ The Figures $\ref{fig:pqblaze}$, $\ref{fig:pqelaphe}$, $\ref{fig:pqxeno}$  show 
     \label{fig:pqElaphe}
   }
 
-  
-\caption{Elaphe grating: PQ approach vs full lambda space sampling}
+\caption[BRDF Map: PQ vs FLSS Approach on Elaphe Grating]{A comparison between the PQ- and the FLSS approach applied on an Elaphe grating.}
 \label{fig:pqelaphe}
 \end{figure}
 
-%pq xeno
 \begin{figure}[H]
   \centering
-  \subfigure[Full Lambda Sampling: Xeno grating $\theta_i = 0 \degree$]{
+  \subfigure[FLSS Approach: Xenopeltis grating $\theta_i = 0 \degree$]{
     \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/a_xeno_t_i=0.png}
     \label{fig:fullLambdaXenoti0}
   }
 ~
-  \subfigure[PQ Approach: Xeno grating $\theta_i = 0 \degree$]{
+  \subfigure[PQ Approach: Xenopeltis grating $\theta_i = 0 \degree$]{
     \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/a_pq_t_i=0.png}
     \label{fig:pqXenoti0}
   }
 
-  \subfigure[Full Lambda Sampling: Xeno grating $\theta_i = 10 \degree$]{
+  \subfigure[FLSS Approach: Xenopeltis grating $\theta_i = 10 \degree$]{
     \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/b_xeno_t_i=10.png}
     \label{fig:fullLambdaXenoti10}
   }
 ~
-  \subfigure[PQ Approach: Xeno grating $\theta_i = 10 \degree$]{
+  \subfigure[PQ Approach: Xenopeltis grating $\theta_i = 10 \degree$]{
     \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/b_pq_t_i=10.png}
     \label{fig:pqXenoti10}
   }
   
-  \subfigure[Full Lambda Sampling: Xeno grating $\theta_i = 20 \degree $]{
+  \subfigure[FLSS Approach: Xenopeltis grating $\theta_i = 20 \degree $]{
     \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/c_xeno_t_i=20.png}
     \label{fig:fullLambdaXenoti20}
   }
 ~
-  \subfigure[PQ Approach: Xeno grating $\theta_i = 20 \degree $]{
+  \subfigure[PQ Approach: Xenopeltis grating $\theta_i = 20 \degree $]{
     \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/c_pq_t_i=20.png}
     \label{fig:pqXenoti20}
   }
   
-\caption{Xeno grating: PQ approach vs full lambda space sampling}
+\caption[BRDF Map: PQ vs FLSS Approach on Xenopeltis Grating]{A comparison between the PQ- and the FLSS approach applied on an Xenopeltis grating.}
 \label{fig:pqxeno}
 \end{figure}
 
 Figure $\ref{fig:brdfmapsdiffsigmasizeblaze}$ shows BRDF maps for the full lambda sampling approach applied to the Blazed grating, while varying the value for the spatial variance $\sigma_s$. This akin to changing the coherence length for the incident light. The lower the coherence length, the fewer interacting grating periods produce blurred diffraction bands for different $\lambda$ which overlap to produce poorly resolved colors.
 
-%sigma var
 \begin{figure}[H]
   \centering
   \subfigure[$\sigma_{s=3.25 \mu m}$]{
@@ -315,14 +306,18 @@ Figure $\ref{fig:brdfmapsdiffsigmasizeblaze}$ shows BRDF maps for the full lambd
     \label{fig:brdfmapsDiffSigmaStepsL100Blaze}
   }
   
-  
-\caption{Blazed grating with periodicity of $2.5 \mu m$: Different $\sigma_s$}
+\caption[BRDF Map: Different spatial variance $\sigma_s$ values]{Blazed grating with periodicity of $2.5 \mu m$: Different $\sigma_s$}
 \label{fig:brdfmapsdiffsigmasizeblaze}
 \end{figure}
 
-Figures $\ref{fig:brdfmapstayloriterationsblaze}$ and $\ref{fig:brdfmapstayloriterationselaphe65}$ show the BRDF maps the reference-, FLSS approach using different values for $N$ in the taylor series approximation. For both input patches we clearly visually observe the convergence of the taylor series for higher values of N. We visually observe convergence of the Taylor series for all our patches a very large value of $N$$\footnote{Using N equal to 39 lead to visual convergence for all our used gratings.}$. In section $\ref{sec:taylorapproximation}$ we already provided a proof for the convergence for a specific geometrical set up which could be applied easily to another setup. The higher the value of $N$ the less the BRDF map changes. For the Blazed grating, we do not see much changing patterns for $N \geq 7$ and for the Elaphe surface grating $N \geq 9$. In general it is rather hard to say for what value of $N$ we have visual convergence since in algorithm $\ref{alg:matlabprecomp}$ we compute the inverse FFT of $power(1j*patchImg, t)$ which is equivalent to $iFFT(patchImg)^n \cdot i^n$. Since we multiply this by $i^n$ there are four possible series where each converges within its own convergence radius.
+Figures $\ref{fig:brdfmapstayloriterationsblaze}$ and $\ref{fig:brdfmapstayloriterationselaphe65}$ show the BRDF maps the reference-, FLSS approach using different values for $N$ in the taylor series approximation. For both input patches we clearly visually observe the convergence of the taylor series for higher values of N. We visually observe convergence of the Taylor series for all our patches a very large value of $N$$\footnote{Using N equal to 39 lead to visual convergence for all our used gratings.}$. \\
 
-%taylor var blaze
+Like discussed in section $\ref{sec:taylorapproximation}$ there exists a certain value of $N$ for which our approach convergeces. For all our shading approaches, applied on our gratings, we visually observed a convergence of their BRDF maps when using $N \geq 39$ DFT terms. Furthermore, for a Blazed grating it satisfies to use only $N \geq 7$ - and for an Elaphe grating only $N \geq 9$ DFT terms. Notice, that these numbers of required DFT terms were empirically determined by trial and error strategy. \\
+
+However, by making use of taylor error term estimates, like introduced in the appendix section $\ref{chap:taylorseriesapproxappendix}$, we can derive an upper bound for $N$. Since this computation is dependent on many aspects, such as on the grating spacing, the pixel-width correspondance, the used lambda space for sampling, it is usually simpler to determine empirically actual values for $N$. \\
+
+In algorithm $\ref{alg:matlabprecomp}$ we compute the DFT terms of a provided height field $h$ raised to the power of the imaginary number i times an integer, i.e. we evaluate the expression $DFT(h)^n \cdot i^n$. Since we multiply our height field by $i^n$ and then apply the DFT operator, basically, there exist four possible convergence images, each having its own convergence radius.
+
 \begin{figure}[H]
   \centering
   \subfigure[$N=0$]{
@@ -376,7 +371,7 @@ Figures $\ref{fig:brdfmapstayloriterationsblaze}$ and $\ref{fig:brdfmapstaylorit
   }
   
   
-\caption{Blazed grating at $2.5 \mu m$: $N$ Taylor Iterations}
+\caption[BRDF Map: Blazed Grating Convergence]{Blazed grating at $2.5 \mu m$: $N$ Taylor Iterations}
 \label{fig:brdfmapstayloriterationsblaze}
 \end{figure}
 
@@ -433,38 +428,42 @@ Figures $\ref{fig:brdfmapstayloriterationsblaze}$ and $\ref{fig:brdfmapstaylorit
     \label{fig:brdfmapsTaylorN9Elaphe65}
   }
   
-\caption{Elaphe grating at $65 \mu m$: $N$ Taylor Iterations}
+\caption[BRDF Map: Elaphe Grating Convergence]{Elaphe grating at $65 \mu m$: $N$ Taylor Iterations}
 \label{fig:brdfmapstayloriterationselaphe65}
 \end{figure}
 
+Figure $\ref{fig:brdfmapsxenodiffthetaiangles}$ shows the BRDF maps of the FLSS approach applied on the Xenopeltis snake shed, using different $\theta_i$ incident angles. When slightly moving the incident angle $\theta_i$, we can observe how the brdf map changes. For higher values of $\theta_i$ we start seeing diffraction color contribution on the right side of the BRDF map. 
 
-Figure $\ref{fig:brdfmapsxenodiffthetaiangles}$ shows the BRDF maps of the full lambda shading approach applied on the Xenopeltis snake shed, using different $\theta_i$ incident angles. When slightly moving the incident angle $\theta_i$, we can observe how the brdf map changes. For higher values of $\theta_i$ we start seeing diffraction color contribution on the right side of the BRDF map. 
-
-% brdf maps xeno angles
 \begin{figure}[H]
   \centering
-  \subfigure[Xeno grating $\theta_i=0 \degree$]{
+  \subfigure[Xenopeltis grating $\theta_i=0 \degree$]{
     \includegraphics[scale=0.12]{results/different_theta_i_angles/xenopeltis/xeno_t_i=0.png}
     \label{fig:brdfmapXenoti0}
   }
 ~
-  \subfigure[Xeno grating $\theta_i=10 \degree$]{
+  \subfigure[Xenopeltis grating $\theta_i=10 \degree$]{
     \includegraphics[scale=0.12]{results/different_theta_i_angles/xenopeltis/xeno_t_i=10.png}
     \label{fig:brdfmapXenoti10}
   }
 ~
-  \subfigure[Xeno grating $\theta_i=20 \degree$]{
+  \subfigure[Xenopeltis grating $\theta_i=20 \degree$]{
     \includegraphics[scale=0.12]{results/different_theta_i_angles/xenopeltis/xeno_t_i=20.png}
     \label{fig:brdfmapXenoti20}
   }
   
-\caption{BRDF maps for Xeno grating: different $\theta_i$ angles}
+\caption[BRDF Map: Varying Viewing Angles]{BRDF maps for Xenopeltis grating: different $\theta_i$ angles}
 \label{fig:brdfmapsxenodiffthetaiangles}
 \end{figure}
 
-\section{Snake surface geometries}
+\section{Rendering Surface Geometries}
 \label{sec:snakegeomrenderings}
-In this section we are going to present our actual renderings simulating the effect of diffraction caused when a directional light source encounters different nano-scaled surfaces on a given curved snake mesh. We will see that diffraction colors change dramatically with changes in light direction, surface normals and viewing direction, which s typical for diffraction colors observed in nature. For rendering we are going to rely on our full wavelength space sampling approach. Unfortunately, this approach is rather slow and can barely be considered as being interactive performing. Nevertheless, we have introduced some optimizations in oder to become interactive in rendering, such as the $N_{min}, N_{max}$ approach, we are going to use this slow approach since this resembles the ground truth and therefore is the most accurate among all our presented approaches. As mentioned we are going to render diffraction on a given snake mesh. Note that we actually just have one particular mesh, for all our renderings we are going to use the same snake mesh which has been produced by 3d scanning an Elpahe snake species, consisting of 11696 vertices and 22950 faces. The reason for that is that it was hard to get a Xenopeltis snake ready for being 3d scanned. In addition, the micro-geometry is highly similar among snake species, it is the geometry of the nano-structures that are highly different among species and that cause the snake to be or not be iridescent. So, even Xenopeltis would not give you very different geometry than Elaphe. Table $\ref{tab:hardwarespecifications}$ lists the system specifications of the machine I used in order to produce the rendered images.
+In this section we are going to present our actual renderings simulating the effect of diffraction caused when a directional light source encounters different nano-scaled surfaces on a given curved snake mesh. We will see that diffraction colors change dramatically with changes in light direction, surface normals and viewing direction, which is typical for diffraction colors observed in nature. For rendering we are going to rely on our FLSS approach. Unfortunately, this approach is rather slow and can barely be considered as being interactively performing. Nevertheless, we have introduced some optimizations in order to make it interactive. \\
+
+All rendered results shown in this section are produced by the FLSS approach since we have proven its validity in figure $\ref{fig:evaluationdiffshaderalllambda}$. Therefore, we can trust its renderings and may consider them as being accurate. Furthermore, as support of our evaluation plots regarding the NMM approach, that are shown in figure $\ref{fig:evaluationdiffshadernminmax}$, we also show results prodcued by the NMM approach. \\
+
+The Laboratory of Artificial and Natural Evolition in Geneva provided us by a triangular mesh of a snake. This mesh was produced by a 3d scan of a Elaphe snake species and consists of 11696 vertices and 22950 faces. Note that, for all our renderings, we used this snake mesh. \\
+
+Among all the snake species under consideration, their macroscopic geometry is highly similar. Only the geometry of their nano-structures varies and is responsible for a snake's iridescence. Thus, we can use the same snake surface model to render diffraction for different species. Table $\ref{tab:hardwarespecifications}$ lists the system specifications of the machine I used in order to produce the rendered images.
 
 \begin{table}[H]
   \centering
@@ -475,11 +474,20 @@ In this section we are going to present our actual renderings simulating the eff
     Graphics Card & GeForce GTX 770 \\
     \hline  
   \end{tabular}
-\caption[Hardware Specifications]{Hardware specifications of the machine which produced rendered results. Statistics are provided using the tool NVIDIA Geforce Experience.}
+\caption[Hardware Specifications]{Hardware specifications of the machine used to render snake surface. Statistics are provided using the tool $\emph{NVIDIA Geforce Experience}$.}
 \label{tab:hardwarespecifications}
 \end{table}
 
-Figure $\ref{fig:renderingdifferentsnankegratings}$ shows renderings produced by the full lambda sampling approach applied on a snake shaped mesh for different given input patches. Due do the fact that a Blazed grating has its maximum intensity for a certain direction and the geometry of the snake mesh is curved which means non-flat, we can expect rather less diffraction color contribution like shown in figure $\ref{fig:renderingelaphegrating}$. Differently for our other two gratings, Elaphe and Xenopeltis. For both renderings, we can see color contribution despite the effect of diffraction whereas we see much less colorful patterns for Elpahe $\ref{fig:renderingelaphegrating}$ than for Xenopeltis $\ref{fig:renderingxenograting}$. This also corresponds to the reality, considering the figure $\ref{fig:snakespecies}$ as a reference. The nano-scaled surface structure of the species Elapse as shwon in figure $\ref{fig:elpahegratingpatch}$ does not look that regular under the electron scanning microscope. This is why it is much less iridescent than the other specie. Xeno has a brownish body with no pattern that makes the iridescence more spectacular than on Ellaphe. 
+Figure $\ref{fig:renderingdifferentsnankegratings}$ shows renderings produced by the FLSS approach applied on our snake mesh for different, given input patches. Due do the fact that a Blazed grating has its maximum intensity for a certain direction and the geometry of the snake mesh is curved i.e. is non-flat, we can expect rather less diffraction color contribution like shown in figure $\ref{fig:renderingelaphegrating}$. 
+
+%%TODO write something about similar configuration for blazed grating
+
+Differently for our other two gratings, Elaphe and Xenopeltis. For both the renderings, we can see color contribution due to the effect of diffraction. We see much less colorful patterns for Elpahe $\ref{fig:renderingelaphegrating}$ than for Xenopeltis $\ref{fig:renderingxenograting}$. This 
+
+is consistent with the observations in the real world as shown in figure $\ref{fig:snakespecies}$.
+
+
+The nano-scaled surface structure of the species Elapse as shwon in figure $\ref{fig:elpahegratingpatch}$ does not look that regular under the electron scanning microscope. This is why it is much less iridescent than the other specie. Xeno has a brownish body with no pigmentation, which makes the iridescence more spectacular than on Elaphe. 
  
 \begin{figure}[H]
   \centering
@@ -498,11 +506,11 @@ Figure $\ref{fig:renderingdifferentsnankegratings}$ shows renderings produced by
     \label{fig:renderingxenograting}
   }
   
-\caption{Diffraction of different snake skin gratings rendered on a snake geometry}
+\caption[Snake Renderings: Our Approaches applied on our Gratings]{Diffraction of different snake skin gratings rendered on a snake geometry}
 \label{fig:renderingdifferentsnankegratings}
 \end{figure}
 
-Figure $\ref{fig:renderingelaphe65}$ contains a summary-collection of subfigures for rendering the effect of diffraction produced by the full lambda shading approach with all its required components, applied on our snake mesh, using the Elaphe nano-scaled surface structure. Subfigure $\ref{fig:renderingelaphe65dt}$ shows the final diffraction color-contribution result with texture-blending. We only see little diffraction color contribution in this subfigure which resembles quite well to the reality as shown in figure $\ref{fig:elpahespecies}$. In subfigure $\ref{fig:renderingelaphe65ns}$ we see the light cone in order to show the direction of the light source besides the rendered results. Subfigure $\ref{fig:renderingelaphe65ft}$ is a sample Fourier image of Elpahe's nanosclae surface structure $\ref{fig:renderingelaphe65ns}$.
+Figure $\ref{fig:renderingelaphe65}$ shows a set of subfigures for rendering the effect of diffraction produced by the FLSS approach (used as our reference approach) with all its required components, applied on our snake mesh, using the Elaphe nano structure. Figure $\ref{fig:renderingelaphe65dt}$ shows the final diffraction color-contribution result with texture-blending. We only see little diffraction color contribution in this subfigure which resembles quite well to the reality as shown in figure $\ref{fig:elpahespecies}$. In subfigure $\ref{fig:renderingelaphe65ns}$ we see the light cone in order to show the direction of the light source besides the rendered results. Subfigure $\ref{fig:renderingelaphe65ft}$ is a sample Fourier image of Elpahe's nanosclae surface structure $\ref{fig:renderingelaphe65ns}$.
 
 \begin{figure}[H]
   \centering
@@ -516,7 +524,7 @@ Figure $\ref{fig:renderingelaphe65}$ contains a summary-collection of subfigures
     \label{fig:renderingelaphe65dt}
   }
 
-  \subfigure[Texture + Lightdir]{
+  \subfigure[Texture with Light Direction]{
     \includegraphics[scale=0.12]{results/snakerenderings/elaphe65/3.png}
     \label{fig:renderingelaphe65tl}
   }
@@ -531,28 +539,18 @@ Figure $\ref{fig:renderingelaphe65}$ contains a summary-collection of subfigures
     \label{fig:renderingelaphe65ft}
   }
   
-\caption{Diffraction for Elaphe snake skin}
+\caption[Snake Renderings: FLSS Approach for Elaphe Grating]{Diffraction for Elaphe snake skin produced by our reference apporach.}
 \label{fig:renderingelaphe65}
 \end{figure}
 
 
-Like in the previous figure this figure $\ref{fig:renderingxeno65}$ also shows a summary-collection of subfigures for the effect of diffraction with all its involved components but this time for the Xenopeltis snake surface. For texture blending we use the same texture like we used for Elaphe. For Xenopeltis see quite a lot color contribution due the phenomenon of diffraction like shown in figure $\ref{fig:renderingXeno65DT}$. Comparing this to a real image $\ref{fig:xenospeicies}$ we notice much resemblance regarding the reflectance strength and colorful pattern.
+Figure $\ref{fig:renderingxeno65}$ shows a set of subfigures for the effect of diffraction for the Xenopeltis snake surface. For Xenopeltis we see quite a lot color contribution due the phenomenon of diffraction like shown in figure $\ref{fig:renderingXeno65DT}$. Comparing this to a real image $\ref{fig:xenospeicies}$ we notice much resemblance regarding the reflectance strength and colorful pattern.
 
 \begin{figure}[H]
   \centering
   \subfigure[Diffraction Patten]{
     \includegraphics[scale=0.2]{results/snakerenderings/xeno65/1.png}
     \label{fig:renderingXeno65DP}
-  }
-~
-  \subfigure[Diffraction + Texture]{
-    \includegraphics[scale=0.2]{results/snakerenderings/xeno65/2.png}
-    \label{fig:renderingXeno65DT}
-  }
-
-  \subfigure[Texture + Lightdir]{
-    \includegraphics[scale=0.12]{results/snakerenderings/xeno65/3.png}
-    \label{fig:renderingXeno65TL}
   }
 ~
   \subfigure[Nanostructure]{
@@ -564,14 +562,11 @@ Like in the previous figure this figure $\ref{fig:renderingxeno65}$ also shows a
     \includegraphics[scale=0.52]{results/snakerenderings/xeno65/5.png}
     \label{fig:renderingXeno65FT}
   }
-  
-  
-  
-\caption{Diffraction for Xeno snake skin}
+\caption[Snake Renderings: FLSS Approach for Xenopeltis Grating]{Diffraction for Xeno snake skin produced by our reference apporach.}
 \label{fig:renderingxeno65}
 \end{figure}
 
-Figure $\ref{fig:renderingdifferentzoomlevelselaphe}$ shows the diffraction pattern of a Elaphe snake shed for different zoom levels for fixed incident light and viewing direction using the full lambda sampling approach. From those different close up perspectives it would appear the complexity of the colorful diffraction pattern.
+Figure $\ref{fig:renderingdifferentzoomlevelselaphe}$ shows the diffraction pattern for Elaphe snake shed at different zoom levels for fixed incident light and viewing direction. The close up perspectives exhibit complex and colorful diffraction patterns.
 
 \begin{figure}[H]
   \centering
@@ -605,12 +600,12 @@ Figure $\ref{fig:renderingdifferentzoomlevelselaphe}$ shows the diffraction patt
     \label{fig:renderingZoomElaphe2}
   }
   
-\caption{Diffraction on Elaphe snake skin grating: Different camera zoom levels}
+\caption[Snake Renderings: FLSS Approach for a varying FoV]{Diffraction on Elaphe snake skin grating: Different camera zoom levels by varying the field of view.}
 \label{fig:renderingdifferentzoomlevelselaphe}
 \end{figure}
 
 
-Figure $\ref{fig:renderingelaphelightrotations6}$ shows how the diffraction pattern changes when slightly moving the incident light direction. Which gives us an impression what kind of complex, perspective-dependent pattern the phenomenon of diffraction may cause.
+Figure $\ref{fig:renderingelaphelightrotations6}$ shows how the diffraction pattern changes when the incident light direction is moved slightly. This Figure gives us an impression what kind of complex, perspective-dependent pattern the diffraction phenomenon produces.
 
 % first 3 move along x, next 3 move along y
 \begin{figure}[H]
@@ -645,12 +640,11 @@ Figure $\ref{fig:renderingelaphelightrotations6}$ shows how the diffraction patt
     \label{fig:renderingElapheRotY6}
   }
   
-  
-\caption{Diffraction on Elaphe snake skin grating: Different light directions}
+\caption[Snake Renderings: FLSS Approach for varying Light Directions]{Diffraction on Elaphe snake skin grating: Different light directions}
 \label{fig:renderingelaphelightrotations6}
 \end{figure}
 
-Figure $\ref{fig:experimentelaphe65}$ shows a photo of an experimental setup for demonstrating the effect of diffraction using a Elpahe snake grating. The exact parameters for the experimental setup are unknown. Nevertheless this image gives us an impression of how close our model is to the reality comparing it with our simulated results since we notice similar diffraction patterns for our simulated results using an Elaphe snake shed. 
+Figure $\ref{fig:experimentelaphe65}$ shows a photo of an experimental setup for demonstrating the effect of diffraction using a Elaphe snake grating. The exact parameters for the experimental setup are unknown. Nevertheless this image gives us an impression of how close our model is to the reality comparing it with our simulated results since we notice similar diffraction patterns for our simulated results using an Elaphe snake shed. 
 
 \begin{figure}[H]
   \includegraphics[scale=0.2]{results/experiment/elaphe/g2.png}
