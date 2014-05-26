@@ -1,26 +1,26 @@
 \chapter{Implementation}
-In computer graphics, we generally synthesize 2d images from a given 3d scene description$\footnote{A usual computer graphics scene consist of a viewer's eye, modeled by a virtuel camera, light sources and geometries placed in the world, having some material properties assigned to.}$. This process is denoted as rendering. A usual computer graphics scene consist of a viewer's eye, modeled by a virtuel camera, light sources and geometries placed in the world$\footnote{With the term world we are refering to a global coordinate system which is used in order to place all objects.}$, having some material properties$\footnote{Example material properties are: textures, surface colors, reflectance coefficients, refractive indices and so on.}$ assigned to. In our implementation, scene geometries are modeled by triangular meshes for which each triangle is represented by a triple of vertices. Each vertex has a position, a surface normal and a tangent vector associated with. \\
+In computer graphics, we generally synthesize 2d images from a given 3d scene description$\footnote{A usual computer graphics scene consist of a viewer's eye, modelled by a virtual camera, light sources and geometries placed in the world, having some material properties assigned to.}$. This process is denoted as rendering. A usual computer graphics scene consist of a viewer's eye, modelled by a virtual camera, light sources and geometries placed in the world$\footnote{With the term world we are referring to a global coordinate system which is used in order to place all objects.}$, having some material properties$\footnote{Example material properties are: textures, surface colors, reflectance coefficients, refractive indices and so on.}$ assigned to. In our implementation, scene geometries are modelled by triangular meshes for which each triangle is represented by a triple of vertices. Each vertex has a position, a surface normal and a tangent vector associated with. \\
 
-The process of rendering basically involves a mapping of 3d sceene objects to a 2d image plane and the computation of each image pixel's color according to the provided lighting, viewing and material information of the given scene. These pixel colors are computed in several statges in so called shader programs, directly running on the Graphic Processing Unit (GPU) hardware device. In order to interact with a GPU, for our implementations, we rely on the programing interface of OpenGL$\footnote{Official website:\texttt{http://www.opengl.org/}}$, a cross-language, multiplattform API. In OpenGL, there are two fundamental shading pipeline stages, the vertex- and the fragment shading stage, each applied sequentially. Vertex shaders apply all transformations to the mesh vertices and pass this data to the fragment shaders. Fragment shaders receive linearly interpolated vertex data of a particular triangle. They are responsible to compute the color of his triangle. \\
+The process of rendering basically involves a mapping of 3d scene objects to a 2d image plane and the computation of each image pixel's color according to the provided lighting, viewing and material information of the given scene. These pixel colors are computed in several stages in so called shader programs, directly running on the Graphic Processing Unit (GPU) hardware device. In order to interact with a GPU, for our implementations, we rely on the programming interface of OpenGL$\footnote{Official website:\texttt{http://www.opengl.org/}}$, a cross-language, multi-platform API. In OpenGL, there are two fundamental shading pipeline stages, the vertex- and the fragment shading stage, each applied sequentially. Vertex shaders apply all transformations to the mesh vertices and pass this data to the fragment shaders. Fragment shaders receive linearly interpolated vertex data of a particular triangle. They are responsible to compute the color of his triangle. \\
 
-In this chapter we explain in detail a technique for rendering structural colors due to diffraction effects on natural graings, based on the model we have derived in the previouse chapter $\ref{chap:derivations}$, summarized in section $\ref{sec:spectralrendering}$. For this purpose we implemented a reference framework which is based on a class project of the lecture \emph{Computer Graphics} held by Mr. M. Zwicker which I attended in autum 2012$\footnote{The code of underlying reference framework is written in Java and uses JOGL and GLSL$\footnotemark$ in order to comunicate with the GPU and can be found at \texttt{https://ilias.unibe.ch/}}$. \\
+In this chapter we explain in detail a technique for rendering structural colors due to diffraction effects on natural gratings, based on the model we have derived in the previous chapter $\ref{chap:derivations}$, summarized in section $\ref{sec:spectralrendering}$. For this purpose we implemented a reference framework which is based on a class project of the lecture \emph{Computer Graphics} held by Mr. M. Zwicker which I attended in autumn 2012$\footnote{The code of underlying reference framework is written in Java and uses JOGL and GLSL$\footnotemark$ in order to communicate with the GPU and can be found at \texttt{https://ilias.unibe.ch/}}$. \\
 $\footnotetext{JOGL is a Java binding for OpenGL (official website \texttt{http://jogamp.org/jogl/www/}) and GLSL is OpenGL's high-level shading language. Further information can be found on wikipedia: \texttt{http://de.wikipedia.org/wiki/OpenGL\textunderscore Shading\textunderscore Language}}$
 
-For performing the rendering process, our implementation expects being provided by the following input data$\footnote{All data is provided by the Laboratory of Artificial and Natural Evolition in Geneva. See their website:\texttt{www.lanevol.org}}$:
+For performing the rendering process, our implementation expects being provided by the following input data$\footnote{All data is provided by the Laboratory of Artificial and Natural Evolution in Geneva. See their website:\texttt{www.lanevol.org}}$:
 \begin{itemize}
   \item the structure of snake skin of different species$\footnote{We are using height field data for Elaphe and Xenopeltis snakes individuals like shown in figure $\ref{fig:snakespecies}$}$ represented as discrete valued height fields acquired using AFM and stored as grayscale images.
   \item real measured snake geometry represented as a triangle mesh.
 \end{itemize}
 
-The first processing stage of our implementation is to compute the Fourier Terms of the provided height fields like described in section $\ref{sec:taylorapproximation}$. For this preprocessing purpose we use Matlab relying on its internal, numerically fast, libraries for computing Fourier Transformations$\footnote{Actually we use Matlab's inverse 2d Fast Fourier Transformation (FFT) implementation applied on different powers of quation $\ref{eq:px}$. Further information can be read up in section $\ref{sec:precompmatlabfourierimages}$}$. The next stage is to read these precomputed Fourier Terms into our Java renderer. This program also builds our manually defined rendering scene. The last processing stage of our implementation is rendering of the iridescent colorpatterns due to light diffracted on snake skins. We implemented our diffraction model from chapter $\ref{chap:derivations}$ as OpenGL shaders. Notice that all the necessary computations in order to simulate the effect of diffraction are performed within a fragment shader. This implies that we are modeling pixelwise the effect of diffraction and hence the overall rendering quality and runtime complexity depends on rendering window's resolution. \\
+The first processing stage of our implementation is to compute the Fourier Terms of the provided height fields like described in section $\ref{sec:taylorapproximation}$. For this preprocessing purpose we use Matlab relying on its internal, numerically fast, libraries for computing Fourier Transformations$\footnote{Actually we use Matlab's inverse 2d Fast Fourier Transformation (FFT) implementation applied on different powers of equation $\ref{eq:px}$. Further information can be read up in section $\ref{sec:precompmatlabfourierimages}$}$. The next stage is to read these precomputed Fourier Terms into our Java renderer. This program also builds our manually defined rendering scene. The last processing stage of our implementation is rendering of the iridescent color patterns due to light diffracted on snake skins. We implemented our diffraction model from chapter $\ref{chap:derivations}$ as OpenGL shaders. Notice that all the necessary computations in order to simulate the effect of diffraction are performed within a fragment shader. This implies that we are modelling pixel-wise the effect of diffraction and hence the overall rendering quality and runtime complexity depends on rendering window's resolution. \\
 
 In the following sections of this chapter we are going to explain all render processing stages in detail. First, we discuss, how our precomputation process, using Matlab, actually works. Then, we introduce our Java Framework. It is followed by the main section of this chapter, the explanation how our OpenGL shaders are implemented. The last section discusses an optimization of our fragment shader such that it will have interactive runtime.
 
 \section{Precomputations in Matlab}
 \label{sec:precompmatlabfourierimages}
-Our first task is to precompute the two dimensional discrete Fourier Fransformations for a given input height field, representing a natural grating. For that purpose we have written a small Matlab $\footnote{Matlab is a interpreted scripting language which offers a huge collection of mathematical and numerically fast and stable algorithms.}$ script conceptialized in algorithm $\ref{alg:matlabprecomp}$. Our Matlab script reads a given image, which is representing a nano-scaled height field, and computes its two dimensional DFT (2dDFT) by using Matlab's internal Fast Fourier Transformation (FFT) function, denoted by $ifft2$$\footnote{Remember, even we are talking about fourier transformations, in our actual computation, we have to compute the inverse fourier transformation. See paragraph $\ref{sec:electricalengeneeringftconvention}$ for further information. Furthermore our height fields are two dimensional and thus we have to compute a 2d inverse fourier transformation.}$. Note that we only require one color channel of the input image, since the input image is representing an height field, encoded by just one color. Keep in mind that taking the Fourier transformation of an arbitrary function will result in a complex valued output which implies that we will get a complex value for frequency pairs of our input image. Therefore, for each input image we get as many output images, representing the 2dDFT, as the minimal number of taylor terms required for a well-enough approximation. In order to store our output images, we have to use two color channels instead of just one like it was for the given input image. Some example visualizations for the Fourier Tranformation are shown in figure $\ref{fig:matlabBlazeFourierImages}$. We store these intermediate results as binary files to offer floating point precision for the run-time computations to ensure higher precision. \\
+Our first task is to precompute the two dimensional discrete Fourier Transformations for a given input height field, representing a natural grating. For that purpose we have written a small Matlab $\footnote{Matlab is a interpreted scripting language which offers a huge collection of mathematical and numerically fast and stable algorithms.}$ script conceptualized in algorithm $\ref{alg:matlabprecomp}$. Our Matlab script reads a given image, which is representing a nano-scaled height field, and computes its two dimensional DFT (2dDFT) by using Matlab's internal Fast Fourier Transformation (FFT) function, denoted by $ifft2$$\footnote{Remember, even we are talking about Fourier Transformations, in our actual computation, we have to compute the inverse Fourier Transformation. See paragraph $\ref{sec:electricalengeneeringftconvention}$ for further information. Furthermore our height fields are two dimensional and thus we have to compute a 2d inverse Fourier Transformation.}$. Note that we only require one color channel of the input image, since the input image is representing an height field, encoded by just one color. Keep in mind that taking the Fourier transformation of an arbitrary function will result in a complex valued output which implies that we will get a complex value for frequency pairs of our input image. Therefore, for each input image we get as many output images, representing the 2dDFT, as the minimal number of taylor terms required for a well-enough approximation. In order to store our output images, we have to use two color channels instead of just one like it was for the given input image. Some example visualizations for the Fourier Transformation are shown in figure $\ref{fig:matlabBlazeFourierImages}$. We store these intermediate results as binary files to offer floating point precision for the run-time computations to ensure higher precision. \\
 
-In our script every discrete frequency is normalized by its corresponding DFT extrema$\footnote{We are talking about the i2dFFT of our height fields to the power of n. This is an N by N matrix (assuming the discrete height field was an N by N image), for which each component is a complex number. Hence, there is a a complex extrema as well as a imaginary extrema.}$ in the range $\left[0,1\right]$ and the range extrema are stored seperately for each DFT term. The normalization is computed the following way: 
+In our script every discrete frequency is normalized by its corresponding DFT extrema$\footnote{We are talking about the i2dFFT of our height fields to the power of n. This is an N by N matrix (assuming the discrete height field was an N by N image), for which each component is a complex number. Hence, there is a a complex extrema as well as a imaginary extrema.}$ in the range $\left[0,1\right]$ and the range extrema are stored separately for each DFT term. The normalization is computed the following way: 
 
 \begin{align}
   f:\left[x_{min},x_{max}\right]\to \left[0,1\right] \nonumber\\
@@ -74,16 +74,11 @@ end
 
 They key idea of algorithm $\ref{alg:matlabprecomp}$ is to compute iteratively the Fourier Transformation for different powers of the provided height field. These DFT values are scaled by according to their extrema values. Another note about the command fftshift: It rearranges the output of the ifft2 by moving the zero frequency component to the centre of the image. This simplifies the computation of DFT terms lookup coordinates during rendering.
 
-
-
-  \begin{table}[H]
-    \begin{tabular}{@{}llll@{}}
-      \textbf{Input:} & Precomputed DFT Terms & \\
-    \end{tabular} 
-  \end{table}
-
-
-
+\begin{table}[H]
+  \begin{tabular}{@{}llll@{}}
+    \textbf{Input:} & Precomputed DFT Terms & \\
+  \end{tabular} 
+\end{table}
 
 \label{sec:precompmatlabfft}
 \begin{figure}[H]
@@ -137,7 +132,7 @@ They key idea of algorithm $\ref{alg:matlabprecomp}$ is to compute iteratively t
   \label{fig:matlabBlazeFourierImages}
 \end{figure}
 
-In figure $\ref{fig:matlabBlazeFourierImages}$ we see examples of a visualization of Fourier Transformations generated by our Matlab script for a blazed grating$\footnote{A blazed grating is a height field consisting of ramps, periodically aligned on a given surface.}$ as an input height field image, shown in figure $\ref{fig:matlabBlazePatch}$. Figure $\ref{fig:extremaBlaze}$ shows plots of the extreme values of DFT terms for different powers of the blazed grating. We recognize that, the higher the power of the grating becomes, the closer the extreme values of the corresponding DFT terms get. The figure line from figure $\ref{fig:blazeftimre0}$ until figure $\ref{fig:blazeftimre10}$ show us example visualizations of DFT terms for different powers of our grating's height field. Remember that DFT terms are complex valued matrices of dimension as their height field has. In this visualization, all real part values are stored in the red- and the imaginary parts in the green color channel of an DFT image. The figure line from figure $\ref{fig:blazeftre0}$ till figure $\ref{fig:blazeftre10}$ show us the real part images from above's line corresponding figures. Similarly for the figur line from figure $\ref{fig:blazeftim0}$ until figure $\ref{fig:blazeftim10}$ showing the correspinding imaginary part DFT term images. Figure $\ref{fig:blazeftimre20}$ is a scaled fft term visualization of a Blazed Grating. In this visualization of a blazed grating, we only see color contribution along the x-axis. Reason for this is, that, since a blazed grating like shown in figure $\ref{fig:matlabBlazePatch}$ only varies along the x-axis, also its corresponding 2d dft image will vary only along the x-axis. 
+In figure $\ref{fig:matlabBlazeFourierImages}$ we see examples of a visualization of Fourier Transformations generated by our Matlab script for a blazed grating$\footnote{A blazed grating is a height field consisting of ramps, periodically aligned on a given surface.}$ as an input height field image, shown in figure $\ref{fig:matlabBlazePatch}$. Figure $\ref{fig:extremaBlaze}$ shows plots of the extreme values of DFT terms for different powers of the blazed grating. We recognize that, the higher the power of the grating becomes, the closer the extreme values of the corresponding DFT terms get. The figure line from figure $\ref{fig:blazeftimre0}$ until figure $\ref{fig:blazeftimre10}$ show us exemplarily, visualizations of DFT terms for different powers of our grating's height field. Remember that DFT terms are complex valued matrices of dimension as their height field has. In this visualization, all real part values are stored in the red- and the imaginary parts in the green color channel of an DFT image. The figure line from figure $\ref{fig:blazeftre0}$ till figure $\ref{fig:blazeftre10}$ show us the real part images from above's line corresponding figures. Similarly for the figure line from figure $\ref{fig:blazeftim0}$ until figure $\ref{fig:blazeftim10}$ showing the corresponding imaginary part DFT term images. Figure $\ref{fig:blazeftimre20}$ is a visualization of a scaled DFT term of a Blazed Grating. In this visualization of a blazed grating, we only see color contribution along the x-axis. Reason for this is, that, since a blazed grating like shown in figure $\ref{fig:matlabBlazePatch}$ only varies along the x-axis, also its corresponding 2d DFT image will vary only along the x-axis. 
 
 \section{Java Renderer}
 This section explains the architecture of the rendering program which I implemented$\footnote{This program is based on the code of a java real-time renderer, developed as a student project in the computer graphics class, held by M. Zwicker in autumn 2012.}$ and used for this project. The architecture of the program is divided into two parts: a rendering engine, the so called jrtr (java real time renderer) and an application program. Figure $\ref{fig:rendererArchitecture}$ outlines the architecture of the renderer. 
@@ -161,14 +156,14 @@ The application program relies on the MVC (Model-View-Controller) architecture p
 
 Such a mesh is represented as a data structure consisting of a list of vertices, each stored as a triplet of $x$, $y$, $z$ positions and triangles, each defined by a triple of vertex-indices. Besides its position, a vertex can have further data assigned to, like a surface color, normals and texture coordinates. The whole scene is encapsulated in a scene graph data-structures, defined and managed within the rendering engine. A scene graph contains all scene geometries and their transformations in a tree like structured hierarchy. \\
 
-All required configuration, in oder to communicate with the GPU through OpenGL, is performed in the jrtr rendering engine. Furthermore, jrtr's render context object, the wholeresource-management for various types of low-level buffers, which are used within the rendering pipeline by our GLSL shaders, takes place in the rendering place. More precisely, this means allocating memory for the buffers, assigning them with scene data and flushing them, when not used anymore. The whole shading process is performed in the GPU, stage-wise: The first stage is the vertex shader (see section $\ref{sec:vertexshader}$) followed by the fragment shader (see section $\ref{sec:fragmentshader}$). The jrtr framework also offers the possibility to assign user-defined shaders written in GLSL.
+All required configuration, in oder to communicate with the GPU through OpenGL, is performed in the jrtr rendering engine. Furthermore, jrtr's render context object, the whole resource-management for various types of low-level buffers, which are used within the rendering pipeline by our GLSL shaders, takes place in the rendering place. More precisely, this means allocating memory for the buffers, assigning them with scene data and flushing them, when not used anymore. The whole shading process is performed in the GPU, stage-wise: The first stage is the vertex shader (see section $\ref{sec:vertexshader}$) followed by the fragment shader (see section $\ref{sec:fragmentshader}$). The jrtr framework also offers the possibility to assign user-defined shaders written in GLSL.
 
 \section{GLSL Diffraction Shader}
 \subsection{Vertex Shader}
 \label{sec:vertexshader}
-In our implementation we want to simulate the structural colors a viewer sees when light diffracted is on grating, e.g. on the skin of a snake. For this purpose, we reproduce a 2d image of a given 3d scene as seen from the perspective of a viewer for given lightning conditions. The color computation of an image is performed in the GPU shaders of the rendering pipeline. In OpenGL, there are two basic shading stages performed to rendern an image whereas the vertex shader is the first shading stage in the rendering pipeline. \\
+In our implementation we want to simulate the structural colors a viewer sees when light diffracted is on grating, e.g. on the skin of a snake. For this purpose, we reproduce a 2d image of a given 3d scene as seen from the perspective of a viewer for given lightning conditions. The color computation of an image is performed in the GPU shaders of the rendering pipeline. In OpenGL, there are two basic shading stages performed to render an image whereas the vertex shader is the first shading stage in the rendering pipeline. \\
 
-As an input, a vertex shader, like illustrated in figure $\ref{fig:vertexshaderpipe}$, receives one vertex of a mesh and other vertex data such as a vertex normals. It only can access this data and has no information about the neighborhood of a vertex or the topology of its corresponding shape. Since vertex positions of a shape are defined in a local coordinate system$\footnote{Defining the positions of a shape in a local coordinate system simplifies its modeling process and allows us to apply transformations to a shape.}$ and we want to render an image of the perspective of viewer, we have to transform the locally defined positions to a perspectively projected viewer space. Therefore, the main purpose$\footnote{Furthermore, texture coordinates used for texture-lookup within the fragment shader and per vertex lightning can be computed.}$ of a vertex shader is to tranform the position of vertices. Notice that a vertex shader can manipulate the position of a vertices, but cannot generate additional mesh vertices. Therfore, the output of any vertex shader is a transformed vertex position. Keep in mind that all vertex shader outputs will be used within the fragment shader. For an example, please have a look at our fragment shader $\ref{sec:fragmentshader}$. \\
+As an input, a vertex shader, like illustrated in figure $\ref{fig:vertexshaderpipe}$, receives one vertex of a mesh and other vertex data such as a vertex normals. It only can access this data and has no information about the neighborhood of a vertex or the topology of its corresponding shape. Since vertex positions of a shape are defined in a local coordinate system$\footnote{Defining the positions of a shape in a local coordinate system simplifies its modelling process and allows us to apply transformations to a shape.}$ and we want to render an image of the perspective of viewer, we have to transform the locally defined positions to a perspectively projected viewer space. Therefore, the main purpose$\footnote{Furthermore, texture coordinates used for texture-lookup within the fragment shader and per vertex lightning can be computed.}$ of a vertex shader is to transform the position of vertices. Notice that a vertex shader can manipulate the position of a vertices, but cannot generate additional mesh vertices. Therefore, the output of any vertex shader is a transformed vertex position. Keep in mind that all vertex shader outputs will be used within the fragment shader. For an example, please have a look at our fragment shader $\ref{sec:fragmentshader}$. \\
 
 \begin{figure}[H]
   \centering
@@ -190,10 +185,10 @@ where $P$, $C^{-1}$ and $M$ are transformation matrices$\footnote{These tranform
 \begin{description}
 \item[Model matrix $M$:] Each vertex position of a shape is initially defined in a local coordinate system. To make is feasible to place and transform shapes in a scene, a reference coordinate system, the so called world space, has to be introduced. Hence, for every shape a matrix $M$ is associated, defining the transformation from its local coordinate system into the world space. 
 \item[Camera matrix $C$:] A camera models how the eye of a viewer sees an object, defined in world space like shown in figure $\ref{fig:cameracoordinatesystem}$. For calculating the transformation matrix $C$, a viewer's eye position and viewing direction, each defined in world space, are required. Therefore, $C$ denotes a transformation from coordinates defined in camera space into the world space. Thus, in order to transform a position from world space to camera space, we have to use the inverse of $C$, denoted by $C^{-1}$. 
-\item[Frustum $P$:] The Matrix P defines a perspective projection onto image plance, i.e. for any given position in camera space, $P$ determines the corresponding 2d image coordinate. Persepctive projections project along rays that converge in center of projection.
+\item[Frustum $P$:] The Matrix P defines a perspective projection onto the image plane, i.e. for any given position in camera space, $P$ determines the corresponding 2d image coordinate. Perspective projections project along rays that converge in center of projection.
 \end{description}
 
-Since we are interested in modeling how a viewer sees structural colors on a given scene shape as shown in figure $\ref{fig:cameracoordinatesystem}$, modeling a viewer's eye by formulating the corresponding camera matrix $C$, is the most important component of the whole transformation series applied in the vertex shader. Hence, we next will have a closer look in how a camera matrix $C$ actually can be computed. 
+Since we are interested in modelling how a viewer sees structural colors on a given scene shape as shown in figure $\ref{fig:cameracoordinatesystem}$, modelling a viewer's eye by formulating the corresponding camera matrix $C$, is the most important component of the whole transformation series applied in the vertex shader. Hence, we next will have a closer look in how a camera matrix $C$ actually can be computed. 
 
 \begin{figure}[H]
   \centering
@@ -201,17 +196,17 @@ Since we are interested in modeling how a viewer sees structural colors on a giv
   \caption[Camera Coordinate System]{Illustration$\footnotemark$ of the Camera coordinate system where its origin defines the center of projection of camera.}
   \label{fig:cameracoordinatesystem}
 \end{figure}
-\footnotetext{This image has been taken from the lecture slides of computer graphics class 2012 which can be found on ilias.}
+\footnotetext{This image has been taken from the lecture slides of computer graphics class 2012 which can be found on Ilias.}
 
 The camera matrix $C$ is constructed from its center of projection $e$, the position $d$ where the cameras looks at and a direction vector $up$, defining what is the direction in camera space pointing upwards. These components, $e$, $d$ and $up$, are defined in world coordinates. Figure $\ref{fig:cameramatrix}$ illustrates geometrical setup required in order to construct $C$.
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.35]{implementation/cameramatrix.png}
-  \caption[Camera Matrix]{Illustration$\footnotemark$ of involved components in order to construct the camera matrix $C$. The eye-vector $e$ denotes the positon of the camera in space, $d$ is the position the camera looks at, and $up$ denotes the cameras height. The camera space is spanned by the vectors helper vectors $x_c$, $y_c$ and $z_c$. Notice that objects we look at are in front of us, and thus have negative $z$ values}
+  \caption[Camera Matrix]{Illustration$\footnotemark$ of involved components in order to construct the camera matrix $C$. The eye-vector $e$ denotes the position of the camera in space, $d$ is the position the camera looks at, and $up$ denotes the cameras height. The camera space is spanned by the vectors helper vectors $x_c$, $y_c$ and $z_c$. Notice that objects we look at are in front of us, and thus have negative $z$ values}
   \label{fig:cameramatrix}
 \end{figure}
-\footnotetext{This image has been taken from the lecture slides of computer graphics class 2012 which can be found on ilias.}
+\footnotetext{This image has been taken from the lecture slides of computer graphics class 2012 which can be found on ILIAS.}
 
 The mathematical representation of these vectors, $x_c$, $y_c$ and $z_c$, spanning the camera space, introduced in figure $\ref{fig:cameramatrix}$, looks like the the following: 
 
@@ -222,14 +217,14 @@ The mathematical representation of these vectors, $x_c$, $y_c$ and $z_c$, spanni
   \label{eq:cameraspacespanningvectors}
 \end{align}
 
-As we can see, $x_c$, $y_c$ and $z_c$ are independent unit vectors. Therefore, they span a 3d space, the so called camera matrix. In order to express a coordinate in camera space, we have to project it onto these unit vectos. Using a homogenous coordinates representation, this a projection onto these unit vectors can be formulated by the transformation matrix $C$:
+As we can see, $x_c$, $y_c$ and $z_c$ are independent unit vectors. Therefore, they span a 3d space, the so called camera matrix. In order to express a coordinate in camera space, we have to project it onto these unit vectors. Using a homogenous coordinates representation, this a projection onto these unit vectors can be formulated by the transformation matrix $C$:
 
 \begin{equation}
   C = \begin{bmatrix} x_c & y_c & z_c & e \\ 0 & 0 & 0 & 1 \end{bmatrix}
   \label{eq:cameramatrixeq}
 \end{equation}
 
-In our vertex shader, besides transforming the vertex positions like described in equation $\ref{eq:vertextransformation}$, for every vertex, we also compute the direction vectors $\omega_i$ and $\omega_r$ described like in figure $\ref{fig:geometricsetup}$. Those direction vectors are transformed onto the tangent space, a local coordinate system spanned by a vertex's normal, tangent and binormal vector. For further information and more insight about the the tangent space, please bave a look at the appendix in the section $\ref{sec:tangentspace}$. The algorithmic idea of our vertex shader, stating all its computational steps, is conceptualized in algorithm $\ref{alg:vertexshader}$.
+In our vertex shader, besides transforming the vertex positions like described in equation $\ref{eq:vertextransformation}$, for every vertex, we also compute the direction vectors $\omega_i$ and $\omega_r$ described like in figure $\ref{fig:geometricsetup}$. Those direction vectors are transformed onto the tangent space, a local coordinate system spanned by a vertex's normal, tangent and binormal vector. For further information and more insight about the the tangent space, please have a look at the appendix in the section $\ref{sec:tangentspace}$. The algorithmic idea of our vertex shader, stating all its computational steps, is conceptualized in algorithm $\ref{alg:vertexshader}$.
 
 \begin{algorithm}[H]
 \caption{Vertex diffraction shader pseudo code}
@@ -264,7 +259,7 @@ In our vertex shader, besides transforming the vertex positions like described i
 \label{alg:vertexshader}
 \end{algorithm}
 
-As input, our vertex shader algorithme $\ref{alg:vertexshader}$ takes a mesh with of a given scene shape. Each of this vertexc should have a normal and a tangent assigned to. Furthermore, the direction of the scene light is required. For our implementation we always used directional light sources. An example of an directional light source is given in figure $\ref{fig:dirlightsource}$. 
+As input, our vertex shader algorithm $\ref{alg:vertexshader}$ takes a mesh with of a given scene shape. Each of this vertex should have a normal and a tangent assigned to. Furthermore, the direction of the scene light is required. For our implementation we always used directional light sources. An example of an directional light source is given in figure $\ref{fig:dirlightsource}$. 
 
 \begin{figure}[H]
   \centering
@@ -272,23 +267,23 @@ As input, our vertex shader algorithme $\ref{alg:vertexshader}$ takes a mesh wit
   \caption[Rays of a Directional Light]{Illustration$\footnotemark$ of our light source setup. For a directional light source, all light rays are in parallel.}
   \label{fig:dirlightsource}
 \end{figure}
-\footnotetext{This image has been taken from the lecture slides of computer graphics class 2012 which can be found on ilias.}
+\footnotetext{This image has been taken from the lecture slides of computer graphics class 2012 which can be found on ILIAS.}
 
 Last, in order to transform the positions of our mesh like described in equation $\ref{eq:vertextransformation}$, we also have to pass these transformation matrices$\footnote{When speaking about transformation matrices, we are refering to the model, camera and frustum matrix.}$. For simplification purposes, we introduced the following helper procedures used in the vertex shading algorithm:
 
 \begin{description}
   \item[normalize():] Computes the normalized version of a given input vector.
-  \item[span():] Assembles a matrix from a given set of vectors. This matrix spanes a vector space.
-  \item[projectVectorOnTo():] Takes two arguments, a vector and a matrix. The first argument is projected onto each column of a given matrix. And returns a vector living the space spaned by the given argument matrix.
+  \item[span():] Assembles a matrix from a given set of vectors. This matrix spans a vector space.
+  \item[projectVectorOnTo():] Takes two arguments, a vector and a matrix. The first argument is projected onto each column of a given matrix. And returns a vector living the space spanned by the given argument matrix.
 \end{description}
 
-The output of our vertex shader is on the one side the transformed vertex postion and on the other side the incident light $\omega_i$ and viewing direction $\omega_r$ both transformed into the tangent space. The output of the vertex shader is used as the input of the fragment shader, discussed in the next section.
+The output of our vertex shader is on the one side the transformed vertex position and on the other side the incident light $\omega_i$ and viewing direction $\omega_r$ both transformed into the tangent space. The output of the vertex shader is used as the input of the fragment shader, discussed in the next section.
 
 \subsection{Fragment Shader}
 \label{sec:fragmentshader}
 In the previous section we gave an introduction to the first shading stage of the OpenGL rendering pipeline by explaining the basics of a vertex shaders. Furthermore, we conceptually discussed the idea behind our vertex shading algorithm formulated in algorithm $\ref{alg:vertexshader}$. Summarized, the main purpose of our vertex shader is to compute the light- and viewing-direction vectors $\omega_i$ and $\omega_r$ defined like in figure $\ref{fig:geometricsetup}$. \\
 
-After the vertex-shading stage, the next stage in the OpenGL rendering pipeline is the \emph{rasterization} of mesh triangles. As an input, a rasterizer takes a triple of mesh-triangle spaning vertices, each previousely processed by a vertex shader. For each pixel lying inside the current mesh triangle, a rasterizer computes its corresponding position in the triangle. According to its computed position, a pixel also gets interpolated values of the vertices attributes of its mesh triangle assigned. The set of interpolated vertex attributes together with the computes position of a pixel is denoted as a fragment. Figure $\ref{fig:trianglerasterization}$ conceptualizes the idea of processed set of fragment computed by a rasterizer.
+After the vertex-shading stage, the next stage in the OpenGL rendering pipeline is the \emph{rasterization} of mesh triangles. As an input, a rasterizer takes a triple of mesh-triangle spanning vertices, each previously processed by a vertex shader. For each pixel lying inside the current mesh triangle, a rasterizer computes its corresponding position in the triangle. According to its computed position, a pixel also gets interpolated values of the vertices attributes of its mesh triangle assigned. The set of interpolated vertex attributes together with the computes position of a pixel is denoted as a fragment. Figure $\ref{fig:trianglerasterization}$ conceptualizes the idea of processed set of fragment computed by a rasterizer.
 
 \begin{figure}[H]
   \centering
@@ -298,7 +293,7 @@ After the vertex-shading stage, the next stage in the OpenGL rendering pipeline 
 \end{figure}
 \footnotetext{This image was taken from \texttt{http://en.wikibooks.org/wiki/GLSL\textunderscore Programming/Rasterization}}
 
-A fragment shader as shown in figure $\ref{fig:fragmentshaderpipe}$, is the OpenGL pipeline stage subsequent after a mesh triangle is rasterized in the rasterization stage. As input value, a fragment shader takes at least a fragment computed by the rasterizer. It is also pissible to assign custome, non-interpolated values to a fragment shader. For each fragment in the fragment shading stage, a color value is computed. Furthermore, a fragment shader computes a depth value for each of its fragments, determining their visbility. Since all existing scene vertices were perspectively projected onto the 2d image plane, the rasterizer could have produced several fragments having assigned the same pixel position. Therefore, among all fragments with the same pixel position, the outputed pixel color is equal to the color of that fragment, which depth is closest to the viewer.
+A fragment shader as shown in figure $\ref{fig:fragmentshaderpipe}$, is the OpenGL pipeline stage subsequent after a mesh triangle is rasterized in the rasterization stage. As input value, a fragment shader takes at least a fragment computed by the rasterizer. It is also possible to assign custom, non-interpolated values to a fragment shader. For each fragment in the fragment shading stage, a color value is computed. Furthermore, a fragment shader computes a depth value for each of its fragments, determining their visibility. Since all existing scene vertices were perspectively projected onto the 2d image plane, the rasterizer could have produced several fragments having assigned the same pixel position. Therefore, among all fragments with the same pixel position, the output pixel color is equal to the color of that fragment, which depth is closest to the viewer.
 
 \begin{figure}[H]
   \centering
@@ -309,7 +304,7 @@ A fragment shader as shown in figure $\ref{fig:fragmentshaderpipe}$, is the Open
 
 \label{sec:flssshader}
 \label{sec:inputlists}
-In this section we explain how to render structural colors resulting due to light diffracted on a natural grating, based on the model described in section $\ref{sec:spectralrendering}$. The color values of the produced structural colors, resulting from our model, are computed by our fragment shader (later denoted as $\textbf{FLSS}$) which expects being provided by the follwoing input:
+In this section we explain how to render structural colors resulting due to light diffracted on a natural grating, based on the model described in section $\ref{sec:spectralrendering}$. The color values of the produced structural colors, resulting from our model, are computed by our fragment shader (later denoted as $\textbf{FLSS}$) which expects being provided by the following input:
 
 \begin{itemize}
   \item Precompute DFT terms of the provided height field as explain in section $\ref{sec:precompmatlabfourierimages}$.
@@ -323,16 +318,16 @@ Apart from these basic, varying input values, the following set of shading const
   \item The number of iterations used for the taylor series approximation, determining the the approximation accuracy.
   \item The wavelength spectrum $\Lambda = [\lambda_{min}, \lambda_{max}]$ with a certain discretizing level $\lambda_{step}$.
   \item The color weights of the $CIE_{XYZ}$ color matching functions.
-  \item THe height field image resolution and its pixel to width correspondance.
+  \item The height field image resolution and its pixel to width correspondence.
 \end{itemize}
 
-By Using all these inputs, our fragment shader performs a numerical integration over the given wavelength spectrum $\Lambda$ for our final derived expression, stated in equation $\ref{eq:finalexpression}$. For this integration we use the trapezoidal-rule with uniform discretization of the wavelength spectrum at $\lambda_{step}=5nm$ step sizes. This implies we are compressing sampled frequencies to the region near the origin due to the fact we are dividing the $(u,v)$ by the wavelength $\lambda$ and this implies that the $(u,v)$ space is sampeled non-linearly. \\
+By Using all these inputs, our fragment shader performs a numerical integration over the given wavelength spectrum $\Lambda$ for our final derived expression, stated in equation $\ref{eq:finalexpression}$. For this integration we use the trapezoidal-rule with uniform discretization of the wavelength spectrum at $\lambda_{step}=5nm$ step sizes. This implies we are compressing sampled frequencies to the region near the origin due to the fact we are dividing the $(u,v)$ by the wavelength $\lambda$ and this implies that the $(u,v)$ space is sampled non-linearly. \\
 
 In section $\ref{sec:gaussianwindow}$ we have seen that we have to multiply our DFT terms by a Gaussian Window in order to approximate the DTFT which our model is based on. This windowing approach is performed for each discrete $\lambda$ value using a window large enough to span $4\sigma_f$ in both dimensions. Our DFT terms are computed from height fields that span at least 65$\mu m^2$ and are sampled at a resolution of at least 100$\mu m$ . 
 This ensures that the spectral response encompasses all the wavelengths in the visible spectrum. \\
 
 \label{sec:proceduresdescripton}
-Next, we will discuss the actual fragment shading algorithm, listed in algorithm $\ref{alg:fragmentshaderall}$. Note, that our fragment shading algorithm uses some helper procedures. The two most fundamental one is the $\textbf{getlookupCoords}$ which computes the lookup coordinates in the DFT terms for a given (u,v) defined like in equation $\ref{eq:uvw}$ and a wavelength $\lambda$. The actual computation these coordinates is described in section $\ref{sec:texturelookupcoords}$. Notice that the routine $\textbf{getLocalLookUp}$ computes a local lookup coordinates used during the gaussian window approximation explained in section $\ref{sec:gaussianwindow}$. The routine $\textbf{distVecFromOriginTo}$ is used to compute the direction vector from the current position of a fragment in texture space, to one of its texture space living 1-neighborhood neighbors.
+Next, we will discuss the actual fragment shading algorithm, listed in algorithm $\ref{alg:fragmentshaderall}$. Note, that our fragment shading algorithm uses some helper procedures. The two most fundamental one is the $\textbf{getlookupCoords}$ which computes the lookup coordinates in the DFT terms for a given (u,v) defined like in equation $\ref{eq:uvw}$ and a wavelength $\lambda$. The actual computation these coordinates is described in section $\ref{sec:texturelookupcoords}$. Notice that the routine $\textbf{getLocalLookUp}$ computes a local lookup coordinates used during the gaussian window approximation explained in section $\ref{sec:gaussianwindow}$. The routine $\textbf{distVecFromOriginTo}$ is used to compute the direction vector from the current position of a fragment in texture space, to one of its texture space living one-neighborhood neighbors.
 
 \begin{algorithm}[H]
   \caption{Fragment diffraction shader pseudo code}
@@ -345,11 +340,11 @@ Next, we will discuss the actual fragment shading algorithm, listed in algorithm
       \textbf{Procedures$\footnotemark$:} & $\emph{getColorWeights}$: get colormatching value for wavelength $\lambda$(see section \ref{sec:colorspace})\\
       & $\emph{getlookupCoords}$: get lookup coordinate(Eq.\ref{eq:ublookup}) by viewing-\& light direction \\
       & $\emph{distVecFromOriginTo}$: get direction vector from origin to a given position \\
-      & $\emph{getLocalLookUp}$: get lookup coordinate(Eq.\ref{eq:gaussianwindowlook}) of DFT windwowing values \\
-      & $\emph{rescaledFourierValueAt}$: rescales dft terms according to equation \ref{eq:dfttermnormalization}\\
+      & $\emph{getLocalLookUp}$: get lookup coordinate(Eq.\ref{eq:gaussianwindowlook}) of DFT windowing values \\
+      & $\emph{rescaledFourierValueAt}$: rescales DFT terms according to equation \ref{eq:dfttermnormalization}\\
       & $\emph{gaussWeightOf}$: computes gaussian window according to equation \ref{eq:gaussweight} \\
       & $\emph{dot}$: computes the dot-product of two given vectors \\
-      & $\emph{gammaCorrect}$: apply camma correction on RGB vector(see section \ref{subsec:colortransformations}) \\  
+      & $\emph{gammaCorrect}$: apply gamma correction on RGB vector(see section \ref{subsec:colortransformations}) \\  
     \end{tabular} 
   \end{table}
   
@@ -393,16 +388,16 @@ Next, we will discuss the actual fragment shading algorithm, listed in algorithm
 \end{algorithm}
 \footnotetext{Please have a look at section $\ref{sec:proceduresdescripton}$ to see further descriptions of these procedures.} 
 
-Please note that for simplification purposes we omitted some inpute values in algorithm $\ref{alg:fragmentshaderall}$. A complete input value list can be found in section $\ref{sec:inputlists}$. Last, a a brief description of some code sections of our fragment shading algorithm:
+Please note that for simplification purposes we omitted some input values in algorithm $\ref{alg:fragmentshaderall}$. A complete input value list can be found in section $\ref{sec:inputlists}$. Last, a a brief description of some code sections of our fragment shading algorithm:
 
 \myparagraph{From line 4 to 26:} 
 This loop performs uniform sampling along wavelength spectrum $\Lambda$ for the spectral integration seen in section $\ref{sec:spectralrendering}$. The procedure $ColorWeights(\lambda)$ computes the color weight for the current wavelength $\lambda$ by a linear interpolation between the color weight and the values $\ceil{\lambda}$ and $\floor{\lambda}$. The color weights are stored in a external table accessed by our fragment shader$\footnote{This color weight table contains data for lambda steps in size of 1nm}$. At line 6 the procedure call $lookupCoord(u, v, \lambda)$ returns the coordinates for the texture lookup which are computed like described in equation $\ref{eq:scalelook}$. At Line 25 the diffraction color contribution, computed during the integration over the wavelength spectrum for each wavelength $\lambda$, is accumulated.
 
 \myparagraph{From line 9 to 24:} 
-This loop performs the Taylor series approximation using a predefined number of iterations. Basically, the spectral response is approximated for our current value for $(u,v,\lambda)$. According to section $\ref{sec:gaussianwindow}$, we can approximate a DTFT by multiplying a gaussian winodw by DFT terms. When interpreting our DFT terms by a set of matrices, a particular DFT term value, corresponding to the position of a given fragment, can be looked up at the index ($anchorX$, $anchorY$). For our the Gaussian-Windowing approach we use a one-neighborhood around ($anchorX$, $anchorY$) in order to approximate the DFT value for a fragment.
+This loop performs the Taylor series approximation using a predefined number of iterations. Basically, the spectral response is approximated for our current value for $(u,v,\lambda)$. According to section $\ref{sec:gaussianwindow}$, we can approximate a DTFT by multiplying a gaussian window by DFT terms. When interpreting our DFT terms by a set of matrices, a particular DFT term value, corresponding to the position of a given fragment, can be looked up at the index ($anchorX$, $anchorY$). For our the Gaussian-Windowing approach we use a one-neighborhood around ($anchorX$, $anchorY$) in order to approximate the DFT value for a fragment.
 
 \myparagraph{From line 14 to 22:} 
-In this inner most loop, the convolution of the gaussian window with the DFT terms of the given height field is performed. The routine $gaussWeightOf(dist)$ computes the weights in equation $~\eqref{eq:gaussweight}$ from the distance between the current fragment's position and the current neighbor's position in texture space. Local lookup coordinates for the current fourier coefficient $fftVal$ value, stored in the DFT terms, are computed at line 17 and computed like described in equation $\ref{eq:gaussianwindowlook}$. The actual texture lookup is performed at line 18 using those local coordinates. Inside the procedure $rescaledFourierValueAt$ the values of $fftVal$ are rescaled by its extrema values$\footnote{This extrema values were precomputed in Matlab during the precomputation stage and are passed as an input to our fragment shader.}$, since $fftVal$ is normalized according to the description from section $\ref{sec:precompmatlabfft}$. The current $fftVal$ value in iteration is scaled by the current Gaussian Window weight and then summed to the final neighborhood FFT contribution at line 20.
+In this inner most loop, the convolution of the gaussian window with the DFT terms of the given height field is performed. The routine $gaussWeightOf(dist)$ computes the weights in equation $~\eqref{eq:gaussweight}$ from the distance between the current fragment's position and the current neighbor's position in texture space. Local lookup coordinates for the current Fourier coefficient $fftVal$ value, stored in the DFT terms, are computed at line 17 and computed like described in equation $\ref{eq:gaussianwindowlook}$. The actual texture lookup is performed at line 18 using those local coordinates. Inside the procedure $rescaledFourierValueAt$ the values of $fftVal$ are rescaled by its extrema values$\footnote{This extrema values were precomputed in Matlab during the precomputation stage and are passed as an input to our fragment shader.}$, since $fftVal$ is normalized according to the description from section $\ref{sec:precompmatlabfft}$. The current $fftVal$ value in iteration is scaled by the current Gaussian Window weight and then summed to the final neighborhood FFT contribution at line 20.
 
 \myparagraph{After line 26:} 
 At line 27 the gain factor $C(\omega_i, \omega_r)$ from equation $\ref{eq:cfact}$ is multiplied by the computed pixel color like formulated in equation $\ref{eq:cpterm}$. The gain factor contains the geometric term of equation $\ref{eq:geometricterm}$ and the Fresnel term $F$. For computing the Fresnel term we use the Schlick approximation defined in equation $\ref{eq:schlickapprox}$, using an refractive index of 1.5 since this is close to the measured value from snake sheds. Our BRDF values are scaled by a shadowing function as described in the appendix of the paper$\cite{diffstam}$. The reason or this is that the nanostructure of a snake skins is grooved forming V-cavities. therefore some regions on the snake surface is shadowed. Last, we transform our colors from the $CIE_XYZ$ colorspace to the $CIE_RGB$ space using the CIE Standard Illuminant $D65$. Last we apply a gamma correction on our computed RGB color values. Consult the section $\ref{subsec:colortransformations}$ for further insight.
@@ -410,24 +405,24 @@ At line 27 the gain factor $C(\omega_i, \omega_r)$ from equation $\ref{eq:cfact}
 \section{Technical Details}
 \subsection{Texture Lookup}
 \label{sec:texturelookupcoords}
-In our fragment shader we want to access DFT coefficients of our height field at a given location $(u,v)$ (defined like in equation $\ref{eq:uvw}$) to compute strucural colors according to equation $\ref{eq:finalexpression}$. \\
+In our fragment shader we want to access DFT coefficients of our height field at a given location $(u,v)$ (defined like in equation $\ref{eq:uvw}$) to compute structural colors according to equation $\ref{eq:finalexpression}$. \\
 
 For any given nano-scaled surface patch $P$ with a resolution of $A$ by $A$ $\mu m$, stored as a $N$ by $N$ pixel image $I$, one pixel in any direction corresponds to $dH = \frac{A}{N} \mu m$. In Matlab we computed a series of $n$ output DFT terms $\{I_{out_1},...,I_{out_n}\}$ from this image $I$, where the n-th image represents the DFT coefficients for the n-th DFT term in our Taylor Series approximation. Notice, that every DFT image value $(u,v)$ is in the range $[-\frac{f_s}{2}, \frac{f_s}{2}]^2$ where $f_s$ is the sampling frequency equal to $\frac{1}{dH}$. \\
 
 In order to get access to these image within our shader, we have to pass them as GLSL textures. In a GLSL shader the texture coordinates are normalized, which means that the size of the texture maps to the coordinates on the range $[0,1]$ in each dimension. By convention the the bottom left corner of an image has the coordinates $(0,0)$, whereas the top right corner has the value $(1,1)$ assigned. \\ 
 
-However, $u$, $v$ coordinates are assumed to be in range $[-\frac{f_s}{2}, \frac{f_s}{2}]$, but GLSL texture coordinates are in range $[0,1]$. Therefore, for every computed lookup coordinate pair $(u,v)$, we have to apply a affine tranformation to be in the correct range. Figure $\ref{fig:lookupexample}$.  illustrates this issue of different lookup ranges. In general, an afine tranformation is a mapping of the form $f(x) = sx + b$ where $s$ is a scaling and $b$ is a translation.
+However, $u$, $v$ coordinates are assumed to be in range $[-\frac{f_s}{2}, \frac{f_s}{2}]$, but GLSL texture coordinates are in range $[0,1]$. Therefore, for every computed lookup coordinate pair $(u,v)$, we have to apply a affine transformation to be in the correct range. Figure $\ref{fig:lookupexample}$.  illustrates this issue of different lookup ranges. In general, an affine transformation is a mapping of the form $f(x) = sx + b$ where $s$ is a scaling and $b$ is a translation.
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.7]{implementation/lookup.png}
-  \caption[Lookup DFT Coefficients in Textures]{Illustration of $(u,v)$ lookup using GLSL textures: texture voordinates are shown in blue color, u-v coordinates are shown in green color.}
+  \caption[Lookup DFT Coefficients in Textures]{Illustration of $(u,v)$ lookup using GLSL textures: texture coordinates are shown in blue color, u-v coordinates are shown in green color.}
 \label{fig:lookupexample}
 \end{figure}
 
-Figure $\ref{fig:lookupexample}$ visualized a particular DFT coefficients image for a blazed grating. In GLSL texture coordinates the range of such an image is $[0,1]^2$ whereat in a (u,v) coordinates system this would correspond to the range $[-\frac{f_s}{2}, \frac{f_s}{2}]^2$. Regarding the way the DFT terms were computed in matlab, their zero frequncy, i.e. $(u,v) = (0,0)$, is located at the center of the given DFT image. Since by convention the bottom left corner of a GLSL texture corresponds to the value $(0,0)$ but we want to work with $(u,v)$ coordinates, we have to introduce an helper coordinate system $(u_{lookup}, v_{lookup})$. This helper coordinates can be computed by a affine transformation applied on $(u,v)$ coordinates. Hence, we will explain how to compute the scaling $s$ and translation $b$ components of our affine transformation: 
+Figure $\ref{fig:lookupexample}$ visualized a particular DFT coefficients image for a blazed grating. In GLSL texture coordinates the range of such an image is $[0,1]^2$ whereat in a (u,v) coordinates system this would correspond to the range $[-\frac{f_s}{2}, \frac{f_s}{2}]^2$. Regarding the way the DFT terms were computed in Matlab, their zero frequency, i.e. $(u,v) = (0,0)$, is located at the center of the given DFT image. Since by convention the bottom left corner of a GLSL texture corresponds to the value $(0,0)$ but we want to work with $(u,v)$ coordinates, we have to introduce an helper coordinate system $(u_{lookup}, v_{lookup})$. This helper coordinates can be computed by a affine transformation applied on $(u,v)$ coordinates. Hence, we will explain how to compute the scaling $s$ and translation $b$ components of our affine transformation: 
 
-\myparagraph{Translation component $b$ of affine tranformation:}
+\myparagraph{Translation component $b$ of affine transformation:}
 Since the zero frequency component of DFT images is shifted towards its centre position, we have to shift the coordinates $u$ and $v$ to the center of the current $N$ by $N$ pixel image by a bias $b$. The translation $b$ is a constant value and is computed like the following:
 
 \begin{align}
@@ -460,7 +455,7 @@ Thus, only wavenumbers that are integer multiples of $w_0$ after a multiplicatio
 The lookup for the $v$-direction will be equal $s(v)$ defined like in equation $\ref{eq:scalelook}$.
 
 \myparagraph{Final affine transformation:}
-Using the translation from equation $\ref{eq:bias}$ and the scaling from equation $\ref{eq:scalelook}$, the tranfromed texture lookup-coorinates $(u_{look}, v_{look})$ for a given wavelength $\lambda$ is equal to:
+Using the translation from equation $\ref{eq:bias}$ and the scaling from equation $\ref{eq:scalelook}$, the transformed texture lookup-coordinates $(u_{look}, v_{look})$ for a given wavelength $\lambda$ is equal to:
 
 \begin{align}
   (u_{look}, v_{look}) 
@@ -469,7 +464,7 @@ Using the translation from equation $\ref{eq:bias}$ and the scaling from equatio
 \label{eq:ublookup}
 \end{align}  
 
-Note that for the Windowing Approach, used in algorthm $\ref{alg:fragmentshaderall}$, we are visiting a one-pixel-neighborhood around each $(u,v)$ coordinate pair. For any position $(i,j)$ of its neighbor-pixels, these local coordinates $(u_{look}^{local_i}, v_{look}^{local_j})$ around the origin $(u_{look}, v_{look})$ from equation $\ref{eq:ublookup}$ are equal to:
+Note that for the Windowing Approach, used in algorithm $\ref{alg:fragmentshaderall}$, we are visiting a one-pixel-neighborhood around each $(u,v)$ coordinate pair. For any position $(i,j)$ of its neighbor-pixels, these local coordinates $(u_{look}^{local_i}, v_{look}^{local_j})$ around the origin $(u_{look}, v_{look})$ from equation $\ref{eq:ublookup}$ are equal to:
 
 \begin{equation}
   (u_{look}^{local_i}, v_{look}^{local_j}) = (i,j)-(u_{look}, v_{look})
@@ -483,8 +478,8 @@ So far, we have seen how to render structural colors caused when light is diffra
 \caption{Texture Blending}
 \begin{table}[H]
   \begin{tabular}{@{}lll@{}}
-    \textbf{Input:} & $c_{texture}:$ Texture color at given fragment postion \\
-    & $c_{diffraction}:$ Structural color at given fragment postion \\
+    \textbf{Input:} & $c_{texture}:$ Texture color at given fragment position \\
+    & $c_{diffraction}:$ Structural color at given fragment position \\
     \textbf{Output:} & $c_{out}:$ Mixed fragment texture- and structural-color \\
   \end{tabular} 
 \end{table}
@@ -506,7 +501,7 @@ So far, we have seen how to render structural colors caused when light is diffra
 \subsection{Color Transformation}
 \label{subsec:colortransformations}
 
-In our fragment shader, we access a table which contains precomputed CIE's color matching functions values$\footnote{Such a function value table can be found at \texttt{cvrl.ioo.ucl.ac.uk} for example}$ from $\lambda_{min} = 380 nm$ to $\lambda_{max} = 780 nm$ in $5 nm$ steps. In algorithm $\ref{alg:fragmentshaderall}$ we describe how to compute the $CIE_{XYZ}$ color values as described in section $\ref{sec:colorspace}$. We can transform the color values into $CIE_{sRGB}$ gammut by performing the following linear transformation:
+In our fragment shader, we access a table which contains precomputed CIE's color matching functions values$\footnote{Such a function value table can be found at \texttt{cvrl.ioo.ucl.ac.uk} for example}$ from $\lambda_{min} = 380 nm$ to $\lambda_{max} = 780 nm$ in $5 nm$ steps. In algorithm $\ref{alg:fragmentshaderall}$ we describe how to compute the $CIE_{XYZ}$ color values as described in section $\ref{sec:colorspace}$. We can transform the color values into $CIE_{sRGB}$ gamut by performing the following linear transformation:
 
 \begin{equation}
   \begin{bmatrix}R\\G\\B\end{bmatrix} = M \cdot \begin{bmatrix}X\\Y\\Z\end{bmatrix}
@@ -524,12 +519,12 @@ One aspect we have to keep in mind is what is the tristimulus value of the color
 \begin{bmatrix}R\\G\\B\end{bmatrix} = M \cdot \begin{bmatrix}X / D65.x \\ Y / D65.y \\Z / D65.z \end{bmatrix} 
 \end{equation}
 
-Each component of the Standard Illuminant acts as rescaling factor according to the whitepoint definiton of $D65$ for our computed color values. Last, we perfrom a gamma correction on each pixel's $(R,G,B)$ value. A gamma correction is a non linear transformation which controls the overall brightness of an image$\footnote{For further information about gamma correction, please have a look in the book \emph{Fundamentals of Computer Graphics}$\cite{fundcg}$.}$.
+Each component of the Standard Illuminant acts as rescaling factor according to the white-point definition of $D65$ for our computed color values. Last, we perform a gamma correction on each pixel's $(R,G,B)$ value. A gamma correction is a non linear transformation which controls the overall brightness of an image$\footnote{For further information about gamma correction, please have a look in the book \emph{Fundamentals of Computer Graphics}$\cite{fundcg}$.}$.
 
 \section{Discussion}
 \label{sec:impldiscus}
 \subsection{Comparison: per Fragment-vs. per Vertex-Shading}
-In this chapter we have seen how our render is implemented. We discussed our fragment shader which is responsible for computing the structural color values resulting by diffracted light. Our fragment shader's runtime performance depends on the resoultion of the final rendered image, since there is a correspondance between pixels and fragments. Notice that we also could have computed the strucural colors during the vertex shading process. Then, the whole rendering performanance of our shading approach would only depend on the vertex count of our meshes. Shading on a per vertex basis is usually bad since in order to get a nice and accurate rendering, the vertex count of a mesh has to be big. Furthermore, a vertex shader produces poor results for shapes like a cube for example, according to our structural color model. Therfore, shading on a per fragment shader scales depending on the rendered image resolution and is independent of the mesh vertices (their distribution and count).
+In this chapter we have seen how our render is implemented. We discussed our fragment shader which is responsible for computing the structural color values resulting by diffracted light. Our fragment shader's runtime performance depends on the resolution of the final rendered image, since there is a correspondence between pixels and fragments. Notice that we also could have computed the structural colors during the vertex shading process. Then, the whole rendering performance of our shading approach would only depend on the vertex count of our meshes. Shading on a per vertex basis is usually bad since in order to get a nice and accurate rendering, the vertex count of a mesh has to be big. Furthermore, a vertex shader produces poor results for shapes like a cube for example, according to our structural color model. Therefore, shading on a per fragment shader scales depending on the rendered image resolution and is independent of the mesh vertices (their distribution and count).
 
 \subsection{Optimization of Fragment Shading: NMM Approach}
 \label{sec:nmmapproach}
@@ -556,7 +551,7 @@ Our goal is to optimize this runtime behaviour. Instead sampling over the whole 
   \label{eq:nminmaxapproximation}
 \end{table}
 
-By transforming those equations in the equation colletion $\ref{eq:nminmaxapproximation}$ to $(\lambda_{min}^{u}, \lambda_{min}^{u})$ and $(\lambda_{min}^{v}, \lambda_{min}^{v})$ respectively, we can reduce the total number of required iterations in our fragment shader. We denote this optimization by the $n_{min}$, $n_{max}$ (NMM) shading approach. 
+By transforming those equations in the equation collection $\ref{eq:nminmaxapproximation}$ to $(\lambda_{min}^{u}, \lambda_{min}^{u})$ and $(\lambda_{min}^{v}, \lambda_{min}^{v})$ respectively, we can reduce the total number of required iterations in our fragment shader. We denote this optimization by the $n_{min}$, $n_{max}$ (NMM) shading approach. 
 
 \begin{figure}[H]
   \centering
@@ -565,7 +560,7 @@ By transforming those equations in the equation colletion $\ref{eq:nminmaxapprox
   \label{fig:nmmshadingapproach}
 \end{figure}
 
-Figure $\ref{fig:nmmshadingapproach}$ illustrated the idea of the NMM shading approach by showing a visualization of a DFT term. Instead integrating over the whole wavelength spectrum (yellow line), we can find a contrainted wavelength range by using equation $\ref{eq:nminmaxapproximation}$, and then only integrate over a reduced, discrete set of $\lambda$ values (indicated by the dotted red line). Since we are uniformally integrating over the wavelength spectrum but this approach selects non-unoformally a reduced wavelength spectrum, this can lead to issues. Close to zero frequency, i.e. $(u,v)$ equal to $(0,0)$, we could have too few or even no samples, using the NMM approach. Thus, our workaround according to this issue is to use a default color close to the zero frequency. Technically, this means that return white color around a small $\epsilon$ circumstance.
+Figure $\ref{fig:nmmshadingapproach}$ illustrated the idea of the NMM shading approach by showing a visualization of a DFT term. Instead integrating over the whole wavelength spectrum (yellow line), we can find a constrained wavelength range by using equation $\ref{eq:nminmaxapproximation}$, and then only integrate over a reduced, discrete set of $\lambda$ values (indicated by the dotted red line). Since we are uniformly integrating over the wavelength spectrum but this approach selects non-uniformly a reduced wavelength spectrum, this can lead to issues. Close to zero frequency, i.e. $(u,v)$ equal to $(0,0)$, we could have too few or even no samples, using the NMM approach. Thus, our workaround according to this issue is to use a default color close to the zero frequency. Technically, this means that return white color around a small $\epsilon$ circumstance.
 
 \subsection{The PQ Shading Approach}
 \label{sec:pqapproach}
@@ -575,7 +570,7 @@ Another variant is the $PQ$ approach described in section $\ref{sec:pq}$. In sec
 \caption{Sinc interpolation for PQ approach}
 \begin{table}[H]
   \begin{tabular}{@{}lll@{}}
-    \textbf{Input:} & same input as in algorithme $\ref{alg:fragmentshaderall}$ \\
+    \textbf{Input:} & same input as in algorithm $\ref{alg:fragmentshaderall}$ \\
     \textbf{Output:} & $c_p:$ Structural Color based in the PQ approach (See section $\ref{sec:pq}$) \\
   \end{tabular} 
 \end{table}
@@ -593,5 +588,5 @@ Another variant is the $PQ$ approach described in section $\ref{sec:pq}$. In sec
 \end{algorithm}
 
 In a fragment shader, for every fragment $p$ we compute its reconstructed function value $f(p)$ stored in $w_p$. The value $w_p$ is the reconstructed signal value at $f(p)$ by the sinc function as described in section $\ref{sec:sincinterpolation}$.
-Similar like for the gaussian winodwing approach, we calculate the distance $\Delta_{p,(i,j)}$ between the current fragment position $p$ and each of its neighbors $(i,j) \in \mathcal{N}_{1}(p)$ in its one-neighborhood. Multiplying this distance by $\pi$ gives us the an angle used for the sinc function interpolation. Notice that, in order to avoid division by zeros side-effects, we add a small integer $\epsilon$ to our angle value.
+Similar like for the gaussian windowing approach, we calculate the distance $\Delta_{p,(i,j)}$ between the current fragment position $p$ and each of its neighbors $(i,j) \in \mathcal{N}_{1}(p)$ in its one-neighborhood. Multiplying this distance by $\pi$ gives us the an angle used for the sinc function interpolation. Notice that, in order to avoid division by zeros side-effects, we add a small integer $\epsilon$ to our angle value.
 
