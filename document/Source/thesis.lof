@@ -1,1 +1,21 @@
 \select@language {english}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces BRDF Map}}{2}{figure.caption.2}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Our Diffraction Gratings}}{2}{figure.caption.3}
+\contentsline {figure}{\numberline {1.3}{\ignorespaces BRDF Map: FLSS Approach applied on various Gratings}}{3}{figure.caption.4}
+\contentsline {figure}{\numberline {1.4}{\ignorespaces BRDF Map: Our Approaches applied on a Blazed Grating}}{4}{figure.caption.5}
+\contentsline {figure}{\numberline {1.5}{\ignorespaces BRDF Map: Varying step sizes FLSS Blazed Grating}}{4}{figure.caption.6}
+\contentsline {figure}{\numberline {1.6}{\ignorespaces BRDF Map: Varying step sizes FLSS Elaphe Grating}}{5}{figure.caption.7}
+\contentsline {figure}{\numberline {1.7}{\ignorespaces BRDF Map: PQ vs FLSS Approach on Blazed Grating}}{6}{figure.caption.8}
+\contentsline {figure}{\numberline {1.8}{\ignorespaces BRDF Map: PQ vs FLSS Approach on Elaphe Grating}}{6}{figure.caption.9}
+\contentsline {figure}{\numberline {1.9}{\ignorespaces BRDF Map: PQ vs FLSS Approach on Xenopeltis Grating}}{7}{figure.caption.10}
+\contentsline {figure}{\numberline {1.10}{\ignorespaces BRDF Map: Different $\sigma _s$}}{8}{figure.caption.11}
+\contentsline {figure}{\numberline {1.11}{\ignorespaces BRDF Map: Blazed Grating Convergence}}{9}{figure.caption.12}
+\contentsline {figure}{\numberline {1.12}{\ignorespaces BRDF Map: Elaphe Grating Convergence}}{9}{figure.caption.13}
+\contentsline {figure}{\numberline {1.13}{\ignorespaces BRDF Map: Varying Viewing Angles}}{10}{figure.caption.14}
+\contentsline {figure}{\numberline {1.14}{\ignorespaces Diffraction of different snake skin gratings rendered on a snake geometry\relax }}{11}{figure.caption.16}
+\contentsline {figure}{\numberline {1.15}{\ignorespaces Diffraction for Elaphe snake skin\relax }}{12}{figure.caption.17}
+\contentsline {figure}{\numberline {1.16}{\ignorespaces Diffraction for Xeno snake skin\relax }}{13}{figure.caption.18}
+\contentsline {figure}{\numberline {1.17}{\ignorespaces Diffraction on Elaphe snake skin grating: Different camera zoom levels\relax }}{14}{figure.caption.19}
+\contentsline {figure}{\numberline {1.18}{\ignorespaces Diffraction on Elaphe snake skin grating: Different light directions\relax }}{15}{figure.caption.20}
+\contentsline {figure}{\numberline {1.19}{\ignorespaces Diffraction Elaphe: experimental setup\relax }}{15}{figure.caption.21}

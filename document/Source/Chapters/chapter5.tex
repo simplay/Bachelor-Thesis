@@ -53,7 +53,7 @@ with its origin at the map-center. The light direction for normal incidence $(\t
     \label{fig:xenogratingpatch}
   }
 
-\caption[Our Gratings]{Cutouts of our nano-scaled surface gratings used for rendering within our shader with a scale indicator (red line) for each patch. Note that for rendering, we use larger patches.}
+\caption[Our Diffraction Gratings]{Cutouts of our nano-scaled surface gratings used for rendering within our shader with a scale indicator (red line) for each patch. Note that for rendering, we use larger patches.}
 \label{fig:gratingpatches}
 \end{figure}
 
@@ -80,7 +80,7 @@ For Xenopeltis surface grating $\ref{fig:xenogratingpatch}$, we observe diffract
     \label{fig:brdfmapXeno}
   }
 
-\caption[BRDF Map of FLSS approach on Gratings]{BRDF maps for different patches}
+\caption[BRDF Map: FLSS Approach applied on various Gratings]{BRDF maps for different patches}
 \label{fig:brdfmapsdiffpatches}
 \end{figure}
 
@@ -117,7 +117,7 @@ Last, let us consider figure $\ref{fig:brdfmapblazegem}$ which shows the BRDF ma
     \label{fig:brdfmapblazegem}
   }
     
-\caption[BRDF Map using our Approaches for Blazed Grating]{BRDF maps for Blazed grating comparing our different rendering approaches}
+\caption[BRDF Map: Our Approaches applied on a Blazed Grating]{BRDF maps for Blazed grating comparing our different rendering approaches}
 \label{fig:brdfmapsdiffrenderingapproaches}
 \end{figure}
 
@@ -155,7 +155,7 @@ Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdif
     \label{fig:brdfmapsDiffLambdaStepsL100Blaze}
   }
   
-\caption[BRDF Map varying step sizes FLSS Blazed Grating]{Blazed grating at $2.5 \mu m$: Different $\lambda$ step sizes}
+\caption[BRDF Map: Varying step sizes FLSS Blazed Grating]{Blazed grating at $2.5 \mu m$: Different $\lambda$ step sizes}
 \label{fig:brdfmapsdifflambdastepsblaze}
 \end{figure}
 
@@ -192,7 +192,7 @@ Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdif
     \label{fig:brdfmapsDiffLambdaStepsL100Elaphe65}
   }
   
-\caption[BRDF Map varying step sizes FLSS Elaphe Grating]{Elaphe grating at $65 \mu m$: Different $\lambda$ step sizes}
+\caption[BRDF Map: Varying step sizes FLSS Elaphe Grating]{Elaphe grating at $65 \mu m$: Different $\lambda$ step sizes}
 \label{fig:brdfmapsdifflambdastepselaphe65}
 \end{figure}
 
@@ -202,12 +202,12 @@ In genral, a Blazed Grating is manufactured in a way that a large fraction of th
 
 \begin{figure}[H]
   \centering
-  \subfigure[Full Lambda Sampling: Blazed grating]{
+  \subfigure[FLSS Approach: Blazed grating]{
     \includegraphics[scale=0.12]{results/PQapproach_vs_sampleAll/blaze/fftBlazeHeight_0.25Microns_allL_weak_scale_g=1.1.png}
     \label{fig:fullLambdaBlaze}
   }
 ~
-  \subfigure[Full Lambda Sampling brightened: Blazed grating]{
+  \subfigure[FLSS Approach brightened: Blazed grating]{
             \includegraphics[scale=0.12]{results/PQapproach_vs_sampleAll/blaze/fftBlazeHeight_0.25Microns_allL_weak_scale_g=2.2_scale=100.png}
     \label{fig:fullLambdaBrightenedBlaze}
   }
@@ -216,15 +216,13 @@ In genral, a Blazed Grating is manufactured in a way that a large fraction of th
     \includegraphics[scale=0.12]{results/PQapproach_vs_sampleAll/blaze/pq.png}
     \label{fig:pqBlaze}
   }
-  
-\caption{Blazed grating: PQ approach vs full lambda space sampling}
+\caption[BRDF Map: PQ vs FLSS Approach on Blazed Grating]{A comparison between the PQ- and the FLSS approach applied on an Blazed grating.}
 \label{fig:pqblaze}
 \end{figure}
 
-%pq elaphe
 \begin{figure}[H]
   \centering
-  \subfigure[Full Lambda Sampling: Elaphe grating]{
+  \subfigure[FLSS Approach: Elaphe grating]{
     \includegraphics[scale=0.2]{results/PQapproach_vs_sampleAll/elaphe/elaph65.png}
     \label{fig:fullLambdaElaphe}
   }
@@ -234,51 +232,48 @@ In genral, a Blazed Grating is manufactured in a way that a large fraction of th
     \label{fig:pqElaphe}
   }
 
-  
-\caption{Elaphe grating: PQ approach vs full lambda space sampling}
+\caption[BRDF Map: PQ vs FLSS Approach on Elaphe Grating]{A comparison between the PQ- and the FLSS approach applied on an Elaphe grating.}
 \label{fig:pqelaphe}
 \end{figure}
 
-%pq xeno
 \begin{figure}[H]
   \centering
-  \subfigure[Full Lambda Sampling: Xeno grating $\theta_i = 0 \degree$]{
+  \subfigure[FLSS Approach: Xenopeltis grating $\theta_i = 0 \degree$]{
     \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/a_xeno_t_i=0.png}
     \label{fig:fullLambdaXenoti0}
   }
 ~
-  \subfigure[PQ Approach: Xeno grating $\theta_i = 0 \degree$]{
+  \subfigure[PQ Approach: Xenopeltis grating $\theta_i = 0 \degree$]{
     \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/a_pq_t_i=0.png}
     \label{fig:pqXenoti0}
   }
 
-  \subfigure[Full Lambda Sampling: Xeno grating $\theta_i = 10 \degree$]{
+  \subfigure[FLSS Approach: Xenopeltis grating $\theta_i = 10 \degree$]{
     \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/b_xeno_t_i=10.png}
     \label{fig:fullLambdaXenoti10}
   }
 ~
-  \subfigure[PQ Approach: Xeno grating $\theta_i = 10 \degree$]{
+  \subfigure[PQ Approach: Xenopeltis grating $\theta_i = 10 \degree$]{
     \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/b_pq_t_i=10.png}
     \label{fig:pqXenoti10}
   }
   
-  \subfigure[Full Lambda Sampling: Xeno grating $\theta_i = 20 \degree $]{
+  \subfigure[FLSS Approach: Xenopeltis grating $\theta_i = 20 \degree $]{
     \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/c_xeno_t_i=20.png}
     \label{fig:fullLambdaXenoti20}
   }
 ~
-  \subfigure[PQ Approach: Xeno grating $\theta_i = 20 \degree $]{
+  \subfigure[PQ Approach: Xenopeltis grating $\theta_i = 20 \degree $]{
     \includegraphics[scale=0.19]{results/PQapproach_vs_sampleAll/xeno/c_pq_t_i=20.png}
     \label{fig:pqXenoti20}
   }
   
-\caption{Xeno grating: PQ approach vs full lambda space sampling}
+\caption[BRDF Map: PQ vs FLSS Approach on Xenopeltis Grating]{A comparison between the PQ- and the FLSS approach applied on an Xenopeltis grating.}
 \label{fig:pqxeno}
 \end{figure}
 
 Figure $\ref{fig:brdfmapsdiffsigmasizeblaze}$ shows BRDF maps for the full lambda sampling approach applied to the Blazed grating, while varying the value for the spatial variance $\sigma_s$. This akin to changing the coherence length for the incident light. The lower the coherence length, the fewer interacting grating periods produce blurred diffraction bands for different $\lambda$ which overlap to produce poorly resolved colors.
 
-%sigma var
 \begin{figure}[H]
   \centering
   \subfigure[$\sigma_{s=3.25 \mu m}$]{
@@ -311,8 +306,7 @@ Figure $\ref{fig:brdfmapsdiffsigmasizeblaze}$ shows BRDF maps for the full lambd
     \label{fig:brdfmapsDiffSigmaStepsL100Blaze}
   }
   
-  
-\caption{Blazed grating with periodicity of $2.5 \mu m$: Different $\sigma_s$}
+\caption[BRDF Map: Different $\sigma_s$]{Blazed grating with periodicity of $2.5 \mu m$: Different $\sigma_s$}
 \label{fig:brdfmapsdiffsigmasizeblaze}
 \end{figure}
 
@@ -377,7 +371,7 @@ In algorithm $\ref{alg:matlabprecomp}$ we compute the DFT terms of a provided he
   }
   
   
-\caption{Blazed grating at $2.5 \mu m$: $N$ Taylor Iterations}
+\caption[BRDF Map: Blazed Grating Convergence]{Blazed grating at $2.5 \mu m$: $N$ Taylor Iterations}
 \label{fig:brdfmapstayloriterationsblaze}
 \end{figure}
 
@@ -434,7 +428,7 @@ In algorithm $\ref{alg:matlabprecomp}$ we compute the DFT terms of a provided he
     \label{fig:brdfmapsTaylorN9Elaphe65}
   }
   
-\caption{Elaphe grating at $65 \mu m$: $N$ Taylor Iterations}
+\caption[BRDF Map: Elaphe Grating Convergence]{Elaphe grating at $65 \mu m$: $N$ Taylor Iterations}
 \label{fig:brdfmapstayloriterationselaphe65}
 \end{figure}
 
@@ -442,22 +436,22 @@ Figure $\ref{fig:brdfmapsxenodiffthetaiangles}$ shows the BRDF maps of the full 
 
 \begin{figure}[H]
   \centering
-  \subfigure[Xeno grating $\theta_i=0 \degree$]{
+  \subfigure[Xenopeltis grating $\theta_i=0 \degree$]{
     \includegraphics[scale=0.12]{results/different_theta_i_angles/xenopeltis/xeno_t_i=0.png}
     \label{fig:brdfmapXenoti0}
   }
 ~
-  \subfigure[Xeno grating $\theta_i=10 \degree$]{
+  \subfigure[Xenopeltis grating $\theta_i=10 \degree$]{
     \includegraphics[scale=0.12]{results/different_theta_i_angles/xenopeltis/xeno_t_i=10.png}
     \label{fig:brdfmapXenoti10}
   }
 ~
-  \subfigure[Xeno grating $\theta_i=20 \degree$]{
+  \subfigure[Xenopeltis grating $\theta_i=20 \degree$]{
     \includegraphics[scale=0.12]{results/different_theta_i_angles/xenopeltis/xeno_t_i=20.png}
     \label{fig:brdfmapXenoti20}
   }
   
-\caption{BRDF maps for Xeno grating: different $\theta_i$ angles}
+\caption[BRDF Map: Varying Viewing Angles]{BRDF maps for Xenopeltis grating: different $\theta_i$ angles}
 \label{fig:brdfmapsxenodiffthetaiangles}
 \end{figure}
 
