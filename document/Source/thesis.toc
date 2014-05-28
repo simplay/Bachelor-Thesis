@@ -2,7 +2,7 @@
 \contentsline {chapter}{\numberline {1}Results}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}BRDF maps}{1}{section.1.1}
 \contentsline {section}{\numberline {1.2}Rendering Surface Geometries}{12}{section.1.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{17}{figure.caption.21}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{17}{appendix*.22}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{18}{appendix*.23}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{19}{appendix*.24}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{19}{figure.caption.22}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{19}{appendix*.23}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{20}{appendix*.24}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{21}{appendix*.25}

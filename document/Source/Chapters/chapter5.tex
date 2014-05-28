@@ -427,6 +427,9 @@ Among all the snake species under consideration, their macroscopic geometry is h
     Processor & Intel i7 CPU 970 @ 3.20 GHz (12 CPUs) \\
     Memory & 12288 MB RAM \\
     Graphics Card & GeForce GTX 770 \\
+    Graphics Clock & 1150 MHz \\
+    Graphics Memory & 4096 MB \\
+    Graphics Memory Bandwidth & 230.4 $GB/s$ MHz \\
     \hline  
   \end{tabular}
 \caption[Hardware Specifications]{Hardware specifications of the machine used to render snake surface. Statistics are provided using the tool $\emph{NVIDIA Geforce Experience}$.}
@@ -442,17 +445,17 @@ In contrast, For both the renderings, we see colorful patterns on the skin of ou
 \begin{figure}[H]
   \centering
   \subfigure[Blazed grating]{
-    \includegraphics[scale=0.12]{results/snakerenderings/compars/blaze.png}
+    \includegraphics[scale=0.16]{nresults/snakerenderings/flss_gratings/blazed1552.png}
     \label{fig:renderingblazegrating}
   }
 ~
   \subfigure[Elaphe grating]{
-    \includegraphics[scale=0.12]{results/snakerenderings/compars/elaphe65.png}
+    \includegraphics[scale=0.16]{nresults/snakerenderings/flss_gratings/elaphe.png}
     \label{fig:renderingelaphegrating}
   }
 ~
   \subfigure[Xeno grating]{
-    \includegraphics[scale=0.12]{results/snakerenderings/compars/xeno65.png}
+    \includegraphics[scale=0.16]{nresults/snakerenderings/flss_gratings/xeno.png}
     \label{fig:renderingxenograting}
   }
   
@@ -475,17 +478,17 @@ Figure $\ref{fig:renderingelaphe65}$ shows a set of subfigures for rendering the
   }
 
   \subfigure[Texture with Light Direction]{
-    \includegraphics[scale=0.12]{results/snakerenderings/elaphe65/3.png}
+    \includegraphics[scale=0.2]{nresults/viewingcone.png}
     \label{fig:renderingelaphe65tl}
   }
 ~
   \subfigure[Nanostructure]{
-    \includegraphics[scale=0.10]{results/snakerenderings/elaphe65/4.png}
+    \includegraphics[scale=0.11]{results/snakerenderings/elaphe65/4.png}
     \label{fig:renderingelaphe65ns}
   }
 ~ 
-  \subfigure[Fourier Transform]{
-    \includegraphics[scale=0.52]{results/snakerenderings/elaphe65/5.png}
+  \subfigure[8th DTF Term]{
+    \includegraphics[scale=0.31]{nresults/elaphe8dft.png}
     \label{fig:renderingelaphe65ft}
   }
   
@@ -499,61 +502,45 @@ Figure $\ref{fig:renderingxeno65}$ shows a set of subfigures for the effect of d
 \begin{figure}[H]
   \centering
   \subfigure[Diffraction Patten]{
-    \includegraphics[scale=0.2]{results/snakerenderings/xeno65/1.png}
+    \includegraphics[scale=0.5]{results/snakerenderings/xeno65/1.png}
     \label{fig:renderingXeno65DP}
   }
-~
+
   \subfigure[Nanostructure]{
-    \includegraphics[scale=0.075]{results/snakerenderings/xeno65/4.png}
+    \includegraphics[scale=0.08]{results/snakerenderings/xeno65/4.png}
     \label{fig:renderingXeno65NS}
   }
 ~ 
-  \subfigure[Fourier Transform]{
-    \includegraphics[scale=0.52]{results/snakerenderings/xeno65/5.png}
+  \subfigure[3th DTF Term]{
+    \includegraphics[scale=0.3]{nresults/xeno3dft.png}
     \label{fig:renderingXeno65FT}
   }
 \caption[Snake Renderings: FLSS Approach for Xenopeltis Grating]{Diffraction for Xenopeltis snake skin produced by our reference approach.}
 \label{fig:renderingxeno65}
 \end{figure}
 
-Figure $\ref{fig:renderingdifferentzoomlevelselaphe}$ shows the diffraction pattern for Elaphe snake shed at different zoom levels for fixed incident light and viewing direction. The close up perspectives exhibit complex and colorful diffraction patterns.
+Figure $\ref{fig:renderingdifferentzoomlevelselaphe}$ shows the diffraction pattern for Elaphe snake shed at different zoom levels for fixed incident light and viewing direction. We changed the zoom-levels by adjusting the field of view angle of our camera. For each image in this figure, the one to its right side is a five times zoomed-in version of the region within its red box. The close up perspectives exhibit complex and colorful diffraction patterns. 
 
 \begin{figure}[H]
   \centering
-  \subfigure[$zoom = 0.1$]{
-    \includegraphics[scale=0.2]{results/snakerenderings/zoomIn/elaphe65/0.1.png}
-    \label{fig:renderingZoomElaphe01}
-  }
-~
-  \subfigure[$zoom = 0.2$]{
-    \includegraphics[scale=0.2]{results/snakerenderings/zoomIn/elaphe65/0.2.png}
-    \label{fig:renderingZoomElaphe02}
-  }
-  
-  \subfigure[$zoom = 0.5$]{
-    \includegraphics[scale=0.2]{results/snakerenderings/zoomIn/elaphe65/0.5.png}
+  \subfigure[$zoom = 1$]{
+    \includegraphics[scale=0.2]{nresults/snakerenderings/flss_elaphe_zoom/10.png}
     \label{fig:renderingZoomElaphe05}
   }
 ~
-  \subfigure[$zoom = 1.0$]{
-    \includegraphics[scale=0.2]{results/snakerenderings/zoomIn/elaphe65/1.png}
-    \label{fig:renderingZoomElaphe1}
+  \subfigure[$zoom = 5x$]{
+    \includegraphics[scale=0.2]{nresults/snakerenderings/flss_elaphe_zoom/5.png}
+    \label{fig:renderingZoomElaphe02}
   }
-  
-  \subfigure[$zoom = 1.5$]{
-    \includegraphics[scale=0.2]{results/snakerenderings/zoomIn/elaphe65/1.5.png}
-    \label{fig:renderingZoomElaphe15}
-  }
-~
-  \subfigure[$zoom = 2.0$]{
-    \includegraphics[scale=0.2]{results/snakerenderings/zoomIn/elaphe65/2.png}
-    \label{fig:renderingZoomElaphe2}
+~  
+  \subfigure[$zoom = 25x$]{
+    \includegraphics[scale=0.15]{nresults/snakerenderings/flss_elaphe_zoom/1.png}  
+    \label{fig:renderingZoomElaphe01}
   }
   
 \caption[Snake Renderings: FLSS Approach for a varying FoV]{Diffraction on Elaphe snake skin grating: Different camera zoom levels by varying the field of view.}
 \label{fig:renderingdifferentzoomlevelselaphe}
 \end{figure}
-
 
 Figure $\ref{fig:renderingelaphelightrotations6}$ shows how the diffraction pattern changes when the incident light direction is moved slightly. This Figure gives us an impression what kind of complex, perspective-dependent pattern the diffraction phenomenon produces.
 
@@ -561,32 +548,32 @@ Figure $\ref{fig:renderingelaphelightrotations6}$ shows how the diffraction patt
 \begin{figure}[H]
   \centering
   \subfigure[$(-3.3130, 0.0, -0.9999)$]{
-    \includegraphics[scale=0.12]{results/snakerenderings/rotateLight/elaphe65/moveX/2.png}
+    \includegraphics[scale=0.15]{nresults/snakerenderings/flss_xeno_lightdir/1/1.png}
     \label{fig:renderingElapheRotX2}
   }
 ~
   \subfigure[$(-0.1989, 0.0, -0.9799)$]{
-    \includegraphics[scale=0.12]{results/snakerenderings/rotateLight/elaphe65/moveX/4.png}
+    \includegraphics[scale=0.15]{nresults/snakerenderings/flss_xeno_lightdir/1/2.png}
     \label{fig:renderingElapheRotX4}
   }
 ~
   \subfigure[$(-0.3897, 0.0, -0.9208)$]{
-    \includegraphics[scale=0.12]{results/snakerenderings/rotateLight/elaphe65/moveX/6.png}
+    \includegraphics[scale=0.15]{nresults/snakerenderings/flss_xeno_lightdir/1/3.png}
     \label{fig:renderingElapheRotX6}
   }
   
   \subfigure[$(0.0995, 0.0993, -0.9900)$]{
-    \includegraphics[scale=0.12]{results/snakerenderings/rotateLight/elaphe65/moveY/2.png}
+    \includegraphics[scale=0.15]{nresults/snakerenderings/flss_xeno_lightdir/2/2.png}
     \label{fig:renderingElapheRotY2}
   }
 ~
   \subfigure[$(0.0995, 0.2940, -0.9505)$]{
-    \includegraphics[scale=0.12]{results/snakerenderings/rotateLight/elaphe65/moveY/4.png}
+    \includegraphics[scale=0.15]{nresults/snakerenderings/flss_xeno_lightdir/2/3.png}
     \label{fig:renderingElapheRotY4}
   }
 ~
   \subfigure[$(0.0995, 0.4770, -0.8731)$]{
-    \includegraphics[scale=0.12]{results/snakerenderings/rotateLight/elaphe65/moveY/6.png}
+    \includegraphics[scale=0.15]{nresults/snakerenderings/flss_xeno_lightdir/2/4.png}
     \label{fig:renderingElapheRotY6}
   }
   
@@ -600,5 +587,29 @@ Figure $\ref{fig:experimentelaphe65}$ shows a photo of an experimental setup for
   \includegraphics[scale=0.2]{results/experiment/elaphe/g2.png}
   \caption{Diffraction Elaphe: experimental setup}
   \label{fig:experimentelaphe65}
+\end{figure}
+
+
+% TODO write some text for below's figure
+
+\begin{figure}[H]
+  \centering
+  \subfigure[Xenopeltis Image]{
+    \includegraphics[scale=0.42]{nresults/snakerenderings/gem_flss_xeno/xeno.png}
+    \label{fig:xenopeltisrealimage}
+  }
+
+  \subfigure[FLSS]{
+    \includegraphics[scale=0.25]{nresults/snakerenderings/gem_flss_xeno/flss.png}
+    \label{fig:flssattemptxeno}
+  }
+~  
+  \subfigure[Stam]{
+    \includegraphics[scale=0.25]{nresults/snakerenderings/gem_flss_xeno/gem.png}  
+    \label{fig:gemattemptxeno}
+  }
+  
+\caption[Snake Renderings: Stam's- vs. Flss- Approach on Xenopeltis]{Attempt to reproduce a real world image: FLSS- vs Stam's Approach}
+\label{fig:attemptxeno}
 \end{figure}
 
