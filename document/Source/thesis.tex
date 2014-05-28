@@ -87,7 +87,7 @@
 
 \noindent
 %abstract
-In nature, color production is the result of physical interaction of light with a surface's nanostructure. In his pioneering work, Stam developed limited reflection models based on wave optics, capturing the effect of diffraction on very regular surface structures. We propose an adaption of his BRDF model that can handle complex natural gratings. On top of this, we describe a technique for interactively rendering diffraction effects, as a result of physical interaction of light with biological nano-structures such as snake skin. As input data, our method uses discrete height fields of natural gratings acquired by using atomic force microscopy (AFM). Based on Taylor Series approximation, we leverages precomputation to achieve interactive rendering performance (about 5-15 fps). We demonstrate results of our approach using surface nano-structures of different snake species applied on a measured snake geometry. Lastly, we evaluate the quality of our method by a comparison of the maxima for peak viewing angles using the data produced by our method against the maxima of the grating equation.
+In nature, animals exhibit structural colors due to physical interaction of light with their exterior skin's surface nanostructure. In his pioneering work, J.Stam developed a reflectance models based on wave optics, capturing the effect of diffraction from surface nanostructures. His model is limited by an accurate estimate of the correlation function using statistical properties of the surface's height field. We propose an adaption of his BRDF model that can handle complex natural gratings. Furthermore, we describe a technique for interactively rendering of diffraction effects due to interaction of light with biological nano-structures such as snake skin. As input data, our method uses discrete height fields of natural gratings acquired by using atomic force microscopy (AFM) and employ Fourier Optics. Based on Taylor Series approximation for the phase shifts at the nanoscale surface, we leverage the precomputation of the discrete Fourier Transformations, involved in our model, to achieve interactive rendering speed (about 5-15 fps). We demonstrate results of our approach using surface nano-structures of two snake species, namely the Elaphe and Xenopeltis species, when applied to a measured snake geometry. Lastly, we evaluate the quality of our method by comparing its (peak) viewing angles with maximum reflectance for a fixed incident beam with those resulting from the grating equation at different wavelengths. We conclude that our method produces accurate results for complex, natural gratings at interactive speed.
 
 \pagenumbering{roman} \setcounter{page}{1}
 \tableofcontents
@@ -110,11 +110,11 @@ In nature, color production is the result of physical interaction of light with 
 % \include{Chapters/chapter3}
 % \newpage{\pagestyle{empty} \cleardoublepage}
 
-\include{Chapters/chapter4}
-\newpage{\pagestyle{empty} \cleardoublepage}
-% % 
-% \include{Chapters/chapter5}
+% \include{Chapters/chapter4}
 % \newpage{\pagestyle{empty} \cleardoublepage}
+% % 
+\include{Chapters/chapter5}
+\newpage{\pagestyle{empty} \cleardoublepage}
 % % 
 % \include{Chapters/chapter6}
 % \newpage{\pagestyle{empty} \cleardoublepage}
