@@ -1,7 +1,7 @@
 This is BibTeX, Version 0.99d (TeX Live 2013)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis.aux
-A level-1 auxiliary file: Chapters/chapter6.aux
+A level-1 auxiliary file: Chapters/chapter5.aux
 The style file: alphadin.bst
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
@@ -13,75 +13,81 @@ Repeated entry---line 45 of file thesis.bib
  : @article{struccolor
  :                    ,
 I'm skipping whatever remains of this entry
-Too many commas in name 1 of "D. S. Dhillon, J. Teyssier, M. Single, I. Gaponenko, M. C. Milinkovitch, M. Zwicker" for entry daljitpaper
+Too many commas in name 1 of "D.S.Dhillon, J.Teyssier, M.Single, I.Gaponenko, M.C. Milinkovitch, M.Zwicker" for entry daljitpaper
 while executing---line 2132 of file alphadin.bst
-Too many commas in name 1 of "D. S. Dhillon, J. Teyssier, M. Single, I. Gaponenko, M. C. Milinkovitch, M. Zwicker" for entry daljitpaper
+Too many commas in name 1 of "D.S.Dhillon, J.Teyssier, M.Single, I.Gaponenko, M.C. Milinkovitch, M.Zwicker" for entry daljitpaper
 while executing---line 2132 of file alphadin.bst
-Too many commas in name 1 of "D. S. Dhillon, J. Teyssier, M. Single, I. Gaponenko, M. C. Milinkovitch, M. Zwicker" for entry daljitpaper
+Too many commas in name 1 of "D.S.Dhillon, J.Teyssier, M.Single, I.Gaponenko, M.C. Milinkovitch, M.Zwicker" for entry daljitpaper
 while executing---line 2132 of file alphadin.bst
-Too many commas in name 1 of "D. S. Dhillon, J. Teyssier, M. Single, I. Gaponenko, M. C. Milinkovitch, M. Zwicker" for entry daljitpaper
+Too many commas in name 1 of "D.S.Dhillon, J.Teyssier, M.Single, I.Gaponenko, M.C. Milinkovitch, M.Zwicker" for entry daljitpaper
 while executing---line 2132 of file alphadin.bst
-Too many commas in name 1 of "D. S. Dhillon, J. Teyssier, M. Single, I. Gaponenko, M. C. Milinkovitch, M. Zwicker" for entry daljitpaper
+Too many commas in name 1 of "D.S.Dhillon, J.Teyssier, M.Single, I.Gaponenko, M.C. Milinkovitch, M.Zwicker" for entry daljitpaper
 while executing---line 2132 of file alphadin.bst
-Too many commas in name 1 of "D. S. Dhillon, J. Teyssier, M. Single, I. Gaponenko, M. C. Milinkovitch, M. Zwicker" for entry daljitpaper
+Too many commas in name 1 of "D.S.Dhillon, J.Teyssier, M.Single, I.Gaponenko, M.C. Milinkovitch, M.Zwicker" for entry daljitpaper
 while executing---line 2132 of file alphadin.bst
-Too many commas in name 1 of "D. S. Dhillon, J. Teyssier, M. Single, I. Gaponenko, M. C. Milinkovitch, M. Zwicker" for entry daljitpaper
+Too many commas in name 1 of "D.S.Dhillon, J.Teyssier, M.Single, I.Gaponenko, M.C. Milinkovitch, M.Zwicker" for entry daljitpaper
+while executing---line 2132 of file alphadin.bst
+Too many commas in name 1 of "D.S.Dhillon, J.Teyssier, M.Single, I.Gaponenko, M.C. Milinkovitch, M.Zwicker" for entry daljitpaper
+while executing---line 2132 of file alphadin.bst
+Too many commas in name 1 of "D.S.Dhillon, J.Teyssier, M.Single, I.Gaponenko, M.C. Milinkovitch, M.Zwicker" for entry daljitpaper
+while executing---line 2132 of file alphadin.bst
+Too many commas in name 1 of "D.S.Dhillon, J.Teyssier, M.Single, I.Gaponenko, M.C. Milinkovitch, M.Zwicker" for entry daljitpaper
 while executing---line 2205 of file alphadin.bst
-Too many commas in name 1 of "D. S. Dhillon, J. Teyssier, M. Single, I. Gaponenko, M. C. Milinkovitch, M. Zwicker" for entry daljitpaper
+Too many commas in name 1 of "D.S.Dhillon, J.Teyssier, M.Single, I.Gaponenko, M.C. Milinkovitch, M.Zwicker" for entry daljitpaper
 while executing---line 2205 of file alphadin.bst
-Too many commas in name 1 of "D. S. Dhillon, J. Teyssier, M. Single, I. Gaponenko, M. C. Milinkovitch, M. Zwicker" for entry daljitpaper
+Too many commas in name 1 of "D.S.Dhillon, J.Teyssier, M.Single, I.Gaponenko, M.C. Milinkovitch, M.Zwicker" for entry daljitpaper
 while executing---line 2205 of file alphadin.bst
-Too many commas in name 1 of "D. S. Dhillon, J. Teyssier, M. Single, I. Gaponenko, M. C. Milinkovitch, M. Zwicker" for entry daljitpaper
+Too many commas in name 1 of "D.S.Dhillon, J.Teyssier, M.Single, I.Gaponenko, M.C. Milinkovitch, M.Zwicker" for entry daljitpaper
 while executing---line 2205 of file alphadin.bst
-Too many commas in name 1 of "D. S. Dhillon, J. Teyssier, M. Single, I. Gaponenko, M. C. Milinkovitch, M. Zwicker" for entry daljitpaper
+Too many commas in name 1 of "D.S.Dhillon, J.Teyssier, M.Single, I.Gaponenko, M.C. Milinkovitch, M.Zwicker" for entry daljitpaper
 while executing---line 2205 of file alphadin.bst
-Too many commas in name 1 of "D. S. Dhillon, J. Teyssier, M. Single, I. Gaponenko, M. C. Milinkovitch, M. Zwicker" for entry daljitpaper
+Too many commas in name 1 of "D.S.Dhillon, J.Teyssier, M.Single, I.Gaponenko, M.C. Milinkovitch, M.Zwicker" for entry daljitpaper
 while executing---line 2205 of file alphadin.bst
-Too many commas in name 1 of "D. S. Dhillon, J. Teyssier, M. Single, I. Gaponenko, M. C. Milinkovitch, M. Zwicker" for entry daljitpaper
+Too many commas in name 1 of "D.S.Dhillon, J.Teyssier, M.Single, I.Gaponenko, M.C. Milinkovitch, M.Zwicker" for entry daljitpaper
 while executing---line 2205 of file alphadin.bst
-Too many commas in name 1 of "D. S. Dhillon, J. Teyssier, M. Single, I. Gaponenko, M. C. Milinkovitch, M. Zwicker" for entry daljitpaper
+Too many commas in name 1 of "D.S.Dhillon, J.Teyssier, M.Single, I.Gaponenko, M.C. Milinkovitch, M.Zwicker" for entry daljitpaper
 while executing---line 2205 of file alphadin.bst
-Too many commas in name 1 of "D. S. Dhillon, J. Teyssier, M. Single, I. Gaponenko, M. C. Milinkovitch, M. Zwicker" for entry daljitpaper
+Too many commas in name 1 of "D.S.Dhillon, J.Teyssier, M.Single, I.Gaponenko, M.C. Milinkovitch, M.Zwicker" for entry daljitpaper
 while executing---line 2205 of file alphadin.bst
 You've used 15 entries,
             4793 wiz_defined-function locations,
-            969 strings with 7809 characters,
-and the built_in function-call counts, 8046 in all, are:
-= -- 833
+            969 strings with 7801 characters,
+and the built_in function-call counts, 8004 in all, are:
+= -- 827
 > -- 120
-< -- 192
-+ -- 186
+< -- 187
++ -- 180
 - -- 38
-* -- 490
-:= -- 1285
+* -- 487
+:= -- 1277
 add.period$ -- 21
 call.type$ -- 15
 change.case$ -- 60
-chr.to.int$ -- 14
+chr.to.int$ -- 15
 cite$ -- 15
 duplicate$ -- 263
 empty$ -- 696
-format.name$ -- 81
-if$ -- 1701
-int.to.chr$ -- 2
+format.name$ -- 82
+if$ -- 1695
+int.to.chr$ -- 1
 int.to.str$ -- 0
 missing$ -- 64
 newline$ -- 99
 num.names$ -- 45
-pop$ -- 98
+pop$ -- 99
 preamble$ -- 1
 purify$ -- 90
 quote$ -- 0
-skip$ -- 426
+skip$ -- 422
 stack$ -- 0
-substring$ -- 733
+substring$ -- 727
 swap$ -- 42
 text.length$ -- 38
-text.prefix$ -- 6
+text.prefix$ -- 7
 top$ -- 0
 type$ -- 114
 warning$ -- 0
 while$ -- 53
-width$ -- 19
+width$ -- 18
 write$ -- 206
-(There were 16 error messages)
+(There were 19 error messages)
