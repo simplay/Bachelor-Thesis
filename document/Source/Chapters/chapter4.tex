@@ -135,21 +135,39 @@ R = \{response(\lambda_i, \theta_{r}^{j}) | i \in Index(\Lambda), \quad j \in In
 
 We will plot this matrix and compare its graph against the grating equation for similar condition like in stated in algorithm $\ref{alg:evalmatlab}$.
 
+
+
+
 \begin{algorithm}[H]
-  \caption{Vertex diffraction shader}
-  \begin{algorithmic}
-    \State{load matrix $R$ $\ref{eq:responsematrix}$}
-    \State $ \lambda_{count} = |\Lambda| $
-    \State $ \lambda_{inc} = \frac{\lambda_{max}-\lambda_{min}}{\lambda_{count}}$
-    \State $ \lambda = \lambda_{min} + \lambda_{inc} \cdot (-1+[1:\lambda_{count}])$
-    \State $ [maxC maxI] = max(R)$
-    \State $ viewAngForMax = angMin + angInc \cdot (maxI-1)$
-    \State $ thetaV = asin \left( \frac{\lambda}{d} - \sin \left(  \frac{\theta_I \pi}{180} \right) \right) \cdot \frac{180}{\pi}$
-    \State $ plot(\lambda, viewAngForMax)$
-    \Comment{graph resulting by our brdf model}
-    \State $ plot(lambda, thetaV)$
-    \Comment{graph resulting by grating equation}
+\caption{BRDF Evaluation Graph Plotter}
+\begin{table}[H]
+  \begin{tabular}{@{}lll@{}}
+    \textbf{Input:} & $R$ Matrix with $BRDF$ intensivity values of $(\Lambda, \Theta)$ grid \\
+    & $\Lambda$ discretized wavelength space used to compute $R$ \\
+    & $(\alpha_{min})$ minimum value of viewing angle space $\Theta$ \\
+    & $(\alpha_{step})$ discretization level of viewing angle space $\Theta$ \\
+    & $d$ estimated periodicity of height field \\
+    & $\theta_i$ fixed incident angle \\
+    \textbf{Procedure:} & $getMaxIntensGridPointsOf(matrix)$ get indices for largest intensivity in matrix \\
+    \textbf{Output:} & Evaluation Plot of given BRDF model applied on given heightfield \\
+  \end{tabular} 
+\end{table}
+\setlength{\fboxrule}{0pt} 
+\begin{boxedminipage}{1.0\textwidth}
+  \begin{algorithmic}[1]
+    \ForAll{$\lambda_k \in \Lambda$}
+      \State $(\widetilde{\lambda}, \widetilde{\alpha}) = getMaxIntensGridPointsOf(R)$
+      \Comment{$\widetilde{\lambda}$ $\equiv$ wavelength, $\widetilde{\alpha}$ $\equiv$ viewing angle of max. R}
+      \State $\widetilde{\alpha}_{r_k} = \alpha_{min} + \alpha_{step} \cdot \widetilde{\alpha}$
+      \State $\theta_{r_k} = asin\left( \frac{\lambda}{d} - sin(\theta_i) \right)$
+      \State $plot(\lambda_k, \widetilde{\alpha}_{r_k})$
+      \Comment{graph resulting by our BRDF model}
+      \State $plot(\lambda_k, \theta_{r_k})$
+      \Comment{graph resulting by grating equation}
+    \EndFor
   \end{algorithmic}
+  \end{boxedminipage}
+  \vskip1.5pt
 \label{alg:evalmatlab}
 \end{algorithm}
 
