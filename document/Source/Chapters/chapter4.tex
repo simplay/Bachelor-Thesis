@@ -208,16 +208,15 @@ Algorithm $\ref{alg:evalmatlab}$ iterates over the wavelength space $\Lambda$ an
 In this section we discuss the quality of our BRDF models applied to different surface structures. For that purpose we compare the resulting relative reflectance computed as described in section $\ref{sec:evalprecomp}$ for each of our BRDF models to the idealized grating equation $\ref{eq:gratingeq}$. 
 
 \begin{table}[H]
-  \centering
-  \begin{tabular}{| c | c | c | c | c | }
-    \hline                       
-    Patch & Mean[mm] & Variance[mm] & Mean[mm] & Variance[mm] \\
-    \hline
-    Blazed grating $\ref{fig:blazegratingpatch}$ & 2499.997 & 0.377 & 2499.997 & 0.377 \\
-    Elaphe grating $\ref{fig:elpahegratingpatch}$ & 1144.262 & 0.401 & 1144.179 & 0.677\\
-    Xenopeltis grating $\ref{fig:xenogratingpatch}$ & 1552.27 & 0.45 & - & - \\
-    \hline  
-  \end{tabular}
+\centering
+\begin{tabular}{l|c|c|c|c|c|c|}
+\cline{2-7}
+                                         & \multicolumn{2}{c|}{FLSS} & \multicolumn{2}{c|}{NMM} & \multicolumn{2}{c|}{PQ} \\ \cline{2-7} 
+                                         & mean        & variance    & mean        & variance   & mean       & variance   \\ \hline
+\multicolumn{1}{|l|}{Blazed Grating}     & 2499.997    & 0.377       & 2499.997    & 0.377      & 2491.861   & 248.044    \\ \hline
+\multicolumn{1}{|l|}{Elpahe Grating}     & 1144.262    & 0.401       & 1144.179    & 0.677      & 1052.308   & 49.678     \\ \hline
+\multicolumn{1}{|l|}{Xenopeltis Grating} & 1552.27     & 0.45        & -           & -          & -          & -          \\ \hline
+\end{tabular}
 \caption[Estimated Grating Spacings]{Statistics of periodicity $d$ of our used gratings $\ref{fig:gratingpatches}$ estimated$\footnotemark$ by using the grating equation $\ref{eq:gratingeq}$.}
 \label{tab:gratingsmeanvariance}
 \end{table}
