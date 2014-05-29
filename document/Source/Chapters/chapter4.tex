@@ -201,7 +201,7 @@ Algorithm $\ref{alg:evalmatlab}$ iterates over the wavelength space $\Lambda$ an
   \label{fig:elapheeval}
 }
 
-\caption[Validation of FLSS Approach applied on our Gratings]{Reflectance obtained by using the shading approach described in algorithm $\ref{alg:fragmentshaderall}$ simulating a BRDF which models the effect of diffraction at different viewing angles over the spectrum of visible light.}
+\caption[Validation of FLSS Approach applied on our Gratings]{Reflectance obtained by using the FLSS approach described in algorithm $\ref{alg:fragmentshaderall}$.}
 \label{fig:evaluationdiffshaderalllambda}
 \end{figure}
 
@@ -218,18 +218,25 @@ In this section we discuss the quality of our BRDF models applied to different s
     Xenopeltis grating $\ref{fig:xenogratingpatch}$ & 1552.27 & 0.45 & - & - \\
     \hline  
   \end{tabular}
-\caption[Estimated Grating Spacings]{Statistics of periodicity $d$ of our used gratings $\ref{fig:gratingpatches}$ estimated by using the grating equation $\ref{eq:gratingeq}$. This table was provided by Mr. D.Singh.}
+\caption[Estimated Grating Spacings]{Statistics of periodicity $d$ of our used gratings $\ref{fig:gratingpatches}$ estimated$\footnotemark$ by using the grating equation $\ref{eq:gratingeq}$.}
 \label{tab:gratingsmeanvariance}
 \end{table}
+\footnotetext{This tabulated periodicity values are estimates similarly like described in the evaluation section of D.S.Dhillon's paper $\cite{daljitpaper}$.} 
 
-%TODO mention how these values have been estimated
-%TODO mention that xenopeltis values have been taken from daljits results
+Figure $\ref{fig:evaluationdiffshaderalllambda}$ shows the reflectance graphs resulting by the FLSS approach descriped in algorithm $\ref{alg:fragmentshaderall}$. This evaluation was applied to a idealized periodic structures, namely to the Blaze- $\ref{fig:blazeval}$ and to two natural gratings, the Elaphe- $\ref{fig:elapheeval}$ and Xenopeltis grating $\ref{fig:xenopeltiseval}$. For all our evaluation plots, we used an illumination angle of $\theta_i$ equal to $75\degree$. \\
 
-Figure $\ref{fig:evaluationdiffshaderalllambda}$ shows the reflectance graphs resulting by the shading approach of sampling the whole lambda space descriped in algorithm $\ref{alg:fragmentshaderall}$. This evaluation has been applied to different idealized periodic structures, namely to the Blaze- $\ref{fig:blazeval}$, Elaphe- $\ref{fig:elapheeval}$ and Xenopeltis grating $\ref{fig:xenopeltiseval}$, using an illumination angle $\theta_i = 75$ degrees. Note that higher response values are plotted in yellow and lower values in green. For each of the graphs we determine the viewing angles with peak reflectance for various wavelengths and then plot this peak viewing angles against their wavelength as solid red curves. The blue curve represents diffraction angles for an idealized periodic structure with a certain periodicity $d$ according to the grating equation $\ref{eq:gratingeq}$. The corresponding periodicity for every grating structure is estimated using the precomputed response data using again the grating equation and are tabulated in table $\ref{tab:gratingsmeanvariance}$. 
+Note that higher response values are plotted in yellow and lower values in green. For each of the graphs we determine the viewing angles with peak reflectance for each wavelength and then plot these peak viewing angles versus corresponding wavelengths as solid red curves. The blue curve represents diffraction angles for an idealized periodic structure with a certain periodicity $d$ according to the grating equation $\ref{eq:gratingeq}$. \\
 
-The red and blue curve are closely overlapping in our figures $\ref{fig:blazeval}$ and $\ref{fig:elapheeval}$. For Blaze and Elaphe there is only diffraction along only along one direction perceivable. Since the Blazed grating is synthetic we use its exact periodicity to plot the blue curve instead of estimating it. The Xenopeltis grating is evaluated just along the direction for the finger like structures. For Xenopeltis it is interesting to see that the red curve for the peak viewing angle toggles between two ridges corresponding to two different periodicities. this happens because there are multiple sub regions of the nanostructure with slightly different orientations and periodicity. Each sub region carves out a different yellowish ridge. depending on the viewing angle, reflectance due to one such subregion can be higher than from the others.
+By rearranging the terms of the grating equation defined in equation $\ref{eq:gratingeq}$ and using the peek reflectance angle $\theta_{r_k}$ derived like in algorithm $\ref{alg:evalmatlab}$ using the matrix R of equation $\ref{eq:responsematrix}$, we can compute a periodicity vale $d_k$ for any wavelength $\lambda_k$.  
+\begin{equation}
+  d_k = \frac{\lambda}{sin(\theta_{r_k}) + sin(\theta_i)}
+\end{equation}
 
-Figure $\ref{fig:evaluationdiffshadernminmax}$ shows the evaluation plots for the $(N_{min},N_{max})$ shading approach which integrates over a reduced wavelength spectrum applied to the Blaze- $\ref{fig:elapheneval}$ and the Elaphe-grating $\ref{fig:elapheneval}$. This optimization approach is mentioned within the discussion section of the implementation chapter $\ref{sec:impldiscus}$ as a run-time complexity enhancement of the whole lambda space sampling approach $\ref{fig:evaluationdiffshaderalllambda}$. The response curve again closely matches the corresponding grating equation curve for both evaluation graphs and also look similar to the corresponding evaluation plots when integrating over the whole lambda space shown previously in figure $\label{ref:evaluationdiffshaderalllambda}$. Therefore we may assume this optimization to be valid. 
+By computing the mean value of these $d_k$ values for all $\lambda$ in $\Lambda$ we can compute an estimated periodicity value $d$. We estimated these periodicity values for every grating structure and every method we are using. Thes corresponding periodicity values tabulated in table $\ref{tab:gratingsmeanvariance}$. \\
+
+The red and blue curve are closely overlapping in our figures $\ref{fig:blazeval}$ and $\ref{fig:elapheeval}$. For Blaze and Elaphe there is only diffraction along only along one direction perceivable. Since the Blazed grating is synthetic we use its exact periodicity to plot the blue curve instead of estimating it. The Xenopeltis grating is evaluated just along the direction for the finger like structures. For Xenopeltis it is interesting to see that the red curve for the peak viewing angle toggles between two ridges corresponding to two different periodicities. this happens because there are multiple sub regions of the nanostructure with slightly different orientations and periodicity. Each sub region carves out a different yellowish ridge. depending on the viewing angle, reflectance due to one such subregion can be higher than from the others. \\
+
+Figure $\ref{fig:evaluationdiffshadernminmax}$ shows the evaluation plots for the NMM approach applied to the Blazed- (see figure $\ref{fig:elapheneval}$) and the Elaphe-grating (see figure $\ref{fig:elapheneval}$). The NMM approach is an optimization of the FLSS approach and is discussion in section $\ref{sec:nmmapproach}$. The response curve of each plotted NMM approach graph closely matches the corresponding grating equation curve. Furthermore, the evaluation graphs of the NMM approach look similar to the corresponding evaluation plots of the FLSS approach shown in figure $\label{ref:evaluationdiffshaderalllambda}$. Thus, this confirms that the NMM optimization works well.
 
 \begin{figure}[H]
   \centering
@@ -242,11 +249,11 @@ Figure $\ref{fig:evaluationdiffshadernminmax}$ shows the evaluation plots for th
     \includegraphics[scale=0.26]{evaluation/verification/nmm_elaphe.png}
     \label{fig:elapheneval}
   }
-\caption{Reflectance obtained using $N_{min} N_{max}$ optimization apporach}
+\caption[Validation of NMM Approach applied on our Gratings]{Reflectance obtained using NMM optimization apporach.}
 \label{fig:evaluationdiffshadernminmax}
 \end{figure}
 
-Last let us consider the evaluation graphs of the PQ approach $\ref{alg:sincinterpolation}$ in figure $\ref{fig:evaluationdiffshaderpq}$. The PQ approach assumes the given grating being periodically distributed on a shape's surface. For this approach we have plotted evaluation graphs of the Blaze- $\ref{fig:blazepqeval}$ and Elaphe grating $\ref{fig:elaphepqeval}$. For both graphs their response curves have some similarities but also some differences compared to their corresponding grating equation curve. We could say that the response curve of the blaze grating is weakly oscillating around the grating equation curve (blue) but basically following it even there are some outliers. The response curve of the Elpahe grating is not following its corresponding first order grating equation curve rather another response curve for the PQ approach. This could be due to the assumption of the PQ approach that a given patch must be periodically distributed along the surface which is actually not that case. Nevertheless, the red curve fits one of the response curves. 
+Last, let us consider the evaluation graphs in figure $\ref{fig:evaluationdiffshaderpq}$ for the PQ approach described in algorithm $\ref{alg:sincinterpolation}$. The PQ approach assumes the given grating being periodically distributed on the surface of a shape. For this approach we have plotted evaluation graphs of the Blaze- (See figure $\ref{fig:blazepqeval}$) and Elaphe grating (See figure $\ref{fig:elaphepqeval}$). The response curves of both PQ evaluation graphs exhibit some similarities, but also some differences, compared to their corresponding grating equation curve. We could say that the response curve of the blaze grating is weakly oscillating around the grating equation curve (blue), but basically following it even there are some outliers. The response curve of the Elpahe grating is not following its corresponding first order grating equation curve well. This could be due to the PQ's assumption that a given height field has to be periodically distributed along the surface. But in general, for natural gratings, this is assumption does usually not hold true. Nevertheless, the red curve fits one of the response curves. We conclude that the PQ approach will produce not accurate results compared to the FLSS approach. Thus, the PQ approach is sub-optimal.
 
 \begin{figure}[H]
   \centering
@@ -259,7 +266,6 @@ Last let us consider the evaluation graphs of the PQ approach $\ref{alg:sincinte
     \includegraphics[scale=0.26]{evaluation/verification/pq_elaphe.png}
     \label{fig:elaphepqeval}
   }
-\caption{Reflectance obtained using PQ optimization apporach}
+\caption[Validation of PQ Approach applied on our Gratings]{Reflectance obtained using PQ optimization apporach.}
 \label{fig:evaluationdiffshaderpq}
 \end{figure}
-
