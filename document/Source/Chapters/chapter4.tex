@@ -178,18 +178,21 @@ In this section we discuss the quality of our BRDF models applied to different s
 
 \begin{table}[H]
   \centering
-  \begin{tabular}{| l | c | r |}
+  \begin{tabular}{| c | c | c | c | c | }
     \hline                       
-    Patch & Mean[mm] & Variance[mm] \\
+    Patch & Mean[mm] & Variance[mm] & Mean[mm] & Variance[mm] \\
     \hline
-    Blazed grating $\ref{fig:blazegratingpatch}$ & 2500.34 & 0.16 \\
-    Elaphe grating $\ref{fig:elpahegratingpatch}$ & 1144.28 & 0.15 \\
-    Xenopeltis grating $\ref{fig:xenogratingpatch}$ & 1552.27 & 0.45 \\
+    Blazed grating $\ref{fig:blazegratingpatch}$ & 2499.997 & 0.377 & 2499.997 & 0.377 \\
+    Elaphe grating $\ref{fig:elpahegratingpatch}$ & 1144.262 & 0.401 & 1144.179 & 0.677\\
+    Xenopeltis grating $\ref{fig:xenogratingpatch}$ & 1552.27 & 0.45 & - & - \\
     \hline  
   \end{tabular}
 \caption[Estimated Grating Spacings]{Statistics of periodicity $d$ of our used gratings $\ref{fig:gratingpatches}$ estimated by using the grating equation $\ref{eq:gratingeq}$. This table was provided by Mr. D.Singh.}
 \label{tab:gratingsmeanvariance}
 \end{table}
+
+%TODO mention how these values have been estimated
+%TODO mention that xenopeltis values have been taken from daljits results
 
 Figure $\ref{fig:evaluationdiffshaderalllambda}$ shows the reflectance graphs resulting by the shading approach of sampling the whole lambda space descriped in algorithm $\ref{alg:fragmentshaderall}$. This evaluation has been applied to different idealized periodic structures, namely to the Blaze- $\ref{fig:blazeval}$, Elaphe- $\ref{fig:elapheeval}$ and Xenopeltis grating $\ref{fig:xenopeltiseval}$, using an illumination angle $\theta_i = 75$ degrees. Note that higher response values are plotted in yellow and lower values in green. For each of the graphs we determine the viewing angles with peak reflectance for various wavelengths and then plot this peak viewing angles against their wavelength as solid red curves. The blue curve represents diffraction angles for an idealized periodic structure with a certain periodicity $d$ according to the grating equation $\ref{eq:gratingeq}$. The corresponding periodicity for every grating structure is estimated using the precomputed response data using again the grating equation and are tabulated in table $\ref{tab:gratingsmeanvariance}$. 
 
