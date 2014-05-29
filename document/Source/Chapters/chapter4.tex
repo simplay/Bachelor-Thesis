@@ -11,9 +11,10 @@ In general, if the spacing between slits is wider than the wavelength of the inc
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.7]{evaluation/spectrometer.jpg}
-  \caption[Spectometer]{Spectometer: When a beam of monochromatic light passes through a grating placed in a spectrometer, images of the sources can be seen through the telescope at different angles.}
+  \caption[Spectometer]{Spectometer$\footnotemark$: When a beam of monochromatic light passes through a grating placed in a spectrometer, images of the sources can be seen through the telescope at different angles.}
 \label{fig:spectometer}
 \end{figure}
+\footnotetext{This image has been taken from \texttt{http://h2physics.org/?cat=49}}
 
 Suppose that a monochromatic light source is directed at the grating, parallel to its axis as shown in figure $\ref{fig:spectometer}$. Let the distance between successive slits be equal the value $d$.
 
@@ -45,25 +46,29 @@ where $m \in \mathds{N}_0$ is the order of diffraction. Because $d$ is very smal
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.7]{evaluation/GratingSurface.png}
-  \caption[Diffraction Orders]{Different Orders of diffraction}
+  \caption[Diffraction Orders]{Different$\footnotemark$ Orders of diffraction}
 \label{fig:gratingdiffractionorders}
 \end{figure}
+\footnotetext{This image has been taken from \texttt{http://www.tau.ac.il/\textasciitilde phchlab/experiments\textunderscore new/SemB01\textunderscore Hydrogen/02TheoreticalBackground.html}}
 
 When a narrow beam of white light is directed at a diffraction grating along its axis, instead of a monochromatic bright fringe, a set of colored spectra are observed on both sides of the central white band as shown in figure $\ref{fig:gratingdiffractionorders}$.
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.7]{evaluation/coloredspectrum.jpg}
-  \caption[Diffracted White Light]{White Light beam causes coloured diffraction spectra}
+  \caption[Diffracted White Light]{White Light beam causes coloured diffraction spectra$\footnotemark$}
   \label{fig:diffractionSpectrum}
 \end{figure}
+\footnotetext{This image has been taken from \texttt{http://h2physics.org/?cat=49}}
 
+
+%TODO refactor this
 Since the angle $\theta$ increases with wavelength $\lambda$, red light, which has the longest wavelength, is diffracted through the largest angle. Similarly violet light has the shortest wavelength and is therefore diffracted the least. This relationship between angle and wavelength is illustrated in figure $\ref{fig:diffractionSpectrum}$. Thus, white light is split into its component colors from violet to red light. The spectrum is repeated in the different orders of diffraction, emphasizing certain colors differently, depending on their order of diffraction like shown in figure $\ref{fig:gratingdiffractionorders}$. Note that only the zero order spectrum is pure white.  
 Figure $\ref{fig:nslitdiffractionintensity}$ shows the relative intensity resulting when a beam of light hits a diffraction grating for different number of periods. From the graph we recognise that the more slits a grating has, the sharper more slopes the function of intensity gets. This is similar like saying that, the more periods a grating has, the sharper the diffracted color spectrum gets like shown in figure $\ref{fig:diffractionslits}$. 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.35]{evaluation/nslitdiffraction.png}
+  \includegraphics[scale=0.6]{evaluation/relativeintensivity.png}
   \caption[Intensity Plots for Different Number of Slits]{Relative intensities of a diffracted beam of light at wavelength $\lambda=500nm$ on a grating for different number of periods $N$ width slit width of 30 microns and slit separation of 0.15 mm each. The viewer is 0.5m apart from the grating.}
   \label{fig:nslitdiffractionintensity}
 \end{figure}
@@ -71,20 +76,18 @@ Figure $\ref{fig:nslitdiffractionintensity}$ shows the relative intensity result
 \begin{figure}[H]
   \centering
   \subfigure[one slit]{
-    \includegraphics[scale=0.2]{evaluation/slits/spalt1.png}
+    \includegraphics[scale=0.19]{evaluation/slits/spalt1.png}
     \label{fig:diffractionSlits1}
   }
-
-~
   \subfigure[seven slits]{
-    \includegraphics[scale=0.2]{evaluation/slits/spalt07.png}
+    \includegraphics[scale=0.19]{evaluation/slits/spalt07.png}
     \label{fig:diffractionSlits7}
   }
   
-  
-\caption{Difference of diffraction pattern between a monochromatic (top) and a white (bottom) light spectra for different number of slits.}
+\caption[N Slit Diffraction Grating Pattern]{Difference of diffraction pattern$\footnotemark$ between a monochromatic (top) and a white (bottom) light spectra for different number of slits.}
 \label{fig:diffractionslits}
 \end{figure}
+\footnotetext{These images have been taken from \texttt{http://www.itp.uni-hannover.de/\textasciitilde zawischa/ITP/multibeam.html}}
 
 \section{Verifications}
 \label{sec:approachesverifications}
@@ -95,7 +98,7 @@ Figure $\ref{fig:nslitdiffractionintensity}$ shows the relative intensity result
   \label{fig:experimentalsetup}
 \end{figure}
 
-The physical reliability of our BRDF models has been verified by applying those on various patches which are a synthetic blazed grating, an Elaphe and a Xenopeltis snake shed sample patch. We compared the resulting response against the response resulting by the grating equation, which models the relationship between the grating spacing and the angles of the incident and diffracted beams of light. Figure $\ref{fig:experimentalsetup}$ illustrates the geometrical setup for our evaluation approach: A monochromatic beam of light with wavelength $\lambda$ hits a surface with periodicity $d$ at an angle $\theta$ relative to the normal $n$ along its incident plane. The beam emerges from the surface at the angle $\phi$. 
+The physical reliability of our BRDF models has been verified by applying it to a height field for a synthetic blazed grating. Figure $\ref{fig:experimentalsetup}$ illustrates the geometrical setup for our evaluation approach: A monochromatic beam of light with wavelength $\lambda$ hits a surface with periodicity $d$ at an angle $\theta$ relative to the normal $n$ along its incident plane. The beam emerges from the surface at the angle $\phi$ with certain intensity as predicted by our model. In our evaluation we compare the local peak angles predicted by our model from those resulting by the grating equation. The grating equation models the relationship between the grating spacing, the incident light angle and the maximum angle for the diffracted light beams. 
 
 \begin{figure}[H]
   \centering
@@ -104,127 +107,165 @@ The physical reliability of our BRDF models has been verified by applying those 
   \label{fig:reflgrating}
 \end{figure}
 
-The maximum in intensity is given by the grating equation derived from the equation $\ref{eq:simplegratingequation}$ following figure $\ref{fig:reflgrating}$: 
+
+Figure $\ref{fig:reflgrating}$ shows that if the incident light is not along the axis of the diffracte dgratings then it effects the optical path differences. The maximum in intensity is given by the grating equation derived from the equation $\ref{eq:simplegratingequation}$ following figure $\ref{fig:reflgrating}$: 
 
 \begin{equation}
-  sin(\theta) = sin(\phi) + \frac{m \lambda}{d}
+  sin(\theta_i) = sin(\theta_r) + \frac{m \lambda}{d}
 \label{eq:gratingeq}
 \end{equation}
 
-In our evaluation we are interested in the first order diffraction, i.e. m equals one which. We further assume that the incident light direction $\omega_i$ is given. In contrast the direction of the reflected wave $\omega_r$ is not given.
-In Mathematics, a three dimensional direction vector is fully defined by two two angles, i.e. it can be represented by spherical coordinates with radius $r = 1$. By convention, we denote those two vectors by $\theta$ and $\phi$ like in figure $\ref{fig:experimentalsetup}$. Hence, $\theta_i$, $\phi_i$ and $\phi_r$ are given constants whereas $\theta_i$ is a free parameter for our evaluation simulation. Therefore, we are going to compare the maxima for peak viewing angles corresponding to each wavelength using data produced by our method against the maxima resulting by the grating equation $\ref{eq:gratingeq}$.
+In our evaluation we are interested in the first order diffraction, i.e. $m=1$. We further assume that the incident light direction $\omega_i$ is given. In contrast the direction of the reflected wave $\omega_r$ is not given.
+In Mathematics, a three dimensional direction vector is fully defined by two two angles, i.e. it can be represented by spherical coordinates with. Hence, $\theta_i$, is a given constant whereas $\theta_r$ is a free parameter for our evaluation simulation. Therefore, we are going to compare the maxima of the peak viewing angles corresponding to each wavelength using data produced by our method against the maxima resulting by the grating equation $\ref{eq:gratingeq}$.
 
 \subsection{Numerical Comparisons}
 \label{sec:evalprecomp}
-For evaluation purposes we have implemented our BRDF models in java. We once again use our geometrical setup as illustrated in figure $\ref{fig:geometricsetup}$ where $\theta_i$, $\phi_i$ and $\phi_r$ are provided as input values and $\theta_i$ is a free parameter. Within our evaluation we have set them to $\theta_i = 75$ $\phi_i = 0$ $\phi_r = 180$ degrees. The wavelength space $\Lambda$ and the range $\Theta$ of our free parameter $\theta_i$ are discretized in equidistant steps whereas their step sizes are given as input arguments for our Java program:
+In this section we explain how we evaluated the quality of our BRDF models. For a fixed incident light direction we want to compare the peak viewing angles with maximum reflectance of our methods with those resulting from the grating equation at different wavelengths. For this purpose we implemented the corresponding BRDF model for each of our shading approaches, FLSS, NMM and PQ, in Java. By fixing the azimuth angle$\footnote{Each direction vector in space can be expressed by spherical coordinates. Then, such a unit vector is defined by a pair of two angles, the inclination and the azimuth angle. For further information, please have a look at appendix $\ref{sec:sphericalcoordinates}$}$ of the incident light $L$- and viewing direction $V$, we reduced the degrees of freedom these directions, during our evaluation. Thus, any BRDF is then defined by function that expects as input arguments a wavelength $\lambda$ and the inclination angles of the incident light $\theta_i$ - and viewing direction $\theta_r$. The return value of such a function, denoted by $BRDF(\lambda, \theta_i, \theta_r)$, is the intensity value of the corresponding BRDF at these given input arguments. \\
+
+In our evaluation program we set the incident light angle $\theta_i$ equal to $75 \degree$. This allows us to remove the argument $\theta_i$ from our BRDF function. Our java program computes each $BRDF$ function at a given discrete wavelength-viewing-angle grid, denoted by $[\Lambda, \Theta]$. The wavelength space $\Lambda = [\lambda_{min}, \lambda_{max}]$ and the viewing angle range $\Theta = [\alpha_{min}, \alpha_{max}]$ of our free parameter $\theta_r$ are discretized in equidistant steps whereas their step sizes. These step-sized, denoted by $(\lambda_{step}, \alpha_{step})$, are provided as input arguments for our Java evaluation program. \\
+
+Next, let us have a closer look how our discrete $[\Lambda, \Theta]$ grid is constructed. The wavelength space $\Lambda$, which is ranging from $\lambda_{min}$ to $\lambda_{max}$, is discretized like the following:
 
 \begin{equation}
-\Lambda = \{\lambda | \lambda = \lambda_{min} + k \cdot \lambda_{step}, \quad k \in \{0,..,C-1\}\}
+\Lambda = \{\lambda = \lambda_{min} + k \cdot \lambda_{step} | k \in \{0,..,steps_{\lambda}-1\}\}
 \label{eq:lambdaspacesetup}
 \end{equation}
 
-where $\lambda_{step} = \frac{\lambda_{max}-\lambda_{min}}{C-1}$ and $C$ is the discretisation level of the lambda space. We similarly discretise the angle space by predefining an minimal and maximal angle boundary and $ceil(angMax - angMin) / angInc$ is the number of angles. Our Java BRDF model implementations are applied on the grid $[\Lambda, \Theta]$ and will store their spectral response in a matrix
+where $steps_{\lambda} = \frac{\lambda_{max}-\lambda_{min}}{\lambda_{step}}$.  We similarly discretise the viewing angle space $\Theta$ by setting an minimal and maximal viewing-angle boundary $\alpha_{min}$ and $\alpha_{max}$. Then $\ceil{\frac{\alpha_{max} - \alpha_{min}}{\alpha_{step}}}$ is the number of angles$ steps_{\alpha}$. And thus, our $\Theta$ space it defined like the following:
 
+\begin{equation}
+\Theta = \{\alpha = \alpha_{min} + k \cdot \alpha_{step} | k \in \{0,..,steps_{\alpha}-1\}\}
+\label{eq:thetaspacesetup}
+\end{equation}
+
+Then, every BRDF java function is applied to the grid $[\Lambda, \Theta]$ and the resulting spectral response is stored in a matrix
 \begin{equation} 
-R = \{response(\lambda_i, \theta_{r}^{j}) | i \in Index(\Lambda), \quad j \in Index(\Theta)\}
+R = \{BRDF(\lambda_i, \theta_{r}^{j}) | i \in Index(\Lambda), \quad j \in Index(\Theta)\}
 \label{eq:responsematrix}
 \end{equation}
 
-We will plot this matrix and compare its graph against the grating equation for similar condition like in stated in algorithm $\ref{alg:evalmatlab}$.
+The generation process of the evaluaton plots, which we discusse in section $\ref{sec:virtualtestbench}$, is described in algorithm $\ref{alg:evalmatlab}$. This algorithm takes the matrix R from equation $\ref{eq:responsematrix}$ as input argument. For the maximal reflectance of our methods at any wavelength, it computes the corresponding peak viewing angles and compares it to the angle resulting from the grating equation.
 
 \begin{algorithm}[H]
-  \caption{Vertex diffraction shader}
-  \begin{algorithmic}
-    \State{load matrix $R$ $\ref{eq:responsematrix}$}
-    \State $ \lambda_{count} = |\Lambda| $
-    \State $ \lambda_{inc} = \frac{\lambda_{max}-\lambda_{min}}{\lambda_{count}}$
-    \State $ \lambda = \lambda_{min} + \lambda_{inc} \cdot (-1+[1:\lambda_{count}])$
-    \State $ [maxC maxI] = max(R)$
-    \State $ viewAngForMax = angMin + angInc \cdot (maxI-1)$
-    \State $ thetaV = asin \left( \frac{\lambda}{d} - \sin \left(  \frac{\theta_I \pi}{180} \right) \right) \cdot \frac{180}{\pi}$
-    \State $ plot(\lambda, viewAngForMax)$
-    \Comment{graph resulting by our brdf model}
-    \State $ plot(lambda, thetaV)$
-    \Comment{graph resulting by grating equation}
+\caption{BRDF Evaluation Graph Plotter}
+\begin{table}[H]
+  \begin{tabular}{@{}lll@{}}
+    \textbf{Input:} & $R$ Matrix with $BRDF$ intensivity values of $(\Lambda, \Theta)$ grid \\
+    & $\Lambda$ discretized wavelength space used to compute $R$ \\
+    & $(\alpha_{min})$ minimum value of viewing angle space $\Theta$ \\
+    & $(\alpha_{step})$ discretization level of viewing angle space $\Theta$ \\
+    & $d$ estimated periodicity of height field \\
+    & $\theta_i$ fixed incident angle \\
+    \textbf{Procedure:} & $getMaxIntensGridPointsOf(matrix,r):$ get the column-index of the largest  \\
+    & \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad intensivity value in the row $matrix(r,*)$\\
+    &$plotPoint(x,y)$: draw a point at $(x,y)$ \\
+    \textbf{Output:} & Evaluation Plot of given BRDF model applied on given heightfield \\
+  \end{tabular} 
+\end{table}
+\setlength{\fboxrule}{0pt} 
+\begin{boxedminipage}{1.0\textwidth}
+  \begin{algorithmic}[1]
+    \ForAll{$\lambda_k \in \Lambda$}
+      \State $\widetilde{\alpha} = getMaxIntensGridPointsOf(R, \lambda_k)$
+      \Comment{$\widetilde{\alpha}$ $\equiv$ index viewing angle of max. R}
+      \State $\widetilde{\alpha}_{r_k} = \alpha_{min} + \alpha_{step} \cdot \widetilde{\alpha}$
+      \State $\theta_{r_k} = asin\left( \frac{\lambda}{d} - sin(\theta_i) \right)$
+      \State $plotPoint(\lambda_k, \widetilde{\alpha}_{r_k})$
+      \Comment{graph resulting by our BRDF model}
+      \State $plotPoint(\lambda_k, \theta_{r_k})$
+      \Comment{graph resulting by grating equation}
+    \EndFor
   \end{algorithmic}
+  \end{boxedminipage}
+  \vskip1.5pt
 \label{alg:evalmatlab}
 \end{algorithm}
 
-\subsection{Virtual Testbench}
+Algorithm $\ref{alg:evalmatlab}$ iterates over the wavelength space $\Lambda$ and generates our evaluation plots. For any wavelength it computes the viewing angle of the the maximal reflectance and the angle resulting from the grating equation as defined in equation $\ref{eq:gratingeq}$. Both angles are then plotted for the current wavelength in the current iteration. In the next section we will discuss the generated evaluation plots.
 
+\subsection{Virtual Testbench}
+\label{sec:virtualtestbench}
 \begin{figure}[H]
   \centering
   \subfigure[Blazed Grating]{
-    \includegraphics[scale=0.42]{evaluation/blazeHR.png}
+    \includegraphics[scale=0.26]{evaluation/verification/flss_blazed.png}
     \label{fig:blazeval}
   }
 ~
   \subfigure[Xenopeltis Grating]{
-    \includegraphics[scale=0.42]{evaluation/XenoHR.png}
+    \includegraphics[scale=0.26]{evaluation/verification/flss_xeno.png}
     \label{fig:xenopeltiseval}
   }
-~
+  
 \subfigure[Elaphe Grating]{
-  \includegraphics[scale=0.75]{evaluation/ElapheHR.png}
+  \includegraphics[scale=0.5]{evaluation/verification/flss_elaphe.png}
   \label{fig:elapheeval}
 }
 
-\caption[Validation of FLSS Approach applied on our Gratings]{Reflectance obtained by using the shading approach described in algorithm $\ref{alg:fragmentshaderall}$ simulating a BRDF which models the effect of diffraction at different viewing angles over the spectrum of visible light.}
+\caption[Validation of FLSS Approach applied on our Gratings]{Reflectance obtained by using the FLSS approach described in algorithm $\ref{alg:fragmentshaderall}$.}
 \label{fig:evaluationdiffshaderalllambda}
 \end{figure}
 
 In this section we discuss the quality of our BRDF models applied to different surface structures. For that purpose we compare the resulting relative reflectance computed as described in section $\ref{sec:evalprecomp}$ for each of our BRDF models to the idealized grating equation $\ref{eq:gratingeq}$. 
 
 \begin{table}[H]
-  \centering
-  \begin{tabular}{| l | c | r |}
-    \hline                       
-    Patch & Mean[mm] & Variance[mm] \\
-    \hline
-    Blazed grating $\ref{fig:blazegratingpatch}$ & 2500.34 & 0.16 \\
-    Elaphe grating $\ref{fig:elpahegratingpatch}$ & 1144.28 & 0.15 \\
-    Xenopeltis grating $\ref{fig:xenogratingpatch}$ & 1552.27 & 0.45 \\
-    \hline  
-  \end{tabular}
-\caption[Estimated Grating Spacings]{Statistics of periodicity $d$ of our used gratings $\ref{fig:gratingpatches}$ estimated by using the grating equation $\ref{eq:gratingeq}$. This table was provided by Mr. D.Singh.}
+\centering
+\begin{tabular}{l|c|c|c|c|c|c|}
+\cline{2-7}
+                                         & \multicolumn{2}{c|}{FLSS} & \multicolumn{2}{c|}{NMM} & \multicolumn{2}{c|}{PQ} \\ \cline{2-7} 
+                                         & mean        & variance    & mean        & variance   & mean       & variance   \\ \hline
+\multicolumn{1}{|l|}{Blazed Grating}     & 2499.997    & 0.377       & 2499.997    & 0.377      & 2491.861   & 248.044    \\ \hline
+\multicolumn{1}{|l|}{Elpahe Grating}     & 1144.262    & 0.401       & 1144.179    & 0.677      & 1052.308   & 49.678     \\ \hline
+\multicolumn{1}{|l|}{Xenopeltis Grating} & 1552.27     & 0.45        & -           & -          & -          & -          \\ \hline
+\end{tabular}
+\caption[Estimated Grating Spacings]{Statistics of periodicity $d$ of our used gratings $\ref{fig:gratingpatches}$ estimated$\footnotemark$ by using the grating equation $\ref{eq:gratingeq}$.}
 \label{tab:gratingsmeanvariance}
 \end{table}
+\footnotetext{This tabulated periodicity values are estimates similarly like described in the evaluation section of D.S.Dhillon's paper $\cite{daljitpaper}$.} 
 
-Figure $\ref{fig:evaluationdiffshaderalllambda}$ shows the reflectance graphs resulting by the shading approach of sampling the whole lambda space descriped in algorithm $\ref{alg:fragmentshaderall}$. This evaluation has been applied to different idealized periodic structures, namely to the Blaze- $\ref{fig:blazeval}$, Elaphe- $\ref{fig:elapheeval}$ and Xenopeltis grating $\ref{fig:xenopeltiseval}$, using an illumination angle $\theta_i = 75$ degrees. Note that higher response values are plotted in yellow and lower values in green. For each of the graphs we determine the viewing angles with peak reflectance for various wavelengths and then plot this peak viewing angles against their wavelength as solid red curves. The blue curve represents diffraction angles for an idealized periodic structure with a certain periodicity $d$ according to the grating equation $\ref{eq:gratingeq}$. The corresponding periodicity for every grating structure is estimated using the precomputed response data using again the grating equation and are tabulated in table $\ref{tab:gratingsmeanvariance}$. 
+Figure $\ref{fig:evaluationdiffshaderalllambda}$ shows the reflectance graphs resulting by the FLSS approach descriped in algorithm $\ref{alg:fragmentshaderall}$. This evaluation was applied to a idealized periodic structures, namely to the Blaze- $\ref{fig:blazeval}$ and to two natural gratings, the Elaphe- $\ref{fig:elapheeval}$ and Xenopeltis grating $\ref{fig:xenopeltiseval}$. For all our evaluation plots, we used an illumination angle of $\theta_i$ equal to $75\degree$. \\
 
-The red and blue curve are closely overlapping in our figures $\ref{fig:blazeval}$ and $\ref{fig:elapheeval}$. For Blaze and Elaphe there is only diffraction along only along one direction perceivable. Since the Blazed grating is synthetic we use its exact periodicity to plot the blue curve instead of estimating it. The Xenopeltis grating is evaluated just along the direction for the finger like structures. For Xenopeltis it is interesting to see that the red curve for the peak viewing angle toggles between two ridges corresponding to two different periodicities. this happens because there are multiple sub regions of the nanostructure with slightly different orientations and periodicity. Each sub region carves out a different yellowish ridge. depending on the viewing angle, reflectance due to one such subregion can be higher than from the others.
+Note that higher response values are plotted in yellow and lower values in green. For each of the graphs we determine the viewing angles with peak reflectance for each wavelength and then plot these peak viewing angles versus corresponding wavelengths as solid red curves. The blue curve represents diffraction angles for an idealized periodic structure with a certain periodicity $d$ according to the grating equation $\ref{eq:gratingeq}$. \\
 
-Figure $\ref{fig:evaluationdiffshadernminmax}$ shows the evaluation plots for the $(N_{min},N_{max})$ shading approach which integrates over a reduced wavelength spectrum applied to the Blaze- $\ref{fig:elapheneval}$ and the Elaphe-grating $\ref{fig:elapheneval}$. This optimization approach is mentioned within the discussion section of the implementation chapter $\ref{sec:impldiscus}$ as a run-time complexity enhancement of the whole lambda space sampling approach $\ref{fig:evaluationdiffshaderalllambda}$. The response curve again closely matches the corresponding grating equation curve for both evaluation graphs and also look similar to the corresponding evaluation plots when integrating over the whole lambda space shown previously in figure $\label{ref:evaluationdiffshaderalllambda}$. Therefore we may assume this optimization to be valid. 
+By rearranging the terms of the grating equation defined in equation $\ref{eq:gratingeq}$ and using the peek reflectance angle $\theta_{r_k}$ derived like in algorithm $\ref{alg:evalmatlab}$ using the matrix R of equation $\ref{eq:responsematrix}$, we can compute a periodicity vale $d_k$ for any wavelength $\lambda_k$.  
+\begin{equation}
+  d_k = \frac{\lambda}{sin(\theta_{r_k}) + sin(\theta_i)}
+\end{equation}
+
+By computing the mean value of these $d_k$ values for all $\lambda$ in $\Lambda$ we can compute an estimated periodicity value $d$. We estimated these periodicity values for every grating structure and every method we are using. Thes corresponding periodicity values tabulated in table $\ref{tab:gratingsmeanvariance}$. \\
+
+The red and blue curve are closely overlapping in our figures $\ref{fig:blazeval}$ and $\ref{fig:elapheeval}$. For Blaze and Elaphe there is only diffraction along only along one direction perceivable. Since the Blazed grating is synthetic we use its exact periodicity to plot the blue curve instead of estimating it. The Xenopeltis grating is evaluated just along the direction for the finger like structures. For Xenopeltis it is interesting to see that the red curve for the peak viewing angle toggles between two ridges corresponding to two different periodicities. this happens because there are multiple sub regions of the nanostructure with slightly different orientations and periodicity. Each sub region carves out a different yellowish ridge. depending on the viewing angle, reflectance due to one such subregion can be higher than from the others. \\
+
+Figure $\ref{fig:evaluationdiffshadernminmax}$ shows the evaluation plots for the NMM approach applied to the Blazed- (see figure $\ref{fig:elapheneval}$) and the Elaphe-grating (see figure $\ref{fig:elapheneval}$). The NMM approach is an optimization of the FLSS approach and is discussion in section $\ref{sec:nmmapproach}$. The response curve of each plotted NMM approach graph closely matches the corresponding grating equation curve. Furthermore, the evaluation graphs of the NMM approach look similar to the corresponding evaluation plots of the FLSS approach shown in figure $\label{ref:evaluationdiffshaderalllambda}$. Thus, this confirms that the NMM optimization works well.
 
 \begin{figure}[H]
   \centering
   \subfigure[Blaze grating]{
-    \includegraphics[scale=0.135]{evaluation/bn.png}
+    \includegraphics[scale=0.26]{evaluation/verification/nmm_blazed.png}
     \label{fig:blazneval}
   }
 ~
   \subfigure[Elaphe grating]{
-    \includegraphics[scale=0.135]{evaluation/en.png}
+    \includegraphics[scale=0.26]{evaluation/verification/nmm_elaphe.png}
     \label{fig:elapheneval}
   }
-\caption{Reflectance obtained using $N_{min} N_{max}$ optimization apporach}
+\caption[Validation of NMM Approach applied on our Gratings]{Reflectance obtained using NMM optimization apporach.}
 \label{fig:evaluationdiffshadernminmax}
 \end{figure}
 
-Last let us consider the evaluation graphs of the PQ approach $\ref{alg:sincinterpolation}$ in figure $\ref{fig:evaluationdiffshaderpq}$. The PQ approach assumes the given grating being periodically distributed on a shape's surface. For this approach we have plotted evaluation graphs of the Blaze- $\ref{fig:blazepqeval}$ and Elaphe grating $\ref{fig:elaphepqeval}$. For both graphs their response curves have some similarities but also some differences compared to their corresponding grating equation curve. We could say that the response curve of the blaze grating is weakly oscillating around the grating equation curve (blue) but basically following it even there are some outliers. The response curve of the Elpahe grating is not following its corresponding first order grating equation curve rather another response curve for the PQ approach. This could be due to the assumption of the PQ approach that a given patch must be periodically distributed along the surface which is actually not that case. Nevertheless, the red curve fits one of the response curves. 
+Last, let us consider the evaluation graphs in figure $\ref{fig:evaluationdiffshaderpq}$ for the PQ approach described in algorithm $\ref{alg:sincinterpolation}$. The PQ approach assumes the given grating being periodically distributed on the surface of a shape. For this approach we have plotted evaluation graphs of the Blaze- (See figure $\ref{fig:blazepqeval}$) and Elaphe grating (See figure $\ref{fig:elaphepqeval}$). The response curves of both PQ evaluation graphs exhibit some similarities, but also some differences, compared to their corresponding grating equation curve. We could say that the response curve of the blaze grating is weakly oscillating around the grating equation curve (blue), but basically following it even there are some outliers. The response curve of the Elpahe grating is not following its corresponding first order grating equation curve well. This could be due to the PQ's assumption that a given height field has to be periodically distributed along the surface. But in general, for natural gratings, this is assumption does usually not hold true. Nevertheless, the red curve fits one of the response curves. We conclude that the PQ approach will produce not accurate results compared to the FLSS approach. Thus, the PQ approach is sub-optimal.
 
 \begin{figure}[H]
   \centering
   \subfigure[Blaze grating]{
-    \includegraphics[scale=0.135]{evaluation/bpq.png}
+    \includegraphics[scale=0.26]{evaluation/verification/pq_blazed.png}
     \label{fig:blazepqeval}
   }
 ~
   \subfigure[Elaphe grating]{
-    \includegraphics[scale=0.135]{evaluation/epq.png}
+    \includegraphics[scale=0.26]{evaluation/verification/pq_elaphe.png}
     \label{fig:elaphepqeval}
   }
-\caption{Reflectance obtained using PQ optimization apporach}
+\caption[Validation of PQ Approach applied on our Gratings]{Reflectance obtained using PQ optimization apporach.}
 \label{fig:evaluationdiffshaderpq}
 \end{figure}
-
