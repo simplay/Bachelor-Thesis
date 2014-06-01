@@ -71,7 +71,7 @@ For a given height field $h$, let us compute Stam's auxiliary function $p$ defin
 \label{eq:dtftheightfield}
 \end{equation} 
 
-Therefore $P_{dtft}$ denotes the DTFT of a transformed version of our height field $h$$\footnote{By transformed height field we mean $p(x,y) = e^{i\frac{2 \pi}{\lambda} w h(x,y)} which we get, when pluggin $h$ into equation \ref{eq:heightfieldphase} and this expression again plug into equation \ref{eq:px}.$}$. 
+Therefore $P_{dtft}$ denotes the DTFT of a transformed version of our height field $h$ $\footnote{By transformed height field we mean $p(x,y) = e^{i\frac{2 \pi}{\lambda} w h(x,y)}$ which we get, when we plug $h$ into equation $\ref{eq:heightfieldphase}$ and this expression again plug into equation $\ref{eq:px}$.}$. 
 
 \subsection{Spatial Coherence and Windowing}
 \label{sec:spatialcoherenceandwindowing}
@@ -484,7 +484,7 @@ Now lets consider our actual problem description. Given a patch of a nanoscaled 
 \label{eq:pqmainfinding}
 \end{align}
 
-Where all derivation steps can be found in the appendix in section $\ref{sec:pqtwodimappendix}$ and we have defined 
+Note that a detailed derivation of equation $\ref{eq:pqmainfinding}$ can be found in the appendix in section $\ref{sec:pqtwodimappendix}$ and we have defined :
 
 \begin{align}
 p := (p_1 p_2 - q_1 q_2) \nonumber \\ 
@@ -494,21 +494,18 @@ q := (p_1 p_2 + q_1 q_2)
 
 For the identity of equation $\ref{eq:pqmainfinding}$ we made use of Green's integration rule which allowed us to split the double integral to the product of two single integrations. Also, we used the definition of the 2-dimensional inverse Fourier transform of the height field function. We applied a similar substitution like we did in $\ref{eq:substitude1dpq}$, but this time twice, once for $x_1$ and once for $x_2$ separately. The last step in equation $\ref{eq:pqmainfinding}$, substituting with $p$ and $q$ in equation $\ref{eq:pqsubst2dappendix}$ will be useful later in the implementation. The insight should be, that the product of two complex numbers is again a complex number. We will have to compute the absolute value of $\mathcal{F}\{S\}(w_1,w_2)$ which will then be equal $(p^2 + q^2)^{\frac{1}{2}}\left|\mathcal{F}\{h\}(w_1,w_2)\right|$
 
-
 \subsection{Interpolation}
 \label{sec:sincinterpolation}
-In $\ref{sec:pq}$ we have derived an alternative approach when we are working with a periodic signal instead using the gaussian window approach from $\ref{sec:gaussianwindow}$. Its main finding $\ref{eq:pqmainfinding}$ that we can just integrate over one of its period instead iterating over the whole domain. Nevertheless, this main finding is using the inverse DTFT. Since we are using 
+In section $\ref{sec:pq}$ we derived an alternative approach to the gaussian window approach described in section $\ref{sec:gaussianwindow}$ in order to approximate our height field. We assume that our height field is a superpostion of periodically aligned substructered (i.e. finger structures). This so called PQ approach allows us to integrate over one period of a substructre in our height field, instead iterating over the whole domain. Nevertheless, this main finding, discribed in equation $\ref{eq:pqmainfinding}$, is using the DTFT. Thus, since our original height field is supposed to be a continuous-time bandlimited function we can reconstruct it by applying a sinc-interpolation. \\
 
-We are interested in recovering an original analog signal $x(t)$ from its samples $x[t] = $ 
-
-Therfore, for a given sequence of real numbers $x[n]$, representing a digital signal, its correspond continuous function is: 
+In general, for a sinc-interpolation, we are interested in recovering an original analog signal $x(t)$ from its samples. Therfore, for a given sequence of real numbers $x[n]$, representing a digital signal, its correspond continuous function is: 
 
 \begin{equation}
   x(t) = \sum_{n=-\infty}^{\infty} x[n] sinc\left(\frac{t-nT}{T}\right)
 \end{equation}
 
 which has the Fourier transformation $X(f)$ whose non-zero values are confined to the region $|f| \leq \frac{1}{2T} = B$.
-When $x[n]$ represents time samples at interval $T$ of a continuous function, then the quantity $f_s = \frac{1}{T}$ is known as its sample rate and $\frac{f_s}{2}$ denotes the Nyquist frequency. The sampling Theorem states that when a function has a Bandlimit B less than the Nyquist frequency, then $x(t)$ is a perfect reconstruction of the original function. 
+When $x[n]$ represents time samples at interval $T$ of a continuous function, then the quantity $f_s = \frac{1}{T}$ is known as its sample rate and $\frac{f_s}{2}$ denotes the Nyquist frequency. The sampling Theorem states that when a function has a Bandlimit $B$ less than the Nyquist frequency, then $x(t)$ is a perfect reconstruction of the original function. Figure $\label{fig:plotsincinterpolation}$ illustates a reconstruction of a 1d signal relying on a sinc-interpolation.  
 
 \begin{figure}[ht]
   \centering
