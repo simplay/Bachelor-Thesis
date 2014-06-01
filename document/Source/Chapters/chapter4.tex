@@ -12,7 +12,7 @@ In order to evaluate the quality of our simulations, it is important to understa
 By the term $\emph{diffraction grating}$ we are referring to the surface of a flat piece of an opaque material that contains a large number of parallel, closely and evenly spaced slits$\footnote{Usually, these slits are either engraved or etched into the surface of the material.}$. Therefore, these slits are forming a periodically packed, groove-like structure along the surface of the material. \\
 
 % TODO 3. Purpose
-A diffraction grating alters the state of an incident light beam by diffracting its component waves. According to the definiton of Huygen's principle (see section $\ref{sec:huygensprincipledef}$), when an incident light beam hits the grating, the slits of the grating will act as a point light source that emits spherical wavelets in every direction. Basically, a diffraction grating can be either transmissive (FIGURE1) or reflective (FIGURE2). As light transmits through or reflects off a grating, the grooves on the grating cause the light to diffract and divide the light into its component wavelengths. This also implied that the emitted wave will have a different outgoing angle with peak intensity than what it had initially. In general, the closer the spacing of the slits is to the wavelength of the incident wave, the more the emitted wave will be diffracted. \\
+A diffraction grating alters the state of an incident light beam by diffracting its component waves. According to the definiton of Huygen's principle (see section $\ref{sec:huygensprincipledef}$), when an incident light beam hits the grating, the slits of the grating will act as a point light source that emits spherical wavelets in every direction. Basically, a diffraction grating can be either transmissive (see figure $\ref{fig:idealizedtransmissivegrating}$) or reflective (see figure $\ref{fig:reflgrating}$). As light transmits through or reflects off a grating, the grooves on the grating cause the light to diffract and divide the light into its component wavelengths. This also implied that the emitted wave will have a different outgoing angle with peak intensity than what it had initially. In general, the closer the spacing of the slits is to the wavelength of the incident wave, the more the emitted wave will be diffracted. \\
 
 Figure $\ref{fig:spectometer}$ illustrates what happens when monochromatic light source passing through a transmissive grating. Using a spectometer, we see that the outgoing angle of the emitted wave will be different from the incident angle. Hence, the diffracted light is composed of the sum of interfering wave components emanating from each slit in the grating.
 
@@ -90,12 +90,14 @@ Figure $\ref{fig:nslitdiffractionintensity}$ shows the relative intensity result
 \label{sec:approachesverifications}
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.65]{evaluation/evalsetup.png}
-  \caption[Experimental Setup]{Experimental setup for evaluation: A light beam with direction $L$ hits the surface, representing a grating pattern with periodicity $d$, at the incident plane relative to the surface normal $n$ at angle $\theta$ and emerges at angle $\phi$ with direction $V$.}
+  \includegraphics[scale=0.65]{evaluation/evalsetup2.png}
+  \caption[Experimental Setup]{Experimental setup for evaluation: A light beam with direction $L$ hits the surface, representing a grating pattern with periodicity $d$, at the incident plane relative to the surface normal $n$ at angle $\theta_i$ and emerges at angle $\theta_r$ with viewing direction $V$.}
   \label{fig:experimentalsetup}
 \end{figure}
 
-The physical reliability of our BRDF models has been verified by applying it to a height field for a synthetic blazed grating. Figure $\ref{fig:experimentalsetup}$ illustrates the geometrical setup for our evaluation approach: A monochromatic beam of light with wavelength $\lambda$ hits a surface with periodicity $d$ at an angle $\theta$ relative to the normal $n$ along its incident plane. The beam emerges from the surface at the angle $\phi$ with certain intensity as predicted by our model. In our evaluation we compare the local peak angles predicted by our model from those resulting by the grating equation. The grating equation models the relationship between the grating spacing, the incident light angle and the maximum angle for the diffracted light beams. 
+The physical reliability of our BRDF models has been verified by applying it to a height field for a synthetic blazed grating. Figure $\ref{fig:experimentalsetup}$ illustrates the geometrical setup for our evaluation approach: A monochromatic beam of light with wavelength $\lambda$ hits a surface with periodicity $d$ at an angle $\theta_i$ relative to the normal $n$ along its incident plane. The beam emerges from the surface at the angle $\theta_r$ with certain intensity as predicted by our model. Note that actually two angles are necessary in order to define a direction vector, using spherical coordinates. However, in our evalutation we fixed the azimuthal angle of these directional vectors (Further inforamtion can be found in section $\ref{sec:evalprecomp}$). \\
+
+In our evaluation we compare the local peak angles predicted by our model from those resulting by the grating equation. The grating equation models the relationship between the grating spacing, the incident light angle and the maximum angle for the diffracted light beams. 
 
 \begin{figure}[H]
   \centering
@@ -111,7 +113,8 @@ Figure $\ref{fig:reflgrating}$ shows that if the incident light is not along the
 \label{eq:gratingeq}
 \end{equation}
 
-In our evaluation we are interested in the first order diffraction, i.e. $m=1$. We further assume that the incident light direction $\omega_i$ is given. In contrast the direction of the reflected wave $\omega_r$ is not given.
+In our evaluation we are interested in the first order diffraction, i.e. $m=1$. We further assume that the incident light direction $L$ is given. In contrast the direction of the reflected wave $V$ is a free paramter. \\
+
 In Mathematics, a three dimensional direction vector is fully defined by two two angles, i.e. it can be represented by spherical coordinates with. Hence, $\theta_i$, is a given constant whereas $\theta_r$ is a free parameter for our evaluation simulation. Therefore, we are going to compare the maxima of the peak viewing angles corresponding to each wavelength using data produced by our method against the maxima resulting by the grating equation $\ref{eq:gratingeq}$.
 
 \subsection{Numerical Comparisons}
