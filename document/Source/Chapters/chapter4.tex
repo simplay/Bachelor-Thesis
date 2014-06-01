@@ -5,8 +5,16 @@ Our goal is to perform physically accurate simulations of diffraction effects du
 
 \section{Diffraction Gratings}
 \label{sec:diffractiongrating}
-In order to evaluate the quality of our simulations, it is important to understand what a diffraction grating actually is. A diffraction grating can either be transmissive or reflective. An idealised transmissive diffraction grating like shown in figure $\ref{fig:lighthitsgrating}$ is made of a large number of parallel, evenly spaced slits in an opaque medium. 
-In general, if the spacing between slits is wider than the wavelength of the incoming light, then we can observe how the light is diffracted on the grating much better. Simply speaking, each slit on the grating acts as a point light source from which light spreads and propagates in all directions. According to Huygen's Principle the outgoing light may have a different outgoing angle with peak intensity than what it had initially. Figure $\ref{fig:spectometer}$ illustrates this behaviour for a monochromatic light source passing through a grating and shows that the outgoing angle will be different from the incident angle. Hence, the diffracted light is composed of the sum of interfering wave components emanating from each slit in the grating.
+%TODO 1. purpose
+In order to evaluate the quality of our simulations, it is important to understand all underlying components involved in the rendering process. One particular component, which we have not investagated any further, is the diffraction gratings that represents our height fields. Thus, in this section we will examine in detail, what such a diffraction grating actually is and how it works. \\
+
+%TODO 2. what is it
+By the term $\emph{diffraction grating}$ we are referring to the surface of a flat piece of an opaque material that contains a large number of parallel, closely and evenly spaced slits$\footnote{Usually, these slits are either engraved or etched into the surface of the material.}$. Therefore, these slits are forming a periodically packed, groove-like structure along the surface of the material. \\
+
+% TODO 3. Purpose
+A diffraction grating alters the state of an incident light beam by diffracting its component waves. According to the definiton of Huygen's principle (see section $\ref{sec:huygensprincipledef}$), when an incident light beam hits the grating, the slits of the grating will act as a point light source that emits spherical wavelets in every direction. Basically, a diffraction grating can be either transmissive (FIGURE1) or reflective (FIGURE2). As light transmits through or reflects off a grating, the grooves on the grating cause the light to diffract and divide the light into its component wavelengths. This also implied that the emitted wave will have a different outgoing angle with peak intensity than what it had initially. In general, the closer the spacing of the slits is to the wavelength of the incident wave, the more the emitted wave will be diffracted. \\
+
+Figure $\ref{fig:spectometer}$ illustrates what happens when monochromatic light source passing through a transmissive grating. Using a spectometer, we see that the outgoing angle of the emitted wave will be different from the incident angle. Hence, the diffracted light is composed of the sum of interfering wave components emanating from each slit in the grating.
 
 \begin{figure}[H]
   \centering
@@ -16,7 +24,9 @@ In general, if the spacing between slits is wider than the wavelength of the inc
 \end{figure}
 \footnotetext{This image has been taken from \texttt{http://h2physics.org/?cat=49}}
 
-Suppose that a monochromatic light source is directed at the grating, parallel to its axis as shown in figure $\ref{fig:spectometer}$. Let the distance between successive slits be equal the value $d$.
+%% TODO: state regardless whether transmissive or reflective grating type, analogous principle hold true.
+
+Suppose an incident plane wavefront, composed of a monochromatic light source, is directed at a transmissive diffraction grating, parallel to its axis as shown in figure $\ref{fig:spectometer}$. Let the distance between successive slits on the grating be equal the value $d$. Furthermore, at a distance $L$, there is a screen parallel to the grating. Then the emitted waves will from a diffraction pattern on the screen which is the result of interference effects among outgoing wavelets like shown in figure $\ref{fig:idealizedtransmissivegrating}$. 
 
 \begin{figure}[H]
   \centering
@@ -34,12 +44,13 @@ Suppose that a monochromatic light source is directed at the grating, parallel t
 \label{fig:lighthitsgrating}
 \end{figure}
 
-The observable diffraction pattern is the result of interference effects among outgoing wavelets according to Huygen's Principle. 
-
 %TODO explain L >> d
 %TODO explain geometrical setup in detail
 
-Thus, the path difference between waves from any two adjacent slits can be derived by drawing a perpendicular line between the parallel waves. Applying simple trigonometry gives us this path difference as $e = d sin(\theta)$ as shown in figure $\ref{fig:gratingparallelreflectedrays}$. If the path difference equals one wavelength or a multiple of the wave's wavelength, the emerging, reflected waves from all slits will be in phase and a bright line will be observed at that point. Therefore, the condition for maxima in the interference pattern at the angle $\theta$ is: 
+Thus, the path difference between waves from any two adjacent slits can be derived by drawing a perpendicular line between the parallel waves. Applying simple trigonometry gives us this path difference as $e = d sin(\theta)$ as shown in figure $\ref{fig:gratingparallelreflectedrays}$. 
+
+
+If the path difference equals one wavelength or a multiple of the wave's wavelength, the emerging, reflected waves from all slits will be in phase and a bright line will be observed at that point. Therefore, the condition for maxima in the interference pattern at the angle $\theta$ is: 
 
 \begin{equation}
  d sin(\theta) = m \lambda 
