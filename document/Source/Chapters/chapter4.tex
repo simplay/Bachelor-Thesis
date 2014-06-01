@@ -6,13 +6,13 @@ Our goal is to perform physically accurate simulations of diffraction effects du
 \section{Diffraction Gratings}
 \label{sec:diffractiongrating}
 %TODO 1. purpose
-In order to evaluate the quality of our simulations, it is important to understand all underlying components involved in the rendering process. One particular component, which we have not investagated any further, is the diffraction gratings that represents our height fields. Thus, in this section we will examine in detail, what such a diffraction grating actually is and how it works. \\
+In order to evaluate the quality of our simulations, it is important to understand all underlying components involved in the rendering process. One particular component, which we have not investigated any further, is the diffraction gratings that represents our height fields. Thus, in this section we will examine in detail, what such a diffraction grating actually is and how it works. \\
 
 %TODO 2. what is it
 By the term $\emph{diffraction grating}$ we are referring to the surface of a flat piece of an opaque material that contains a large number of parallel, closely and evenly spaced slits$\footnote{Usually, these slits are either engraved or etched into the surface of the material.}$. Therefore, these slits are forming a periodically packed, groove-like structure along the surface of the material. \\
 
 % TODO 3. Purpose
-A diffraction grating alters the state of an incident light beam by diffracting its component waves. According to the definiton of Huygen's principle (see section $\ref{sec:huygensprincipledef}$), when an incident light beam hits the grating, the slits of the grating will act as a point light source that emits spherical wavelets in every direction. Basically, a diffraction grating can be either transmissive (see figure $\ref{fig:idealizedtransmissivegrating}$) or reflective (see figure $\ref{fig:reflgrating}$). As light transmits through or reflects off a grating, the grooves on the grating cause the light to diffract and divide the light into its component wavelengths. This also implied that the emitted wave will have a different outgoing angle with peak intensity than what it had initially. In general, the closer the spacing of the slits is to the wavelength of the incident wave, the more the emitted wave will be diffracted. \\
+A diffraction grating alters the state of an incident light beam by diffracting its component waves. According to the definition of Huygen's principle (see section $\ref{sec:huygensprincipledef}$), when an incident light beam hits the grating, the slits of the grating will act as a point light source that emits spherical wavelets in every direction. Basically, a diffraction grating can be either transmissive (see figure $\ref{fig:idealizedtransmissivegrating}$) or reflective (see figure $\ref{fig:reflgrating}$). As light transmits through or reflects off a grating, the grooves on the grating cause the light to diffract and divide the light into its component wavelengths. This also implied that the emitted wave will have a different outgoing angle with peak intensity than what it had initially. In general, the closer the spacing of the slits is to the wavelength of the incident wave, the more the emitted wave will be diffracted. \\
 
 Figure $\ref{fig:spectometer}$ illustrates what happens when monochromatic light source passing through a transmissive grating. Using a spectometer, we see that the outgoing angle of the emitted wave will be different from the incident angle. Hence, the diffracted light is composed of the sum of interfering wave components emanating from each slit in the grating.
 
@@ -56,7 +56,7 @@ where $m \in \mathds{N}_0$ is the order of diffraction. Because $d$ is very smal
   \caption[Diffraction Orders]{Different$\footnotemark$ Orders of diffraction when light is diffracted on a reflective diffraction grating.}
 \label{fig:gratingdiffractionorders}
 \end{figure}
-\footnotetext{This image has been taken from \texttt{http://www.tau.ac.il/\textasciitilde phchlab/experiments\textunderscore new/SemB01\textunderscore Hydrogen/02TheoreticalBackground.html}}
+\footnotetext{This image has been taken from \\ \texttt{http://www.tau.ac.il/\textasciitilde phchlab/experiments\textunderscore new/SemB01\textunderscore Hydrogen/02TheoreticalBackground.html}}
 
 When a beam of white light is directed at a diffraction grating along its axis, instead of a monochromatic bright fringe, a set of colored spectra are observed on both sides of the central white band. Figure $\ref{fig:diffractionslits}$ illustrates this for different number of slits on a diffraction grating. 
 
@@ -95,7 +95,7 @@ Figure $\ref{fig:nslitdiffractionintensity}$ shows the relative intensity result
   \label{fig:experimentalsetup}
 \end{figure}
 
-The physical reliability of our BRDF models has been verified by applying it to a height field for a synthetic blazed grating. Figure $\ref{fig:experimentalsetup}$ illustrates the geometrical setup for our evaluation approach: A monochromatic beam of light with wavelength $\lambda$ hits a surface with periodicity $d$ at an angle $\theta_i$ relative to the normal $n$ along its incident plane. The beam emerges from the surface at the angle $\theta_r$ with certain intensity as predicted by our model. Note that actually two angles are necessary in order to define a direction vector, using spherical coordinates. However, in our evalutation we fixed the azimuthal angle of these directional vectors (Further inforamtion can be found in section $\ref{sec:evalprecomp}$). \\
+The physical reliability of our BRDF models has been verified by applying it to a height field for a synthetic blazed grating. Figure $\ref{fig:experimentalsetup}$ illustrates the geometrical setup for our evaluation approach: A monochromatic beam of light with wavelength $\lambda$ hits a surface with periodicity $d$ at an angle $\theta_i$ relative to the normal $n$ along its incident plane. The beam emerges from the surface at the angle $\theta_r$ with certain intensity as predicted by our model. Note that actually two angles are necessary in order to define a direction vector, using spherical coordinates. However, in our evaluation we fixed the azimuthal angle of these directional vectors (Further information can be found in section $\ref{sec:evalprecomp}$). \\
 
 In our evaluation we compare the local peak angles predicted by our model from those resulting by the grating equation. The grating equation models the relationship between the grating spacing, the incident light angle and the maximum angle for the diffracted light beams. 
 
@@ -106,14 +106,14 @@ In our evaluation we compare the local peak angles predicted by our model from t
   \label{fig:reflgrating}
 \end{figure}
 
-Figure $\ref{fig:reflgrating}$ shows that if the incident light is not along the axis of the diffracte dgratings then it effects the optical path differences. The maximum in intensity is given by the grating equation derived from the equation $\ref{eq:simplegratingequation}$ following figure $\ref{fig:reflgrating}$: 
+Figure $\ref{fig:reflgrating}$ shows that if the incident light is not along the axis of the diffraction gratings then it effects the optical path differences. The maximum in intensity is given by the grating equation derived from the equation $\ref{eq:simplegratingequation}$ following figure $\ref{fig:reflgrating}$: 
 
 \begin{equation}
   sin(\theta_i) = sin(\theta_r) + \frac{m \lambda}{d}
 \label{eq:gratingeq}
 \end{equation}
 
-In our evaluation we are interested in the first order diffraction, i.e. $m=1$. We further assume that the incident light direction $L$ is given. In contrast the direction of the reflected wave $V$ is a free paramter. \\
+In our evaluation we are interested in the first order diffraction, i.e. $m=1$. We further assume that the incident light direction $L$ is given. In contrast the direction of the reflected wave $V$ is a free parameter. \\
 
 In Mathematics, a three dimensional direction vector is fully defined by two two angles, i.e. it can be represented by spherical coordinates with. Hence, $\theta_i$, is a given constant whereas $\theta_r$ is a free parameter for our evaluation simulation. Therefore, we are going to compare the maxima of the peak viewing angles corresponding to each wavelength using data produced by our method against the maxima resulting by the grating equation $\ref{eq:gratingeq}$.
 
@@ -143,22 +143,22 @@ R = \{BRDF(\lambda_i, \theta_{r}^{j}) | i \in Index(\Lambda), \quad j \in Index(
 \label{eq:responsematrix}
 \end{equation}
 
-The generation process of the evaluaton plots, which we discusse in section $\ref{sec:virtualtestbench}$, is described in algorithm $\ref{alg:evalmatlab}$. This algorithm takes the matrix R from equation $\ref{eq:responsematrix}$ as input argument. For the maximal reflectance of our methods at any wavelength, it computes the corresponding peak viewing angles and compares it to the angle resulting from the grating equation.
+The generation process of the evaluation plots, which we discuss in section $\ref{sec:virtualtestbench}$, is described in algorithm $\ref{alg:evalmatlab}$. This algorithm takes the matrix R from equation $\ref{eq:responsematrix}$ as input argument. For the maximal reflectance of our methods at any wavelength, it computes the corresponding peak viewing angles and compares it to the angle resulting from the grating equation.
 
 \begin{algorithm}[H]
 \caption{BRDF Evaluation Graph Plotter}
 \begin{table}[H]
   \begin{tabular}{@{}lll@{}}
-    \textbf{Input:} & $R$ Matrix with $BRDF$ intensivity values of $(\Lambda, \Theta)$ grid \\
+    \textbf{Input:} & $R$ Matrix with $BRDF$ intensity values of $(\Lambda, \Theta)$ grid \\
     & $\Lambda$ discretized wavelength space used to compute $R$ \\
     & $(\alpha_{min})$ minimum value of viewing angle space $\Theta$ \\
     & $(\alpha_{step})$ discretization level of viewing angle space $\Theta$ \\
     & $d$ estimated periodicity of height field \\
     & $\theta_i$ fixed incident angle \\
     \textbf{Procedure:} & $getMaxIntensGridPointsOf(matrix,r):$ get the column-index of the largest  \\
-    & \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad intensivity value in the row $matrix(r,*)$\\
+    & \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad intensity value in the row $matrix(r,*)$\\
     &$plotPoint(x,y)$: draw a point at $(x,y)$ \\
-    \textbf{Output:} & Evaluation Plot of given BRDF model applied on given heightfield \\
+    \textbf{Output:} & Evaluation Plot of given BRDF model applied on given height field \\
   \end{tabular} 
 \end{table}
 \setlength{\fboxrule}{0pt} 
@@ -222,7 +222,7 @@ In this section we discuss the quality of our BRDF models applied to different s
 \end{table}
 \footnotetext{This tabulated periodicity values are estimates similarly like described in the evaluation section of D.S.Dhillon's paper $\cite{daljitpaper}$.} 
 
-Figure $\ref{fig:evaluationdiffshaderalllambda}$ shows the reflectance graphs resulting by the FLSS approach descriped in algorithm $\ref{alg:fragmentshaderall}$. This evaluation was applied to a idealized periodic structures, namely to the Blaze- $\ref{fig:blazeval}$ and to two natural gratings, the Elaphe- $\ref{fig:elapheeval}$ and Xenopeltis grating $\ref{fig:xenopeltiseval}$. For all our evaluation plots, we used an illumination angle of $\theta_i$ equal to $75\degree$. \\
+Figure $\ref{fig:evaluationdiffshaderalllambda}$ shows the reflectance graphs resulting by the FLSS approach described in algorithm $\ref{alg:fragmentshaderall}$. This evaluation was applied to a idealized periodic structures, namely to the Blaze- $\ref{fig:blazeval}$ and to two natural gratings, the Elaphe- $\ref{fig:elapheeval}$ and Xenopeltis grating $\ref{fig:xenopeltiseval}$. For all our evaluation plots, we used an illumination angle of $\theta_i$ equal to $75\degree$. \\
 
 Note that higher response values are plotted in yellow and lower values in green. For each of the graphs we determine the viewing angles with peak reflectance for each wavelength and then plot these peak viewing angles versus corresponding wavelengths as solid red curves. The blue curve represents diffraction angles for an idealized periodic structure with a certain periodicity $d$ according to the grating equation $\ref{eq:gratingeq}$. \\
 
@@ -265,6 +265,6 @@ Last, let us consider the evaluation graphs in figure $\ref{fig:evaluationdiffsh
     \includegraphics[scale=0.26]{evaluation/verification/pq_elaphe.png}
     \label{fig:elaphepqeval}
   }
-\caption[Validation of PQ Approach applied on our Gratings]{Reflectance obtained using PQ optimization apporach.}
+\caption[Validation of PQ Approach applied on our Gratings]{Reflectance obtained using PQ optimization approach.}
 \label{fig:evaluationdiffshaderpq}
 \end{figure}
