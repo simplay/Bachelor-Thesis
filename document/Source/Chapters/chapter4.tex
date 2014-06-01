@@ -18,25 +18,22 @@ Figure $\ref{fig:spectometer}$ illustrates what happens when monochromatic light
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.7]{evaluation/spectrometer.jpg}
-  \caption[Spectometer]{Spectometer$\footnotemark$: When a beam of monochromatic light passes through a grating placed in a spectrometer, images of the sources can be seen through the telescope at different angles.}
+  \includegraphics[scale=0.5]{evaluation/spectometer.png}
+  \caption[Spectometer]{Spectometer: When a beam of monochromatic light passes through a grating placed in a spectrometer, images of the sources can be seen through the telescope at different angles.}
 \label{fig:spectometer}
 \end{figure}
-\footnotetext{This image has been taken from \texttt{http://h2physics.org/?cat=49}}
 
-%% TODO: state regardless whether transmissive or reflective grating type, analogous principle hold true.
-
-Suppose an incident plane wavefront, composed of a monochromatic light source, is directed at a transmissive diffraction grating, parallel to its axis as shown in figure $\ref{fig:spectometer}$. Let the distance between successive slits on the grating be equal the value $d$. Furthermore, at a distance $L$, there is a screen parallel to the grating. Then the emitted waves will from a diffraction pattern on the screen which is the result of interference effects among outgoing wavelets like shown in figure $\ref{fig:idealizedtransmissivegrating}$. 
+Suppose an incident plane wavefront, composed of a monochromatic light source, is directed at a transmissive diffraction grating, parallel to its axis as shown in figure $\ref{fig:spectometer}$. Let the distance between successive slits on the grating be equal the value $d$. Furthermore, at a distance $L$, there is a screen parallel to the grating. Then the emitted waves will from a diffraction pattern on the screen which is the result of interference effects (constructively or destructively interference) among outgoing wavelets like shown in figure $\ref{fig:idealizedtransmissivegrating}$. 
 
 \begin{figure}[H]
   \centering
   \subfigure[Idealized Transmissive Grating]{
-    \includegraphics[scale=0.7]{evaluation/idealizeddiffgrating.png}
+    \includegraphics[scale=0.65]{evaluation/idealizeddiffgrating.png}
     \label{fig:idealizedtransmissivegrating}
   }
 ~  
   \subfigure[Parallel reflected Rays]{
-    \includegraphics[scale=0.7]{evaluation/gratingsparallellines.png}
+    \includegraphics[scale=0.65]{evaluation/gratingsparallellines.png}
     \label{fig:gratingparallelreflectedrays}
   }
 
@@ -44,50 +41,24 @@ Suppose an incident plane wavefront, composed of a monochromatic light source, i
 \label{fig:lighthitsgrating}
 \end{figure}
 
-%TODO explain L >> d
-%TODO explain geometrical setup in detail
-
-Thus, the path difference between waves from any two adjacent slits can be derived by drawing a perpendicular line between the parallel waves. Applying simple trigonometry gives us this path difference as $e = d sin(\theta)$ as shown in figure $\ref{fig:gratingparallelreflectedrays}$. 
-
-
-If the path difference equals one wavelength or a multiple of the wave's wavelength, the emerging, reflected waves from all slits will be in phase and a bright line will be observed at that point. Therefore, the condition for maxima in the interference pattern at the angle $\theta$ is: 
+If the distance to the screen is much larger than the slits width, i.e. $L >> d$, then all the waves emanating from the surface and ending up at the receiver are parallel. Thus, the path difference between waves from any two adjacent slits can be derived by drawing a perpendicular line between the parallel waves. Applying simple trigonometry gives us this path difference as $e = d sin(\theta)$ as shown in figure $\ref{fig:gratingparallelreflectedrays}$. If the path difference equals one wavelength or a multiple of the wave's wavelength, the emerging, reflected waves from all slits will be in phase and a bright line will be observed at that point. Therefore, the condition for maxima in the interference pattern at the angle $\theta$ is: 
 
 \begin{equation}
  d sin(\theta) = m \lambda 
 \label{eq:simplegratingequation}
 \end{equation}
 
-where $m \in \mathds{N}_0$ is the order of diffraction. Because $d$ is very small for a diffraction grating, a beam of monochromatic light passing through a diffraction grating is split into very narrow bright fringes at large angles $\theta$.
+where $m \in \mathds{N}_0$ is the order of diffraction. Because $d$ is very small for a diffraction grating, a beam of monochromatic light passing through a diffraction grating is split into very narrow bright fringes at large angles $\theta$. Without constraints of generality, either for a transmissive or a reflective diffraction grating type, an analogous derivation for equation $\ref{eq:simplegratingequation}$ can be derived.
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.7]{evaluation/GratingSurface.png}
-  \caption[Diffraction Orders]{Different$\footnotemark$ Orders of diffraction}
+  \caption[Diffraction Orders]{Different$\footnotemark$ Orders of diffraction when light is diffracted on a reflective diffraction grating.}
 \label{fig:gratingdiffractionorders}
 \end{figure}
 \footnotetext{This image has been taken from \texttt{http://www.tau.ac.il/\textasciitilde phchlab/experiments\textunderscore new/SemB01\textunderscore Hydrogen/02TheoreticalBackground.html}}
 
-When a narrow beam of white light is directed at a diffraction grating along its axis, instead of a monochromatic bright fringe, a set of colored spectra are observed on both sides of the central white band as shown in figure $\ref{fig:gratingdiffractionorders}$.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[scale=0.7]{evaluation/coloredspectrum.jpg}
-  \caption[Diffracted White Light]{White Light beam causes coloured diffraction spectra$\footnotemark$}
-  \label{fig:diffractionSpectrum}
-\end{figure}
-\footnotetext{This image has been taken from \texttt{http://h2physics.org/?cat=49}}
-
-
-%TODO refactor this
-Since the angle $\theta$ increases with wavelength $\lambda$, red light, which has the longest wavelength, is diffracted through the largest angle. Similarly violet light has the shortest wavelength and is therefore diffracted the least. This relationship between angle and wavelength is illustrated in figure $\ref{fig:diffractionSpectrum}$. Thus, white light is split into its component colors from violet to red light. The spectrum is repeated in the different orders of diffraction, emphasizing certain colors differently, depending on their order of diffraction like shown in figure $\ref{fig:gratingdiffractionorders}$. Note that only the zero order spectrum is pure white.  
-Figure $\ref{fig:nslitdiffractionintensity}$ shows the relative intensity resulting when a beam of light hits a diffraction grating for different number of periods. From the graph we recognise that the more slits a grating has, the sharper more slopes the function of intensity gets. This is similar like saying that, the more periods a grating has, the sharper the diffracted color spectrum gets like shown in figure $\ref{fig:diffractionslits}$. 
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[scale=0.6]{evaluation/relativeintensivity.png}
-  \caption[Intensity Plots for Different Number of Slits]{Relative intensities of a diffracted beam of light at wavelength $\lambda=500nm$ on a grating for different number of periods $N$ width slit width of 30 microns and slit separation of 0.15 mm each. The viewer is 0.5m apart from the grating.}
-  \label{fig:nslitdiffractionintensity}
-\end{figure}
+When a beam of white light is directed at a diffraction grating along its axis, instead of a monochromatic bright fringe, a set of colored spectra are observed on both sides of the central white band. Figure $\ref{fig:diffractionslits}$ illustrates this for different number of slits on a diffraction grating. 
 
 \begin{figure}[H]
   \centering
@@ -104,6 +75,16 @@ Figure $\ref{fig:nslitdiffractionintensity}$ shows the relative intensity result
 \label{fig:diffractionslits}
 \end{figure}
 \footnotetext{These images have been taken from \texttt{http://www.itp.uni-hannover.de/\textasciitilde zawischa/ITP/multibeam.html}}
+
+Since the reflected angle $\theta_r$ increases with wavelength $\lambda$, red light, which has the longest wavelength, is diffracted through the largest angle. Similarly violet light has the shortest wavelength and is therefore diffracted the least. This relationship between angle and wavelength is illustrated in figure $\ref{fig:diffractionSpectrum}$. Thus, white light is split into its component colors from violet to red light. The spectrum is repeated in the different orders of diffraction, emphasizing certain colors differently, depending on their order of diffraction like shown in figure $\ref{fig:gratingdiffractionorders}$. Note that only the zero order spectrum is pure white.  
+Figure $\ref{fig:nslitdiffractionintensity}$ shows the relative intensity resulting when a beam of light hits a diffraction grating for different number of periods. From the graph we recognise that the more slits a grating has, the sharper more slopes the function of intensity gets. This is similar like saying that, the more periods a grating has, the sharper the diffracted color spectrum gets like shown in figure $\ref{fig:diffractionslits}$. 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.6]{evaluation/relativeintensivity.png}
+  \caption[Intensity Plots for Different Number of Slits]{Relative intensities of a diffracted beam of light at wavelength $\lambda=500nm$ on a grating for different number of periods $N$ width slit width of 30 microns and slit separation of 0.15 mm each. The viewer is 0.5m apart from the grating.}
+  \label{fig:nslitdiffractionintensity}
+\end{figure}
 
 \section{Verifications}
 \label{sec:approachesverifications}
@@ -122,7 +103,6 @@ The physical reliability of our BRDF models has been verified by applying it to 
   \caption[Reflective Grating]{Reflecting grating: When the incident light direction is not parallel to its axis at the grating, there is another $sin(\phi)$ involved. See also the grating equation $\ref{eq:gratingeq}$.}
   \label{fig:reflgrating}
 \end{figure}
-
 
 Figure $\ref{fig:reflgrating}$ shows that if the incident light is not along the axis of the diffracte dgratings then it effects the optical path differences. The maximum in intensity is given by the grating equation derived from the equation $\ref{eq:simplegratingequation}$ following figure $\ref{fig:reflgrating}$: 
 
