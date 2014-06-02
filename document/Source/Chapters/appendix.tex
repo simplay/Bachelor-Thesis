@@ -18,11 +18,15 @@ light direction and the viewing direction, hence $\cos\theta=(H\cdot V)$. And $n
 
 \section{Spherical Coordinates and Space Transformation}
 \label{sec:sphericalcoordinates}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.35]{sphericalcoordinates.png}
+  \caption[Illustration of Spherical Coordinate System]{Illustration$\footnotemark$ of Spherical coordinates $(r,θ,φ)$ radius $r$, polar (inclination) angle $\theta$, and azimuthal angle $\phi$.}
+  \label{fig:sphericalcoordinatesystem}
+\end{figure}
+\footnotetext{image source of figure $\ref{fig:sphericalcoordinatesystem}$ \texttt{http://en.wikipedia.org/wiki/Spherical\textunderscore coordinate\textunderscore system}} 
 
-% TODO add an image showing spherical angles
-% TODO add some intro text
-
-$\forall \colvec[x]{y}{z} \in \mathbb{R}^3 : \exists r \in [0,\infty) \exists \phi \in [0,2\pi] \exists \theta \in [0,\pi] $ s.t.
+To define a spherical coordinate system like shown in figure $\ref{fig:sphericalcoordinatesystem}$, two angles, tho polar angle $\theta$ and the azimuthal $\phi$ plus a radius $r$ are required. Then the Cartesian coordinates $(x,y,z)$ may be retrieved from the spherical coordinates like the following: $\forall \colvec[x]{y}{z} \in \mathbb{R}^3 : \exists r \in [0,\infty) \exists \phi \in [0,2\pi] \exists \theta \in [0,\pi] $ s.t.
 \begin{equation*}
 \colvec[x]{y}{z} = \colvec[r sin(\theta)cos(\phi)]{r sin(\theta)sin(\phi)}{r cos(\theta)}
 \label{eq:sphericalcoordinates}
