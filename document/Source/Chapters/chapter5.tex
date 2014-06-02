@@ -121,7 +121,7 @@ Last, let us consider figure $\ref{fig:brdfmapblazegem}$ which shows the BRDF ma
 \label{fig:brdfmapsdiffrenderingapproaches}
 \end{figure}
 
-Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdifflambdastepselaphe65}$ show the BRDF maps for different wavelength step sizes used in the fragment shader for the FLSS approach applied on the blazed grating and the Elpahe snake shed, respectively. Within our fragment shaders the outermost loop iterates over the range $[380nm, 780nm]$ for a given step size $\lambda_{step}$ to integrate over the wavelength spectrum. Having bigger step sizes implies having fewer $\lambda$-samples which will reduce the overall runtime of a shader but, it will also introduce artifacts and therefore lower the overall shading quality. For Elaphe surface grating, artifacts are perceivable when $\lambda_{step} \leq 10nm$. Results produced by using $5nm$ step sizes do not differ from those produced by using $\lambda_{step}= 1nm$. This allows us to set $\lambda_{step}$ at 5nm. For a Blazed grating we may chose even bigger step sized without losing any rendering quality(see figure $\ref{fig:brdfmapsdifflambdastepsblaze}$).   
+Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdifflambdastepselaphe65}$ show the BRDF maps for different wavelength step sizes used in the fragment shader for the FLSS approach applied on the blazed grating and the Elaphe snake shed, respectively. Within our fragment shaders the outermost loop iterates over the range $[380nm, 780nm]$ for a given step size $\lambda_{step}$ to integrate over the wavelength spectrum. Having bigger step sizes implies having fewer $\lambda$-samples which will reduce the overall runtime of a shader but, it will also introduce artifacts and therefore lower the overall shading quality. For Elaphe surface grating, artifacts are perceivable when $\lambda_{step} \leq 10nm$. Results produced by using $5nm$ step sizes do not differ from those produced by using $\lambda_{step}= 1nm$. This allows us to set $\lambda_{step}$ at 5nm. For a Blazed grating we may chose even bigger step sized without losing any rendering quality(see figure $\ref{fig:brdfmapsdifflambdastepsblaze}$).   
 
 \begin{figure}[H]
   \centering
@@ -436,7 +436,7 @@ Among all the snake species under consideration, their macroscopic geometry is h
 \label{tab:hardwarespecifications}
 \end{table}
 
-Figure $\ref{fig:renderingdifferentsnankegratings}$ shows renderings produced by the FLSS approach applied on our snake mesh for different, given input patches. Due do the fact that a Blazed grating has its maximum intensity for a certain direction and the geometry of the snake mesh is curved i.e. is non-flat, we can expect rather less diffraction color contribution like shown in figure $\ref{fig:renderingelaphegrating}$. 
+Figure $\ref{fig:renderingdifferentsnankegratings}$ shows renderings produced by the FLSS approach applied on our snake mesh for different, given input patches. Due do the fact that a Blazed grating has its maximum intensity for a certain direction and the geometry of the snake mesh is curved i.e. is non-flat, we can expect rather less diffraction color contribution like shown in figure $\ref{fig:renderingelaphegrating}$. \\
 
 %%TODO write something about similar configuration for blazed grating
 
@@ -589,8 +589,7 @@ Figure $\ref{fig:experimentelaphe65}$ shows a photo of an experimental setup for
   \label{fig:experimentelaphe65}
 \end{figure}
 
-
-% TODO write some text for below's figure
+Finally, tried to reproduce a real Xenopeltis image for a unknown light viewing direction. For this purpose I used our FLSS rendering approach and compared its results against Nvidia Gem's implementation. The results are shown in figure $\ref{fig:attemptxeno}$. 
 
 \begin{figure}[H]
   \centering

@@ -82,7 +82,7 @@
 \contentsline {subsection}{\numberline {C.1.2}Part 2: Find such an N}{101}{subsection.C.1.2}
 \contentsline {section}{\numberline {C.2}PQ approach}{103}{section.C.2}
 \contentsline {subsection}{\numberline {C.2.1}One dimensional case}{103}{subsection.C.2.1}
-\contentsline {subsection}{\numberline {C.2.2}Two dimensional case}{104}{subsection.C.2.2}
+\contentsline {subsection}{\numberline {C.2.2}Two dimensional case}{105}{subsection.C.2.2}
 \contentsline {chapter}{\numberline {D}Miscellaneous Transformations}{106}{appendix.D}
 \contentsline {section}{\numberline {D.1}Fresnel Term - Schlick's approximation}{106}{section.D.1}
 \contentsline {section}{\numberline {D.2}Spherical Coordinates and Space Transformation}{107}{section.D.2}
