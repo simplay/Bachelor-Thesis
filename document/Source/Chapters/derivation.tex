@@ -399,7 +399,7 @@ From section $\ref{sec:gaussianwindow}$ we know that we can reproduce a FT by ap
 
 where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the Gaussian window from equation $\ref{sec:gaussianwindow}$ and $\mathcal{N}_1(u,v)$ denotes the one-neighborhood around $(u,v)$. \\
 
-In section $\ref{sec:taylorapproximation}$ we derived equation $\label{eq:xcolexpression}$ which tells us how to compute the $CIE_{XYZ}$ color value of a particular color channel using our relative reflectance brdf model from section $\ref{sec:relrefl}$. Pluggin all these findings together and using our windowing approach, listed in equation $\label{eq:wnwindowingapproachsub}$, Then $\forall (u,v,w)$ like (defined in equation $\ref{eq:uvw}$), our final expression for computing structural colors due to diffraction, using all our previous derivations, will be equal:
+In section $\ref{sec:taylorapproximation}$ we derived equation $\ref{eq:xcolexpression}$ which tells us how to compute the $CIE_{XYZ}$ color value of a particular color channel using our relative reflectance brdf model from section $\ref{sec:relrefl}$. Pluggin all these findings together and using our windowing approach, listed in equation $\ref{eq:wnwindowingapproachsub}$, Then $\forall (u,v,w)$ like (defined in equation $\ref{eq:uvw}$), our final expression for computing structural colors due to diffraction, using all our previous derivations, will be equal:
 
 \begin{equation}
 \begin{split}
@@ -505,7 +505,7 @@ In general, for a sinc-interpolation, we are interested in recovering an origina
 \end{equation}
 
 which has the Fourier transformation $X(f)$ whose non-zero values are confined to the region $|f| \leq \frac{1}{2T} = B$.
-When $x[n]$ represents time samples at interval $T$ of a continuous function, then the quantity $f_s = \frac{1}{T}$ is known as its sample rate and $\frac{f_s}{2}$ denotes the Nyquist frequency. The sampling Theorem states that when a function has a Bandlimit $B$ less than the Nyquist frequency, then $x(t)$ is a perfect reconstruction of the original function. Figure $\label{fig:plotsincinterpolation}$ illustates a reconstruction of a 1d signal relying on a sinc-interpolation.  
+When $x[n]$ represents time samples at interval $T$ of a continuous function, then the quantity $f_s = \frac{1}{T}$ is known as its sample rate and $\frac{f_s}{2}$ denotes the Nyquist frequency. The sampling Theorem states that when a function has a Bandlimit $B$ less than the Nyquist frequency, then $x(t)$ is a perfect reconstruction of the original function. Figure $\ref{fig:plotsincinterpolation}$ illustates a reconstruction of a 1d signal relying on a sinc-interpolation.  
 
 \begin{figure}[ht]
   \centering

@@ -536,6 +536,7 @@ O(\#spectrtumIter \cdot \#taylorIter \cdot neighborhoodRadius^2)
  
 Our goal is to optimize this runtime behaviour. Instead sampling over the whole wavelength spectrum, we instead could integrate over a minimal number of  wavelengths contributing the most to our shading result like shown in figure $\ref{fig:nmmshadingapproach}$. These values are elicited like the following: Lets consider $(u,v,w)$ defined as in equation $\ref{eq:uvw}$. Let $d$ be the spacing between two slits of a grating. For any $L(\lambda) \neq 0$ it follows $\lambda_{n}^{u} = \frac{d u}{n}$ and $\lambda_{n}^{v} = \frac{d u}{n}$. Therefore we can derive the following boundaries of $n$:
 
+\label{eq:collectionnmmeqs}
 \begin{table}[H]
   \centering 
   \begin{tabular}{l l}
@@ -546,12 +547,11 @@ Our goal is to optimize this runtime behaviour. Instead sampling over the whole 
     & $N_{min}^{v} = \frac{d v}{\lambda_{min}} \leq n_{v} \leq \frac{d v}{\lambda_{min}} = N_{max}^{v}$ \\
     & \\
     If $(u,v)=(0,0)$ & $n_u = 0$ \\
-    & $n_v = 0$ \\
+    & $n_v = 0$ \\  
   \end{tabular} 
-  \label{eq:nminmaxapproximation}
 \end{table}
 
-By transforming those equations in the equation collection $\ref{eq:nminmaxapproximation}$ to $(\lambda_{min}^{u}, \lambda_{min}^{u})$ and $(\lambda_{min}^{v}, \lambda_{min}^{v})$ respectively, we can reduce the total number of required iterations in our fragment shader. We denote this optimization by the $n_{min}$, $n_{max}$ (NMM) shading approach. 
+By transforming those equations (equations $\ref{eq:collectionnmmeqs}$) to $(\lambda_{min}^{u}, \lambda_{min}^{u})$ and $(\lambda_{min}^{v}, \lambda_{min}^{v})$ respectively, we can reduce the total number of required iterations in our fragment shader. We denote this optimization by the $n_{min}$, $n_{max}$ (NMM) shading approach. 
 
 \begin{figure}[H]
   \centering
@@ -560,7 +560,7 @@ By transforming those equations in the equation collection $\ref{eq:nminmaxappro
   \label{fig:nmmshadingapproach}
 \end{figure}
 
-Figure $\ref{fig:nmmshadingapproach}$ illustrated the idea of the NMM shading approach by showing a visualization of a DFT term. Instead integrating over the whole wavelength spectrum (yellow line), we can find a constrained wavelength range by using equation $\ref{eq:nminmaxapproximation}$, and then only integrate over a reduced, discrete set of $\lambda$ values (indicated by the dotted red line). Since we are uniformly integrating over the wavelength spectrum but this approach selects non-uniformly a reduced wavelength spectrum, this can lead to issues. Close to zero frequency, i.e. $(u,v)$ equal to $(0,0)$, we could have too few or even no samples, using the NMM approach. Thus, our workaround according to this issue is to use a default color close to the zero frequency. Technically, this means that return white color around a small $\epsilon$ circumstance.
+Figure $\ref{fig:nmmshadingapproach}$ illustrated the idea of the NMM shading approach by showing a visualization of a DFT term. Instead integrating over the whole wavelength spectrum (yellow line), we can find a constrained wavelength range by using equation $\ref{eq:collectionnmmeqs}$, and then only integrate over a reduced, discrete set of $\lambda$ values (indicated by the dotted red line). Since we are uniformly integrating over the wavelength spectrum but this approach selects non-uniformly a reduced wavelength spectrum, this can lead to issues. Close to zero frequency, i.e. $(u,v)$ equal to $(0,0)$, we could have too few or even no samples, using the NMM approach. Thus, our workaround according to this issue is to use a default color close to the zero frequency. Technically, this means that return white color around a small $\epsilon$ circumstance.
 
 \subsection{The PQ Shading Approach}
 \label{sec:pqapproach}

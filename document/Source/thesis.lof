@@ -1,7 +1,96 @@
 \select@language {english}
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Example of Biological Color Production}}{1}{figure.caption.2}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Structural color examples}}{2}{figure.caption.3}
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Xenopeltis AFM image}}{3}{figure.caption.4}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Irradiance}}{7}{figure.caption.5}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces BRDF Model}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Xenopeltis snake}}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Elaphe Guttata snake}}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Thin Film Interference soap bubble}}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Multilayer Interference on abdomen of beetle}}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Photonic crystals in Wings of butterfly}}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {Scattering of light on butterfly wing}}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(e)}{\ignorespaces {Artificial Diffraction Grating on CD}}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(f)}{\ignorespaces {Natural Diffraction Grating on snake skin}}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Radiances is the density of photons per area per solid angle}}}{9}{figure.caption.7}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Solid angle is the area of a surface patch on a sphere with radius R which is spanned by a set of directions}}}{9}{figure.caption.7}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces visiblelightspectrum}}{10}{figure.caption.8}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces humanayeschematic}}{10}{figure.caption.9}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Color Matching Functions}}{11}{figure.caption.10}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces sinewave}}{13}{figure.caption.11}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces interference}}{14}{figure.caption.12}
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Wave Coherence}}{15}{figure.caption.13}
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Huygen's Principle}}{16}{figure.caption.14}
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Diffracted Wave}}{17}{figure.caption.15}
+\contentsline {figure}{\numberline {2.11}{\ignorespaces Diffraction for different $\texttt {Wavelength/Slit-Width}$ ratio}}{18}{figure.caption.16}
+\contentsline {figure}{\numberline {2.12}{\ignorespaces Idea behind Stam's approach}}{19}{figure.caption.17}
+\contentsline {figure}{\numberline {2.13}{\ignorespaces Stam's geometrical setup}}{20}{figure.caption.18}
+\contentsline {figure}{\numberline {2.14}{\ignorespaces Comparing Stam's apporach: Gratings}}{21}{figure.caption.19}
+\contentsline {figure}{\numberline {2.15}{\ignorespaces Comparing Stam's apporach: Good Example}}{22}{figure.caption.20}
+\contentsline {figure}{\numberline {2.16}{\ignorespaces Comparing Stam's apporach: Bad Example}}{22}{figure.caption.21}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Problem Statement}}{24}{figure.caption.22}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Problem Statement: Output}}{25}{figure.caption.23}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces FT by DTFT}}{26}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {W $\ll $ $\lambda $}}}{26}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {W $\approx $ $2 \lambda $}}}{26}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {W $\approx $ $6 \lambda $}}}{26}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Structure Geometry}}}{26}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Nanostructure Surface}}}{26}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Patch Orientation}}}{26}{figure.caption.24}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Coherence Area using Gaussian Window}}{27}{figure.caption.25}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces DTFT by DFT}}{28}{figure.caption.26}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Sinc Interpolation Approximation}}{40}{figure.caption.27}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces DFT Terms for a Blazed Grating}}{45}{figure.caption.29}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Renderer Architecture}}{46}{figure.caption.31}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Triangular Mesh}}{47}{figure.caption.32}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Vertex Shader}}{48}{figure.caption.33}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Camera Coordinate System}}{49}{figure.caption.34}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Camera Matrix}}{50}{figure.caption.35}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Rays of a Directional Light}}{51}{figure.caption.37}
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Triangle Rasterization}}{52}{figure.caption.38}
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Fragment Shader}}{53}{figure.caption.39}
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Lookup DFT Coefficients in Textures}}{58}{figure.caption.45}
+\contentsline {figure}{\numberline {4.11}{\ignorespaces NMM Shading Approach}}{62}{figure.caption.51}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Spectometer}}{65}{figure.caption.53}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Idealized Diffraction Grating}}{66}{figure.caption.54}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Diffraction Orders}}{67}{figure.caption.55}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces N Slit Diffraction Grating Pattern}}{67}{figure.caption.56}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Intensity Plots for Different Number of Slits}}{68}{figure.caption.57}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Experimental Setup}}{69}{figure.caption.58}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Reflective Grating}}{70}{figure.caption.59}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Validation of FLSS Approach applied on our Gratings}}{72}{figure.caption.61}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Validation of NMM Approach applied on our Gratings}}{74}{figure.caption.63}
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Validation of PQ Approach applied on our Gratings}}{74}{figure.caption.64}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces BRDF Map}}{76}{figure.caption.65}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Our Diffraction Gratings}}{76}{figure.caption.66}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces BRDF Map: FLSS Approach applied on various Gratings}}{77}{figure.caption.67}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces BRDF Map: Our Approaches applied on a Blazed Grating}}{78}{figure.caption.68}
+\contentsline {figure}{\numberline {6.5}{\ignorespaces BRDF Map: Varying step sizes FLSS Blazed Grating}}{79}{figure.caption.69}
+\contentsline {figure}{\numberline {6.6}{\ignorespaces BRDF Map: Varying step sizes FLSS Elaphe Grating}}{80}{figure.caption.70}
+\contentsline {figure}{\numberline {6.7}{\ignorespaces BRDF Map: PQ vs FLSS Approach on Blazed Grating}}{81}{figure.caption.71}
+\contentsline {figure}{\numberline {6.8}{\ignorespaces BRDF Map: PQ vs FLSS Approach on Elaphe Grating}}{81}{figure.caption.72}
+\contentsline {figure}{\numberline {6.9}{\ignorespaces BRDF Map: PQ vs FLSS Approach on Xenopeltis Grating}}{82}{figure.caption.73}
+\contentsline {figure}{\numberline {6.10}{\ignorespaces BRDF Map: Different spatial variance $\sigma _s$ values}}{83}{figure.caption.74}
+\contentsline {figure}{\numberline {6.11}{\ignorespaces BRDF Map: Xenopeltis Grating Convergence}}{84}{figure.caption.75}
+\contentsline {figure}{\numberline {6.12}{\ignorespaces BRDF Map: Elaphe Grating Convergence}}{85}{figure.caption.76}
+\contentsline {figure}{\numberline {6.13}{\ignorespaces BRDF Map: Varying Viewing Angles}}{85}{figure.caption.77}
+\contentsline {figure}{\numberline {6.14}{\ignorespaces Snake Renderings: Our Approaches applied on our Gratings}}{87}{figure.caption.79}
+\contentsline {figure}{\numberline {6.15}{\ignorespaces Snake Renderings: FLSS Approach for Elaphe Grating}}{88}{figure.caption.80}
+\contentsline {figure}{\numberline {6.16}{\ignorespaces Snake Renderings: FLSS Approach for Xenopeltis Grating}}{89}{figure.caption.81}
+\contentsline {figure}{\numberline {6.17}{\ignorespaces Snake Renderings: FLSS Approach for a varying FoV}}{90}{figure.caption.82}
+\contentsline {figure}{\numberline {6.18}{\ignorespaces Snake Renderings: FLSS Approach for varying Light Directions}}{91}{figure.caption.83}
+\contentsline {figure}{\numberline {6.19}{\ignorespaces Diffraction Elaphe: experimental setup\relax }}{91}{figure.caption.84}
+\contentsline {figure}{\numberline {6.20}{\ignorespaces Snake Renderings: Stam's- vs. Flss- Approach on Xenopeltis}}{92}{figure.caption.85}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {D.1}{\ignorespaces Illustration of Spherical Coordinate System}}{13}{figure.caption.4}
-\contentsline {figure}{\numberline {D.2}{\ignorespaces Illustration of a Tangent Space}}{14}{figure.caption.5}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {D.1}{\ignorespaces Illustration of Spherical Coordinate System}}{107}{figure.caption.88}
+\contentsline {figure}{\numberline {D.2}{\ignorespaces Illustration of a Tangent Space}}{108}{figure.caption.89}
