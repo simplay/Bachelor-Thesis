@@ -4,9 +4,9 @@
 \section{Problem Statement and Challenges}
 The goal of this thesis is to perform a physically accurate and interactive simulation of structural colors production like shown in figure $\ref{fig:problemstatementoutput}$, which we can see whenever a light source is diffracted on a natural grating. For this purpose we need to be provided by the following input data as shown in figure $\ref{fig:problemstatement}$:
 \begin{itemize}
-  \item A mesh representing a snake surface$\footnote{Which is in our simulation an actual reconstruction of a real snake skin. These measurements are provided by the Laboratory of Artificial and Natural Evolition at Geneva.See their website:\texttt{www.lanevol.org}.}$ with associated texture coordinates as shown in figure $\ref{fig:strucgeom}$.
-  \item A natural diffraction grating represented as a height field, its maximum height and its pixel-width-correspondence$\footnote{Since the nanostructure is stored as a grayscale image, we need a scale telling us what length and height one pixel cooresponds to in this provided image.}$.
-  \item A vectorfield which describes how fingers on a provided surface of the nanostructrue are aligned as shown in figure $\ref{fig:patchvectorfield}$. 
+  \item A mesh representing a snake surface$\footnote{Which is in our simulation an actual reconstruction of a real snake skin. These measurements are provided by the Laboratory of Artificial and Natural Evolution at Geneva.See their website:\texttt{www.lanevol.org}.}$ with associated texture coordinates as shown in figure $\ref{fig:strucgeom}$.
+  \item A natural diffraction grating represented as a height field, its maximum height and its pixel-width-correspondence$\footnote{Since the nanostructure is stored as a grayscale image, we need a scale telling us what length and height one pixel corresponds to in this provided image.}$.
+  \item A vector field which describes how fingers on a provided surface of the nano-structure are aligned as shown in figure $\ref{fig:patchvectorfield}$. 
 \end{itemize}
 
 \begin{figure}[H]
@@ -29,11 +29,11 @@ The goal of this thesis is to perform a physically accurate and interactive simu
   \label{fig:problemstatement}
 \end{figure}
 
-We want to rely on the integral equation $\ref{eq:mainstam}$ derived by J. Stam in his paper $\cite{diffstam}$ about diffraction shaders. This equation formualtes a BRDF modeling the effect of diffraction under the assumption that a given grating can either be formulated as an analytical function or its structure is simple enough beeing modeled relying on statistical methods. These assumptions guarantee that $\ref{eq:mainstam}$ has an explicit solution. However, the complexisty of a biological nanostructures cannot sufficiently and accurately modeled simply using statistical methods. This is why interactive computation at high resolution becomes a hard task, since we cannot evaluate the given integral equation on the fly. Therefore, we have to adapt Stam's equation such that we are able to perform interactive rendering using explicitly provided height fields.
+We want to rely on the integral equation $\ref{eq:mainstam}$ derived by J. Stam in his paper $\cite{diffstam}$ about diffraction shaders. This equation formulates a BRDF modelling the effect of diffraction under the assumption that a given grating can either be formulated as an analytical function or its structure is simple enough being modelled relying on statistical methods. These assumptions guarantee that $\ref{eq:mainstam}$ has an explicit solution. However, the complexity of a biological nanostructure cannot sufficiently and accurately modelled simply using statistical methods. This is why interactive computation at high resolution becomes a hard task, since we cannot evaluate the given integral equation on the fly. Therefore, we have to adapt Stam's equation such that we are able to perform interactive rendering using explicitly provided height fields.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.5]{derivation/renderedstructuredcolors.png}
+  \includegraphics[scale=0.8]{derivation/renderedstructuredcolors.png}
   \caption[Problem Statement: Output]{Output: Rendered Structural Colors}
   \label{fig:problemstatementoutput}
 \end{figure}
@@ -41,18 +41,18 @@ We want to rely on the integral equation $\ref{eq:mainstam}$ derived by J. Stam 
 
 \section{Approximate a FT by a DFT}
 \subsection{Reproduce FT by DTFT}
-In the previous section, we have found an identity for the reflected spectral radiance $L_{\lambda}(\omega_r)$ when using Stam's BRDF for a given input height field. However, the derived expression in equation $\ref{eq:nonrelativebrdffinding}$ requires to evaluate the Fourier Transform of our height field$\footnote{actually it requires the computation of the inverse Fourier Transform of a transformed version of the given heightfield, the function p(x,y) defined in equation \ref{eq:px}.}$ for every direction. In this section we explain how to approximate the FT by the DTFT and apply it to our previous derivations. Figure $\ref{fig:ftbydtft}$ graphically shows how to obtain the DTFT from the FT for a one dimensional signal$\footnote{For our case we are dealing with a two dimensional, spatial signal, the given height field. Nevertheless, without any constraints of generality, the explained approach applies to multi dimensional problems.}$ \\
+In the previous section, we have found an identity for the reflected spectral radiance $L_{\lambda}(\omega_r)$ when using Stam's BRDF for a given input height field. However, the derived expression in equation $\ref{eq:nonrelativebrdffinding}$ requires to evaluate the Fourier Transform of our height field$\footnote{actually it requires the computation of the inverse Fourier Transform of a transformed version of the given height field, the function p(x,y) defined in equation \ref{eq:px}.}$ for every direction. In this section we explain how to approximate the FT by the DTFT and apply it to our previous derivations. Figure $\ref{fig:ftbydtft}$ graphically shows how to obtain the DTFT from the FT for a one dimensional signal$\footnote{For our case we are dealing with a two dimensional, spatial signal, the given height field. Nevertheless, without any constraints of generality, the explained approach applies to multi dimensional problems.}$ \\
 
 \begin{figure}[ht]
   \centering
   \includegraphics[scale=0.6]{derivation/ftbydtft.png}
-  \caption[FT by DTFT]{Illustration of how to approximate the analytical Fourier Transform (FT) $\footnotemark$ of a given continuous signal by a Discrete Time Fourier Transform (DTFT). The DTFT applied on a bandlimited, discretized signal yields a continuous, periodic response in frequency space.}
+  \caption[FT by DTFT]{Illustration of how to approximate the analytical Fourier Transform (FT) $\footnotemark$ of a given continuous signal by a Discrete Time Fourier Transform (DTFT). The DTFT applied on a band-limited, discretized signal yields a continuous, periodic response in frequency space.}
   \label{fig:ftbydtft}  
 \end{figure}
 \footnotetext{Images of function plots taken from \texttt{http://en.wikipedia.org/wiki/Discrete\textunderscore Fourier\textunderscore transform} and are modified.} 
-The first step is to uniformly discretize the given signal since computers are working finite, discrete arithmetic. We rely on the Nyquist–Shannon sampling theorem tells us how dense we have to sample a given signal $s(x)$ such that can be reconstructed its sampled version $\hat{s}[n]$$\footnote{n denotes the number of samples.}$. In particular, a sampled version according to the Nyquist–Shannon sampling theorem will have the same Fourier Transform as its origianl singal. The sampling theorem states that if $f_{max}$ denotes the highest frequency of $s(x)$, then, it has to be sampled by a rate of $f_s$ with $2f_{max} \leq f_s$ in order to be reconstructable. By convention $T = \frac{1}{f_s}$ represent the interval length between two samples. \\ \\
+The first step is to uniformly discretize the given signal since computers are working finite, discrete arithmetic. We rely on the Nyquist–Shannon sampling theorem tells us how dense we have to sample a given signal $s(x)$ such that can be reconstructed its sampled version $\hat{s}[n]$$\footnote{n denotes the number of samples.}$. In particular, a sampled version according to the Nyquist–Shannon sampling theorem will have the same Fourier Transform as its original signal. The sampling theorem states that if $f_{max}$ denotes the highest frequency of $s(x)$, then, it has to be sampled by a rate of $f_s$ with $2f_{max} \leq f_s$ in order to be reconstructable. By convention $T = \frac{1}{f_s}$ represent the interval length between two samples. \\ \\
 
-Next, we apply the Fourier Tranformation operator on the discretized singal $\hat{s}$ which gives us the following expression: 
+Next, we apply the Fourier Transformation operator on the discretized signal $\hat{s}$ which gives us the following expression: 
 
 \begin{align}
 \mathcal{F}_{FT}\{\hat{s}\}(w)
@@ -71,22 +71,22 @@ For a given height field $h$, let us compute Stam's auxiliary function $p$ defin
 \label{eq:dtftheightfield}
 \end{equation} 
 
-Therefore $P_{dtft}$ denotes the DTFT of a transformed version of our height field $h$$\footnote{By transformed height field we mean $p(x,y) = e^{i\frac{2 \pi}{\lambda} w h(x,y)} which we get, when pluggin $h$ into equation \ref{eq:heightfieldphase} and this expression again plug into equation \ref{eq:px}.$}$. 
+Therefore $P_{dtft}$ denotes the DTFT of a transformed version of our height field $h$ $\footnote{By transformed height field we mean $p(x,y) = e^{i\frac{2 \pi}{\lambda} w h(x,y)}$ which we get, when we plug $h$ into equation $\ref{eq:heightfieldphase}$ and this expression again plug into equation $\ref{eq:px}$.}$. 
 
 \subsection{Spatial Coherence and Windowing}
 \label{sec:spatialcoherenceandwindowing}
-Before we can derive a final expression in order to approximate a FT by a DFT, we first have to revisit the concept of coherence introduced in section $\ref{sec:wavecoherence}$ of chapter 2.Previousely we have seen that Stam's BRDf tells us what is the total contribution of all secondary sources which allows us to say what is the reflected spectral radiance at a certain point in space. This is related to stationary interference which itself depends on the coherence property of the emitted secondary wave sources. The ability for two points in space, $t_1$ and $t_2$, to interfere in the extend of a wave when being averages over time is the so called spatial coherence. The spatial distance between such two points over which there is significant intererence is limited by the quantity coherence area. For filtered sunlight on earth this is equal to 65$\mu m$ $\footnote{A proof for this number can be looked up in the book Optical Coherence and Quantum Optics$\cite{optcoherence}$ on page 153 and 154.}$.
+Before we can derive a final expression in order to approximate a FT by a DFT, we first have to revisit the concept of coherence introduced in section $\ref{sec:wavecoherence}$ of chapter 2.Previously we have seen that Stam's BRDf tells us what is the total contribution of all secondary sources which allows us to say what is the reflected spectral radiance at a certain point in space. This is related to stationary interference which itself depends on the coherence property of the emitted secondary wave sources. The ability for two points in space, $t_1$ and $t_2$, to interfere in the extend of a wave when being averages over time is the so called spatial coherence. The spatial distance between such two points over which there is significant interference is limited by the quantity coherence area. For filtered sunlight on earth this is equal to 65$\mu m$ $\footnote{A proof for this number can be looked up in the book Optical Coherence and Quantum Optics$\cite{optcoherence}$ on page 153 and 154.}$.
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{derivation/windowinggaussian.png}
-  \caption[Coherence Area using Gaussian Window]{A plane wave encoungers a surface. According to Huygens principle, secondary wavelets are emitted of from this surface. The resulting wave at a certain point in space (here indicated by a gray circle) depends on the inteference among all waves encountering at this position. The amount of significant interference is directly affected by the spatial coherence property of all the wavelets.}
+  \caption[Coherence Area using Gaussian Window]{A plane wave encounters a surface. According to Huygens principle, secondary wavelets are emitted of from this surface. The resulting wave at a certain point in space (here indicated by a gray circle) depends on the interference among all waves encountering at this position. The amount of significant interference is directly affected by the spatial coherence property of all the wavelets.}
   \label{fig:coherenceareagaussianwindow}  
 \end{figure}
 
-Figure $\ref{fig:coherenceareagaussianwindow}$ illustrates the concept of spatial coherence. A wavefront (blue line) encounters a surface. Due to Hugen's Principle, secondary wavelets are emitted off from the surface. The reflected radiance at a certain point in space, e.g. at a viewer's eye position (denoted by the gray circle), is a result of interference among all wavelets at that point. This interference is directly affected by the spatial coherence property of all the emitted wavelets. \\
+Figure $\ref{fig:coherenceareagaussianwindow}$ illustrates the concept of spatial coherence. A wavefront (blue line) encounters a surface. Due to Huygen's principle, secondary wavelets are emitted off from the surface. The reflected radiance at a certain point in space, e.g. at a viewer's eye position (denoted by the gray circle), is a result of interference among all wavelets at that point. This interference is directly affected by the spatial coherence property of all the emitted wavelets. \\
 
-In physics spatial coherence is predicted by the cross correlation between $t_1$ and $t_2$ and usually modeled by by a Gaussian Random Process. For any such Gaussian Processes we can use a spatial gaussian window $g(x)$ which is equal:
+In physics spatial coherence is predicted by the cross correlation between $t_1$ and $t_2$ and usually modelled by by a Gaussian Random Process. For any such Gaussian Processes we can use a spatial gaussian window $g(x)$ which is equal:
 
 \begin{equation} 
   g(x) = \frac{1}{\sqrt{2\pi}\cdot\sigma}\cdot e^{-\frac{x^2}{2\sigma^2}} 
@@ -101,7 +101,7 @@ By applying the Fourier Transformation to the spatial window we get the correspo
   \label{eq:gaussianwindowfrequencyspace}
 \end{equation} 
 
-Notice that this frequency space window has a standard deviation $\sigma_f$ equal to $\frac{1}{2 \pi \sigma_s}$. Those two windows, the spatial- and the frequency space window, will be used in the next section in order to approximate the DTFT by the DFT by a windowing apporach.
+Notice that this frequency space window has a standard deviation $\sigma_f$ equal to $\frac{1}{2 \pi \sigma_s}$. Those two windows, the spatial- and the frequency space window, will be used in the next section in order to approximate the DTFT by the DFT by a windowing approach.
 
 \subsection{Reproduce DTFT by DFT}
 \label{sec:gaussianwindow}
@@ -116,7 +116,7 @@ In this section we explain how and under what assumptions the DTFT of a discreti
 \end{figure}
 \footnotetext{Images of function plots taken from \texttt{http://en.wikipedia.org/wiki/Discrete\textunderscore Fourier\textunderscore transform} and are modified. Note that the scales in the graphic are not appropriate.} 
 
-Given a spatial, bandlimited and discretized one dimensional signal $\hat{s}$. Our goal is to approximate this spatial signal in a way such that when taking the DTFT of this approximated signal, it will yield almost the same like taking the DTFT of the original sampled $\hat{s}$. For this purpose we will use the previouse introduced concept of gaussian windows and the so called Convolution Theorem which is a fundamental property of all Fourier Transformations. \\
+Given a spatial, band-limited and discretized one dimensional signal $\hat{s}$. Our goal is to approximate this spatial signal in a way such that when taking the DTFT of this approximated signal, it will yield almost the same like taking the DTFT of the original sampled $\hat{s}$. For this purpose we will use the previous introduced concept of gaussian windows and the so called Convolution Theorem which is a fundamental property of all Fourier Transformations. \\
 
 The Convolution Theorem states that the Fourier Transformation of a product of two functions, $f$ and $g$, is equal to convolving the Fourier Transformations of each individual function. Mathematically, this statement corresponds to equation $\ref{eq:convolutiontheorem}$:
 
@@ -127,15 +127,15 @@ The Convolution Theorem states that the Fourier Transformation of a product of t
 
 The principal issue is how to approximate our given signal $\hat{s}$. Therefore, let us consider another signal $\hat{s_N}$ which is the $N$ times replicated version of $\hat{s}$ (blue signal at center top in figure). \\
 
-Remeber that in general, the signal repsonse at a certain point in space is the result of interference among all signals meeting at that position. In our scenario, the source of those signals are emitted secondary wavelets. The interference strength between these points is related to their spatial coherence. Windowing the signals by a gaussian window $g$ will capture a certain percentage of all interference effects. From the previous section $\ref{sec:spatialcoherenceandwindowing}$ we know that we can use gaussian window like in equation $\ref{eq:gaussianwindowspacial}$ in order to approximate such spatial signals interference effects. \\
+Remember that in general, the signal response at a certain point in space is the result of interference among all signals meeting at that position. In our scenario, the source of those signals are emitted secondary wavelets. The interference strength between these points is related to their spatial coherence. Windowing the signals by a gaussian window $g$ will capture a certain percentage of all interference effects. From the previous section $\ref{sec:spatialcoherenceandwindowing}$ we know that we can use gaussian window like in equation $\ref{eq:gaussianwindowspacial}$ in order to approximate such spatial signals interference effects. \\
 
-Using this insight, we can approximate $\hat{s}$ by taking the product of $\hat{s_N}$ with a gaussian window $g$. This fact is illustrated in the first row of figure $\ref{fig:ftbydtft}$. So what will the DTFT of this approximation yield? We already know that the DTFT of $\hat{s}$ is a continuous, periodic signal, since $\hat{s}$ is bandlimited. Thus, taking the DTFT of this found approximation should give us approximatively the same continuous, periodic signal. \\
+Using this insight, we can approximate $\hat{s}$ by taking the product of $\hat{s_N}$ with a gaussian window $g$. This fact is illustrated in the first row of figure $\ref{fig:ftbydtft}$. So what will the DTFT of this approximation yield? We already know that the DTFT of $\hat{s}$ is a continuous, periodic signal, since $\hat{s}$ is band-limited. Thus, taking the DTFT of this found approximation should give us approximatively the same continuous, periodic signal. \\
 
 This is where the convolution theorem comes into play: Applying the DTFT to the product of $\hat{s_N}$ and $g$ is the same as convolving the DTFT of $\hat{s_N}$ by DTFT of $g$. From equation $\ref{eq:gaussianwindowfrequencyspace}$ we already know that the DTFT of $g$ is just another gaussian, denoted by $G$. On the other hand the DTFT of $\hat{s_N}$ yields a continuous, periodic signal. The higher the value of N, the sharper the signal gets (denoted by delta spiked) and the closer it converges toward to the DFT. This is why the DFT is the limit of a DTFT applied on periodic and discrete signals. Therefore, for a large number of $N$ we can replace the DTFT by the DFT operator when applied on $\hat{s_N}$. \\
 
-Lastly, we see that the DTFT of $\hat{s}$ is approximitely the same like convolving a gaussian window by the DFT of $\hat{s_N}$. This also makes sense, since convolving a discrete, periodic signal (DFT of $\hat{s_N}$) by a continuous window function $G$ yiels a continuous, periodic function. \\
+Lastly, we see that the DTFT of $\hat{s}$ is approximately the same like convolving a gaussian window by the DFT of $\hat{s_N}$. This also makes sense, since convolving a discrete, periodic signal (DFT of $\hat{s_N}$) by a continuous window function $G$ yields a continuous, periodic function. \\
 
-In practise, we cannot compute the DTFT $\ref{eq:dtft}$ numerically due to finite computer arithmetic and hence working with the DFT is our only option. Furthermore, there are numerically fast algorithmes in order to compute the DFT values of a function, the Fast Fourier Transformation (FFT). The DFT $\ref{eq:dft}$ of a discrete height field is equal to the DTFT of an infinitely periodic function consisting of replicas of the same height field. Not, let a spatial gaussian window $g$ having a standard deviation for which $4\sigma_s$ is equal $\mu m$. Then, from before, it followis:
+In practise, we cannot compute the DTFT $\ref{eq:dtft}$ numerically due to finite computer arithmetic and hence working with the DFT is our only option. Furthermore, there are numerically fast algorithms in order to compute the DFT values of a function, the Fast Fourier Transformation (FFT). The DFT $\ref{eq:dft}$ of a discrete height field is equal to the DTFT of an infinitely periodic function consisting of replicas of the same height field. Not, let a spatial gaussian window $g$ having a standard deviation for which $4\sigma_s$ is equal $\mu m$. Then, from before, it follows:
 
 \begin{equation}
 \mathcal{F}_{dtft}\{\mathbf{s}\} \equiv \mathcal{F}_{dft} \{\mathbf{s}\} * G(\sigma_f)
@@ -162,7 +162,7 @@ where
 
 \section{Adaption of Stam's BRDF Discrete Height Fields}
 \subsection{Rendering Equation}
-As already discussed in the theoretical background chapter, colors are associated to radiance. Since we are starting with Stam's BRDF$\footnote{Remember that a BRDF is the portion of a incident light source reflected off a given surface towards a specified viewing direction.}$ formulation but want to perform a simulation rendering structural colors, we have to reformulate this BRDF equation such that we will end up with an identity of the reflected spectral radiance. This is where the rendering equation comes into play. Lets assume we have given an incoming light source with solid angle $\omega_i$ and $\theta_i$ is its angle of incidence, $\omega_r$ is the solid angle for the reflected light. Further let $\lambda$ denote the wavelength$\footnote{Notice that, to keep our terms simple, we have droped all $\lambda$ subscripts for spectral radiance quantites.}$ and $\Omega$ is the hemisphere of integration for the incoming light. Then, we are able to formulate a $BRDF_\lambda$ by using its definition $\ref{eq:defbrdf}$:  
+As already discussed in the theoretical background chapter, colors are associated to radiance. Since we are starting with Stam's BRDF$\footnote{Remember that a BRDF is the portion of a incident light source reflected off a given surface towards a specified viewing direction.}$ formulation but want to perform a simulation rendering structural colors, we have to reformulate this BRDF equation such that we will end up with an identity of the reflected spectral radiance. This is where the rendering equation comes into play. Lets assume we have given an incoming light source with solid angle $\omega_i$ and $\theta_i$ is its angle of incidence, $\omega_r$ is the solid angle for the reflected light. Further let $\lambda$ denote the wavelength$\footnote{Notice that, to keep our terms simple, we have dropped all $\lambda$ subscripts for spectral radiance quantities.}$ and $\Omega$ is the hemisphere of integration for the incoming light. Then, we are able to formulate a $BRDF_\lambda$ by using its definition $\ref{eq:defbrdf}$:  
 
 \begin{alignat}{4}
 & f_r(\omega_i, \omega_r) &&= \frac{dL_r(\omega_r)}{L_i(\omega_i)cos(\theta_i)d\omega_i} \nonumber \\
@@ -210,8 +210,9 @@ L_{\lambda}(\omega_r)
 \label{eq:nonrelativebrdffinding}
 \end{align}
 
-Note that the Fresnel term $F$ is actually a function of $(w_i, w_r)$, but in order to keep the equations simple, we omitted its arguemts. 
-So far we just plugged Stam's BRDF identity into the rendering equation and hence have not significantly deviated from his formulation. Keep in mind that $P$ deontes the Fourier transform of the provided height field which depends on the viewing and incidence light direction. Thus this Fourier Transform has to be recomputed for every direction which will slow down the whole computation quite a lot$\footnote{Even a fast variant of computation the Fourier Transform has a runtime complexitiy of O(N log N) where N is the number of sample.}$. One particular strategy to solve this issue is to approximate $P$ by the Discrete Fourier Transform (DFT)$\footnote{See appendix \ref{chap:appendixsignalprocessing} for further information about different kinds of fourier transformations.}$ and seperate its computation such that terms for many directions can be precomputed and then later retrieved by look ups. The approximation of $P$ happens in two steps: First we approximate the Fourier Transform by the Discrete Time Fourier Transform (DTFT) and then, afterwards, we approximate the DTFT by the DFT. For further about basics of signal processing and Fourier Transformations please consult the appendix $\ref{chap:appendixsignalprocessing}$. \\
+Note that the Fresnel term $F$ is actually a function of $(w_i, w_r)$, but in order to keep the equations simple, we omitted its arguments. \\
+
+So far we just plugged Stam's BRDF identity into the rendering equation and hence have not significantly deviated from his formulation. Keep in mind that $P$ denotes the Fourier transform of the provided height field which depends on the viewing and incidence light direction. Thus this Fourier Transform has to be recomputed for every direction which will slow down the whole computation quite a lot$\footnote{Even a fast variant of computation the Fourier Transform has a runtime complexity of O(N log N) where N is the number of sample.}$. One particular strategy to solve this issue is to approximate $P$ by the Discrete Fourier Transform (DFT)$\footnote{See appendix \ref{chap:appendixsignalprocessing} for further information about different kinds of Fourier transformations.}$ and separate its computation such that terms for many directions can be precomputed and then later retrieved by look ups. The approximation of $P$ happens in two steps: First we approximate the Fourier Transform by the Discrete Time Fourier Transform (DTFT) and then, afterwards, we approximate the DTFT by the DFT. For further about basics of signal processing and Fourier Transformations please consult the appendix $\ref{chap:appendixsignalprocessing}$. \\
 
 Using the insight gained by equation $\ref{eq:sampledsignalfttodtft}$ allows us to further simplify equation $\ref{eq:nonrelativebrdffinding}$:
 
@@ -222,19 +223,20 @@ L_{\lambda}(\omega_r)
 \label{eq:nonrelativebrdffindingreproddtft}
 \end{align}
 
-Where $P_{dtft}$ is a substitude for $\mathcal{F}_{DTFT}\{s\}(w)$. Furthermore $T$ the sampling distance for the discretization of $p(x,y)$ assuming equal and uniform sampling in both dimensions $x$ and $y$.
+Where $P_{dtft}$ is a substitute for $\mathcal{F}_{DTFT}\{s\}(w)$. Furthermore $T$ the sampling distance for the discretization of $p(x,y)$ assuming equal and uniform sampling in both dimensions $x$ and $y$.
 
 \subsection{Relative Reflectance}
+\label{sec:relrefl}
 In this section we are going to explain how to scale our BRDF formulation such that all of its possible output values are mapped into the range $\left[0,1\right]$. Such a relative reflectance formulation will ease our life for later rendering purposes since usually color values are within the range $\left[0,1\right]$, too. Furthermore, this will allow us to properly blend the resulting illumination caused by diffraction with a texture map. \\
 
-Let us examine what $L_\lambda(\omega_r)$ will be for a purely specular surface, for which $\omega_r = \omega_0 = \omega_i$ such that $\omega_0 = (0,0,1)$. For this specular reflection case, the correspinding radiance will be denoted as $L_\lambda^{spec}(\omega_0)$. When we know the expression for $L_\lambda^{spec}(\omega_0)$ we would be able to compute the relative reflected radiance for our problem $\ref{eq:nonrelativebrdffinding}$ by simply taking the fraction between $L_\lambda(\omega_r)$ and $L_\lambda^{spec}(\omega_0)$ which is denoted by: 
+Let us examine what $L_\lambda(\omega_r)$ will be for a purely specular surface, for which $\omega_r = \omega_0 = \omega_i$ such that $\omega_0 = (0,0,1)$. For this specular reflection case, the corresponding radiance will be denoted as $L_\lambda^{spec}(\omega_0)$. When we know the expression for $L_\lambda^{spec}(\omega_0)$ we would be able to compute the relative reflected radiance for our problem $\ref{eq:nonrelativebrdffinding}$ by simply taking the fraction between $L_\lambda(\omega_r)$ and $L_\lambda^{spec}(\omega_0)$ which is denoted by: 
 
 \begin{equation}
   \rho_\lambda(\omega_i,\omega_r) = \frac{L_\lambda(\omega_r)}{L_\lambda^{spec}(\omega_0)}
   \label{eq:rohrel}
 \end{equation}
 
-Notice that the third component $w$ from the vector in equation $\ref{eq:uvw}$ is squared eqaul $(cos(\theta_i)+cos(\theta_r))^2$$\footnote{Consult section $\ref{sec:componentw}$ in the appendix}$. But first, let us derive the following expression:
+Notice that the third component $w$ from the vector in equation $\ref{eq:uvw}$ is squared equal to $(cos(\theta_i)+cos(\theta_r))^2$$\footnote{Consult section $\ref{sec:componentw}$ in the appendix}$. But first, let us derive the following expression:
 
 \begin{align}
 L_\lambda^{spec}(\omega_0) 
@@ -308,12 +310,12 @@ Where we used the definition $S_y(\lambda)\overline{y}(\lambda)$ in the last ste
 
 \section{Optimization using Taylor Series}
 \label{sec:taylorapproximation}
-Our final goal is to render stractural colors resulting by the effect of wave diffraction. So far, we have derived an expression which can be used for rendering. Neverthesless, our current equation $\ref{eq:structuralcolorsslow}$ used for computing structural colors, cannot directly be used for interactive rendering, since $P_{dtft}$ had do be recomputed for every change in any direction$\footnote{According to changes in viewing- or incident light direction.}$. \\
+Our final goal is to render structural colors resulting by the effect of wave diffraction. So far, we have derived an expression which can be used for rendering. Nevertheless, our current equation $\ref{eq:structuralcolorsslow}$ used for computing structural colors, cannot directly be used for interactive rendering, since $P_{dtft}$ had do be recomputed for every change in any direction$\footnote{According to changes in viewing- or incident light direction.}$. \\
 
 In this section, we will address this issue and deliver an approximation for $P_{dtft}$ defined in equation $\ref{eq:dtftheightfield}$.
-This approximation will allow us to seperate $P_{dtft}$ in a certain way such that some computional expsensive terms can be precomputed. The main idea is to formulate $P_{dtft}$ as a series expansion relying on the definition of Taylor Series, like defined in equation $\ref{eq:deftaylor}$. Further, we will provide an error bound for our approximation approach for a given number of terms. Last, we will plug our finding extend our current BRDF formula from equation $\ref{eq:structuralcolorsslow}$ by the findings derived within this section. \\
+This approximation will allow us to separate $P_{dtft}$ in a certain way such that some computional expensive terms can be precomputed. The main idea is to formulate $P_{dtft}$ as a series expansion relying on the definition of Taylor Series, like defined in equation $\ref{eq:deftaylor}$. Further, we will provide an error bound for our approximation approach for a given number of terms. Last, we will plug our finding extend our current BRDF formula from equation $\ref{eq:structuralcolorsslow}$ by the findings derived within this section. \\
 
-Let us consider $p(x,y)=e^{ikwh(x,y)}$ form Stam's Paper $\ref{sec:sumstam}$ where $h(x,y)$ is a given height field and $k = \frac{2 \pi}{\lambda}$ denotes the wavenumber of wavelenght $\lambda$. For any complex number $t$ the power series expansion of the exponential function is equal to:
+Let us consider $p(x,y)=e^{ikwh(x,y)}$ form Stam's Paper $\ref{sec:sumstam}$ where $h(x,y)$ is a given height field and $k = \frac{2 \pi}{\lambda}$ denotes the wavenumber of wavelength $\lambda$. For any complex number $t$ the power series expansion of the exponential function is equal to:
  
 \begin{equation}
   e^{t}=1+t+\frac{t^{2}}{2!}+\frac{t^{3}}{3!}+...=\sum_{n=0}^{\infty}\frac{t^{n}}{n!}
@@ -347,7 +349,7 @@ and thus gives us a series representation of $p(x,y)$. Next, calculating the Fou
   \label{eq:ftlinopid}
 \end{align}
 
-Where we have exploited the fact that the Fourier Transformation is a linear operator. Therefore, in equation $\ref{eq:ftlinopid}$, we have shown that the Fourier Transformation of a series is equal to the sum of the Fourier Transformation, applied on each individual series term. Reusing the identifier $P$$\footnote{This identifier P may be subscripted by \emph{dtft} which will denote the DTFT variant of P.}$ in order to determin the Fourier Transformation of Stams definition $p$ from equation $\ref{eq:px}$, equation $\ref{eq:ftlinopid}$ then correspond to:
+Where we have exploited the fact that the Fourier Transformation is a linear operator. Therefore, in equation $\ref{eq:ftlinopid}$, we have shown that the Fourier Transformation of a series is equal to the sum of the Fourier Transformation, applied on each individual series term. Reusing the identifier $P$$\footnote{This identifier P may be subscripted by \emph{dtft} which will denote the DTFT variant of P.}$ in order to determine the Fourier Transformation of Stams definition $p$ from equation $\ref{eq:px}$, equation $\ref{eq:ftlinopid}$ then correspond to:
 
 \begin{equation}
   P(\alpha,\beta)=\sum_{n=0}^{\infty}\frac{(ikw)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)
@@ -369,7 +371,7 @@ $\tilde{P}_{N}$ is a good approximation of $P$, i.e. their absolute difference i
 \item Find a value for $N$ s.t. this approximation is below a certain error bound, e.g. close to machine precision $\epsilon$. 
 \end{enumerate}
 
-Assuming these facts are proven and there actually exists such an $N$, we can make use of the taylor series approximation from equation $\ref{eq:taylorseriesapproximationofp}$ and use it for approximating $P_{dtft}$. This idea allows us to adapt equation $\ref{eq:structuralcolorsslow}$, which is used for computing the structural colors of our BRDF model, in nummerically fast way. E.g. the equation for the luminance is then be equal:
+Assuming these facts are valid and proven (see appendix $\ref{chap:taylorseriesapproxappendix}$) implies that there actually exists such an $N$. Thus, we can make use of the taylor series approximation from equation $\ref{eq:taylorseriesapproximationofp}$ and use it for approximating $P_{dtft}$. This idea allows us to adapt equation $\ref{eq:structuralcolorsslow}$, which is used for computing the structural colors of our BRDF model, in numerically fast way. E.g. the equation for the luminance is then be equal:
 
 \begin{align}
 Y 
@@ -378,28 +380,27 @@ Y
 \label{eq:xcolexpression}
 \end{align}
 
-Notice that equation $\ref{eq:xcolexpression}$ is contrainted by $N$ and hence is an approximation of equation $\ref{eq:structuralcolorsslow}$. Furthermore, it is possible to seperate out all the Fourier Terms in the summation and precompute them. This is why the approach in equation $\ref{eq:xcolexpression}$ is fast in order to compute structural color values according to our BRDF model.
+Notice that equation $\ref{eq:xcolexpression}$ is constrained by $N$ and hence is an approximation of equation $\ref{eq:structuralcolorsslow}$. Furthermore, it is possible to seperate out all the Fourier Terms in the summation and precompute them. This is why the approach in equation $\ref{eq:xcolexpression}$ is fast in order to compute structural color values according to our BRDF model.
 
 \section{Spectral Rendering}
 \label{sec:spectralrendering}
-% TODO apply these fixes:
-% write what is Lambda
-% write initial text
-% from given starting point: Eqn, we derived xyz
-% using tristimulus values in order to compute XYZ_CIE colors 
-% describe listed equations, and what they are for
-
-
-As the last step of our series of derivations, we plug all our findings together to one big equation. in order to compute the color for each pixel on our mesh in the $CIE_{XYZ}$ colorspace. For any given heigh-field $h(x,y)$ representing a grating of a nano structure and for given direction vectors $w_i$ and $w_r$ as shown in figure $\ref{fig:geometricsetup}$ the resulting color caused by the effect of diffraction can be computed the following way:
+In this section we describe how our final model for rendering structural colors due to diffraction will look like. For this purpose we use all our previous findings and plug them together to one big equation. For a given height field $h$ representing the surface of a grating, we want to compute the resulting color due to light diffracted on that grating. For rendering we rely on the $CIE_{XYZ}$ colorspace. For given direction vectors $w_i$ and $w_r$ as shown in figure $\ref{fig:geometricsetup}$ the DFT of the height field is equal to:
 
 \begin{equation}
 DFT_{n}\{h\}(u,v) = {F}_{dft}\{i^n h^n\}(\frac{2\pi u}{\lambda},\frac{2\pi v}{\lambda})
+\label{eq:subdfteq}
 \end{equation}
+
+From section $\ref{sec:gaussianwindow}$ we know that we can reproduce a FT by applying a Gaussin window on the DFT from equation $\ref{eq:subdfteq}$. This Windowing approach will then look like: 
 
 \begin{equation}
   W_{n}(u,v) = \sum_{(r,s) \in \mathcal{N}_1(u,v)} \left| DFT_{n}\{h\}(u-w_r, v-w_s) \right|^2 \phi(u-w_r, v-w_s)
+  \label{eq:wnwindowingapproachsub}
 \end{equation}
-where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the Gaussian window from equation $\ref{sec:gaussianwindow}$ and $\mathcal{N}_1(u,v)$ denotes the one-neighborhood around $(u,v)$. Then $\forall (u,v,w)$ like defined in equation $\ref{eq:uvw}$, our final expression for computing structural colors due to diffraction, using all our previous derivations, will be equal:
+
+where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the Gaussian window from equation $\ref{sec:gaussianwindow}$ and $\mathcal{N}_1(u,v)$ denotes the one-neighborhood around $(u,v)$. \\
+
+In section $\ref{sec:taylorapproximation}$ we derived equation $\ref{eq:xcolexpression}$ which tells us how to compute the $CIE_{XYZ}$ color value of a particular color channel using our relative reflectance brdf model from section $\ref{sec:relrefl}$. Plugging all these findings together and using our windowing approach, listed in equation $\ref{eq:wnwindowingapproachsub}$, Then $\forall (u,v,w)$ like (defined in equation $\ref{eq:uvw}$), our final expression for computing structural colors due to diffraction, using all our previous derivations, will be equal:
 
 \begin{equation}
 \begin{split}
@@ -408,19 +409,19 @@ where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the Gaussian win
 \label{eq:finalexpression}
 \end{equation}
 
+Where $C(\omega_i,\omega_r)$ is the defined in equation $\ref{eq:cfact}$. Note that equation $\ref{eq:finalexpression}$ integrates over a given wavelength spectrum, denoted by $\Lambda$. Usually, this $\Lambda$ is equal to $[\lambda_{min}, \lambda_{max}]$ where $\lambda_{min} = 380nm$ and $\lambda_{max}=780nm$. \\
+
 \section{Alternative Approach}
 \subsection{PQ factors}
 \label{sec:pq}
-In this section we are presenting an alternative approach to the previous Gaussian window approach 
-$\ref{sec:gaussianwindow}$ 
-in order to solve the issue working with $DTFT$ instead the $DFT$. We assume, that a given surface $S$ is covered by a number of replicas of a provided representative surface patch $f$. In a simplified, one dimensional scenario, mathematically speaking, $f$ is assumed to be a repetative function, i.e. $\forall x \in \mathds{R} : S(x) = S(x+nT)$, where $T$ is its period and $n \in \mathds{N}_{0}$. Thus, the surfaces can be written formally as:
+In this section we are presenting an alternative approach to the previous Gaussian window approach described in section $\ref{sec:gaussianwindow}$ in order to solve the issue working with $DTFT$ instead the $DFT$. We assume, that a given surface $S$ is covered by a number of replicas of a provided representative surface patch $f$. In a simplified, one dimensional scenario, mathematically speaking, $f$ is assumed to be a repetitive function, i.e. $\forall x \in \mathds{R} : S(x) = S(x+nT)$, where $T$ is its period and $n \in \mathds{N}_{0}$. Thus, the surfaces can be written formally as:
 
 \begin{equation}
   S(x) = \sum_{n=0}^N f(x+nT)
 \label{eq:replicatedpatchsurface}
 \end{equation}
 
-What we are looking for is an identity for the Fourier Transform$\footnote{Remember that we are using the definiton of Fourier Transform used in electrical engineering where $\mathcal{F}$ actually corresponds to the inverse Fourier Transform.}$ of our surface $S$, required in order to simplify the $(X,Y,Z)$ colors from $\ref{eq:xcolexpression}$:
+What we are looking for is an identity for the Fourier Transform$\footnote{Remember that we are using the definition of Fourier Transform used in electrical engineering where $\mathcal{F}$ actually corresponds to the inverse Fourier Transform.}$ of our surface $S$, required in order to simplify the $(X,Y,Z)$ colors from $\ref{eq:xcolexpression}$:
 
 \begin{align}
 \mathcal{F}\{S\}(w)
@@ -476,7 +477,7 @@ q& =\frac{sin(wT(N+1))-sin(wTN)-sin(wT)}{2(1-cos(wT))}
 
 Please notice, all derivation steps can be found in the appendix in section $\ref{sec:pqonedimappendix}$. \\
 
-Now lets consider our actual problem description. Given a patch of a nanoscaled sureface snake shed represented as a two dimensional heightfield $h(x,y)$. We once again assume that this provided patch is representing the whole surface $S$ of our geometry by some number of replicas of itself. Therefore, $S(x,y) = \sum_{n=0}^{N} h(x+nT_1, y+mT_2)$, assuming the given height field has the dimensions $T_1$ by $T_2$. In order to derive an identity for the two dimensional Fourier transformation of $S$ we can similarly proceed like we did to derive equation $\ref{eq:mainfinding1d}$.
+Now lets consider our actual problem description. Given a patch of a nano-scaled surface snake shed represented as a two dimensional height field $h(x,y)$. We once again assume that this provided patch is representing the whole surface $S$ of our geometry by some number of replicas of itself. Therefore, $S(x,y) = \sum_{n=0}^{N} h(x+nT_1, y+mT_2)$, assuming the given height field has the dimensions $T_1$ by $T_2$. In order to derive an identity for the two dimensional Fourier transformation of $S$ we can similarly proceed like we did to derive equation $\ref{eq:mainfinding1d}$.
 
 \begin{align}
 \mathcal{F}\{S\}(w_1, w_2)
@@ -484,7 +485,7 @@ Now lets consider our actual problem description. Given a patch of a nanoscaled 
 \label{eq:pqmainfinding}
 \end{align}
 
-Where all derivation steps can be found in the appendix in section $\ref{sec:pqtwodimappendix}$ and we have defined 
+Note that a detailed derivation of equation $\ref{eq:pqmainfinding}$ can be found in the appendix in section $\ref{sec:pqtwodimappendix}$ and we have defined :
 
 \begin{align}
 p := (p_1 p_2 - q_1 q_2) \nonumber \\ 
@@ -494,25 +495,22 @@ q := (p_1 p_2 + q_1 q_2)
 
 For the identity of equation $\ref{eq:pqmainfinding}$ we made use of Green's integration rule which allowed us to split the double integral to the product of two single integrations. Also, we used the definition of the 2-dimensional inverse Fourier transform of the height field function. We applied a similar substitution like we did in $\ref{eq:substitude1dpq}$, but this time twice, once for $x_1$ and once for $x_2$ separately. The last step in equation $\ref{eq:pqmainfinding}$, substituting with $p$ and $q$ in equation $\ref{eq:pqsubst2dappendix}$ will be useful later in the implementation. The insight should be, that the product of two complex numbers is again a complex number. We will have to compute the absolute value of $\mathcal{F}\{S\}(w_1,w_2)$ which will then be equal $(p^2 + q^2)^{\frac{1}{2}}\left|\mathcal{F}\{h\}(w_1,w_2)\right|$
 
-
 \subsection{Interpolation}
 \label{sec:sincinterpolation}
-In $\ref{sec:pq}$ we have derived an alternative approach when we are working with a periodic signal instead using the gaussian window approach from $\ref{sec:gaussianwindow}$. Its main finding $\ref{eq:pqmainfinding}$ that we can just integrate over one of its period instead iterating over the whole domain. Nevertheless, this main finding is using the inverse DTFT. Since we are using 
+In section $\ref{sec:pq}$ we derived an alternative approach to the gaussian window approach described in section $\ref{sec:gaussianwindow}$ in order to approximate our height field. We assume that our height field is a superposition of periodically aligned substructured (i.e. finger structures). This so called PQ approach allows us to integrate over one period of a substructure in our height field, instead iterating over the whole domain. Nevertheless, this main finding, described in equation $\ref{eq:pqmainfinding}$, is using the DTFT. Thus, since our original height field is supposed to be a continuous-time band-limited function we can reconstruct it by applying a sinc-interpolation. \\
 
-We are interested in recovering an original analog signal $x(t)$ from its samples $x[t] = $ 
-
-Therfore, for a given sequence of real numbers $x[n]$, representing a digital signal, its correspond continuous function is: 
+In general, for a sinc-interpolation, we are interested in recovering an original analog signal $x(t)$ from its samples. Therefore, for a given sequence of real numbers $x[n]$, representing a digital signal, its correspond continuous function is: 
 
 \begin{equation}
   x(t) = \sum_{n=-\infty}^{\infty} x[n] sinc\left(\frac{t-nT}{T}\right)
 \end{equation}
 
 which has the Fourier transformation $X(f)$ whose non-zero values are confined to the region $|f| \leq \frac{1}{2T} = B$.
-When $x[n]$ represents time samples at interval $T$ of a continuous function, then the quantity $f_s = \frac{1}{T}$ is known as its sample rate and $\frac{f_s}{2}$ denotes the Nyquist frequency. The sampling Theorem states that when a function has a Bandlimit B less than the Nyquist frequency, then $x(t)$ is a perfect reconstruction of the original function. 
+When $x[n]$ represents time samples at interval $T$ of a continuous function, then the quantity $f_s = \frac{1}{T}$ is known as its sample rate and $\frac{f_s}{2}$ denotes the Nyquist frequency. The sampling Theorem states that when a function has a Bandlimit $B$ less than the Nyquist frequency, then $x(t)$ is a perfect reconstruction of the original function. Figure $\ref{fig:plotsincinterpolation}$ illustrates a reconstruction of a 1d signal relying on a sinc-interpolation.  
 
 \begin{figure}[ht]
   \centering
   \includegraphics[scale=0.8]{background/sincreconstructed.png}
-  \caption[Sinc Interpolation Approximation]{Comparission between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\hat{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.}
+  \caption[Sinc Interpolation Approximation]{Comparison between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\hat{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.}
   \label{fig:plotsincinterpolation}  
 \end{figure}
