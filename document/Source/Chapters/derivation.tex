@@ -33,7 +33,7 @@ We want to rely on the integral equation $\ref{eq:mainstam}$ derived by J. Stam 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.5]{derivation/renderedstructuredcolors.png}
+  \includegraphics[scale=0.8]{derivation/renderedstructuredcolors.png}
   \caption[Problem Statement: Output]{Output: Rendered Structural Colors}
   \label{fig:problemstatementoutput}
 \end{figure}
@@ -370,7 +370,7 @@ $\tilde{P}_{N}$ is a good approximation of $P$, i.e. their absolute difference i
 \item Find a value for $N$ s.t. this approximation is below a certain error bound, e.g. close to machine precision $\epsilon$. 
 \end{enumerate}
 
-Assuming these facts are proven and there actually exists such an $N$, we can make use of the taylor series approximation from equation $\ref{eq:taylorseriesapproximationofp}$ and use it for approximating $P_{dtft}$. This idea allows us to adapt equation $\ref{eq:structuralcolorsslow}$, which is used for computing the structural colors of our BRDF model, in nummerically fast way. E.g. the equation for the luminance is then be equal:
+Assuming these facts are valid and proven (see appendix $\ref{chap:taylorseriesapproxappendix}$) implies that there actually exists such an $N$. Thus, we can make use of the taylor series approximation from equation $\ref{eq:taylorseriesapproximationofp}$ and use it for approximating $P_{dtft}$. This idea allows us to adapt equation $\ref{eq:structuralcolorsslow}$, which is used for computing the structural colors of our BRDF model, in nummerically fast way. E.g. the equation for the luminance is then be equal:
 
 \begin{align}
 Y 
