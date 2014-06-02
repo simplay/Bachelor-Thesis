@@ -225,6 +225,7 @@ L_{\lambda}(\omega_r)
 Where $P_{dtft}$ is a substitude for $\mathcal{F}_{DTFT}\{s\}(w)$. Furthermore $T$ the sampling distance for the discretization of $p(x,y)$ assuming equal and uniform sampling in both dimensions $x$ and $y$.
 
 \subsection{Relative Reflectance}
+\label{sec:relrefl}
 In this section we are going to explain how to scale our BRDF formulation such that all of its possible output values are mapped into the range $\left[0,1\right]$. Such a relative reflectance formulation will ease our life for later rendering purposes since usually color values are within the range $\left[0,1\right]$, too. Furthermore, this will allow us to properly blend the resulting illumination caused by diffraction with a texture map. \\
 
 Let us examine what $L_\lambda(\omega_r)$ will be for a purely specular surface, for which $\omega_r = \omega_0 = \omega_i$ such that $\omega_0 = (0,0,1)$. For this specular reflection case, the correspinding radiance will be denoted as $L_\lambda^{spec}(\omega_0)$. When we know the expression for $L_\lambda^{spec}(\omega_0)$ we would be able to compute the relative reflected radiance for our problem $\ref{eq:nonrelativebrdffinding}$ by simply taking the fraction between $L_\lambda(\omega_r)$ and $L_\lambda^{spec}(\omega_0)$ which is denoted by: 
@@ -382,24 +383,23 @@ Notice that equation $\ref{eq:xcolexpression}$ is contrainted by $N$ and hence i
 
 \section{Spectral Rendering}
 \label{sec:spectralrendering}
-% TODO apply these fixes:
-% write what is Lambda
-% write initial text
-% from given starting point: Eqn, we derived xyz
-% using tristimulus values in order to compute XYZ_CIE colors 
-% describe listed equations, and what they are for
-
-
-As the last step of our series of derivations, we plug all our findings together to one big equation. in order to compute the color for each pixel on our mesh in the $CIE_{XYZ}$ colorspace. For any given heigh-field $h(x,y)$ representing a grating of a nano structure and for given direction vectors $w_i$ and $w_r$ as shown in figure $\ref{fig:geometricsetup}$ the resulting color caused by the effect of diffraction can be computed the following way:
+In this section we describe how our final model for rendering structural colors due to diffraction will look like. For this purpose we use all our previous findings and plug them together to one big equation. For a given height field $h$ representing the surface of a grating, we want to compute the resulting color due to light diffracted on that grating. For rendering we rely on the $CIE_{XYZ}$ colorspace. For given direction vectors $w_i$ and $w_r$ as shown in figure $\ref{fig:geometricsetup}$ the DFT of the height field is equal to:
 
 \begin{equation}
 DFT_{n}\{h\}(u,v) = {F}_{dft}\{i^n h^n\}(\frac{2\pi u}{\lambda},\frac{2\pi v}{\lambda})
+\label{eq:subdfteq}
 \end{equation}
+
+From section $\ref{sec:gaussianwindow}$ we know that we can reproduce a FT by applying a gaussin window on the DFT from equation $\ref{eq:subdfteq}$. This Windowing approach will then look like: 
 
 \begin{equation}
   W_{n}(u,v) = \sum_{(r,s) \in \mathcal{N}_1(u,v)} \left| DFT_{n}\{h\}(u-w_r, v-w_s) \right|^2 \phi(u-w_r, v-w_s)
+  \label{eq:wnwindowingapproachsub}
 \end{equation}
-where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the Gaussian window from equation $\ref{sec:gaussianwindow}$ and $\mathcal{N}_1(u,v)$ denotes the one-neighborhood around $(u,v)$. Then $\forall (u,v,w)$ like defined in equation $\ref{eq:uvw}$, our final expression for computing structural colors due to diffraction, using all our previous derivations, will be equal:
+
+where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the Gaussian window from equation $\ref{sec:gaussianwindow}$ and $\mathcal{N}_1(u,v)$ denotes the one-neighborhood around $(u,v)$. \\
+
+In section $\ref{sec:taylorapproximation}$ we derived equation $\label{eq:xcolexpression}$ which tells us how to compute the $CIE_{XYZ}$ color value of a particular color channel using our relative reflectance brdf model from section $\ref{sec:relrefl}$. Pluggin all these findings together and using our windowing approach, listed in equation $\label{eq:wnwindowingapproachsub}$, Then $\forall (u,v,w)$ like (defined in equation $\ref{eq:uvw}$), our final expression for computing structural colors due to diffraction, using all our previous derivations, will be equal:
 
 \begin{equation}
 \begin{split}
@@ -408,12 +408,12 @@ where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the Gaussian win
 \label{eq:finalexpression}
 \end{equation}
 
+Where $C(\omega_i,\omega_r)$ is the defined in equation $\ref{eq:cfact}$. Note that equation $\ref{eq:finalexpression}$ integrates over a given wavelength spectrum, denoted by $\Lambda$. Usually, this $\Lambda$ is equal to $[\lambda_{min}, \lambda_{max}]$ where $\lambda_{min} = 380nm$ and $\lambda_{max}=780nm$. \\
+
 \section{Alternative Approach}
 \subsection{PQ factors}
 \label{sec:pq}
-In this section we are presenting an alternative approach to the previous Gaussian window approach 
-$\ref{sec:gaussianwindow}$ 
-in order to solve the issue working with $DTFT$ instead the $DFT$. We assume, that a given surface $S$ is covered by a number of replicas of a provided representative surface patch $f$. In a simplified, one dimensional scenario, mathematically speaking, $f$ is assumed to be a repetative function, i.e. $\forall x \in \mathds{R} : S(x) = S(x+nT)$, where $T$ is its period and $n \in \mathds{N}_{0}$. Thus, the surfaces can be written formally as:
+In this section we are presenting an alternative approach to the previous Gaussian window approach described in section $\ref{sec:gaussianwindow}$ in order to solve the issue working with $DTFT$ instead the $DFT$. We assume, that a given surface $S$ is covered by a number of replicas of a provided representative surface patch $f$. In a simplified, one dimensional scenario, mathematically speaking, $f$ is assumed to be a repetative function, i.e. $\forall x \in \mathds{R} : S(x) = S(x+nT)$, where $T$ is its period and $n \in \mathds{N}_{0}$. Thus, the surfaces can be written formally as:
 
 \begin{equation}
   S(x) = \sum_{n=0}^N f(x+nT)
