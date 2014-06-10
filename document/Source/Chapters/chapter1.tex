@@ -17,7 +17,7 @@ As human beings, we visually perceive and experience our whole world in terms of
   \label{fig:snakespecies}
 \end{figure}
 \footnotetext{The image source for figure $\ref{fig:xenospeicies}$ is \texttt{http://www.snakes-alive.co.uk/gallery\textunderscore 5.html} and for figure $\ref{fig:elpahespecies}$ is \texttt{http://www.the-livingrainforest.co.uk/living/view\textunderscore price.php?id=464}} 
-
+\noindent
 Some species, like the Xenopeltis, express structural colors in form of iridescent patterns along their scales way stronger than others such as the Elaphe species. The reason lies in the nanostructure of their skins. There are a vast amount of additional reasons for structural color occurrences in nature, such as thin film interference, intra-cellular photonic crystals or diffraction gratings. More detailed examples are shown in figure $\ref{fig:structuralcolorexamples}$. 
 
 \begin{figure}[H]
@@ -72,7 +72,7 @@ Some species, like the Xenopeltis, express structural colors in form of iridesce
   \item \ref{fig:snakediffractiongrating}: \texttt{http://www.snakes-alive.co.uk/gallery\textunderscore 5.html}
   \end{itemize}
 }
-
+\noindent
 As far back as in the 17th century, Robert Hooke was able to relate the cause of structural colors to the microstructure of a material. During his examinations of peacock feathers (see figure $\ref{fig:peacockfeather}$), he found that by wetting the feathers, their colors disappeared. Further, he observed that the feathers have tiny ridges. Later, building on top of the knowledge about interference at this times, Newton related structural colors to wave interference. Recently, in the field of computer graphics, many researchers have developed models to render structural colors. Most of these currently available models are not able to perform interactive rendering or are oversimplified and thus cannot accurately model the effects of diffraction from natural gratings. \\
 
 This thesis investigates this particular problem in detail and provides a solution for rendering structural colors that are caused by diffraction on natural gratings at interactive rates.
@@ -89,7 +89,7 @@ Natural gratings are found on the scale of reptiles, wings of butterflies or the
   \label{fig:xenopeltisafm}
 \end{figure}
 \footnotetext{This image was provided by the LANE lab in Geneva}
-
+\noindent
 Our renderer established in this thesis is based on the pioneering work of J. Stam about diffraction shaders $\cite{diffstam}$. Stam formulated a BRDF modelling the effect of diffraction based on certain statistical properties of height fields. Nevertheless we have to adapt his BRDF model, since his model assumes that a given surface of a grating can either be formulated by an analytical function and therefore has a closed form solution, or it is modelled effectively by relying on statistical methods. However, we are dealing with natural diffraction gratings (represented as explicitly formulated height fields), which unfortunately are neither known analytically, nor do they fit into simple statistical models. This thesis thus proposes an extension to J. Stam's work for the complex case of explicitly defined, discrete and quasi-periodic height field structures. \\
 
 In the following section a brief overview of relevant previous work and related to this thesis will be presented.
