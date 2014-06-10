@@ -1,6 +1,6 @@
 \chapter{Introduction}
 \section{Motivation}
-As human beings, we visually perceive and experience our whole world in terms of colors resulting from various physical phenomena that involve interaction between light and matter. Particularly in nature, there are basically two main causes for color production. Firstly, due to pigmentation, which occurs since certain molecules in a biological structure selectively absorb or reflect specific wavelengths from an incident light source. And secondly because of structural colors, which are the result of physical interaction of light with a nanostructure, exclusively relying on the structuring of the material and not any other property. A natural diffraction grating is a semitransparent layer of biological nano-structures that exhibits a certain degree of regularity to produce structural colors by diffracting an incident light source. One particular example for such biological color production is the colors we can see when having a closer look at the illuminated skin of snakes, as shown in figure $\ref{fig:snakespecies}$.
+As human beings, we visually perceive and experience our whole world in terms of colors resulting from various physical phenomena that involve interaction between light and matter. Particularly in nature, there are basically two main causes for color production. Firstly, due to pigmentation, which occurs since certain molecules in a biological structure selectively absorb or reflect specific wavelengths from an incident light source. And secondly because of structural colors, which are the result of physical interaction of light with a nanostructure, exclusively relying on the structuring of the material and not on any other property. A natural diffraction grating is a semitransparent layer of biological nano-structures that exhibits a certain degree of regularity to produce structural colors by diffracting an incident light beam. One particular example for such biological color production includes the spectacular colors that we can see while having a closer look at the illuminated skin of snakes, as shown in figure $\ref{fig:snakespecies}$.
 
 \begin{figure}[H]
   \centering
@@ -16,38 +16,38 @@ As human beings, we visually perceive and experience our whole world in terms of
   \caption[Example of Biological Color Production]{Examples of pigmentation color (green boxes) and structural color (blue boxes) on different snake species$\footnotemark$.}
   \label{fig:snakespecies}
 \end{figure}
-\footnotetext{image source of figure $\ref{fig:xenospeicies}$ \texttt{http://www.snakes-alive.co.uk/gallery\textunderscore 5.html} and figure $\ref{fig:elpahespecies}$ \texttt{http://www.the-livingrainforest.co.uk/living/view\textunderscore price.php?id=464}} 
+\footnotetext{The image source for figure $\ref{fig:xenospeicies}$ is \texttt{http://www.snakes-alive.co.uk/gallery\textunderscore 5.html} and for figure $\ref{fig:elpahespecies}$ is \texttt{http://www.the-livingrainforest.co.uk/living/view\textunderscore price.php?id=464}} 
 
 Some species, like the Xenopeltis, express structural colors in form of iridescent patterns along their scales way stronger than others such as the Elaphe species. The reason lies in the nanostructure of their skins. There are a vast amount of additional reasons for structural color occurrences in nature, such as thin film interference, intra-cellular photonic crystals or diffraction gratings. More detailed examples are shown in figure $\ref{fig:structuralcolorexamples}$. 
 
 \begin{figure}[H]
   \centering
-  \subfigure[Thin Film Interference soap bubble]{
+  \subfigure[Thin film interference on a soap bubble]{
     \includegraphics[scale=0.6]{background/soapbubble.png}
     \label{fig:soapbubble}
   }
 ~
-  \subfigure[Multilayer Interference on abdomen of beetle]{
+  \subfigure[Multilayer interference on abdomen of a beetle]{
     \includegraphics[scale=0.6]{background/beetle.png}
     \label{fig:beetle}
   }
 ~
-  \subfigure[Photonic crystals in Wings of butterfly]{
+  \subfigure[Photonic crystals in the wings of a butterfly]{
     \includegraphics[scale=0.6]{background/butterflypc.png}
     \label{fig:butterflyphotoniccristals}
   }
 
-  \subfigure[Scattering of light on butterfly wing]{
+  \subfigure[Scattering of light from a butterfly's wings]{
     \includegraphics[scale=0.6]{background/butterflyscattering.png}
     \label{fig:butterflyscattering}
   }
 ~
-  \subfigure[Artificial Diffraction Grating on CD]{
+  \subfigure[Synthetic diffraction grating on a CD]{
     \includegraphics[scale=0.6]{background/cd.png}
     \label{fig:cddiffractiongrating}
   } 
 ~
-  \subfigure[Natural Diffraction Grating on snake skin]{
+  \subfigure[Natural diffraction grating on a snake skin]{
     \includegraphics[scale=0.6]{background/snakeskin.png}
     \label{fig:snakediffractiongrating}
   }   
@@ -55,7 +55,7 @@ Some species, like the Xenopeltis, express structural colors in form of iridesce
   \caption[Structural color examples]{Examples$\footnotemark$ for structural colors on wings and abdomen of insects, liquids, synthetic structures, and on scales on the skin of reptiles.}
   \label{fig:structuralcolorexamples}
 \end{figure}
-\footnotetext{image source of figure:
+\footnotetext{image source for figures:
 \begin{itemize}
   \item \ref{fig:soapbubble}: \texttt{http://www.ualberta.ca/\textasciitilde pogosyan/teaching/PHYS\textunderscore 130/FALL\textunderscore 2010/lectures/lect33/lecture33.html}
   \item \ref{fig:beetle}: \texttt{http://www.itp.uni-hannover.de/\textasciitilde zawischa/ITP/multibeam.html}
@@ -66,35 +66,34 @@ Some species, like the Xenopeltis, express structural colors in form of iridesce
   \end{itemize}
 }
 
-As far back as in the 17th century, Robert Hooke was able to relate the cause of structural colors to the microstructure of a material. During his examinations of peacock feathers, he found that by wetting the feathers, their colors disappeared. Further, he observed that the feathers have tiny ridges. Building on top of the latest knowledge about interference at that time, Newton related structural colors with wave interference. Recently, in the field of computer graphics, many researchers have developed models to render structural colors, but most of the currently available models are not able to perform interactive rendering or are oversimplified and thus cannot model accurately the effect of diffraction. \\
+As far back as in the 17th century, Robert Hooke was able to relate the cause of structural colors to the microstructure of a material. During his examinations of peacock feathers, he found that by wetting the feathers, their colors disappeared. Further, he observed that the feathers have tiny ridges. Later, building on top of the knowledge about interference at this times, Newton related structural colors to wave interference. Recently, in the field of computer graphics, many researchers have developed models to render structural colors. Most of these currently available models are not able to perform interactive rendering or are oversimplified and thus cannot accurately model the effects of diffraction from natural gratings. \\
 
-This thesis investigates this particular problem in detail and provides a solution for rendering structural colors that are caused by diffraction on natural gratings.
+This thesis investigates this particular problem in detail and provides a solution for rendering structural colors that are caused by diffraction on natural gratings at interactive rates.
 
 \section{Goals}
-The purpose of this thesis is, to simulate physically accurate structural colors caused by the effect of diffraction on various biological structures and then implement this simulation as a renderer with interactive behaviour. We mainly focus on structural colors generated by natural diffraction gratings. In particular the approach presented in this thesis applies to surfaces with quasiperiodic structures at the nanometer scale, which can be represented as height fields stored in grayscale images. \\
+The purpose of this thesis is, to simulate physically accurate structural colors caused by the effect of diffraction on various biological structures and then implement this simulation as a renderer with interactive behaviour. We mainly focus on structural colors generated by natural diffraction gratings. In particular the approach presented in this thesis applies to surfaces with quasiperiodic structures at the nanometer scale, which can be represented as height fields and are visualized as grayscale images. \\
 
-Natural gratings like this are found on the scale of reptiles, wings of butterflies or the bodies of various insects, but we restrict ourselves and focus on snake skins. The data of our discrete valued height fields, which are representing the surface of a measured snake skin, was acquired using atomic force microscopy (AFM)$\footnote{All data is provided by the Laboratory of Artificial and Natural Evolution in Geneva. See their website:\texttt{www.lanevol.org}}$. Figure $\ref{fig:xenopeltisafm}$ shows a measured height field of a Xenopeltis snake stored in a grayscale image. The surface of its skin is composed of many finger like structures. Locally, these fingers seem to be very regularly aligned (red box). However, globally, we observe that the alignment of the fingers is curved irregularly (indicated by green curves) along the whole surface. This kind of global irregularity is what makes it hard to model the structural complexity of natural gratings$\footnote{E.g. by relying on statistical methods, caputuring surface details by introducing an appropriate distribution function of the finger strucures.}$.
+Natural gratings are found on the scale of reptiles, wings of butterflies or the bodies of various insects, but we restrict ourselves and focus on snake skins. The data of our discrete valued height fields, which are representing the surface of a measured snake skin, is acquired using atomic force microscopy (AFM)$\footnote{All data is provided by the Laboratory of Artificial and Natural Evolution in Geneva. See their website:\texttt{www.lanevol.org}}$. Figure $\ref{fig:xenopeltisafm}$ shows a measured height field of a Xenopeltis snake as a grayscale image. The surface of its skin is composed of many finger like structures. Locally, these fingers seem to be very regularly aligned (red box). However, globally, we observe that the alignment of the fingers is curved irregularly (indicated by green curves) along the whole surface. This kind of global irregularity is what makes it hard to model the structural complexity of natural gratings$\footnote{E.g. by relying on statistical methods, caputuring surface details by introducing an appropriate distribution function of the finger strucures.}$.
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{background/samplenaturalgrating.png}
-  \caption[Xenopeltis AFM image]{Height field of a Xenopeltis snake$\footnotemark$ skin taken using AFM and stored as a grayscale image. 
-  Locally, this natural grating consists of regularly aligned (red box) finger-like substructures, but globally we observe a curved alignment of these structures (green curves).}
+  \caption[Xenopeltis AFM image]{Height field of a Xenopeltis snake$\footnotemark$ skin taken using AFM. Locally, this natural grating consists of regularly aligned (red box) finger-like substructures, but globally we observe a curved alignment of these structures (green curves).}
   \label{fig:xenopeltisafm}
 \end{figure}
 \footnotetext{This image was provided by the LANE lab in Geneva}
 
-The renderer discussed in this thesis is based on the pioneering work of J. Stam about diffraction shaders $\cite{diffstam}$ where he formulated a BRDF modelling the effect of diffraction. Nevertheless we have to adapt his BRDF model, since his model assumes that a given surface of a grating can either be formulated by an analytical function, and therefore has a closed form solution, or it is simple enough to be modelled effectively by relying on statistical methods. However, we are dealing with natural diffraction gratings represented as explicitly formulated height fields, which unfortunately are neither known analytically, nor do they fit into simple statistical models. This thesis thus proposes an extension of J. Stam's work for the complex case of explicitly defined, discrete and quasi-periodic height field structures. \\
+Our renderer established in this thesis is based on the pioneering work of J. Stam about diffraction shaders $\cite{diffstam}$. Stam formulated a BRDF modelling the effect of diffraction based on certain statistical properties of height fields. Nevertheless we have to adapt his BRDF model, since his model assumes that a given surface of a grating can either be formulated by an analytical function and therefore has a closed form solution, or it is modelled effectively by relying on statistical methods. However, we are dealing with natural diffraction gratings (represented as explicitly formulated height fields), which unfortunately are neither known analytically, nor do they fit into simple statistical models. This thesis thus proposes an extension to J. Stam's work for the complex case of explicitly defined, discrete and quasi-periodic height field structures. \\
 
-In the following section a brief overview of previous work relevant and related to this work will be presented.
+In the following section a brief overview of relevant previous work and related to this thesis will be presented.
 
 \section{Previous work}
-The first scientific descriptions of structural colors was previously by Hooke in 1665 in his book Micrographia$\cite{hookemicro}$. Hooke investigated feathers of peacocks using one of the first microscopes from his time and found out that the colors on the feather were canceled out whenever a drop of water moistened the feather. He proposed the speculation that a layer of thin plates and air were responsible for reflecting the light and thus he related the structure of the feather to colors. In Newton's book Opticks$\cite{newtonopticks}$ he described that the colors of the peacock feather are related to the thinness of the transparent part of the feathers. Around 1800 T.Young explains structural colors as a result of wave interference using his double-slit experiment$\footnote{See \texttt{http://en.wikipedia.org/wiki/Double-slit\textunderscore experiment}}$$\cite{doublslit}$, published in the journal Philosophical Transactions of the Royal Society. \\
+The first scientific descriptions of structural colors were provided by Hooke in 1665 in his book Micrographia$\cite{hookemicro}$. Hooke investigated feathers of peacocks using one of the first microscopes from his time and found out that the colors on the feather were canceled out whenever a drop of water moistened the feather. He proposed the speculation that a layer of thin plates and air were responsible for reflecting the light and thus he related the structure of the feather to colors. In Newton's book Opticks$\cite{newtonopticks}$ he described that the colors of the peacock feather are related to the thinness of the transparent part of the feathers. Around 1800 T.Young explains structural colors as a result of wave interference using his double-slit experiment$\footnote{See \texttt{http://en.wikipedia.org/wiki/Double-slit\textunderscore experiment}}$$\cite{doublslit}$, published in the journal Philosophical Transactions of the Royal Society. \\
 
-In the field of computer graphics, J.Stam$\cite{diffstam}$ was the first one who was able to develop reflection models based on wave optics capturing the effect of diffraction due to nano-structure height fields. His model is an approximation of far field diffraction$\footnote{See \texttt{http://en.wikipedia.org/wiki/Fraunhofer\textunderscore diffraction}}$ effects relying on the Kirchhof integral$\footnote{See \texttt{http://en.wikipedia.org/wiki/Kirchhoff\textunderscore integral\textunderscore theorem}}$. For a certain class of surfaces which can be modelled as a height field he provides an analytical solution of the BRDF model. He assumes homogeneity of the structure and then the main idea of his model is the formulate a BRDF as the Fourier Transform applied on the the correlation function of the given height field. However, the height fields that Stam is dealing with are either extremely regular or can be considered as a superposition of randomly distributed bumps forming a periodic like structure relying on probabilistic distribution theory$\footnote{See \texttt{http://en.wikipedia.org/wiki/Probability\textunderscore distribution}}$. Both height field assumptions allow him to derive an analytical solution using statistical models. However, the height field we are dealing with are measured, complex, biological nano-structures and thus they do not exhibit regularity at a global scale as demonstrated in figure $\ref{fig:xenopeltisafm}$. It is not sufficient to superimpose one particular nano finger (considering it as a bump) for capturing the complexity of the measured structure since this poses a non-trivial problem of modelling the distribution of nano finger statistically. Therefore, we cannot directly use Stam's BRDF model when we want to perform interactive rendering for diffraction effects of natural gratings.\\
+In the field of computer graphics, to J.Stam$\cite{diffstam}$ was the first one who was able to develop reflection models based on wave optics capturing the effect of diffraction due to nano-structure height fields. His model is an approximation of far field diffraction$\footnote{See \texttt{http://en.wikipedia.org/wiki/Fraunhofer\textunderscore diffraction}}$ effects relying on the Kirchhof integral$\footnote{See \texttt{http://en.wikipedia.org/wiki/Kirchhoff\textunderscore integral\textunderscore theorem}}$. For a certain class of surfaces which can be modelled as a height field he provides an analytical solution of the BRDF model. He assumes homogeneity of the structure and then the main idea of his model is the formulate a BRDF as the Fourier Transform applied on the the correlation function of the given height field. However, the height fields that Stam is dealing with are either extremely regular or can be considered as a superposition of randomly distributed bumps forming a periodic like structure relying on probabilistic distribution theory$\footnote{See \texttt{http://en.wikipedia.org/wiki/Probability\textunderscore distribution}}$. Both height field assumptions allow him to derive an analytical solution using statistical models. However, the height field we are dealing with are measured, complex, biological nano-structures and thus they do not exhibit regularity at a global scale as demonstrated in figure $\ref{fig:xenopeltisafm}$. It is not sufficient to superimpose one particular nano finger (considering it as a bump) for capturing the complexity of the measured structure since this poses a non-trivial problem of modelling the distribution of nano finger statistically. Therefore, we cannot directly use Stam's BRDF model when we want to perform interactive rendering for diffraction effects of natural gratings.\\
 
 In 2012 Cuypers et all $\cite{reflectancediffmodel}$ proposed a wave based Bidirectional scattering distribution function (BSDF$\footnote{See \texttt{http://en.wikipedia.org/wiki/Bidirectional\textunderscore scattering\textunderscore distribution\textunderscore function}}$) denoted as WBSDF.
-Using the rendering equation and Wigner Distribition Functions$\footnote{See \texttt{http://en.wikipedia.org/wiki/Wigner\textunderscore distribution\textunderscore function}}$ (WDF) they related their WBSDF model to the incoming wavefront and hence, their model can be adapted such that it can be rendered by a Monte Carlo renderer. The advantage of their model over Stam's is that their models also captures near field diffraction effects. A disadvantage their model is computational expensive since the WDF of a two dimensional surface is a four dimensional function and therefore can hardly be used in order to perform interactive rendering. \\
+Using the rendering equation and Wigner Distribition Functions$\footnote{See \texttt{http://en.wikipedia.org/wiki/Wigner\textunderscore distribution\textunderscore function}}$ (WDF) they related their WBSDF model to the incoming wavefront and hence, their model can be adapted such that it can be rendered by a Monte Carlo renderer. The advantage of their model over Stam's is that their models also captures near field diffraction effects. A disadvantage of their model is that it is computational expensive since the WDF of a two dimensional surface is a four dimensional function and therefore can hardly be used in order to perform interactive rendering. \\
 
 Linday and Agu $\cite{reflectancediffmodel}$ proposed an approach in order to perform interactive rendering diffraction effect by precomputing and storing their BRDF model using spherical harmonics. Nonetheless, for complex natural gratings their BRDF may be insufficient accurate since their approach is using low order spherical harmonics.
 
