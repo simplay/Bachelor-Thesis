@@ -1,37 +1,39 @@
 \chapter{Theoretical Background}
 \section{Basics in Modelling Light in Computer Graphics}
 \subsection{Radiometry}
-One purpose of Computer Graphics is to simulate the interaction of light on a surface and how a real-world observer, such as a human eye, will perceive this. These visual sensations of an eye are modelled relying on a virtual camera which captures the emitted light from the surface. The physical basis to measure such reflected light depicts radiometry which is about measuring the electromagnetic radiation transferred from a source to a receiver. \\
+One purpose of Computer Graphics is to simulate the interaction of light with a surface and how a real-world observer, such as a human eye, will perceive this. These visual sensations of an eye are modelled relying on a virtual camera which captures the emitted light from the surface. The physical basis to measure such reflected light is studied under radiometry which deals with measures on the electromagnetic radiation transferred from a source to a receiver. \\
 
-Fundamentally, light is a form of energy propagation, consisting of a large collection of photons, whereat each photon can be considered as a quantum of light that has a position, direction of propagation and a wavelength $\lambda$. A photon travels at a certain speed $v = \frac{c}{n}$, that depends only the speed of light $c$ and the refractive index $n$ through which it propagates. Its frequency is defined by $f = \frac{v}{\lambda}$ and its carried amount of energy $q$, measured in the SI unit Joule, is given by $q = hf= \frac{hv}{\lambda n}$ where $h$ is the Plank's constant. The total energy of a large collection of photons is hence $Q = \sum_i q_i$.
+Fundamentally, light is a form of energy propagation, consisting of a large collection of photons, whereat each photon can be considered as a quantum of light that has a position, a direction of propagation and a wavelength $\lambda$. A photon travels at a certain speed $v = c/n$, that depends only the speed of light $c$ and the refractive index $n$ through which it propagates. Its frequency is defined by $f = v/\lambda$ and its carried amount of energy $q$, measured in the SI unit Joule, is given by $q = hf= hv/\lambda n$ where $h$ is the Plank's constant. The total energy of a large collection of photons is hence $Q = \sum_i q_i$.
 
 \subsection{Spectral Energy}
 
-It is important to understand that the human eye is not equally sensitive to all wavelength of the spectrum of light and therefore responds differently to specific wavelengths. Remember that our goal is to model the human visual perception. This is why we consider the energy distribution of a light spectrum rather than considering the total energy of a photon collection since then we could weight the distribution according the human visual system. So the question we want to answer is: How is the energy distributed across wavelengths of light? \\
+It is important to understand that the human eye is not equally sensitive to all wavelength of the spectrum of light and therefore responds differently to specific wavelengths. Remember that our goal is to model the human visual perception. This is why we consider the energy distribution of a light spectrum rather than considering the total energy of a photon collection since then we could weight the distribution according to the human visual system. So the question we want to answer is: How is the energy distributed across wavelengths of light? \\
 
-The idea is to make an energy histogram from a given photon collection. For this we have to order all photons by their associated wavelength, discretize wavelength spectrum, count all photons which then will fall in same wavelength-interval, and then, finally, normalize each interval by the total energy $Q$. This will give us a histogram which tells us the spectral energy $Q_{\lambda}$ for a given discrete $\lambda$ interval and thus models the so called spectral energy distribution $\footnote{Intensive quantities can be thought of as density functions that tell the density of an extensive quantity at an infinitesimal point.}$.
+One idea is to make an energy histogram from a given photon collection. For this we have to order all photons by their associated wavelength, discretize the wavelength spectrum, count all photons which then will fall in same wavelength-interval, and then, finally, normalize each interval by the total energy $Q$. This will give us a histogram which tells us the spectral energy $Q_{\lambda}$ for a given discrete $\lambda$ interval and thus models the so called spectral energy distribution $\footnote{Intensive quantities can be thought of as density functions that tell the density of an extensive quantity at an infinitesimal by a small interval or a point.}$.
 
 \subsection{Spectral Power}
-Rendering an image in Computer Graphics corresponds to capturing the color sensation of an illuminated, target scene at a certain point in time. As previously seen, each color is associated by a wavelength and is directly related to a certain amount of energy. In order to determine the color of a to-be-rendered pixel of an image, we have to get a sense of how much light (in terms of energy) passes through the area which the pixel corresponds to. One possibility is to consider the flow of energy $\Phi = \frac{\Delta Q}{\Delta t}$ transferred through this area over a small period of time. This allows us to measure the energy flow through a pixel during a certain amount of time. \\
-
-In general, power is the estimated rate of energy production for light sources and corresponds to the flux. It is measured in the unit Watts, denoted by Q. Since power is a rate over time, it is well defined even when energy production is varying over time. As with Spectral Energy for rendering, we are really interested in the spectral power $\Phi_\lambda = \frac{\Phi}{\lambda}$, measured in Watts per nanometer.
+Rendering an image in Computer Graphics corresponds to capturing the color sensation of an illuminated, target scene at a certain point in time. 
+%TODO FIX THIS: See feedback
+each color is associated with a wavelength and is directly related to a certain amount of energy. 
+% TODO END
+In order to determine the color of a to-be-rendered pixel of an image, we have to first get a sense of how much light (in terms of energy) passes through the area which the pixel corresponds to. We begin by considering the flow of energy $\Phi = \frac{\Delta Q}{\Delta t}$ transferred through this area over a unit period of time. This allows us to measure the energy flow through a pixel during a certain amount of time. In general, power is the estimated rate of energy production for light sources and corresponds to the flux. It is measured in the unit Watts, denoted by Q. Since power is a rate over time, it is well defined even when energy production is varying over time. As with Spectral Energy for rendering, we are really interested in the spectral power $\Phi_\lambda = \frac{\Delta \Phi}{\Delta \lambda}$, measured in Watts per nanometer.
 
 \subsection{Spectral Irradiance}
-Before we can tell how much light is reflected from a given point on a surface towards the viewing direction of an observer, we first have to know how much light arrives at this point. Since in general a point has no length, area or even volume associated, let us instead consider an infinitesimal area $\Delta A$ around a such a point. Then, we can ask ourself how much light falls in such a small area. When further observing this process over a short period in time, this quantity is the spectral irradiance $E$ as illustrated in figure $\ref{fig:irradiance}$. Summarized, this quantity tells us how much spectral power is incident on a surface per unit area and mathematically is equal:
+Before we can tell how much light is reflected from a given point on a surface towards the viewing direction of an observer, we first have to know how much light arrives at this point. Since in general a point has no length, area or even volume associated, let us instead consider an infinitesimal area $\Delta A$ around a such a point. Then, we can ask ourself how much light falls in such a small area. Further while observing this process over a short period of time, the measured quantity gives us the the spectral irradiance $E$ as illustrated in figure $\ref{fig:irradiance}$. Summarized, this quantity tells us how much spectral power is incident on a surface per unit area and mathematically is equal:
 
 \begin{equation}
- E = \frac{\Phi_{\lambda}}{\Delta A}
+ E_{\lambda} = \frac{\Phi_{\lambda}}{\Delta A}
 \end{equation} 
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{background/irradiance.png}
-  \caption[Irradiance]{Irradiance is the summed up radiance over all directions}
+  \caption[Irradiance]{Irradiance is the summed up radiance over all directions. The black border is representing a surface element.}
   \label{fig:irradiance}
 \end{figure}
 
 \subsection{Spectral Radiance}
-When rendering an image we have to determine the color of each pixel of the image. Although irradiance tells us how much light is arriving at a point as illustrated in figure $\ref{fig:irradiance}$, it tells us little about the direction that light comes from. This relates to how the human eye perceives the brightness of an illuminated objects when looking at it in a certain direction. 
+When rendering an image we have to determine the color of each pixel of the image. Although irradiance tells us how much light is arriving at a point and gets reflected, it tells us nothing about the power distribution across different directions. The direction of the element is important because the human eye may perceive the brightness of an illuminated objects differently when looking from direction. 
 
 \begin{figure}[H]
   \centering
@@ -47,28 +49,28 @@ When rendering an image we have to determine the color of each pixel of the imag
   
 \label{fig:radianceBasics}
 \end{figure}
-
-This concept is described by the radiometric quantity radiance. Basically, this is a measure of light energy passing through or is emitted off from a small area around a point on a surface towards a given direction during a short period in time. More formally this is the spectral power emerging from an arbitrary point (an infinitesimal area around this point) and falls within a given solid angle (see figure$\footnote{Similar figure like used in computer graphics class 2012 in chapter colors}$ $\ref{fig:solidangle}$)in specific direction (usually towards the observer) as shown in figure $\ref{fig:radiance}$. Formally, this leads us to the following mathematical formalism: 
+\noindent
+This concept is described by the radiometric quantity radiance. Basically, radiance is the measure of light energy passing through or emitted from a small area around a point on a surface towards a given direction during a short period in time. More formally this is the spectral power emerging from an arbitrary point (an infinitesimal area around this point) and falls within a given solid angle (see figure$\footnote{Modified from a figure in Computer Graphics class 2012 in chapter \emph{Colors}}$ $\ref{fig:solidangle}$) in a specific direction (usually towards the observer) as shown in figure $\ref{fig:radiance}$. Formally, this leads us to the following mathematical formalism: 
 
 \begin{equation}
  L_{\lambda}(\omega) = \frac{d^2 \Phi_{\lambda}}{dA d\Omega} \approx \frac{\Phi_{\lambda}}{\Omega A}
 \end{equation}
 
-where $L$ is the observed spectral radiance in the unit energy per unit area per solid angle, which is $Wm^-2 sr^-1$ in direction $\omega$ which has an angle $\theta$ between the surface normal and $\omega$, $\Theta$ is the total flux or power emitted, $\theta$ is the angle between the surface normal and the specified direction, $A$ is the area of the surface and $\Omega$ is the solid angle in the unit steradian subtended by the observation or measurement. \\
+where $L$ is the observed spectral radiance in $Wm^-2 sr^-1$ in direction $\omega$, $\Theta_{\lambda}$ is the total power emitted, $\theta$ is the angle between the surface normal and the specified direction, $A$ is the area of the surface and $\Omega$ is the solid angle subtended by the observation or measurement. \\
 
 It is useful to distinguish between radiance incident at a point on a surface and excitant from that point. Terms for these concepts sometimes used in the graphics literature are surface radiance $L_r$ for the radiance \textit{reflected} from a surface and field radiance $L_i$ for the radiance \textit{incident} at a surface.  
 
 \subsection{BRDF}
-In order to render the colorization of an observed object, a natural question in computer graphics is what portion of the reflected, incident light a viewer will receive, when he looks at an illuminated object. Therefore for any given surfaces which is illuminated from a certain direction $\omega_i$, we can ask ourself how much light is reflected off of any point on this surface towards a viewing direction $\omega_r$. This is where the Bidirectional Reflectance Distribution Function (short: BRDF) comes into play, which is a radiometric quantity telling us how much light is reflected at an opaque surface. Mathematically speaking, the BRDF is the ratio of the reflected radiance pointing to the direction $\omega_r$ to the incident irradiance coming from the inverse direction of $\omega_i$ as illustrated in figure $\ref{fig:brdfillustration}$. Hence the BRDF is a four dimensional function defined by four angles $\theta_i$, $\phi_i$, $\theta_r$ and $\phi_r$.
+In order to render the colorization of an observed object, a natural question in Computer Graphics is what portion of the incident light a viewer will receive after reflection, after when he looks at an illuminated object. For any given surface which is illuminated from a certain direction $\omega_i$, we can ask ourself how much light is reflected from any point on this surface towards a viewing direction $\omega_r$. This is where the Bidirectional Reflectance Distribution Function (BRDF) comes into play, which is a radiometric quantity telling us how much light is reflected at an opaque surface. Mathematically speaking, the BRDF is the ratio of the reflected radiance pointing in the direction $\omega_r$ to the incident irradiance coming from the inverse direction of $\omega_i$ as illustrated in figure $\ref{fig:brdfillustration}$. Hence the BRDF is a four dimensional function defined by four angles $\theta_i$, $\phi_i$, $\theta_r$ and $\phi_r$.
 
 \begin{figure}[ht]
   \centering
   \includegraphics[scale=0.5]{background/mybrdfmodel.png}
-  \caption[BRDF Model]{Illistration of the BRDF model, where $\omega_i$ is pointing to the light source and the existing direction is denoted by $\omega_r$. Both direction unit direction vectors defined w.r.t to a surface normal $\mathbf{n}$ for every point on the surface.}
+  \caption[BRDF Model]{Illustration of the BRDF model, where $\omega_i$ is pointing to the light source and the viewing direction is denoted by $\omega_r$. Both unit direction vectors are defined w.r.t to a surface normal $\mathbf{n}$ for every point on the surface.}
   \label{fig:brdfillustration}  
 \end{figure}
 
-Which formally is for any given wavelength $\lambda$ equivalent to:
+Formally, a BRDF for any given wavelength $\lambda$ is defined as:
 
 \begin{align}
   BRDF_{\lambda}(\omega_i, \omega_r)
@@ -77,10 +79,10 @@ Which formally is for any given wavelength $\lambda$ equivalent to:
   \label{eq:defbrdf}
 \end{align}
 
-Where $L_{r}$ is the reflected spectral radiance, $E_i$ is the spectral irradiance and $\theta_{\text{i}}$ is the angle between $\omega_{\text{i}}$ and the surface normal $\mathbf n$. 
+Where $L_{r}$ is the reflected spectral radiance, $E_i$ is the incident spectral irradiance and $\theta_{\text{i}}$ is the angle between $\omega_{\text{i}}$ and the surface normal $\mathbf n$. Also, $L_i$ is the incident spectral radiance.
 
 \subsection{Wavespectrum and Colors}
-In order to see how crucial the role of human vision plays, let us consider the following definition of color by \textit{Wyszechkiu and Siles}$\footnote{mentioned in Computer Graphics Fundamentals Book from the year 2000}$ stating that \textit{Color is the aspect of visual perception by which an observer may distinguish differences between two structure-free fields of view of the same size and shape such as may be caused by differences in the spectral composition of the radiant energy concerned in the observation}. Therefore, similarly like the humans' perceived sensation of smell and taste, color vision is just another individual sense of perception giving us the ability to distinguish different frequency distribution of light experienced as color.
+In order to see how crucial the role of human vision plays, let us consider the following definition of color by \textit{Wyszechkiu and Siles}$\footnote{mentioned in Computer Graphics Fundamentals Book from the year 2000}$ stating that \textit{"Color is the aspect of visual perception by which an observer may distinguish differences between two structure-free fields of view of the same size and shape such as may be caused by differences in the spectral composition of the radiant energy concerned in the observation"}. Therefore, similarly like the humans' perceived sensation of smell and taste, color vision is just another individual sense of perception giving us the ability to distinguish between different frequency distributions of light which we experienced as different colors.
 
 \begin{figure}[H]
   \centering
