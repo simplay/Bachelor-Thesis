@@ -12,7 +12,7 @@
 \contentsline {subsection}{\numberline {1.1.9}Spectral Rendering}{7}{subsection.1.1.9}
 \contentsline {section}{\numberline {1.2}Wave Theory for Light and Diffraction}{7}{section.1.2}
 \contentsline {subsection}{\numberline {1.2.1}Basics in Wave Theory}{7}{subsection.1.2.1}
-\contentsline {subsection}{\numberline {1.2.2}Wave Interference}{8}{subsection.1.2.2}
+\contentsline {subsection}{\numberline {1.2.2}Wave Interference}{9}{subsection.1.2.2}
 \contentsline {subsection}{\numberline {1.2.3}Wave Coherence}{10}{subsection.1.2.3}
 \contentsline {subsection}{\numberline {1.2.4}Huygen's Principle}{11}{subsection.1.2.4}
 \contentsline {subsection}{\numberline {1.2.5}Waves Diffraction}{11}{subsection.1.2.5}
