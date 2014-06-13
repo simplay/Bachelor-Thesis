@@ -244,7 +244,7 @@ In everyday's life, we can see the direct outcome of the effect of wave diffract
 
 \section{Stam's BRDF formulation}
 \label{sec:sumstam}
-The theoretical foundation of this thesis is based on the pioneering work of J.Stam who derived a BRDF formulation to modell the effect of far field diffraction for various analytical anisotropic surfaces, relying on the so called scalar wave theory of diffraction for which a wave is assumed to be a complex valued scalar. It's noteworthy that Stam's BRDF formulation does not take into account the polarization of the incident light. Fortunately, light sources like sunlight and light bulbs are unpolarized. The principal behind J. Stam's approach is illustrated in figure $\ref{fig:meaningofstamsapproach}$. 
+The theoretical foundation of this thesis is based on the pioneering work of J.Stam who derived a BRDF formulation to modell the effect of far field diffraction for various analytical anisotropic surfaces, relying on the so called scalar wave theory of diffraction for which a wave is assumed to be a complex valued scalar. It's noteworthy that Stam's BRDF formulation does not take into account the polarization of the incident light. Fortunately, light sources like sunlight and light bulbs are unpolarized. The principal beginhind J. Stam's approach is illustrated in figure $\ref{fig:meaningofstamsapproach}$. 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{background/stamsapproachsmeaning2.png}
@@ -257,7 +257,7 @@ An incident wave $p_i$ from a a light source encounters a surface representing a
 A further assumption in Stam's Paper is, that the emanated waves from the source are stationary, which implies the wave is a superposition of independent monochromatic waves. This further implies that each wave is associated with a definite wavelength $\lambda$. Directional light sources such as sunlight fulfill this fact and since we are using these kinds of light sources for our simulations, Stam's model can be used for our modelling purposes. \\
 
 % TODO FIX: THIS IS NOT THE MAIN IDEA 
-The main model is the formulate a BRDF as the Fourier Transform applied on the given height field, representing a surface like shown in figure $\fig:geometricsetup$. The classes of surfaces his model is able to support either exhibit a very regular structure or may be considered as a superposition of bumps forming a periodic like structure. Therefore, the surfaces he is dealing with can either be modelled by probabilistic distributions or have a direct analytical representation. Both cases allow him to derive an analytical solution for his BRDF model.
+The main model is the formulate a BRDF as the Fourier Transform applied on the given height field, representing a surface like shown in figure $\ref{fig:geometricsetup}$. The classes of surfaces his model is able to support either exhibit a very regular structure or may be considered as a superposition of bumps forming a periodic like structure. Therefore, the surfaces he is dealing with can either be modelled by probabilistic distributions or have a direct analytical representation. Both cases allow him to derive an analytical solution for his BRDF model.
 
 \begin{figure}[H]
   \centering
@@ -265,40 +265,40 @@ The main model is the formulate a BRDF as the Fourier Transform applied on the g
   \caption[Stam's geometrical setup]{Illustration$\footnotemark$ of geometrical setup of Stam's approach where $\omega_i$ is a direction, pointing towards the light source, $\omega_r$ points towards the camera, $n$ is the surface normal, $(u,v,w)$ are the components of the vector $-\omega_i - \omega_r$.}
   \label{fig:geometricsetup}  
 \end{figure}
-\footnotetext{Modified image which originally has been taken from D.S. Dhillon's poster$\cite{diffourp}$.} 
+\footnotetext{Modified image which originally has been taken from D.S. Dhillon et. al. poster$\cite{diffourp}$.} 
 
 The direction vector of the secondary wavelet can be computed by taking the difference between the incident and viewing direction like shown in equation $\ref{eq:uvw}$:
 \begin{equation}
   (u,v,w) = -\omega_i - \omega_r 
 \label{eq:uvw}
 \end{equation}
-These coordinates will later be used in order to compute the total contribution of all secondary sources used in Stam's BRDF in equation $\ref{eq:mainstam}$. For simplification, let us introduce an auxiliary function $\Phi$ defined in equation $\ref{eq:heightfieldphase}$, which models the phase of a wave from the provided height field.
+These coordinates will later be used in order to compute the total contribution of all secondary sources used in Stam's BRDF in equation $\ref{eq:mainstam}$. For simplification, let us introduce an auxiliary function $\Phi$ defined in equation $\ref{eq:heightfieldphase}$, which models the phase of a wave from the given height field.
 
 \begin{equation}
   \Phi(x,y) = \frac{2 \pi}{\lambda} w h(x,y) 
 \label{eq:heightfieldphase}
 \end{equation}
 
-Then, any secondary wavelet $p$ which is emitted off from the given surface will be equal:
+Then, any secondary wavelet $p$ which is emitted off from the given surface is equal:
 \begin{equation}
   p(x,y) = e^{i\Phi(x,y)} 
 \label{eq:px}
 \end{equation}
 
-using the idea presented for figure $\ref{fig:meaningofstamsapproach}$ and performing all mathematical steps shown in the appendix $\ref{chap:stamsderivations}$, will lead us to the final BRDF representation, modelling the total contribution of all secondary sources reflected off the the provided surface $h$:
+using the idea presented for figure $\ref{fig:meaningofstamsapproach}$ and performing all mathematical steps shown in the appendix $\ref{chap:stamsderivations}$, will lead us to the final BRDF representation, modelling the total contribution of all secondary sources reflected off the the provided surface $h$ in the direction $\omega_r$:
 \begin{equation} 
   BRDF_{\lambda}(\omega_i, \omega_r) = \frac{k^2 F^2 G}{4\pi^2 A w^2} \langle \left|P(ku, kv)\right|^2\rangle
 \label{eq:mainstam}
 \end{equation}
 
-where $F$ denotes the Fresnel coefficient and $G$ is the so called geometry term$\footnote{The geometric Terms expresses the correction factor to perform an integration over an area instead over a surface. For further information, please have a look at \texttt{http://en.wikipedia.org/wiki/Surface\textunderscore integral}, and read the definition about \emph{surface element}}$ which is equal to: 
+where $F$ denotes the Fresnel coefficient and $G$ is the so called geometry term$\footnote{The geometric terms expresses the correction factor to perform an integration over an area instead over a surface. For further information, please have a look at \texttt{http://en.wikipedia.org/wiki/Surface\textunderscore integral}, and read the definition about \emph{surface element}}$ which is equal to: 
 \begin{equation}
   G =\frac{(1 + \omega_i \cdot \omega_r)^2}{cos(\theta_i)cos(\theta_r)}
 \label{eq:geometricterm}
 \end{equation}
 
 \label{sec:electricalengeneeringftconvention}
-One last word about the term Fourier Transform Stam uses in his derivation: Conventionally, following the definitions in Mathematics of the Fourier Transformation, we are dealing with the inverse Fourier Transformation. However, especially in electrical engineering, it is quite common to define this inverse Fourier Transformation by the Fourier Transformation. The reason behind this lies in the fact that we simply could substitute the minus sign like the following equation $\ref{eq:signchangementconvention}$:
+One last word about the Fourier transform terms that Stam uses in his derivation: Conventionally, following the definitions of the Fourier Transformation, we are dealing with the inverse Fourier Transformation. However, especially in electrical engineering, it is quite common to define this inverse Fourier transformation by the Fourier Transformation. The reason behind this lies in the fact that we simply could substitute the minus sign as in the following equation $\ref{eq:signchangementconvention}$:
 
 \begin{align}
 \mathcal{F}_{FT}\{f\}(w) 
@@ -309,9 +309,9 @@ One last word about the term Fourier Transform Stam uses in his derivation: Conv
 \end{align} 
 where $\hat{w}$ is equal $-w$. \\
 
-The height fields we are dealing with in this work are, however, natural gratings, containing a complex shaped nano-structure and hence far apart from being very regularly aligned. The reason why Stam's approach in its current form is not suitable for our purpose is twofold: First his approach does not capture the complexity of natural gratings accurately well enough when relying on his his statistical approaches and secondly it is way too slow in order to be usable for interactive rendering since his BRDF needs an evaluation of a Fourier Transform for every directional changement. \\
+The height fields we are dealing with in this work are, however, natural gratings containing a complex shaped nano-structure and hence far from being very regularly aligned. The reason why Stam's approach in its current form is not suitable for our purpose is twofold: First his approach does not capture the complexity of natural gratings accurately well enough when relying on his statistical approaches and secondly it is way too slow in order to be usable for interactive rendering since his BRDF needs an evaluation of a Fourier Transform for every directional changing. \\
 
-In the following a brief comparison between Stam's$\footnote{A reference implementation of Stam's Diffraction Shader\cite{diffstam} is provided by Nvidia's GPU Gems at \texttt{http://http.developer.nvidia.com/GPUGems/gpugems\textunderscore 08.html}}$ and our final approach using two different kinds of gratings, a synthetic, regularly aligned grating and a natural, complex structured grating. These gratings are shown in figure $fig:stameggratings$.
+In the following a brief comparison between Stam's$\footnote{A reference implementation of Stam's Diffraction Shader\cite{diffstam} is provided by Nvidia's GPU Gems at \texttt{http://http.developer.nvidia.com/GPUGems/gpugems\textunderscore 08.html}}$ and our final approach using two different kinds of gratings, a synthetic, regularly aligned grating and a natural, complex structured grating. These gratings are shown in figure $\ref{fig:stameggratings}$.
 
 \begin{figure}[H]
   \centering
@@ -320,23 +320,23 @@ In the following a brief comparison between Stam's$\footnote{A reference impleme
   \label{fig:stameggratings}  
 \end{figure}
 
-Figure $\ref{fig:stameggratingsgoodeg}$ shows an example of a case where Stam's approach performs well. Considering the red-line in the figure we notice that the nano-scaled structures of a compact disc are very regularly aligned along the surface. Tracks of a CD are uniformally spaced and bumps along a track are distributed according to the poisson distribution$\footnote{See \texttt{http://en.wikipedia.org/wiki/Poisson\textunderscore distribution}}$. All angles of the diffraction pattern look the same as in the images produced by our apporach.
+Figure $\ref{fig:stameggratingsgoodeg}$ shows an example of a case where Stam's approach performs well. Considering the red-line in the figure we notice that the nano-scaled structures of a compact disc are very regularly aligned along the surface. Tracks of a CD are uniformally spaced and bumps along a track are distributed according to a poisson distribution$\footnote{See \texttt{http://en.wikipedia.org/wiki/Poisson\textunderscore distribution}}$. All angles of the diffraction pattern look the same as in the images produced by our apporach.
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{background/stamgoodeg.png}
-  \caption[Comparing Stam's apporach: Good Example]{Comparison of our approach against a reference implementation of Stam's provided by Nvida Gem. For synthetic diffraction gratings, which have a very regular structure, Stam's approach is doing well. All angles of the diffraction pattern look the same as in the images produced by our approach.}
+  \caption[Comparing Stam's apporach: Good Example]{Comparison of our approach against a reference implementation of Stam's method provided by Nvida Gem. For synthetic diffraction gratings, which have a very regular structure, Stam's approach is doing well. All angles of the diffraction pattern look the same as in the images produced by our approach.}
   \label{fig:stameggratingsgoodeg}  
 \end{figure}
 
-Figure $\ref{fig:stameggratingsbadeg}$ shows an attempt to reproduce real structural colors on the skin of the Xenopeltis snake using our method and comparing it to Stam's approach. Even the results of Stam might look appropriate, there are some differences notable such missing colors close to specular regions, or such as the color distribution which is rather discrete in Stam's approach. Furthermore, Stam's approach has at some places color contribution, where it should not have.
+Figure $\ref{fig:stameggratingsbadeg}$ shows an attempt to reproduce real structural colors on the skin of the Xenopeltis snake using our method and comparing it to Stam's approach. Even the results of Stam might look appropriate. However, there are some notable differences such as missing colors close to specular regions, or such as the color distribution which is rather discrete in Stam's approach. Furthermore, Stam's approach has at some places color contribution, where it should not have.
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.4]{background/stambadeg.png}
-  \caption[Comparing Stam's approach: Bad Example]{Comparison of our approach(on the right) against a reference implementation of Stam's(on the left) provided by Nvida Gem by trying to render a reproduction of a real Elaphe skin (center) under similar lightning and viewing conditions. For natural diffraction gratings, which have a rather complex structure, Stam's approach is doing rather bad.}
+  \caption[Comparing Stam's approach: Bad Example]{Comparison of our approach(on the right) against a reference implementation of Stam's method(on the left) provided by Nvida Gem. We attempt to reproduce a real Xenopeltis skin coloration(center). For natural diffraction gratings, which have a rather complex structure, Stam's approach is qualitatively different from the real image.}
   \label{fig:stameggratingsbadeg}  
 \end{figure}
 
-In the next chapter we are going to adapt Stam's BRDF model such that it will be able to handle the kind of surfaces we are dealing with and even will have a runtime complexity which allows to perform interactive rendering.
+In the next chapter we are going to adapt Stam's BRDF model such that it will be able to handle the kind of surfaces we are dealing with and even will have a runtime complexity which permits interactive rendering.
 
