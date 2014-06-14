@@ -23,7 +23,7 @@
 \contentsline {subsection}{\numberline {2.2.1}Reproduce FT by DTFT}{19}{subsection.2.2.1}
 \contentsline {subsection}{\numberline {2.2.2}Spatial Coherence and Windowing}{21}{subsection.2.2.2}
 \contentsline {subsection}{\numberline {2.2.3}Reproduce DTFT by DFT}{22}{subsection.2.2.3}
-\contentsline {section}{\numberline {2.3}Adaption of Stam's BRDF Discrete Height Fields}{24}{section.2.3}
+\contentsline {section}{\numberline {2.3}Adaption of Stam's BRDF for Discrete Height Fields}{24}{section.2.3}
 \contentsline {subsection}{\numberline {2.3.1}Rendering Equation}{24}{subsection.2.3.1}
 \contentsline {subsection}{\numberline {2.3.2}Reflected Radiance of Stam's BRDF}{25}{subsection.2.3.2}
 \contentsline {subsection}{\numberline {2.3.3}Relative Reflectance}{26}{subsection.2.3.3}
