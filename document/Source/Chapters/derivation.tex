@@ -2,7 +2,7 @@
 \label{chap:derivations}
 
 \section{Problem Statement and Challenges}
-The goal of this thesis is to perform a physically accurate and interactive simulation of structural color production as shown in figure $\ref{fig:problemstatementoutput}$, which we can see whenever light is diffracted from a natural grating. For this purpose we need the following input data (see $\ref{fig:problemstatement}$):
+The goal of this thesis is to perform a physically accurate and interactive simulation of structural color production as shown in figure $\ref{fig:problemstatementoutput}$, which we can see whenever light is diffracted from a natural grating. For this purpose we need the following input data (see figure $\ref{fig:problemstatement}$):
 \begin{itemize}
   \item A mesh representing a snake surface$\footnote{In our simulation it is an actual reconstruction of a real snake skin. These measurements are provided by the Laboratory of Artificial and Natural Evolution at Geneva. See their website:\texttt{www.lanevol.org}.}$ as shown in figure $\ref{fig:strucgeom}$.
   \item A natural diffraction grating represented as a height field, its maximum height and its pixel width$\footnote{Since the nanostructure is stored as a grayscale image, we need a scale telling us what length and height one pixel corresponds to in this provided image.}$.
@@ -29,15 +29,14 @@ The goal of this thesis is to perform a physically accurate and interactive simu
   \label{fig:problemstatement}
 \end{figure}
 
-We want to rely on the integral equation $\ref{eq:mainstam}$ derived by J. Stam in his paper $\cite{diffstam}$ about diffraction shaders. This equation formulates a BRDF modelling the effect of diffraction under the assumption that a given grating can either be formulated as an analytical function or its structure is simple enough being modelled relying on statistical methods. These assumptions guarantee that $\ref{eq:mainstam}$ has an explicit solution. However, the complexity of a biological nanostructure cannot sufficiently and accurately modelled simply using statistical methods. This is why interactive computation at high resolution becomes a hard task, since we cannot evaluate the given integral equation on the fly. Therefore, we have to adapt Stam's equation such that we are able to perform interactive rendering using explicitly provided height fields.
+We want to rely on the integral equation $\ref{eq:mainstam}$ derived by J. Stam in his paper $\cite{diffstam}$ about diffraction shaders. This equation formulates a BRDF modelling the effect of diffraction under the assumption that a given grating can either be formulated as an analytical function or its structure is simple enough being modelled relying on statistical methods. These assumptions guarantee that $\ref{eq:mainstam}$ has an explicit solution. However, the complexity of a biological nanostructure cannot sufficiently and accurately modelled simply using statistical methods. This is why interactive computation at high resolution becomes a hard task, since we cannot evaluate the given integral equation on the fly. Therefore, we have to adapt Stam's equation such that we are able to perform interactive rendering using explicitly provided height fields at interactive rates.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.8]{derivation/renderedstructuredcolors.png}
+  \includegraphics[scale=0.6]{derivation/ourresultswhenrendering.png}
   \caption[Problem Statement: Output]{Output: Rendered Structural Colors}
   \label{fig:problemstatementoutput}
 \end{figure}
-
 
 \section{Approximate a FT by a DFT}
 \subsection{Reproduce FT by DTFT}
@@ -50,9 +49,9 @@ In the previous section, we have found an identity for the reflected spectral ra
   \label{fig:ftbydtft}  
 \end{figure}
 \footnotetext{Images of function plots taken from \texttt{http://en.wikipedia.org/wiki/Discrete\textunderscore Fourier\textunderscore transform} and are modified.} 
-The first step is to uniformly discretize the given signal since computers are working finite, discrete arithmetic. We rely on the Nyquist–Shannon sampling theorem tells us how dense we have to sample a given signal $s(x)$ such that can be reconstructed its sampled version $\hat{s}[n]$$\footnote{n denotes the number of samples.}$. In particular, a sampled version according to the Nyquist–Shannon sampling theorem will have the same Fourier Transform as its original signal. The sampling theorem states that if $f_{max}$ denotes the highest frequency of $s(x)$, then, it has to be sampled by a rate of $f_s$ with $2f_{max} \leq f_s$ in order to be reconstructable. By convention $T = \frac{1}{f_s}$ represent the interval length between two samples. \\ \\
+The first step is to uniformly discretize the given signal since computers are working finite, discrete arithmetic. We rely on the Nyquist–Shannon sampling theorem tells us how dense we have to sample a given signal $s(x)$ such that can be reconstructed its sampled version $\hat{s}[n]$$\footnote{n denotes the number of samples.}$. In particular, a sampled version according to the Nyquist–Shannon sampling theorem will have the same Fourier transform as its original signal when it has a limitted bandwidth. The sampling theorem states that if $f_{max}$ denotes the highest frequency of $s(x)$, then, it has to be sampled by a rate of $f_s$ with $2f_{max} \leq f_s$ in order to be reconstructable. By convention $T = \frac{1}{f_s}$ represent the interval length between two samples. \\ \\
 
-Next, we apply the Fourier Transformation operator on the discretized signal $\hat{s}$ which gives us the following expression: 
+Next, we apply the Fourier transformation operator on the discretized signal $\hat{s}$ which gives us the following expression: 
 
 \begin{align}
 \mathcal{F}_{FT}\{\hat{s}\}(w)
@@ -75,7 +74,7 @@ Therefore $P_{dtft}$ denotes the DTFT of a transformed version of our height fie
 
 \subsection{Spatial Coherence and Windowing}
 \label{sec:spatialcoherenceandwindowing}
-Before we can derive a final expression in order to approximate a FT by a DFT, we first have to revisit the concept of coherence introduced in section $\ref{sec:wavecoherence}$ of chapter 2.Previously we have seen that Stam's BRDf tells us what is the total contribution of all secondary sources which allows us to say what is the reflected spectral radiance at a certain point in space. This is related to stationary interference which itself depends on the coherence property of the emitted secondary wave sources. The ability for two points in space, $t_1$ and $t_2$, to interfere in the extend of a wave when being averages over time is the so called spatial coherence. The spatial distance between such two points over which there is significant interference is limited by the quantity coherence area. For filtered sunlight on earth this is equal to 65$\mu m$ $\footnote{A proof for this number can be looked up in the book Optical Coherence and Quantum Optics$\cite{optcoherence}$ on page 153 and 154.}$.
+Before we can derive a final expression in order to approximate a FT by a DFT, we first have to revisit the concept of coherence introduced in section $\ref{sec:wavecoherence}$ of chapter 2. Previously we have seen that wave-theory tells us what is the total contribution of all secondary sources which allows us to say what is the reflected spectral radiance at a certain point in space. This is related to stationary interference which itself depends on the coherence property of the emitted secondary wave sources. The ability for two points in space, $t_1$ and $t_2$, to interfere in the extend of a wave when being averages over time is the so called spatial coherence. The spatial distance between such two points over which there is significant interference is limited by the quantity coherence area. For filtered sunlight on earth this is equal to 65$\mu m$ $\footnote{A proof for this number can be looked up in the book Optical Coherence and Quantum Optics$\cite{optcoherence}$ on page 153 and 154.}$.
 
 \begin{figure}[H]
   \centering
@@ -86,16 +85,16 @@ Before we can derive a final expression in order to approximate a FT by a DFT, w
 
 Figure $\ref{fig:coherenceareagaussianwindow}$ illustrates the concept of spatial coherence. A wavefront (blue line) encounters a surface. Due to Huygen's principle, secondary wavelets are emitted off from the surface. The reflected radiance at a certain point in space, e.g. at a viewer's eye position (denoted by the gray circle), is a result of interference among all wavelets at that point. This interference is directly affected by the spatial coherence property of all the emitted wavelets. \\
 
-In physics spatial coherence is predicted by the cross correlation between $t_1$ and $t_2$ and usually modelled by by a Gaussian Random Process. For any such Gaussian Processes we can use a spatial gaussian window $g(x)$ which is equal:
+In physics spatial coherence is predicted by the cross correlation between $t_1$ and $t_2$ and usually modelled by a Gaussian Random Process. For any such Gaussian Process we can use a spatial gaussian window $g(x)$ which is equal:
 
 \begin{equation} 
   g(x) = \frac{1}{\sqrt{2\pi}\cdot\sigma}\cdot e^{-\frac{x^2}{2\sigma^2}} 
   \label{eq:gaussianwindowspacial}
 \end{equation} 
 
-We have chosen standard deviation $\sigma_s$ of the window such that it fulfills the equation $4 \sigma_s = 65\mu m$. This is equivalent like saying we want to predict about $99.99\%$$\footnote{Standard deviation values from confidence intervals table of normal distribution provided by Wolfram MatheWorld \texttt{http://mathworld.wolfram.com/StandardDeviation.html}.}$ of the resulting spatial coherence interference effects in our model by a cross correlation function. \\
+We have chosen standard deviation $\sigma_s$ of the window such that it fulfills the equation $4 \sigma_s = 65\mu m$. This is equivalent to saying that we want to predict about $99.99\%$$\footnote{Standard deviation values from confidence intervals table of normal distribution provided by Wolfram MatheWorld \texttt{http://mathworld.wolfram.com/StandardDeviation.html}.}$ of the resulting spatial coherence interference effects in our model by a cross correlation function. \\
 
-By applying the Fourier Transformation to the spatial window we get the corresponding window in frequency space will look like:
+By applying the Fourier transformation to the spatial window we get the corresponding window in frequency space as:
 \begin{equation} 
   G(f) = e^{-\frac{f^2}{2\sigma_f^2}}
   \label{eq:gaussianwindowfrequencyspace}
@@ -116,9 +115,9 @@ In this section we explain how and under what assumptions the DTFT of a discreti
 \end{figure}
 \footnotetext{Images of function plots taken from \texttt{http://en.wikipedia.org/wiki/Discrete\textunderscore Fourier\textunderscore transform} and are modified. Note that the scales in the graphic are not appropriate.} 
 
-Given a spatial, band-limited and discretized one dimensional signal $\hat{s}$. Our goal is to approximate this spatial signal in a way such that when taking the DTFT of this approximated signal, it will yield almost the same like taking the DTFT of the original sampled $\hat{s}$. For this purpose we will use the previous introduced concept of gaussian windows and the so called Convolution Theorem which is a fundamental property of all Fourier Transformations. \\
+Lets say, we are given a spatial, band-limited and discretized one dimensional signal $\hat{s}$. Our goal is to approximate this spatial signal in a way such that when taking the DFT of this approximated signal, it will yield the same response as taking the DTFT of the original sampled $\hat{s}$. For this purpose we will use the previously introduced concept of gaussian windows and the so called Convolution Theorem which is a fundamental property of all Fourier transformations. \\
 
-The Convolution Theorem states that the Fourier Transformation of a product of two functions, $f$ and $g$, is equal to convolving the Fourier Transformations of each individual function. Mathematically, this statement corresponds to equation $\ref{eq:convolutiontheorem}$:
+The Convolution Theorem states that the Fourier transformation of a product of two functions, $f$ and $g$, is equal to convolving the Fourier Transformations of each individual function. Mathematically, this statement corresponds to equation $\ref{eq:convolutiontheorem}$:
 
 \begin{equation} 
   \mathcal{F}\{f\cdot g\} = \mathcal{F}\{f\} * \mathcal{F}\{g\}
@@ -127,7 +126,7 @@ The Convolution Theorem states that the Fourier Transformation of a product of t
 
 The principal issue is how to approximate our given signal $\hat{s}$. Therefore, let us consider another signal $\hat{s_N}$ which is the $N$ times replicated version of $\hat{s}$ (blue signal at center top in figure). \\
 
-Remember that in general, the signal response at a certain point in space is the result of interference among all signals meeting at that position. In our scenario, the source of those signals are emitted secondary wavelets. The interference strength between these points is related to their spatial coherence. Windowing the signals by a gaussian window $g$ will capture a certain percentage of all interference effects. From the previous section $\ref{sec:spatialcoherenceandwindowing}$ we know that we can use gaussian window like in equation $\ref{eq:gaussianwindowspacial}$ in order to approximate such spatial signals interference effects. \\
+Remember that, in general, the wave magnitude at a certain point in space is the result of interference among all wavelength meeting at that position. In our scenario, the source of those signals are emitted secondary wavelets. The interference strength between these points is related to their spatial coherence. Windowing the signals by a gaussian window $g$ will capture a certain percentage of all interference effects. From the previous section $\ref{sec:spatialcoherenceandwindowing}$ we know that we can use gaussian window like in equation $\ref{eq:gaussianwindowspacial}$ in order to approximate such spatial signals interference effects. \\
 
 Using this insight, we can approximate $\hat{s}$ by taking the product of $\hat{s_N}$ with a gaussian window $g$. This fact is illustrated in the first row of figure $\ref{fig:ftbydtft}$. So what will the DTFT of this approximation yield? We already know that the DTFT of $\hat{s}$ is a continuous, periodic signal, since $\hat{s}$ is band-limited. Thus, taking the DTFT of this found approximation should give us approximatively the same continuous, periodic signal. \\
 
