@@ -133,7 +133,36 @@ The tristimulus values for a color with a spectral power distribution $I(\lambda
 where $\lambda$ is the wavelength of the equivalent monochromatic light spectrum $\Lambda = [380nm, 780nm]$. Note that it is not possible to build a display that corresponds to the CIE XYZ colorspace. For this reason it is necessary to design other color spaces, which are physically realizable, efficiently encoded, perceptually uniform and have an intuitive color specification. There are simple conversions between XYZ color spaces to other color space - such as the RGB colorspace -  described as linear transformations.
 
 \subsection{Spectral Rendering}
-When rendering an image, most of the time we are using colors described in a certain RGB color space. However, a RGB colorspace results from a colorspace transformation of the tristimulus values, which themselves are inherent to the human visual system. Therefore, many physical phenomenon are poorly modelled when they rely on RGB colors for rendering. Using only RGB colors for rendering is like assuming that a given light source emits light of only three particular wavelengths. But in reality this is rarely the case. Spectral rendering refers to using certain wavelength spectrum, for e.g. the human visible light spectrum, instead of simply using only the range of RGB values in order to render an illuminated scene. This captures the physical reality of specific light sources way more accuratly. Keep in mind that even when we make use of a spectral rendering approach, we have to convert the final spectra to RGB color values when we want to display an image on an actual display. 
+When rendering an image, most of the time we are using colors described in a certain RGB color space. However, a RGB colorspace results from a colorspace transformation of the tristimulus values, which themselves are inherent to the human visual system. Therefore, many physical phenomenon are poorly modelled when they rely on RGB colors for rendering. Using only RGB colors for rendering is like assuming that a given light source emits light of only three particular wavelengths. But in reality this is rarely the case. Spectral rendering refers to using certain wavelength spectrum, for e.g. the human visible light spectrum, instead of simply using only the range of RGB values in order to render an illuminated scene. This captures the physical reality of specific light sources way more accuratly. Keep in mind that even when we make use of a spectral rendering approach, we have to convert the final spectra to RGB color values when we want to display an image on an actual display.
+
+\subsection{Rendering Equation}
+As discussed previously, colors are associated to radiance. Since we are starting with Stam's BRDF$\footnote{Remember that a BRDF is the portion of a incident light source reflected off a given surface towards a specified viewing direction.}$ formulation but want to perform a simulation rendering structural colors, we have to reformulate this BRDF equation such that we will end up with an identity of the reflected spectral radiance. This is where the rendering equation comes into play. Let us assume we are given an incoming light source directional at a solid angle $\omega_i$ and $\theta_i$ is its angle of incidence and that $\omega_r$ is the solid angle for the viewing direction. Further let $\lambda$ denote the wavelength$\footnote{Notice that, to keep our terms simple, we have dropped all $\lambda$ subscripts for spectral radiance quantities.}$ and $\Omega$ is the hemisphere of integration for the incoming light. Then, we are able to formulate a $BRDF_\lambda$ by using its definition $\ref{eq:defbrdf}$:  
+
+\begin{alignat}{4}
+& f_r(\omega_i, \omega_r) &&= \frac{dL_r(\omega_r)}{L_i(\omega_i)cos(\theta_i)d\omega_i} \nonumber \\
+\Rightarrow{} & f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i &&= dL_r(\omega_r) \nonumber \\
+\Rightarrow{} & \int_{\Omega}f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i &&= \int_{\Omega}dL_r(\omega_r) \nonumber\\
+L_r(\omega_r) &&= \Rightarrow{} & \int_{\Omega}f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i
+\label{eq:initialbrdf}
+\end{alignat}
+
+The last equation is the so called rendering equation $\label{sec:dirlighsourceassumption}$. We assume that our incident light is a directional, unpolarized light source like sunlight and therefore its radiance is given as 
+
+\begin{equation}
+ L_{\lambda}(\omega)=I(\lambda)\delta(\omega-\omega_i)
+\label{eq:radiancedirlightsource}
+\end{equation}
+
+where $I(\lambda)$ is the intensity of the relative spectral power for the wavelength $\lambda$. By plugging the identity in equation $\ref{eq:radiancedirlightsource}$ into our current rendering equation $\ref{eq:initialbrdf}$, we will get:
+
+\begin{align}
+L_{\lambda}(w_r) 
+& = \int_{\Omega} BRDF_{\lambda}(\omega_i, \omega_r) L_{\lambda}(\omega_i) cos(\theta_i) d\omega_i \nonumber \\
+& = BRDF_{\lambda}(\omega_i, \omega_r) I(\lambda) cos(\theta_i)
+\label{eq:deribrdfwithdirsource}
+\end{align}
+
+where $L_{\lambda}(\omega_i)$ is the incident radiance and $L_{\lambda}(\omega_r)$ is the radiance reflected by the given surface. Note that the integral in equation $\ref{eq:deribrdfwithdirsource}$ vanishes since $\delta(\omega-\omega_i)$ is only equal one if and only if $\omega = \omega_i$. 
 
 \section{Wave Theory for Light and Diffraction}
 \subsection{Basics in Wave Theory}
@@ -310,33 +339,3 @@ One last word about the Fourier transform terms that Stam uses in his derivation
 where $\hat{w}$ is equal $-w$. \\
 
 The height fields we are dealing with in this work are, however, natural gratings containing a complex shaped nano-structure and hence far from being very regularly aligned. The reason why Stam's approach in its current form is not suitable for our purpose is twofold: First his approach does not capture the complexity of natural gratings accurately well enough when relying on his statistical approaches and secondly it is way too slow in order to be usable for interactive rendering since his BRDF needs an evaluation of a Fourier Transform for every directional changing. \\
-
-In the following a brief comparison between Stam's$\footnote{A reference implementation of Stam's Diffraction Shader\cite{diffstam} is provided by Nvidia's GPU Gems at \texttt{http://http.developer.nvidia.com/GPUGems/gpugems\textunderscore 08.html}}$ and our final approach using two different kinds of gratings, a synthetic, regularly aligned grating and a natural, complex structured grating. These gratings are shown in figure $\ref{fig:stameggratings}$.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[scale=0.5]{background/gratingsstamreworked.png}
-  \caption[Comparing Stam's Approach: Gratings]{Alignment of nano-structures in diffraction gratings. On the left a complex, natural grating of the Elaphe snake species and on the right a synthetic, very regularly aligned grating of a CD.}
-  \label{fig:stameggratings}  
-\end{figure}
-
-Figure $\ref{fig:stameggratingsgoodeg}$ shows an example of a case where Stam's approach performs well. Considering the red-line in the figure we notice that the nano-scaled structures of a compact disc are very regularly aligned along the surface. Tracks of a CD are uniformally spaced and bumps along a track are distributed according to a poisson distribution$\footnote{See \texttt{http://en.wikipedia.org/wiki/Poisson\textunderscore distribution}}$. All angles of the diffraction pattern look the same as in the images produced by our apporach.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[scale=0.5]{background/stamgoodeg.png}
-  \caption[Comparing Stam's apporach: Good Example]{Comparison of our approach against a reference implementation of Stam's method provided by Nvida Gem. For synthetic diffraction gratings, which have a very regular structure, Stam's approach is doing well. All angles of the diffraction pattern look the same as in the images produced by our approach.}
-  \label{fig:stameggratingsgoodeg}  
-\end{figure}
-
-Figure $\ref{fig:stameggratingsbadeg}$ shows an attempt to reproduce real structural colors on the skin of the Xenopeltis snake using our method and comparing it to Stam's approach. Even the results of Stam might look appropriate. However, there are some notable differences such as missing colors close to specular regions, or such as the color distribution which is rather discrete in Stam's approach. Furthermore, Stam's approach has at some places color contribution, where it should not have.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[scale=0.4]{background/stambadeg.png}
-  \caption[Comparing Stam's approach: Bad Example]{Comparison of our approach(on the right) against a reference implementation of Stam's method(on the left) provided by Nvida Gem. We attempt to reproduce a real Xenopeltis skin coloration(center). For natural diffraction gratings, which have a rather complex structure, Stam's approach is qualitatively different from the real image.}
-  \label{fig:stameggratingsbadeg}  
-\end{figure}
-
-In the next chapter we are going to adapt Stam's BRDF model such that it will be able to handle the kind of surfaces we are dealing with and even will have a runtime complexity which permits interactive rendering.
-

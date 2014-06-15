@@ -160,34 +160,7 @@ where
 \end{equation} 
 
 \section{Adaption of Stam's BRDF for Discrete Height Fields}
-\subsection{Rendering Equation}
-As already discussed in the theoretical background chapter, colors are associated to radiance. Since we are starting with Stam's BRDF$\footnote{Remember that a BRDF is the portion of a incident light source reflected off a given surface towards a specified viewing direction.}$ formulation but want to perform a simulation rendering structural colors, we have to reformulate this BRDF equation such that we will end up with an identity of the reflected spectral radiance. This is where the rendering equation comes into play. Let us assume we are given an incoming light source directional at a solid angle $\omega_i$ and $\theta_i$ is its angle of incidence and that $\omega_r$ is the solid angle for the viewing direction. Further let $\lambda$ denote the wavelength$\footnote{Notice that, to keep our terms simple, we have dropped all $\lambda$ subscripts for spectral radiance quantities.}$ and $\Omega$ is the hemisphere of integration for the incoming light. Then, we are able to formulate a $BRDF_\lambda$ by using its definition $\ref{eq:defbrdf}$:  
-
-\begin{alignat}{4}
-& f_r(\omega_i, \omega_r) &&= \frac{dL_r(\omega_r)}{L_i(\omega_i)cos(\theta_i)d\omega_i} \nonumber \\
-\Rightarrow{} & f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i &&= dL_r(\omega_r) \nonumber \\
-\Rightarrow{} & \int_{\Omega}f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i &&= \int_{\Omega}dL_r(\omega_r) \nonumber\\
-L_r(\omega_r) &&= \Rightarrow{} & \int_{\Omega}f_r(\omega_i, \omega_r) L_i(\omega_i)cos(\theta_i)d\omega_i
-\label{eq:initialbrdf}
-\end{alignat}
-
-The last equation is the so called rendering equation $\label{sec:dirlighsourceassumption}$. We assume that our incident light is a directional, unpolarized light source like sunlight and therefore its radiance is given as 
-
-\begin{equation}
- L_{\lambda}(\omega)=I(\lambda)\delta(\omega-\omega_i)
-\label{eq:radiancedirlightsource}
-\end{equation}
-
-where $I(\lambda)$ is the intensity of the relative spectral power for the wavelength $\lambda$. By plugging the identity in equation $\ref{eq:radiancedirlightsource}$ into our current rendering equation $\ref{eq:initialbrdf}$, we will get:
-
-\begin{align}
-L_{\lambda}(w_r) 
-& = \int_{\Omega} BRDF_{\lambda}(\omega_i, \omega_r) L_{\lambda}(\omega_i) cos(\theta_i) d\omega_i \nonumber \\
-& = BRDF_{\lambda}(\omega_i, \omega_r) I(\lambda) cos(\theta_i)
-\label{eq:deribrdfwithdirsource}
-\end{align}
-
-where $L_{\lambda}(\omega_i)$ is the incident radiance and $L_{\lambda}(\omega_r)$ is the radiance reflected by the given surface. Note that the integral in equation $\ref{eq:deribrdfwithdirsource}$ vanishes since $\delta(\omega-\omega_i)$ is only equal one if and only if $\omega = \omega_i$.
+% TODO add text
 
 \subsection{Reflected Radiance of Stam's BRDF}
 We are going to use Stam's main derivation $~\eqref{eq:mainstam}$ for the $BRDF(\omega_i, \omega_r)$ in $\ref{eq:deribrdfwithdirsource}$ by applying the fact that the wavenumber is equal $k=\frac{2\pi}{\lambda}$:
@@ -381,7 +354,7 @@ Y
 
 Notice that equation $\ref{eq:xcolexpression}$ is constrained by $N$ and hence is an approximation of equation $\ref{eq:structuralcolorsslow}$. Furthermore, it is possible to seperate out all the Fourier Terms in the summation and precompute them. This is why the approach in equation $\ref{eq:xcolexpression}$ is fast in order to compute structural color values according to our BRDF model.
 
-\section{Spectral Rendering}
+\section{Spectral Rendering using DFTs}
 \label{sec:spectralrendering}
 In this section we describe how our final model for rendering structural colors due to diffraction will look like. For this purpose we use all our previous findings and plug them together to one big equation. For a given height field $h$ representing the surface of a grating, we want to compute the resulting color due to light diffracted on that grating. For rendering we rely on the $CIE_{XYZ}$ colorspace. For given direction vectors $w_i$ and $w_r$ as shown in figure $\ref{fig:geometricsetup}$ the DFT of the height field is equal to:
 
@@ -390,16 +363,16 @@ DFT_{n}\{h\}(u,v) = {F}_{dft}\{i^n h^n\}(\frac{2\pi u}{\lambda},\frac{2\pi v}{\l
 \label{eq:subdfteq}
 \end{equation}
 
-From section $\ref{sec:gaussianwindow}$ we know that we can reproduce a FT by applying a Gaussin window on the DFT from equation $\ref{eq:subdfteq}$. This Windowing approach will then look like: 
+From section $\ref{sec:gaussianwindow}$ we know that we can reproduce a FT by applying a Gaussin window on the DFT from equation $\ref{eq:subdfteq}$. This windowing approach gives us: 
 
 \begin{equation}
   W_{n}(u,v) = \sum_{(r,s) \in \mathcal{N}_1(u,v)} \left| DFT_{n}\{h\}(u-w_r, v-w_s) \right|^2 \phi(u-w_r, v-w_s)
   \label{eq:wnwindowingapproachsub}
 \end{equation}
 
-where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the Gaussian window from equation $\ref{sec:gaussianwindow}$ and $\mathcal{N}_1(u,v)$ denotes the one-neighborhood around $(u,v)$. \\
+where $\phi(x,y) = \pi e^{-\frac{x^2 + y^2}{2\sigma_{f}^2}}$ is the Gaussian window from equation $\ref{sec:gaussianwindow}$ and $\mathcal{N}_1(u,v)$ denotes an the k-ring neighborhood around $(u,v)$ with k as a parameter. \\
 
-In section $\ref{sec:taylorapproximation}$ we derived equation $\ref{eq:xcolexpression}$ which tells us how to compute the $CIE_{XYZ}$ color value of a particular color channel using our relative reflectance brdf model from section $\ref{sec:relrefl}$. Plugging all these findings together and using our windowing approach, listed in equation $\ref{eq:wnwindowingapproachsub}$, Then $\forall (u,v,w)$ like (defined in equation $\ref{eq:uvw}$), our final expression for computing structural colors due to diffraction, using all our previous derivations, will be equal:
+In section $\ref{sec:taylorapproximation}$ we derived equation $\ref{eq:xcolexpression}$ which tells us how to compute the $CIE_{XYZ}$ color value of a particular color channel using our relative reflectance BRDF model from section $\ref{sec:relrefl}$. Plugging all these findings together and using our windowing approach, listed in equation $\ref{eq:wnwindowingapproachsub}$, Then $\forall (u,v,w)$ like (defined in equation $\ref{eq:uvw}$), our final expression for computing structural colors due to diffraction, using all our previous derivations, will be equal:
 
 \begin{equation}
 \begin{split}
@@ -410,17 +383,17 @@ In section $\ref{sec:taylorapproximation}$ we derived equation $\ref{eq:xcolexpr
 
 Where $C(\omega_i,\omega_r)$ is the defined in equation $\ref{eq:cfact}$. Note that equation $\ref{eq:finalexpression}$ integrates over a given wavelength spectrum, denoted by $\Lambda$. Usually, this $\Lambda$ is equal to $[\lambda_{min}, \lambda_{max}]$ where $\lambda_{min} = 380nm$ and $\lambda_{max}=780nm$. \\
 
-\section{Alternative Approach}
+\section{An Alternative Approach}
 \subsection{PQ factors}
 \label{sec:pq}
-In this section we are presenting an alternative approach to the previous Gaussian window approach described in section $\ref{sec:gaussianwindow}$ in order to solve the issue working with $DTFT$ instead the $DFT$. We assume, that a given surface $S$ is covered by a number of replicas of a provided representative surface patch $f$. In a simplified, one dimensional scenario, mathematically speaking, $f$ is assumed to be a repetitive function, i.e. $\forall x \in \mathds{R} : S(x) = S(x+nT)$, where $T$ is its period and $n \in \mathds{N}_{0}$. Thus, the surfaces can be written formally as:
+In this section we are presenting an alternative approach to the previous Gaussian window approach described in section $\ref{sec:gaussianwindow}$ in order to solve the issue of working with the $DTFT$ instead of $DFT$. We assume, that a given surface $S$ is covered by a number of replicas of a provided representative surface patch $f$. In a simplified, one dimensional scenario, mathematically speaking, $f$ is assumed to be a repetitive function, i.e. $\forall x \in \mathds{R} : S(x) = S(x+nT)$, where $T$ is its fundamental period and $n \in \mathds{N}_{0}$. Thus, the surfaces can be written formally as:
 
 \begin{equation}
   S(x) = \sum_{n=0}^N f(x+nT)
 \label{eq:replicatedpatchsurface}
 \end{equation}
 
-What we are looking for is an identity for the Fourier Transform$\footnote{Remember that we are using the definition of Fourier Transform used in electrical engineering where $\mathcal{F}$ actually corresponds to the inverse Fourier Transform.}$ of our surface $S$, required in order to simplify the $(X,Y,Z)$ colors from $\ref{eq:xcolexpression}$:
+What we are looking for is an identity for the Fourier transform$\footnote{Remember that we are using the definition of Fourier Transform used in electrical engineering where $\mathcal{F}$ actually corresponds to the inverse Fourier Transform.}$ of our surface $S$, required in order to simplify the $(X,Y,Z)$ colors from $\ref{eq:xcolexpression}$:
 
 \begin{align}
 \mathcal{F}\{S\}(w)
@@ -453,13 +426,13 @@ Plugging this substitution back into equation $\ref{eq:pqsinit}$ we will get:
 We used the fact that the exponential term $e^{-iwnT}$ is a constant factor when integrating along $dy$ and the identity for the Fourier Transform of the function $f$. Next, let us examine the series $\sum_{n=0}^N e^{-iwnT}$ closer:
 
 \begin{align}
-\sum_{n=0}^N e^{-uwnT}
+\sum_{n=0}^N e^{-iwnT}
 & =\sum_{n=0}^N (e^{-iwT})^n \nonumber \\
 & =\frac{1-e^{iwT(N+1)}}{1-e^{-iwT}}
 \label{eq:pqgeometricseries}
 \end{align}
 
-We recognize the geometric series identity for the left-hand-side of equation $\ref{eq:pqgeometricseries}$. Mainly relying on trigonometric identities, equation $\ref{eq:pqsub}$ can further simplified to:  
+We recognize the geometric series identity for the left-hand-side of equation $\ref{eq:pqgeometricseries}$. Mainly relying on trigonometric identities, equation $\ref{eq:pqsub}$ can be further simplified to:  
 
 \begin{align}
 \mathcal{F}\{S\}(w)
@@ -467,7 +440,7 @@ We recognize the geometric series identity for the left-hand-side of equation $\
 \label{eq:mainfinding1d}
 \end{align}
 
-where $p$ and $q$ are defined like:
+where $p$ and $q$ are defined as:
 
 \begin{align}
 p& =\frac{1}{2}+\frac{1}{2}\left(\frac{cos(wTN)-cos(wT(N+1))}{1-cos(wT)}\right) \nonumber \\
@@ -476,7 +449,7 @@ q& =\frac{sin(wT(N+1))-sin(wTN)-sin(wT)}{2(1-cos(wT))}
 
 Please notice, all derivation steps can be found in the appendix in section $\ref{sec:pqonedimappendix}$. \\
 
-Now lets consider our actual problem description. Given a patch of a nano-scaled surface snake shed represented as a two dimensional height field $h(x,y)$. We once again assume that this provided patch is representing the whole surface $S$ of our geometry by some number of replicas of itself. Therefore, $S(x,y) = \sum_{n=0}^{N} h(x+nT_1, y+mT_2)$, assuming the given height field has the dimensions $T_1$ by $T_2$. In order to derive an identity for the two dimensional Fourier transformation of $S$ we can similarly proceed like we did to derive equation $\ref{eq:mainfinding1d}$.
+Now lets consider our actual problem description. Given a patch of a nano-scaled surface snake shed represented as a two dimensional height field $h(x,y)$. We once again assume that this provided patch is representing the whole surface $S$ of our geometry by some number of replicas of itself. Therefore, $S(x,y) = \sum_{n=0}^{N} h(x+nT_1, y+mT_2)$, assuming that the given height field has the dimensions $T_1$ by $T_2$. In order to derive an identity for the two dimensional Fourier transformation of $S$ we can similarly proceed like we did to derive equation $\ref{eq:mainfinding1d}$.
 
 \begin{align}
 \mathcal{F}\{S\}(w_1, w_2)
@@ -494,9 +467,9 @@ q := (p_1 p_2 + q_1 q_2)
 
 For the identity of equation $\ref{eq:pqmainfinding}$ we made use of Green's integration rule which allowed us to split the double integral to the product of two single integrations. Also, we used the definition of the 2-dimensional inverse Fourier transform of the height field function. We applied a similar substitution like we did in $\ref{eq:substitude1dpq}$, but this time twice, once for $x_1$ and once for $x_2$ separately. The last step in equation $\ref{eq:pqmainfinding}$, substituting with $p$ and $q$ in equation $\ref{eq:pqsubst2dappendix}$ will be useful later in the implementation. The insight should be, that the product of two complex numbers is again a complex number. We will have to compute the absolute value of $\mathcal{F}\{S\}(w_1,w_2)$ which will then be equal $(p^2 + q^2)^{\frac{1}{2}}\left|\mathcal{F}\{h\}(w_1,w_2)\right|$
 
-\subsection{Interpolation}
+\subsection{Sinc Interpolation in Frequency Domain}
 \label{sec:sincinterpolation}
-In section $\ref{sec:pq}$ we derived an alternative approach to the gaussian window approach described in section $\ref{sec:gaussianwindow}$ in order to approximate our height field. We assume that our height field is a superposition of periodically aligned substructured (i.e. finger structures). This so called PQ approach allows us to integrate over one period of a substructure in our height field, instead iterating over the whole domain. Nevertheless, this main finding, described in equation $\ref{eq:pqmainfinding}$, is using the DTFT. Thus, since our original height field is supposed to be a continuous-time band-limited function we can reconstruct it by applying a sinc-interpolation. \\
+In section $\ref{sec:pq}$ we derived an alternative approach to the gaussian window approach described in section $\ref{sec:gaussianwindow}$ in order to approximate our height field. We assume that our height field is a superposition of periodically aligned substructures (i.e. finger structures). This so called PQ approach allows us to integrate over one period of a substructure in our height field, instead of iterating over the whole domain. Nevertheless, this main finding, described in equation $\ref{eq:pqmainfinding}$, is using the DTFT. Thus, since our original height field is supposed to be a continuous-time band-limited function we can reconstruct it by applying a sinc-interpolation. \\
 
 In general, for a sinc-interpolation, we are interested in recovering an original analog signal $x(t)$ from its samples. Therefore, for a given sequence of real numbers $x[n]$, representing a digital signal, its correspond continuous function is: 
 
