@@ -32,4 +32,10 @@
 \contentsline {section}{\numberline {2.6}An Alternative Approach}{30}{section.2.6}
 \contentsline {subsection}{\numberline {2.6.1}PQ factors}{30}{subsection.2.6.1}
 \contentsline {subsection}{\numberline {2.6.2}Sinc Interpolation in Frequency Domain}{32}{subsection.2.6.2}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{34}{figure.caption.22}
+\contentsline {chapter}{\numberline {3}Evaluation and Data Acquisition}{34}{chapter.3}
+\contentsline {section}{\numberline {3.1}Data Acquisition}{34}{section.3.1}
+\contentsline {section}{\numberline {3.2}Diffraction Gratings}{34}{section.3.2}
+\contentsline {section}{\numberline {3.3}Verifications}{39}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Numerical Comparisons}{40}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Virtual Testbench}{42}{subsection.3.3.2}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{45}{figure.caption.34}
