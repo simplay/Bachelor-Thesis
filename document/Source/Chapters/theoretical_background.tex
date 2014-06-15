@@ -12,11 +12,7 @@ It is important to understand that the human eye is not equally sensitive to all
 One idea is to make an energy histogram from a given photon collection. For this we have to order all photons by their associated wavelength, discretize the wavelength spectrum, count all photons which then will fall in same wavelength-interval, and then, finally, normalize each interval by the total energy $Q$. This will give us a histogram which tells us the spectral energy $Q_{\lambda}$ for a given discrete $\lambda$ interval and thus models the so called spectral energy distribution $\footnote{Intensive quantities can be thought of as density functions that tell the density of an extensive quantity at an infinitesimal by a small interval or a point.}$.
 
 \subsection{Spectral Power}
-Rendering an image in Computer Graphics corresponds to capturing the color sensation of an illuminated, target scene at a certain point in time. 
-%TODO FIX THIS: See feedback
-each color is associated with a wavelength and is directly related to a certain amount of energy. 
-% TODO END
-In order to determine the color of a to-be-rendered pixel of an image, we have to first get a sense of how much light (in terms of energy) passes through the area which the pixel corresponds to. We begin by considering the flow of energy $\Phi = \frac{\Delta Q}{\Delta t}$ transferred through this area over a unit period of time. This allows us to measure the energy flow through a pixel during a certain amount of time. In general, power is the estimated rate of energy production for light sources and corresponds to the flux. It is measured in the unit Watts, denoted by Q. Since power is a rate over time, it is well defined even when energy production is varying over time. As with Spectral Energy for rendering, we are really interested in the spectral power $\Phi_\lambda = \frac{\Delta \Phi}{\Delta \lambda}$, measured in Watts per nanometer.
+Rendering an image in Computer Graphics corresponds to capturing the color sensation of an illuminated, target scene at a certain point in time. Each color is associated with either a particular wavelength or is composed of a wavelength spectrum$\footnote{A wavelenght spectrum is a collection of certain wavelengths. For example brown color is a composition of many wavelengths in the region of yellow, orange or read color in combination with low luminance.}$. Thus a color is directly related to a certain amount of energy. In order to determine the color of a to-be-rendered pixel of an image, we have to first get a sense of how much light (in terms of energy) passes through the area which the pixel corresponds to. We begin by considering the flow of energy $\Phi = \frac{\Delta Q}{\Delta t}$ transferred through this area over a unit period of time. This allows us to measure the energy flow through a pixel during a certain amount of time. In general, power is the estimated rate of energy production for light sources and corresponds to the flux. It is measured in the unit Watts, denoted by Q. Since power is a rate over time, it is well defined even when energy production is varying over time. As with Spectral Energy for rendering, we are really interested in the spectral power $\Phi_\lambda = \frac{\Delta \Phi}{\Delta \lambda}$, measured in Watts per nanometer.
 
 \subsection{Spectral Irradiance}
 Before we can tell how much light is reflected from a given point on a surface towards the viewing direction of an observer, we first have to know how much light arrives at this point. Since in general a point has no length, area or even volume associated, let us instead consider an infinitesimal area $\Delta A$ around a such a point. Then, we can ask ourself how much light falls in such a small area. Further while observing this process over a short period of time, the measured quantity gives us the the spectral irradiance $E$ as illustrated in figure $\ref{fig:irradiance}$. Summarized, this quantity tells us how much spectral power is incident on a surface per unit area and mathematically is equal:
@@ -46,7 +42,7 @@ When rendering an image we have to determine the color of each pixel of the imag
     \includegraphics[scale=0.42]{background/solidangle.png}
     \label{fig:solidangle}
   }
-  
+\caption[Concept of Radiance]{Illustration of the concepts of radiance and of solid angle and how they are related.}  
 \label{fig:radianceBasics}
 \end{figure}
 \noindent
@@ -56,7 +52,7 @@ This concept is described by the radiometric quantity radiance. Basically, radia
  L_{\lambda}(\omega) = \frac{d^2 \Phi_{\lambda}}{dA d\Omega} \approx \frac{\Phi_{\lambda}}{\Omega A}
 \end{equation}
 
-where $L$ is the observed spectral radiance in $Wm^-2 sr^-1$ in direction $\omega$, $\Theta_{\lambda}$ is the total power emitted, $\theta$ is the angle between the surface normal and the specified direction, $A$ is the area of the surface and $\Omega$ is the solid angle subtended by the observation or measurement. \\
+where $L$ is the observed spectral radiance in $Wm^-2 sr^-1$ in direction $\omega$$\footnote{The direction $\omega$ is determined by two angles, $\phi$ and $\theta$ like illustrated in figure $\ref{fig:radianceBasics}$}$, $\Theta_{\lambda}$ is the total power emitted, $\theta$ is the angle between the surface normal and the specified direction, $A$ is the area of the surface and $\Omega$ is the solid angle subtended by the observation or measurement. \\
 
 It is useful to distinguish between radiance incident at a point on a surface and excitant from that point. Terms for these concepts sometimes used in the graphics literature are surface radiance $L_r$ for the radiance \textit{reflected} from a surface and field radiance $L_i$ for the radiance \textit{incident} at a surface.  
 
@@ -82,7 +78,7 @@ Formally, a BRDF for any given wavelength $\lambda$ is defined as:
 Where $L_{r}$ is the reflected spectral radiance, $E_i$ is the incident spectral irradiance and $\theta_{\text{i}}$ is the angle between $\omega_{\text{i}}$ and the surface normal $\mathbf n$. Also, $L_i$ is the incident spectral radiance.
 
 \subsection{Wavespectrum and Colors}
-In order to see how crucial the role of human vision plays, let us consider the following definition of color by \textit{Wyszechkiu and Siles}$\footnote{mentioned in Computer Graphics Fundamentals Book from the year 2000}$ stating that \textit{"Color is the aspect of visual perception by which an observer may distinguish differences between two structure-free fields of view of the same size and shape such as may be caused by differences in the spectral composition of the radiant energy concerned in the observation"}. Therefore, similarly like the humans' perceived sensation of smell and taste, color vision is just another individual sense of perception giving us the ability to distinguish between different frequency distributions of light which we experienced as different colors.
+In order to see how crucial the role of human vision plays, let us consider the following definition of color by \textit{Wyszechkiu and Siles} mentioned in the Fundamentals of Computergraphics Book$\cite{fundcg}$, stating that \textit{"Color is the aspect of visual perception by which an observer may distinguish differences between two structure-free fields of view of the same size and shape such as may be caused by differences in the spectral composition of the radiant energy concerned in the observation"}. Therefore, similarly like the humans' perceived sensation of smell and taste, color vision is just another individual sense of perception giving us the ability to distinguish between different frequency distributions of light which we experienced as different colors.
 
 \begin{figure}[H]
   \centering
@@ -100,13 +96,21 @@ In general, an eye consists of photoreceptor cells which are responsible for pro
   \caption[humanayeschematic]{Schematic$\footnotemark$ of photoreceptor cells, cones and rods, in a human eye }
   \label{fig:humaneye}
 \end{figure}
-\footnotetext{image of illustration has been taken from \texttt{http://en.wikipedia.org/wiki/Bidirectional\textunderscore reflectance\textunderscore distribution\textunderscore function}}
+\footnotetext{image of illustration has been taken from \\ \texttt{http://en.wikipedia.org/wiki/Bidirectional\textunderscore reflectance\textunderscore distribution\textunderscore function}}
 
 A human eye is made of three different types of cone cells, having their peak sensitivity in different wavelength ranges. More precisely, there are cone cells most sensitive to short wavelengths between $420 nm$ and $440 nm$, those which are most sensitive in the middle range between $530 nm$ and $550 nm$ and those which have their peak in the long range, from $560 nm$ to $580 nm$. Therefore, any color sensation in human color perception can therefore be described by just three parameters, corresponding to the levels of stimulus of these three types of cone cells.  
 
 \subsection{Colorspace}
 \label{sec:colorspace}
-In order to render accurate images of how a human observer sees its world, a mathematical model of the human color perception is required. Remember that color sensation is due to a visual stimulus processed by cone cells in an eye. A human eye contains three different types of cone cells. Therefore, one possible approach is to describe each kind of these cone cells with a function mapping each wavelength to a certain sensitivity. In the early 1920 from a series of experiments, the so called CIE RGB color space was derived. This space describes the response of cone cells of an average human individual, the so called standard observer. Basically, a statistically sufficiently large number of probands were exposed to different target light colors expressed by their wavelength. The task of each proband was to reproduce these target colors by mixing three given primary colors, red, green and blue light. The strength  of each primary color could be manually adjusted by setting their relative sensitivity. Those adjustment weights have been measured, aggregated and averaged among all probands for each primary color. This model describes each color as a triple of three real valued numbers$\footnote{note that there are  negative color weights possible in the CIE RGB colors space. This is why some human perceived color sensations could not be reconstructed using just an additive color model (adding three positively weighted primary values). Therefore, a probabant was also allowed to move one of the primary colors to the target color and instead was supposed to reproduce this new color mix using the two remaining primaries (subtractive model). The value of the selected, moved primary was then interpreted as being negative weighted in an additive color model.}$, the so called tristimulus values. Summarized, these experiments provided certain weights of primary colors in order to match a color at a certain wavelength according to the average human color perception. However, some of these weights could have a negative value. \\
+In order to render accurate images of how a human observer sees its world, a mathematical model of the human color perception is required. Remember that color sensation is due to a visual stimulus processed by cone cells in an eye. A human eye contains three different types of cone cells. Therefore, one possible approach is to describe each kind of these cone cells with a function mapping each wavelength to a certain sensitivity. In the early 1920 from a series of experiments, the so called CIE RGB color space was derived (see figure $\ref{fig:ciergb}$). This space describes the response of cone cells of an average human individual, the so called standard observer. Basically, a statistically sufficiently large number of probands were exposed to different target light colors expressed by their wavelength. The task of each proband was to reproduce these target colors by mixing three given primary colors, red, green and blue light. The strength  of each primary color could be manually adjusted by setting their relative sensitivity. Those adjustment weights have been measured, aggregated and averaged among all probands for each primary color. This model describes each color as a triple of three real valued numbers$\footnote{note that there are  negative color weights possible in the CIE RGB colors space. This is why some human perceived color sensations could not be reconstructed using just an additive color model (adding three positively weighted primary values). Therefore, a probabant was also allowed to move one of the primary colors to the target color and instead was supposed to reproduce this new color mix using the two remaining primaries (subtractive model). The value of the selected, moved primary was then interpreted as being negative weighted in an additive color model.}$, the so called tristimulus values. Summarized, these experiments provided certain weights of primary colors in order to match a color at a certain wavelength according to the average human color perception. However, some of these weights could have a negative value. \\
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.3]{introduction/ciergb.png}
+  \caption[CIE RGB Color Matching Functions]{Plots$\footnotemark$ of CIE 1931 RGB Color matching functions showing the amounts of primaries needed to match a certain wavelength.}
+\label{fig:ciergb}
+\end{figure}
+\footnotetext{These plots have been taken from \texttt{http://en.wikipedia.org/wiki/CIE\textunderscore 1931\textunderscore color\textunderscore space}}
 
 The disadvantage of the CIE RGB colorspace is that some of its color weights are negative. Thus, scientist dervied the CIE XYZ colorspace which as no negative color matching functions but is still additive$\footnote{Remember, the property of an additive colorspace is that any color can be represented as a weighted sum of matching functions of that color space.}$. Figure $\ref{fig:matchingfunction}$ visualizes the matching functions of the CIE XYZ space. Another property of the CIE XYZ space is that its Y component is representing the luminance of the corresponding color. Usually, the CIE XYZ space is used as a reference colorspace to define colorspace transformations. \\
 
@@ -115,7 +119,7 @@ Pragmatically speaking, color spaces describe the range of colors a camera can s
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.7]{background/somatchingfunctions.png}
-  \caption[Color Matching Functions]{Plots of our color matching functions we used for rendering}
+  \caption[Color Matching Functions]{Plots of our CIE XYZ color matching functions we used for rendering}
   \label{fig:matchingfunction}
 \end{figure}
 
@@ -182,7 +186,7 @@ There are two types of waves, (a) mechanical waves which deform their mediums du
   \item[Wavelength:] It ss usually denoted by $\lambda$ and is a measure for the spatial distance from one point to another until the shape of a wave repeats
   \item[Amplitude:] It is denoted by $A$ and there are two possible interpretations: Firstly, it is a measure of the height from the equilibrium point to the highest point of a crest on the wave or the lowest point of a trough. This means that the amplitude can be positive or negative. However, usually, someone is just interested in the absolute value of an amplitude, i.e. the magnitude of a wave. For light waves it is a relative measure of intensity or brightness to other light waves of the same wavelength. And secondly, it can be interpreted as a measure how much energy a wave carries whereat the greater the absolute amplitude value, the bigger the amount of energy being carried.
   \item[Frequency:] Is a measure of the number of waves which are passing through a particular point in the propagation medium during one unit of time and is denoted by $f$.
-  \item[Phase:] It is denoted by $\varphi$. It describes either the offset of initial position of a wave or the relative displacement between or among waves having the same frequency. Two waves two waves with same frequency are said to be in phase if they have the same phase. This means that they line up everywhere. As a remark, we denote by $\omega$ the angular frequency which is equal $2\pi f$. 
+  \item[Phase:] It is denoted by $\varphi$. It describes either the offset of initial position of a wave or the relative displacement between or among waves having the same frequency. Two waves with same frequency are said to be \emph{in phase} if they have the same phase. This means that they line up everywhere. On the other hand, two waves are said to be \emph{out of phase} if they have the same frequency but a different phases. As a remark, we denote by $\omega$ the angular frequency which is equal $2\pi f$. 
 \end{description}
 
 A geometrical property of waves is their wavefront. This is either a surface or line along the path of wave propagation on which the disturbance at every point has the same phase. Basically, a wavefront can have any kind of shape although three prominent types of wavefronts are: spherical-, cylindrical- and plane wavefronts. If a point in an isotropic medium is sending out waves in three dimensions, then the corresponding wavefronts are spheres, centered on the source point. Hence spherical wavefront is the result of a spherical wave, also denoted as a wavelet. Note that for electromagnetic waves, the phase is a position of a point in time on a wavefront cycle (motion of wave over a whole wavelength) whereat a complete cycle is defined as being equal to $360\degree$.
@@ -204,7 +208,7 @@ Next, after having seen that a wave is simply a traveling disturbance along a me
   \item If the phase difference between two waves is intermediate between the first two scenarios, then the magnitude of the displacement lies between the minimal and maximal values which we could get from constructive interference.
 \end{itemize}
 
-Keep in mind that when two or more waves interfere which each other, the resulting wave will have a different frequency. For a wave, having a different frequency also means having a different wavelength. Therefore, this directly implies that a light of a different color, than its source waves have, is emitted. 
+Keep in mind that when two or more waves interfere which each other, the resulting wave may have a different frequency. This means that interfering waves, comming from two light sources with a certain color, may produce a light of another color than they have.
 
 \subsection{Wave Coherence}
 \label{sec:wavecoherence}
@@ -273,7 +277,7 @@ In everyday's life, we can see the direct outcome of the effect of wave diffract
 
 \section{Stam's BRDF formulation}
 \label{sec:sumstam}
-The theoretical foundation of this thesis is based on the pioneering work of J.Stam who derived a BRDF formulation to modell the effect of far field diffraction for various analytical anisotropic surfaces, relying on the so called scalar wave theory of diffraction for which a wave is assumed to be a complex valued scalar. It's noteworthy that Stam's BRDF formulation does not take into account the polarization of the incident light. Fortunately, light sources like sunlight and light bulbs are unpolarized. The principal beginhind J. Stam's approach is illustrated in figure $\ref{fig:meaningofstamsapproach}$. 
+The theoretical foundation of this thesis is based on the pioneering work of J.Stam$\cite{diffstam}$ who derived a BRDF formulation to modell the effect of far field diffraction for various analytical anisotropic surfaces, relying on the so called scalar wave theory of diffraction for which a wave is assumed to be a complex valued scalar. It's noteworthy that Stam's BRDF formulation does not take into account the polarization of the incident light. Fortunately, light sources like sunlight and light bulbs are unpolarized. The principal beginhind J. Stam's approach is illustrated in figure $\ref{fig:meaningofstamsapproach}$. 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{background/stamsapproachsmeaning2.png}
@@ -333,7 +337,7 @@ One last word about the Fourier transform terms that Stam uses in his derivation
 \mathcal{F}_{FT}\{f\}(w) 
 & = \int_{\mathds{R}^n} f(x)e^{-iwt} dt \nonumber\\
 & = \int_{\mathds{R}^n} f(x)e^{i\hat{w}t} dt \nonumber\\
-& = \mathcal{F}^{-1}_{FT}\{f\}(w)
+& = \mathcal{F}^{-1}_{FT}\{f\}(\hat{w})
 \label{eq:signchangementconvention}
 \end{align} 
 where $\hat{w}$ is equal $-w$. \\
