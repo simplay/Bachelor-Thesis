@@ -1,8 +1,5 @@
 \chapter{Evaluation and Data Acquisition}
-In this chapter we will provide and discuss an evaluation of our rendering approaches. For this purpose we are by comparing our methods peak viewing angles with maximum reflectance for a fixed incident beam with those resulting from the grating equation at different wavelengths. But first we revisit the term diffraction grating and provide a detailed definition.
-
-\section{Data Acquisition}
-Our goal is to perform physically accurate simulations of diffraction effects due to natural gratings. As for every simulation, its outcome highly depends on the input data and thus we also require measurements$\footnote{All measured data has been provided by the Laboratory of Artificial and Natural Evolition at Genava - Website:\texttt{www.lanevol.org}}$ of real natural gratings. For that purpose, samples of skin sheds of Xenopeltis and Elaphe snake species were fixed on a glass plate and then, by using an Atomic Force Microscope (AFM), their surface topography was measured and stored as grayscale images, indicating the depth. In general, an AFM is a microscope that uses a tiny probe mounted on a cantilever to scan the surface of an object. The probe is extremely close to the surface, but does not touch it. As the probe traverses the surface, attractive and repulsive forces arising between it and the atoms on the surface induce forces on the probe that bend the cantilever. The amount of bending is measured and recorded, providing a depth-map of the atoms on the surface. An Atomic force microscope is a very high-resolution probe scannings, with demonstrated resolution on the order of a fraction of a nanometer, which is more than 1000 times better than the optical diffraction limit.
+In this chapter we will provide and discuss an evaluation of our rendering approaches. For this purpose we compare our method's (peak) viewing angles with maximum reflectance for a fixed incident beam with those resulting from the grating equation at different wavelengths. But first we revisit the term diffraction grating and provide a detailed definition.
 
 \section{Diffraction Gratings}
 \label{sec:diffractiongrating}
@@ -28,12 +25,12 @@ Suppose an incident plane wavefront, composed of a monochromatic light source, i
 
 \begin{figure}[H]
   \centering
-  \subfigure[Idealized Transmissive Grating]{
+  \subfigure[Idealized transmissive grating]{
     \includegraphics[scale=0.44]{evaluation/idealizeddiffgrating.png}
     \label{fig:idealizedtransmissivegrating}
   }
 ~  
-  \subfigure[Parallel reflected Rays]{
+  \subfigure[Parallel transmitted rays]{
     \includegraphics[scale=0.65]{evaluation/gratingsparallellines.png}
     \label{fig:gratingparallelreflectedrays}
   }
@@ -42,14 +39,14 @@ Suppose an incident plane wavefront, composed of a monochromatic light source, i
 \label{fig:lighthitsgrating}
 \end{figure}
 
-If the distance to the screen is much larger than the slits width, i.e. $L >> d$, then all the waves emanating from the surface and ending up at the receiver are parallel. Thus, the path difference between waves from any two adjacent slits can be derived by drawing a perpendicular line between the parallel waves. Applying simple trigonometry gives us this path difference as $e = d sin(\theta)$ as shown in figure $\ref{fig:gratingparallelreflectedrays}$. If the path difference equals one wavelength or a multiple of the wave's wavelength, the emerging, reflected waves from all slits will be in phase and a bright line will be observed at that point. Therefore, the condition for maxima in the interference pattern at the angle $\theta$ is: 
+If the distance to the screen is much larger than the slits width, i.e. $L >> d$, then all the rays emanating from the surface and ending up at the receiver are parallel. Thus, the path difference between waves from any two adjacent slits can be derived by drawing a perpendicular line between the parallel rays. Applying simple trigonometry gives us this path difference as $e = d sin(\theta)$ as shown in figure $\ref{fig:gratingparallelreflectedrays}$. If the path difference equals one wavelength or a multiple of the wave's wavelength, the emerging, reflected waves from all slits will be in phase and a bright line will be observed at that point. Therefore, the condition for a local maxima in the interference pattern is: 
 
 \begin{equation}
  d sin(\theta) = m \lambda 
 \label{eq:simplegratingequation}
 \end{equation}
 
-where $m \in \mathds{N}_0$ is the order of diffraction. Because $d$ is very small for a diffraction grating, a beam of monochromatic light passing through a diffraction grating is split into very narrow bright fringes at large angles $\theta$. Without constraints of generality, either for a transmissive or a reflective diffraction grating type, an analogous derivation for equation $\ref{eq:simplegratingequation}$ can be derived.
+where $m \in \mathds{N}_0$ is the order of diffraction and $\lambda$ is the wavelength. Because $d$ is very small for a diffraction grating, a beam of monochromatic light passing through it is split into very narrow bright fringes at large angles $\theta$ (see figure $\ref{fig:diffractionslits}$). Without the loss of generality, either for a transmissive or a reflective diffraction grating type, an analogous derivation for equation $\ref{eq:simplegratingequation}$ can be derived.
 
 \begin{figure}[H]
   \centering
@@ -77,15 +74,17 @@ When a beam of white light is directed at a diffraction grating along its axis, 
 \end{figure}
 \footnotetext{These images have been taken from \texttt{http://www.itp.uni-hannover.de/\textasciitilde zawischa/ITP/multibeam.html}}
 
-Since the reflected angle $\theta_r$ increases with wavelength $\lambda$, red light, which has the longest wavelength, is diffracted through the largest angle. Similarly violet light has the shortest wavelength and is therefore diffracted the least. Thus, white light is split into its component colors from violet to red light. The spectrum is repeated in the different orders of diffraction, emphasizing certain colors differently, depending on their order of diffraction like shown in figure $\ref{fig:gratingdiffractionorders}$. Note that only the zero order spectrum is pure white.  
-Figure $\ref{fig:nslitdiffractionintensity}$ shows the relative intensity resulting when a beam of light hits a diffraction grating for different number of periods. From the graph we recognise that the more slits a grating has, the sharper more slopes the function of intensity gets. This is similar like saying that, the more periods a grating has, the sharper the diffracted color spectrum gets like shown in figure $\ref{fig:diffractionslits}$. 
+Since the reflection angle $\theta_r$ for a maxima increases with wavelength $\lambda$, red light, which has the longest wavelength, is diffracted through the largest angle. Similarly violet light has the shortest wavelength and is therefore diffracted the least. Thus, white light is split into its component colors from violet to red light. The spectrum is repeated in the different orders of diffraction, emphasizing certain colors differently, depending on their order of diffraction like shown in figure $\ref{fig:gratingdiffractionorders}$. Note that only the zero order spectrum is pure white. Figure $\ref{fig:nslitdiffractionintensity}$ shows the relative intensity resulting when a beam of light hits a diffraction grating with different number of slits. From the graph we recognise that the more slits a grating has, the sharper more slopes the function of intensity gets. This is similar like saying that, the more periods a grating has, the sharper the diffracted color spectrum gets like shown in figure $\ref{fig:diffractionslits}$. 
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.6]{evaluation/relativeintensivity.png}
-  \caption[Intensity Plots for Different Number of Slits]{Relative intensities of a diffracted beam of light at wavelength $\lambda=500nm$ on a grating for different number of periods $N$ width slit width of 30 microns and slit separation of 0.15 mm each. The viewer is 0.5m apart from the grating.}
+  \caption[Intensity Plots for Different Number of Slits]{Relative intensities of a diffracted beam of light with wavelength $\lambda=500nm$ on a grating for different number of slits $N$. A slit width of 30 microns and a slit separation of 0.15 mm was used. The viewer is 0.5m away from the grating.}
   \label{fig:nslitdiffractionintensity}
 \end{figure}
+
+\section{Data Acquisition}
+Our goal is to perform physically accurate simulations of diffraction effects due to natural gratings. As for every simulation, its outcome highly depends on the input data and thus we also require measurements$\footnote{All measured data has been provided by the Laboratory of Artificial and Natural Evolition at Genava - Website:\texttt{www.lanevol.org}}$ of real natural gratings. For that purpose, samples of skin sheds of Xenopeltis and Elaphe snake species were fixed on a glass plate and then, by using an Atomic Force Microscope (AFM), their surface topography was measured and stored as grayscale images, indicating the depth. In general, an AFM is a microscope that uses a tiny probe mounted on a cantilever to scan the surface of an object. The probe is extremely close to the surface, but does not touch it. As the probe traverses the surface, attractive and repulsive forces arising between it and the atoms on the surface inducing forces on the probe that bends the cantilever. The amount of bending is measured and recorded, providing a depth-map of the atoms on the surface. An atomic force microscope is a very high-resolution probe scanner with its demonstrated resolution on the order of a fraction of a nanometer, which is more than 1000 times better than the optical diffraction limit.
 
 \section{Verifications}
 \label{sec:approachesverifications}
