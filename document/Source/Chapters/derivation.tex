@@ -39,8 +39,10 @@ We want to rely on the integral equation $\ref{eq:mainstam}$ derived by J. Stam 
 \end{figure}
 
 \section{Approximate a FT by a DFT}
+Before we will start with our actual adaption of Stam's BRDF model, we first derive some useful identies which are later used during our main derivation in section $\ref{sec:adaptionstambrdfmodel}$. The goal of this section is to provide an approximation of a FT using the DFT when dealing with a bandlimitted signal. For this purpose we will exploit the concept of windowing a function and spatial coherence as described in section $\ref{sec:spatialcoherenceandwindowing}$.
+
 \subsection{Reproduce FT by DTFT}
-In the previous section, we have found an identity for the reflected spectral radiance $L_{\lambda}(\omega_r)$ when using Stam's BRDF for a given input height field. However, the derived expression in equation $\ref{eq:nonrelativebrdffinding}$ requires to evaluate the Fourier Transform of our height field$\footnote{actually it requires the computation of the inverse Fourier Transform of a transformed version of the given height field, the function p(x,y) defined in equation \ref{eq:px}.}$ for every direction. In this section we explain how to approximate the FT by the DTFT and apply it to our previous derivations. Figure $\ref{fig:ftbydtft}$ graphically shows how to obtain the DTFT from the FT for a one dimensional signal$\footnote{For our case we are dealing with a two dimensional, spatial signal, the given height field. Nevertheless, without any constraints of generality, the explained approach applies to multi dimensional problems.}$ \\
+In the following sections, we derive an identity to approximate the FT by the DTFT. This identity will be used to derive the reflected spectral radiance $L_{\lambda}(\omega_r)$ when using Stam's BRDF for a given input height field. However, its expression, which is stated in equation $\ref{eq:nonrelativebrdffinding}$ requires an evaluation of the Fourier transform applied on a given height field$\footnote{actually it requires the computation of the inverse Fourier Transform of a transformed version of the given height field, the function p(x,y) defined in equation \ref{eq:px}.}$ along every possible viewing and light direction. Figure $\ref{fig:ftbydtft}$ visualized the idea of how to obtain the DTFT from the FT for a one dimensional signal$\footnote{For our case we are dealing with a two dimensional, spatial signal, the given height field. Nevertheless, without any constraints of generality, the explained approach applies to multi dimensional problems.}$ \\
 
 \begin{figure}[ht]
   \centering
@@ -160,6 +162,7 @@ where
 \end{equation} 
 
 \section{Adaption of Stam's BRDF for Discrete Height Fields}
+\label{sec:adaptionstambrdfmodel}
 % TODO add text
 
 \subsection{Reflected Radiance of Stam's BRDF}

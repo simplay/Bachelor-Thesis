@@ -30,11 +30,11 @@
 \contentsline {subsection}{\numberline {3.2.1}Reproduce FT by DTFT}{24}{subsection.3.2.1}
 \contentsline {subsection}{\numberline {3.2.2}Spatial Coherence and Windowing}{26}{subsection.3.2.2}
 \contentsline {subsection}{\numberline {3.2.3}Reproduce DTFT by DFT}{27}{subsection.3.2.3}
-\contentsline {section}{\numberline {3.3}Adaption of Stam's BRDF for Discrete Height Fields}{29}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Reflected Radiance of Stam's BRDF}{29}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Relative Reflectance}{30}{subsection.3.3.2}
-\contentsline {section}{\numberline {3.4}Optimization using Taylor Series}{32}{section.3.4}
-\contentsline {section}{\numberline {3.5}Spectral Rendering using DFTs}{34}{section.3.5}
+\contentsline {section}{\numberline {3.3}Adaption of Stam's BRDF for Discrete Height Fields}{30}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Reflected Radiance of Stam's BRDF}{30}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Relative Reflectance}{31}{subsection.3.3.2}
+\contentsline {section}{\numberline {3.4}Optimization using Taylor Series}{33}{section.3.4}
+\contentsline {section}{\numberline {3.5}Spectral Rendering using DFTs}{35}{section.3.5}
 \contentsline {section}{\numberline {3.6}An Alternative Approach}{35}{section.3.6}
 \contentsline {subsection}{\numberline {3.6.1}PQ factors}{35}{subsection.3.6.1}
 \contentsline {subsection}{\numberline {3.6.2}Sinc Interpolation in Frequency Domain}{37}{subsection.3.6.2}
