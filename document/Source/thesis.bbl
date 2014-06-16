@@ -25,6 +25,12 @@
 \newblock {In: }\emph{EUROGRAPHICS 2014/ M. Paulin and C. Dachsbacher}  (2014),
   January
 
+\bibitem[DM12]{signconvention}
+\textsc{Dennis~M}, Sullivan:
+\newblock \emph{Quantum Mechanics for Electrical Engineers}.
+\newblock John Wiley & Sons, 2012, 2012. --
+\newblock ISBN 978--0470874097
+
 \bibitem[D.S14]{daljitpaper}
 \textsc{D.S.Dhillon}, M.Single I.Gaponenko M.C. Milinkovitch~M. J.Teyssier:
 \newblock Interactive Diffraction from Biological Nanostructures.
