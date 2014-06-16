@@ -294,30 +294,33 @@ The main idea of his model is to formulate a BRDF as a function of the Fourier t
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.8]{background/stamsinputp.png}
-  \caption[Stam's geometrical setup]{Illustration$\footnotemark$ of geometrical setup of Stam's approach where $\omega_i$ is a direction, pointing towards the light source, $\omega_r$ points towards the camera, $n$ is the surface normal, $(u,v,w)$ are the components of the vector $-\omega_i - \omega_r$.}
+  \caption[Stam's geometrical setup]{Illustration$\footnotemark$ of the geometrical setup of Stam's approach where $\omega_i$ is a direction, pointing towards the light source, $\omega_r$ points towards the viewer, $n$ is the surface normal and$ (u,v,w)$ are the components of the vector $-\omega_i - \omega_r$.}
   \label{fig:geometricsetup}  
 \end{figure}
 \footnotetext{Modified image which originally has been taken from D.S. Dhillon et. al. poster$\cite{diffourp}$.} 
 
-The direction vector of the secondary wavelet can be computed by taking the difference between the incident and viewing direction like shown in equation $\ref{eq:uvw}$:
+Figure $\ref{fig:geometricsetup}$ illustrated schematically the geometrical setup used for Stam's BRDF formulation. An indicent light with a direction $\omega_i$ hits the surface of a given height field at the position $p$. The direction vector $\omega_r$ points towards the viewer. After the indicdent has hit the surface, a spherical wavelet is reflected off from this hit position. The direction vector of the wavelet can be computed by taking the difference between the incident and viewing direction as shown in equation $\ref{eq:uvw}$:
+
 \begin{equation}
   (u,v,w) = -\omega_i - \omega_r 
 \label{eq:uvw}
 \end{equation}
-These coordinates will later be used in order to compute the total contribution of all secondary sources used in Stam's BRDF in equation $\ref{eq:mainstam}$. For simplification, let us introduce an auxiliary function $\Phi$ defined in equation $\ref{eq:heightfieldphase}$, which models the phase of a wave from the given height field.
+
+These coordinates will later be used in order to compute the total contribution of all secondary sources used in Stam's BRDF in equation $\ref{eq:mainstam}$. In Stam's Derivation, the phase difference between the indcident and emitted wave from the given height field is denoted by the auxiliary function $\Phi$ defined as in equation $\ref{eq:heightfieldphase}$.
 
 \begin{equation}
   \Phi(x,y) = \frac{2 \pi}{\lambda} w h(x,y) 
 \label{eq:heightfieldphase}
 \end{equation}
 
-Then, any secondary wavelet $p$ which is emitted off from the given surface is equal:
+Then, any secondary wavelet $p$ which is emitted off from the given surface is equal to:
 \begin{equation}
   p(x,y) = e^{i\Phi(x,y)} 
 \label{eq:px}
 \end{equation}
 
 using the idea presented for figure $\ref{fig:meaningofstamsapproach}$ and performing all mathematical steps shown in the appendix $\ref{chap:stamsderivations}$, will lead us to the final BRDF representation, modelling the total contribution of all secondary sources reflected off the the provided surface $h$ in the direction $\omega_r$:
+
 \begin{equation} 
   BRDF_{\lambda}(\omega_i, \omega_r) = \frac{k^2 F^2 G}{4\pi^2 A w^2} \langle \left|P(ku, kv)\right|^2\rangle
 \label{eq:mainstam}
