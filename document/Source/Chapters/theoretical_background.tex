@@ -289,8 +289,7 @@ An incident wave $p_i$ from a a light source encounters a surface representing a
 
 A further assumption in Stam's Paper is, that the emanated waves from the source are stationary, which implies the wave is a superposition of independent monochromatic waves. This further implies that each wave is associated with a definite wavelength $\lambda$. Directional light sources such as sunlight fulfill this fact and since we are using these kinds of light sources for our simulations, Stam's model can be used for our modelling purposes. \\
 
-% TODO FIX: THIS IS NOT THE MAIN IDEA 
-The main model is the formulate a BRDF as the Fourier Transform applied on the given height field, representing a surface like shown in figure $\ref{fig:geometricsetup}$. The classes of surfaces his model is able to support either exhibit a very regular structure or may be considered as a superposition of bumps forming a periodic like structure. Therefore, the surfaces he is dealing with can either be modelled by probabilistic distributions or have a direct analytical representation. Both cases allow him to derive an analytical solution for his BRDF model.
+The main idea of his model is to formulate a BRDF as a function of the Fourier transformation applied on a certain correlation function relating to the given height field. His model assumes homogenety of the height field structure and depicts an approximation of far-field diffraction effects. The geometrical setup of his model is illustrated in figure $\ref{fig:geometricsetup}$. The classes of surfaces his model is able to support either exhibit a very regular structure or may be considered as a superposition of bumps forming a periodic like structure. Therefore, the surfaces he is dealing with can either be modelled by probabilistic distributions or have a direct analytical representation. Both cases allow him to derive an analytical solution for his BRDF model.
 
 \begin{figure}[H]
   \centering
