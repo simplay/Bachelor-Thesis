@@ -16,8 +16,8 @@
 \contentsline {subsection}{\numberline {2.1.8}Colorspace}{10}{subsection.2.1.8}
 \contentsline {subsection}{\numberline {2.1.9}Spectral Rendering}{12}{subsection.2.1.9}
 \contentsline {subsection}{\numberline {2.1.10}Rendering Equation}{13}{subsection.2.1.10}
-\contentsline {section}{\numberline {2.2}Wave Theory for Light and Diffraction}{14}{section.2.2}
-\contentsline {subsection}{\numberline {2.2.1}Basics in Wave Theory}{14}{subsection.2.2.1}
+\contentsline {section}{\numberline {2.2}Wave Theory for Light and Diffraction}{13}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Basics in Wave Theory}{13}{subsection.2.2.1}
 \contentsline {subsection}{\numberline {2.2.2}Wave Interference}{15}{subsection.2.2.2}
 \contentsline {subsection}{\numberline {2.2.3}Wave Coherence}{16}{subsection.2.2.3}
 \contentsline {subsection}{\numberline {2.2.4}Huygen's Principle}{17}{subsection.2.2.4}
@@ -35,9 +35,9 @@
 \contentsline {subsection}{\numberline {3.3.2}Relative Reflectance}{31}{subsection.3.3.2}
 \contentsline {section}{\numberline {3.4}Optimization using Taylor Series}{33}{section.3.4}
 \contentsline {section}{\numberline {3.5}Spectral Rendering using DFTs}{35}{section.3.5}
-\contentsline {section}{\numberline {3.6}An Alternative Approach}{35}{section.3.6}
-\contentsline {subsection}{\numberline {3.6.1}PQ factors}{35}{subsection.3.6.1}
-\contentsline {subsection}{\numberline {3.6.2}Sinc Interpolation in Frequency Domain}{37}{subsection.3.6.2}
+\contentsline {section}{\numberline {3.6}An Alternative Approach}{36}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}PQ factors}{36}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}Sinc Interpolation in Frequency Domain}{38}{subsection.3.6.2}
 \contentsline {chapter}{\numberline {4}Evaluation and Data Acquisition}{39}{chapter.4}
 \contentsline {section}{\numberline {4.1}Diffraction Gratings}{39}{section.4.1}
 \contentsline {section}{\numberline {4.2}Data Acquisition}{43}{section.4.2}

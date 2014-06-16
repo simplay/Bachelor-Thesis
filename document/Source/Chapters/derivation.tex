@@ -2,6 +2,7 @@
 \label{chap:derivations}
 
 \section{Problem Statement and Challenges}
+\label{sec:problemstatement}
 The goal of this thesis is to perform a physically accurate and interactive simulation of structural color production as shown in figure $\ref{fig:problemstatementoutput}$, which we can see whenever light is diffracted from a natural grating. For this purpose we need the following input data (see figure $\ref{fig:problemstatement}$):
 \begin{itemize}
   \item A mesh representing a snake surface$\footnote{In our simulation it is an actual reconstruction of a real snake skin. These measurements are provided by the Laboratory of Artificial and Natural Evolution at Geneva. See their website:\texttt{www.lanevol.org}.}$ as shown in figure $\ref{fig:strucgeom}$.
@@ -39,6 +40,7 @@ We want to rely on the integral equation $\ref{eq:mainstam}$ derived by J. Stam 
 \end{figure}
 
 \section{Approximate a FT by a DFT}
+\label{sec:approxftbydft}
 Before we will start with our actual adaption of Stam's BRDF model, we first derive some useful identies which are later used during our main derivation in section $\ref{sec:adaptionstambrdfmodel}$. The goal of this section is to provide an approximation of a FT using the DFT when dealing with a bandlimitted signal. For this purpose we will exploit the concept of windowing a function and spatial coherence as described in section $\ref{sec:spatialcoherenceandwindowing}$.
 
 \subsection{Reproduce FT by DTFT}
@@ -163,7 +165,7 @@ where
 
 \section{Adaption of Stam's BRDF for Discrete Height Fields}
 \label{sec:adaptionstambrdfmodel}
-% TODO add text
+Our goal is to render structural colors using Stam's BRDF$\footnote{Remember that a BRDF is the portion of a incident light source reflected off a given surface towards a specified viewing direction.}$ using natural gratings. According to our problem statement stated in section $\ref{sec:problemstatement}$ we have to reformulate his BRDF equation. We will end up with an identity of the reflected spectral radiance. This is where the rendering equation from section $\ref{sec:renderingequation}$ comes into play. Having looked at some basic derivations from section $\ref{sec:approxftbydft}$ we start our adaption of Stam's BRDF model in the following sections.
 
 \subsection{Reflected Radiance of Stam's BRDF}
 We are going to use Stam's main derivation $~\eqref{eq:mainstam}$ for the $BRDF(\omega_i, \omega_r)$ in $\ref{eq:deribrdfwithdirsource}$ by applying the fact that the wavenumber is equal $k=\frac{2\pi}{\lambda}$:
