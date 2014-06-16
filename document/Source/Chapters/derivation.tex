@@ -358,7 +358,7 @@ Y
 \label{eq:xcolexpression}
 \end{align}
 
-Notice that equation $\ref{eq:xcolexpression}$ is constrained by $N$ and hence is an approximation of equation $\ref{eq:structuralcolorsslow}$. Furthermore, it is possible to seperate out all the Fourier Terms in the summation and precompute them. This is why the approach in equation $\ref{eq:xcolexpression}$ is fast in order to compute structural color values according to our BRDF model.
+Notice that equation $\ref{eq:xcolexpression}$ is constrained by $N$ and hence is an approximation of equation $\ref{eq:structuralcolorsslow}$. Furthermore, it is possible to seperate out all the Fourier Terms in the summation and precompute them. This is why the approach in equation $\ref{eq:xcolexpression}$ is fast in order to compute structural color values according to our BRDF model. In other words this means that the Fourier terms in equation $\ref{eq:xcolexpression}$ are not anymore dependent on $\omega$ when using this Taylor series approximation.
 
 \section{Spectral Rendering using DFTs}
 \label{sec:spectralrendering}
