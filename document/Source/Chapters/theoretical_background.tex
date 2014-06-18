@@ -12,7 +12,7 @@ It is important to understand that the human eye is not equally sensitive to all
 One idea is to make an energy histogram from a given photon collection. For this we have to order all photons by their associated wavelength, discretize the wavelength spectrum, count all photons which then will fall in same wavelength-interval, and then, finally, normalize each interval by the total energy $Q$. This will give us a histogram which tells us the spectral energy $Q_{\lambda}$ for a given discrete $\lambda$ interval and thus models the so called spectral energy distribution $\footnote{Intensive quantities can be thought of as density functions that tell the density of an extensive quantity at an infinitesimal by a small interval or a point.}$.
 
 \subsection{Spectral Power}
-Rendering an image in Computer Graphics corresponds to capturing the color sensation of an illuminated, target scene at a certain point in time. Each color is associated with either a particular wavelength or is composed of a wavelength spectrum$\footnote{A wavelenght spectrum is a collection of certain wavelengths. For example brown color is a composition of many wavelengths in the region of yellow, orange or read color in combination with low luminance.}$. Thus a color is directly related to a certain amount of energy. In order to determine the color of a to-be-rendered pixel of an image, we have to first get a sense of how much light (in terms of energy) passes through the area which the pixel corresponds to. We begin by considering the flow of energy $\Phi = \frac{\Delta Q}{\Delta t}$ transferred through this area over a unit period of time. This allows us to measure the energy flow through a pixel during a certain amount of time. In general, power is the estimated rate of energy production for light sources and corresponds to the flux. It is measured in the unit Watts, denoted by Q. Since power is a rate over time, it is well defined even when energy production is varying over time. As with Spectral Energy for rendering, we are really interested in the spectral power $\Phi_\lambda = \frac{\Delta \Phi}{\Delta \lambda}$, measured in Watts per nanometer.
+Rendering an image in Computer Graphics corresponds to capturing the color sensation of an illuminated, target scene at a certain point in time. Each color is associated with either a particular wavelength or is composed of a wavelength spectrum$\footnote{A wavelength spectrum is a collection of certain wavelengths. For example brown color is a composition of many wavelengths in the region of yellow, orange or read color in combination with low luminance.}$. Thus a color is directly related to a certain amount of energy. In order to determine the color of a to-be-rendered pixel of an image, we have to first get a sense of how much light (in terms of energy) passes through the area which the pixel corresponds to. We begin by considering the flow of energy $\Phi = \frac{\Delta Q}{\Delta t}$ transferred through this area over a unit period of time. This allows us to measure the energy flow through a pixel during a certain amount of time. In general, power is the estimated rate of energy production for light sources and corresponds to the flux. It is measured in the unit Watts, denoted by Q. Since power is a rate over time, it is well defined even when energy production is varying over time. As with Spectral Energy for rendering, we are really interested in the spectral power $\Phi_\lambda = \frac{\Delta \Phi}{\Delta \lambda}$, measured in Watts per nanometer.
 
 \subsection{Spectral Irradiance}
 Before we can tell how much light is reflected from a given point on a surface towards the viewing direction of an observer, we first have to know how much light arrives at this point. Since in general a point has no length, area or even volume associated, let us instead consider an infinitesimal area $\Delta A$ around a such a point. Then, we can ask ourself how much light falls in such a small area. Further while observing this process over a short period of time, the measured quantity gives us the the spectral irradiance $E$ as illustrated in figure $\ref{fig:irradiance}$. Summarized, this quantity tells us how much spectral power is incident on a surface per unit area and mathematically is equal:
@@ -88,7 +88,7 @@ In order to see how crucial the role of human vision plays, let us consider the 
 \end{figure}
 \footnotetext{Similar figure like used in computer graphics class 2012 in chapter colors}
 
-In general, an eye consists of photoreceptor cells which are responsible for providing ability of color-perception. A schematic of an eye is illustrated in figure $\ref{fig:humaneye}$. Basically, there are two specialized types of photoreceptor cells, cone cells which are responsible for color vision and rod cells, which allow an eye to perceive different brightness levels.
+In general, an eye consists of photoreceptor cells which are responsible for providing ability of color perception. A schematic of an eye is illustrated in figure $\ref{fig:humaneye}$. Basically, there are two specialized types of photoreceptor cells, cone cells which are responsible for color vision and rod cells, which allow an eye to perceive different brightness levels.
 
 \begin{figure}[H]
   \centering
@@ -102,7 +102,7 @@ A human eye is made of three different types of cone cells, having their peak se
 
 \subsection{Colorspace}
 \label{sec:colorspace}
-In order to render accurate images of how a human observer sees its world, a mathematical model of the human color perception is required. Remember that color sensation is due to a visual stimulus processed by cone cells in an eye. A human eye contains three different types of cone cells. Therefore, one possible approach is to describe each kind of these cone cells with a function mapping each wavelength to a certain sensitivity. In the early 1920 from a series of experiments, the so called CIE RGB color space was derived (see figure $\ref{fig:ciergb}$). This space describes the response of cone cells of an average human individual, the so called standard observer. Basically, a statistically sufficiently large number of probands were exposed to different target light colors expressed by their wavelength. The task of each proband was to reproduce these target colors by mixing three given primary colors, red, green and blue light. The strength  of each primary color could be manually adjusted by setting their relative sensitivity. Those adjustment weights have been measured, aggregated and averaged among all probands for each primary color. This model describes each color as a triple of three real valued numbers$\footnote{note that there are  negative color weights possible in the CIE RGB colors space. This is why some human perceived color sensations could not be reconstructed using just an additive color model (adding three positively weighted primary values). Therefore, a probabant was also allowed to move one of the primary colors to the target color and instead was supposed to reproduce this new color mix using the two remaining primaries (subtractive model). The value of the selected, moved primary was then interpreted as being negative weighted in an additive color model.}$, the so called tristimulus values. Summarized, these experiments provided certain weights of primary colors in order to match a color at a certain wavelength according to the average human color perception. However, some of these weights could have a negative value. \\
+In order to render accurate images of how a human observer sees its world, a mathematical model of the human color perception is required. Remember that color sensation is due to a visual stimulus processed by cone cells in an eye. A human eye contains three different types of cone cells. Therefore, one possible approach is to describe each kind of these cone cells with a function mapping each wavelength to a certain sensitivity. In the early 1920 from a series of experiments, the so called CIE RGB color space was derived (see figure $\ref{fig:ciergb}$). This space describes the response of cone cells of an average human individual, the so called standard observer. Basically, a statistically sufficiently large number of probands were exposed to different target light colors expressed by their wavelength. The task of each proband was to reproduce these target colors by mixing three given primary colors, red, green and blue light. The strength  of each primary color could be manually adjusted by setting their relative sensitivity. Those adjustment weights have been measured, aggregated and averaged among all probands for each primary color. This model describes each color as a triple of three real valued numbers$\footnote{note that there are  negative color weights possible in the CIE RGB colors space. This is why some human perceived color sensations could not be reconstructed using just an additive color model (adding three positively weighted primary values). Therefore, a proband was also allowed to move one of the primary colors to the target color and instead was supposed to reproduce this new color mix using the two remaining primaries (subtractive model). The value of the selected, moved primary was then interpreted as being negative weighted in an additive color model.}$, the so called tristimulus values. Summarized, these experiments provided certain weights of primary colors in order to match a color at a certain wavelength according to the average human color perception. However, some of these weights could have a negative value. \\
 
 \begin{figure}[H]
   \centering
@@ -112,7 +112,7 @@ In order to render accurate images of how a human observer sees its world, a mat
 \end{figure}
 \footnotetext{These plots have been taken from \texttt{http://en.wikipedia.org/wiki/CIE\textunderscore 1931\textunderscore color\textunderscore space}}
 
-The disadvantage of the CIE RGB colorspace is that some of its color weights are negative. Thus, scientist dervied the CIE XYZ colorspace which as no negative color matching functions but is still additive$\footnote{Remember, the property of an additive colorspace is that any color can be represented as a weighted sum of matching functions of that color space.}$. Figure $\ref{fig:matchingfunction}$ visualizes the matching functions of the CIE XYZ space. Another property of the CIE XYZ space is that its Y component is representing the luminance of the corresponding color. Usually, the CIE XYZ space is used as a reference colorspace to define colorspace transformations. \\
+The disadvantage of the CIE RGB colorspace is that some of its color weights are negative. Thus, scientist derived the CIE XYZ colorspace which as no negative color matching functions but is still additive$\footnote{Remember, the property of an additive colorspace is that any color can be represented as a weighted sum of matching functions of that color space.}$. Figure $\ref{fig:matchingfunction}$ visualizes the matching functions of the CIE XYZ space. Another property of the CIE XYZ space is that its Y component is representing the luminance of the corresponding color. Usually, the CIE XYZ space is used as a reference colorspace to define colorspace transformations. \\
 
 Pragmatically speaking, color spaces describe the range of colors a camera can see, a printer can print or a monitor can display. Thus, formally we can define it as a mapping from a range of physically produced colors from mixed light to a standard objective description of color sensations registered in the eye of an observer in terms of tristimulus values. 
 
@@ -137,10 +137,11 @@ The tristimulus values for a color with a spectral power distribution $I(\lambda
 where $\lambda$ is the wavelength of the equivalent monochromatic light spectrum $\Lambda = [380nm, 780nm]$. Note that it is not possible to build a display that corresponds to the CIE XYZ colorspace. For this reason it is necessary to design other color spaces, which are physically realizable, efficiently encoded, perceptually uniform and have an intuitive color specification. There are simple conversions between XYZ color spaces to other color space - such as the RGB colorspace -  described as linear transformations.
 
 \subsection{Spectral Rendering}
-When rendering an image, most of the time we are using colors described in a certain RGB color space. However, a RGB colorspace results from a colorspace transformation of the tristimulus values, which themselves are inherent to the human visual system. Therefore, many physical phenomenon are poorly modelled when they rely on RGB colors for rendering. Using only RGB colors for rendering is like assuming that a given light source emits light of only three particular wavelengths. But in reality this is rarely the case. Spectral rendering refers to using certain wavelength spectrum, for e.g. the human visible light spectrum, instead of simply using only the range of RGB values in order to render an illuminated scene. This captures the physical reality of specific light sources way more accuratly. Keep in mind that even when we make use of a spectral rendering approach, we have to convert the final spectra to RGB color values when we want to display an image on an actual display.
+When rendering an image, most of the time we are using colors described in a certain RGB color space. However, a RGB colorspace results from a colorspace transformation of the tristimulus values, which themselves are inherent to the human visual system. Therefore, many physical phenomenon are poorly modelled when they rely on RGB colors for rendering. Using only RGB colors for rendering is like assuming that a given light source emits light of only three particular wavelengths. But in reality this is rarely the case. Spectral rendering refers to using certain wavelength spectrum, for e.g. the human visible light spectrum, instead of simply using only the range of RGB values in order to render an illuminated scene. This captures the physical reality of specific light sources way more accurately. Keep in mind that even when we make use of a spectral rendering approach, we have to convert the final spectra to RGB color values when we want to display an image on an actual display.
 
 \subsection{Rendering Equation}
-As discussed previously, colors are associated to radiance. Since we are starting with Stam's BRDF$\footnote{Remember that a BRDF is the portion of a incident light source reflected off a given surface towards a specified viewing direction.}$ formulation but want to perform a simulation rendering structural colors, we have to reformulate this BRDF equation such that we will end up with an identity of the reflected spectral radiance. This is where the rendering equation comes into play. Let us assume we are given an incoming light source directional at a solid angle $\omega_i$ and $\theta_i$ is its angle of incidence and that $\omega_r$ is the solid angle for the viewing direction. Further let $\lambda$ denote the wavelength$\footnote{Notice that, to keep our terms simple, we have dropped all $\lambda$ subscripts for spectral radiance quantities.}$ and $\Omega$ is the hemisphere of integration for the incoming light. Then, we are able to formulate a $BRDF_\lambda$ by using its definition $\ref{eq:defbrdf}$:  
+\label{sec:renderingequation}
+In Computer Graphics we are interested in rendering images realistically of a given scene. One common choice is to use the rendering equation when knowing the BRDF of the involved scene materials. This equation models the amount of emitted radiance from a point on a surface material along a particular viewing direction. Now, let us assume we are given an incoming light source directional at a solid angle $\omega_i$ and $\theta_i$ is its angle of incidence and that $\omega_r$ is the solid angle for the viewing direction. Further let $\lambda$ denote the wavelength$\footnote{Notice that, to keep our terms simple, we have dropped all $\lambda$ subscripts for spectral radiance quantities.}$ and $\Omega$ is the hemisphere of integration for the incoming light. Then, we are able to formulate a $BRDF_\lambda$ by using its definition $\ref{eq:defbrdf}$:  
 
 \begin{alignat}{4}
 & f_r(\omega_i, \omega_r) &&= \frac{dL_r(\omega_r)}{L_i(\omega_i)cos(\theta_i)d\omega_i} \nonumber \\
@@ -150,14 +151,14 @@ L_r(\omega_r) &&= \Rightarrow{} & \int_{\Omega}f_r(\omega_i, \omega_r) L_i(\omeg
 \label{eq:initialbrdf}
 \end{alignat}
 
-The last equation is the so called rendering equation $\label{sec:dirlighsourceassumption}$. We assume that our incident light is a directional, unpolarized light source like sunlight and therefore its radiance is given as 
+The last equation is the so called rendering equation $\label{sec:dirlighsourceassumption}$. We assume that our incident light is a directional, unpolarized light source like sunlight and therefore its radiance is given as:
 
 \begin{equation}
  L_{\lambda}(\omega)=I(\lambda)\delta(\omega-\omega_i)
 \label{eq:radiancedirlightsource}
 \end{equation}
 
-where $I(\lambda)$ is the intensity of the relative spectral power for the wavelength $\lambda$. By plugging the identity in equation $\ref{eq:radiancedirlightsource}$ into our current rendering equation $\ref{eq:initialbrdf}$, we will get:
+where $I(\lambda)$ is the intensity of the relative spectral power for the wavelength $\lambda$. By plugging the identity in equation $\ref{eq:radiancedirlightsource}$ into our current rendering equation $\ref{eq:initialbrdf}$, we get:
 
 \begin{align}
 L_{\lambda}(w_r) 
@@ -183,7 +184,7 @@ There are two types of waves, (a) mechanical waves which deform their mediums du
 \footnotetext{Image source: http://neutrino.ethz.ch/Vorlesung/FS2013/index.php/vorlesungsskript}
 
 \begin{description}
-  \item[Wavelength:] It ss usually denoted by $\lambda$ and is a measure for the spatial distance from one point to another until the shape of a wave repeats
+  \item[Wavelength:] It is usually denoted by $\lambda$ and is a measure for the spatial distance from one point to another until the shape of a wave repeats
   \item[Amplitude:] It is denoted by $A$ and there are two possible interpretations: Firstly, it is a measure of the height from the equilibrium point to the highest point of a crest on the wave or the lowest point of a trough. This means that the amplitude can be positive or negative. However, usually, someone is just interested in the absolute value of an amplitude, i.e. the magnitude of a wave. For light waves it is a relative measure of intensity or brightness to other light waves of the same wavelength. And secondly, it can be interpreted as a measure how much energy a wave carries whereat the greater the absolute amplitude value, the bigger the amount of energy being carried.
   \item[Frequency:] Is a measure of the number of waves which are passing through a particular point in the propagation medium during one unit of time and is denoted by $f$.
   \item[Phase:] It is denoted by $\varphi$. It describes either the offset of initial position of a wave or the relative displacement between or among waves having the same frequency. Two waves with same frequency are said to be \emph{in phase} if they have the same phase. This means that they line up everywhere. On the other hand, two waves are said to be \emph{out of phase} if they have the same frequency but a different phases. As a remark, we denote by $\omega$ the angular frequency which is equal $2\pi f$. 
@@ -208,7 +209,7 @@ Next, after having seen that a wave is simply a traveling disturbance along a me
   \item If the phase difference between two waves is intermediate between the first two scenarios, then the magnitude of the displacement lies between the minimal and maximal values which we could get from constructive interference.
 \end{itemize}
 
-Keep in mind that when two or more waves interfere which each other, the resulting wave may have a different frequency. This means that interfering waves, comming from two light sources with a certain color, may produce a light of another color than they have.
+Keep in mind that when two or more waves interfere which each other, the resulting wave may have a different frequency. This means that interfering waves, coming from two light sources with a certain color, may produce a light of another color than they have.
 
 \subsection{Wave Coherence}
 \label{sec:wavecoherence}
@@ -240,7 +241,7 @@ Besides the phases and the amplitudes of waves, their propagation directly affec
 \end{figure}
 
 \subsection{Waves Diffraction}
-Revisting Hugen's Principle we know that each point on a wavefront can be considered as a source of a spherical wavelet which propagates in every direction. But what exactly happens when a wave's propagation direction is only partially occluded by an object? What will be the outcome on applying Huygen's Principle to this case? An example scenario for this case is shown in figure $\ref{fig:wavediffraction}$. 
+Revisiting Huygen's principle we know that each point on a wavefront can be considered as a source of a spherical wavelet which propagates in every direction. But what exactly happens when a wave's propagation direction is only partially occluded by an object? What will be the outcome on applying Huygen's principle to this case? An example scenario for this case is shown in figure $\ref{fig:wavediffraction}$. 
 
 \begin{figure}[H]
   \centering
@@ -277,7 +278,8 @@ In everyday's life, we can see the direct outcome of the effect of wave diffract
 
 \section{Stam's BRDF formulation}
 \label{sec:sumstam}
-The theoretical foundation of this thesis is based on the pioneering work of J.Stam$\cite{diffstam}$ who derived a BRDF formulation to modell the effect of far field diffraction for various analytical anisotropic surfaces, relying on the so called scalar wave theory of diffraction for which a wave is assumed to be a complex valued scalar. It's noteworthy that Stam's BRDF formulation does not take into account the polarization of the incident light. Fortunately, light sources like sunlight and light bulbs are unpolarized. The principal beginhind J. Stam's approach is illustrated in figure $\ref{fig:meaningofstamsapproach}$. 
+The theoretical foundation of this thesis is based on the pioneering work of J.Stam$\cite{diffstam}$. In this model Stam derived a BRDF formulation to model the effect of far field diffraction for various analytical anisotropic surfaces. His model is relying on the so called scalar wave theory of diffraction for which a wave$\footnote{In general, a wave is a complex valued vector satisfying Maxwell's equations. A scalar values wave only satisfies the Helmoltz equation. For further information please visit \texttt{http://en.wikipedia.org/wiki/Maxwells\textunderscore equations} and \texttt{http://en.wikipedia.org/wiki/Helmholtz\textunderscore equation}.}$ is assumed to be a complex valued scalar. Thus, Stam's BRDF formulation does not take into account the polarization of the incident light. Fortunately, light sources like sunlight and light bulbs are unpolarized. The principal behind J. Stam's approach is illustrated in figure $\ref{fig:meaningofstamsapproach}$. 
+
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.6]{background/stamsapproachsmeaning2.png}
@@ -287,38 +289,40 @@ The theoretical foundation of this thesis is based on the pioneering work of J.S
 
 An incident wave $p_i$ from a a light source encounters a surface representing a diffraction grating. According to Huygen's Principle, at any point $i$ on the grating at which the incident wave meets the grating a secondary, spherical wavelet $p_{r,i}$ will be emitted. A viewer, indicated by a gray circle in the figure, will perceive the superimposed contribution of all wavelets along the surface $S$ (in the figure indicated by a integration symbol), which will directly follow the laws of wave interference. Therefore the resulting color which an observer sees is the final radiance at that point which reflects from stationary interference of all emitted secondary wavelets and per due to Huygen's principle. \\
 
-A further assumption in Stam's Paper is, that the emanated waves from the source are stationary, which implies the wave is a superposition of independent monochromatic waves. This further implies that each wave is associated with a definite wavelength $\lambda$. Directional light sources such as sunlight fulfill this fact and since we are using these kinds of light sources for our simulations, Stam's model can be used for our modelling purposes. \\
+A further assumption in Stam's Paper is, that the emanated waves from the source are stationary, which implies the wave is a superposition of independent monochromatic waves. This further implies that each wave is associated with a definite wavelength $\lambda$. Directional light sources such as sunlight fulfills this fact and since we are using these kinds of light sources for our simulations, Stam's model can be used for our modelling purposes. \\
 
-% TODO FIX: THIS IS NOT THE MAIN IDEA 
-The main model is the formulate a BRDF as the Fourier Transform applied on the given height field, representing a surface like shown in figure $\ref{fig:geometricsetup}$. The classes of surfaces his model is able to support either exhibit a very regular structure or may be considered as a superposition of bumps forming a periodic like structure. Therefore, the surfaces he is dealing with can either be modelled by probabilistic distributions or have a direct analytical representation. Both cases allow him to derive an analytical solution for his BRDF model.
+The main idea of his model is to formulate a BRDF as a function of the Fourier transformation applied on a certain correlation function relating to the given height field. His model assumes homogeneity of the height field structure and depicts an approximation of far-field diffraction effects. The geometrical setup of his model is illustrated in figure $\ref{fig:geometricsetup}$. The classes of surfaces his model is able to support either exhibit a very regular structure or may be considered as a superposition of bumps forming a periodic like structure. Therefore, the surfaces he is dealing with can either be modelled by probabilistic distributions or have a direct analytical representation. Both cases allow him to derive an analytical solution for his BRDF model.
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.8]{background/stamsinputp.png}
-  \caption[Stam's geometrical setup]{Illustration$\footnotemark$ of geometrical setup of Stam's approach where $\omega_i$ is a direction, pointing towards the light source, $\omega_r$ points towards the camera, $n$ is the surface normal, $(u,v,w)$ are the components of the vector $-\omega_i - \omega_r$.}
+  \caption[Stam's geometrical setup]{Illustration$\footnotemark$ of the geometrical setup of Stam's approach where $\omega_i$ is a direction, pointing towards the light source, $\omega_r$ points towards the viewer, $n$ is the surface normal and$ (u,v,w)$ are the components of the vector $-\omega_i - \omega_r$.}
   \label{fig:geometricsetup}  
 \end{figure}
 \footnotetext{Modified image which originally has been taken from D.S. Dhillon et. al. poster$\cite{diffourp}$.} 
 
-The direction vector of the secondary wavelet can be computed by taking the difference between the incident and viewing direction like shown in equation $\ref{eq:uvw}$:
+Figure $\ref{fig:geometricsetup}$ illustrated schematically the geometrical setup used for Stam's BRDF formulation. An incident light with a direction $\omega_i$ hits the surface of a given height field at the position $p$. The direction vector $\omega_r$ points towards the viewer. After the incident light has hit the surface, a spherical wavelet is reflected off from this hit position. The direction vector of the wavelet can be computed by taking the difference between the incident and viewing direction as shown in equation $\ref{eq:uvw}$:
+
 \begin{equation}
   (u,v,w) = -\omega_i - \omega_r 
 \label{eq:uvw}
 \end{equation}
-These coordinates will later be used in order to compute the total contribution of all secondary sources used in Stam's BRDF in equation $\ref{eq:mainstam}$. For simplification, let us introduce an auxiliary function $\Phi$ defined in equation $\ref{eq:heightfieldphase}$, which models the phase of a wave from the given height field.
+
+These coordinates will later be used in order to compute the total contribution of all secondary sources used in Stam's BRDF in equation $\ref{eq:mainstam}$. In Stam's Derivation, the phase difference between the incident and emitted wave from the given height field is denoted by the auxiliary function $\Phi$ defined as in equation $\ref{eq:heightfieldphase}$.
 
 \begin{equation}
   \Phi(x,y) = \frac{2 \pi}{\lambda} w h(x,y) 
 \label{eq:heightfieldphase}
 \end{equation}
 
-Then, any secondary wavelet $p$ which is emitted off from the given surface is equal:
+Then, any secondary wavelet $p$ which is emitted off from the given surface is equal to:
 \begin{equation}
   p(x,y) = e^{i\Phi(x,y)} 
 \label{eq:px}
 \end{equation}
 
 using the idea presented for figure $\ref{fig:meaningofstamsapproach}$ and performing all mathematical steps shown in the appendix $\ref{chap:stamsderivations}$, will lead us to the final BRDF representation, modelling the total contribution of all secondary sources reflected off the the provided surface $h$ in the direction $\omega_r$:
+
 \begin{equation} 
   BRDF_{\lambda}(\omega_i, \omega_r) = \frac{k^2 F^2 G}{4\pi^2 A w^2} \langle \left|P(ku, kv)\right|^2\rangle
 \label{eq:mainstam}
@@ -330,8 +334,10 @@ where $F$ denotes the Fresnel coefficient and $G$ is the so called geometry term
 \label{eq:geometricterm}
 \end{equation}
 
+\myparagraph{Fourier Transformation Sign Convention}
 \label{sec:electricalengeneeringftconvention}
-One last word about the Fourier transform terms that Stam uses in his derivation: Conventionally, following the definitions of the Fourier Transformation, we are dealing with the inverse Fourier Transformation. However, especially in electrical engineering, it is quite common to define this inverse Fourier transformation by the Fourier Transformation. The reason behind this lies in the fact that we simply could substitute the minus sign as in the following equation $\ref{eq:signchangementconvention}$:
+\noindent
+One last word about the Fourier transform terms that Stam uses in his derivation. Conventionally, following the definitions of the Fourier transformation, we are dealing with is commonly denoted as the inverse Fourier Transformation. However, especially in electrical engineering (EE), it is common to define the inverse Fourier transformation by the Fourier Transformation and vice versa. To be more precisely there are two definitions of the Fourier transformation. One commonly used by physicist where the exponential function is w.r.t. $-i$ and the one which is used in EE, performing an integration over an exponential is w.r.t. $i$. Further information about the sign convention in Fourier transformations can be looked up in the book Quantum Mechanics for Electrical Engineers$\cite{signconvention}$. Note that by substituting the minus sign of the physicist definition of the Fourier transformation gives us the definition used in EE shown in in equation $\ref{eq:signchangementconvention}$:
 
 \begin{align}
 \mathcal{F}_{FT}\{f\}(w) 

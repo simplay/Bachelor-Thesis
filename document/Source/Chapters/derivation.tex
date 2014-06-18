@@ -2,6 +2,7 @@
 \label{chap:derivations}
 
 \section{Problem Statement and Challenges}
+\label{sec:problemstatement}
 The goal of this thesis is to perform a physically accurate and interactive simulation of structural color production as shown in figure $\ref{fig:problemstatementoutput}$, which we can see whenever light is diffracted from a natural grating. For this purpose we need the following input data (see figure $\ref{fig:problemstatement}$):
 \begin{itemize}
   \item A mesh representing a snake surface$\footnote{In our simulation it is an actual reconstruction of a real snake skin. These measurements are provided by the Laboratory of Artificial and Natural Evolution at Geneva. See their website:\texttt{www.lanevol.org}.}$ as shown in figure $\ref{fig:strucgeom}$.
@@ -39,8 +40,12 @@ We want to rely on the integral equation $\ref{eq:mainstam}$ derived by J. Stam 
 \end{figure}
 
 \section{Approximate a FT by a DFT}
+\label{sec:approxftbydft}
+Before we will start with our actual adaption of Stam's BRDF model, we first derive some useful identies which are later used during our main derivation in section $\ref{sec:adaptionstambrdfmodel}$. The goal of this section is to provide an approximation of a FT using the DFT when dealing with a bandlimitted signal. For this purpose we will exploit the concept of windowing a function and spatial coherence as described in section $\ref{sec:spatialcoherenceandwindowing}$.
+
 \subsection{Reproduce FT by DTFT}
-In the previous section, we have found an identity for the reflected spectral radiance $L_{\lambda}(\omega_r)$ when using Stam's BRDF for a given input height field. However, the derived expression in equation $\ref{eq:nonrelativebrdffinding}$ requires to evaluate the Fourier Transform of our height field$\footnote{actually it requires the computation of the inverse Fourier Transform of a transformed version of the given height field, the function p(x,y) defined in equation \ref{eq:px}.}$ for every direction. In this section we explain how to approximate the FT by the DTFT and apply it to our previous derivations. Figure $\ref{fig:ftbydtft}$ graphically shows how to obtain the DTFT from the FT for a one dimensional signal$\footnote{For our case we are dealing with a two dimensional, spatial signal, the given height field. Nevertheless, without any constraints of generality, the explained approach applies to multi dimensional problems.}$ \\
+\label{sec:ftbydtft}
+In the following sections, we derive an identity to approximate the FT by the DTFT. This identity will be used to derive the reflected spectral radiance $L_{\lambda}(\omega_r)$ when using Stam's BRDF for a given input height field. However, its expression, which is stated in equation $\ref{eq:nonrelativebrdffinding}$ requires an evaluation of the Fourier transform applied on a given height field$\footnote{actually it requires the computation of the inverse Fourier Transform of a transformed version of the given height field, the function p(x,y) defined in equation \ref{eq:px}.}$ along every possible viewing and light direction. Figure $\ref{fig:ftbydtft}$ visualized the idea of how to obtain the DTFT from the FT for a one dimensional signal$\footnote{For our case we are dealing with a two dimensional, spatial signal, the given height field. Nevertheless, without any constraints of generality, the explained approach applies to multi dimensional problems.}$ \\
 
 \begin{figure}[ht]
   \centering
@@ -160,7 +165,8 @@ where
 \end{equation} 
 
 \section{Adaption of Stam's BRDF for Discrete Height Fields}
-% TODO add text
+\label{sec:adaptionstambrdfmodel}
+Our goal is to render structural colors using Stam's BRDF$\footnote{Remember that a BRDF is the portion of a incident light source reflected off a given surface towards a specified viewing direction.}$ using natural gratings. According to our problem statement stated in section $\ref{sec:problemstatement}$ we have to reformulate his BRDF equation. We will end up with an identity of the reflected spectral radiance. This is where the rendering equation from section $\ref{sec:renderingequation}$ comes into play. Having looked at some basic derivations from section $\ref{sec:approxftbydft}$ we start our adaption of Stam's BRDF model in the following sections.
 
 \subsection{Reflected Radiance of Stam's BRDF}
 We are going to use Stam's main derivation $~\eqref{eq:mainstam}$ for the $BRDF(\omega_i, \omega_r)$ in $\ref{eq:deribrdfwithdirsource}$ by applying the fact that the wavenumber is equal $k=\frac{2\pi}{\lambda}$:
@@ -184,7 +190,7 @@ L_{\lambda}(\omega_r)
 
 Note that the Fresnel term $F$ is actually a function of $(w_i, w_r)$, but in order to keep the equations simple, we omitted its arguments. \\
 
-So far we just plugged Stam's BRDF identity into the rendering equation and hence have not significantly deviated from his formulation. Keep in mind that $P$ denotes the Fourier transform of the provided height field which depends on the viewing and incidence light direction. Thus this Fourier Transform has to be recomputed for every direction which will slow down the whole computation quite a lot$\footnote{Even a fast variant of computation the Fourier Transform has a runtime complexity of O(N log N) where N is the number of sample.}$. One particular strategy to solve this issue is to approximate $P$ by the Discrete Fourier Transform (DFT)$\footnote{See appendix \ref{chap:appendixsignalprocessing} for further information about different kinds of Fourier transformations.}$ and separate its computation such that terms for many directions can be precomputed and then later retrieved by look ups. The approximation of $P$ happens in two steps: First we approximate the Fourier Transform by the Discrete Time Fourier Transform (DTFT) and then, afterwards, we approximate the DTFT by the DFT. For further about basics of signal processing and Fourier Transformations please consult the appendix $\ref{chap:appendixsignalprocessing}$. \\
+So far we just plugged Stam's BRDF identity into the rendering equation and hence have not deviated from his formulation. Keep in mind that $P$ denotes the Fourier transformation of a given discrete height field. Its FT depends on the viewing and incidence light direction. Thus this Fourier transform has to be recomputed for every direction which will slow down the whole computation quite a lot$\footnote{Even a fast variant of computation for the two dimensional Fourier transform has a runtime complexity of $O\left( N^2 \log{N}\right)$ for a N by N discretized signal.}$. According to section $\ref{sec:ftbydtft}$, when applying the Fourier transformation to a discrtized function, we have to apply the DTFT operator. Thus when interested in computing the Fourier tranformation of a given discrete height field, we have to apply the DTFT operator to it. One particular strategy to solve this issue is to approximate $P$ by the Discrete Fourier Transform (DFT)$\footnote{See appendix \ref{chap:appendixsignalprocessing} for further information about different kinds of Fourier transformations.}$ and separate its computation such that terms for many directions can be precomputed and then later retrieved by look ups. For the approximation of $P$ we rely on the derivations from section $\ref{sec:approxftbydft}$. Firtly, we approximated the FT by DTFT and then we approximated the DTFT by the DFT. For the basics of signal processing and Fourier transformations please refer the appendix $\ref{chap:appendixsignalprocessing}$. \\
 
 Using the insight gained by equation $\ref{eq:sampledsignalfttodtft}$ allows us to further simplify equation $\ref{eq:nonrelativebrdffinding}$:
 
@@ -195,7 +201,7 @@ L_{\lambda}(\omega_r)
 \label{eq:nonrelativebrdffindingreproddtft}
 \end{align}
 
-Where $P_{dtft}$ is a substitute for $\mathcal{F}_{DTFT}\{s\}(w)$. Furthermore $T$ the sampling distance for the discretization of $p(x,y)$ assuming equal and uniform sampling in both dimensions $x$ and $y$.
+Where $P_{dtft}$ is a substitute for $\mathcal{F}_{DTFT}\{p\}(w)$. Furthermore $T$ the sampling distance for the discretization of $p(x,y)$ assuming equal and uniform sampling along both $x$ and $y$ dimensions.
 
 \subsection{Relative Reflectance}
 \label{sec:relrefl}
@@ -352,7 +358,7 @@ Y
 \label{eq:xcolexpression}
 \end{align}
 
-Notice that equation $\ref{eq:xcolexpression}$ is constrained by $N$ and hence is an approximation of equation $\ref{eq:structuralcolorsslow}$. Furthermore, it is possible to seperate out all the Fourier Terms in the summation and precompute them. This is why the approach in equation $\ref{eq:xcolexpression}$ is fast in order to compute structural color values according to our BRDF model.
+Notice that equation $\ref{eq:xcolexpression}$ is constrained by $N$ and hence is an approximation of equation $\ref{eq:structuralcolorsslow}$. Furthermore, it is possible to seperate out all the Fourier Terms in the summation and precompute them. This is why the approach in equation $\ref{eq:xcolexpression}$ is fast in order to compute structural color values according to our BRDF model. In other words this means that the Fourier terms in equation $\ref{eq:xcolexpression}$ are not anymore dependent on $\omega$ when using this Taylor series approximation.
 
 \section{Spectral Rendering using DFTs}
 \label{sec:spectralrendering}
@@ -475,6 +481,7 @@ In general, for a sinc-interpolation, we are interested in recovering an origina
 
 \begin{equation}
   x(t) = \sum_{n=-\infty}^{\infty} x[n] sinc\left(\frac{t-nT}{T}\right)
+  \label{eq:sincinterpolformula}
 \end{equation}
 
 which has the Fourier transformation $X(f)$ whose non-zero values are confined to the region $|f| \leq \frac{1}{2T} = B$.
