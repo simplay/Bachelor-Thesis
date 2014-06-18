@@ -144,7 +144,7 @@ This section explains the architecture of the rendering program which I implemen
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.7]{implementation/renderingarch.png}
+  \includegraphics[scale=0.63]{implementation/renderingarch.png}
   \caption[Renderer Architecture]{Schematical architecture of our Java renderer.}
   \label{fig:rendererArchitecture}
 \end{figure}
@@ -469,7 +469,15 @@ where
 \label{eq:scalelook}
 \end{align}
 
-The lookup for the $v$-direction is equal to $s_{look}(v)$ defined as in equation $\ref{eq:scalelookdisc}$.
+The lookup for the $v$-direction is equal to $s_{look}(v)$ defined as in equation $\ref{eq:scalelookdisc}$. Figure $\ref{fig:susvlook}$ illustrates the difference between $\left( s(u), s(v) \right)$ and its discretized lookup coordinates $\left( s_{look}(u), s_{look}(v) \right)$.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{implementation/susvlookidea.png}
+  \caption[Discretized Lookup]{Illustration of discrete lookup coordinates $\left( s_{look}(u), s_{look}(v) \right)$.}
+\label{fig:susvlook}
+\end{figure}
+
 
 \myparagraph{Final affine transformation:}
 Using the translation from equation $\ref{eq:bias}$ and the scaling from equation $\ref{eq:scalelook}$, the transformed texture lookup-coordinates $(u_{look}, v_{look})$ for a given wavelength $\lambda$ is equal to:
@@ -495,20 +503,22 @@ So far, we have seen how to render structural colors caused by light when diffra
 \caption{Texture Blending}
 \begin{table}[H]
   \begin{tabular}{@{}lll@{}}
-    \textbf{Input:} & $c_{texture}:$ Texture color at given fragment position \\
-    & $c_{diffraction}:$ Structural color at given fragment position \\
-    \textbf{Output:} & $c_{out}:$ Mixed fragment texture- and structural-color \\
+    \textbf{Input:} & $c_{pigmentation}:$ Texture color at given fragment position \\
+    & $total_{diffraction}:$ Structural color at given fragment position \\
+    \textbf{Output:} & $c_{total}:$ Mixed fragment texture- and structural-color \\
   \end{tabular} 
 \end{table}
 \setlength{\fboxrule}{0pt} 
 \begin{boxedminipage}{1.0\textwidth}
   \begin{algorithmic}[1]
+
     \State $\alpha = abs(F)$
+    \Comment{$\alpha$ is the fraction which goes into the skin}
     \If{$(\alpha > 1)$} \State $\alpha = 1$ \EndIf
-    \State $diffraction_{diff} = (1-w_{diffuse}) \cdot c_{diffraction}$
-    \State $text_{spec} = (1-\alpha) \cdot c_{texture}$
-    \State $text_{diff} = w_{diffuse} \cdot c_{texture}$
-    \State $c_{out} = diffraction_{diff} + text_{spec} + text_{diff}$
+    \State $c_{diffraction} = (1-w_{diffuse}) \cdot total_{diffraction}$
+    \State $c_{diffuse} = (1-\alpha) \cdot c_{texture}$
+    \State $c_{ambient} = w_{diffuse} \cdot c_{pigmentation}$
+    \State $c_{total} = c_{diffraction} + c_{diffuse} + c_{ambient}$
   \end{algorithmic}
   \end{boxedminipage}
   \vskip1.5pt
@@ -572,7 +582,7 @@ By transforming those equations (equations $\ref{eq:collectionnmmeqs}$) to $(\la
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.6]{implementation/nmm.png}
+  \includegraphics[scale=0.8]{implementation/nmm.png}
   \caption[NMM Shading Approach]{Illustration of NMM shading approach's idea.}
   \label{fig:nmmshadingapproach}
 \end{figure}
