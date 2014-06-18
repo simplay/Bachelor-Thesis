@@ -145,7 +145,7 @@ This section explains the architecture of the rendering program which I implemen
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.63]{implementation/renderingarch.png}
-  \caption[Renderer Architecture]{Schematical architecture of our Java renderer.}
+  \caption[Renderer Architecture]{Schematical architecture of our Java renderer. An arrow which is pointing from A to B indicates that A requests some data from B.}
   \label{fig:rendererArchitecture}
 \end{figure}
 
@@ -587,7 +587,7 @@ By transforming those equations (equations $\ref{eq:collectionnmmeqs}$) to $(\la
   \label{fig:nmmshadingapproach}
 \end{figure}
 
-Figure $\ref{fig:nmmshadingapproach}$ illustrated the idea of the NMM shading approach by showing a visualization of a DFT term. Instead of integrating over the whole wavelength spectrum (yellow line), we can find a constrained wavelength range by using equation $\ref{eq:collectionnmmeqs}$, and then only integrate over a reduced, discrete set of $\lambda$ values (indicated by the dotted red line). Since we are uniformly integrating over the wavelength spectrum but this approach selects non-uniformly sampled wavelength spectrum, this can lead to issues. Close to zero frequency, i.e. $(u,v)$ equal to $(0,0)$, we could have too few or even no samples, using the NMM approach. Thus, our workaround according to this issue is to use a default color close to the zero frequency. Technically, this means that white color is returned around a small $\epsilon$ circumstance.
+Figure $\ref{fig:nmmshadingapproach}$ illustrated the idea of the $NMM$ shading approach by showing a visualization of a DFT term. Instead of integrating over the whole wavelength spectrum (yellow line), we can find two constrained wavelength ranges by using equation $\ref{eq:collectionnmmeqs}$. One range is determined by the pair $(N_{min}^{u}, N_{max}^{u})$ (in purple color) and the other by $(N_{min}^{v}, N_{max}^{v})$(in red color). Hence, we only have to integrate once over the reduced, discretized set of $\lambda$ values according to $(N_{min}^{u}, N_{max}^{u})$(red dotted line) and once over $\lambda$ values according to $(N_{min}^{v}, N_{max}^{v})$ (purple dotted line) and then accumulate both results. Since we are uniformly integrating over the wavelength spectrum but this approach selects non-uniformly sampled wavelength spectrum, this can lead to issues. Close to zero frequency, i.e. $(u,v)$ equal to $(0,0)$, we could have too few or even no samples, using the NMM approach. Thus, our workaround according to this issue is to use a default color close to the zero frequency. Technically, this means that white color is returned around a small $\epsilon$ circumstance.
 
 \subsection{The PQ Shading Approach}
 \label{sec:pqapproach}
