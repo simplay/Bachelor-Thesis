@@ -416,11 +416,11 @@ At line 27 the gain factor $C(\omega_i, \omega_r)$ from equation $\ref{eq:cfact}
 \label{sec:texturelookupcoords}
 In our fragment shader we want to access DFT coefficients of our height field at a given location $(u,v)$ (defined like in equation $\ref{eq:uvw}$) to compute structural colors according to equation $\ref{eq:finalexpression}$. \\
 
-For any given nano-scaled surface patch $P$ with a resolution of $A$ by $A$ $\mu m$, stored as a $N$ by $N$ pixel image $I$, one pixel in any direction corresponds to $dH = \frac{A}{N} \mu m$. In Matlab we computed a series of $n$ output DFT terms $\{I_{out_1},...,I_{out_n}\}$ from this image $I$, where the n-th image represents the DFT coefficients for the n-th DFT term in our Taylor Series approximation. Notice, that every DFT image value $(u,v)$ is in the range $[-\frac{f_s}{2}, \frac{f_s}{2}]^2$ where $f_s$ is the sampling frequency equal to $\frac{1}{dH}$. \\
+For any given nano-scaled surface patch $P$ with a resolution of $A \times A$ $\mu m$, stored as a $N \times N$ pixel image $I$, one pixel in any direction corresponds to $dH = \frac{A}{N} \mu m$. In Matlab we computed a series of $n$ output DFT terms $\{I_{out_1},...,I_{out_n}\}$ from this image $I$, where the n-th image represents the DFT coefficients for the n-th DFT term in our Taylor Series approximation. Notice, that every DFT image value $(u,v)$ is in the range $[-\frac{f_s}{2}, \frac{f_s}{2}]^2$ where $f_s$ is the sampling frequency equal to $\frac{1}{dH}$. \\
 
-In order to get access to these image within our shader, we have to pass them as GLSL textures. In a GLSL shader the texture coordinates are normalized, which means that the size of the texture maps to the coordinates on the range $[0,1]$ in each dimension. By convention the the bottom left corner of an image has the coordinates $(0,0)$, whereas the top right corner has the value $(1,1)$ assigned. \\ 
+In order to get access to these image within our shader, we have to pass them as GLSL textures. In a GLSL shader the texture coordinates are normalized, which means that they are in the range $[0,1]$. By convention the the bottom left corner of an image has the coordinates $(0,0)$, whereas the top right corner has the value $(1,1)$ in the GLSL texture space. \\ 
 
-However, $u$, $v$ coordinates are assumed to be in range $[-\frac{f_s}{2}, \frac{f_s}{2}]$, but GLSL texture coordinates are in range $[0,1]$. Therefore, for every computed lookup coordinate pair $(u,v)$, we have to apply a affine transformation to be in the correct range. Figure $\ref{fig:lookupexample}$.  illustrates this issue of different lookup ranges. In general, an affine transformation is a mapping of the form $f(x) = sx + b$ where $s$ is a scaling and $b$ is a translation.
+However, $u$, $v$ coordinates are assumed to be in a range $[-\frac{f_s}{2}, \frac{f_s}{2}]$, but GLSL texture coordinates are in a range $[0,1]$. Therefore, for every computed lookup coordinate pair $(u,v)$, we have to apply an affine transformation. Figure $\ref{fig:lookupexample}$.  illustrates this issue of different lookup ranges. In general, an affine transformation is a mapping of the form $f(x) = sx + b$ where $s$ is a scaling and $b$ is a translation.
 
 \begin{figure}[H]
   \centering
@@ -429,10 +429,10 @@ However, $u$, $v$ coordinates are assumed to be in range $[-\frac{f_s}{2}, \frac
 \label{fig:lookupexample}
 \end{figure}
 
-Figure $\ref{fig:lookupexample}$ visualized a particular DFT coefficients image for a blazed grating. In GLSL texture coordinates the range of such an image is $[0,1]^2$ whereat in a (u,v) coordinates system this would correspond to the range $[-\frac{f_s}{2}, \frac{f_s}{2}]^2$. Regarding the way the DFT terms were computed in Matlab, their zero frequency, i.e. $(u,v) = (0,0)$, is located at the center of the given DFT image. Since by convention the bottom left corner of a GLSL texture corresponds to the value $(0,0)$ but we want to work with $(u,v)$ coordinates, we have to introduce an helper coordinate system $(u_{lookup}, v_{lookup})$. This helper coordinates can be computed by a affine transformation applied on $(u,v)$ coordinates. Hence, we will explain how to compute the scaling $s$ and translation $b$ components of our affine transformation: 
+Figure $\ref{fig:lookupexample}$ visualizes a particular DFT coefficients image for a blazed grating. In GLSL texture coordinates the range of such an image is $[0,1]^2$ whereas in a (u,v) coordinates system this would correspond to the range $[-\frac{f_s}{2}, \frac{f_s}{2}]^2$. Regarding the way the DFT terms were computed in Matlab, their zero frequency, i.e. $(u,v) = (0,0)$, is located at the center of the given DFT image. Since by convention the bottom left corner of a GLSL texture corresponds to the origin $(0,0)$ but we want to work with $(u,v)$ coordinates, we have to introduce a helper coordinate system $(u_{lookup}, v_{lookup})$. This helper coordinates can be computed by an affine transformation applied on $(u,v)$ coordinates. Hence, we will explain how to compute the scaling $s$ and translation $b$ components of our affine transformation: 
 
 \myparagraph{Translation component $b$ of affine transformation:}
-Since the zero frequency component of DFT images is shifted towards its centre position, we have to shift the coordinates $u$ and $v$ to the center of the current $N$ by $N$ pixel image by a bias $b$. The translation $b$ is a constant value and is computed like the following:
+Since the zero frequency component of DFT images is shifted to its centre position, we have to shift the coordinates $u$ and $v$ to the center of the current $N$ by $N$ pixel image by a bias $b$. The translation $b$ is a constant value and is computed like the following:
 
 \begin{align}
 b = \left\{ \begin{array}{rl}
@@ -445,7 +445,7 @@ b = \left\{ \begin{array}{rl}
 \myparagraph{Scaling component $s$ of affine transformation:}
 For the scaling part of our affine transformation, we have to think a little further: let us consider a $T$ periodic signal in time, i.e. $x(t) = x(t+nT)$ for any integer $n$. After applying the DFT, we have its discrete spectrum $X[n]$ with frequency interval $w0 = 2pi / T$ and temporal interval $dH$. \\
 
-Let $k$ denote the wavenumber which is equal to $\frac{2 \pi}{\lambda}$ for a given wavelength $\lambda$. Then the signal is both, periodic with time period $T$ and discrete with temporal interval $dh$. This implies that its spectrum should be discrete with frequency interval $w_0$ and periodic with frequency period $\Omega = \frac{2 \pi}{dH}$. This gives us an idea how to discretize the spectrum. For amy surface patch $P$ which is periodically distributed on its surface, its frequency interval along the x-axis is equal to: 
+Let $k$ denote the wavenumber which is equal to $\frac{2 \pi}{\lambda}$ for a given wavelength $\lambda$. Then the signal is both, periodic with time period $T$ and discrete with temporal interval $dH$. This implies that its spectrum should be discrete with frequency interval $w_0$ and periodic with frequency period $\Omega = \frac{2 \pi}{dH}$. This gives us an idea how to discretize the spectrum. For any surface patch $P$ which is periodically distributed on its surface, its frequency interval along the x-axis is equal to: 
 
 \begin{align}
   w_0 = \frac{2 \pi}{T} = \frac{2 \pi}{N \cdot dH}
@@ -461,7 +461,7 @@ Thus, only wavenumbers that are integer multiples of $w_0$ after a multiplicatio
 \label{eq:scalelook}
 \end{align}
 
-The lookup for the $v$-direction will be equal $s(v)$ defined like in equation $\ref{eq:scalelook}$.
+The lookup for the $v$-direction is equal to $s(v)$ defined as in equation $\ref{eq:scalelook}$.
 
 \myparagraph{Final affine transformation:}
 Using the translation from equation $\ref{eq:bias}$ and the scaling from equation $\ref{eq:scalelook}$, the transformed texture lookup-coordinates $(u_{look}, v_{look})$ for a given wavelength $\lambda$ is equal to:
@@ -473,7 +473,7 @@ Using the translation from equation $\ref{eq:bias}$ and the scaling from equatio
 \label{eq:ublookup}
 \end{align}  
 
-Note that for the Windowing Approach, used in algorithm $\ref{alg:fragmentshaderall}$, we are visiting a one-pixel-neighborhood around each $(u,v)$ coordinate pair. For any position $(i,j)$ of its neighbor-pixels, these local coordinates $(u_{look}^{local_i}, v_{look}^{local_j})$ around the origin $(u_{look}, v_{look})$ from equation $\ref{eq:ublookup}$ are equal to:
+Note that for the Windowing Approach, used in algorithm $\ref{alg:fragmentshaderall}$, we are visiting a $n$-pixel-neighborhood around each $(u,v)$ coordinate pair. For any position $(i,j)$ of its neighbor-pixels, these local coordinates $(u_{look}^{local_i}, v_{look}^{local_j})$ around the origin $(u_{look}, v_{look})$ from equation $\ref{eq:ublookup}$ are equal to:
 
 \begin{equation}
   (u_{look}^{local_i}, v_{look}^{local_j}) = (i,j)-(u_{look}, v_{look})
