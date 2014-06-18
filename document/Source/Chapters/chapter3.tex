@@ -166,9 +166,9 @@ All required configuration, in order to communicate with the GPU through OpenGL,
 \section{GLSL Diffraction Shader}
 \subsection{Vertex Shader}
 \label{sec:vertexshader}
-In our implementation we want to simulate the structural colors a viewer sees when light diffracted is on grating, e.g. on the skin of a snake. For this purpose, we reproduce a 2d image of a given 3d scene as seen from the perspective of a viewer for given lightning conditions. The color computation of an image is performed in the GPU shaders of the rendering pipeline. In OpenGL, there are two basic shading stages performed to render an image whereas the vertex shader is the first shading stage in the rendering pipeline. \\
+In our implementation we want to simulate the structural colors that a viewer sees when light is diffracted from a grating, e.g. the skin of a snake. For this purpose, we reproduce a 2d image of a given 3d scene as seen from the perspective of a viewer for given lightning conditions. The color computation of an image is performed in the GPU shaders of the rendering pipeline. In OpenGL, there are two basic shading stages performed to render an image where the vertex shader is the first shading stage in the rendering pipeline. \\
 
-As an input, a vertex shader, like illustrated in figure $\ref{fig:vertexshaderpipe}$, receives one vertex of a mesh and other vertex data such as a vertex normals. It only can access this data and has no information about the neighborhood of a vertex or the topology of its corresponding shape. Since vertex positions of a shape are defined in a local coordinate system$\footnote{Defining the positions of a shape in a local coordinate system simplifies its modelling process and allows us to apply transformations to a shape.}$ and we want to render an image of the perspective of viewer, we have to transform the locally defined positions to a perspectively projected viewer space. Therefore, the main purpose$\footnote{Furthermore, texture coordinates used for texture-lookup within the fragment shader and per vertex lightning can be computed.}$ of a vertex shader is to transform the position of vertices. Notice that a vertex shader can manipulate the position of a vertices, but cannot generate additional mesh vertices. Therefore, the output of any vertex shader is a transformed vertex position. Keep in mind that all vertex shader outputs will be used within the fragment shader. For an example, please have a look at our fragment shader $\ref{sec:fragmentshader}$. \\
+As an input, a vertex shader, as illustrated in figure $\ref{fig:vertexshaderpipe}$, receives one vertex of a mesh at a time and all the other vertex data associated with it such as a vertex normal. It can only access this data and has no information about the neighborhood of a vertex or the topology of its corresponding shape. Since vertex positions of a shape are defined in a local coordinate system$\footnote{Defining the positions of a shape in a local coordinate system simplifies its modelling process and allows us to apply transformations to a shape.}$ and we want to render an image for the perspective of a viewer, we have to perspectively project(transform) the locally defined positions to a viewer's 2D space. Therefore, the main purpose$\footnote{Furthermore, texture coordinates used for texture-lookup within the fragment shader and per vertex lightning can be computed.}$ of a vertex shader is to transform the position of vertices from a local 3D space to a viewer's 2D image space. Notice that a vertex shader can manipulate the position of a vertex, but cannot generate additional mesh vertices. Therefore, the output of any vertex shader is a transformed vertex position. Keep in mind that all vertex shader outputs will be used within the fragment shader. For an example, please have a look at our fragment shader $\ref{sec:fragmentshader}$. \\
 
 \begin{figure}[H]
   \centering
@@ -177,7 +177,7 @@ As an input, a vertex shader, like illustrated in figure $\ref{fig:vertexshaderp
   \label{fig:vertexshaderpipe}
 \end{figure}
 
-In the following let us consider the whole transformation, applied in the vertex shader, in depth. Let $p_{local}$ denote the position of a shape vertex, defined in a local coordinate system. Then the transformation from $p_{local}$
+In the following let us consider the whole transformation, as applied in a vertex shader, in depth. Let $p_{local}$ denote the position of a shape vertex, defined in a local coordinate system. Then the transformation from $p_{local}$
 into the perspective projected position as seen by a observer $p_{projective}$ looks like the following:
 
 \begin{equation}
@@ -188,27 +188,27 @@ into the perspective projected position as seen by a observer $p_{projective}$ l
 where $P$, $C^{-1}$ and $M$ are transformation matrices$\footnote{These tranformation matrices are linear transformations expressed in homogenous coordinates.}$, defined the following way:
 
 \begin{description}
-\item[Model matrix $M$:] Each vertex position of a shape is initially defined in a local coordinate system. To make is feasible to place and transform shapes in a scene, a reference coordinate system, the so called world space, has to be introduced. Hence, for every shape a matrix $M$ is associated, defining the transformation from its local coordinate system into the world space. 
-\item[Camera matrix $C$:] A camera models how the eye of a viewer sees an object, defined in world space like shown in figure $\ref{fig:cameracoordinatesystem}$. For calculating the transformation matrix $C$, a viewer's eye position and viewing direction, each defined in world space, are required. Therefore, $C$ denotes a transformation from coordinates defined in camera space into the world space. Thus, in order to transform a position from world space to camera space, we have to use the inverse of $C$, denoted by $C^{-1}$. 
-\item[Frustum $P$:] The Matrix P defines a perspective projection onto the image plane, i.e. for any given position in camera space, $P$ determines the corresponding 2d image coordinate. Perspective projections project along rays that converge in center of projection.
+\item[Model matrix $M$:] Each vertex position of a shape is initially defined in a local coordinate system. To make it feasible to place and transform shapes in a scene, a reference coordinate system, the so called world space, has to be introduced. Hence, for every shape a matrix $M$ is associated, defining the transformation from its local coordinate system into the world space. 
+\item[Camera matrix $C$:] A camera models how the eye of a viewer sees an object defined in a world space as shown in figure $\ref{fig:cameracoordinatesystem}$. $C$ denotes a transformation from coordinates defined in the camera space into the world space. For calculating the transformation matrix $C$, a viewer's eye position and viewing direction, each defined in world space, are required. In order to transform a position from world space to camera space, we have to use the inverse of $C$, denoted by $C^{-1}$. 
+\item[Frustum $P$:] The Matrix P defines a perspective projection onto the image plane, i.e. for any given position in camera space, $P$ determines the corresponding 2d image coordinate. Perspective projections project along rays that converge at the center of projection.
 \end{description}
 
-Since we are interested in modelling how a viewer sees structural colors on a given scene shape as shown in figure $\ref{fig:cameracoordinatesystem}$, modelling a viewer's eye by formulating the corresponding camera matrix $C$, is the most important component of the whole transformation series applied in the vertex shader. Hence, we next will have a closer look in how a camera matrix $C$ actually can be computed. 
+Since we are interested in modelling how a viewer sees structural colors on a given scene shape as shown in figure $\ref{fig:cameracoordinatesystem}$, modelling a viewer's eye by formulating the corresponding camera matrix $C$, is an important component of the whole transformation series applied in the vertex shader. Hence, we next will have a closer look in how a camera matrix $C$ actually can be computed. 
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.7]{implementation/cameracoodsyst.png}
-  \caption[Camera Coordinate System]{Illustration$\footnotemark$ of the Camera coordinate system where its origin defines the center of projection of camera.}
+  \caption[Camera Coordinate System]{Illustration$\footnotemark$ of the Camera coordinate system where its origin defines the center of projection of the camera.}
   \label{fig:cameracoordinatesystem}
 \end{figure}
 \footnotetext{This image has been taken from the lecture slides of computer graphics class 2012 which can be found on Ilias.}
 
-The camera matrix $C$ is constructed from its center of projection $e$, the position $d$ where the cameras looks at and a direction vector $up$, defining what is the direction in camera space pointing upwards. These components, $e$, $d$ and $up$, are defined in world coordinates. Figure $\ref{fig:cameramatrix}$ illustrates geometrical setup required in order to construct $C$.
+The camera matrix $C$ is constructed from its center of projection $e$, the position $d$ where the cameras looks at and a direction vector $up$, defining what is the direction in camera space pointing upwards. These components, $e$, $d$ and $up$, are defined in world coordinates. Figure $\ref{fig:cameramatrix}$ illustrates the geometrical setup required in order to construct $C$.
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.35]{implementation/cameramatrix.png}
-  \caption[Camera Matrix]{Illustration$\footnotemark$ of involved components in order to construct the camera matrix $C$. The eye-vector $e$ denotes the position of the camera in space, $d$ is the position the camera looks at, and $up$ denotes the cameras height. The camera space is spanned by the vectors helper vectors $x_c$, $y_c$ and $z_c$. Notice that objects we look at are in front of us, and thus have negative $z$ values}
+  \caption[Camera Matrix]{Illustration$\footnotemark$ of involved components in order to construct the camera matrix $C$. The eye-vector $e$ denotes the position of the camera in space, $d$ is the position the camera looks at, and $up$ denotes the cameras height. The camera space is spanned by the helper vectors $x_c$, $y_c$ and $z_c$. Notice that objects we look at are in front of us, and thus have negative $z$ values}
   \label{fig:cameramatrix}
 \end{figure}
 \footnotetext{This image has been taken from the lecture slides of computer graphics class 2012 which can be found on ILIAS.}
@@ -222,14 +222,14 @@ The mathematical representation of these vectors, $x_c$, $y_c$ and $z_c$, spanni
   \label{eq:cameraspacespanningvectors}
 \end{align}
 
-As we can see, $x_c$, $y_c$ and $z_c$ are independent unit vectors. Therefore, they span a 3d space, the so called camera matrix. In order to express a coordinate in camera space, we have to project it onto these unit vectors. Using a homogenous coordinates representation, this a projection onto these unit vectors can be formulated by the transformation matrix $C$:
+As we can see, $x_c$, $y_c$ and $z_c$ are independent unit vectors. Therefore, they span a 3d space, the so called camera matrix. In order to express a coordinate in camera space, we have to project it onto these unit vectors. Using a homogenous coordinates representation, this projection onto these unit vectors can be formulated by the transformation matrix $C$:
 
 \begin{equation}
   C = \begin{bmatrix} x_c & y_c & z_c & e \\ 0 & 0 & 0 & 1 \end{bmatrix}
   \label{eq:cameramatrixeq}
 \end{equation}
 
-In our vertex shader, besides transforming the vertex positions like described in equation $\ref{eq:vertextransformation}$, for every vertex, we also compute the direction vectors $\omega_i$ and $\omega_r$ described like in figure $\ref{fig:geometricsetup}$. Those direction vectors are transformed onto the tangent space, a local coordinate system spanned by a vertex's normal, tangent and binormal vector. For further information and more insight about the the tangent space, please have a look at the appendix in the section $\ref{sec:tangentspace}$. The algorithmic idea of our vertex shader, stating all its computational steps, is conceptualized in algorithm $\ref{alg:vertexshader}$.
+In our vertex shader, besides transforming the vertex positions as described in equation $\ref{eq:vertextransformation}$, for every vertex, we also compute the direction vectors $\omega_i$ and $\omega_r$ described like in figure $\ref{fig:geometricsetup}$. Those direction vectors are transformed onto the tangent space, a local coordinate system spanned by a vertex's normal, tangent and binormal vectors. For further information and more insight about the the tangent space, please have a look at the appendix in the section $\ref{sec:tangentspace}$. The algorithmic idea of our vertex shader, stating all its computational steps, is conceptualized in algorithm $\ref{alg:vertexshader}$.
 
 \begin{algorithm}[H]
 \caption{Vertex diffraction shader pseudo code}
@@ -274,15 +274,15 @@ As input, our vertex shader algorithm $\ref{alg:vertexshader}$ takes a mesh with
 \end{figure}
 \footnotetext{This image has been taken from the lecture slides of computer graphics class 2012 which can be found on ILIAS.}
 
-Last, in order to transform the positions of our mesh like described in equation $\ref{eq:vertextransformation}$, we also have to pass these transformation matrices$\footnote{When speaking about transformation matrices, we are refering to the model, camera and frustum matrix.}$. For simplification purposes, we introduced the following helper procedures used in the vertex shading algorithm:
+Last, in order to transform the positions of our mesh as described in equation $\ref{eq:vertextransformation}$, we also have to pass these transformation matrices$\footnote{When speaking about transformation matrices, we are refering to the model, camera and frustum matrices.}$. For simplification purposes, we introduced the following helper procedures used in the vertex shading algorithm:
 
 \begin{description}
   \item[normalize():] Computes the normalized version of a given input vector.
   \item[span():] Assembles a matrix from a given set of vectors. This matrix spans a vector space.
-  \item[projectVectorOnTo():] Takes two arguments, a vector and a matrix. The first argument is projected onto each column of a given matrix. And returns a vector living the space spanned by the given argument matrix.
+  \item[projectVectorOnTo():] Takes two arguments, a vector and the matrix. The first argument is projected onto each column of a given matrix. It returns a vector in the space spanned by the columns of the given argument matrix.
 \end{description}
 
-The output of our vertex shader is on the one side the transformed vertex position and on the other side the incident light $\omega_i$ and viewing direction $\omega_r$ both transformed into the tangent space. The output of the vertex shader is used as the input of the fragment shader, discussed in the next section.
+The output of our vertex shader includes the transformed vertex position, the incident light $\omega_i$ and viewing direction $\omega_r$ both transformed into the local tangent space at that vertex. The output of the vertex shader is used as the input of the fragment shader, as discussed in the next section.
 
 \subsection{Fragment Shader}
 \label{sec:fragmentshader}
