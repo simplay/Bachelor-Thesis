@@ -14,10 +14,10 @@
 \contentsline {paragraph}{Translation component $b$ of affine transformation:}{18}{section*.20}
 \contentsline {paragraph}{Scaling component $s$ of affine transformation:}{19}{section*.21}
 \contentsline {paragraph}{Final affine transformation:}{19}{section*.22}
-\contentsline {subsection}{\numberline {1.4.2}Texture Blending}{19}{subsection.1.4.2}
+\contentsline {subsection}{\numberline {1.4.2}Texture Blending}{20}{subsection.1.4.2}
 \contentsline {subsection}{\numberline {1.4.3}Color Transformation}{20}{subsection.1.4.3}
 \contentsline {section}{\numberline {1.5}Discussion}{21}{section.1.5}
 \contentsline {subsection}{\numberline {1.5.1}Comparison: per Fragment-vs. per Vertex-Shading}{21}{subsection.1.5.1}
 \contentsline {subsection}{\numberline {1.5.2}Optimization of Fragment Shading: NMM Approach}{21}{subsection.1.5.2}
-\contentsline {subsection}{\numberline {1.5.3}The PQ Shading Approach}{22}{subsection.1.5.3}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{24}{table.caption.26}
+\contentsline {subsection}{\numberline {1.5.3}The PQ Shading Approach}{23}{subsection.1.5.3}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{24}{equation.1.5.15}

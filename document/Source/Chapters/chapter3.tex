@@ -432,7 +432,7 @@ However, $u$, $v$ coordinates are assumed to be in a range $[-\frac{f_s}{2}, \fr
 Figure $\ref{fig:lookupexample}$ visualizes a particular DFT coefficients image for a blazed grating. In GLSL texture coordinates the range of such an image is $[0,1]^2$ whereas in a (u,v) coordinates system this would correspond to the range $[-\frac{f_s}{2}, \frac{f_s}{2}]^2$. Regarding the way the DFT terms were computed in Matlab, their zero frequency, i.e. $(u,v) = (0,0)$, is located at the center of the given DFT image. Since by convention the bottom left corner of a GLSL texture corresponds to the origin $(0,0)$ but we want to work with $(u,v)$ coordinates, we have to introduce a helper coordinate system $(u_{lookup}, v_{lookup})$. This helper coordinates can be computed by an affine transformation applied on $(u,v)$ coordinates. Hence, we will explain how to compute the scaling $s$ and translation $b$ components of our affine transformation: 
 
 \myparagraph{Translation component $b$ of affine transformation:}
-Since the zero frequency component of DFT images is shifted to its centre position, we have to shift the coordinates $u$ and $v$ to the center of the current $N$ by $N$ pixel image by a bias $b$. The translation $b$ is a constant value and is computed like the following:
+Since the zero frequency component of DFT images is shifted to its centre position, we have to shift the coordinates $u$ and $v$ to the center of the current $N \times N$ pixel image by a bias $b$ (representing a translation). The translation $b$ is a constant value and is computed like the following:
 
 \begin{align}
 b = \left\{ \begin{array}{rl}
@@ -451,7 +451,15 @@ Let $k$ denote the wavenumber which is equal to $\frac{2 \pi}{\lambda}$ for a gi
   w_0 = \frac{2 \pi}{T} = \frac{2 \pi}{N \cdot dH}
 \end{align}
 
-Thus, only wavenumbers that are integer multiples of $w_0$ after a multiplication with $u$ must be considered, i.e. $ku$ is integer multiple of $w_0$. Hence the lookup for the $u$-direction will look like:
+Thus, only wavenumbers that are integer multiples of $w_0$ after a multiplication with $u$ must be considered, i.e. $ku$ is an integer multiple of $w_0$. Hence the lookup for the $u$-direction will look like:
+
+\begin{align}
+    s_{look}(u)
+    &=\floor{s(u)}
+\label{eq:scalelookdisc}
+\end{align}
+
+where 
 
 \begin{align}
     s(u)
@@ -461,15 +469,15 @@ Thus, only wavenumbers that are integer multiples of $w_0$ after a multiplicatio
 \label{eq:scalelook}
 \end{align}
 
-The lookup for the $v$-direction is equal to $s(v)$ defined as in equation $\ref{eq:scalelook}$.
+The lookup for the $v$-direction is equal to $s_{look}(v)$ defined as in equation $\ref{eq:scalelookdisc}$.
 
 \myparagraph{Final affine transformation:}
 Using the translation from equation $\ref{eq:bias}$ and the scaling from equation $\ref{eq:scalelook}$, the transformed texture lookup-coordinates $(u_{look}, v_{look})$ for a given wavelength $\lambda$ is equal to:
 
 \begin{align}
   (u_{look}, v_{look}) 
-  &= \left(s(u)+b,s(v)+b \right) \nonumber \\
-  &= \left( \frac{u N dH}{\lambda} + b, \frac{v N dH}{\lambda} + b \right)
+  &= \left(s_{look}(u)+b,s_{look}(v)+b \right) \nonumber \\
+  &= \left( \floor{\frac{u N dH}{\lambda}} + b, \floor{\frac{v N dH}{\lambda}} + b \right)
 \label{eq:ublookup}
 \end{align}  
 
@@ -573,29 +581,23 @@ Figure $\ref{fig:nmmshadingapproach}$ illustrated the idea of the NMM shading ap
 
 \subsection{The PQ Shading Approach}
 \label{sec:pqapproach}
-Another variant is the $PQ$ approach described in section $\ref{sec:pq}$. In section $\ref{sec:sincinterpolation}$ we described how to interpolate the values relying on sinc functions. Algorithm $\ref{alg:sincinterpolation}$ describes the modification of the fragment shader in algorithm $\ref{alg:fragmentshaderall}$ in order to use sinc interpolation for the PQ approach instead of using a Gaussian window:
+Another variant is the $PQ$ approach described in section $\ref{sec:pq}$. In section $\ref{sec:sincinterpolation}$ we described how to interpolate the values relying on sinc functions. The algorithm of the PQ fragment shader is similar to the FLSS fragment shader described in algorithm $\ref{alg:fragmentshaderall}$. There are only two modifications of algorithm $\ref{alg:fragmentshaderall}$ required:
 
-\begin{algorithm}[H]
-\caption{Sinc interpolation for PQ approach}
-\begin{table}[H]
-  \begin{tabular}{@{}lll@{}}
-    \textbf{Input:} & same input as in algorithm $\ref{alg:fragmentshaderall}$ \\
-    \textbf{Output:} & $c_p:$ Structural Color based in the PQ approach (See section $\ref{sec:pq}$) \\
-  \end{tabular} 
-\end{table}
-\setlength{\fboxrule}{0pt} 
-\begin{boxedminipage}{1.0\textwidth}
-  \begin{algorithmic}[1]
-    \ForAll{$Pixel \thinspace p \in Image \thinspace I$}
-      \State $w_p = \sum_{(i,j) \in \mathcal{N}_{1}(p)} sinc(\Delta_{p,(i,j)} \cdot \pi + \epsilon) \cdot I(i,j)$
-      \State $c_p = w_p \cdot (p^2 + q^2)^{\frac{1}{2}}$
-    \EndFor
-  \end{algorithmic}
-  \end{boxedminipage}
-  \vskip1.5pt
-\label{alg:sincinterpolation}
-\end{algorithm}
+\begin{enumerate}
+  \item Replace the procedure $gaussianWeightOf$ from line 19 by a procedure called $sincWeightOf$.
+  \item Multiply $F_{fft}$ at line 23 by an additional weight called $pq$.
+\end{enumerate}
 
-In a fragment shader, for every fragment $p$ we compute its reconstructed function value $f(p)$ stored in $w_p$. The value $w_p$ is the reconstructed signal value at $f(p)$ by the sinc function as described in section $\ref{sec:sincinterpolation}$.
-Similar like for the gaussian windowing approach, we calculate the distance $\Delta_{p,(i,j)}$ between the current fragment position $p$ and each of its neighbors $(i,j) \in \mathcal{N}_{1}(p)$ in its one-neighborhood. Multiplying this distance by $\pi$ gives us the an angle used for the sinc function interpolation. Notice that, in order to avoid division by zeros side-effects, we add a small integer $\epsilon$ to our angle value.
+The procedure $sincWeightOf$ evaluates the sinc function from equation $\ref{eq:sincinterpolformula}$ and takes as input argument the distance $dist$ defined at line 16 in the algorithm $\ref{alg:fragmentshaderall}$$\footnote{Technically, we multiply this distance by $\pi$, which gives us the an angle used for the sinc function interpolation. Notice that, in order to avoid division by zeros side-effects, we add a small integer $\epsilon$ to our angle value.}$. The $pq$ weight is equal to 
+
+\begin{equation}
+  pq = (p^2 + q^2)^{\frac{1}{2}}
+\end{equation}
+
+where the factors $p$ and $q$ are defined as in equation $\ref{eq:pqsubst2}$.
+
+
+
+
+
 
