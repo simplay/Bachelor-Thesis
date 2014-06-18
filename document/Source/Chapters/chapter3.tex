@@ -481,7 +481,7 @@ Note that for the Windowing Approach, used in algorithm $\ref{alg:fragmentshader
 \end{equation}
 
 \subsection{Texture Blending}
-So far, we have seen how to render structural colors caused when light is diffracted on a grating. But usually, many objects, such as a snake mesh, also have a texture associated with. Therefore, will have a closer look how to combine colors of a given texture with computed structural colors. For this purpose we will use a so called texture blending approach. This means that, for each pixel, its final rendered color is a weighted average of different color components, such as the diffraction color, the texture color and the diffuse color. In our shader the diffraction color is weighted by a constant $w_{diffuse}$, denoting the weight of the diffuse color part. The texture color is once scales by the absolute value of the Fresnel Term $F$ and once by $1-w_{diffuse}$. Algorithm $\ref{alg:textureblending}$ shows in depth how our texture blending is implemented:
+So far, we have seen how to render structural colors caused by light when diffracted on a grating. But usually, many objects, such as a snake mesh, also have a texture associated with it. Therefore, will have a closer look at how to combine colors of a given texture with computed structural colors. For this purpose we will use a so called texture blending approach. This means that, for each pixel, its final rendered color is a weighted average of different color components, such as the diffraction color, the texture color and the diffuse color. In our shader the diffraction color is weighted by a constant $w_{diffuse}$, denoting the weight of the diffuse color part. The texture color is once scaled by the absolute value of the Fresnel Term $F$ and once by $1-w_{diffuse}$. Algorithm $\ref{alg:textureblending}$ shows in depth how our texture blending is implemented:
 
 \begin{algorithm}[H]
 \caption{Texture Blending}
@@ -510,25 +510,25 @@ So far, we have seen how to render structural colors caused when light is diffra
 \subsection{Color Transformation}
 \label{subsec:colortransformations}
 
-In our fragment shader, we access a table which contains precomputed CIE's color matching functions values$\footnote{Such a function value table can be found at \texttt{cvrl.ioo.ucl.ac.uk} for example}$ from $\lambda_{min} = 380 nm$ to $\lambda_{max} = 780 nm$ in $5 nm$ steps. In algorithm $\ref{alg:fragmentshaderall}$ we describe how to compute the $CIE_{XYZ}$ color values as described in section $\ref{sec:colorspace}$. We can transform the color values into $CIE_{sRGB}$ gamut by performing the following linear transformation:
+In our fragment shader, we access a table which contains precomputed CIE's color matching functions values$\footnote{Such a function value table can be found at \texttt{cvrl.ioo.ucl.ac.uk} for example}$ from $\lambda_{min} = 380 nm$ to $\lambda_{max} = 780 nm$ in $5 nm$ steps. In algorithm $\ref{alg:fragmentshaderall}$ we describe how to compute the $CIE_{XYZ}$ color values as described in section $\ref{sec:colorspace}$. We can transform the color values into a $CIE_{sRGB}$ gamut by performing the following linear transformation:
 
 \begin{equation}
-  \begin{bmatrix}R\\G\\B\end{bmatrix} = M \cdot \begin{bmatrix}X\\Y\\Z\end{bmatrix}
+  \begin{bmatrix}R\\G\\B\end{bmatrix} = M^{-1} \cdot \begin{bmatrix}X\\Y\\Z\end{bmatrix}
 \end{equation} 
 
-where one possible transformation is: 
+where one possible transformation for $M$ is: 
 
 \begin{equation}
   M = \begin{bmatrix} 0.41847 & -0.15866 & -0.082835\\ -0.091169 & 0.25243 & 0.015708\\ 0.00092090 & -0.0025498 & 0.17860 \end{bmatrix}
 \end{equation}
 
-One aspect we have to keep in mind is what is the tristimulus value of the color defining our white point in our images. Defining what tristimulus value whit corresponds to, usually depends on the application. For our shaders we use use the CIE Standard Illuminant $D65$. $D65$ is intended to represent an average midday sun daylight. Applying the D65 illuminant, the whole colorspace transformation will look like:
+We may white-balance our results by using the tristimulus value of the color defining the white point in our images. Defining what tristimulus value white corresponds to, usually depends on the application. For our shaders we use the CIE Standard Illuminant $D65$. $D65$ is intended to represent an average midday sun daylight. Applying the D65 illuminant, the whole colorspace transformation will look like:
 
 \begin{equation}
-\begin{bmatrix}R\\G\\B\end{bmatrix} = M \cdot \begin{bmatrix}X / D65.x \\ Y / D65.y \\Z / D65.z \end{bmatrix} 
+\begin{bmatrix}R\\G\\B\end{bmatrix} = M^{-1} \cdot \begin{bmatrix}X / D65.x \\ Y / D65.y \\Z / D65.z \end{bmatrix} 
 \end{equation}
 
-Each component of the Standard Illuminant acts as rescaling factor according to the white-point definition of $D65$ for our computed color values. Last, we perform a gamma correction on each pixel's $(R,G,B)$ value. A gamma correction is a non linear transformation which controls the overall brightness of an image$\footnote{For further information about gamma correction, please have a look in the book \emph{Fundamentals of Computer Graphics}$\cite{fundcg}$.}$.
+Each component of the Standard Illuminant acts as a rescaling factor according to the white-point definition of $D65$ for our computed color values. Last, we perform a gamma correction on each pixel's $(R,G,B)$ value. A gamma correction is a non linear transformation which controls the overall brightness of an image$\footnote{For further information on gamma correction, please refer the book \emph{Fundamentals of Computer Graphics}$\cite{fundcg}$.}$.
 
 \section{Discussion}
 \label{sec:impldiscus}
