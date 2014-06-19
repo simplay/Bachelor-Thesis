@@ -1,23 +1,8 @@
 \select@language {english}
-\contentsline {chapter}{\numberline {1}Theoretical Background}{1}{chapter.1}
-\contentsline {section}{\numberline {1.1}Basics in Modelling Light in Computer Graphics}{1}{section.1.1}
-\contentsline {subsection}{\numberline {1.1.1}Radiometry}{1}{subsection.1.1.1}
-\contentsline {subsection}{\numberline {1.1.2}Spectral Energy}{1}{subsection.1.1.2}
-\contentsline {subsection}{\numberline {1.1.3}Spectral Power}{2}{subsection.1.1.3}
-\contentsline {subsection}{\numberline {1.1.4}Spectral Irradiance}{2}{subsection.1.1.4}
-\contentsline {subsection}{\numberline {1.1.5}Spectral Radiance}{2}{subsection.1.1.5}
-\contentsline {subsection}{\numberline {1.1.6}BRDF}{3}{subsection.1.1.6}
-\contentsline {subsection}{\numberline {1.1.7}Wavespectrum and Colors}{4}{subsection.1.1.7}
-\contentsline {subsection}{\numberline {1.1.8}Colorspace}{5}{subsection.1.1.8}
-\contentsline {subsection}{\numberline {1.1.9}Spectral Rendering}{7}{subsection.1.1.9}
-\contentsline {subsection}{\numberline {1.1.10}Rendering Equation}{8}{subsection.1.1.10}
-\contentsline {section}{\numberline {1.2}Wave Theory for Light and Diffraction}{8}{section.1.2}
-\contentsline {subsection}{\numberline {1.2.1}Basics in Wave Theory}{8}{subsection.1.2.1}
-\contentsline {subsection}{\numberline {1.2.2}Wave Interference}{10}{subsection.1.2.2}
-\contentsline {subsection}{\numberline {1.2.3}Wave Coherence}{11}{subsection.1.2.3}
-\contentsline {subsection}{\numberline {1.2.4}Huygen's Principle}{12}{subsection.1.2.4}
-\contentsline {subsection}{\numberline {1.2.5}Waves Diffraction}{13}{subsection.1.2.5}
-\contentsline {section}{\numberline {1.3}Stam's BRDF formulation}{14}{section.1.3}
-\contentsline {paragraph}{Fourier Transformation Sign Convention}{17}{section*.17}
-\contentsline {section}{\numberline {1.4}Rendering Surface Geometries using the NMM approach}{18}{section.1.4}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{19}{figure.caption.18}
+\contentsline {chapter}{\numberline {1}Results}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}BRDF maps}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Rendering Surface Geometries}{14}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}A Comparison with Stam}{19}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Merge with above subsec}{21}{subsection.1.2.2}
+\contentsline {section}{\numberline {1.3}Rendering Surface Geometries using the NMM approach}{23}{section.1.3}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{24}{figure.caption.26}

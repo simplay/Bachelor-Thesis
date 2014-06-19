@@ -121,7 +121,7 @@ Last, let us consider figure $\ref{fig:brdfmapblazegem}$ which shows the BRDF ma
 \label{fig:brdfmapsdiffrenderingapproaches}
 \end{figure}
 
-Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdifflambdastepselaphe65}$ show the BRDF maps for different wavelength step sizes used in the fragment shader for the FLSS approach applied to the blazed grating and the Elaphe snake shed, respectively. Within our fragment shaders the outermost loop iterates over the range $[380nm, 780nm]$ for a given step size $\lambda_{step}$ to integrate over the wavelength spectrum. Having bigger step sizes implies having fewer $\lambda$-samples which will reduce the overall runtime of a shader but, it will also introduce artifacts and therefore lower the overall shading quality. For Elaphe surface grating, artifacts are perceivable when $\lambda_{step} \leq 10nm$. Results produced by using $5nm$ step sizes do not differ from those produced by using $\lambda_{step}= 1nm$. This allows us to set $\lambda_{step}$ at 5nm. For a Blazed grating we may chose even bigger step sized without losing any rendering quality(see figure $\ref{fig:brdfmapsdifflambdastepsblaze}$).   
+Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdifflambdastepselaphe65}$ show the BRDF maps for different wavelength step sizes used in the fragment shader for the FLSS approach applied to the blazed grating and the Elaphe snake shed, respectively. Within our fragment shaders the outermost loop iterates over the range $[380nm, 780nm]$ for a given step size $\lambda_{step}$ to integrate over the wavelength spectrum as illustrated in algorithm $\ref{alg:fragmentshaderall}$. Having bigger step sizes implies having fewer $\lambda$-samples which will reduce the overall runtime of a shader but it will also introduce artifacts and therefore lower the overall shading quality. For an Elaphe surface grating, artifacts are perceivable when $\lambda_{step} \geq 10nm$. Results produced by using $5nm$ step sizes do not differ from those produced by using $\lambda_{step}= 1nm$. This allows us to set $\lambda_{step}$ at $5nm$. For a Blazed grating we may chose even bigger step sized without losing any rendering quality(see figure $\ref{fig:brdfmapsdifflambdastepsblaze}$).   
 
 \begin{figure}[H]
   \centering
@@ -192,24 +192,17 @@ Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdif
 \label{fig:brdfmapsdifflambdastepselaphe65}
 \end{figure}
 
-The figures $\ref{fig:pqblaze}$, $\ref{fig:pqelaphe}$, $\ref{fig:pqxeno}$ show a comparison of the BRDF maps produced by the FLSS approach (on the left) and the PQ shading approach (on the right) applied on all our patches. For Blazed grating, as already mentioned, we notice that both approaches, FLSS and PQ, resemble each other. We also notice that for PQ map, the first order diffraction color contribution is spread. For the Elaphe and Xenopeltis grating we notice similar shaped BRDF patterns, even when the angle of light varies, but nevertheless, they also contain some artifacts. \\
-
-In genral, a Blazed Grating is manufactured in a way that a large fraction of the incident light is diffracted preferentially into the first order. Therefore, most of the energy in its BRDF map lies in the first order of diffraction at its blaze angle. This implies that largest portion of the color contribution, visible on the corresponding BRDF map, lies at that angle. In figure $\ref{fig:pqblaze}$, in contrast to the results produced by the FLSS approach, we see color fringes at the first order modes in the BRDF map produced by our PQ approach. This implies that the PQ approach does not produce reliable results which also affirms our evaluation plots shown in figure $\ref{fig:evaluationdiffshaderpq}$. A similar argumentation hold true for the PQ approach, when we do not apply we a sinc-interpolation like shown in figure $\ref{fig:pqBlaze}$.
+The figures $\ref{fig:pqblaze}$, $\ref{fig:pqelaphe}$, $\ref{fig:pqxeno}$ show a comparison of the BRDF maps produced by the FLSS approach (on the left) and the PQ shading approach (on the right) applied on all our patches. For Blazed grating, as already mentioned, we notice that both approaches, FLSS and PQ, look similar but have notable differences. In the PQ map, the first order diffraction color contribution is spread. In genral, a Blazed Grating is manufactured in a way that a large fraction of the incident light is diffracted preferentially into the first order. Therefore, most of the energy in its BRDF map lies in the first order of diffraction at its blaze angle. This implies that largest portion of the color contribution, visible on the corresponding BRDF map, lies at that angle. In figure $\ref{fig:pqblaze}$, in contrast to the results produced by the FLSS approach, we see color fringes at the first order modes in the BRDF map produced by our PQ approach. This implies that the PQ approach does not produce reliable results which also affirms our evaluation plots shown in figure $\ref{fig:evaluationdiffshaderpq}$. The BRDF resulting BRDF mapf for the Elaphe and Xenopeltis gratings using the PQ approach are similar to those resulting by the FLSS approach. Nevertheless they also exhibit some artifacts, similar to these discussed for the Blazed grating.
 
 \begin{figure}[H]
   \centering
   \subfigure[FLSS Approach: Blazed grating]{
-    \includegraphics[scale=0.16]{nresults/brdfmaps/approaches_blazed/flss.png}
+    \includegraphics[scale=0.25]{nresults/brdfmaps/approaches_blazed/flss.png}
     \label{fig:fullLambdaBlaze}
   }
 ~
-  \subfigure[PQ Approach: Blazed grating]{
-            \includegraphics[scale=0.16]{nresults/brdfmaps/approaches_blazed/pq.png}
-    \label{fig:fullLambdaBrightenedBlaze}
-  }
-~
   \subfigure[PQ Sinc Interpolation Approach: Blazed grating]{
-    \includegraphics[scale=0.16]{nresults/brdfmaps/approaches_blazed/pqsinc.png}
+    \includegraphics[scale=0.25]{nresults/brdfmaps/approaches_blazed/pqsinc.png}
     \label{fig:pqBlaze}
   }
 \caption[BRDF Map: PQ vs FLSS Approach on Blazed Grating]{A comparison between the PQ- and the FLSS approach applied on an Blazed grating.}
@@ -268,7 +261,7 @@ In genral, a Blazed Grating is manufactured in a way that a large fraction of th
 \label{fig:pqxeno}
 \end{figure}
 
-Figure $\ref{fig:brdfmapsdiffsigmasizeblaze}$ shows BRDF maps for the full lambda sampling approach applied to the Blazed grating, while varying the value for the spatial variance $\sigma_s$. This akin to changing the coherence length for the incident light. The lower the coherence length, the fewer interacting grating periods produce blurred diffraction bands for different $\lambda$ which overlap to produce poorly resolved colors.
+Figure $\ref{fig:brdfmapsdiffsigmasizeblaze}$ shows BRDF maps for the FLSS approach when applied to the Blazed grating, while varying the value for the spatial variance $\sigma_s$ for the coherence window. This is akin to changing the coherence length for the incident light. We see that the lower the coherence length gets, the fewer of the interacting grating periods are involved. Having fewer periods cause the production of overlapping blurry diffraction bands (i.e. blobs, see e.g. figure $\ref{fig:brdfmapsDiffSigmaStepsL5Blaze}$) for different wavelengths $\lambda$. Thus, when reducing the number of periods this will produces blurry artifiacts which ends in having poorly resolved colors.  
 
 \begin{figure}[H]
   \centering
@@ -306,13 +299,28 @@ Figure $\ref{fig:brdfmapsdiffsigmasizeblaze}$ shows BRDF maps for the full lambd
 \label{fig:brdfmapsdiffsigmasizeblaze}
 \end{figure}
 
-Figures $\ref{fig:brdfmapstayloriterationsblaze}$ and $\ref{fig:brdfmapstayloriterationselaphe65}$ show the BRDF maps the reference-, FLSS approach using different values for $N$ in the taylor series approximation. For both input patches we clearly visually observe the convergence of the taylor series for higher values of N. We visually observe convergence of the Taylor series for all our patches a very large value of $N$$\footnote{Using N equal to 39 lead to visual convergence for all our used gratings.}$. \\
+Figures $\ref{fig:brdfmapstayloriterationsblaze}$ and $\ref{fig:brdfmapstayloriterationselaphe65}$ show the BRDF maps for the FLSS approach using a different number of terms $N$ used in the Taylor series approximation. For both input patches we clearly, visually observe the convergence of the taylor series for higher values of N. We visually observe convergence of the Taylor series for all our patches for a very large value of $N$$\footnote{Using N equal to 40 lead to visual convergence for all our used gratings.}$. \\
 
-Like discussed in section $\ref{sec:taylorapproximation}$ there exists a certain value of $N$ for which our approach converges. For all our shading approaches, applied on our gratings, we visually observed a convergence of their BRDF maps when using $N \geq 39$ DFT terms. Furthermore, for a Blazed grating it satisfies to use only $N \geq 7$ - and for an Elaphe grating only $N \geq 9$ DFT terms. Notice, that these numbers of required DFT terms were empirically determined by trial and error strategy. \\
+As discussed in section $\ref{sec:taylorapproximation}$ there exists a certain value of $N$ for which our approach converges. For all our shading approaches, applied on our gratings, we visually observed a convergence of their BRDF maps when using $N \geq 39$ DFT terms. Furthermore, for a Blazed grating it suffices to use only $N \geq 7$ - and for an Elaphe grating only $N \geq 9$ DFT terms. Notice, that these numbers of required DFT terms were empirically determined with a trial and error strategy. \\
 
-However, by making use of taylor error term estimates, like introduced in the appendix section $\ref{chap:taylorseriesapproxappendix}$, we can derive an upper bound for $N$. Since this computation is dependent on many aspects, such as on the grating spacing, the pixel-width correspondence, the used lambda space for sampling, it is usually simpler to determine empirically actual values for $N$. \\
+However, by making use of Taylor error term estimates, as introduced in the appendix section $\ref{chap:taylorseriesapproxappendix}$, we can derive an upper bound for $N$. This computation is dependent on many aspects, such as on the grating spacing, the sampling rate $dH$ and the used wavelenght spectrum. Thus, it is usually simpler to empirically determine an actual value for $N$ to be used. \\
 
-In algorithm $\ref{alg:matlabprecomp}$ we compute the DFT terms of a provided height field $h$ raised to the power of the imaginary number i times an integer, i.e. we evaluate the expression $DFT(h)^n \cdot i^n$. Since we multiply our height field by $i^n$ and then apply the DFT operator, basically, there exist four possible convergence images, each having its own convergence radius.
+In algorithm $\ref{alg:matlabprecomp}$ we compute different powers of DFT terms of our height fields $h$ by evaluating the expression $DFT(h)^n \cdot i^n$, where $i$ denotes the imaginary number $i$ and $n$ is a natural number. Note that when appliyng the DFT operator on a real or complex number (e.g. such as one particular value of our height field) we get a complex number. Using our Taylor series approximation has basically four possible convergence images, each having its own convergence radius. The reason for this is due to the fact we are multiplying the DFT terms by $i^n$. \\
+
+In order to understand the reason behind this, let us consider the complex unit $i$. Raising $i$ to the power of a natural number $n$ leaves us four possible results as shown in equation $\ref{eq:thefourunits}$:
+ 
+\begin{align}
+  i^n = \left\{ \begin{array}{rl}
+  1 &\mbox{ if $n \equiv_4 0$} \\
+  i &\mbox{ if $n \equiv_4 1$} \\
+  -1 &\mbox{ if $n \equiv_4 2$} \\
+  -i &\mbox{ otherwise}
+  \end{array} \right.
+\label{eq:thefourunits}
+\end{align}
+
+Thus multiplying a complex number $c$, such as particular value of a DFT term, by $i$ raised to a certain power, will permute the the value of $c$.
+Since we compute $\sum_{k=0}^N DFT(h)^k \cdot i^k$ we can split this summation into four partial summations, according to their applied power factor $i$. Each of these summands converges with a different convergence radius.
 
 \begin{figure}[H]
   \centering
@@ -387,7 +395,7 @@ In algorithm $\ref{alg:matlabprecomp}$ we compute the DFT terms of a provided he
 \label{fig:brdfmapstayloriterationselaphe65}
 \end{figure}
 
-Figure $\ref{fig:brdfmapsxenodiffthetaiangles}$ shows the BRDF maps of the FLSS approach applied on the Xenopeltis snake shed, using different $\theta_i$ incident angles. When slightly moving the incident angle $\theta_i$, we can observe how the BRDF map changes. For higher values of $\theta_i$ we start seeing diffraction color contribution on the right side of the BRDF map. 
+Figure $\ref{fig:brdfmapsxenodiffthetaiangles}$ shows the BRDF maps of the FLSS approach applied on the Xenopeltis snake shed, using different $\theta_i$ incident angles. When slightly moving the incident angle $\theta_i$, we can observe how the BRDF map changes. For higher values of $\theta_i$ we start seeing additional diffraction color contributions on the right side of the BRDF map. 
 
 \begin{figure}[H]
   \centering
