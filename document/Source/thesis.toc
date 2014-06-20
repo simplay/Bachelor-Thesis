@@ -1,9 +1,8 @@
 \select@language {english}
-\contentsline {chapter}{\numberline {1}Evaluation and Data Acquisition}{1}{chapter.1}
-\contentsline {section}{\numberline {1.1}Diffraction Gratings}{1}{section.1.1}
-\contentsline {section}{\numberline {1.2}Data Acquisition}{5}{section.1.2}
-\contentsline {section}{\numberline {1.3}Verifications}{6}{section.1.3}
-\contentsline {subsection}{\numberline {1.3.1}Numerical Comparisons}{7}{subsection.1.3.1}
-\contentsline {subsection}{\numberline {1.3.2}Virtual Testbench}{9}{subsection.1.3.2}
-\contentsline {section}{\numberline {1.4}Rendering Surface Geometries using the NMM approach}{12}{section.1.4}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{13}{figure.caption.14}
+\contentsline {chapter}{\numberline {1}Results}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}BRDF maps}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Rendering Surface Geometries}{14}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}A Comparison with Stam}{19}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Merge with above subsec}{21}{subsection.1.2.2}
+\contentsline {section}{\numberline {1.3}Rendering Surface Geometries using the NMM approach}{23}{section.1.3}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{24}{figure.caption.26}

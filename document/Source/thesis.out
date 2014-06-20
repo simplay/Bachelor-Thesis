@@ -1,8 +1,7 @@
-\BOOKMARK [0][-]{chapter.1}{Evaluation\040and\040Data\040Acquisition}{}% 1
-\BOOKMARK [1][-]{section.1.1}{Diffraction\040Gratings}{chapter.1}% 2
-\BOOKMARK [1][-]{section.1.2}{Data\040Acquisition}{chapter.1}% 3
-\BOOKMARK [1][-]{section.1.3}{Verifications}{chapter.1}% 4
-\BOOKMARK [2][-]{subsection.1.3.1}{Numerical\040Comparisons}{section.1.3}% 5
-\BOOKMARK [2][-]{subsection.1.3.2}{Virtual\040Testbench}{section.1.3}% 6
-\BOOKMARK [1][-]{section.1.4}{Rendering\040Surface\040Geometries\040using\040the\040NMM\040approach}{chapter.1}% 7
-\BOOKMARK [0][-]{figure.caption.14}{Bibliography}{}% 8
+\BOOKMARK [0][-]{chapter.1}{Results}{}% 1
+\BOOKMARK [1][-]{section.1.1}{BRDF\040maps}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{Rendering\040Surface\040Geometries}{chapter.1}% 3
+\BOOKMARK [2][-]{subsection.1.2.1}{A\040Comparison\040with\040Stam}{section.1.2}% 4
+\BOOKMARK [2][-]{subsection.1.2.2}{Merge\040with\040above\040subsec}{section.1.2}% 5
+\BOOKMARK [1][-]{section.1.3}{Rendering\040Surface\040Geometries\040using\040the\040NMM\040approach}{chapter.1}% 6
+\BOOKMARK [0][-]{figure.caption.26}{Bibliography}{}% 7
