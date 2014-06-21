@@ -178,6 +178,7 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 //		float dimX = m.getPatchDimX();
 		// see images and estimate
 		float dimX = m.getPatchDimX();
+//		dimX = 1.552E-6f;
 		System.out.println("dim x " + dimX);
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "dimX");
 		gl.glUniform1f(id3, width);
@@ -200,6 +201,7 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		
 //		float to = (dimX/width);
 		float dh = scalingFactors[3];
+//		dh = 1.552e-9f;
 //		to = (float)dh;
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "t0");
 		gl.glUniform1f(id3, dh);
@@ -211,6 +213,7 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		System.out.println("patch spacing in microns: " + dx);
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "dx");
 		gl.glUniform1f(id3, dx);
+		
 		
 		float minSpacer = (float) (dx / 0.38f);
 		float maxSpacer = (float) (dx / 0.78f);

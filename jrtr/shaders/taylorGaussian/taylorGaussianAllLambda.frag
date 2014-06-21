@@ -486,14 +486,14 @@ void mainBRDFMap(){
 	vec3 totalXYZ = getRawXYZFromTaylorSeries(uu, vv, ww);
 
 	
-	totalXYZ = totalXYZ*gainF(k1, k2)*150.0*shadowF;
+	totalXYZ = totalXYZ*gainF(k1, k2)*1000.0*shadowF;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
 	if(isnan(totalXYZ.x*totalXYZ.y*totalXYZ.z)){
 		totalXYZ.x = 1.0;
 		totalXYZ.y = 1.0;
 		totalXYZ.z = 0.0;
 	}
-	frag_shaded = vec4(gammaCorrect(totalXYZ, 2.5), 1.0);
+	frag_shaded = vec4(gammaCorrect(totalXYZ, 2.3), 1.0);
 }
 
 
@@ -518,9 +518,9 @@ void gemMain(){
 	k2.y = sin(thetaR)*sin(phiR);
 	k2.z = cos(thetaR);
 	
-	float u = k1.x - k2.x;
-	float v = k1.y - k2.y;
-	float w = k1.z - k2.z;
+//	float u = k1.x - k2.x;
+//	float v = k1.y - k2.y;
+//	float w = k1.z - k2.z;
 	
 
 	
@@ -537,9 +537,9 @@ void gemMain(){
 	
 	
 	float shadowF = getShadowMaskFactor(lightDir, Pos);
-//	float u = lightDir.x - Pos.x;
-//	float v = lightDir.y - Pos.y;
-//	float w = lightDir.z - Pos.z;
+	float u = lightDir.x - Pos.x;
+	float v = lightDir.y - Pos.y;
+	float w = lightDir.z - Pos.z;
 	
 	
 //	float r = 10.50; // snake
@@ -561,8 +561,8 @@ void gemMain(){
 	vec4 cdiff = vec4(0, 0, 0, 1);
 	
 	// 2.5microns
-	float d = 2.5;
-//	float d = 1.55227;
+//	float d = 2.5;
+	float d = 1.55227;
 //	float d = 2.5;
 	// bruteforce spacing
 //	d = bruteforcespacing*1;
@@ -606,7 +606,7 @@ void gemMain(){
 	float value = (getShadowMaskFactor(lightDir, Pos)*gainF(lightDir, Pos));
 	value = (value < 0.0) ? 0.0 : value;
 //	value = getShadowMaskFactor(lightDir, Pos);
-	vec3 pewpew = 1.0*totalXYZ*value;
+	vec3 pewpew = 1.2*totalXYZ*value;
 	
 	// frag_shaded = vec4(pewpew,1.0);
 	frag_shaded = anis*vec4(gammaCorrect(pewpew, 2.6), 1.0);
@@ -653,14 +653,14 @@ vec2 getNMMfor(float t, float spacing) {
 }
 
 void main(){
-	gemMain();
+//	gemMain();
 //	if(isCone==1){
 //		coneMain();
 //	}else{
 //		if(renderBrdfMap == 1){
 //			mainBRDFMap();
 //		}else{
-//			mainRenderGeometry();
+			mainRenderGeometry();
 //		}
 //	}
 	

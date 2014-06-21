@@ -23,25 +23,25 @@
 \contentsline {figure}{\numberline {2.7}{\ignorespaces interference}}{15}{figure.caption.12}
 \contentsline {figure}{\numberline {2.8}{\ignorespaces Two mathematical sine waves which are perfectly coherent which means that their phase difference is constant for every point in time.\relax }}{16}{figure.caption.13}
 \contentsline {figure}{\numberline {2.9}{\ignorespaces Huygen's Principle}}{18}{figure.caption.14}
-\contentsline {figure}{\numberline {2.10}{\ignorespaces Diffracted Wave}}{19}{figure.caption.15}
-\contentsline {figure}{\numberline {2.11}{\ignorespaces diffractiondiemsnion}}{20}{figure.caption.16}
-\contentsline {figure}{\numberline {2.12}{\ignorespaces Idea behind Stam's approach}}{21}{figure.caption.17}
-\contentsline {figure}{\numberline {2.13}{\ignorespaces Stam's geometrical setup}}{22}{figure.caption.18}
-\contentsline {figure}{\numberline {2.14}{\ignorespaces Comparing Stam's apporach: Gratings}}{23}{figure.caption.19}
-\contentsline {figure}{\numberline {2.15}{\ignorespaces Comparing Stam's apporach: Good Example}}{24}{figure.caption.20}
-\contentsline {figure}{\numberline {2.16}{\ignorespaces Comparing Stam's apporach: Bad Example}}{24}{figure.caption.21}
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Diffracted Wave}}{18}{figure.caption.15}
+\contentsline {figure}{\numberline {2.11}{\ignorespaces diffractiondiemsnion}}{19}{figure.caption.16}
+\contentsline {figure}{\numberline {2.12}{\ignorespaces Idea behind Stam's approach}}{20}{figure.caption.17}
+\contentsline {figure}{\numberline {2.13}{\ignorespaces Stam's geometrical setup}}{21}{figure.caption.18}
+\contentsline {figure}{\numberline {2.14}{\ignorespaces Comparing Stam's apporach: Gratings}}{22}{figure.caption.19}
+\contentsline {figure}{\numberline {2.15}{\ignorespaces Comparing Stam's apporach: Good Example}}{23}{figure.caption.20}
+\contentsline {figure}{\numberline {2.16}{\ignorespaces Comparing Stam's apporach: Bad Example}}{23}{figure.caption.21}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Problem Statement}}{26}{figure.caption.22}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Problem Statement: Output}}{27}{figure.caption.23}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces FT by DTFT}}{29}{figure.caption.24}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {W $\ll $ $\lambda $}}}{29}{figure.caption.24}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {W $\approx $ $2 \lambda $}}}{29}{figure.caption.24}
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {W $\approx $ $6 \lambda $}}}{29}{figure.caption.24}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Structure Geometry}}}{29}{figure.caption.24}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Nanostructure Surface}}}{29}{figure.caption.24}
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Patch Orientation}}}{29}{figure.caption.24}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Comparission between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\mathaccentV {hat}65E{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.\relax }}{41}{figure.caption.27}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Problem Statement}}{25}{figure.caption.22}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Problem Statement: Output}}{26}{figure.caption.23}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces FT by DTFT}}{28}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {W $\ll $ $\lambda $}}}{28}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {W $\approx $ $2 \lambda $}}}{28}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {W $\approx $ $6 \lambda $}}}{28}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Structure Geometry}}}{28}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Nanostructure Surface}}}{28}{figure.caption.24}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Patch Orientation}}}{28}{figure.caption.24}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Comparission between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\mathaccentV {hat}65E{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.\relax }}{40}{figure.caption.27}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {C.1}{\ignorespaces Cube in world space $(x,y,z)$ showing the tangen space $(u,v,n)$ of its face $(2,1,3)$\relax }}{49}{figure.caption.30}
+\contentsline {figure}{\numberline {C.1}{\ignorespaces Cube in world space $(x,y,z)$ showing the tangen space $(u,v,n)$ of its face $(2,1,3)$\relax }}{48}{figure.caption.30}

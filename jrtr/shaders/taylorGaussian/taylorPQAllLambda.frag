@@ -947,7 +947,7 @@ void main()
 	// vec3 totalXYZ2 = getRawXYZFromTaylorSeries( uu, vv, -2.0f);
 	
 	
-	 totalXYZ = totalXYZ * gainF(k1, k2)*15.0;
+	 totalXYZ = totalXYZ * gainF(k1, k2)*25.0;
 	//totalXYZ = totalXYZ *100;
 	
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
@@ -969,6 +969,6 @@ void main()
 	}
 
 
-	frag_shaded = vec4(gammaCorrect(totalXYZ,2.2), 1.0);
+	frag_shaded = vec4(gammaCorrect(totalXYZ,2.5), 1.0);
 	// frag_shaded = vec4(totalXYZ , 1.0);
 }

@@ -359,14 +359,33 @@ public class SincInterpolFreqRespGen extends LookupGeneratorSincInterpol {
 		
 		// following call loads FFT values at given indices in temp buffers ie tmpRE, tmpIM
 		// get indices in pixel units
-		loadFFTValuesFor(vv, uu, imgCnt);
+//		loadFFTValuesFor(vv, uu, imgCnt);
+		
+		
+		int fftWW = this.fftImages[0].imWidth;
+		int fftHH = this.fftImages[0].imHeight;
+		
+		double uuInTxt = orgU + uu*fftWW;
+		double vvInTxt = orgV + vv*fftHH;
+		
+		int anchorX = (int)(Math.floor(uuInTxt));
+		int anchorY = (int)(Math.floor(vvInTxt));
+		
+		System.out.println(anchorX + " " + anchorY);
+		
+//		float aaa = this.fftImages[imgCnt].real[anchorY][anchorX];
+//		float bbb = this.fftImages[imgCnt].imag[anchorY][anchorX];
+//		
+//		
+		
+		
 		double sumRealOverP = 0.0f;
 		double sumImagOverP = 0.0f;
 		
 		for (int n = 0; n <  imgCnt; ++n)
 		{
-			sumRealOverP += (Math.pow(2.0 * Math.PI, n) * (tmpRE[n] / Math.pow( currLambda[lIdx], n)) / facto[n]);
-			sumImagOverP += (Math.pow(2.0 * Math.PI, n) * (tmpIM[n] / Math.pow( currLambda[lIdx], n)) / facto[n]);
+			sumRealOverP += (Math.pow(2.0 * Math.PI, n) * (this.fftImages[n].real[anchorY][anchorX] / Math.pow( currLambda[lIdx], n)) / facto[n]);
+			sumImagOverP += (Math.pow(2.0 * Math.PI, n) * (this.fftImages[n].imag[anchorY][anchorX] / Math.pow( currLambda[lIdx], n)) / facto[n]);
 		}
 		
 
