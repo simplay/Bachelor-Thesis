@@ -505,7 +505,7 @@ Figure $\ref{fig:renderingelaphe65}$ shows a set of subfigures for rendering the
 \end{figure}
 
 
-Figure $\ref{fig:renderingxeno65}$ shows a set of subfigures for the effect of diffraction for the Xenopeltis snake surface. For Xenopeltis we see quite a lot color contribution due the phenomenon of diffraction like shown in figure $\ref{fig:renderingXeno65FT}$. Comparing this to a real image $\ref{fig:xenospeicies}$ we notice much resemblance regarding the reflectance strength and colorful pattern.
+Figure $\ref{fig:renderingxeno65}$ shows a set of subfigures for the effect of diffraction for the Xenopeltis snake surface. In our Xenopeltis rendering as shown in figure $\ref{fig:renderingXeno65FT}$ when using a grating as shown in figure $\ref{fig:renderingXeno65NS}$ we see a lot of iridescent color contribution. Comparing this to a real image $\ref{fig:renderingXeno65DP}$ we notice much resemblance regarding the reflectance strength and colorful pattern.
 
 \begin{figure}[H]
   \centering
@@ -527,30 +527,30 @@ Figure $\ref{fig:renderingxeno65}$ shows a set of subfigures for the effect of d
 \label{fig:renderingxeno65}
 \end{figure}
 
-Figure $\ref{fig:renderingdifferentzoomlevelselaphe}$ shows the diffraction pattern for Elaphe snake shed at different zoom levels for fixed incident light and viewing direction. We changed the zoom-levels by adjusting the field of view angle of our camera. For each image in this figure, the one to its right side is a five times zoomed-in version of the region within its red box. The close up perspectives exhibit complex and colorful diffraction patterns. 
+Figure $\ref{fig:renderingdifferentzoomlevelselaphe}$ shows the diffraction pattern for an Elaphe snake shed at different zoom levels for a fixed incident light and a fixed viewing direction. We changed the zoom-levels by adjusting the field of view angle of our camera. For each image in this figure, the one to its right side is a five times zoomed-in version of the region within its red box. The close up perspectives exhibit complex and colorful diffraction patterns. 
 
 \begin{figure}[H]
   \centering
-  \subfigure[$zoom = 1$]{
+  \subfigure[$zoom = 1 \times$]{
     \includegraphics[scale=0.2]{nresults/snakerenderings/flss_elaphe_zoom/10.png}
     \label{fig:renderingZoomElaphe05}
   }
 ~
-  \subfigure[$zoom = 5x$]{
+  \subfigure[$zoom = 5 \times$]{
     \includegraphics[scale=0.2]{nresults/snakerenderings/flss_elaphe_zoom/5.png}
     \label{fig:renderingZoomElaphe02}
   }
 ~  
-  \subfigure[$zoom = 25x$]{
+  \subfigure[$zoom = 25 \times$]{
     \includegraphics[scale=0.15]{nresults/snakerenderings/flss_elaphe_zoom/1.png}  
     \label{fig:renderingZoomElaphe01}
   }
   
-\caption[Snake Renderings: FLSS Approach for a varying FoV]{Diffraction on Elaphe snake skin grating: Different camera zoom levels by varying the field of view.}
+\caption[Snake Renderings: FLSS Approach for a varying FoV]{Showing the diffraction pattern on an Elaphe grating for different camera zoom levels by varying the field of view.}
 \label{fig:renderingdifferentzoomlevelselaphe}
 \end{figure}
 
-Figure $\ref{fig:renderingelaphelightrotations6}$ shows how the diffraction pattern changes when the incident light direction is moved slightly. This Figure gives us an impression what kind of complex, perspective-dependent pattern the diffraction phenomenon produces.
+Figure $\ref{fig:renderingelaphelightrotations6}$ shows how the diffraction pattern changes when the incident light direction is moved slightly. This figure gives us an impression of what kind of complex, perspective-dependent pattern the diffraction phenomenon produces.
 
 % first 3 move along x, next 3 move along y
 \begin{figure}[H]
@@ -585,7 +585,7 @@ Figure $\ref{fig:renderingelaphelightrotations6}$ shows how the diffraction patt
     \label{fig:renderingElapheRotY6}
   }
   
-\caption[Snake Renderings: FLSS Approach for varying Light Directions]{Diffraction on Elaphe snake skin grating: Different light directions}
+\caption[Snake Renderings: FLSS Approach for varying Light Directions]{Showing the change of the diffraction pattern on an Elaphe grating for different light directions.}
 \label{fig:renderingelaphelightrotations6}
 \end{figure}
 
@@ -624,11 +624,11 @@ Figure $\ref{fig:experimentelaphe65}$ shows a photo of an experimental setup for
 
 \begin{figure}[H]
   \includegraphics[scale=0.2]{results/experiment/elaphe/g2.png}
-  \caption{Diffraction Elaphe: experimental setup}
+  \caption{Diffraction Elaphe: Pattern for a sample setup}
   \label{fig:experimentelaphe65}
 \end{figure}
 
-Finally, tried to reproduce a real Xenopeltis image for a unknown light viewing direction. For this purpose I used our FLSS rendering approach and compared its results against Nvidia Gem's implementation. The results are shown in figure $\ref{fig:attemptxeno}$. 
+Finally, tried to reproduce a real Xenopeltis image for a unknown light and viewing direction. For this purpose I used our FLSS rendering approach and compared its results against Nvidia Gem's implementation. The results are shown in figure $\ref{fig:attemptxeno}$. Note that Stam's approach always produces a symmetric reflectance map (i.e. BRDF map) exhibiting results in regions where it must not. 
 
 \begin{figure}[H]
   \centering
