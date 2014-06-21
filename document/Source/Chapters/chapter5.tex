@@ -420,13 +420,13 @@ Figure $\ref{fig:brdfmapsxenodiffthetaiangles}$ shows the BRDF maps of the FLSS 
 
 \section{Rendering Surface Geometries}
 \label{sec:snakegeomrenderings}
-In this section we are going to present our actual renderings simulating the effect of diffraction caused when a directional light source encounters different nano-scaled surfaces on a given curved snake mesh. We will see that diffraction colors change dramatically with changes in light direction, surface normals and viewing direction, which is typical for diffraction colors observed in nature. For rendering we are going to rely on our FLSS approach. Unfortunately, this approach is rather slow and can barely be considered as being interactively performing. Nevertheless, we have introduced some optimizations in order to make it interactive. \\
+In this section we are going to present our actual renderings simulating the effects of diffraction produced when a directional light source encounters different nano-scaled surfaces on a given curved snake skin mesh. We will see that diffraction colors change dramatically with changes in the light direction, surface normals and the viewing direction, which is typical for diffraction colors observed in nature. For rendering we are going to rely on our FLSS approach. Unfortunately, this approach is rather slow and can barely be considered as being interactively performing. Nevertheless, we have introduced some optimizations in order to make it interactive. \\
 
 All rendered results shown in this section are produced by the FLSS approach since we have proven its validity in figure $\ref{fig:evaluationdiffshaderalllambda}$. Therefore, we can trust its renderings and may consider them as being accurate. Furthermore, as support of our evaluation plots regarding the NMM approach, that are shown in figure $\ref{fig:evaluationdiffshadernminmax}$, we also show results produced by the NMM approach. \\
 
-The Laboratory of Artificial and Natural Evolution in Geneva provided us by a triangular mesh of a snake. This mesh was produced by a 3d scan of a Elaphe snake species and consists of 11696 vertices and 22950 faces. Note that, for all our renderings, we used this snake mesh. \\
+The Laboratory of Artificial and Natural Evolution in Geneva provided us with a triangular mesh of a snake. This mesh was produced by a 3D scan for an Elaphe snake species and it consists of \emph{11696} vertices and \emph{22950} faces. Note that, for all our renderings, we used this snake mesh. \\
 
-Among all the snake species under consideration, their macroscopic geometry is highly similar. Only the geometry of their nano-structures varies and is responsible for a snake's iridescence. Thus, we can use the same snake surface model to render diffraction for different species. Table $\ref{tab:hardwarespecifications}$ lists the system specifications of the machine I used in order to produce the rendered images.
+For the snake species under consideration, their macroscopic geometry is highly similar. Only the geometry of their nano-structures varies and is responsible for a snake's iridescence. Thus, we can use the same snake surface model to render diffraction for different species. Table $\ref{tab:hardwarespecifications}$ lists the system specifications of the machine I used in order to produce the rendered images.
 
 \begin{table}[H]
   \centering
@@ -437,33 +437,33 @@ Among all the snake species under consideration, their macroscopic geometry is h
     Graphics Card & GeForce GTX 770 \\
     Graphics Clock & 1150 MHz \\
     Graphics Memory & 4096 MB \\
-    Graphics Memory Bandwidth & 230.4 $GB/s$ MHz \\
+    Graphics Memory Bandwidth & 230.4 $GB/s$ \\
     \hline  
   \end{tabular}
 \caption[Hardware Specifications]{Hardware specifications of the machine used to render snake surface. Statistics are provided using the tool $\emph{NVIDIA Geforce Experience}$.}
 \label{tab:hardwarespecifications}
 \end{table}
 
-Figure $\ref{fig:renderingdifferentsnankegratings}$ shows renderings produced by the FLSS approach applied on our snake mesh for different, given input patches. Due do the fact that a Blazed grating has its maximum intensity for a certain direction and the geometry of the snake mesh is curved i.e. is non-flat, we can expect rather less diffraction color contribution like shown in figure $\ref{fig:renderingelaphegrating}$. \\
+Figure $\ref{fig:renderingdifferentsnankegratings}$ shows renderings produced by the FLSS approach applied on our snake mesh for different, given input patches. Due do the fact that a Blazed grating has its maximum intensity for a certain direction and the geometry of the snake mesh is curved i.e. it is non-flat, we can expect rather less diffraction color contribution as shown in figure $\ref{fig:renderingelaphegrating}$. \\
 
 %%TODO write something about similar configuration for blazed grating
 
-In contrast, For both the renderings, we see colorful patterns on the skin of our snake species, Elaphe and Xenopeltis, due to the effect of diffraction. We see much less colorful patterns for Elaphe like shown in figure $\ref{fig:renderingelaphegrating}$ than for Xenopeltis like shown in figure $\ref{fig:renderingxenograting}$. This is consistent with the observations in the real world as shown in figure $\ref{fig:snakespecies}$. As observable figure $\ref{fig:elpahegratingpatch}$, the substructures (the finger like structures) in the height field of a Elaphe snake skin are not very regularly aligned along the y-axis. This is why the Elaphe species is less iridescent than the other specie. The Xenopeltis snake has a brownish body with no pigmentation, which makes the iridescence more spectacular than on Elaphe. 
+In contrast, for both the renderings, we see colorful patterns on the skin of our snake species, Elaphe and Xenopeltis, due to the effect of diffraction. We see much less colorful patterns for Elaphe as shown in figure $\ref{fig:renderingelaphegrating}$ than for Xenopeltis as shown in figure $\ref{fig:renderingxenograting}$. This is consistent with the observations in the real world as shown in figure $\ref{fig:snakespecies}$. As observable in figure $\ref{fig:elpahegratingpatch}$, the substructures (the finger like structures) in the height field of a Elaphe snake skin overlap (i.e are not very regularly aligned) along the y-axis. This is why the Elaphe species is less iridescent than the other specie. The Xenopeltis snake has a brownish body with no pigmentation, which makes the iridescence more spectacular than on Elaphe as seen in figure $\ref{fig:snakespecies}$. 
  
 \begin{figure}[H]
   \centering
   \subfigure[Blazed grating]{
-    \includegraphics[scale=0.16]{nresults/snakerenderings/flss_gratings/blazed1552.png}
+    \includegraphics[scale=0.23]{nresults/snakerenderings/flss_gratings/blazed1552.png}
     \label{fig:renderingblazegrating}
   }
 ~
   \subfigure[Elaphe grating]{
-    \includegraphics[scale=0.16]{nresults/snakerenderings/flss_gratings/elaphe.png}
+    \includegraphics[scale=0.23]{nresults/snakerenderings/flss_gratings/elaphe.png}
     \label{fig:renderingelaphegrating}
   }
 ~
   \subfigure[Xeno grating]{
-    \includegraphics[scale=0.16]{nresults/snakerenderings/flss_gratings/xeno.png}
+    \includegraphics[scale=0.23]{nresults/snakerenderings/flss_gratings/xeno.png}
     \label{fig:renderingxenograting}
   }
   
@@ -471,17 +471,17 @@ In contrast, For both the renderings, we see colorful patterns on the skin of ou
 \label{fig:renderingdifferentsnankegratings}
 \end{figure}
 
-Figure $\ref{fig:renderingelaphe65}$ shows a set of subfigures for rendering the effect of diffraction produced by the FLSS approach (used as our reference approach), applied on our snake mesh using the Elaphe nano structure. Figure $\ref{fig:renderingelaphe65dt}$ shows the final diffraction color contribution result with texture-blending. We only see little diffraction color contribution in this subfigure which resembles quite well to the reality as shown in figure $\ref{fig:elpahespecies}$. In subfigure $\ref{fig:renderingelaphe65ns}$ we see the light cone in order to show the direction of the light source besides the rendered results. Subfigure $\ref{fig:renderingelaphe65ft}$ is a sample Fourier image of Elpahe's nano-scale surface structure $\ref{fig:renderingelaphe65ns}$.
+Figure $\ref{fig:renderingelaphe65}$ shows a set of subfigures for rendering the effect of diffraction produced by the FLSS approach (used as our reference approach), applied on our snake mesh using the Elaphe nano structure. Figure $\ref{fig:renderingelaphe65dt}$ shows the final diffraction color contribution result with texture-blending. We note that the diffraction color contribution is not significant in this subfigure which resembles quite well to the reality as shown in figure $\ref{fig:elpahespecies}$. In subfigure $\ref{fig:renderingelaphe65ns}$ we see the light cone in order to show the direction of the light source besides the rendered results. Subfigure $\ref{fig:renderingelaphe65ft}$ is a sample visualization of a Fourier transformation for an Elaphe nano-scale surface structure as shown in figure $\ref{fig:renderingelaphe65ns}$.
 
 \begin{figure}[H]
   \centering
   \subfigure[Diffraction Patten]{
-    \includegraphics[scale=0.2]{results/snakerenderings/elaphe65/1.png}
+    \includegraphics[scale=0.25]{results/snakerenderings/elaphe65/1.png}
     \label{fig:renderingelaphe65dp}
   }
 ~
   \subfigure[Diffraction + Texture]{
-    \includegraphics[scale=0.2]{results/snakerenderings/elaphe65/2.png}
+    \includegraphics[scale=0.25]{results/snakerenderings/elaphe65/2.png}
     \label{fig:renderingelaphe65dt}
   }
 
@@ -515,12 +515,12 @@ Figure $\ref{fig:renderingxeno65}$ shows a set of subfigures for the effect of d
   }
 
   \subfigure[Nanostructure]{
-    \includegraphics[scale=0.08]{results/snakerenderings/xeno65/4.png}
+    \includegraphics[scale=0.15]{results/snakerenderings/xeno65/4.png}
     \label{fig:renderingXeno65NS}
   }
 ~ 
   \subfigure[3th DTF Term]{
-    \includegraphics[scale=0.3]{nresults/xeno3dft.png}
+    \includegraphics[scale=0.563]{nresults/xeno3dft.png}
     \label{fig:renderingXeno65FT}
   }
 \caption[Snake Renderings: FLSS Approach for Xenopeltis Grating]{Diffraction for Xenopeltis snake skin produced by our reference approach.}
