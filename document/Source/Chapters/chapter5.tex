@@ -57,7 +57,7 @@ with its origin at the center of the map. The light direction for normal inciden
 \label{fig:gratingpatches}
 \end{figure}
 
-Figure $\ref{fig:brdfmapsdiffpatches}$ shows the BRDF maps of the full lambda space sampling approach (\textbf{FLSS}) as described in section $\ref{sec:fragmentshader}$ applied on different nanoscale surface gratings shown in figure $\ref{fig:gratingpatches}$. In subfigure $\ref{fig:brdfmapBlaze}$ we see the BRDF map for the Blazed grating, showing high relative brightness for its first order diffraction, i.e. for the Blazed gratings most of the diffracted spectral energy lies in its first order. Notice that the surface of blazed grating is forming a step structure for which the angle between the step normal and the grating normal is denoted by $\emph{blaze angle}$. Every blazed grating is manufactred in the Littrow$\footnote{For further information please see \texttt{http://en.wikipedia.org/wiki/Blazed\textunderscore grating}.}$ configuration. This means that the blaze angle is chosen such that for a chosen mode m and a chosen wavelength $\lambda$ with maximum intensity and the incidence angle are identical. Thus a blazed grating has its maximal efficiency for the choosen wavelength of the light. Higher diffraction modes are still perceivable (second and higher diffraction orders) but with a much lower relative brightness. The asymmetry in the brigthness of the pattern is due to the asymmetric geometry of the grating $\ref{fig:blazegratingpatch}$. \\
+Figure $\ref{fig:brdfmapsdiffpatches}$ shows the BRDF maps of the full lambda space sampling approach (\textbf{FLSS}) as described in section $\ref{sec:fragmentshader}$ applied on different nanoscale surface gratings shown in figure $\ref{fig:gratingpatches}$. In subfigure $\ref{fig:brdfmapBlaze}$ we see the BRDF map for the Blazed grating, showing high relative brightness for its first order diffraction, i.e. for the Blazed gratings most of the diffracted spectral energy lies in its first order. Notice that the surface of blazed grating is forming a step structure for which the angle between the step normal and the grating normal is denoted by $\emph{blaze angle}$. Every blazed grating is manufactred in the Littrow$\footnote{For further information please see \texttt{http://en.wikipedia.org/wiki/Blazed\textunderscore grating}.}$ configuration. This means that the blaze angle is chosen such that for a chosen mode m and a chosen wavelength $\lambda$ with maximum intensity and the incidence angle are identical. Thus a blazed grating has its maximal efficiency for the choosen wavelength of the light used. Higher diffraction modes are still perceivable (second and higher diffraction orders) but with a much lower relative brightness. The asymmetry in the brigthness of the pattern is due to the asymmetric geometry of the grating $\ref{fig:blazegratingpatch}$. \\
 
 The finger-like structures contained in the Elaphe surface grating $\ref{fig:elpahegratingpatch}$ are considerably regularly aligned and hence diffraction occurs along the horizontal axis for the BRDF map as shown in figure $\ref{fig:brdfmapElaphe}$. The reason for not seeing any strong diffraction color contribution along other directions in the BRDF map is due to the fact that these ‘nano-fingers’ overlap across layers and thus do not exhibit any well-formed periodicity along finger direction. \\
 
@@ -420,9 +420,9 @@ Figure $\ref{fig:brdfmapsxenodiffthetaiangles}$ shows the BRDF maps of the FLSS 
 
 \section{Rendering Surface Geometries}
 \label{sec:snakegeomrenderings}
-In this section we are going to present our actual renderings simulating the effects of diffraction produced when a directional light source encounters different nano-scaled surfaces on a given curved snake skin mesh. We will see that diffraction colors change dramatically with changes in the light direction, surface normals and the viewing direction, which is typical for diffraction colors observed in nature. For rendering we are going to rely on our FLSS approach. Unfortunately, this approach is rather slow and can barely be considered as being interactively performing. Nevertheless, we have introduced some optimizations in order to make it interactive. \\
+In this section we are going to present our actual renderings. These renderings are simulating the effects of diffraction produced when a directional light source encounters different nano-scaled surfaces on a given curved snake skin mesh. We will see that diffraction colors change dramatically with changes in the light direction, surface normals and the viewing direction. This is typical for diffraction colors observed in nature. Therefore, the aim of this section is tho provide a visual comparison between diffraction patterns occuring in nature as shown in figure $\ref{fig:snakespecies}$ and the renderings produced by our shader. Last we compare the results produced by our shader against those produced by Stam's approach. For this purpose we compare applied these methods on a synthetic grating (on a CD) and on a natural grating (on a Xenopeltis grating). \\
 
-All rendered results shown in this section are produced by the FLSS approach since we have proven its validity in figure $\ref{fig:evaluationdiffshaderalllambda}$. Therefore, we can trust its renderings and may consider them as being accurate. Furthermore, as support of our evaluation plots regarding the NMM approach, that are shown in figure $\ref{fig:evaluationdiffshadernminmax}$, we also show results produced by the NMM approach. \\
+For rendering we are going to rely on our FLSS approach. Unfortunately, this approach is rather slow and can barely be considered as being interactively performing. The NMM approach on the other hand, has interactive runtime. In general, both approaches are valid according to to their evaluation plots shown in figure $\ref{fig:evaluationdiffshaderalllambda}$ and in figure $\ref{fig:evaluationdiffshadernminmax}$. Therefore, their rendered results may be considered as being accurate. However, the reason for choosing the FLSS approach instead of the NMM apporach is that the renderings resulting from the NMM approach look purpulish compared to those prouduced by the FLSS approach. This color-tone shift towards the purple color region for NMM renderings does not correspond to the reality and is a result of its non-uniform wavelength spectrum sampling. Further information about NMM's tone shift issue and how it can be addressed is discussed in the appendix section $\ref{chap:diffflssnmm}$. \\
 
 The Laboratory of Artificial and Natural Evolution in Geneva provided us with a triangular mesh of a snake. This mesh was produced by a 3D scan for an Elaphe snake species and it consists of \emph{11696} vertices and \emph{22950} faces. Note that, for all our renderings, we used this snake mesh. \\
 
@@ -532,17 +532,17 @@ Figure $\ref{fig:renderingdifferentzoomlevelselaphe}$ shows the diffraction patt
 \begin{figure}[H]
   \centering
   \subfigure[$zoom = 1 \times$]{
-    \includegraphics[scale=0.2]{nresults/snakerenderings/flss_elaphe_zoom/10.png}
+    \includegraphics[scale=0.5]{nresults/snakerenderings/flss_elaphe_zoom/10.png}
     \label{fig:renderingZoomElaphe05}
   }
 ~
-  \subfigure[$zoom = 5 \times$]{
-    \includegraphics[scale=0.2]{nresults/snakerenderings/flss_elaphe_zoom/5.png}
+  \subfigure[$zoom = 3 \times$]{
+    \includegraphics[scale=0.28]{nresults/snakerenderings/flss_elaphe_zoom/5.png}
     \label{fig:renderingZoomElaphe02}
   }
 ~  
-  \subfigure[$zoom = 25 \times$]{
-    \includegraphics[scale=0.15]{nresults/snakerenderings/flss_elaphe_zoom/1.png}  
+  \subfigure[$zoom = 6 \times$]{
+    \includegraphics[scale=0.24]{nresults/snakerenderings/flss_elaphe_zoom/1.png}  
     \label{fig:renderingZoomElaphe01}
   }
   
@@ -550,47 +550,53 @@ Figure $\ref{fig:renderingdifferentzoomlevelselaphe}$ shows the diffraction patt
 \label{fig:renderingdifferentzoomlevelselaphe}
 \end{figure}
 
-Figure $\ref{fig:renderingelaphelightrotations6}$ shows how the diffraction pattern changes when the incident light direction is moved slightly. This figure gives us an impression of what kind of complex, perspective-dependent pattern the diffraction phenomenon produces.
+Figure $\ref{fig:renderingelaphelightrotations6}$ shows how the diffraction pattern changes when the incident light direction is moved slightly. This figure gives us an impression of what kind of complex, perspective-dependent pattern the diffraction phenomenon produces. The figure column from figure $\ref{fig:renderingElapheRotX2}$ to figure $\ref{fig:renderingElapheRotX6}$ models a scene in which a virtual sun (i.e. a directional light source) moves from south (S) to north (N). For each of this subfigure we can see in its inset (red box) how the diffraction color changes according to how the position of the sun changes. The figure column from figure $\ref{fig:renderingElapheRotY2}$ to figure $\ref{fig:renderingElapheRotY6}$ models a scenario when a sun moves from south-east (SE) to west (W). Similarly, the diffraction patterns changes according to the postion of the sun.
 
-% first 3 move along x, next 3 move along y
 \begin{figure}[H]
   \centering
   \subfigure[$(-3.3130, 0.0, -0.9999)$]{
-    \includegraphics[scale=0.15]{nresults/snakerenderings/flss_xeno_lightdir/1/1.png}
+    \includegraphics[scale=0.345]{nresults/snakerenderings/flss_xeno_lightdir/1/1.png}
     \label{fig:renderingElapheRotX2}
   }
-~
-  \subfigure[$(-0.1989, 0.0, -0.9799)$]{
-    \includegraphics[scale=0.15]{nresults/snakerenderings/flss_xeno_lightdir/1/2.png}
-    \label{fig:renderingElapheRotX4}
-  }
-~
-  \subfigure[$(-0.3897, 0.0, -0.9208)$]{
-    \includegraphics[scale=0.15]{nresults/snakerenderings/flss_xeno_lightdir/1/3.png}
-    \label{fig:renderingElapheRotX6}
-  }
-  
+  ~
   \subfigure[$(0.0995, 0.0993, -0.9900)$]{
-    \includegraphics[scale=0.15]{nresults/snakerenderings/flss_xeno_lightdir/2/2.png}
+    \includegraphics[scale=0.245]{nresults/snakerenderings/flss_xeno_lightdir/2/2.png}
     \label{fig:renderingElapheRotY2}
   }
-~
+
+  \subfigure[$(-0.1989, 0.0, -0.9799)$]{
+    \includegraphics[scale=0.245]{nresults/snakerenderings/flss_xeno_lightdir/1/2.png}
+    \label{fig:renderingElapheRotX4}
+  }
+  ~
   \subfigure[$(0.0995, 0.2940, -0.9505)$]{
-    \includegraphics[scale=0.15]{nresults/snakerenderings/flss_xeno_lightdir/2/3.png}
+    \includegraphics[scale=0.245]{nresults/snakerenderings/flss_xeno_lightdir/2/3.png}
     \label{fig:renderingElapheRotY4}
   }
-~
+ 
+  \subfigure[$(-0.3897, 0.0, -0.9208)$]{
+    \includegraphics[scale=0.245]{nresults/snakerenderings/flss_xeno_lightdir/1/3.png}
+    \label{fig:renderingElapheRotX6}
+  }
+  ~
   \subfigure[$(0.0995, 0.4770, -0.8731)$]{
-    \includegraphics[scale=0.15]{nresults/snakerenderings/flss_xeno_lightdir/2/4.png}
+    \includegraphics[scale=0.245]{nresults/snakerenderings/flss_xeno_lightdir/2/4.png}
     \label{fig:renderingElapheRotY6}
   }
   
-\caption[Snake Renderings: FLSS Approach for varying Light Directions]{Showing the change of the diffraction pattern on an Elaphe grating for different light directions.}
+\caption[Snake Renderings: FLSS Approach for varying Light Directions]{Showing the change of the diffraction pattern on an Elaphe grating for different light directions. Figure $\ref{fig:renderingElapheRotX2}$ shows the geographic direction in order to describe a local orientation. The first subfigure column the sun moves from south (S) to north (N). In the second column, the sun moves from south-east to west (W).}
 \label{fig:renderingelaphelightrotations6}
 \end{figure}
 
-\subsection{A Comparison with Stam}
-In the following a brief comparison between Stam's$\footnote{A reference implementation of Stam's Diffraction Shader\cite{diffstam} is provided by Nvidia's GPU Gems at \texttt{http://http.developer.nvidia.com/GPUGems/gpugems\textunderscore 08.html}}$ and our final approach using two different kinds of gratings, a synthetic, regularly aligned grating and a natural, complex structured grating. These gratings are shown in figure $\ref{fig:stameggratings}$.
+Figure $\ref{fig:experimentelaphe65}$ shows a photo of an experimental setup for demonstrating the effect of diffraction using a Elaphe snake grating. The exact parameters for the experimental setup are unknown. Nevertheless this image gives us an impression of how close our model is to the reality comparing it with our simulated results since we notice similar diffraction patterns for our simulated results using an Elaphe snake shed. 
+
+\begin{figure}[H]
+  \includegraphics[scale=0.2]{results/experiment/elaphe/g2.png}
+  \caption{Diffraction Elaphe: Pattern for a sample setup}
+  \label{fig:experimentelaphe65}
+\end{figure}
+
+In the following a brief comparison between Stam's$\footnote{A reference implementation of Stam's Diffraction Shader\cite{diffstam} is provided by Nvidia's GPU Gems at \texttt{http://http.developer.nvidia.com/GPUGems/gpugems\textunderscore 08.html}}$ and our FLSS method using two different kinds of gratings, a synthetic, regularly aligned grating and a natural, complex structured grating. These gratings are shown in figure $\ref{fig:stameggratings}$.
 
 \begin{figure}[H]
   \centering
@@ -608,32 +614,12 @@ Figure $\ref{fig:stameggratingsgoodeg}$ shows an example of a case where Stam's 
   \label{fig:stameggratingsgoodeg}  
 \end{figure}
 
-Figure $\ref{fig:stameggratingsbadeg}$ shows an attempt to reproduce real structural colors on the skin of the Xenopeltis snake using our method and comparing it to Stam's approach. Even the results of Stam might look appropriate. However, there are some notable differences such as missing colors close to specular regions, or such as the color distribution which is rather discrete in Stam's approach. Furthermore, Stam's approach has at some places color contribution, where it should not have.
+Finally, tried to reproduce a real Xenopeltis image (as shown in figure $\ref{fig:xenopeltisrealimage}$) for a unknown light and viewing direction. For this purpose I used our FLSS rendering approach and compared its results against Nvidia Gem's implementation. The results are shown in figure $\ref{fig:attemptxeno}$. Even the results of Stam's method look convincing, they have some issues. In some regions in his renderings close to specular regions, there are missing colors. The color distribution in renderings produces by his approach is rather discrete in Stam's. Also notice that Stam's approach always produces a symmetric reflectance map (i.e. BRDF map) exhibiting results in regions where it must not. 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.4]{background/stambadeg.png}
-  \caption[Comparing Stam's approach: Bad Example]{Comparison of our approach(on the right) against a reference implementation of Stam's method(on the left) provided by Nvida Gem. We attempt to reproduce a real Xenopeltis skin coloration(center). For natural diffraction gratings, which have a rather complex structure, Stam's approach is qualitatively different from the real image.}
-  \label{fig:stameggratingsbadeg}  
-\end{figure}
-
-In the next chapter we are going to adapt Stam's BRDF model such that it will be able to handle the kind of surfaces we are dealing with and even will have a runtime complexity which permits interactive rendering.
-
-\subsection{Merge with above subsec}
-Figure $\ref{fig:experimentelaphe65}$ shows a photo of an experimental setup for demonstrating the effect of diffraction using a Elaphe snake grating. The exact parameters for the experimental setup are unknown. Nevertheless this image gives us an impression of how close our model is to the reality comparing it with our simulated results since we notice similar diffraction patterns for our simulated results using an Elaphe snake shed. 
-
-\begin{figure}[H]
-  \includegraphics[scale=0.2]{results/experiment/elaphe/g2.png}
-  \caption{Diffraction Elaphe: Pattern for a sample setup}
-  \label{fig:experimentelaphe65}
-\end{figure}
-
-Finally, tried to reproduce a real Xenopeltis image for a unknown light and viewing direction. For this purpose I used our FLSS rendering approach and compared its results against Nvidia Gem's implementation. The results are shown in figure $\ref{fig:attemptxeno}$. Note that Stam's approach always produces a symmetric reflectance map (i.e. BRDF map) exhibiting results in regions where it must not. 
-
-\begin{figure}[H]
-  \centering
-  \subfigure[Xenopeltis Image]{
-    \includegraphics[scale=0.42]{nresults/snakerenderings/gem_flss_xeno/xeno.png}
+  \subfigure[Real Xenopeltis Photograph]{
+    \includegraphics[scale=0.6]{nresults/snakerenderings/gem_flss_xeno/xeno.png}
     \label{fig:xenopeltisrealimage}
   }
 
@@ -647,7 +633,6 @@ Finally, tried to reproduce a real Xenopeltis image for a unknown light and view
     \label{fig:gemattemptxeno}
   }
   
-\caption[Snake Renderings: Stam's- vs. Flss- Approach on Xenopeltis]{Attempt to reproduce a real world image: FLSS- vs Stam's Approach}
+\caption[Snake Renderings: Stam's- vs. Flss- Approach on Xenopeltis]{Comparison of our FLSS approach(see figure $\ref{fig:flssattemptxeno}$) against a reference implementation of Stam's method(see figure $\ref{fig:gemattemptxeno}$) provided by Nvida Gem. We attempt to reproduce a real Xenopeltis skin coloration(see figure $\ref{fig:xenopeltisrealimage}$). For natural diffraction gratings, which have a rather complex structure, Stam's approach is qualitatively different from the real image.}
 \label{fig:attemptxeno}
 \end{figure}
-
