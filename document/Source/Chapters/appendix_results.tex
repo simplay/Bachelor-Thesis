@@ -22,19 +22,35 @@ In section $\ref{sec:snakegeomrenderings}$ we mentioned that we use the FLSS app
 In order to address this color-tone issue let us revisit the idea of how we actually compute our color values. For this purpose let us consider the equation $\ref{eq:tristimrad}$ which tells us how to compute CIE XYZ color values. One particular example is the compuation of the lumminance $Y$ which is equal to:
 
 \begin{align}
-Y = \int_{\Lambda}L_\lambda(\omega_r)\overline{y}(\lambda)d\lambda \nonumber \\
+Y = \int_{\Lambda}L_\lambda(\omega_r)\overline{y}(\lambda)d\lambda \nonumber
 \end{align}
 
-In this formulation we integrate over the whole wavelength spectrum $\Lambda$ in oder to compute an anctual color value for $Y$. However, in the NMM approach we perform a \emph{non-uniform} integration over the wavelength spectrum. Instead of directly integrating over the wavelenght spectrum we integrate uniformly over the minimum and maximum wavenumber as explained in section $\ref{sec:nmmapproach}$. Thus, we no longer integrate over the wavelength spectrum and we rather integrate over the corresponding wavenumber range. Hence, this depicts a change of integration variables. Unfortunately, I have not taken care of this factor in the NMM approach. In the following I describe what this factor is equal to. \\
+In this formulation we integrate over the whole wavelength spectrum $\Lambda$ in oder to compute an anctual color value for $Y$. However, in the NMM approach we perform a \emph{non-uniform} integration over the wavelength spectrum. Instead of directly integrating over the wavelenght spectrum we integrate uniformly over the minimum and maximum wavenumber as explained in section $\ref{sec:nmmapproach}$. Thus, we no longer integrate over the wavelength spectrum we rather integrate over the corresponding wavenumber range $[N_{min}, N_{min}]$. Hence, this depicts a change of integration variables. Unfortunately, I have not taken care of this factor in the NMM approach. In the following I describe what this factor is equal to. \\
 
-The wavenumber for a given wavelength $\lambda$ is equal to $k = \frac{2 \pi}{\lambda}$. For the NMM approach we have to integrate over $dk$ instead of over $d\lambda$. 
+The wavenumber for a given wavelength $\lambda$ is equal to
 
+\begin{align}
+  k = \frac{2 \pi}{\lambda} \nonumber
+\end{align}
 
+For the NMM approach integrate over $dk$ instead over $d\lambda$. By rearranging the definition of the wavnumber $k$ we get the following identitiy for the wavelength:
 
+\begin{align}
+  \lambda = \frac{2 \pi}{k} \nonumber
+\end{align}
 
+thus, the integrations variable change factor between $d\lambda$ and $dk$ can be computed as the following:
 
-Therfore, a certain integrations-variable factor has to be applied to the integrant within the integration. 
+\begin{alignat}{4}
+& \frac{d\lambda}{dk} &&= \frac{d}{dk} \left(\frac{2 \pi}{k} \right) = \frac{2 \pi}{k^2}  \nonumber \\
+\Rightarrow{} & d\lambda &&= \frac{2 \pi}{k^2} dk \nonumber
+\end{alignat}
 
+This will lead us to the final representation for performing an intgration over the wavenumber range:
 
-
-E.g. in order to compute the lumminance Y, we h 
+\begin{align}
+Y 
+&= \int_{\Lambda}L_\lambda(\omega_r)\overline{y}(\lambda)d\lambda \nonumber \\
+&= \int_{N_{min}}^{N_{max}} L_k(\omega_r)\overline{y}(k) \frac{2 \pi}{k^2} dk
+\label{eq:wavenumberintegration}
+\end{align}
