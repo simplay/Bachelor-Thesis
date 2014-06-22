@@ -588,8 +588,15 @@ Figure $\ref{fig:renderingelaphelightrotations6}$ shows how the diffraction patt
 \label{fig:renderingelaphelightrotations6}
 \end{figure}
 
-\subsection{A Comparison with Stam}
-In the following a brief comparison between Stam's$\footnote{A reference implementation of Stam's Diffraction Shader\cite{diffstam} is provided by Nvidia's GPU Gems at \texttt{http://http.developer.nvidia.com/GPUGems/gpugems\textunderscore 08.html}}$ and our final approach using two different kinds of gratings, a synthetic, regularly aligned grating and a natural, complex structured grating. These gratings are shown in figure $\ref{fig:stameggratings}$.
+Figure $\ref{fig:experimentelaphe65}$ shows a photo of an experimental setup for demonstrating the effect of diffraction using a Elaphe snake grating. The exact parameters for the experimental setup are unknown. Nevertheless this image gives us an impression of how close our model is to the reality comparing it with our simulated results since we notice similar diffraction patterns for our simulated results using an Elaphe snake shed. 
+
+\begin{figure}[H]
+  \includegraphics[scale=0.2]{results/experiment/elaphe/g2.png}
+  \caption{Diffraction Elaphe: Pattern for a sample setup}
+  \label{fig:experimentelaphe65}
+\end{figure}
+
+In the following a brief comparison between Stam's$\footnote{A reference implementation of Stam's Diffraction Shader\cite{diffstam} is provided by Nvidia's GPU Gems at \texttt{http://http.developer.nvidia.com/GPUGems/gpugems\textunderscore 08.html}}$ and our FLSS method using two different kinds of gratings, a synthetic, regularly aligned grating and a natural, complex structured grating. These gratings are shown in figure $\ref{fig:stameggratings}$.
 
 \begin{figure}[H]
   \centering
@@ -607,32 +614,12 @@ Figure $\ref{fig:stameggratingsgoodeg}$ shows an example of a case where Stam's 
   \label{fig:stameggratingsgoodeg}  
 \end{figure}
 
-Figure $\ref{fig:stameggratingsbadeg}$ shows an attempt to reproduce real structural colors on the skin of the Xenopeltis snake using our method and comparing it to Stam's approach. Even the results of Stam might look appropriate. However, there are some notable differences such as missing colors close to specular regions, or such as the color distribution which is rather discrete in Stam's approach. Furthermore, Stam's approach has at some places color contribution, where it should not have.
+Finally, tried to reproduce a real Xenopeltis image (as shown in figure $\ref{fig:xenopeltisrealimage}$) for a unknown light and viewing direction. For this purpose I used our FLSS rendering approach and compared its results against Nvidia Gem's implementation. The results are shown in figure $\ref{fig:attemptxeno}$. Even the results of Stam's method look convincing, they have some issues. In some regions in his renderings close to specular regions, there are missing colors. The color distribution in renderings produces by his approach is rather discrete in Stam's. Also notice that Stam's approach always produces a symmetric reflectance map (i.e. BRDF map) exhibiting results in regions where it must not. 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.4]{background/stambadeg.png}
-  \caption[Comparing Stam's approach: Bad Example]{Comparison of our approach(on the right) against a reference implementation of Stam's method(on the left) provided by Nvida Gem. We attempt to reproduce a real Xenopeltis skin coloration(center). For natural diffraction gratings, which have a rather complex structure, Stam's approach is qualitatively different from the real image.}
-  \label{fig:stameggratingsbadeg}  
-\end{figure}
-
-In the next chapter we are going to adapt Stam's BRDF model such that it will be able to handle the kind of surfaces we are dealing with and even will have a runtime complexity which permits interactive rendering.
-
-\subsection{Merge with above subsec}
-Figure $\ref{fig:experimentelaphe65}$ shows a photo of an experimental setup for demonstrating the effect of diffraction using a Elaphe snake grating. The exact parameters for the experimental setup are unknown. Nevertheless this image gives us an impression of how close our model is to the reality comparing it with our simulated results since we notice similar diffraction patterns for our simulated results using an Elaphe snake shed. 
-
-\begin{figure}[H]
-  \includegraphics[scale=0.2]{results/experiment/elaphe/g2.png}
-  \caption{Diffraction Elaphe: Pattern for a sample setup}
-  \label{fig:experimentelaphe65}
-\end{figure}
-
-Finally, tried to reproduce a real Xenopeltis image for a unknown light and viewing direction. For this purpose I used our FLSS rendering approach and compared its results against Nvidia Gem's implementation. The results are shown in figure $\ref{fig:attemptxeno}$. Note that Stam's approach always produces a symmetric reflectance map (i.e. BRDF map) exhibiting results in regions where it must not. 
-
-\begin{figure}[H]
-  \centering
-  \subfigure[Xenopeltis Image]{
-    \includegraphics[scale=0.42]{nresults/snakerenderings/gem_flss_xeno/xeno.png}
+  \subfigure[Real Xenopeltis Photograph]{
+    \includegraphics[scale=0.6]{nresults/snakerenderings/gem_flss_xeno/xeno.png}
     \label{fig:xenopeltisrealimage}
   }
 
@@ -646,7 +633,6 @@ Finally, tried to reproduce a real Xenopeltis image for a unknown light and view
     \label{fig:gemattemptxeno}
   }
   
-\caption[Snake Renderings: Stam's- vs. Flss- Approach on Xenopeltis]{Attempt to reproduce a real world image: FLSS- vs Stam's Approach}
+\caption[Snake Renderings: Stam's- vs. Flss- Approach on Xenopeltis]{Comparison of our FLSS approach(see figure $\ref{fig:flssattemptxeno}$) against a reference implementation of Stam's method(see figure $\ref{fig:gemattemptxeno}$) provided by Nvida Gem. We attempt to reproduce a real Xenopeltis skin coloration(see figure $\ref{fig:xenopeltisrealimage}$). For natural diffraction gratings, which have a rather complex structure, Stam's approach is qualitatively different from the real image.}
 \label{fig:attemptxeno}
 \end{figure}
-

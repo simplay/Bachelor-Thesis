@@ -8,8 +8,6 @@
 \contentsline {chapter}{\numberline {2}Results}{11}{chapter.2}
 \contentsline {section}{\numberline {2.1}BRDF maps}{11}{section.2.1}
 \contentsline {section}{\numberline {2.2}Rendering Surface Geometries}{24}{section.2.2}
-\contentsline {subsection}{\numberline {2.2.1}A Comparison with Stam}{30}{subsection.2.2.1}
-\contentsline {subsection}{\numberline {2.2.2}Merge with above subsec}{31}{subsection.2.2.2}
-\contentsline {chapter}{\numberline {A}Evaluation Data Generation}{34}{appendix.A}
-\contentsline {chapter}{\numberline {B}Rendering Surface Geometries using the NMM approach}{36}{appendix.B}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{37}{figure.caption.38}
+\contentsline {chapter}{\numberline {A}Evaluation Data Generation}{33}{appendix.A}
+\contentsline {chapter}{\numberline {B}Rendering Surface Geometries using the NMM approach}{35}{appendix.B}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{36}{figure.caption.37}
