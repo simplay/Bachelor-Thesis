@@ -475,17 +475,17 @@ For the identity of equation $\ref{eq:pqmainfinding}$ we made use of Green's int
 
 \subsection{Sinc Interpolation in Frequency Domain}
 \label{sec:sincinterpolation}
-In section $\ref{sec:pq}$ we derived an alternative approach to the gaussian window approach described in section $\ref{sec:gaussianwindow}$ in order to approximate our height field. We assume that our height field is a superposition of periodically aligned substructures (i.e. finger structures). This so called PQ approach allows us to integrate over one period of a substructure in our height field, instead of iterating over the whole domain. Nevertheless, this main finding, described in equation $\ref{eq:pqmainfinding}$, is using the DTFT. Thus, since our original height field is supposed to be a continuous-time band-limited function we can reconstruct it by applying a sinc-interpolation. \\
+In section $\ref{sec:pq}$ we derived an alternative approach to the Gaussian window approach described in section $\ref{sec:gaussianwindow}$ in order to approximate the DFT applied on our height field. We assume that our height field is a superposition of periodically aligned substructures (i.e. finger structures). This so called PQ approach allows us to integrate over one period of a substructure in our height field, instead of iterating over the whole domain. Nevertheless, this main finding, described in equation $\ref{eq:pqmainfinding}$, is using the DTFT. Thus, since our original height field is supposed to be a continuous-time band-limited function we can reconstruct it by applying a sinc-interpolation. \\
 
-In general, for a sinc-interpolation, we are interested in recovering an original analog signal $x(t)$ from its samples. Therefore, for a given sequence of real numbers $x[n]$, representing a digital signal, its correspond continuous function is: 
+The aim of using a \emph{sinc} interpolation is to reconstruct a spatial, bandlimited and continuous signal from a given sequance of samples. Therefore, for a given sequence of real numbers $x[n]$, representing a digital signal, its correspond continuous function is: 
 
 \begin{equation}
   x(t) = \sum_{n=-\infty}^{\infty} x[n] sinc\left(\frac{t-nT}{T}\right)
   \label{eq:sincinterpolformula}
 \end{equation}
 
-which has the Fourier transformation $X(f)$ whose non-zero values are confined to the region $|f| \leq \frac{1}{2T} = B$.
-When $x[n]$ represents time samples at interval $T$ of a continuous function, then the quantity $f_s = \frac{1}{T}$ is known as its sample rate and $\frac{f_s}{2}$ denotes the Nyquist frequency. The sampling Theorem states that when a function has a Bandlimit $B$ less than the Nyquist frequency, then $x(t)$ is a perfect reconstruction of the original function. Figure $\ref{fig:plotsincinterpolation}$ illustrates a reconstruction of a 1d signal relying on a sinc-interpolation.  
+which has the Fourier transformation $X(f)$ whose non-zero values are confined to the region $|f| \leq \frac{1}{2T}$.
+When $x[n]$ represents time samples at interval $T$ of a continuous function, then the quantity $f_s = \frac{1}{T}$ is known as its sample rate and $\frac{f_s}{2}$ denotes the Nyquist frequency. The sampling Theorem states that when a function has a bandlimit less than the Nyquist frequency, then $x(t)$ is a perfect reconstruction of the original function. Figure $\ref{fig:plotsincinterpolation}$ illustrates a reconstruction of a 1d signal relying on a sinc-interpolation.  
 
 \begin{figure}[ht]
   \centering
@@ -493,3 +493,7 @@ When $x[n]$ represents time samples at interval $T$ of a continuous function, th
   \caption[Sinc Interpolation Approximation]{Comparison between a given random one dimensional input signal $s(t)$ and its sinc interpolation $\hat{s}(t)$. Notice that for the interpolation there were $N=100$ samples from the original signal provided.}
   \label{fig:plotsincinterpolation}  
 \end{figure}
+
+We use the sinc interpolation in order to reconstruct the DFT terms of our height field. Similarly, as discussed in section $\ref{sec:gaussianwindow}$, we reconstruct the DFT by a windowing approach. Instead of using a Gaussian window we will use the sinc interpolation. \\  
+
+In the next chapter we talk about how to use this sinc-interpolation for rendering purposes (see section $\ref{sec:pqapproach}$). 
