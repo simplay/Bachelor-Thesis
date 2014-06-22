@@ -121,66 +121,7 @@ In Mathematics, a three dimensional direction vector is fully defined by two ang
 \label{sec:evalprecomp}
 In this section we explain how we evaluated the quality of our BRDF models. For a fixed incident light direction we want to compare the peak viewing angles with maximum reflectance for our method with those resulting from the grating equation for different wavelengths. For this purpose we realized the BRDF models corresponding to different gratings for each of our shading approaches, FLSS, NMM and PQ, in Java. By fixing the azimuth angle$\footnote{Each direction vector in space can be expressed by spherical coordinates. Then, such a unit vector is defined by a pair of two angles, the inclination and the azimuth angle. For further information, please have a look at appendix $\ref{sec:sphericalcoordinates}$}$ of the incident light $L$- and viewing direction $V$, we reduced the degrees of freedom due to these directions, during our evaluation. Thus, any BRDF is then defined by a function that expects as input arguments a wavelength $\lambda$, the inclination angle of the incident light $\theta_i$ - and the viewing direction $\theta_r$. The return value of such a function, denoted by $BRDF(\lambda, \theta_i, \theta_r)$, is the intensity value of the corresponding BRDF at these given input arguments. \\
 
-In our evaluation program we set the incident light angle $\theta_i$ equal to $75 \degree$. This allows us to remove the argument $\theta_i$ from our BRDF function. Our java program computes each $BRDF$ function at a given discrete wavelength-viewing-angle grid, denoted by $[\Lambda, \Theta]$. The wavelength space $\Lambda = [\lambda_{min}, \lambda_{max}]$ and the viewing angle range $\Theta = [\alpha_{min}, \alpha_{max}]$ of our free parameter $\theta_r$ are discretized using equidistant steps. The step sizes, denoted by $(\lambda_{step}, \alpha_{step})$, are provided as input arguments for our Java evaluation program. \\
-
-Next, let us have a closer look at how our discrete $[\Lambda, \Theta]$ grid is constructed. The wavelength space $\Lambda$, which is ranging from $\lambda_{min}$ to $\lambda_{max}$, is discretized like the following:
-
-\begin{equation}
-\Lambda = \{\lambda = \lambda_{min} + k \cdot \lambda_{step} | k \in \{0,..,steps_{\lambda}-1\}\}
-\label{eq:lambdaspacesetup}
-\end{equation}
-
-where $steps_{\lambda} = \ceil{\frac{\lambda_{max}-\lambda_{min}}{\lambda_{step}}}$. We similarly discretise the viewing angle space $\Theta$ by setting a minimal and maximal viewing-angle boundary $\alpha_{min}$ and $\alpha_{max}$. Then $\ceil{\frac{\alpha_{max} - \alpha_{min}}{\alpha_{step}}}$ is the number of angle $steps_{\alpha}$. And thus, our $\Theta$ space it defined like the following:
-
-\begin{equation}
-\Theta = \{\alpha = \alpha_{min} + k \cdot \alpha_{step} | k \in \{0,..,steps_{\alpha}-1\}\}
-\label{eq:thetaspacesetup}
-\end{equation}
-
-Then, every BRDF java function is applied to the grid $[\Lambda, \Theta]$ and the resulting spectral response is stored in a matrix
-\begin{equation} 
-R = \{BRDF(\lambda_i, \theta_{r}^{j}) | i \in Index(\Lambda), \quad j \in Index(\Theta)\}
-\label{eq:responsematrix}
-\end{equation}
-
-The generation process of the evaluation plots, which we discuss in section $\ref{sec:virtualtestbench}$, is described in algorithm $\ref{alg:evalmatlab}$. This algorithm takes the matrix R from equation $\ref{eq:responsematrix}$ as input argument. For the maximal reflectance of our methods at any wavelength, it computes the corresponding peak viewing angles and compares it to the angle resulting from the grating equation.
-
-\begin{algorithm}[H]
-\caption{BRDF Evaluation Graph Plotter}
-\begin{table}[H]
-  \begin{tabular}{@{}lll@{}}
-    \textbf{Input:} & $R$ Matrix with $BRDF$ intensity values of $(\Lambda, \Theta)$ grid \\
-    & $\Lambda$ discretized wavelength space used to compute $R$ \\
-    & $(\alpha_{min})$ minimum value of viewing angle space $\Theta$ \\
-    & $(\alpha_{step})$ discretization level of viewing angle space $\Theta$ \\
-    & $d$ estimated periodicity of height field \\
-    & $\theta_i$ fixed incident angle \\
-    \textbf{Procedure:} & $getMaxIntensGridPointsOf(matrix,r):$ get the column-index of the largest  \\
-    & \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad intensity value in the row $matrix(r,*)$\\
-    &$plotPoint(x,y)$: draw a point at $(x,y)$ \\
-    \textbf{Output:} & Evaluation Plot of given BRDF model applied on given height field \\
-  \end{tabular} 
-\end{table}
-\setlength{\fboxrule}{0pt} 
-\begin{boxedminipage}{1.0\textwidth}
-  \begin{algorithmic}[1]
-    \ForAll{$\lambda_k \in \Lambda$}
-      \State $\widetilde{\alpha} = getMaxIntensGridPointsOf(R, \lambda_k)$
-      \Comment{$\widetilde{\alpha}$ $\equiv$ index viewing angle of max. R}
-      \State $\widetilde{\alpha}_{r_k} = \alpha_{min} + \alpha_{step} \cdot \widetilde{\alpha}$
-      \State $\theta_{r_k} = asin\left( \frac{\lambda}{d} - sin(\theta_i) \right)$
-      \State $plotPoint(\lambda_k, \widetilde{\alpha}_{r_k})$
-      \Comment{graph resulting from our BRDF model}
-      \State $plotPoint(\lambda_k, \theta_{r_k})$
-      \Comment{graph resulting from grating equation}
-    \EndFor
-  \end{algorithmic}
-  \end{boxedminipage}
-  \vskip1.5pt
-\label{alg:evalmatlab}
-\end{algorithm}
-
-Algorithm $\ref{alg:evalmatlab}$ iterates over the wavelength space $\Lambda$ and generates our evaluation plots. For any wavelength it computes the viewing angle with maximum reflectance and the angle resulting from the grating equation as defined in equation $\ref{eq:gratingeq}$. Both angles are then plotted for the current wavelength in the current iteration. In the next section we will discuss the generated evaluation plots.
+For further details how we evaluated our BRDF in Java and how we generated the corresponding evaluation plots, please refer the appendix chapter $\ref{chap:appendixevaldatagen}$.
 
 \subsection{Virtual Testbench}
 \label{sec:virtualtestbench}
