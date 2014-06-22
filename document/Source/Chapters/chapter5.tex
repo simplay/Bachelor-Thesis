@@ -588,15 +588,23 @@ Figure $\ref{fig:renderingelaphelightrotations6}$ shows how the diffraction patt
 \label{fig:renderingelaphelightrotations6}
 \end{figure}
 
-Figure $\ref{fig:experimentelaphe65}$ shows a photo of an experimental setup for demonstrating the effect of diffraction using a Elaphe snake grating. The exact parameters for the experimental setup are unknown. Nevertheless this image gives us an impression of how close our model is to the reality comparing it with our simulated results since we notice similar diffraction patterns for our simulated results using an Elaphe snake shed. 
+Figure $\ref{fig:experimentelaphe65}$ shows a photo of a real experiment which is demonstrating color production due to the effect of diffraction produced when a laser beam hits an Elaphe grating. The exact parameters for this experimental setup are unknown. However, an exemplary laboratory setup is shown in figure $\ref{fig:experimentalsetup}$. Nevertheless, this photo of a real experiment gives us an impression of how much our model resembles to the reality. When comparing our BRDF map renderings of the Elaphe grating in figure $\ref{fig:brdfmapElaphe}$ (when using the FLSS approach) with the photo from figure $\ref{fig:experimentelaphe65}$, we notice similarities in the diffraction patterns.
 
 \begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.9]{nresults/labsetup.png}
+  \caption[Lab Setup]{Illustration of the laboratory setup for the diffraction experiments}
+  \label{fig:experimentalsetup}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
   \includegraphics[scale=0.2]{results/experiment/elaphe/g2.png}
   \caption{Diffraction Elaphe: Pattern for a sample setup}
   \label{fig:experimentelaphe65}
 \end{figure}
 
-In the following a brief comparison between Stam's$\footnote{A reference implementation of Stam's Diffraction Shader\cite{diffstam} is provided by Nvidia's GPU Gems at \texttt{http://http.developer.nvidia.com/GPUGems/gpugems\textunderscore 08.html}}$ and our FLSS method using two different kinds of gratings, a synthetic, regularly aligned grating and a natural, complex structured grating. These gratings are shown in figure $\ref{fig:stameggratings}$.
+In the following we provide a brief comparison between Stam's$\footnote{A reference implementation of Stam's Diffraction Shader\cite{diffstam} is provided by Nvidia's GPU Gems at \texttt{http://http.developer.nvidia.com/GPUGems/gpugems\textunderscore 08.html}}$ and our FLSS method. For this purpose we use two different kinds of gratings, a synthetic, regularly aligned grating and a natural, complex structured grating. These gratings are shown in figure $\ref{fig:stameggratings}$.
 
 \begin{figure}[H]
   \centering
