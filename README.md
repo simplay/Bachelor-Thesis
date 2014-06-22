@@ -62,3 +62,11 @@ nevertheless im going to send you a link, when im at home with same precomputed 
 ## Precomputation:
 
 ## How to use the program:
+###Eval setup
++ Blazed grating:
+
+````E:\baData\fftBlazeHeight_0.25Microns\ E:\Projects\DiffractionShader\op\loadBPQ265Microns.m 1000 1 -55 -40 0.01 75 0 180````
+
++ Elaphe grating:
+
+````E:\baData\fftElaphe65Microns\ E:\Projects\DiffractionShader\op\loadEPQ265Microns.m 666 1 -40 -15 0.01 75 0 180````
