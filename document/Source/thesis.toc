@@ -21,7 +21,7 @@
 \contentsline {subsection}{\numberline {2.3.2}Virtual Testbench}{25}{subsection.2.3.2}
 \contentsline {chapter}{\numberline {3}Results}{28}{chapter.3}
 \contentsline {section}{\numberline {3.1}BRDF maps}{28}{section.3.1}
-\contentsline {section}{\numberline {3.2}Rendering Surface Geometries}{41}{section.3.2}
-\contentsline {chapter}{\numberline {A}Evaluation Data Generation}{50}{appendix.A}
-\contentsline {chapter}{\numberline {B}Rendering Surface Geometries using the NMM approach}{52}{appendix.B}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{55}{equation.B.0.1}
+\contentsline {section}{\numberline {3.2}Rendering Surface Geometries}{42}{section.3.2}
+\contentsline {chapter}{\numberline {A}Evaluation Data Generation}{51}{appendix.A}
+\contentsline {chapter}{\numberline {B}Rendering Surface Geometries using the NMM approach}{53}{appendix.B}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{56}{equation.B.0.1}
