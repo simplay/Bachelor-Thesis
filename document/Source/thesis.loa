@@ -1,6 +1,5 @@
-\contentsline {algorithm}{\numberline {1}{\ignorespaces Precomputation: Pseudo code to generate Fourier terms\relax }}{44}{algorithm.1}
-\contentsline {algorithm}{\numberline {2}{\ignorespaces Vertex diffraction shader pseudo code\relax }}{51}{algorithm.2}
-\contentsline {algorithm}{\numberline {3}{\ignorespaces Fragment diffraction shader pseudo code\relax }}{55}{algorithm.3}
-\contentsline {algorithm}{\numberline {4}{\ignorespaces Texture Blending\relax }}{60}{algorithm.4}
-\contentsline {algorithm}{\numberline {5}{\ignorespaces Sinc interpolation for PQ approach\relax }}{63}{algorithm.5}
-\contentsline {algorithm}{\numberline {6}{\ignorespaces BRDF Evaluation Graph Plotter\relax }}{71}{algorithm.6}
+\contentsline {algorithm}{\numberline {1}{\ignorespaces Precomputation: Pseudo code to generate Fourier terms\relax }}{43}{algorithm.1}
+\contentsline {algorithm}{\numberline {2}{\ignorespaces Vertex diffraction shader pseudo code\relax }}{50}{algorithm.2}
+\contentsline {algorithm}{\numberline {3}{\ignorespaces Fragment diffraction shader pseudo code\relax }}{54}{algorithm.3}
+\contentsline {algorithm}{\numberline {4}{\ignorespaces Texture Blending\relax }}{59}{algorithm.4}
+\contentsline {algorithm}{\numberline {5}{\ignorespaces BRDF Evaluation Graph Plotter\relax }}{113}{algorithm.5}

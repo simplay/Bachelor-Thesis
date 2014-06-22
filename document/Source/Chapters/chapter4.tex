@@ -155,7 +155,7 @@ In this section we discuss the quality of our BRDF models applied to different s
 \multicolumn{1}{|c|}{\multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}Measuring\\ periodicity $d$\\ in [nm]\end{tabular}}} & \multicolumn{6}{c|}{Method}                                                    \\ \cline{2-7} 
 \multicolumn{1}{|c|}{}                                                                                           & \multicolumn{2}{c|}{FLSS} & \multicolumn{2}{c|}{NMM} & \multicolumn{2}{c|}{PQ} \\ \cline{2-7} 
 \multicolumn{1}{|c|}{}                                                                                           & mean        & variance    & mean        & variance   & mean       & variance   \\ \hline
-Blazed Grating                                                                                                   & 2499.997    & 0.377       & 2499.997    & 0.377      & 2491.861   & 248.044    \\ \hline
+Blazed Grating                                                                                                   & 2499.997    & 0.377       & 2499.997    & 0.377      & 2502.428   & 0.390    \\ \hline
 Elpahe Grading                                                                                                   & 1144.262    & 0.401       & 1144.179    & 0.677      & 1052.308   & 49.678     \\ \hline
 Xenopeltis Grating                                                                                               & 1552.27     & 0.45        & -           & -          & -          & -          \\ \hline
 \end{tabular}
@@ -193,12 +193,12 @@ Figure $\ref{fig:evaluationdiffshadernminmax}$ shows the evaluation plots for th
 \label{fig:evaluationdiffshadernminmax}
 \end{figure}
 
-Last, let us consider the evaluation graphs in figure $\ref{fig:evaluationdiffshaderpq}$ for the PQ approach described in algorithm $\ref{alg:sincinterpolation}$. The PQ approach assumes the given grating being periodically distributed on the surface of a shape. For this approach we have plotted evaluation graphs of the Blaze- (See figure $\ref{fig:blazepqeval}$) and Elaphe grating (See figure $\ref{fig:elaphepqeval}$). The response curves of both PQ evaluation graphs exhibit some similarities, but also some differences, compared to their corresponding grating equation curves. We could say that the response curve of the blaze grating is weakly oscillating around the grating equation curve (blue), but basically following it even with some outliers. The response curve of the Elpahe grating is not following its corresponding first order grating equation curve well. This could be due to the PQ's assumption that a given height field has to be periodically distributed along the surface. But in general, for natural gratings, this assumption usually does not hold true. Nevertheless, the red curve fits one of the response curves. We conclude that the PQ approach produces inaccurate results compared to the FLSS approach. Thus, the PQ approach is sub-optimal and unusable in practice.
+Last, let us consider the evaluation graphs from figure $\ref{fig:evaluationdiffshaderpq}$ for the PQ approach as described in section $\ref{sec:pqapproach}$. The PQ approach assumes the given grating being periodically distributed on the surface of a shape. For this approach we have plotted evaluation graphs of the Blaze- (See figure $\ref{fig:blazepqeval}$) and Elaphe grating (See figure $\ref{fig:elaphepqeval}$). The response curves of both PQ evaluation graphs exhibit some similarities, but also some differences, compared to their corresponding grating equation curves. We could say that the response curve of the blaze grating is weakly oscillating around the grating equation curve (blue), but basically following it even with some outliers. The response curve of the Elpahe grating is not following its corresponding first order grating equation curve well. This could be due to the PQ's assumption that a given height field has to be periodically distributed along the surface. But in general, for natural gratings, this assumption usually does not hold true. Nevertheless, the red curve fits one of the response curves. We conclude that the PQ approach produces inaccurate results compared to the FLSS approach. Thus, the PQ approach is sub-optimal and unusable in practice.
 
 \begin{figure}[H]
   \centering
   \subfigure[Blaze grating]{
-    \includegraphics[scale=0.26]{evaluation/verification/pq_blazed.png}
+    \includegraphics[scale=0.26]{evaluation/verification/pq_blazed2.png}
     \label{fig:blazepqeval}
   }
 ~

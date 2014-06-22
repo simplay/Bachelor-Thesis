@@ -33,9 +33,6 @@ with its origin at the center of the map. The light direction for normal inciden
   \end{itemize}
 }
 
-%%TODO maybe add glue fun - refere to schematics.
-%%TODO say something about used gratings.
-
 \begin{figure}[H]
   \centering
   \subfigure[Blaze grating with scale of 2.500 $\mu m$]{
@@ -57,7 +54,7 @@ with its origin at the center of the map. The light direction for normal inciden
 \label{fig:gratingpatches}
 \end{figure}
 
-Figure $\ref{fig:brdfmapsdiffpatches}$ shows the BRDF maps of the full lambda space sampling approach (\textbf{FLSS}) as described in section $\ref{sec:fragmentshader}$ applied on different nanoscale surface gratings shown in figure $\ref{fig:gratingpatches}$. In subfigure $\ref{fig:brdfmapBlaze}$ we see the BRDF map for the Blazed grating, showing high relative brightness for its first order diffraction, i.e. for the Blazed gratings most of the diffracted spectral energy lies in its first order. Notice that the surface of blazed grating is forming a step structure for which the angle between the step normal and the grating normal is denoted by $\emph{blaze angle}$. Every blazed grating is manufactred in the Littrow$\footnote{For further information please see \texttt{http://en.wikipedia.org/wiki/Blazed\textunderscore grating}.}$ configuration. This means that the blaze angle is chosen such that for a chosen mode m and a chosen wavelength $\lambda$ with maximum intensity and the incidence angle are identical. Thus a blazed grating has its maximal efficiency for the choosen wavelength of the light used. Higher diffraction modes are still perceivable (second and higher diffraction orders) but with a much lower relative brightness. The asymmetry in the brigthness of the pattern is due to the asymmetric geometry of the grating $\ref{fig:blazegratingpatch}$. \\
+Figure $\ref{fig:brdfmapsdiffpatches}$ shows the BRDF maps of the full lambda space sampling approach (\textbf{FLSS}) as described in section $\ref{sec:fragmentshader}$ applied on different nanoscale surface gratings shown in figure $\ref{fig:gratingpatches}$. In subfigure $\ref{fig:brdfmapBlaze}$ we see the BRDF map for the Blazed grating, showing high relative brightness for its first order diffraction, i.e. for the Blazed gratings most of the diffracted spectral energy lies in its first order. Notice that the surface of blazed grating is forming a step structure for which the angle between the step normal and the grating normal is denoted by $\emph{blaze angle}$. Every blazed grating is manufactured in the Littrow$\footnote{For further information please see \texttt{http://en.wikipedia.org/wiki/Blazed\textunderscore grating}.}$ configuration. This means that the blaze angle is chosen such that for a chosen mode m and a chosen wavelength $\lambda$ with maximum intensity and the incidence angle are identical. Thus a blazed grating has its maximal efficiency for the chosen wavelength of the light used. Higher diffraction modes are still perceivable (second and higher diffraction orders) but with a much lower relative brightness. The asymmetry in the brightness of the pattern is due to the asymmetric geometry of the grating $\ref{fig:blazegratingpatch}$. \\
 
 The finger-like structures contained in the Elaphe surface grating $\ref{fig:elpahegratingpatch}$ are considerably regularly aligned and hence diffraction occurs along the horizontal axis for the BRDF map as shown in figure $\ref{fig:brdfmapElaphe}$. The reason for not seeing any strong diffraction color contribution along other directions in the BRDF map is due to the fact that these ‘nano-fingers’ overlap across layers and thus do not exhibit any well-formed periodicity along finger direction. \\
 
@@ -90,9 +87,9 @@ Figure $\ref{fig:brdfmapsdiffrenderingapproaches}$ shows BRDF maps of all our BR
 
 Figure $\ref{fig:brdfmapblazeonlyreq}$ shows the BRDF map for the NMM approach, introduced in section $\ref{sec:nmmapproach}$, which is close to the FLSS approach as verified in section $\ref{sec:approachesverifications}$ (see figure $\ref{fig:blazneval}$). Nevertheless there is a small, noticeable difference: For the NMM approach we see a white, circular spot around the map center. Nevertheless, apart from this white spot, the NMM approach resembles the FLSS approach. The reason for this differences is due to the fact that the NMM approach treats the center of a BRDF map as a special case, as described in section $\ref{sec:nmmapproach}$. Technically, every location around a small $\epsilon$-circumference from the map center gets white color assigned. \\
 
-Figure $\ref{fig:brdfmapblazepq}$ shows the BRDF map for the PQ approach which relies on sinc-interpolation. The PQ BRDF map and the FLSS results are visual alike. In contrast to the evaluation plots in figure $\ref{fig:evaluationdiffshaderpq}$, the BRDF map for the PQ approach matches well woth the one for the FLSS approach. Compared to FLSS, one difference we notice is that the first order of diffraction is a little spread for the PQ approach. \\
+Figure $\ref{fig:brdfmapblazepq}$ shows the BRDF map for the PQ approach which relies on sinc-interpolation. The PQ BRDF map and the FLSS results are visual alike. In contrast to the evaluation plots in figure $\ref{fig:evaluationdiffshaderpq}$, the BRDF map for the PQ approach matches well with the one for the FLSS approach. Compared to FLSS, one difference we notice is that the first order of diffraction is a little spread for the PQ approach. \\
 
-Last, let us consider figure $\ref{fig:brdfmapblazegem}$ which shows the BRDF map produced by using Nvidia Gem's implementation $\cite{cpugems}$ of Stam's BRDF model corresponding to periodic like structures with regularily repeated bumps (along y-axis of the BRDF map). This corresponds to a one dimensional diffraction grating, along the x-axis. This model only uses the spacing $d$ of a given grating. It also always produces highly symmetric results and fails to confirm with the Littrow configuration.   
+Last, let us consider figure $\ref{fig:brdfmapblazegem}$ which shows the BRDF map produced by using Nvidia Gem's implementation $\cite{cpugems}$ of Stam's BRDF model corresponding to periodic like structures with regularly repeated bumps (along y-axis of the BRDF map). This corresponds to a one dimensional diffraction grating, along the x-axis. This model only uses the spacing $d$ of a given grating. It also always produces highly symmetric results and fails to confirm with the Littrow configuration.   
 
 % brdf maps patches
 \begin{figure}[H]
@@ -192,7 +189,7 @@ Figure $\ref{fig:brdfmapsdifflambdastepsblaze}$ and figure $\ref{fig:brdfmapsdif
 \label{fig:brdfmapsdifflambdastepselaphe65}
 \end{figure}
 
-The figures $\ref{fig:pqblaze}$, $\ref{fig:pqelaphe}$, $\ref{fig:pqxeno}$ show a comparison of the BRDF maps produced by the FLSS approach (on the left) and the PQ shading approach (on the right) applied on all our patches. For Blazed grating, as already mentioned, we notice that both approaches, FLSS and PQ, look similar but have notable differences. In the PQ map, the first order diffraction color contribution is spread. In genral, a Blazed Grating is manufactured in a way that a large fraction of the incident light is diffracted preferentially into the first order. Therefore, most of the energy in its BRDF map lies in the first order of diffraction at its blaze angle. This implies that largest portion of the color contribution, visible on the corresponding BRDF map, lies at that angle. In figure $\ref{fig:pqblaze}$, in contrast to the results produced by the FLSS approach, we see color fringes at the first order modes in the BRDF map produced by our PQ approach. This implies that the PQ approach does not produce reliable results which also affirms our evaluation plots shown in figure $\ref{fig:evaluationdiffshaderpq}$. The BRDF resulting BRDF mapf for the Elaphe and Xenopeltis gratings using the PQ approach are similar to those resulting by the FLSS approach. Nevertheless they also exhibit some artifacts, similar to these discussed for the Blazed grating.
+The figures $\ref{fig:pqblaze}$ and $\ref{fig:pqelaphe}$ show a comparison of the BRDF maps produced by the FLSS approach (on the left) and the PQ shading approach (on the right) applied on all our patches. For Blazed grating, as already mentioned, we notice that both approaches, FLSS and PQ, look similar but have notable differences. In the PQ map, the first order diffraction color contribution is spread. In general, a Blazed Grating is manufactured in a way that a large fraction of the incident light is diffracted preferentially into the first order. Therefore, most of the energy in its BRDF map lies in the first order of diffraction at its blaze angle. This implies that largest portion of the color contribution, visible on the corresponding BRDF map, lies at that angle. In figure $\ref{fig:pqblaze}$, in contrast to the results produced by the FLSS approach, we see color fringes at the first order modes in the BRDF map produced by our PQ approach. This implies that the PQ approach does not produce reliable results which also affirms our evaluation plots shown in figure $\ref{fig:evaluationdiffshaderpq}$. The BRDF resulting BRDF map for the Elaphe and Xenopeltis gratings using the PQ approach are similar to those resulting by the FLSS approach. Nevertheless they also exhibit some artifacts, similar to these discussed for the Blazed grating.
 
 \begin{figure}[H]
   \centering
@@ -225,6 +222,8 @@ The figures $\ref{fig:pqblaze}$, $\ref{fig:pqelaphe}$, $\ref{fig:pqxeno}$ show a
 \label{fig:pqelaphe}
 \end{figure}
 
+In figure $\ref{fig:pqxeno}$ we are also comparing the PQ approach with the FLSS applied on a Xenopeltis grating as shown in figure $\ref{fig:xenogratingpatch}$. For the subfigures $\ref{fig:pqxeno}$(a), $\ref{fig:pqxeno}$(b), $\ref{fig:pqxeno}$(c) and $\ref{fig:pqxeno}$(d) we were using the full size of the Xenopeltis grating, which is equal to 65$\mu m$ $\times$ 65$\mu m$ as our input patch. This implies that we were using 1 period for the PQ approach for producing the renderings shown in subfigures $\ref{fig:pqXenoti0}$ and $\ref{fig:pqXenoti20}$. On the other hand, figure $\ref{fig:fullLambdaXenoti10}$ shows a PQ rendering using a smaller patch of the Xenopeltis grating as shown in figure $\ref{fig:pqXenoti10}$. The this patch is only 3.25$\mu m$ $\times$ 3.25$\mu m$ which corresponds to 20 periods.
+
 \begin{figure}[H]
   \centering
   \subfigure[FLSS Approach: Xenopeltis grating $\theta_i = 0 \degree$]{
@@ -236,16 +235,6 @@ The figures $\ref{fig:pqblaze}$, $\ref{fig:pqelaphe}$, $\ref{fig:pqxeno}$ show a
     \includegraphics[scale=0.19]{nresults/brdfmaps/pq_xeno_thetai/0.png}
     \label{fig:pqXenoti0}
   }
-
-  \subfigure[FLSS Approach: Xenopeltis grating $\theta_i = 10 \degree$]{
-    \includegraphics[scale=0.19]{nresults/brdfmaps/flss_xeno_thetai/10.png}
-    \label{fig:fullLambdaXenoti10}
-  }
-~
-  \subfigure[PQ Approach: Xenopeltis grating $\theta_i = 10 \degree$]{
-    \includegraphics[scale=0.19]{nresults/brdfmaps/pq_xeno_thetai/10.png}
-    \label{fig:pqXenoti10}
-  }
   
   \subfigure[FLSS Approach: Xenopeltis grating $\theta_i = 20 \degree $]{
     \includegraphics[scale=0.19]{nresults/brdfmaps/flss_xeno_thetai/20.png}
@@ -256,6 +245,16 @@ The figures $\ref{fig:pqblaze}$, $\ref{fig:pqelaphe}$, $\ref{fig:pqxeno}$ show a
     \includegraphics[scale=0.19]{nresults/brdfmaps/pq_xeno_thetai/20.png}
     \label{fig:pqXenoti20}
   }
+  
+    \subfigure[PQ Approach: Applied on the patch in figure $\ref{fig:pqXenoti10}$]{
+      \includegraphics[scale=0.19]{nresults/brdfmaps/special/xeno_pq_20.png}
+      \label{fig:fullLambdaXenoti10}
+    }
+  ~
+    \subfigure[A 3.25$\mu m$ patch from our Xenopeltis grating]{
+      \includegraphics[scale=5.0]{nresults/brdfmaps/special/xeno6x2.png}
+      \label{fig:pqXenoti10}
+    }
   
 \caption[BRDF Map: PQ vs FLSS Approach on Xenopeltis Grating]{A comparison between the PQ- and the FLSS approach applied on an Xenopeltis grating.}
 \label{fig:pqxeno}
@@ -303,9 +302,9 @@ Figures $\ref{fig:brdfmapstayloriterationsblaze}$ and $\ref{fig:brdfmapstaylorit
 
 As discussed in section $\ref{sec:taylorapproximation}$ there exists a certain value of $N$ for which our approach converges. For all our shading approaches, applied on our gratings, we visually observed a convergence of their BRDF maps when using $N \geq 39$ DFT terms. Furthermore, for a Blazed grating it suffices to use only $N \geq 7$ - and for an Elaphe grating only $N \geq 9$ DFT terms. Notice, that these numbers of required DFT terms were empirically determined with a trial and error strategy. \\
 
-However, by making use of Taylor error term estimates, as introduced in the appendix section $\ref{chap:taylorseriesapproxappendix}$, we can derive an upper bound for $N$. This computation is dependent on many aspects, such as on the grating spacing, the sampling rate $dH$ and the used wavelenght spectrum. Thus, it is usually simpler to empirically determine an actual value for $N$ to be used. \\
+However, by making use of Taylor error term estimates, as introduced in the appendix section $\ref{chap:taylorseriesapproxappendix}$, we can derive an upper bound for $N$. This computation is dependent on many aspects, such as on the grating spacing, the sampling rate $dH$ and the used wavelength spectrum. Thus, it is usually simpler to empirically determine an actual value for $N$ to be used. \\
 
-In algorithm $\ref{alg:matlabprecomp}$ we compute different powers of DFT terms of our height fields $h$ by evaluating the expression $DFT(h)^n \cdot i^n$, where $i$ denotes the imaginary number $i$ and $n$ is a natural number. Note that when appliyng the DFT operator on a real or complex number (e.g. such as one particular value of our height field) we get a complex number. Using our Taylor series approximation has basically four possible convergence images, each having its own convergence radius. The reason for this is due to the fact we are multiplying the DFT terms by $i^n$. \\
+In algorithm $\ref{alg:matlabprecomp}$ we compute different powers of DFT terms of our height fields $h$ by evaluating the expression $DFT(h)^n \cdot i^n$, where $i$ denotes the imaginary number $i$ and $n$ is a natural number. Note that when applying the DFT operator on a real or complex number (e.g. such as one particular value of our height field) we get a complex number. Using our Taylor series approximation has basically four possible convergence images, each having its own convergence radius. The reason for this is due to the fact we are multiplying the DFT terms by $i^n$. \\
 
 In order to understand the reason behind this, let us consider the complex unit $i$. Raising $i$ to the power of a natural number $n$ leaves us four possible results as shown in equation $\ref{eq:thefourunits}$:
  
@@ -420,9 +419,9 @@ Figure $\ref{fig:brdfmapsxenodiffthetaiangles}$ shows the BRDF maps of the FLSS 
 
 \section{Rendering Surface Geometries}
 \label{sec:snakegeomrenderings}
-In this section we are going to present our actual renderings. These renderings are simulating the effects of diffraction produced when a directional light source encounters different nano-scaled surfaces on a given curved snake skin mesh. We will see that diffraction colors change dramatically with changes in the light direction, surface normals and the viewing direction. This is typical for diffraction colors observed in nature. Therefore, the aim of this section is tho provide a visual comparison between diffraction patterns occuring in nature as shown in figure $\ref{fig:snakespecies}$ and the renderings produced by our shader. Last we compare the results produced by our shader against those produced by Stam's approach. For this purpose we compare applied these methods on a synthetic grating (on a CD) and on a natural grating (on a Xenopeltis grating). \\
+In this section we are going to present our actual renderings. These renderings are simulating the effects of diffraction produced when a directional light source encounters different nano-scaled surfaces on a given curved snake skin mesh. We will see that diffraction colors change dramatically with changes in the light direction, surface normals and the viewing direction. This is typical for diffraction colors observed in nature. Therefore, the aim of this section is tho provide a visual comparison between diffraction patterns occurring in nature as shown in figure $\ref{fig:snakespecies}$ and the renderings produced by our shader. Last we compare the results produced by our shader against those produced by Stam's approach. For this purpose we compare applied these methods on a synthetic grating (on a CD) and on a natural grating (on a Xenopeltis grating). \\
 
-For rendering we are going to rely on our FLSS approach. Unfortunately, this approach is rather slow and can barely be considered as being interactively performing. The NMM approach on the other hand, has interactive runtime. In general, both approaches are valid according to to their evaluation plots shown in figure $\ref{fig:evaluationdiffshaderalllambda}$ and in figure $\ref{fig:evaluationdiffshadernminmax}$. Therefore, their rendered results may be considered as being accurate. However, the reason for choosing the FLSS approach instead of the NMM apporach is that the renderings resulting from the NMM approach look purpulish compared to those prouduced by the FLSS approach. This color-tone shift towards the purple color region for NMM renderings does not correspond to the reality and is a result of its non-uniform wavelength spectrum sampling. Further information about NMM's tone shift issue and how it can be addressed is discussed in the appendix section $\ref{chap:diffflssnmm}$. \\
+For rendering we are going to rely on our FLSS approach. Unfortunately, this approach is rather slow and can barely be considered as being interactively performing. The NMM approach on the other hand, has interactive runtime. In general, both approaches are valid according to to their evaluation plots shown in figure $\ref{fig:evaluationdiffshaderalllambda}$ and in figure $\ref{fig:evaluationdiffshadernminmax}$. Therefore, their rendered results may be considered as being accurate. However, the reason for choosing the FLSS approach instead of the NMM approach is that the renderings resulting from the NMM approach look purplish compared to those produced by the FLSS approach. This color-tone shift towards the purple color region for NMM renderings does not correspond to the reality and is a result of its non-uniform wavelength spectrum sampling. Further information about NMM's tone shift issue and how it can be addressed is discussed in the appendix section $\ref{chap:diffflssnmm}$. \\
 
 The Laboratory of Artificial and Natural Evolution in Geneva provided us with a triangular mesh of a snake. This mesh was produced by a 3D scan for an Elaphe snake species and it consists of \emph{11696} vertices and \emph{22950} faces. Note that, for all our renderings, we used this snake mesh. \\
 
@@ -500,7 +499,7 @@ Figure $\ref{fig:renderingelaphe65}$ shows a set of subfigures for rendering the
     \label{fig:renderingelaphe65ft}
   }
   
-\caption[Snake Renderings: FLSS Approach for Elaphe Grating]{Diffraction for Elaphe snake skin produced by our reference apporach.}
+\caption[Snake Renderings: FLSS Approach for Elaphe Grating]{Diffraction for Elaphe snake skin produced by our reference approach.}
 \label{fig:renderingelaphe65}
 \end{figure}
 
@@ -550,7 +549,7 @@ Figure $\ref{fig:renderingdifferentzoomlevelselaphe}$ shows the diffraction patt
 \label{fig:renderingdifferentzoomlevelselaphe}
 \end{figure}
 
-Figure $\ref{fig:renderingelaphelightrotations6}$ shows how the diffraction pattern changes when the incident light direction is moved slightly. This figure gives us an impression of what kind of complex, perspective-dependent pattern the diffraction phenomenon produces. The figure column from figure $\ref{fig:renderingElapheRotX2}$ to figure $\ref{fig:renderingElapheRotX6}$ models a scene in which a virtual sun (i.e. a directional light source) moves from south (S) to north (N). For each of this subfigure we can see in its inset (red box) how the diffraction color changes according to how the position of the sun changes. The figure column from figure $\ref{fig:renderingElapheRotY2}$ to figure $\ref{fig:renderingElapheRotY6}$ models a scenario when a sun moves from south-east (SE) to west (W). Similarly, the diffraction patterns changes according to the postion of the sun.
+Figure $\ref{fig:renderingelaphelightrotations6}$ shows how the diffraction pattern changes when the incident light direction is moved slightly. This figure gives us an impression of what kind of complex, perspective-dependent pattern the diffraction phenomenon produces. The figure column from figure $\ref{fig:renderingElapheRotX2}$ to figure $\ref{fig:renderingElapheRotX6}$ models a scene in which a virtual sun (i.e. a directional light source) moves from south (S) to north (N). For each of this subfigure we can see in its inset (red box) how the diffraction color changes according to how the position of the sun changes. The figure column from figure $\ref{fig:renderingElapheRotY2}$ to figure $\ref{fig:renderingElapheRotY6}$ models a scenario when a sun moves from south-east (SE) to west (W). Similarly, the diffraction patterns changes according to the position of the sun.
 
 \begin{figure}[H]
   \centering
@@ -588,15 +587,23 @@ Figure $\ref{fig:renderingelaphelightrotations6}$ shows how the diffraction patt
 \label{fig:renderingelaphelightrotations6}
 \end{figure}
 
-Figure $\ref{fig:experimentelaphe65}$ shows a photo of an experimental setup for demonstrating the effect of diffraction using a Elaphe snake grating. The exact parameters for the experimental setup are unknown. Nevertheless this image gives us an impression of how close our model is to the reality comparing it with our simulated results since we notice similar diffraction patterns for our simulated results using an Elaphe snake shed. 
+Figure $\ref{fig:experimentelaphe65}$ shows a photo of a real experiment which is demonstrating color production due to the effect of diffraction produced when a laser beam hits an Elaphe grating. The exact parameters for this experimental setup are unknown. However, an exemplary laboratory setup is shown in figure $\ref{fig:experimentalsetuppew}$. Nevertheless, this photo of a real experiment gives us an impression of how much our model resembles to the reality. When comparing our BRDF map renderings of the Elaphe grating in figure $\ref{fig:brdfmapElaphe}$ (when using the FLSS approach) with the photo from figure $\ref{fig:experimentelaphe65}$, we notice similarities in the diffraction patterns.
 
 \begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.9]{nresults/labsetup.png}
+  \caption[Lab Setup]{Illustration of the laboratory setup for the diffraction experiments}
+  \label{fig:experimentalsetuppew}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
   \includegraphics[scale=0.2]{results/experiment/elaphe/g2.png}
   \caption{Diffraction Elaphe: Pattern for a sample setup}
   \label{fig:experimentelaphe65}
 \end{figure}
 
-In the following a brief comparison between Stam's$\footnote{A reference implementation of Stam's Diffraction Shader\cite{diffstam} is provided by Nvidia's GPU Gems at \texttt{http://http.developer.nvidia.com/GPUGems/gpugems\textunderscore 08.html}}$ and our FLSS method using two different kinds of gratings, a synthetic, regularly aligned grating and a natural, complex structured grating. These gratings are shown in figure $\ref{fig:stameggratings}$.
+In the following we provide a brief comparison between Stam's$\footnote{A reference implementation of Stam's Diffraction Shader\cite{diffstam} is provided by Nvidia's GPU Gems at \texttt{http://http.developer.nvidia.com/GPUGems/gpugems\textunderscore 08.html}}$ and our FLSS method. For this purpose we use two different kinds of gratings, a synthetic, regularly aligned grating and a natural, complex structured grating. These gratings are shown in figure $\ref{fig:stameggratings}$.
 
 \begin{figure}[H]
   \centering
@@ -605,12 +612,12 @@ In the following a brief comparison between Stam's$\footnote{A reference impleme
   \label{fig:stameggratings}  
 \end{figure}
 
-Figure $\ref{fig:stameggratingsgoodeg}$ shows an example of a case where Stam's approach performs well. Considering the red-line in the figure we notice that the nano-scaled structures of a compact disc are very regularly aligned along the surface. Tracks of a CD are uniformally spaced and bumps along a track are distributed according to a poisson distribution$\footnote{See \texttt{http://en.wikipedia.org/wiki/Poisson\textunderscore distribution}}$. All angles of the diffraction pattern look the same as in the images produced by our apporach.
+Figure $\ref{fig:stameggratingsgoodeg}$ shows an example of a case where Stam's approach performs well. Considering the red-line in the figure we notice that the nano-scaled structures of a compact disc are very regularly aligned along the surface. Tracks of a CD are uniformly spaced and bumps along a track are distributed according to a poisson distribution$\footnote{See \texttt{http://en.wikipedia.org/wiki/Poisson\textunderscore distribution}}$. We notice that the diffraction patterns in both approaches look similar.
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{background/stamgoodeg.png}
-  \caption[Comparing Stam's apporach: Good Example]{Comparison of our approach against a reference implementation of Stam's method provided by Nvida Gem. For synthetic diffraction gratings, which have a very regular structure, Stam's approach is doing well. All angles of the diffraction pattern look the same as in the images produced by our approach.}
+  \caption[Comparing Stam's approach: Good Example]{Comparison of our approach against a reference implementation of Stam's method provided by Nvida Gem. For synthetic diffraction gratings, which have a very regular structure, Stam's approach is doing well. Both approaches produce similar diffraction patterns.}
   \label{fig:stameggratingsgoodeg}  
 \end{figure}
 
@@ -633,6 +640,8 @@ Finally, tried to reproduce a real Xenopeltis image (as shown in figure $\ref{fi
     \label{fig:gemattemptxeno}
   }
   
-\caption[Snake Renderings: Stam's- vs. Flss- Approach on Xenopeltis]{Comparison of our FLSS approach(see figure $\ref{fig:flssattemptxeno}$) against a reference implementation of Stam's method(see figure $\ref{fig:gemattemptxeno}$) provided by Nvida Gem. We attempt to reproduce a real Xenopeltis skin coloration(see figure $\ref{fig:xenopeltisrealimage}$). For natural diffraction gratings, which have a rather complex structure, Stam's approach is qualitatively different from the real image.}
+\caption[Snake Renderings: Stam's vs. FLSS Approach on Xenopeltis]{Comparison of our FLSS approach(see figure $\ref{fig:flssattemptxeno}$) against a reference implementation of Stam's method(see figure $\ref{fig:gemattemptxeno}$) provided by Nvida Gem. We attempt to reproduce a real Xenopeltis skin coloration(see figure $\ref{fig:xenopeltisrealimage}$). For natural diffraction gratings, which have a rather complex structure, Stam's approach is qualitatively different from the real image.}
 \label{fig:attemptxeno}
 \end{figure}
+
+In this chapter we have discussed the results produced by our rendering approaches. For the actual snake renderings, we were using the FLSS approach since the NMM approach produces renderings that exhibit an unpleasant purplish color-tone shift. A discussion how to address this issue is discussed in the appendix chapter $\ref{chap:diffflssnmm}$. Relying on the FLSS approach for producing the renderings of the section $\ref{sec:snakegeomrenderings}$ is appropriate since the aim of this section is to produce convincing renderings. However, when speed matters using the NMM approach is the way to go. Even we did not provide any runtime measurement analysis, we usually achieved interactive runtime using the NMM approach. In average, we get \emph{about 3 FPS} using the NMM approach relying on a hardware setup as listed in table $\ref{tab:hardwarespecifications}$.
