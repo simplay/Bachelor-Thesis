@@ -57,7 +57,49 @@ try to start the app
 
 the precomputed texutures are are not in this github repository, but the necessary matlab code in order to precompute those images.
 nevertheless im going to send you a link, when im at home with same precomputed images.
+## Tools
++ Eclipse
+  + IDE I used to write my Java and GLSL code. 
+  
++ Octave
+  + Matlab dialect used for writing all relevant Precomputation Scrips 
 
++ Textmate
+  + IDE I used to write Tex 
+
++ Git
+  + For versioning my code <3 
+
++ MINGW
+  + windows binding in order to do fancy stuff  
+
++ Edraw Max
+  + awesome tool I used to create most of the figures in my Thesis 
+
++ MeshLab
+  + Obj File manipulation tool 
+
++ GIMP 2
+  + I used this tool for postprocessing rendered images and defining in-sets. 
+
++ GoogleDocs
+  + I used this google tool in oder to create my BA presentation 
+
++ Microsoft Paint :)
+  + resizing/reformating various image files in an easy and simple way - just a few clicks. 
+
+## Languages
++ Java
+  + Rendering Program 
+
++ GLSL
+  + OpenGL Shaders 
+
++ Matlab
+  + Precomputation Scripts
+
++ Tex
+  + Thesis Document 
 
 ## Precomputation:
 
