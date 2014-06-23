@@ -599,10 +599,7 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 	return opVal;
 }
 
-void main() {
-	mainRenderMesh();
-//	mainBRDFMap();
-}
+
 
 void mainRenderMesh(){
 	setVarXY();
@@ -682,4 +679,10 @@ void mainBRDFMap(){
 	}
 	
 	frag_shaded = vec4(gammaCorrect(totalXYZ,2.5), 1.0);
+}
+
+
+void main() {
+//	mainRenderMesh();
+	mainBRDFMap();
 }
