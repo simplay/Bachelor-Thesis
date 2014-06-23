@@ -260,7 +260,7 @@ In figure $\ref{fig:pqxeno}$ we are also comparing the PQ approach with the FLSS
 \label{fig:pqxeno}
 \end{figure}
 
-Figure $\ref{fig:brdfmapsdiffsigmasizeblaze}$ shows BRDF maps for the FLSS approach when applied to the Blazed grating, while varying the value for the spatial variance $\sigma_s$ for the coherence window. This is akin to changing the coherence length for the incident light. We see that the lower the coherence length gets, the fewer of the interacting grating periods are involved. Having fewer periods cause the production of overlapping blurry diffraction bands (i.e. blobs, see e.g. figure $\ref{fig:brdfmapsDiffSigmaStepsL5Blaze}$) for different wavelengths $\lambda$. Thus, when reducing the number of periods this will produces blurry artifiacts which ends in having poorly resolved colors.  
+Figure $\ref{fig:brdfmapsdiffsigmasizeblaze}$ shows BRDF maps for the FLSS approach when applied to the Blazed grating, while varying the value for the spatial variance $\sigma_s$ for the coherence window. This is akin to changing the coherence length for the incident light. We see that the lower the coherence length gets, the fewer of the interacting grating periods are involved. Having fewer periods cause the production of overlapping blurry diffraction bands (i.e. blobs, see e.g. figure $\ref{fig:brdfmapsDiffSigmaStepsL5Blaze}$) for different wavelengths $\lambda$. Thus, when reducing the number of periods this will produces blurry artifacts which ends in having poorly resolved colors.  
 
 \begin{figure}[H]
   \centering
@@ -617,7 +617,7 @@ Figure $\ref{fig:stameggratingsgoodeg}$ shows an example of a case where Stam's 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{background/stamgoodeg.png}
-  \caption[Comparing Stam's approach: Good Example]{Comparison of our approach against a reference implementation of Stam's method provided by Nvida Gem. For synthetic diffraction gratings, which have a very regular structure, Stam's approach is doing well. Both approaches produce similar diffraction patterns.}
+  \caption[Comparing Stam's approach: Good Example]{Comparison of our approach against a reference implementation of Stam's method provided by Nvidia Gem. For synthetic diffraction gratings, which have a very regular structure, Stam's approach is doing well. Both approaches produce similar diffraction patterns.}
   \label{fig:stameggratingsgoodeg}  
 \end{figure}
 
@@ -640,8 +640,8 @@ Finally, tried to reproduce a real Xenopeltis image (as shown in figure $\ref{fi
     \label{fig:gemattemptxeno}
   }
   
-\caption[Snake Renderings: Stam's vs. FLSS Approach on Xenopeltis]{Comparison of our FLSS approach(see figure $\ref{fig:flssattemptxeno}$) against a reference implementation of Stam's method(see figure $\ref{fig:gemattemptxeno}$) provided by Nvida Gem. We attempt to reproduce a real Xenopeltis skin coloration(see figure $\ref{fig:xenopeltisrealimage}$). For natural diffraction gratings, which have a rather complex structure, Stam's approach is qualitatively different from the real image.}
+\caption[Snake Renderings: Stam's vs. FLSS Approach on Xenopeltis]{Comparison of our FLSS approach(see figure $\ref{fig:flssattemptxeno}$) against a reference implementation of Stam's method(see figure $\ref{fig:gemattemptxeno}$) provided by Nvidia Gem. We attempt to reproduce a real Xenopeltis skin coloration(see figure $\ref{fig:xenopeltisrealimage}$). For natural diffraction gratings, which have a rather complex structure, Stam's approach is qualitatively different from the real image.}
 \label{fig:attemptxeno}
 \end{figure}
 
-In this chapter we have discussed the results produced by our rendering approaches. For the actual snake renderings, we were using the FLSS approach since the NMM approach produces renderings that exhibit an unpleasant purplish color-tone shift. A discussion how to address this issue is discussed in the appendix chapter $\ref{chap:diffflssnmm}$. Relying on the FLSS approach for producing the renderings of the section $\ref{sec:snakegeomrenderings}$ is appropriate since the aim of this section is to produce convincing renderings. However, when speed matters using the NMM approach is the way to go. Even we did not provide any runtime measurement analysis, we usually achieved interactive runtime using the NMM approach. In average, we get \emph{about 3 FPS} using the NMM approach relying on a hardware setup as listed in table $\ref{tab:hardwarespecifications}$.
+In this chapter we have discussed the results produced by our rendering approaches. For the actual snake renderings, we were using the FLSS approach since the NMM approach produces renderings that exhibit an unpleasant purplish color-tone shift. A discussion how to address this issue is discussed in the appendix chapter $\ref{chap:diffflssnmm}$. Relying on the FLSS approach for producing the renderings of the section $\ref{sec:snakegeomrenderings}$ is appropriate since the aim of this section is to produce convincing renderings. However, when speed matters using the NMM approach is the way to go. Even we did not provide any runtime measurement analysis, we usually achieved interactive runtime using the NMM approach. In average, we get \emph{about 5-10 FPS} using the NMM approach relying on a hardware setup as listed in table $\ref{tab:hardwarespecifications}$.

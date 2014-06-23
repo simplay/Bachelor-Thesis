@@ -1,6 +1,6 @@
 \chapter{Miscellaneous Transformations}
 \section{Fresnel Term - Schlick's approximation}
-The Fresnel's equations describe the reflection and transmission of electromagnetic waves at an interface. That is, they give the reflection and transmission coefficients for waves parallel and perpendicular to the plane of incidence. Schlick's approximation is a formula for approximating the contribution of the Fresnel term where the specular reflection coefficient $R$ can be approximated by:
+The \emph{Fresnel equations} describes the reflection and transmission of a electromagnetic wave at an interface. The Fresnel equation provides a reflection and transmission coefficients for waves. In Computer Graphics we often use the \emph{Schlick's approximation}. The specular reflection coefficient $R$ of the Fresnel equation can be approximated by:
 
 \begin{equation}
  R(\theta) = R_0 + (1 - R_0)(1 - \cos \theta)^5
@@ -13,8 +13,8 @@ and
   R_0 = \left(\frac{n_1-n_2}{n_1+n_2}\right)^2
 \end{equation*}
 
-where $\theta$ is the angle between the viewing direction and the half-angle direction, which is halfway between the incident 
-light direction and the viewing direction, hence $\cos\theta=(H\cdot V)$. And $n_1,\,n_2$ are the indices of refraction of the two medias at the interface and $R_0$ is the reflection coefficient for light incoming parallel to the normal (i.e., the value of the Fresnel term when $\theta = 0$ or minimal reflection). In computer graphics, one of the interfaces is usually air, meaning that $n_1$ very well can be approximated as 1.
+where $\theta$ is the angle between the viewing direction and the half-angle direction. This is equal to the halfway between the incident 
+light direction and the viewing direction, i.e. $\cos \theta = (H \cdot V)$. $n_1$ $n_2$ are the refraction indices of the two medias. $R_0$ is the reflection coefficient for light incoming parallel to the normal (i.e., the value of the Fresnel term when $\theta = 0 \degree$ or minimal reflection). In Computer Graphics one of the interfaces is usually air, meaning that $n_1$ is approximately equal to 1.
 
 \section{Spherical Coordinates and Space Transformation}
 \label{sec:sphericalcoordinates}
@@ -26,7 +26,7 @@ light direction and the viewing direction, hence $\cos\theta=(H\cdot V)$. And $n
 \end{figure}
 \footnotetext{image source of figure $\ref{fig:sphericalcoordinatesystem}$ \texttt{http://en.wikipedia.org/wiki/Spherical\textunderscore coordinate\textunderscore system}} 
 
-To define a spherical coordinate system like shown in figure $\ref{fig:sphericalcoordinatesystem}$, two angles, tho polar angle $\theta$ and the azimuthal $\phi$ plus a radius $r$ are required. Then the Cartesian coordinates $(x,y,z)$ may be retrieved from the spherical coordinates like the following: $\forall \colvec[x]{y}{z} \in \mathbb{R}^3 : \exists r \in [0,\infty) \exists \phi \in [0,2\pi] \exists \theta \in [0,\pi] $ s.t.
+To define a \emph{spherical coordinate} system as shown in figure $\ref{fig:sphericalcoordinatesystem}$ we need two particular angles, the \emph{polar angle} $\theta$ and the \emph{azimuthal} $\phi$ plus a radius $r$. Then the Cartesian coordinates $(x,y,z)$ may be retrieved from their spherical coordinate representation as the following: $\forall \colvec[x]{y}{z} \in \mathbb{R}^3 : \exists r \in [0,\infty) \exists \phi \in [0,2\pi] \exists \theta \in [0,\pi] $ s.t.
 \begin{equation*}
 \colvec[x]{y}{z} = \colvec[r sin(\theta)cos(\phi)]{r sin(\theta)sin(\phi)}{r cos(\theta)}
 \label{eq:sphericalcoordinates}
@@ -47,11 +47,11 @@ and therefore $w^2$ is equal $(cos(\theta_i)+cos(\theta_r))^2$.
 
 \section{Tangent Space}
 \label{sec:tangentspace}
-The concept of tangent-space transformation of tangent space is used in order to convert a point between world and tangent space. GLSL fragment shaders require normals and other vertex primitives declared at each pixel point, which mean that we have one normal vector at each texel and the normal vector axis will vary for every texel. \\
+The concept of performing a transformation into the \emph{tangent space} is used in order to convert a point between the world and and its local (tangent) space.  \\
 
-Think of it as a bumpy surface defined on a flat plane. If those normals were declared in the world space coordinate system, we would have to rotate these normals every time the model is rotated, even when just for a small amount. Since the lights, cameras and other objects are usually defined in world space coordinate system, and therefore, when they are involved in an calculation within the fragment shader, we would to have to rotate them as well for every pixel. This would involve almost countless many object to world matrix transformations meed to take place at the pixel level. Therefore, instead doing so, we transform all vertex primitives into tangent space within the vertex shader. \\
+We can think of the tangent space as a bumpy surface defined on a flat plane. If the normals of a fragment were defined in a world space coordinate system, we would have to rotate these normals every time the model is rotated - even when just for a small amount. Since lights, the camera and other scene primitives usually are defined in the world space coordinate system we would to have to rotate them according to every fragment position. This would require to apply countless many object-to-world transformations at a pixel level. The workaround for this issue is to transform all vertex primitives into tangent space in the vertex shader. \\
 
-To make this point clear an example: Even we would rotate the cube in figure $\ref{fig:cubeintangentspace}$, the tangent space axis will remain aligned with respect to the face. Which practically speaking, will save us from performing many space transformations applied pixel-wise within the fragment shader and instead allows us to perform us the tangent-space transformation of every involved vertex primitive in the vertex-shader.
+To make this point clear: Even we would rotate the cube as shown in figure $\ref{fig:cubeintangentspace}$, its tangent space axis will remain aligned w.r.t its face. This will save us from apply many space transformations on fragments.
 
 \begin{figure}[H]
   \centering

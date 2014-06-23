@@ -73,24 +73,25 @@
 \contentsline {section}{\numberline {7.2}Personal Experiences}{98}{section.7.2}
 \contentsline {section}{\numberline {7.3}Acknowledgment}{98}{section.7.3}
 \contentsline {chapter}{\numberline {A}Signal Processing Basics}{99}{appendix.A}
-\contentsline {section}{\numberline {A.1}Fourier Transformation}{99}{section.A.1}
-\contentsline {section}{\numberline {A.2}Convolution}{101}{section.A.2}
-\contentsline {section}{\numberline {A.3}Taylor Series}{101}{section.A.3}
-\contentsline {chapter}{\numberline {B}Summary of Stam's Derivations}{102}{appendix.B}
-\contentsline {chapter}{\numberline {C}Derivation Steps in Detail}{104}{appendix.C}
-\contentsline {section}{\numberline {C.1}Taylor Series Approximation}{104}{section.C.1}
-\contentsline {subsection}{\numberline {C.1.1}Proof Sketch of 1.}{104}{subsection.C.1.1}
-\contentsline {subsection}{\numberline {C.1.2}Part 2: Find such an N}{104}{subsection.C.1.2}
-\contentsline {section}{\numberline {C.2}PQ approach}{106}{section.C.2}
-\contentsline {subsection}{\numberline {C.2.1}One dimensional case}{106}{subsection.C.2.1}
-\contentsline {subsection}{\numberline {C.2.2}Two dimensional case}{108}{subsection.C.2.2}
-\contentsline {chapter}{\numberline {D}Miscellaneous Transformations}{109}{appendix.D}
-\contentsline {section}{\numberline {D.1}Fresnel Term - Schlick's approximation}{109}{section.D.1}
-\contentsline {section}{\numberline {D.2}Spherical Coordinates and Space Transformation}{110}{section.D.2}
-\contentsline {section}{\numberline {D.3}Tangent Space}{110}{section.D.3}
-\contentsline {chapter}{\numberline {E}Evaluation Data Generation}{112}{appendix.E}
-\contentsline {chapter}{\numberline {F}Rendering Surface Geometries using the NMM approach}{114}{appendix.F}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{117}{equation.F.0.1}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{117}{appendix*.93}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{119}{appendix*.94}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{120}{appendix*.95}
+\contentsline {section}{\numberline {A.1}Signals in Signal Processing}{99}{section.A.1}
+\contentsline {section}{\numberline {A.2}Fourier Transformation}{99}{section.A.2}
+\contentsline {section}{\numberline {A.3}The Convolution Operator}{101}{section.A.3}
+\contentsline {section}{\numberline {A.4}Taylor Series}{102}{section.A.4}
+\contentsline {chapter}{\numberline {B}Derivation Steps in Detail}{103}{appendix.B}
+\contentsline {section}{\numberline {B.1}Taylor Series Approximation}{103}{section.B.1}
+\contentsline {subsection}{\numberline {B.1.1}Proof Sketch of 1.}{103}{subsection.B.1.1}
+\contentsline {paragraph}{Proof of that the section converges absolutely}{103}{section*.89}
+\contentsline {subsection}{\numberline {B.1.2}Part 2: Find such an N}{104}{subsection.B.1.2}
+\contentsline {section}{\numberline {B.2}PQ approach}{105}{section.B.2}
+\contentsline {subsection}{\numberline {B.2.1}One dimensional case}{105}{subsection.B.2.1}
+\contentsline {subsection}{\numberline {B.2.2}Two dimensional case}{107}{subsection.B.2.2}
+\contentsline {chapter}{\numberline {C}Miscellaneous Transformations}{108}{appendix.C}
+\contentsline {section}{\numberline {C.1}Fresnel Term - Schlick's approximation}{108}{section.C.1}
+\contentsline {section}{\numberline {C.2}Spherical Coordinates and Space Transformation}{109}{section.C.2}
+\contentsline {section}{\numberline {C.3}Tangent Space}{109}{section.C.3}
+\contentsline {chapter}{\numberline {D}Evaluation Data Generation}{111}{appendix.D}
+\contentsline {chapter}{\numberline {E}Rendering Surface Geometries using the NMM approach}{113}{appendix.E}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{116}{equation.E.0.1}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{116}{appendix*.94}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{118}{appendix*.95}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{119}{appendix*.96}
