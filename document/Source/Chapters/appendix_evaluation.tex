@@ -1,6 +1,6 @@
 \chapter{Evaluation Data Generation}
 \label{chap:appendixevaldatagen}
-The aim of this appendix chapter is to provide some further information and insight about how we generated the data for our evaluation graphs and how we plotted them discussed in chapter 5. For this purpose we first explain how we discretized the input data in order to compute the BRDF values. This is followed by discussing the algorithm how we plotted our graphs as illustrated in aglorithm $\ref{alg:evalmatlab}$. \\
+The aim of this appendix chapter is to provide some further information and insight about how we generated the data for our evaluation graphs and how we plotted them discussed in chapter 5. For this purpose we first explain how we discretized the input data in order to compute the BRDF values. This is followed by discussing the algorithm how we plotted our graphs as illustrated in algorithm $\ref{alg:evalmatlab}$. \\
 
 In our evaluation Java program (as mentioned in section $\ref{sec:evalprecomp}$) we fixed the incident light angle $\theta_i$$\footnote{In practice, we set the $\theta_i$ equal to $75 \degree$.}$. This allows us to remove the argument $\theta_i$ from our BRDF function. Our java program computes each $BRDF$ function at a given discrete wavelength-viewing-angle grid, denoted by $[\Lambda, \Theta]$. The wavelength space $\Lambda = [\lambda_{min}, \lambda_{max}]$ and the viewing angle range $\Theta = [\alpha_{min}, \alpha_{max}]$ of our free parameter $\theta_r$ are discretized using equidistant steps. The step sizes, denoted by $(\lambda_{step}, \alpha_{step})$, are provided as input arguments for our Java evaluation program. \\
 
@@ -11,7 +11,7 @@ Next, let us have a closer look at how our discrete $[\Lambda, \Theta]$ grid is 
 \label{eq:lambdaspacesetup}
 \end{equation}
 
-where $steps_{\lambda} = \ceil{\frac{\lambda_{max}-\lambda_{min}}{\lambda_{step}}}$. We similarly discretise the viewing angle space $\Theta$ by setting a minimal and maximal viewing-angle boundary $\alpha_{min}$ and $\alpha_{max}$. Then $\ceil{\frac{\alpha_{max} - \alpha_{min}}{\alpha_{step}}}$ is the number of angle $steps_{\alpha}$. And thus, our $\Theta$ space it defined like the following:
+where $steps_{\lambda} = \ceil{\frac{\lambda_{max}-\lambda_{min}}{\lambda_{step}}}$. We similarly discretize the viewing angle space $\Theta$ by setting a minimal and maximal viewing-angle boundary $\alpha_{min}$ and $\alpha_{max}$. Then $\ceil{\frac{\alpha_{max} - \alpha_{min}}{\alpha_{step}}}$ is the number of angle $steps_{\alpha}$. And thus, our $\Theta$ space it defined like the following:
 
 \begin{equation}
 \Theta = \{\alpha = \alpha_{min} + k \cdot \alpha_{step} | k \in \{0,..,steps_{\alpha}-1\}\}
@@ -61,4 +61,4 @@ The generation process of the evaluation plots, which we discuss in section $\re
 \label{alg:evalmatlab}
 \end{algorithm}
 
-Algorithm $\ref{alg:evalmatlab}$ iterates over the wavelength space $\Lambda$ and generates our evaluation plots. For any wavelength it computes the viewing angle with maximum reflectance and the angle resulting from the grating equation as defined in equation $\ref{eq:gratingeq}$. Both angles are then plotted for the current wavelength in the current iteration. In the next section we will discuss the generated evaluation plots.
+Algorithm $\ref{alg:evalmatlab}$ iterates over the wavelength space $\Lambda$ and generates our evaluation plots. For any wavelength it computes the viewing angle with maximum reflectance and the angle resulting from the grating equation as defined in equation $\ref{eq:gratingeq}$. Both angles are then plotted for the current wavelength in the current iteration. In the next section we will discuss the generated evaluation plots. The reason for discussing this algorithm is to offer the reader a complete discussion about the whole evaluation process. 
