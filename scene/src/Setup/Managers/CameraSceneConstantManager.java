@@ -19,7 +19,7 @@ public class CameraSceneConstantManager {
 	private void defineConstant(){
 		CameraSceneConstant cs = null;		
 		//cs = new CameraSceneConstant("plane1", 1.0f, 60.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
-		cs = new CameraSceneConstant("plane1", 1.0f, 15.0f, new Vector3f(0,1, 0), new Point3f(0, 0, 0), false);
+		cs = new CameraSceneConstant("plane1", 0.50f, 15.0f, new Vector3f(0,1, 0), new Point3f(0, 0, 0), false);
 		constants.add(cs);
 		cs = new CameraSceneConstant("plane1_far", 20.0f, 2.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
 		constants.add(cs);
@@ -37,7 +37,8 @@ public class CameraSceneConstantManager {
 		constants.add(cs);
 		cs = new CameraSceneConstant("snake2", 2.0f, 1.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
 		constants.add(cs);
-		cs = new CameraSceneConstant("snake3", 0.1f, 3.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
+		// used for rendering different zoom levels: change 2nd arg, 1.0 default
+		cs = new CameraSceneConstant("snake3", 0.35f, 3.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
 		constants.add(cs);
 		cs = new CameraSceneConstant("snake4", 10.0f, 25.0f, new Vector3f(0, 1, 0), new Point3f(0, 0, 0), false);
 		constants.add(cs);

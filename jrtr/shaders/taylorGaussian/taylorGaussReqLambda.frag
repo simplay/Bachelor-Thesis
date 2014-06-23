@@ -530,6 +530,8 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 			float lVal = (uu*dx/nu)*1000.0;
 
 			
+			float transfCorrF = (lVal*lVal)/(2.0*PI);
+			
 			vec4 clrFn = getClrMatchingFnWeights(lVal);
 			
 			float specV = clrFn.w;	
@@ -552,7 +554,7 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 				vec2 fftCoef = getFFTAt(lookupCoord, tIdx);
 				tempFFTScale = tempFFTScale + preScale * fftCoef;
 			}
-			
+			tempFFTScale *= transfCorrF;
 			float fftMagSqr = tempFFTScale.x * tempFFTScale.x + tempFFTScale.y * tempFFTScale.y;
 			opVal.x = opVal.x + fftMagSqr * specV * clrFn.x;
 			opVal.y = opVal.y + fftMagSqr * specV * clrFn.y;
@@ -561,6 +563,8 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 		
 		for(float nv = lower_v; nv < upper_v; nv = nv+maskStep){
 			float lVal = (vv*dx/nv)*1000.0;
+			
+			float transfCorrF = (lVal*lVal)/(2.0*PI);
 			
 			vec4 clrFn = getClrMatchingFnWeights(lVal);
 			
@@ -584,7 +588,7 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 				vec2 fftCoef = getFFTAt(lookupCoord, tIdx);
 				tempFFTScale = tempFFTScale + preScale * fftCoef;
 			}
-			
+			tempFFTScale *= transfCorrF;
 			float fftMagSqr = tempFFTScale.x * tempFFTScale.x + tempFFTScale.y * tempFFTScale.y;
 			opVal.x = opVal.x + fftMagSqr * specV * clrFn.x;
 			opVal.y = opVal.y + fftMagSqr * specV * clrFn.y;
@@ -600,8 +604,8 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 }
 
 void main() {
-	mainRenderMesh();
-//	mainBRDFMap();
+//	mainRenderMesh();
+	mainBRDFMap();
 }
 
 void mainRenderMesh(){
@@ -672,8 +676,11 @@ void mainBRDFMap(){
 	float ww = k1.z - k2.z;
 
 	vec3 totalXYZ  = getRawXYZFromTaylorSeries( uu, vv, ww);
-	totalXYZ = totalXYZ * gainF(k1, k2)*65;
+//	totalXYZ = totalXYZ * gainF(k1, k2)*65;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
+	totalXYZ = totalXYZ * gainF(k1, k2)*0.0000001;
+//	totalXYZ = totalXYZ * gainF(k1, k2)*100000000000.0;
+
 	
 	if (isnan(totalXYZ.x *totalXYZ.y *totalXYZ.z)){
 		totalXYZ.x  = 1.0;
