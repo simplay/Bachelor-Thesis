@@ -30,8 +30,6 @@ import Setup.Managers.PreCompDataManager;
 import Setup.Managers.SceneConfigurationManager;
 import Setup.Managers.ShaderTaskSetupManager;
 import Setup.Managers.ShapeManager;
-import ShaderLogic.DefaultShaderTask;
-import ShaderLogic.DiffractionShaderTask;
 import ShaderLogic.TaylorGaussianShaderTask;
 import ShaderLogic.ShaderTask;
 
@@ -75,15 +73,7 @@ public class DiffractionSceneGraphFabricator {
 	}
 	
 	private void setUpShaderTask(){
-		if(sceneConfig.getShaderTask() == ShaderTaskNr.STAM){
-		    activeShaderTask = new DiffractionShaderTask();
-		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.TAYLORGAUSSIAN){
-			activeShaderTask = new TaylorGaussianShaderTask();
-		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.DEBUG_ANNOTATION){
-			activeShaderTask = new TaylorGaussianShaderTask();
-		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.DEBUG_SPECULAR){
-			activeShaderTask = new TaylorGaussianShaderTask();
-		}
+		activeShaderTask = new TaylorGaussianShaderTask();
 	}
 	
 	private Material setUpMaterials(){
@@ -158,7 +148,7 @@ public class DiffractionSceneGraphFabricator {
 		
 		DiffractionCone diffcone = new DiffractionCone(120, 0.01f, 0.1f);
 		lightDir = new Shape(diffcone.getVertices());
-		lightDir.setShaderTask(new DefaultShaderTask());
+		lightDir.setShaderTask(activeShaderTask);
 		lightDir.setMaterial(mat);
 	}
 	
