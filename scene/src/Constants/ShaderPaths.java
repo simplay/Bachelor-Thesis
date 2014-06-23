@@ -11,15 +11,11 @@ public enum ShaderPaths {
 	stamFrag("../jrtr/shaders/stam/HFD_Stam_approx.frag"),
 	
 	// taylor Gauss
-	tg_Vert("../jrtr/shaders/taylorGaussian/diffractionVPrecomp.vert"),
-//	tg_Frag("../jrtr/shaders/taylorGaussian/taylorGaussianAllLambda.frag"),
-//	tg_Frag("../jrtr/shaders/taylorGaussian/taylorPQAllLambda.frag"),
-	
-	
-//	tg_Frag("../jrtr/shaders/taylorGaussian/pqsincinterpol.frag"), // PQ
-	
-	
-	tg_Frag("../jrtr/shaders/taylorGaussian/taylorGaussReqLambda.frag"), // NMM
+	tg_Vert("../jrtr/shaders/taylorGaussian/vertexshader.vert"),
+	tg_Frag("../jrtr/shaders/taylorGaussian/flss.frag"),	
+//	tg_Frag("../jrtr/shaders/taylorGaussian/pq.frag"), // PQ
+//	tg_Frag("../jrtr/shaders/taylorGaussian/nmm.frag"), // NMM
+//	tg_Frag("../jrtr/shaders/taylorGaussian/gem.frag"),
 	
 	
 	 
