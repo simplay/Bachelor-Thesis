@@ -1,14 +1,10 @@
 package MVC;
 
-import java.util.LinkedList;
 
 import javax.vecmath.Matrix4f;
-
 import jrtr.Camera;
-
 import SceneGraph.GraphSceneManager;
 import Util.Observer;
-import Util.Subscriber;
 
 public class Watchman extends Observer{
 	private String cameraString;

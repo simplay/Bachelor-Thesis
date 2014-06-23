@@ -1,37 +1,18 @@
 package MVC;
-import java.awt.Canvas;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.Buffer;
-
 import javax.imageio.ImageIO;
-import javax.media.opengl.GL;
 import javax.media.opengl.GL3;
-import javax.swing.JOptionPane;
-
 import jrtr.GLRenderContext;
-import jrtr.RenderContext;
-
 import com.jogamp.opengl.util.awt.Screenshot;
-import com.sun.corba.se.impl.ior.ByteBuffer;
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGEncodeParam;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import com.sun.jmx.snmp.Timestamp;
-
 import Constants.ShaderTaskNr;
 import Listeners.SimpleKeyListener;
 import Listeners.SimpleMouseListener;
 import Listeners.SimpleMouseMotionListener;
-import ShaderLogic.ShaderTask;
 import Util.Subscriber;
 
 public class MainController implements Subscriber{

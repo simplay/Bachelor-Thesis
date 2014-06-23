@@ -1,32 +1,17 @@
 package MVC;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
-import Listeners.SimpleKeyListener;
-import Listeners.SimpleMouseListener;
-import Listeners.SimpleMouseMotionListener;
 
 public class MainView {
 	private MyRenderPanel renderPanel;
-//	private SimpleKeyListener ks;
 	private int WindowDim;
+	@SuppressWarnings("unused")
 	private MainModel model;
 	private JTextArea history;
 	private Component canvas;
