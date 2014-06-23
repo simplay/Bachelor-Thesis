@@ -322,18 +322,12 @@ vec2 getFFTAt(vec2 lookupCoord, int tIdx){
 	return (fftMag.xy); 	
 }
 
-vec4 getClrMatchingFnWeights(float lVal){
-	if(lVal < LMIN){
-		lVal = LMIN;
-	}
-	
-	if(lVal >= LMAX){
-		// just to ensure that the flooring
-		// latches to the lower value
-		lVal = LMAX - delLamda/100000.0f; 
-	}								
-	
-	float alpha  = (lVal - LMIN)/delLamda;
+// get the CIE XYZ color matching-function weights for a given wavelength
+// by performing a lookup in a color table storing these XYZ values plus the reflectance.
+// @param lambda wavelength in nanometer units
+// @return [CIE_XYZ, reflectance] for given wavelength which is a vec4f
+vec4 getColorMatchingFunctionWeights(float lambda){
+	float alpha  = (lambda - LMIN)/delLamda;
 	int lIdx = int(floor(alpha));
 	alpha = alpha - lIdx;
 	return brdf_weights[lIdx] * (1-alpha) + brdf_weights[lIdx+1] * alpha; 
@@ -351,7 +345,7 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 	
 	
 	for(float lambda = LMIN; lambda <= LMAX; lambda = lambda + lambdaStep){	
-		vec4 xyzColorWeights = getClrMatchingFnWeights(lambda);
+		vec4 xyzColorWeights = getColorMatchingFunctionWeights(lambda);
 		float specV = xyzColorWeights.w;
 		xNorm = xNorm + specV*xyzColorWeights.x;
 		yNorm = yNorm + specV*xyzColorWeights.y;
