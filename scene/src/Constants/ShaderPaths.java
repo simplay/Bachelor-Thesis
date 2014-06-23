@@ -2,30 +2,17 @@ package Constants;
 
 public enum ShaderPaths {
 	
-	// a default shader
-	defaultVert("../jrtr/shaders/default.vert"),
-	defaultFrag("../jrtr/shaders/default.frag"),
 
-	// stam's approach based on nvidia code
-	stamVert("../jrtr/shaders/stam/HFD_Stam_approx.vert"),
-	stamFrag("../jrtr/shaders/stam/HFD_Stam_approx.frag"),
-	
 	// taylor Gauss
-	tg_Vert("../jrtr/shaders/taylorGaussian/vertexshader.vert"),
-	tg_Frag("../jrtr/shaders/taylorGaussian/flss.frag"),	
-//	tg_Frag("../jrtr/shaders/taylorGaussian/pq.frag"), // PQ
-//	tg_Frag("../jrtr/shaders/taylorGaussian/nmm.frag"), // NMM
-//	tg_Frag("../jrtr/shaders/taylorGaussian/gem.frag"),
+	tg_Vert("../jrtr/shaders/vertexshader.vert"),
+//	tg_Frag("../jrtr/shaders/approaches/flss.frag");	
+//	tg_Frag("../jrtr/shaders/approaches/pq.frag"); // PQ
+//	tg_Frag("../jrtr/shaders/approaches/nmm.frag"); // NMM
+	tg_Frag("../jrtr/shaders/approaches/gem.frag");
 	
 	
 	 
-	
-	// debug
-	specular_Vert("../jrtr/shaders/debug/full_specular.vert"),
-	specular_Frag("../jrtr/shaders/debug/full_specular.frag"),
-	
-	tg_da_Vert("../jrtr/shaders/debug/TG_F_a.vert"),
-	tg_da_Frag("../jrtr/shaders/debug/TG_F_a.frag");
+
 	
 	private final String value;
 		 
