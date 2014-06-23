@@ -17,6 +17,7 @@ public class DiffractionCylinder extends DiffractionGeometricObject{
 	private float height;
 	private int circlePointCount;
 	private int circleCount;
+	@SuppressWarnings("unused")
 	private float scale;
 	
 	
@@ -40,7 +41,7 @@ public class DiffractionCylinder extends DiffractionGeometricObject{
 	protected float[] getTangentVectors() {
 		int counter = 0;
 		List<Float> tangents = new LinkedList<Float>();
-		float phiStep = (float) (2.0f*Math.PI/circlePointCount);
+//		float phiStep = (float) (2.0f*Math.PI/circlePointCount);
 		
 		for(int t = 0; t < circleCount; t++){
 			for(int k = 0; k < circlePointCount; k++){

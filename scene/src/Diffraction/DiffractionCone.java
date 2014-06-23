@@ -9,11 +9,14 @@ import ReadObjects.WriteBackMonkey;
 import jrtr.VertexData;
 
 public class DiffractionCone extends DiffractionGeometricObject{
+	@SuppressWarnings("unused")
 	private float scale;
 	private int indexSize;
 	private float widthFac;
 	private float heightFac;
+	@SuppressWarnings("unused")
 	private int N;
+	@SuppressWarnings("unused")
 	private int M;
 	
 	public DiffractionCone(int size, float widthFac, float heightFac){
