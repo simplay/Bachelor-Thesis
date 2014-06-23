@@ -80,7 +80,8 @@
 \contentsline {chapter}{\numberline {B}Derivation Steps in Detail}{103}{appendix.B}
 \contentsline {section}{\numberline {B.1}Taylor Series Approximation}{103}{section.B.1}
 \contentsline {subsection}{\numberline {B.1.1}Proof Sketch of 1.}{103}{subsection.B.1.1}
-\contentsline {subsection}{\numberline {B.1.2}Part 2: Find such an N}{103}{subsection.B.1.2}
+\contentsline {paragraph}{Proof of that the section converges absolutely}{103}{section*.89}
+\contentsline {subsection}{\numberline {B.1.2}Part 2: Find such an N}{104}{subsection.B.1.2}
 \contentsline {section}{\numberline {B.2}PQ approach}{105}{section.B.2}
 \contentsline {subsection}{\numberline {B.2.1}One dimensional case}{105}{subsection.B.2.1}
 \contentsline {subsection}{\numberline {B.2.2}Two dimensional case}{107}{subsection.B.2.2}
@@ -91,6 +92,6 @@
 \contentsline {chapter}{\numberline {D}Evaluation Data Generation}{111}{appendix.D}
 \contentsline {chapter}{\numberline {E}Rendering Surface Geometries using the NMM approach}{113}{appendix.E}
 \contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Tables}{116}{equation.E.0.1}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{116}{appendix*.93}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{118}{appendix*.94}
-\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{119}{appendix*.95}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Figures}{116}{appendix*.94}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }List of Algorithms}{118}{appendix*.95}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Bibliography}{119}{appendix*.96}

@@ -1,4 +1,6 @@
 \chapter{Derivation Steps in Detail}
+In this appendix chapter we provide some further derivation steps used to derive some of our equations. 
+
 \section{Taylor Series Approximation}
 \label{chap:taylorseriesapproxappendix}
 
@@ -16,63 +18,94 @@ bound, for example machine precision $\epsilon$.
 \end{enumerate}
 
 \subsection{Proof Sketch of 1.}
+By using the \textbf{ratio test} which is on Taylor's theorem$\footnote{Please have a look at \texttt{http://en.wikipedia.org/wiki/Taylors\textunderscore theorem} in order to see a proper definiton of the ratio test.}$ it is possible to show that the series
 
-By the \textbf{ratio test} relying on Taylor's Theorem$\footnote{Please have a look at \texttt{http://en.wikipedia.org/wiki/Taylors\textunderscore theorem} in order to see a proper definiton of the ratio test.}$ It is possible to show that the series $\sum_{n=0}^{N}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)$ converges absolutely:
+\begin{equation}
+  \sum_{n=0}^{N}\frac{(ikwh)^{n}}{n!}\mathcal{F}\left\{ h{}^{n}\right\} (\alpha,\beta)
+\end{equation}
+converges absolutely.
 
-\textbf{Proof}: Consider $\sum_{k=0}^{\infty}\frac{y^{n}}{n!}$ where
-$a_{k}=\frac{y^{k}}{k!}$. By applying the definition of the ratio test for this series it follows: 
+\myparagraph{Proof of that the section converges absolutely}
+Let us Consider 
+
+\begin{equation}
+  \sum_{k=0}^{\infty}\frac{y^{n}}{n!}
+\end{equation}
+
+for which we define
+
+\begin{equation}
+  a_{k}=\frac{y^{k}}{k!} 
+\end{equation}
+
+By applying the definition of the ratio test for this series it follows: 
 
 \begin{equation}
  \forall y:limsup_{k\rightarrow\infty}|\frac{a_{k+1}}{a_{k}}|=limsup_{k\rightarrow\infty}\frac{y}{k+1}=0 
 \end{equation}
 
-Thus this series converges absolutely, no matter what value we will pick for y.
+Thus this series converges absolutely, no matter what value we will pick for $y$. Q.E.D.
 
 \subsection{Part 2: Find such an N}
-Let $f(x)=e^{x}$. We can formulate its Taylor-Series, stated above. Let $P_{n}(x)$denote the n-th Taylor polynomial, 
+Let $f(x)=e^{x}$. We can formulate its Taylor series, stated above. Let $P_{n}(x)$ denote the n-th Taylor polynomial, 
 
 \begin{equation}
  P_{n}(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^{k}
 \end{equation}
 
-where $a$ is our developing point (here a is equal zero). 
+where $a$ is our developing point (here a is equal zero). We can define the error of the n-th Taylor polynomial to be equal to
 
-We can define the error of the n-th Taylor polynomial to be $E_{n}(x)=f(x)-P_{n}(x)$. the error of the n-th Taylor polynomial is difference between the value of the function and the Taylor polynomial. This directly implies $|E_{n}(x)|=|f(x)-P_{n}(x)|$. By using the Lagrangian Error Bound it follows: 
+\begin{equation}
+  E_{n}(x)=f(x)-P_{n}(x)
+\end{equation}
+
+The error of the n-th Taylor polynomial is difference between the value of the function and the Taylor polynomial. This directly implies that 
+
+\begin{equation}
+  |E_{n}(x)|=|f(x)-P_{n}(x)| 
+\end{equation}
+
+By using the Lagrangian Error Bound it follows: 
 
 \begin{equation}
  |E_{n}(x)|\leq\frac{M}{(n+1)!}|x-a|^{n+1} 
 \end{equation}
 
-with $a=0$, where \textbf{M} is some value satisfying $|f^{(n+1)}(x)|\leq M$ on the interval $I=[a,x]$. Since we are interested in an upper bound of the error and since \textbf{a} is known, we can reformulate the interval as $I=[0,x_{max}]$, where 
+with $a=0$, where \textbf{M} is some value satisfying 
+
+\begin{equation}
+  |f^{(n+1)}(x)|\leq M
+\end{equation}
+
+on the interval $I=[a,x]$. Since we are interested in an upper bound of the error and since \textbf{a} is known, we can reformulate the interval as $I=[0,x_{max}]$, where 
 
 \begin{equation}
  x_{max} = \|i\| k_{max} w_{max} h_{max}
 \end{equation}
 
-We are interested in computing an error bound for $e^{ikwh(x,y)}$. Assuming the following parameters and facts used within Stam's Paper: 
+We are interested in computing an error bound for $e^{ikwh(x,y)}$. E.g. let us assuming the following parameters (used within Stam's Paper): 
 
 \begin{itemize}
-\item Height of bump: 0.15micro meters
-\item Width of a bump: 0.5micro meters
-\item Length of a bump: 1micro meters
-\item $k=\frac{2\pi}{\lambda}$ is the wavenumber, $\lambda\in[\lambda_{min,}\lambda_{max}]$ and
-thus $k_{max}=\frac{2\pi}{\lambda_{min}}$. Since $(u,v,w) = -\omega_i - \omega_r$ and both are unit direction vectors, 
-each component can have a value in range {[}-2, 2{]}.
-\item for simplification, assume$[\lambda_{min,}\lambda_{max}]=[400nm,700nm].$
-
+  \item Height of bump: 0.15$\mu m$
+  \item Width of a bump: 0.5$\mu m$
+  \item Length of a bump: 1$\mu m$
+  \item $k=\frac{2\pi}{\lambda}$ is the wavenumber, $\lambda\in[\lambda_{min,}\lambda_{max}]$ and
+  thus $k_{max}=\frac{2\pi}{\lambda_{min}}$. Since $(u,v,w) = -\omega_i - \omega_r$ and both are unit direction vectors, 
+  each component can have a value in range {[}-2, 2{]}.
+  \item for simplification, assume$[\lambda_{min,}\lambda_{max}]=[400nm,700nm].$
 \end{itemize}
 
 We get:  
 
 \begin{align}
 x_{max}
- &= \|i\|*k_{max}*w_{max}*h_{max} \nonumber \\
- &= k_{max}*w_{max}*h_{max} \nonumber \\
- &=2*(\frac{2\pi}{4*10^{-7}m})*1.5*10^{-7} \nonumber \\
+ &= \|i\| \cdot k_{max} \cdot w_{max} \cdot h_{max} \nonumber \\
+ &= k_{max} \cdot w_{max} \cdot h_{max} \nonumber \\
+ &=2\cdot(\frac{2\pi}{4 \cdot 10^{-7}m}) \cdot 1.5 \cdot 10^{-7} \nonumber \\
  &=1.5\pi
 \end{align}
 
-and it follows for our interval $I=[0,1.5\pi]$. Next we are going to find the value for $M$. Since the exponential function is monotonically growing (on the interval I) and the derivative of the \textbf{exp} function is the exponential function itself, we can find such an $M$: 
+and it follows for our interval $I=[0,1.5\pi]$. Next we are going to find the value for $M$. Since the exponential function is monotonically growing (on the interval $I$) and the derivative of the exponential function is again an exponential function, we can find such an $M$: 
 
 \begin{align*}
  M
@@ -101,7 +134,6 @@ With this approach we have that $\sum_{n=0}^{25}\frac{(ikwh)^{n}}{n!}\mathcal{F}
 \section{PQ approach}
 \subsection{One dimensional case}
 \label{sec:pqonedimappendix}
-
 Since our series is bounded, we can simplify the right-hand-side of equation $\ref{eq:pqgeometricseries}$. Note that $e^{-ix}$ is a complex number. Every complex number can be written in its polar form, i.e. 
 
 \begin{equation}
