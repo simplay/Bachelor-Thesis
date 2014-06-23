@@ -48,7 +48,7 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Blazed Grating with its Extrema}}{44}{figure.caption.27}
 \contentsline {figure}{\numberline {4.2}{\ignorespaces DFT Terms for a Blazed Grating}}{44}{figure.caption.28}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Renderer Architecture}}{45}{figure.caption.30}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Architecture of Renderer}}{45}{figure.caption.30}
 \contentsline {figure}{\numberline {4.4}{\ignorespaces Triangular Mesh}}{46}{figure.caption.31}
 \contentsline {figure}{\numberline {4.5}{\ignorespaces Vertex Shader}}{47}{figure.caption.32}
 \contentsline {figure}{\numberline {4.6}{\ignorespaces Camera Coordinate System}}{48}{figure.caption.33}
@@ -60,7 +60,7 @@
 \contentsline {figure}{\numberline {4.12}{\ignorespaces Discretized Lookup}}{58}{figure.caption.47}
 \contentsline {figure}{\numberline {4.13}{\ignorespaces NMM Shading Approach}}{62}{figure.caption.51}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Spectometer}}{65}{figure.caption.52}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Spectrometer}}{65}{figure.caption.52}
 \contentsline {figure}{\numberline {5.2}{\ignorespaces Idealized Diffraction Grating}}{65}{figure.caption.53}
 \contentsline {figure}{\numberline {5.3}{\ignorespaces Different Diffraction Orders}}{66}{figure.caption.54}
 \contentsline {figure}{\numberline {5.4}{\ignorespaces N Slit Diffraction Grating Pattern}}{67}{figure.caption.55}

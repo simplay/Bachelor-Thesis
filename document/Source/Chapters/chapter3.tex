@@ -148,7 +148,7 @@ This section explains the architecture of the rendering program which I implemen
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.63]{implementation/renderingarch.png}
-  \caption[Renderer Architecture]{Schematical architecture of our Java renderer. An arrow which is pointing from A to B indicates that A requests some data from B.}
+  \caption[Architecture of Renderer]{Schematical architecture of our Java renderer. An arrow which is pointing from A to B indicates that A requests some data from B.}
   \label{fig:rendererArchitecture}
 \end{figure}
 
@@ -188,7 +188,7 @@ into the perspective projected position as seen by a observer $p_{projective}$ l
   \label{eq:vertextransformation}
 \end{equation}
 
-where $P$, $C^{-1}$ and $M$ are transformation matrices$\footnote{These tranformation matrices are linear transformations expressed in homogenous coordinates.}$, defined the following way:
+where $P$, $C^{-1}$ and $M$ are transformation matrices$\footnote{These transformation matrices are linear transformations expressed in homogenous coordinates.}$, defined the following way:
 
 \begin{description}
 \item[Model matrix $M$:] Each vertex position of a shape is initially defined in a local coordinate system. To make it feasible to place and transform shapes in a scene, a reference coordinate system, the so called world space, has to be introduced. Hence, for every shape a matrix $M$ is associated, defining the transformation from its local coordinate system into the world space. 
@@ -239,7 +239,7 @@ In our vertex shader, besides transforming the vertex positions as described in 
 \begin{table}[H]
   \begin{tabular}{@{}lll@{}}
     \textbf{Input:} & \emph{Mesh} with vertex \emph{normals} and \emph{tangents}  \\
-    & Space tranformations $\{M, C^{-1}, P\}$  \\
+    & Space transformations $\{M, C^{-1}, P\}$  \\
     & Light direction \emph{lightDirection}  \\
     \textbf{Output:} & Incident light and viewer direction $\omega_i,\ \omega_r$ \\
     & Transformed position $p_{per}$ \\
