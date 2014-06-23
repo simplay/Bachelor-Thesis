@@ -40,7 +40,7 @@ public class SceneConfigurationManager {
 								constants.add(sc);
 		
 
-								sc = new SceneConfiguration("sandbox", ShapeTask.DICE_BRDF, "diceBRDF", 
+								sc = new SceneConfiguration("sandbox", ShapeTask.DICE_BRDF, "diceBRDF", //brdf map
 //								sc = new SceneConfiguration("sandbox", ShapeTask.DICE2, "snake4", // cd example
 //								sc = new SceneConfiguration("sandbox", ShapeTask.CYLINDER3, "snake5", // cylinder example
 //								sc = new SceneConfiguration("sandbox", ShapeTask.SNAKE, "snake3", // snake 
