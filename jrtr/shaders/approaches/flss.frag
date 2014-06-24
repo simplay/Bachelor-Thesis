@@ -47,7 +47,6 @@ out vec4 frag_shaded;
 // shader constants
 const float PI = 3.14159265358979323846264;
 const float phiRect = // 0.87285485835042309f; // For Elaphe650
-	// 0.0f;
 	2.4436511851453195f;  // this one works for Elaphe650with fingers pointing
 							// downwards in the .mat file
 
@@ -508,9 +507,9 @@ void mainBRDFMap(){
 void main(){
 
 //		if(renderBrdfMap == 1){
-//			mainBRDFMap();
+			mainBRDFMap();
 //		}else{
-			mainRenderGeometry();
+//			mainRenderGeometry();
 //		}
 
 }

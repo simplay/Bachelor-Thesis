@@ -23,6 +23,7 @@ jrtr/bin/**/*
 jrtr/doc
 jrtr/textures/*
 jrtr/textures/**/*
+jrtr/patch_data/*
 
 #matlab FILES
 matlab/out/*
@@ -46,3 +47,6 @@ screenshots/*
 *.log
 *.gz
 *.pdf
+
+# misc
+runable/*

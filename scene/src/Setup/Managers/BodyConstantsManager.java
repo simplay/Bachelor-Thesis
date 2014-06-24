@@ -13,12 +13,6 @@ public class BodyConstantsManager {
 	
 	private void defineConstant(){
 		BodyConstants bc = null;
-		
-		bc = new BodyConstants("random1", "bmp");
-		constants.add(bc);
-		
-		bc = new BodyConstants("brick", "jpg");
-		constants.add(bc);
 
 		bc = new BodyConstants("ElapheFront", "jpg");
 		constants.add(bc);

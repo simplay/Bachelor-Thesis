@@ -9,7 +9,7 @@ public class PatchDataPaths {
 	private String extremaPath; // = "../jrtr/textures/sampleX/experimental/blaze/extrema.txt";
 	private String globalsPath; //mat.setGlobals(loadglobals("../jrtr/textures/sampleX/experimental/blaze/globals.txt"));
 	private String weightsPath; //mat.setWeights(readWeights("../jrtr/textures/sampleX/experimental/blaze/weights.txt"));
-	private String base_path = "../jrtr/textures/sampleX/";
+	private String base_path = "../jrtr/patch_data/";
 	private String parameter_path;
 	private String kValues;
 	
@@ -32,14 +32,13 @@ public class PatchDataPaths {
 		}else if(shaderTaskNr == ShaderTaskNr.STAM){
 			prefix = "stam/";
 		}
-		composite = base_path+prefix;
+		composite = base_path+"/dft_images/";
 		
-		this.samplesPath = composite+patchName;
-		this.extremaPath = samplesPath+"extrema.txt";
-		this.globalsPath = samplesPath+"globals.txt";
-		this.weightsPath = samplesPath+"weights.txt";
-		this.parameter_path = samplesPath + "paramters.txt";
-		this.kValues = samplesPath + "kvalues.txt";
+		this.samplesPath = composite;
+		this.extremaPath = composite+"extrema.txt";
+		this.globalsPath = base_path+"globals.txt";
+		this.weightsPath = base_path+"weights.txt";
+		this.parameter_path = base_path + "paramters.txt";
 	}
 	
 

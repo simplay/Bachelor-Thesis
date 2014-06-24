@@ -83,7 +83,7 @@ public class DiffractionSceneGraphFabricator {
 		Texture text = renderContext.makeTexture();
 		mat.setBodyTexture(bodyC.getBodyTexturePath(), text);
 		text = renderContext.makeTexture();
-		mat.setBumpMapTexture(bodyC.getBumpMapTexturePath(), text);
+//		mat.setBumpMapTexture(bodyC.getBumpMapTexturePath(), text);
 		mat.setRenderBrdfMap(sceneConfig.getRenderBrdfMap());
 		mat.setPeriodCount(sceneConfig.getPeriodCount());
 		mat.setNeighborhoodRadius(sceneConfig.getNeighborhoodRadius());
