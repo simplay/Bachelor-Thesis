@@ -28,6 +28,7 @@ public class PreCompDataManager {
 		this.renderContext = rc;
 		this.mat = mat;
 		pdpm = new PatchDataPathsManager();
+		System.out.println(patchName);
 		perfromTask(tasknumber, patchName);
 	}
 	
@@ -36,21 +37,23 @@ public class PreCompDataManager {
 //		mat.setKValues(loadKValues(patchPaths.getKValuesPath())); 
 //		mat.setGlobals(loadglobals(patchPaths.getGlobalsPath()));
 		mat.setWeights(readWeights(patchPaths.getWeightsPath()));
-		loadPatches(tasknumber.getValue(), patchPaths.getSamplesPath());
+		loadCompositeTaylorPatches( patchPaths.getSamplesPath());
+//		loadPatches(tasknumber.getValue(), patchPaths.getSamplesPath());
 		mat.setHeightfieldFactors(loadScalingConstants(patchPaths.getExtremaPath()));
 		setupMaterialParamters(patchPaths.getParamtersPath());
 	}
 	
 	private void loadPatches(int tasknumber, String samples){
-		if(tasknumber == 10 
-				|| tasknumber == 11 
-				|| tasknumber == 12 
-				|| tasknumber == 13 
-				|| tasknumber == 14
-				|| tasknumber == 15){
-			loadCompositeTaylorPatches(samples);
-		}
-		else loadPatches2(samples, false, true);
+		loadPatches2(samples, false, true);
+//		if(tasknumber == 10 
+//				|| tasknumber == 11 
+//				|| tasknumber == 12 
+//				|| tasknumber == 13 
+//				|| tasknumber == 14
+//				|| tasknumber == 15){
+//			loadCompositeTaylorPatches(samples);
+//		}
+//		else loadPatches2(samples, false, true);
 	}	
 		
 	

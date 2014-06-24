@@ -96,13 +96,8 @@ public class DiffractionSceneGraphFabricator {
 		mat.setAmbientCoefficient(new Vector3f(0.0f, 0.0f, 1.0f));
 		mat.setPhongExponent(64f);
 		mat.setTrackDistance(trackDistance);
-		mat.setLayerCount(108);
-		if( 
-				sceneConfig.getShaderTask() == ShaderTaskNr.TAYLORGAUSSIAN ||
-				sceneConfig.getShaderTask() == ShaderTaskNr.DEBUG_ANNOTATION ||
-				sceneConfig.getShaderTask() == ShaderTaskNr.DEBUG_SPECULAR){
-			mat.setLayerCount(layerCount);
-		}
+		mat.setLayerCount(layerCount);
+
 		ShaderTaskSetupManager stm = new ShaderTaskSetupManager(renderContext, mat, sceneConfig.getShaderTask());		
 		mat.setShader(stm.getShader());
 		new PreCompDataManager(renderContext, sceneConfig.getShaderTask(), sceneConfig.getPatchName(), mat); // TODO extend me, i want also the shape task, the shader task and further stuff

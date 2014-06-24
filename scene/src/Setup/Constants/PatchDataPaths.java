@@ -23,15 +23,15 @@ public class PatchDataPaths {
 		String prefix = null;
 		String composite = null;
 
-		if(shaderTaskNr == ShaderTaskNr.TAYLORGAUSSIAN){
-			prefix = "experimental/";
-		}else if(shaderTaskNr == ShaderTaskNr.DEBUG_ANNOTATION){
-			prefix = "experimental/";
-		}else if(shaderTaskNr == ShaderTaskNr.DEBUG_SPECULAR){
-			prefix = "experimental/";	
-		}else if(shaderTaskNr == ShaderTaskNr.STAM){
-			prefix = "stam/";
-		}
+//		if(shaderTaskNr == ShaderTaskNr.TAYLORGAUSSIAN){
+//			prefix = "experimental/";
+//		}else if(shaderTaskNr == ShaderTaskNr.DEBUG_ANNOTATION){
+//			prefix = "experimental/";
+//		}else if(shaderTaskNr == ShaderTaskNr.DEBUG_SPECULAR){
+//			prefix = "experimental/";	
+//		}else if(shaderTaskNr == ShaderTaskNr.STAM){
+//			prefix = "stam/";
+//		}
 		composite = base_path+"/dft_images/";
 		
 		this.samplesPath = composite;

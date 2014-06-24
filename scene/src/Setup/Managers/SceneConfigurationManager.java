@@ -44,7 +44,7 @@ public class SceneConfigurationManager {
 //								sc = new SceneConfiguration("sandbox", ShapeTask.DICE2, "snake4", // cd example
 //								sc = new SceneConfiguration("sandbox", ShapeTask.CYLINDER3, "snake5", // cylinder example
 //								sc = new SceneConfiguration("sandbox", ShapeTask.SNAKE, "snake3", // snake 
-										"stam", "lightDebug", ShaderTaskNr.TAYLORGAUSSIAN, 5,  "blaze", 1, "ProcessedElapheFront", false);
+										"stam", "lightDebug", ShaderTaskNr.PQ, 5,  "blaze", 1, "ProcessedElapheFront", false);
 								constants.add(sc);
 										
 			

@@ -17,6 +17,13 @@ public class PatchDataPathsManager {
 	private void defineConstant(){
 		PatchDataPaths sc = null;
 		
+		sc = new PatchDataPaths(ShaderTaskNr.FLSS, "flss");
+		constants.add(sc);
+		
+		sc = new PatchDataPaths(ShaderTaskNr.GEM, "gem");
+		constants.add(sc);
+		
+		
 		// Taylor series based experimental fragment/vertex shader patches
 		sc = new PatchDataPaths(ShaderTaskNr.TAYLORGAUSSIAN, "blaze");
 		constants.add(sc);
@@ -40,13 +47,6 @@ public class PatchDataPathsManager {
 	}
 	
 	public PatchDataPaths getPathsByIdentifiers(ShaderTaskNr task, String patchName){
-		PatchDataPaths pa= null;
-		for(PatchDataPaths path : constants){
-			if(path.getShaderTaskNr() ==task && path.getPatchName().equals(patchName+"/")){
-				pa = path;
-				break;
-			}
-		}
-		return pa;
+		return constants.get(0);
 	}
 }
