@@ -23,7 +23,7 @@ uniform float maxspacer;
 
 // Uniform variables, passed in from host program via suitable
 uniform int debugTxtIdx;
-
+uniform int useOptSampling;
 uniform sampler2DArray TexArray;
 uniform sampler2D bodyTexture;
 // uniform sampler2D bumpMapTexture;
@@ -453,10 +453,24 @@ vec4 getClrMatchingFnWeights(float lVal){
 	return brdf_weights[lIdx] * (1-alpha) + brdf_weights[lIdx+1] * alpha; 
 }
 
-
-vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
-	vec3 opVal = vec3(0.0f);
-	float preScale = 1.0f;
+// compute current CIE XYZ color contribution for a given (u,v,w)
+// which is the difference between the incident light and viewing direction
+// i.e. the phase difference used as the position of the emitted 2ndary wavelet.
+// By performing an non-uniform sampling over wavelength space Lambda,
+// (i.e. performing a uniform sampling over the wavenumber space)
+// for further information please have a look in my thesis,
+// in chapter 'implementation', section 'technical details'
+// using a predefined wavelength step size
+// relying on our Taylor series approximation in order to 
+// approximate the DTFT terms.
+// note that all derivations are according to the DTFT
+// @param uu:float 1st component of (u,v,w)
+// @param vv:float 2nd component of (u,v,w)
+// @param ww:float 3rd component of (u,v,w)
+// @return CIE XYZ color contribution:vec4f of (uu,vv,ww) with alpha
+vec3 getXYZContributionForPosition(float uu,float vv,float ww){
+	vec3 xyzContributionAtUVW = vec3(0.0f);
+	float taylorCoeff = 1.0f;
 	float fftMag = 0.0f;	
 	float xNorm = 0.0f;
 	float yNorm = 0.0f;
@@ -471,140 +485,109 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 	float lower_v = N_v.x;
 	float upper_v = N_v.y;
 	
-//	float lambda_lower_u = uu*upper_u*1000.0;
-//	float lambda_upper_u = uu*lower_u*1000.0;
-//	if(upper_u < 0.0){
-//		lambda_lower_u = uu*lower_u*1000.0;
-//		lambda_upper_u = uu*upper_u*1000.0;	
-//	}
-	
-	float lambda_lower_u = upper_u;
-	float lambda_upper_u = lower_u;
-	if(upper_u < 0.0){
-		lambda_lower_u = lower_u;
-		lambda_upper_u = upper_u;	
-	}
-	
-	float lambda_lower_v = upper_v;
-	float lambda_upper_v = lower_v;
-	if(upper_v < 0.0){
-		lambda_lower_v = lower_v;
-		lambda_upper_v = upper_v;	
-	}
-	
 	float dist2Zero = sqrt(uu*uu + vv*vv);
 	float epsSQT = 0.015; // blaze
 	if(minspacer-maxspacer < 50) epsSQT = 0.022;
 	// heuristics
 	if(dist2Zero <= epsSQT){
-		opVal.x = 1.0;
-		opVal.y = 1.0;
-		opVal.z = 1.0;
+		xyzContributionAtUVW.x = 1.0;
+		xyzContributionAtUVW.y = 1.0;
+		xyzContributionAtUVW.z = 1.0;
 	}else{
 		float maskStep = (1.0/getMask());
-		float boundary = epsSQT+0.07;
-		if(minspacer-maxspacer > 50) boundary = epsSQT+0.02;
-//		if(dist2Zero <= epsSQT+0.07){
-		if(dist2Zero <= boundary){ // for elaphe
-			float newMask = getMask()*10.0;
-			float factor = 1;
-			if ( minspacer-maxspacer > 50 ) factor = 5;
-			maskStep = (1.0/newMask)*factor; // *5 for elaphe
-			N_u = compute_N_min_max_own_mask(uu, newMask);
-			N_v = compute_N_min_max_own_mask(vv, newMask);
-			lower_u = N_u.x;
-			upper_u = N_u.y;
-			lower_v = N_v.x;
-			upper_v = N_v.y;
-			
-			lambda_lower_u = upper_u;
-			lambda_upper_u = lower_u;
-			if(upper_u < 0.0){
-				lambda_lower_u = lower_u;
-				lambda_upper_u = upper_u;	
+		
+		// close to center regions apply an adaptive sampling strategy
+		if(useOptSampling == 1) {
+			float boundary = epsSQT+0.07;
+			if(minspacer-maxspacer > 50) boundary = epsSQT+0.02;
+			if(dist2Zero <= boundary){ // for elaphe
+				float newMask = getMask()*10.0;
+				float factor = 1;
+				if ( minspacer-maxspacer > 50 ) factor = 5;
+				maskStep = (1.0/newMask)*factor; // *5 for elaphe
+				N_u = compute_N_min_max_own_mask(uu, newMask);
+				N_v = compute_N_min_max_own_mask(vv, newMask);
+				lower_u = N_u.x;
+				upper_u = N_u.y;
+				lower_v = N_v.x;
+				upper_v = N_v.y;
+				
+				
 			}
-			
-			lambda_lower_v = upper_v;
-			lambda_upper_v = lower_v;
-			if(upper_v < 0.0){
-				lambda_lower_v = lower_v;
-				lambda_upper_v = upper_v;	
-			}
-			
-			
 		}
+
 //		maskStep = 1;
 		for(float nu = lower_u; nu < upper_u; nu = nu+maskStep){
-			float lVal = (uu*dx/nu)*1000.0;
+			float lambda = (uu*dx/nu)*1000.0;
 
 			
-			vec4 clrFn = getClrMatchingFnWeights(lVal);
+			vec4 xyzColorWeights = getClrMatchingFnWeights(lambda);
 			
-			float specV = clrFn.w;	
-			xNorm = xNorm + specV*clrFn.x;
-			yNorm = yNorm + specV*clrFn.y;
-			zNorm = zNorm + specV*clrFn.z;
+			float specV = xyzColorWeights.w;	
+			xNorm += specV*xyzColorWeights.x;
+			yNorm += specV*xyzColorWeights.y;
+			zNorm += specV*xyzColorWeights.z;
 			
-			vec2 lookupCoord = getLookupCoord(uu, vv, lVal);
+			vec2 lookupCoord = getLookupCoord(uu, vv, lambda);
 			
-			vec2 tempFFTScale = vec2(0.0f);
+			vec2 approxFT = vec2(0.0f);
 			
-			for(int tIdx = 0; tIdx < MAX_TAYLORTERMS; ++tIdx){
-				if(0 == tIdx) {
-					preScale = 1.0f;
+			for(int taylorTermIdx = 0; taylorTermIdx < MAX_TAYLORTERMS; taylorTermIdx++){
+				if(0 == taylorTermIdx) {
+					taylorCoeff = 1.0f;
 				} else {
-					float currS = ww * 2.0 * PI * pow(10.0f, 3.0f) / lVal / tIdx;
-					preScale = preScale * currS;
+					float currenTaylorCoeff = (ww*2.0*PI*pow(10.0f, 3.0f))/(lambda*taylorTermIdx);
+					taylorCoeff *= currenTaylorCoeff;
 				}
 			
-				vec2 fftCoef = getFFTAt(lookupCoord, tIdx);
-				tempFFTScale = tempFFTScale + preScale * fftCoef;
+				vec2 dtftCoeff = getFFTAt(lookupCoord, taylorTermIdx);
+				approxFT += taylorCoeff * dtftCoeff;
 			}
 			
-			float fftMagSqr = tempFFTScale.x * tempFFTScale.x + tempFFTScale.y * tempFFTScale.y;
-			opVal.x = opVal.x + fftMagSqr * specV * clrFn.x;
-			opVal.y = opVal.y + fftMagSqr * specV * clrFn.y;
-			opVal.z = opVal.z + fftMagSqr * specV * clrFn.z;
+			float emittedIntensity = approxFT.x * approxFT.x + approxFT.y * approxFT.y;
+			xyzContributionAtUVW.x += emittedIntensity * xyzColorWeights.x;
+			xyzContributionAtUVW.y += emittedIntensity * xyzColorWeights.y;
+			xyzContributionAtUVW.z += emittedIntensity * xyzColorWeights.z;
 		}
 		
 		for(float nv = lower_v; nv < upper_v; nv = nv+maskStep){
-			float lVal = (vv*dx/nv)*1000.0;
+			float lambda = (vv*dx/nv)*1000.0;
 			
-			vec4 clrFn = getClrMatchingFnWeights(lVal);
+			vec4 xyzColorWeights = getClrMatchingFnWeights(lambda);
 			
-			float specV = clrFn.w;
-			xNorm = xNorm + specV*clrFn.x;
-			yNorm = yNorm + specV*clrFn.y;
-			zNorm = zNorm + specV*clrFn.z;
+			float specV = xyzColorWeights.w;
+			xNorm += specV*xyzColorWeights.x;
+			yNorm += specV*xyzColorWeights.y;
+			zNorm += specV*xyzColorWeights.z;
 			
-			vec2 lookupCoord = getLookupCoord(uu, vv, lVal);
+			vec2 lookupCoord = getLookupCoord(uu, vv, lambda);
 			
-			vec2 tempFFTScale = vec2(0.0f);
+			vec2 approxFT = vec2(0.0f);
 			
-			for(int tIdx = 0; tIdx < MAX_TAYLORTERMS; ++tIdx){
-				if(0 == tIdx){
-					preScale = 1.0f;
+			for(int taylorTermIdx = 0; taylorTermIdx < MAX_TAYLORTERMS; taylorTermIdx++){
+				if(0 == taylorTermIdx){
+					taylorCoeff = 1.0f;
 				}else {
-					float currS = ww * 2.0 * PI * pow(10.0f, 3.0f) / lVal / tIdx;
-					preScale = preScale * currS;
+					float currenTaylorCoeff = (ww*2.0*PI*pow(10.0f, 3.0f))/(lambda*taylorTermIdx);
+					taylorCoeff *= currenTaylorCoeff;
 				}
 			
-				vec2 fftCoef = getFFTAt(lookupCoord, tIdx);
-				tempFFTScale = tempFFTScale + preScale * fftCoef;
+				vec2 dtftCoeff = getFFTAt(lookupCoord, taylorTermIdx);
+				approxFT += taylorCoeff * dtftCoeff;
 			}
 			
-			float fftMagSqr = tempFFTScale.x * tempFFTScale.x + tempFFTScale.y * tempFFTScale.y;
-			opVal.x = opVal.x + fftMagSqr * specV * clrFn.x;
-			opVal.y = opVal.y + fftMagSqr * specV * clrFn.y;
-			opVal.z = opVal.z + fftMagSqr * specV * clrFn.z;
+			float emittedIntensity = approxFT.x * approxFT.x + approxFT.y * approxFT.y;
+			xyzContributionAtUVW.x += emittedIntensity * xyzColorWeights.x;
+			xyzContributionAtUVW.y += emittedIntensity * xyzColorWeights.y;
+			xyzContributionAtUVW.z += emittedIntensity * xyzColorWeights.z;
 		}
 		
-		opVal.x = opVal.x / xNorm ;
-		opVal.y = opVal.y / yNorm ;
-		opVal.z = opVal.z / zNorm ;
+		xyzContributionAtUVW.x /= xNorm ;
+		xyzContributionAtUVW.y /= yNorm ;
+		xyzContributionAtUVW.z /= zNorm ;
 	}
 
-	return opVal;
+	return xyzContributionAtUVW;
 }
 
 
@@ -623,7 +606,7 @@ void mainRenderGeometry(){
 	float vv = lightDir.y - Pos.y;
 	float ww = lightDir.z - Pos.z;
 	
-	vec3 totalXYZ = getRawXYZFromTaylorSeries( uu, vv, ww);	
+	vec3 totalXYZ = getXYZContributionForPosition( uu, vv, ww);	
 	totalXYZ = totalXYZ * gainF(lightDir,Pos)*100;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
 	
@@ -676,7 +659,7 @@ void mainBRDFMap(){
 	float vv = k1.y - k2.y;
 	float ww = k1.z - k2.z;
 
-	vec3 totalXYZ  = getRawXYZFromTaylorSeries( uu, vv, ww);
+	vec3 totalXYZ  = getXYZContributionForPosition( uu, vv, ww);
 	totalXYZ = totalXYZ * gainF(k1, k2)*65;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
 	

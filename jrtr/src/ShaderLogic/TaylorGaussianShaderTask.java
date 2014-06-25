@@ -186,6 +186,12 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "isCone");
 		gl.glUniform1i(id3, isCone);
 		
+		// TODO make this user-setable
+		// should we user a higher sampling rate close to the zero frequency region.
+		int useOptSampling = 1;
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "useOptSampling");
+		gl.glUniform1i(id3, useOptSampling);
+		
 		int renderBrdfMap = (m.getRenderBrdfMap()) ? 1 : 0;
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "shouldRenderBrdfMap");
 		gl.glUniform1i(id3, renderBrdfMap);
