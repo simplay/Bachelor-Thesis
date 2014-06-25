@@ -217,7 +217,7 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		float correction = 1f;
 		// hack for nmm approach
 		if (minSpacer < 1.0) {		
-			float minIterNumber = (useOptSampling==1)? 4.0f : 2.0f;
+			float minIterNumber = (useOptSampling==1)? 4.0f : 3.0f;
 			float corr = (float) ((minIterNumber / (minSpacer-maxSpacer)));
 			correction = (float) (corr / width);
 			minSpacer = (float) ((dx*correction) / 0.38f);
