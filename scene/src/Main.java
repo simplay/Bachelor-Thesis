@@ -32,7 +32,14 @@ public class Main {
 			case 8:
 				task = "gem_snake";
 				break;
+			case 9:
+				task = "nmm_map_faster";
+				break;
+			case 10:
+				task = "nmm_snake_faster";
+				break;
 			}
+			
 		}
 
 		MainModel model = new MainModel(task);

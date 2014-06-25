@@ -188,7 +188,7 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		
 		// TODO make this user-setable
 		// should we user a higher sampling rate close to the zero frequency region.
-		int useOptSampling = 1;
+		int useOptSampling = m.getOptimalSamplingMode();
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "useOptSampling");
 		gl.glUniform1i(id3, useOptSampling);
 		

@@ -89,6 +89,7 @@ public class DiffractionSceneGraphFabricator {
 		mat.setRenderBrdfMap(sceneConfig.getRenderBrdfMap());
 		mat.setPeriodCount(sceneConfig.getPeriodCount());
 		mat.setNeighborhoodRadius(sceneConfig.getNeighborhoodRadius());
+		mat.setOptimalSamplingMode(sceneConfig.usingOptimalSamplingMode());
 		mat.setMaxBumpHeight(bc.getMaxHeight());
 		mat.setPatchSpacing(bc.getSpacing());
 		mat.setPatchDimX(bc.getDimX());

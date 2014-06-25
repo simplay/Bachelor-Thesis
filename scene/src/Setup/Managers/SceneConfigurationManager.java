@@ -24,35 +24,43 @@ public class SceneConfigurationManager {
 	private void defineConstant(){
 		SceneConfiguration sc = null;	
 				sc = new SceneConfiguration("flss_map", ShapeTask.DICE_BRDF, "diceBRDF", 
-						"stam", "lightDebug", ShaderTaskNr.FLSS, 5,  "blaze", 1, "ProcessedElapheFront", true);
+						"stam", "lightDebug", ShaderTaskNr.FLSS, 5,  "blaze", 1, "ProcessedElapheFront", true, true);
 				constants.add(sc);
 				
 				sc = new SceneConfiguration("nmm_map", ShapeTask.DICE_BRDF, "diceBRDF", 
-						"stam", "lightDebug", ShaderTaskNr.NMM, 5,  "blaze", 1, "ProcessedElapheFront", true);
+						"stam", "lightDebug", ShaderTaskNr.NMM, 5,  "blaze", 1, "ProcessedElapheFront", true, true);
 				constants.add(sc);
 				
 				sc = new SceneConfiguration("pq_map", ShapeTask.DICE_BRDF, "diceBRDF", 
-						"stam", "lightDebug", ShaderTaskNr.PQ, 5,  "blaze", 1, "ProcessedElapheFront", true);
+						"stam", "lightDebug", ShaderTaskNr.PQ, 5,  "blaze", 1, "ProcessedElapheFront", true, true);
 				constants.add(sc);
 				
 				sc = new SceneConfiguration("gem_map", ShapeTask.DICE_BRDF, "diceBRDF", 
-						"stam", "lightDebug", ShaderTaskNr.GEM, 5,  "blaze", 1, "ProcessedElapheFront", true);
+						"stam", "lightDebug", ShaderTaskNr.GEM, 5,  "blaze", 1, "ProcessedElapheFront", true, true);
 				constants.add(sc);
 				
 				sc = new SceneConfiguration("flss_snake", ShapeTask.SNAKE, "snake3",
-						"stam", "lightDebug", ShaderTaskNr.FLSS, 5,  "blaze", 1, "ProcessedElapheFront", false);
+						"stam", "lightDebug", ShaderTaskNr.FLSS, 5,  "blaze", 1, "ProcessedElapheFront", false, true);
 				constants.add(sc);
 				
 				sc = new SceneConfiguration("nmm_snake", ShapeTask.SNAKE, "snake3",
-						"stam", "lightDebug", ShaderTaskNr.NMM, 5,  "blaze", 1, "ProcessedElapheFront", false);
+						"stam", "lightDebug", ShaderTaskNr.NMM, 5,  "blaze", 1, "ProcessedElapheFront", false, true);
 				constants.add(sc);
 				
 				sc = new SceneConfiguration("pq_snake", ShapeTask.SNAKE, "snake3",
-						"stam", "lightDebug", ShaderTaskNr.PQ, 5,  "blaze", 1, "ProcessedElapheFront", false);
+						"stam", "lightDebug", ShaderTaskNr.PQ, 5,  "blaze", 1, "ProcessedElapheFront", false, true);
 				constants.add(sc);
 				
 				sc = new SceneConfiguration("gem_snake", ShapeTask.SNAKE, "snake3",
-						"stam", "lightDebug", ShaderTaskNr.GEM, 5,  "blaze", 1, "ProcessedElapheFront", false);
+						"stam", "lightDebug", ShaderTaskNr.GEM, 5,  "blaze", 1, "ProcessedElapheFront", false, true);
+				constants.add(sc);
+				
+				sc = new SceneConfiguration("nmm_map_faster", ShapeTask.DICE_BRDF, "diceBRDF", 
+						"stam", "lightDebug", ShaderTaskNr.NMM, 5,  "blaze", 1, "ProcessedElapheFront", true, false);
+				constants.add(sc);
+				
+				sc = new SceneConfiguration("nmm_snake_faster", ShapeTask.SNAKE, "snake3",
+						"stam", "lightDebug", ShaderTaskNr.NMM, 5,  "blaze", 1, "ProcessedElapheFront", false, false);
 				constants.add(sc);
 	}
 	

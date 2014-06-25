@@ -4,7 +4,7 @@ import Constants.ShaderTaskNr;
 import Constants.ShapeTask;
 
 public class SceneConfiguration {
-	
+
 	private String id;
 	private ShapeTask shapeTask;
 	private String cameraConstant;
@@ -16,10 +16,13 @@ public class SceneConfiguration {
 	private int neighborhoodRadius;
 	private String textureId;
 	private boolean renderBrdfMap = false;
-	
-	public SceneConfiguration(String id, ShapeTask shapeTask, String cameraConstant, 
-			String bumpConstant, String lightConstant, ShaderTaskNr shaderTask, 
-			int periodCount, String patchName, int neighborhoodRadius, String textureId, boolean renderBrdfMap){
+	private boolean useOptimalSamplingMode;
+
+	public SceneConfiguration(String id, ShapeTask shapeTask,
+			String cameraConstant, String bumpConstant, String lightConstant,
+			ShaderTaskNr shaderTask, int periodCount, String patchName,
+			int neighborhoodRadius, String textureId, boolean renderBrdfMap,
+			boolean useOptimalSamplingMode) {
 		this.id = id;
 		this.shapeTask = shapeTask;
 		this.cameraConstant = cameraConstant;
@@ -31,53 +34,59 @@ public class SceneConfiguration {
 		this.neighborhoodRadius = neighborhoodRadius;
 		this.textureId = textureId;
 		this.renderBrdfMap = renderBrdfMap;
+		this.useOptimalSamplingMode = useOptimalSamplingMode;
 	}
-	
-	public String getId(){
+
+	public String getId() {
 		return this.id;
 	}
-	
-	public ShapeTask getShapeTask(){
+
+	public ShapeTask getShapeTask() {
 		return this.shapeTask;
 	}
-	
-	public String getCameraConstant(){
+
+	public String getCameraConstant() {
 		return this.cameraConstant;
 	}
-	
-	public String getBumpConstant(){
+
+	public String getBumpConstant() {
 		return this.bumpConstant;
 	}
-	
-	public String getLightConstant(){
+
+	public String getLightConstant() {
 		return this.lightConstant;
 	}
-	
-	public ShaderTaskNr getShaderTask(){
+
+	public ShaderTaskNr getShaderTask() {
 		return this.shaderTask;
 	}
-	
-	public int getPeriodCount(){
+
+	public int getPeriodCount() {
 		return this.periodCount;
 	}
-	
-	public String getPatchName(){
+
+	public String getPatchName() {
 		return this.patchName;
 	}
-	
-	public int getNeighborhoodRadius(){
+
+	public int getNeighborhoodRadius() {
 		return this.neighborhoodRadius;
 	}
 	
-	public String getTextureId(){
+	public boolean usingOptimalSamplingMode() {
+		return this.useOptimalSamplingMode;
+	}
+
+	public String getTextureId() {
 		return this.textureId;
 	}
-	
+
 	/**
 	 * Should we render the brdf map?
+	 * 
 	 * @return
 	 */
-	public boolean getRenderBrdfMap(){
+	public boolean getRenderBrdfMap() {
 		return this.renderBrdfMap;
 	}
 }

@@ -54,6 +54,7 @@ public class Material {
 	private float trackDistance;
     
 	private boolean renderBrdfMap;
+	private boolean optimalSamplingMode;
 	
     public Material(){}
     
@@ -136,6 +137,14 @@ public class Material {
     
     public float getLambdaMax(){
     	return this.lambdaMax;
+    }
+    
+    public void setOptimalSamplingMode(boolean mode) {
+    	this.optimalSamplingMode = mode;
+    }
+    
+    public int getOptimalSamplingMode() {
+    	return (this.optimalSamplingMode) ? 1 : 0;
     }
     
     public void setBruteForceSpacing(float value){
