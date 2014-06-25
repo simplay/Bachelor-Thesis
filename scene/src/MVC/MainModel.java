@@ -11,16 +11,22 @@ public class MainModel extends Observer implements Subscriber{
 	private Storage s;
 	private Watchman watchman;
 	private DiffractionSceneGraphFabricator dgsf;
+	private String renderingTask;
 	public void setDiffFab(DiffractionSceneGraphFabricator fact){
 		this.dgsf = fact;
+	}
+	
+	public String getRenderingTask() {
+		return renderingTask;
 	}
 	
 	public DiffractionSceneGraphFabricator getDiffFact(){
 		return this.dgsf;
 	}
 	
-	public MainModel(){
+	public MainModel(String renderingTask){
 		super();
+		this.renderingTask = renderingTask;
 		this.watchman = new Watchman();
 		watchman.subscribe(this);
 		this.s = new Storage();

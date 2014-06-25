@@ -37,7 +37,7 @@ public class MyRenderPanel extends GLRenderPanel{
 		renderContext.setSceneManager(sceneManager);
 	    Timer timer = new Timer();
 
-		DiffractionSceneGraphFabricator dgsf = new DiffractionSceneGraphFabricator(sceneManager, r);
+		DiffractionSceneGraphFabricator dgsf = new DiffractionSceneGraphFabricator(sceneManager, r, model.getRenderingTask());
 		model.setDiffFab(dgsf);
 		ks.setFabric(dgsf);
 		sceneManager.setRoot(dgsf.getRoot());

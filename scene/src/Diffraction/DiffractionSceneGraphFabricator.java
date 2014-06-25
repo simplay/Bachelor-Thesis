@@ -55,8 +55,8 @@ public class DiffractionSceneGraphFabricator {
 	private String configName;// = "gem_snake"; // initial value
 	private boolean specificCam = false;
 	
-	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
-		this.configName = "flss_map"; // get conif name dynamically - depening on main's passed input
+	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext, String renderignTask){
+		this.configName = renderignTask;
 		this.sceneManager = sceneManager;
 		this.renderContext = renderContext;
 		this.scm = new SceneConfigurationManager();
