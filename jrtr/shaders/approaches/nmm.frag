@@ -247,18 +247,6 @@ float getFresnelFactor(vec3 K1, vec3 K2){
 	return fF/R0;
 }
 
-//same as for #getFresnelFactor but its output values
-//are normalized into the range [0,1]
-float getFresnelFactorAbsolute(vec3 K1, vec3 K2){
-	float nSkin = 1.5;
-	float nK = 0.0;
-	float fF = (nSkin - 1.0);
-	fF = fF*fF;
-	float R0 = fF + nK*nK;
-	float tmp = getFresnelFactor(K1, K2)*R0;
-	return (tmp / ((nSkin + 1.0)* (nSkin + 1.0) + nK*nK));
-}
-
 //rescales given normalized CIE XYZ colors back to heir original scale
 //using their extreme values.
 //@param X 1st CIE XYZ colorvalue (normalized)
@@ -638,8 +626,8 @@ void mainRenderGeometry(){
     vec3 T = normalize(o_tangent);
 
 	// directional light source
-	vec3 Pos =  normalize(o_pos); 
-	vec3 lightDir =  normalize(o_light); 
+	vec3 Pos = normalize(o_pos); 
+	vec3 lightDir = normalize(o_light); 
 	
 	// shadowing facto: beam of light is blocked by V cave
 	float shadowF = getShadowMaskFactor(lightDir, Pos);
@@ -648,18 +636,11 @@ void mainRenderGeometry(){
 	float vv = lightDir.y - Pos.y;
 	float ww = lightDir.z - Pos.z;
 	
-	vec3 totalXYZ = getXYZContributionForPosition( uu, vv, ww);	
-	totalXYZ = totalXYZ * gainFactor(lightDir,Pos)*100*shadowF;
-	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
-	
-	
-	if (isnan(totalXYZ.x *totalXYZ.y *totalXYZ.z)){
-		totalXYZ.x  = 1.0;
-		totalXYZ.y  = 1.0;
-		totalXYZ.z  = 0.0;
-	}
+	vec3 color = getXYZContributionForPosition( uu, vv, ww);	
+	color = color * gainFactor(lightDir,Pos)*100*shadowF;
+	color = getBRDF_RGB_T_D65(M_Adobe_XRNew, color);
 
-	frag_shaded = vec4(gammaCorrect(totalXYZ,2.5), 1.0);
+	frag_shaded = vec4(gammaCorrect(color, 2.5), 1.0);
 }
 
 //Models the effect of diffraction using BRDF maps.
@@ -685,17 +666,11 @@ void mainBRDFMap(){
 	float vv = k1.y - k2.y;
 	float ww = k1.z - k2.z;
 
-	vec3 totalXYZ  = getXYZContributionForPosition( uu, vv, ww);
-	totalXYZ = totalXYZ * gainFactor(k1, k2)*150.0*shadowF;
-	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
+	vec3 color = getXYZContributionForPosition( uu, vv, ww);
+	color = color * gainFactor(k1, k2)*150.0*shadowF;
+	color = getBRDF_RGB_T_D65(M_Adobe_XRNew, color);
 	
-	if (isnan(totalXYZ.x *totalXYZ.y *totalXYZ.z)){
-		totalXYZ.x = 1.0;
-		totalXYZ.y = 1.0;
-		totalXYZ.z = 0.0;
-	}
-	
-	frag_shaded = vec4(gammaCorrect(totalXYZ,2.5), 1.0);
+	frag_shaded = vec4(gammaCorrect(color ,2.5), 1.0);
 }
 
 void main(){
