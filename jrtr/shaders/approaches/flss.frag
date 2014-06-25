@@ -77,6 +77,10 @@ void gemMain();
 vec2 getNMMfor(float, float);
 vec3 sumContributionAlongDir(vec2, float, float);
 
+// computes the frequency variance used for the gaussian window
+// for the dtft reconstruction during the windowing approach.
+// furthermore, this method computes the center position of the dft images
+// used for computing the image lookup coordinates.
 void initialzeConstants(){
 	dH = t0;
 	float coherenceArea = 65.0e-6;
@@ -102,7 +106,9 @@ void initialzeConstants(){
 	}
 }
 
-// perform a color space transformation
+// perform a color space transformation:
+// from CIE XYZ to RGB using the illuminant D65 
+// in order to define the white point.
 vec3 getBRDF_RGB_T_D65(mat3 T, vec3 brdf_xyz){
 	vec3 D65 = vec3(0.95047, 1.0, 1.08883);
 	vec3 output = vec3(0.0);
@@ -114,6 +120,13 @@ vec3 getBRDF_RGB_T_D65(mat3 T, vec3 brdf_xyz){
 }
 
 // compute fresnel coefficient according to Schlick's approximation
+// quantitative description of transmissed and reflectied fraction of light
+// when a beam of light hits a plane surface.
+// describe what fraction of the light is reflected and what fraction is refracted
+// see: http://en.wikipedia.org/wiki/Fresnel_equations
+// @param K1 incident light direction
+// @param K2 viewing direction
+// @return reflected amount of light
 float getFresnelFactor(vec3 K1, vec3 K2){
 	float nSkin = 1.5;
 	float nK = 0.0;
@@ -131,6 +144,8 @@ float getFresnelFactor(vec3 K1, vec3 K2){
 	return fF/R0;
 }
 
+// same as for #getFresnelFactor but its output values
+// are normalized into the range [0,1]
 float getFresnelFactorAbsolute(vec3 K1, vec3 K2){
 	float nSkin = 1.5;
 	float nK = 0.0;
@@ -141,6 +156,17 @@ float getFresnelFactorAbsolute(vec3 K1, vec3 K2){
 	return (tmp / ((nSkin + 1.0)* (nSkin + 1.0) + nK*nK));
 }
 
+// a filter which models the occlusion of the 
+// given light source which occurs since our 
+// surface is assumed to be v-caved shaped.
+// thus some light rays may no reach a given point
+// on a surface. also models masking effects
+// similarly a viewer cannot fully see all the points 
+// on a given v-caved surface.
+// @param K1 incident light direction
+// @param K2 viewing direciton
+// @return final amount of light contribution at a given point
+//		   a viewer will see due to shadowing and masking influence.
 float getShadowMaskFactor(vec3 K1, vec3 K2){
 	vec3 N = normalize(o_normal);
 	vec3 hVec = -K1 + K2;
@@ -155,6 +181,15 @@ float getShadowMaskFactor(vec3 K1, vec3 K2){
 	return min(1.0f, f1);
 }
 
+// rescales given normalized CIE XYZ colors back to heir original scale
+// using their extreme values.
+// @param X 1st CIE XYZ colorvalue (normalized)
+// @param Y 2nd CIE XYZ colorvalue (normalized)
+// @param Z 3rd CIE XYZ colorvalue (normalized)
+// @param index which dft terms should be used
+//        in oder to appropriately lookup their
+//        extreme values for rescaling them.
+// @return rescaled CIE XYZ colors
 vec3 rescaleXYZ(float X, float Y, float Z, int index){
 	vec4 vMin = scalingFactors[index*2];
 	vec4 vMax = scalingFactors[index*2 + 1];
@@ -169,7 +204,16 @@ vec3 rescaleXYZ(float X, float Y, float Z, int index){
 	return vec3(X, Y, Z); 
 }
 
-
+// gain factor as described in the thesis
+// consisting of C = F*G/w^2
+// where F is the fesnel number
+//       G is the geometric term
+//       w is the 3rd component of (u,v,w)
+// for further details I refer to my thesis,
+// in the chapter 'derivations'.
+// @param incident light direction
+// @param viewing direction
+// @return F*G/w^2
 float gainFactor(vec3 k1, vec3 k2){
 	// This side is not visible
 	if (k1.z > 0.0 || k2.z < 0.0){
@@ -185,7 +229,8 @@ float gainFactor(vec3 k1, vec3 k2){
 	return fresnelTerm*geometricalTerm;
 }
 
-// perfroms gamma correctio applied on a vector containing rgb colors
+// performs gamma correction applied on a vector containing rgb colors
+// see http://en.wikipedia.org/wiki/Gamma_correction
 vec3 gammaCorrect(vec3 inRGB, float gamma){
 	float clLim = 0.0031308;
 	float clScale = 1.055;
@@ -412,9 +457,7 @@ vec3 getXYZContributionForPosition(float uu, float vv, float ww){
 	return xyzContributionAtUVW;
 }
 
-
-
-
+// Models the effect of diffraction using our snake mesh
 void mainRenderGeometry(){
 	initialzeConstants();
 	float thetaR = asin(sqrt(o_org_pos.x*o_org_pos.x + o_org_pos.y*o_org_pos.y ));
@@ -468,6 +511,7 @@ void mainRenderGeometry(){
 //	frag_shaded = vec4(texturedColor, 1.0); // when we want to blend the diffraction color with textures
 }
 
+//Models the effect of diffraction using BRDF maps.
 void mainBRDFMap(){
 	initialzeConstants();
 	float thetaR = asin(sqrt(o_org_pos.x*o_org_pos.x + o_org_pos.y*o_org_pos.y ));
@@ -501,8 +545,6 @@ void mainBRDFMap(){
 	
 	frag_shaded = vec4(gammaCorrect(color, 2.5), 1.0);
 }
-
-
 
 void main(){
 
