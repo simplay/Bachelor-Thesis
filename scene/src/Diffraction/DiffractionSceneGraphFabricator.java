@@ -52,10 +52,11 @@ public class DiffractionSceneGraphFabricator {
 	private float trackDistance = 2.5f;
 	private TransformGroup rootGroup;
 	private SceneConfiguration sceneConfig;
-	private String configName = "sandbox";
+	private String configName;// = "gem_snake"; // initial value
 	private boolean specificCam = false;
 	
 	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
+		this.configName = "flss_map"; // get conif name dynamically - depening on main's passed input
 		this.sceneManager = sceneManager;
 		this.renderContext = renderContext;
 		this.scm = new SceneConfigurationManager();
@@ -64,6 +65,7 @@ public class DiffractionSceneGraphFabricator {
 		this.lcm = new LightConstantManager();
 		this.cscm = new CameraSceneConstantManager();
 		this.bocm = new BodyConstantsManager();
+
 		setUpShaderTask();
 		mat = setUpMaterials();
 		setUpShapes();
@@ -78,7 +80,7 @@ public class DiffractionSceneGraphFabricator {
 	
 	private Material setUpMaterials(){
 		Material mat = new Material();
-		BumpConstants bc = bcm.getByIdentifyer(sceneConfig.getBumpConstant());
+		BumpConstants bc = bcm.getByIdentifyer(sceneConfig.getBumpConstant()); 
 		BodyConstants bodyC = bocm.getByIdentifyer(sceneConfig.getTextureId());
 		Texture text = renderContext.makeTexture();
 		mat.setBodyTexture(bodyC.getBodyTexturePath(), text);
