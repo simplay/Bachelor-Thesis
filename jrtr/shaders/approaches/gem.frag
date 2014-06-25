@@ -1,3 +1,11 @@
+/*
+ * GEM fragment shader which renders the effect of diffraction
+ * on a given grating structure. Implemention of Stam's approach provided by Nvidia Gem.
+ * This shader performs an uniform sampling over the wavelength spectrum [380nm,780nm]
+ * For further information please visit 
+ * http://http.developer.nvidia.com/GPUGems/gpugems_ch08.html
+ */
+
 #version 150
 #extension GL_EXT_gpu_shader4 : enable
 
@@ -63,13 +71,6 @@ const mat3 M_Adobe_XRNew = mat3(
 		 0.0052, -0.0144,  1.0090
 );
 
-// global shader variables
-float varX_InTxtUnits;
-float varY_InTxtUnits;
-float dH = 0.0f;
-float orgU;
-float orgV;
-
 // function declarations
 void mainBRDFMap();
 void mainRenderGeometry();
@@ -78,34 +79,9 @@ void gemMain();
 vec2 getNMMfor(float, float);
 vec3 sumContributionAlongDir(vec2, float, float);
 
-void setVarXY(){
-	dH = t0;
-	float coherenceLength = 65.0e-6;
-	float sigSpatial = coherenceLength/4.0f;
-
-	// temporary sigma
-	float sigTemp;
-	sigTemp = 0.5 / PI ;
-	sigTemp = sigTemp /sigSpatial;
-	sigTemp = sigTemp * dH;
-	
-	varX_InTxtUnits = sigTemp * sigTemp * fftWW * fftWW ; 
-	varY_InTxtUnits = sigTemp * sigTemp * fftHH * fftHH;
-	
-	// Set coordinates for the Origin
-	if(fftWW % 2 == 0){
-		orgU = float(fftWW) / 2.0f  ; // -2 dur to rotational lochay
-	}else{
-		orgU = float(fftWW - 1.0) / 2.0f  ;
-	}
-	
-	if(fftHH % 2 == 0){
-		orgV = float(fftHH) / 2.0f  ;
-	}else{
-		orgV = float(fftHH - 1.0)/2.0f ;
-	}
-}
-
+//perform a color space transformation:
+//from CIE XYZ to RGB using the illuminant D65 
+//in order to define the white point.
 vec3 getBRDF_RGB_T_D65(mat3 T, vec3 brdf_xyz){
 	vec3 D65 = vec3(0.95047, 1.0, 1.08883);
 	vec3 output = vec3(0.0);
@@ -116,6 +92,14 @@ vec3 getBRDF_RGB_T_D65(mat3 T, vec3 brdf_xyz){
 	return output;
 }
 
+//compute fresnel coefficient according to Schlick's approximation
+//quantitative description of transmissed and reflectied fraction of light
+//when a beam of light hits a plane surface.
+//describe what fraction of the light is reflected and what fraction is refracted
+//see: http://en.wikipedia.org/wiki/Fresnel_equations
+//@param K1 incident light direction
+//@param K2 viewing direction
+//@return reflected amount of light
 float getFresnelFactor(vec3 K1, vec3 K2){
 	float nSkin = 1.5;
 	float nK = 0.0;
@@ -125,41 +109,25 @@ float getFresnelFactor(vec3 K1, vec3 K2){
 	float fF = (nSkin - 1.0);
 	fF = fF*fF;
 	float R0 = fF + nK*nK;
-	if(cosTheta > 0.999){
+	if (cosTheta > 0.999){
 		fF = R0;
-	}else{
+	} else {
 		fF = fF + 4.0*nSkin*pow(1.0 - cosTheta, 5.0) + nK*nK;
 	}	
 	return fF/R0;
 }
 
-float getFresnelFactorAbsolute(vec3 K1, vec3 K2){
-	float nSkin = 1.5;
-	// float nSkin = 1.0015;
-	float nK = 0.0;
-	
-	vec3 hVec = -K1 + K2;
-		 
-	hVec = normalize(hVec);
-	 
-	float cosTheta = dot(hVec,K2);	
-	
-	float fF = (nSkin - 1.0);
-	
-	fF = fF * fF;
-	
-	float R0 = fF + nK*nK;
-	if (cosTheta > 0.999999)
-		fF = R0;
-	else
-		fF = fF + 4*nSkin*pow(1- cosTheta,5.0) + nK*nK;
-	
-	// do this division if its not on relative scale
-	fF = fF/ ((nSkin + 1.0)* (nSkin + 1.0) + nK*nK);
-	
-	return fF;
-}
-
+//a filter which models the occlusion of the 
+//given light source which occurs since our 
+//surface is assumed to be v-caved shaped.
+//thus some light rays may no reach a given point
+//on a surface. also models masking effects
+//similarly a viewer cannot fully see all the points 
+//on a given v-caved surface.
+//@param K1 incident light direction
+//@param K2 viewing direciton
+//@return final amount of light contribution at a given point
+//		   a viewer will see due to shadowing and masking influence.
 float getShadowMaskFactor(vec3 K1, vec3 K2){
 	vec3 N = normalize(o_normal);
 	vec3 hVec = -K1 + K2;
@@ -174,39 +142,33 @@ float getShadowMaskFactor(vec3 K1, vec3 K2){
 	return min(1.0f, f1);
 }
 
-vec3 rescaleXYZ(float X, float Y, float Z, int index){
-	vec4 vMin = scalingFactors[index*2];
-	vec4 vMax = scalingFactors[index*2 + 1];
-	X = X * vMax.x;
-	X = X + vMin.x;
-	
-	Y = Y * vMax.y;
-	Y = Y + vMin.y;
-	
-	Z = Z * vMax.z;
-	Z = Z + vMin.z;
-	return vec3(X, Y, Z); 
-}
-
-float gainF(vec3 K1, vec3 K2){
-	float gF = 1.0 - dot(K1,K2);
-	gF = gF*gF; 
-	float ww = K1.z - K2.z;
-	 
-	 
-	if(K1.z > 0.0 || K2.z < 0.0){
-		return 0.0; // This side is not visible
+//gain factor as described in the thesis
+//consisting of C = F*G/w^2
+//where F is the fesnel number
+//    G is the geometric term
+//    w is the 3rd component of (u,v,w)
+//for further details I refer to my thesis,
+//in the chapter 'derivations'.
+//@param incident light direction
+//@param viewing direction
+//@return F*G/w^2
+float gainFactor(vec3 k1, vec3 k2){
+	// This side is not visible
+	if (k1.z > 0.0 || k2.z < 0.0){
+		return 0.0;
 	}
+	float ww2 = k1.z - k2.z;
+	ww2 = ww2*ww2;
+	
+	float geometricalTerm = 1.0 - dot(k1,k2);
+	geometricalTerm *= (geometricalTerm/(k2.z*ww2)); 
 	 
-	ww = ww*ww;
-
-	gF = gF / K2.z;
-	gF = gF / ww;
-	 
-	float fFac = getFresnelFactor(K1, K2); 
-	return fFac*gF;
+	float fresnelTerm = getFresnelFactor(k1, k2); 
+	return fresnelTerm*geometricalTerm;
 }
 
+//performs gamma correction applied on a vector containing rgb colors
+//see http://en.wikipedia.org/wiki/Gamma_correction
 vec3 gammaCorrect(vec3 inRGB, float gamma){
 	float clLim = 0.0031308;
 	float clScale = 1.055;
@@ -255,148 +217,18 @@ vec3 gammaCorrect(vec3 inRGB, float gamma){
 	return inRGB;		
 }
 
-/*
- * return 2D coordinates for given uu vv in 0.0.. 1.0, 0.0.. 1.0 scale i.e in
- * texture Coordniiates..
- */
-vec2 getLookupCoord(float uu, float vv, float lambda){
-	float dH = t0;
-	vec2 coord = vec2(0.0, 0.0);
-	coord.x = uu * 1e9 *dH / lambda ;
-	coord.y = vv * 1e9 *dH / lambda ;
-	return coord;
-}
-
-float getGaussWeightAtDistance(float distU, float distV){
-	// note that distU and distV are in textureCoordinateUnits
-	distU = distU * distU / varX_InTxtUnits;
-	distV = distV * distV / varY_InTxtUnits;
-	return exp((-distU - distV)/2.0f);
-}
-
-vec2 getFFTAt(vec2 lookupCoord, int tIdx){
-	const int winW = 1;
-
-	// These are frequency increments
-	int anchorX = int(floor(orgU + lookupCoord.x * (fftWW - 0)));
-	int anchorY = int(floor(orgV + lookupCoord.y * (fftHH - 0)));
-	
-	vec3 fftMag = vec3(0.0f);
-	
-	// the following is a work around to have fixed number of operations
-	// for each pixel
-	if(anchorX < winW){
-		anchorX = winW;
-	}
-	
-	if(anchorY < winW){
-		anchorY = winW;
-	}
-	
-	if(anchorX + winW + 1 >  fftWW - 1){
-		anchorX = fftWW - 1 - winW - 1;
-	}
-	
-	if(anchorY + winW + 1 >  fftHH - 1){
-		anchorY = fftHH - 1 - winW - 1;
-	}
-	
-	for(float i = (anchorX-winW); i <= (anchorX + winW + 1 ); ++i){
-		for(float j = (anchorY - winW); j <= (anchorY + winW + 1); ++j){
-			vec3 texIdx = vec3(0.0f);
-			float distU = float(i) - orgU - lookupCoord.x*float(fftWW - 0);
-			float distV = float(j) - orgV - lookupCoord.y*float(fftHH - 0);
-		
-			texIdx.x = float(i)/ float(fftWW - 1);
-			texIdx.y = float(j)/float(fftHH - 1);
-			texIdx.z = float(tIdx);
-			
-			vec3 fftVal = texture2DArray(TexArray, texIdx).xyz;			
-			fftVal = rescaleXYZ(fftVal.x, fftVal.y, 0.0, tIdx);
-			fftVal = fftVal * getGaussWeightAtDistance(distU, distV);
-			fftMag = fftMag + fftVal;
-		}
-	}
-	
-	// onlt real and imaginary part are required. Third term is a waste
-	return (fftMag.xy); 	
-}
-
-vec4 getClrMatchingFnWeights(float lVal){
-	if(lVal < LMIN){
-		lVal = LMIN;
-	}
-	
-	if(lVal >= LMAX){
-		// just to ensure that the flooring
-		// latches to the lower value
-		lVal = LMAX - delLamda/100000.0f; 
-	}								
-	
-	float alpha  = (lVal - LMIN)/delLamda;
-	int lIdx = int(floor(alpha));
-	alpha = alpha - lIdx;
-	return brdf_weights[lIdx] * (1-alpha) + brdf_weights[lIdx+1] * alpha; 
-}
-
-vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
-	vec3 opVal = vec3(0.0f);	
-	float scale = 1.0f;
-	float fftMag = 0.0f;
-	float xNorm = 0.0f;
-	float yNorm = 0.0f;
-	float zNorm = 0.0f;
-	float specSum = 0.0f;
-	float lambdaStep = 5.0;
-	
-	float k_max = (2.0 * PI * pow(10.0f, 3.0f)) / (LMIN);
-	float k_min = (2.0 * PI * pow(10.0f, 3.0f)) / (LMAX);
-	float k_step = (2.0 * PI)/lambdaStep;
-	
-	for(float lambda = LMIN; lambda <= LMAX; lambda = lambda + lambdaStep){
-//	for(float k = k_min; k <= k_max; k = k + k_step){
-//		float lambda = (2.0 * PI * pow(10.0f, 3.0f)) / k;
-		
-		vec4 xyzColorWeights = getClrMatchingFnWeights(lambda);
-		float specV = xyzColorWeights.w;
-		xNorm = xNorm + specV*xyzColorWeights.x;
-		yNorm = yNorm + specV*xyzColorWeights.y;
-		zNorm = zNorm + specV*xyzColorWeights.z;
-		
-		vec2 lookupCoord = getLookupCoord(uu, vv, lambda);	
-		vec2 tempFFTScale = vec2(0.0f);
-
-		for(int tIdx = 0; tIdx < MAX_TAYLORTERMS; tIdx++){
-			if(0 == tIdx){
-				scale = 1.0f;
-			}else{
-				float currenScale = (ww * 2.0 * PI * pow(10.0f, 3.0f)) / (lambda * tIdx);
-				scale = scale * currenScale;
-			}	
-			vec2 fftCoef = getFFTAt(lookupCoord, tIdx);
-			tempFFTScale = tempFFTScale + scale * fftCoef;
-		}
-		
-		float fftMagSqr = tempFFTScale.x * tempFFTScale.x + tempFFTScale.y * tempFFTScale.y;
-		opVal.x = opVal.x + fftMagSqr * specV * xyzColorWeights.x;
-		opVal.y = opVal.y + fftMagSqr * specV * xyzColorWeights.y;
-		opVal.z = opVal.z + fftMagSqr * specV * xyzColorWeights.z;
-	}
-	
-	opVal.x = opVal.x / xNorm ;
-	opVal.y = opVal.y / yNorm ;
-	opVal.z = opVal.z / zNorm ;
-
-	return opVal;
-}
-
-
+// heuristic to assign a certain vec3 a rgb color
+// assumption: colormatching functions are piecewise quadratic functions
+// see: http://http.developer.nvidia.com/GPUGems/gpugems_ch08.html
+// @param x some vec3 computed by some by a certain heuristic
+// @return rgb color
 vec3 blend3 (vec3 x){
 	vec3 y = 1.0 - x * x;
 	y = max(y, vec3 (0, 0, 0));
 	return (y);
 }
 
+//Models the effect of diffraction using our snake mesh
 void mainRenderGeometry(){
     vec3 N = normalize(o_normal);
     vec3 T = normalize(o_tangent);
@@ -452,14 +284,13 @@ void mainRenderGeometry(){
 		
 	vec3 totalXYZ = 0.1*cdiff.xyz + eps;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
-	float fac = (getShadowMaskFactor(lightDir, Pos)*gainF(lightDir, Pos));
+	float fac = (getShadowMaskFactor(lightDir, Pos)*gainFactor(lightDir, Pos));
 	fac = (fac < 0.0) ? 0.0 : fac;
 	frag_shaded = anis*vec4(gammaCorrect(fac*totalXYZ, 2.3), 1.0);
 }
 
-
+//Models the effect of diffraction using BRDF maps.
 void mainBRDFMap(){
-
 	float thetaR = asin(sqrt(o_org_pos.x*o_org_pos.x + o_org_pos.y*o_org_pos.y ));
 	float phiR = atan(o_org_pos.y, o_org_pos.x);
 	vec3 k1 = vec3(0.0f);
@@ -528,12 +359,17 @@ void mainBRDFMap(){
 		
 	vec3 totalXYZ = cdiff.xyz/10.0 + eps;
 	vec3 pepepe = totalXYZ;
-	float value = (getShadowMaskFactor(k1, k2)*gainF(k1, k2));
+	float value = (getShadowMaskFactor(k1, k2)*gainFactor(k1, k2));
 	value = (value < 0.0) ? 0.0 : value;
 	vec3 pewpew = 1.0*totalXYZ*value;
 	frag_shaded = anis*vec4(gammaCorrect(pewpew, 2.6), 1.0);
 }
 
+// non-uniform wavelength spectrum sampling along a certain direction
+// @param bounderies integration range [N_min, N_max]
+// @param dir direction along we perform the sampling (either u or v)
+// @param spacing periodicity constant
+// @returns XIE XYZ color contribution along a certain direction.
 vec3 sumContributionAlongDir(vec2 boundaries, float dir, float spacing) {
 	float f = 4;
 	float lambda_min = 0.38; // 400nm red
@@ -543,7 +379,7 @@ vec3 sumContributionAlongDir(vec2 boundaries, float dir, float spacing) {
 	for (float n = boundaries.x; n <= boundaries.y; n = n + 1) {
 		// values between 0.38 and 0.78 microns
 		float lval = (dir*spacing/n);
-			
+
 		// rescale them to [0,1]
 		float y = (lval-lambda_min)/(lambda_max-lambda_min);
 		spectrumContribution += ( blend3(vec3(f * (y - 0.75), f * (y - 0.5), f * (y - 0.25))) ); 
@@ -554,6 +390,9 @@ vec3 sumContributionAlongDir(vec2 boundaries, float dir, float spacing) {
 // compute n_min n_max from given direction
 // spacing in microns
 // t is absolute valued compontent of (u,v,w)
+// @param t direction along we perform the sampling (either u or v)
+// @param spacing periodicity constant
+// @return [N_min, N_max] wavenumber integration range.
 vec2 getNMMfor(float t, float spacing) {
 	float lambda_min = 0.38; // 400nm red
 	float lambda_max = 0.78; // 700nm blue
