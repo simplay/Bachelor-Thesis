@@ -52,7 +52,8 @@ public class Material {
     private float lambdaMax;
 	private float phongExponent;
 	private float trackDistance;
-    
+    private float brightness;
+	
 	private boolean renderBrdfMap;
 	private boolean optimalSamplingMode;
 	
@@ -133,6 +134,14 @@ public class Material {
     
     public void setLambdaMax(float lambdaMax){
     	this.lambdaMax = lambdaMax;
+    }
+    
+    public void setBrightness(float brightness) {
+    	this.brightness = brightness;
+    }
+    
+    public float getBrightness() {
+    	return this.brightness;
     }
     
     public float getLambdaMax(){

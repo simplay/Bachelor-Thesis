@@ -6,7 +6,13 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.media.opengl.GL3;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import jrtr.GLRenderContext;
+import jrtr.RenderPanel;
+
 import com.jogamp.opengl.util.awt.Screenshot;
 import com.sun.jmx.snmp.Timestamp;
 import Constants.ShaderTaskNr;
@@ -15,11 +21,10 @@ import Listeners.SimpleMouseListener;
 import Listeners.SimpleMouseMotionListener;
 import Util.Subscriber;
 
-public class MainController implements Subscriber{
+public class MainController implements Subscriber, ChangeListener{
 	
 	private MainModel model;
 	private MainView view;
-	
 	public MainController(MainModel model, MainView view){
 		this.model = model;
 		this.view = view;
@@ -40,7 +45,17 @@ public class MainController implements Subscriber{
 				System.out.println("snapshot taken...");
 			}
 		});
-	
+		
+//		.addComponentListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				saveSnapshot();
+//				System.out.println("snapshot taken...");
+//			}
+//		});
+//		
+		view.getSlider().addChangeListener((ChangeListener) this);
+
 	}
 	
 	@Override
@@ -67,6 +82,14 @@ public class MainController implements Subscriber{
 		} catch (IOException e) {} 
 		gl.getContext().release();
 	}
-	
 
+	@Override
+	public void stateChanged(ChangeEvent e) {
+        JSlider source = (JSlider)e.getSource();
+        if (!source.getValueIsAdjusting()) {
+            float lum = (int)source.getValue();
+            model.getDiffFact().getMat().setBrightness(lum);
+            view.getRenderPanel().getCanvas().repaint();
+        }
+	}
 }

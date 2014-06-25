@@ -37,6 +37,7 @@ uniform float t0;
 uniform float thetaI;
 uniform float phiI;
 uniform float bruteforcespacing;
+uniform float brightness;
 
 // Variables passed in from the vertex shader
 in vec2 frag_texcoord;
@@ -282,11 +283,12 @@ void mainRenderGeometry(){
 		eps = 1.0;
 	}
 		
-	vec3 totalXYZ = 0.1*cdiff.xyz + eps;
-	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
+	vec3 color = 0.1*cdiff.xyz + eps;
+	color = getBRDF_RGB_T_D65(M_Adobe_XRNew, color);
+	float bri = (brightness/8000)*2.0;
 	float fac = (getShadowMaskFactor(lightDir, Pos)*gainFactor(lightDir, Pos));
-	fac = (fac < 0.0) ? 0.0 : fac;
-	frag_shaded = anis*vec4(gammaCorrect(fac*totalXYZ, 2.3), 1.0);
+	fac = (fac < 0.0) ? 0.0 : fac*bri;
+	frag_shaded = anis*vec4(gammaCorrect(fac*color, 2.3), 1.0);
 }
 
 //Models the effect of diffraction using BRDF maps.
@@ -357,12 +359,12 @@ void mainBRDFMap(){
 //		}
 //	}
 		
-	vec3 totalXYZ = cdiff.xyz/10.0 + eps;
-	vec3 pepepe = totalXYZ;
+	vec3 color = cdiff.xyz/10.0 + eps;
 	float value = (getShadowMaskFactor(k1, k2)*gainFactor(k1, k2));
 	value = (value < 0.0) ? 0.0 : value;
-	vec3 pewpew = 1.0*totalXYZ*value;
-	frag_shaded = anis*vec4(gammaCorrect(pewpew, 2.6), 1.0);
+	float bri = (brightness/8000)*2.0;
+	vec3 scaledColor = bri*color*value;
+	frag_shaded = anis*vec4(gammaCorrect(scaledColor, 2.6), 1.0);
 }
 
 // non-uniform wavelength spectrum sampling along a certain direction

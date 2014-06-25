@@ -36,6 +36,7 @@ uniform float t0; // corresponds to dH
 uniform float thetaI;
 uniform float phiI;
 uniform float bruteforcespacing;
+uniform float brightness;
 
 // Variables passed in from the vertex shader
 in vec2 frag_texcoord;
@@ -486,7 +487,7 @@ void mainRenderGeometry(){
 	float ww = lightDir.z - Pos.z;
 
 	vec3 color = getXYZContributionForPosition(uu, vv, ww);
-	color = color*gainFactor(lightDir, Pos)*1000.0*shadowF;
+	color = color*gainFactor(lightDir, Pos)*brightness*shadowF;
 	color = getBRDF_RGB_T_D65(M_Adobe_XRNew, color);
 	
 	// debug
@@ -541,7 +542,7 @@ void mainBRDFMap(){
 	float ww = k1.z - k2.z;
 
 	vec3 color = getXYZContributionForPosition(uu, vv, ww);
-	color = color*gainFactor(k1, k2)*150.0*shadowF;
+	color = color*gainFactor(k1, k2)*brightness*shadowF;
 	color = getBRDF_RGB_T_D65(M_Adobe_XRNew, color);
 	
 	if(isnan(color.x*color.y*color.z)){

@@ -31,7 +31,7 @@ uniform float thetaI;
 uniform float phiI;
 uniform float patchReso;
 uniform float dx;
-
+uniform float brightness;
 // Variables passed in from the vertex shader
 in vec2 frag_texcoord;
 in vec4 light_direction[MAX_LIGHTS];
@@ -550,7 +550,7 @@ void mainRenderGeometry(){
 	float ww = lightDir.z - Pos.z;
 
 	vec3 color  = getXYZContributionForPosition(uu, vv, ww);
-	color = color*gainFactor(lightDir, Pos)*6000.0*shadowF;
+	color = color*gainFactor(lightDir, Pos)*brightness*0.5f*shadowF;
 	color = getBRDF_RGB_T_D65(M_Adobe_XRNew, color);
 
 	frag_shaded = vec4(gammaCorrect(color, 2.2), 1.0);
@@ -578,7 +578,7 @@ void mainBRDFMap(){
 	float ww = k1.z - k2.z;
 
 	vec3 color = getXYZContributionForPosition(uu, vv, ww);
-	color = color*gainFactor(k1, k2)*150.0*shadowF;
+	color = color*gainFactor(k1, k2)*brightness*0.2f*shadowF;
 	color = getBRDF_RGB_T_D65(M_Adobe_XRNew, color);
 	
 	frag_shaded = vec4(gammaCorrect(color, 2.5), 1.0);

@@ -48,6 +48,7 @@ uniform float t0;
 uniform float dHPix;
 uniform float thetaI;
 uniform float phiI;
+uniform float brightness;
 uniform sampler2DArray lookupText;
 // Variables passed in from the vertex shader
 in vec2 frag_texcoord;
@@ -637,7 +638,7 @@ void mainRenderGeometry(){
 	float ww = lightDir.z - Pos.z;
 	
 	vec3 color = getXYZContributionForPosition( uu, vv, ww);	
-	color = color * gainFactor(lightDir,Pos)*100*shadowF;
+	color = color * gainFactor(lightDir,Pos)*brightness*shadowF;
 	color = getBRDF_RGB_T_D65(M_Adobe_XRNew, color);
 
 	frag_shaded = vec4(gammaCorrect(color, 2.5), 1.0);
@@ -667,7 +668,7 @@ void mainBRDFMap(){
 	float ww = k1.z - k2.z;
 
 	vec3 color = getXYZContributionForPosition( uu, vv, ww);
-	color = color * gainFactor(k1, k2)*150.0*shadowF;
+	color = color * gainFactor(k1, k2)*brightness*shadowF;
 	color = getBRDF_RGB_T_D65(M_Adobe_XRNew, color);
 	
 	frag_shaded = vec4(gammaCorrect(color ,2.5), 1.0);

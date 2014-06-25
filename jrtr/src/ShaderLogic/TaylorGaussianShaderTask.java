@@ -255,6 +255,12 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		System.out.println("bruteforce spacing: " + bruteforceSpacing);
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "bruteforcespacing");
 		gl.glUniform1f(id3, bruteforceSpacing);
+		
+		float brightness = m.getBrightness();
+		if (brightness == 0.0f) brightness = 1000.0f;
+		System.out.println("brightness: " + brightness);
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "brightness");
+		gl.glUniform1f(id3, brightness);
 	}
 
 	@Override
