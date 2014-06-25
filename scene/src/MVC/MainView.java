@@ -53,10 +53,9 @@ public class MainView {
 		
 		
 		container.add(canvas, BorderLayout.PAGE_START);
-		container.add(history, BorderLayout.LINE_START);
+//		container.add(history, BorderLayout.LINE_START);
 		container.add(snapshotButton, BorderLayout.AFTER_LAST_LINE);
-		
-		container.add(framesPerSecond, BorderLayout.AFTER_LAST_LINE);;
+		container.add(framesPerSecond, BorderLayout.LINE_START);
 //		container.add(sliderLabel, BorderLayout.AFTER_LAST_LINE);
 		
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
