@@ -13,13 +13,9 @@ import jrtr.Shape;
 public class ShapeManager {
 	private Shape targetShape;
 	private ShapeTask task;
-//	private String snake_file = "../models/snake_test_piece.obj";
-//	private String snake_file  = "../models/ElapheSegmentLowReso.obj";
+
 	private String snake_file  = "../models/ElapheFront.obj";
-	
-	
-	
-	private String teapot_file = "../models/Teapot_33K.obj";
+
 	public ShapeManager(ShapeTask task){
 		this.task = task;
 		buildShape();
@@ -64,9 +60,6 @@ public class ShapeManager {
 		}else if(task == ShapeTask.CYLINDER3){
 			DiffractionCylinder diffcylinder = new DiffractionCylinder(1.00f,1.0f, 600, 600);
 			this.targetShape = new Shape(diffcylinder.getVertices());
-			
-		}else if(task == ShapeTask.TEAPOT){
-			readExternalShape(teapot_file);
 			
 		}else if(task == ShapeTask.SNAKE){
 			readExternalShape(snake_file);

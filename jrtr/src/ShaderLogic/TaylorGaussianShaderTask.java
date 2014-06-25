@@ -73,14 +73,6 @@ public class TaylorGaussianShaderTask extends ShaderTask{
         gl.glBindTexture(GL3.GL_TEXTURE_2D, id_body);
         gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
         gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
-        
-        
-        gl.glUniform1i(gl.glGetUniformLocation(activeShader.programId(), "bumpMapTexture"), 2);
-        int id_bumpMap = ((GLTexture) m.getBumpMapTexture()).getId();
-        gl.glActiveTexture(GL3.GL_TEXTURE2);
-        gl.glBindTexture(GL3.GL_TEXTURE_2D, id_bumpMap);
-        gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-        gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
 		
         
 		// load scaling constants
@@ -185,6 +177,8 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "dimY");
 		gl.glUniform1f(id3, height);
 		
+		System.out.println("using dft images with resolution (" + width + " X " + height+")");
+		
 		int neighr = m.getNeighborhoodRadius();
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "neigh_rad");
 		gl.glUniform1i(id3, neighr);
@@ -194,8 +188,14 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "isCone");
 		gl.glUniform1i(id3, isCone);
 		
+		// TODO make this user-setable
+		// should we user a higher sampling rate close to the zero frequency region.
+		int useOptSampling = m.getOptimalSamplingMode();
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "useOptSampling");
+		gl.glUniform1i(id3, useOptSampling);
+		
 		int renderBrdfMap = (m.getRenderBrdfMap()) ? 1 : 0;
-		id3 = gl.glGetUniformLocation(activeShader.programId(), "renderBrdfMap");
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "shouldRenderBrdfMap");
 		gl.glUniform1i(id3, renderBrdfMap);
 		
 //		float to = (dimX/width);
@@ -212,8 +212,22 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "dx");
 		gl.glUniform1f(id3, dx);
 		
-		float minSpacer = (float) (dx / 0.38f);
-		float maxSpacer = (float) (dx / 0.78f);
+		float minSpacer = (float) ((dx/width) / 0.38f);
+		float maxSpacer = (float) ((dx/width) / 0.78f);
+		float correction = 1f;
+		// hack for nmm approach
+		if (minSpacer < 1.0) {		
+			float minIterNumber = (useOptSampling==1)? 4.0f : 3.0f;
+			float corr = (float) ((minIterNumber / (minSpacer-maxSpacer)));
+			correction = (float) (corr / width);
+			minSpacer = (float) ((dx*correction) / 0.38f);
+			maxSpacer = (float) ((dx*correction) / 0.78f);
+		}
+
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "correction");
+		gl.glUniform1f(id3, correction);
+		
+		
 		System.out.println("max spacer: " + maxSpacer);
 		System.out.println("min spacer: " + minSpacer);
 		
@@ -223,6 +237,7 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "maxspacer");
 		gl.glUniform1f(id3, maxSpacer);
 		
+		System.out.println("dx eql " + dx);
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "dx");
 		gl.glUniform1f(id3, dx);
 		
@@ -232,12 +247,20 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		gl.glUniform1f(id3, patchResolution);
 		
 //		float dh = scalingFactors[3];
-		System.out.println("resolution: microns per pixel: " + dh);		
+		System.out.println("resolution: microns per pixel: " + dh);	;
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "dHPix");
+		gl.glUniform1f(id3, dh);
 		
 		float bruteforceSpacing = m.getBruteforceSpacing();
 		System.out.println("bruteforce spacing: " + bruteforceSpacing);
 		id3 = gl.glGetUniformLocation(activeShader.programId(), "bruteforcespacing");
 		gl.glUniform1f(id3, bruteforceSpacing);
+		
+		float brightness = m.getBrightness();
+		if (brightness == 0.0f) brightness = 1000.0f;
+		System.out.println("brightness: " + brightness);
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "brightness");
+		gl.glUniform1f(id3, brightness);
 	}
 
 	@Override

@@ -30,8 +30,6 @@ import Setup.Managers.PreCompDataManager;
 import Setup.Managers.SceneConfigurationManager;
 import Setup.Managers.ShaderTaskSetupManager;
 import Setup.Managers.ShapeManager;
-import ShaderLogic.DefaultShaderTask;
-import ShaderLogic.DiffractionShaderTask;
 import ShaderLogic.TaylorGaussianShaderTask;
 import ShaderLogic.ShaderTask;
 
@@ -54,10 +52,11 @@ public class DiffractionSceneGraphFabricator {
 	private float trackDistance = 2.5f;
 	private TransformGroup rootGroup;
 	private SceneConfiguration sceneConfig;
-	private String configName = "sandbox";
+	private String configName;// = "gem_snake"; // initial value
 	private boolean specificCam = false;
 	
-	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext){
+	public DiffractionSceneGraphFabricator(GraphSceneManager sceneManager, RenderContext renderContext, String renderignTask){
+		this.configName = renderignTask;
 		this.sceneManager = sceneManager;
 		this.renderContext = renderContext;
 		this.scm = new SceneConfigurationManager();
@@ -66,6 +65,7 @@ public class DiffractionSceneGraphFabricator {
 		this.lcm = new LightConstantManager();
 		this.cscm = new CameraSceneConstantManager();
 		this.bocm = new BodyConstantsManager();
+
 		setUpShaderTask();
 		mat = setUpMaterials();
 		setUpShapes();
@@ -75,28 +75,21 @@ public class DiffractionSceneGraphFabricator {
 	}
 	
 	private void setUpShaderTask(){
-		if(sceneConfig.getShaderTask() == ShaderTaskNr.STAM){
-		    activeShaderTask = new DiffractionShaderTask();
-		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.TAYLORGAUSSIAN){
-			activeShaderTask = new TaylorGaussianShaderTask();
-		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.DEBUG_ANNOTATION){
-			activeShaderTask = new TaylorGaussianShaderTask();
-		}else if(sceneConfig.getShaderTask() == ShaderTaskNr.DEBUG_SPECULAR){
-			activeShaderTask = new TaylorGaussianShaderTask();
-		}
+		activeShaderTask = new TaylorGaussianShaderTask();
 	}
 	
 	private Material setUpMaterials(){
 		Material mat = new Material();
-		BumpConstants bc = bcm.getByIdentifyer(sceneConfig.getBumpConstant());
+		BumpConstants bc = bcm.getByIdentifyer(sceneConfig.getBumpConstant()); 
 		BodyConstants bodyC = bocm.getByIdentifyer(sceneConfig.getTextureId());
 		Texture text = renderContext.makeTexture();
 		mat.setBodyTexture(bodyC.getBodyTexturePath(), text);
 		text = renderContext.makeTexture();
-		mat.setBumpMapTexture(bodyC.getBumpMapTexturePath(), text);
+//		mat.setBumpMapTexture(bodyC.getBumpMapTexturePath(), text);
 		mat.setRenderBrdfMap(sceneConfig.getRenderBrdfMap());
 		mat.setPeriodCount(sceneConfig.getPeriodCount());
 		mat.setNeighborhoodRadius(sceneConfig.getNeighborhoodRadius());
+		mat.setOptimalSamplingMode(sceneConfig.usingOptimalSamplingMode());
 		mat.setMaxBumpHeight(bc.getMaxHeight());
 		mat.setPatchSpacing(bc.getSpacing());
 		mat.setPatchDimX(bc.getDimX());
@@ -106,13 +99,8 @@ public class DiffractionSceneGraphFabricator {
 		mat.setAmbientCoefficient(new Vector3f(0.0f, 0.0f, 1.0f));
 		mat.setPhongExponent(64f);
 		mat.setTrackDistance(trackDistance);
-		mat.setLayerCount(108);
-		if( 
-				sceneConfig.getShaderTask() == ShaderTaskNr.TAYLORGAUSSIAN ||
-				sceneConfig.getShaderTask() == ShaderTaskNr.DEBUG_ANNOTATION ||
-				sceneConfig.getShaderTask() == ShaderTaskNr.DEBUG_SPECULAR){
-			mat.setLayerCount(layerCount);
-		}
+		mat.setLayerCount(layerCount);
+
 		ShaderTaskSetupManager stm = new ShaderTaskSetupManager(renderContext, mat, sceneConfig.getShaderTask());		
 		mat.setShader(stm.getShader());
 		new PreCompDataManager(renderContext, sceneConfig.getShaderTask(), sceneConfig.getPatchName(), mat); // TODO extend me, i want also the shape task, the shader task and further stuff
@@ -158,7 +146,7 @@ public class DiffractionSceneGraphFabricator {
 		
 		DiffractionCone diffcone = new DiffractionCone(120, 0.01f, 0.1f);
 		lightDir = new Shape(diffcone.getVertices());
-		lightDir.setShaderTask(new DefaultShaderTask());
+		lightDir.setShaderTask(activeShaderTask);
 		lightDir.setMaterial(mat);
 	}
 	

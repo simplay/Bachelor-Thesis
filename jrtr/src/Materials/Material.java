@@ -52,8 +52,10 @@ public class Material {
     private float lambdaMax;
 	private float phongExponent;
 	private float trackDistance;
-    
+    private float brightness;
+	
 	private boolean renderBrdfMap;
+	private boolean optimalSamplingMode;
 	
     public Material(){}
     
@@ -134,8 +136,24 @@ public class Material {
     	this.lambdaMax = lambdaMax;
     }
     
+    public void setBrightness(float brightness) {
+    	this.brightness = brightness;
+    }
+    
+    public float getBrightness() {
+    	return this.brightness;
+    }
+    
     public float getLambdaMax(){
     	return this.lambdaMax;
+    }
+    
+    public void setOptimalSamplingMode(boolean mode) {
+    	this.optimalSamplingMode = mode;
+    }
+    
+    public int getOptimalSamplingMode() {
+    	return (this.optimalSamplingMode) ? 1 : 0;
     }
     
     public void setBruteForceSpacing(float value){

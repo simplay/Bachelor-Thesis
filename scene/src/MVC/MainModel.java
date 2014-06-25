@@ -1,45 +1,32 @@
 package MVC;
 
-
-import java.awt.image.renderable.RenderContext;
-
-import javax.vecmath.Matrix4f;
-
-import jrtr.Camera;
-
 import Diffraction.DiffractionSceneGraphFabricator;
 import Listeners.Storage;
 import Util.Observer;
 import SceneGraph.GraphSceneManager;
-import Simulator.SimulationFabricator;
 import Util.Subscriber;
 
 public class MainModel extends Observer implements Subscriber{
 	private GraphSceneManager sceneManager;
 	private Storage s;
 	private Watchman watchman;
-	private SimulationFabricator simulator;
 	private DiffractionSceneGraphFabricator dgsf;
-	private int counter = 0;
-	
-	public void setSimFab(SimulationFabricator fact){
-		this.simulator = fact;
-	}
-	
-	public SimulationFabricator getSimFact(){
-		return this.simulator;
-	}
-	
+	private String renderingTask;
 	public void setDiffFab(DiffractionSceneGraphFabricator fact){
 		this.dgsf = fact;
+	}
+	
+	public String getRenderingTask() {
+		return renderingTask;
 	}
 	
 	public DiffractionSceneGraphFabricator getDiffFact(){
 		return this.dgsf;
 	}
 	
-	public MainModel(){
+	public MainModel(String renderingTask){
 		super();
+		this.renderingTask = renderingTask;
 		this.watchman = new Watchman();
 		watchman.subscribe(this);
 		this.s = new Storage();

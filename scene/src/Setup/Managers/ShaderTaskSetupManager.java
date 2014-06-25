@@ -13,15 +13,14 @@ public class ShaderTaskSetupManager {
 	public ShaderTaskSetupManager(RenderContext renderContext, Material mat, ShaderTaskNr shaderTask){
 		shader = renderContext.makeShader();
 		try {	
-			if(shaderTask==ShaderTaskNr.ELSE){
-			}else if(shaderTask == ShaderTaskNr.STAM){
-				shader.load(ShaderPaths.stamVert.toString(), ShaderPaths.stamFrag.toString());
-			}else if(shaderTask == ShaderTaskNr.TAYLORGAUSSIAN){
-				shader.load(ShaderPaths.tg_Vert.toString(), ShaderPaths.tg_Frag.toString());
-			}else if(shaderTask == ShaderTaskNr.DEBUG_ANNOTATION){
-				shader.load(ShaderPaths.tg_da_Vert.toString(), ShaderPaths.tg_da_Frag.toString());
-			}else if(shaderTask == ShaderTaskNr.DEBUG_SPECULAR){
-				shader.load(ShaderPaths.specular_Vert.toString(), ShaderPaths.specular_Frag.toString());
+			if(shaderTask == ShaderTaskNr.FLSS){
+				shader.load(ShaderPaths.tg_Vert.toString(), ShaderPaths.tg_flss.toString());
+			}else if(shaderTask == ShaderTaskNr.GEM){
+				shader.load(ShaderPaths.tg_Vert.toString(), ShaderPaths.tg_gem.toString());
+			}else if(shaderTask == ShaderTaskNr.NMM){
+				shader.load(ShaderPaths.tg_Vert.toString(), ShaderPaths.tg_nmm.toString());
+			}else if(shaderTask == ShaderTaskNr.PQ){
+				shader.load(ShaderPaths.tg_Vert.toString(), ShaderPaths.tg_pq.toString());
 			}
 		} catch (Exception e) {}
 		

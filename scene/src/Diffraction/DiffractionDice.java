@@ -12,6 +12,7 @@ import jrtr.VertexData;
 
 public class DiffractionDice extends DiffractionGeometricObject{
 	
+	@SuppressWarnings("unused")
 	private float totalR;
 	private float wholeR;
 	private int pointsPerCircle;
@@ -123,33 +124,7 @@ public class DiffractionDice extends DiffractionGeometricObject{
 	protected float[] getTextureCoordinates() {
 		int counter = 0;
 		List<Float> textureCoordiantes = new LinkedList<Float>();
-		float phiStep = (float) (2.0f*Math.PI/pointsPerCircle);
-		float setpR = deltaR/(innerCircleCount-1);
 
-		/*
-		for(int t = 0; t < innerCircleCount; t++){
-			for(int k = 0; k < pointsPerCircle; k++){
-				float u = t*setpR;
-				float v = k*phiStep;
-				textureCoordiantes.add(u);
-				textureCoordiantes.add(v);
-				counter++;
-			}
-		}*/
-
-		/* Cut into a Square
-		for(int t = 0; t < innerCircleCount; t++){
-			for(int k = 0; k < pointsPerCircle; k++){
-				
-				float rTemp = (this.wholeR + t*setpR)/this.totalR;
-				float u = (float) (0.5f + 0.5f*rTemp*Math.cos(k*phiStep));
-				float v = (float) (0.5f + 0.5f*rTemp*Math.sin(k*phiStep));
-				textureCoordiantes.add(u);
-				textureCoordiantes.add(v);
-				counter++;
-			}
-		}*/
-		
 		for(int t = 0; t < innerCircleCount; t++){
 			for(int k = 0; k < pointsPerCircle; k++){
 				
