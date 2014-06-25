@@ -1,3 +1,10 @@
+/*
+ * FLSS fragment shader which renders the effect of diffraction
+ * on a given grating structure.
+ * This shader performs an uniform sampling over the wavelength spectrum [380nm,780nm]
+ * For further information please read the chapter 'implementation' of my thesis.
+ */
+
 #version 150
 #extension GL_EXT_gpu_shader4 : enable
 
@@ -18,14 +25,14 @@ uniform vec4 camPos;
 uniform vec3 radianceArray[MAX_LIGHTS];
 uniform int fftHH; // height of FFT Image
 uniform int fftWW; // width of FFT Image
-uniform int approxSteps;
+uniform int approxSteps; // number of taylor iterations
 uniform int shouldRenderBrdfMap;
 uniform int isCone;
-uniform float LMIN;
+uniform float LMIN; // unit [nm]
 uniform float LMAX;
-uniform float delLamda;
+uniform float delLamda; // delta lambda
 uniform float dimX;
-uniform float t0;
+uniform float t0; // corresponds to dH
 uniform float thetaI;
 uniform float phiI;
 uniform float bruteforcespacing;

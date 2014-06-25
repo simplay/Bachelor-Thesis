@@ -1,3 +1,10 @@
+/*
+ * FLSS fragment shader which renders the effect of diffraction
+ * on a given grating structure.
+ * This shader performs an uniform sampling over the wavelength spectrum [380nm,780nm]
+ * For further information please read the chapter 'implementation' of my thesis.
+ */
+
 #version 150
 #extension GL_EXT_gpu_shader4 : enable
 
