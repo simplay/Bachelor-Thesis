@@ -20,7 +20,7 @@ uniform float delLamda;
 
 uniform float minspacer;
 uniform float maxspacer;
-
+uniform float correction;
 // Uniform variables, passed in from host program via suitable
 uniform int debugTxtIdx;
 uniform int useOptSampling;
@@ -45,6 +45,7 @@ uniform int drawTexture;
 uniform float dimX;
 uniform float dx;
 uniform float t0;
+uniform float dHPix;
 uniform sampler2DArray lookupText;
 // Variables passed in from the vertex shader
 in vec2 frag_texcoord;
@@ -511,16 +512,16 @@ vec3 getXYZContributionForPosition(float uu,float vv,float ww){
 				upper_u = N_u.y;
 				lower_v = N_v.x;
 				upper_v = N_v.y;
-				
-				
 			}
 		}
-
 //		maskStep = 1;
+//		maskStep = 0.01;
+		// integration over wavenumber range: NMM non-uniform wavelength sampling
+		// sampling along u direction
 		for(float nu = lower_u; nu < upper_u; nu = nu+maskStep){
-			float lambda = (uu*dx/nu)*1000.0;
+			float lambda = ((uu*(correction*dx))/(nu))*1000.0;
 
-			
+			// lookup color weight
 			vec4 xyzColorWeights = getClrMatchingFnWeights(lambda);
 			
 			float specV = xyzColorWeights.w;	
@@ -550,9 +551,11 @@ vec3 getXYZContributionForPosition(float uu,float vv,float ww){
 			xyzContributionAtUVW.z += emittedIntensity * xyzColorWeights.z;
 		}
 		
+		// integration over wavenumber range: NMM non-uniform wavelength sampling
+		// sampling along u direction
 		for(float nv = lower_v; nv < upper_v; nv = nv+maskStep){
-			float lambda = (vv*dx/nv)*1000.0;
-			
+			float lambda = ((vv*(correction*dx))/(nv))*1000.0;
+			// lookup color weight
 			vec4 xyzColorWeights = getClrMatchingFnWeights(lambda);
 			
 			float specV = xyzColorWeights.w;
@@ -660,7 +663,7 @@ void mainBRDFMap(){
 	float ww = k1.z - k2.z;
 
 	vec3 totalXYZ  = getXYZContributionForPosition( uu, vv, ww);
-	totalXYZ = totalXYZ * gainF(k1, k2)*65;
+	totalXYZ = totalXYZ * gainF(k1, k2)*65.0;
 	totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
 	
 	if (isnan(totalXYZ.x *totalXYZ.y *totalXYZ.z)){
