@@ -513,9 +513,10 @@ vec3 getXYZContributionForPosition(float uu,float vv,float ww){
 				lower_v = N_v.x;
 				upper_v = N_v.y;
 			}
+		} else {
+			maskStep = 0.2;
 		}
-//		maskStep = 1;
-//		maskStep = 0.01;
+
 		// integration over wavenumber range: NMM non-uniform wavelength sampling
 		// sampling along u direction
 		for(float nu = lower_u; nu < upper_u; nu = nu+maskStep){
