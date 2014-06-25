@@ -187,7 +187,7 @@ public class TaylorGaussianShaderTask extends ShaderTask{
 		gl.glUniform1i(id3, isCone);
 		
 		int renderBrdfMap = (m.getRenderBrdfMap()) ? 1 : 0;
-		id3 = gl.glGetUniformLocation(activeShader.programId(), "renderBrdfMap");
+		id3 = gl.glGetUniformLocation(activeShader.programId(), "shouldRenderBrdfMap");
 		gl.glUniform1i(id3, renderBrdfMap);
 		
 //		float to = (dimX/width);

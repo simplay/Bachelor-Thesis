@@ -19,7 +19,7 @@ uniform vec3 radianceArray[MAX_LIGHTS];
 uniform int fftHH; // height of FFT Image
 uniform int fftWW; // width of FFT Image
 uniform int approxSteps;
-uniform int renderBrdfMap;
+uniform int shouldRenderBrdfMap;
 uniform int isCone;
 uniform float LMIN;
 uniform float LMAX;
@@ -547,11 +547,9 @@ void mainBRDFMap(){
 }
 
 void main(){
-
-//		if(renderBrdfMap == 1){
-			mainBRDFMap();
-//		}else{
-//			mainRenderGeometry();
-//		}
-
+	if(shouldRenderBrdfMap == 1){
+		mainBRDFMap();
+	}else{
+		mainRenderGeometry();
+	}
 }

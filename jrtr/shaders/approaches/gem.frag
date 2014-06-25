@@ -18,9 +18,9 @@ uniform vec4 camPos;
 uniform vec3 radianceArray[MAX_LIGHTS];
 uniform int fftHH; // height of FFT Image
 uniform int fftWW; // width of FFT Image
-uniform int approxSteps;
-uniform int renderBrdfMap;
+uniform int approxSteps;;
 uniform int isCone;
+uniform int shouldRenderBrdfMap;
 uniform float LMIN;
 uniform float LMAX;
 uniform float delLamda;
@@ -397,30 +397,9 @@ vec3 blend3 (vec3 x){
 	return (y);
 }
 //
-void gemMain(){
 
-	float thetaR = asin(sqrt(o_org_pos.x*o_org_pos.x + o_org_pos.y*o_org_pos.y ));
-	float phiR = atan(o_org_pos.y, o_org_pos.x);
-	vec3 k1 = vec3(0.0f);
-	vec3 k2 = vec3(0.0f);
-	
-	k1.x = -sin(thetaI)*cos(phiI);
-	k1.y = -sin(thetaI)*sin(phiI);
-	k1.z = -cos(thetaI);
-	
-	k2.x = sin(thetaR)*cos(phiR);
-	k2.y = sin(thetaR)*sin(phiR);
-	k2.z = cos(thetaR);
-	
-	float u = k1.x - k2.x;
-	float v = k1.y - k2.y;
-	float w = k1.z - k2.z;
-	
 
-	
-//	float thetaR = asin(sqrt(o_org_pos.x*o_org_pos.x + o_org_pos.y*o_org_pos.y ));
-//	float phiR = atan(o_org_pos.y, o_org_pos.x);
-
+void mainRenderGeometry(){
     vec3 N = normalize(o_normal);
     vec3 T = normalize(o_tangent);
 
@@ -431,9 +410,9 @@ void gemMain(){
 	
 	
 	float shadowF = getShadowMaskFactor(lightDir, Pos);
-//	float u = lightDir.x - Pos.x;
-//	float v = lightDir.y - Pos.y;
-//	float w = lightDir.z - Pos.z;
+	float u = lightDir.x - Pos.x;
+	float v = lightDir.y - Pos.y;
+	float w = lightDir.z - Pos.z;
 	
 	
 //	float r = 10.50; // snake
@@ -514,6 +493,114 @@ void gemMain(){
 //	frag_shaded = vec4(gammaCorrect(totalXYZ, 2.2), 1.0);
 }
 
+
+void mainBRDFMap(){
+
+	float thetaR = asin(sqrt(o_org_pos.x*o_org_pos.x + o_org_pos.y*o_org_pos.y ));
+	float phiR = atan(o_org_pos.y, o_org_pos.x);
+	vec3 k1 = vec3(0.0f);
+	vec3 k2 = vec3(0.0f);
+	
+	k1.x = -sin(thetaI)*cos(phiI);
+	k1.y = -sin(thetaI)*sin(phiI);
+	k1.z = -cos(thetaI);
+	
+	k2.x = sin(thetaR)*cos(phiR);
+	k2.y = sin(thetaR)*sin(phiR);
+	k2.z = cos(thetaR);
+	
+	float u = k1.x - k2.x;
+	float v = k1.y - k2.y;
+	float w = k1.z - k2.z;
+	
+
+	
+
+    vec3 N = normalize(o_normal);
+    vec3 T = normalize(o_tangent);
+
+	float shadowF = getShadowMaskFactor(k1, k1);
+
+	
+	
+//	float r = 10.50; // snake
+	float r = 1.50; // roughness factor for: 1.5f seems to look nice
+//	r = 2.50; // roughness factor for: 1.5f seems to look nice
+	float e = r * u / w;
+	float c = exp(-e * e);
+	
+	float e2 = 3.0 * u / w;
+	float c2 = exp(-e * e);
+	
+	vec4 anis = vec4(1,1,1,1) * vec4(c, c, c, 1);
+	vec4 anis2 = vec4(1,1,1,1) * vec4(c2, c2, c2, 1);
+	
+//	float shadowF = getShadowMaskFactor(k1, k2);
+	float lambda_min = 0.38; // 400nm red
+	float lambda_max = 0.78; // 700nm blue
+	
+	vec4 cdiff = vec4(0, 0, 0, 1);
+	
+	// 2.5microns
+	float d = 2.5;
+//	float d = 1.55227;
+//	float d = 2.5;
+	// bruteforce spacing
+//	d = bruteforcespacing*1;
+	
+	
+	float eps = 0.0;
+	
+	float uuu = abs(u);
+	float vvv = abs(v);
+	
+	vec2 uNMM = getNMMfor(uuu, d);
+	vec2 vNMM = getNMMfor(vvv, d);
+	
+	float dist2Zero = sqrt(uuu*uuu + vvv*vvv);
+	
+	if(vvv < 0.01){
+		cdiff.xyz += sumContributionAlongDir(uNMM, uuu, d);
+		if(dist2Zero < 0.01) {
+//		if(uuu < 0.002) {
+			eps = 1.0;
+		}
+	}
+	
+//	if(uuu < 0.0){
+//		cdiff.xyz += sumContributionAlongDir(vNMM, vvv, d);
+//		if(vvv < 0.01) eps = 0.0;
+//		if(vvv < 0.005) {
+//
+//			eps = 1.0;
+//		}
+//	}
+	
+		
+	vec3 totalXYZ = cdiff.xyz/10.0 + eps;
+	vec3 pepepe = totalXYZ;
+	
+	//totalXYZ = totalXYZ*gainF(lightDir, Pos)*1.0*shadowF;
+	//totalXYZ = getBRDF_RGB_T_D65(M_Adobe_XRNew, totalXYZ);
+	
+	
+	float value = (getShadowMaskFactor(k1, k2)*gainF(k1, k2));
+	value = (value < 0.0) ? 0.0 : value;
+//	value = getShadowMaskFactor(lightDir, Pos);
+	vec3 pewpew = 1.0*totalXYZ*value;
+	
+	// frag_shaded = vec4(pewpew,1.0);
+	frag_shaded = anis*vec4(gammaCorrect(pewpew, 2.6), 1.0);
+//	float mask = getShadowMaskFactor(lightDir, Pos);
+	
+//	frag_shaded = anis*vec4(gammaCorrect(mask*totalXYZ, 2.6), 1.0);
+
+	
+//	frag_shaded = anis;
+//	frag_shaded = vec4(pepepe,1);
+//	frag_shaded = vec4(gammaCorrect(totalXYZ, 2.2), 1.0);
+}
+
 vec3 sumContributionAlongDir(vec2 boundaries, float dir, float spacing) {
 	float f = 4;
 	float lambda_min = 0.38; // 400nm red
@@ -547,5 +634,9 @@ vec2 getNMMfor(float t, float spacing) {
 }
 
 void main(){
-	gemMain();
+	if(shouldRenderBrdfMap == 1){
+		mainBRDFMap();
+	}else{
+		mainRenderGeometry();
+	}
 }

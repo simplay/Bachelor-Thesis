@@ -24,6 +24,7 @@ uniform sampler2D bodyTexture;
 uniform int fftHH; // height of FFT Image
 uniform int fftWW; // width of FFT Image
 uniform int approxSteps;
+uniform int shouldRenderBrdfMap;
 uniform vec4 cop_w;
 
 uniform vec3 radianceArray[MAX_LIGHTS];
@@ -601,7 +602,7 @@ vec3 getRawXYZFromTaylorSeries(float uu,float vv,float ww){
 
 
 
-void mainRenderMesh(){
+void mainRenderGeometry(){
 	setVarXY();
 	 
     vec3 N = normalize(o_normal);
@@ -682,7 +683,10 @@ void mainBRDFMap(){
 }
 
 
-void main() {
-//	mainRenderMesh();
-	mainBRDFMap();
+void main(){
+	if(shouldRenderBrdfMap == 1){
+		mainBRDFMap();
+	}else{
+		mainRenderGeometry();
+	}
 }

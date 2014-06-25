@@ -19,7 +19,7 @@ uniform vec3 radianceArray[MAX_LIGHTS];
 uniform int fftHH; // height of FFT Image
 uniform int fftWW; // width of FFT Image
 uniform int approxSteps;
-uniform int renderBrdfMap;
+uniform int shouldRenderBrdfMap;
 uniform int isCone;
 uniform int periodCount;
 uniform float LMIN;
@@ -558,9 +558,6 @@ void mainRenderGeometry(){
 	
 }
 
-void coneMain(){
-	frag_shaded = vec4(vec3(0,1,0), 1.0);
-}
 
 void mainBRDFMap(){
 	setVarXY();
@@ -605,13 +602,9 @@ vec3 blend3 (vec3 x){
 
 
 void main(){
-
-
-//		if(renderBrdfMap == 1){
-			mainBRDFMap(); // okay
-//		}else{
-//			mainRenderGeometry();
-//		}
-	
-
+	if(shouldRenderBrdfMap == 1){
+		mainBRDFMap();
+	}else{
+		mainRenderGeometry();
+	}
 }
