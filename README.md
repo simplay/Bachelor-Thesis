@@ -114,7 +114,7 @@ nevertheless im going to send you a link, when im at home with same precomputed 
 ````E:\baData\fftElaphe65Microns\ E:\Projects\DiffractionShader\op\loadEPQ265Microns.m 666 1 -40 -15 0.01 75 0 180````
 
 #License
-
+```
 The MIT License (MIT)
 
 Copyright (c) <2014> <Michael Single (simplay)>
@@ -136,3 +136,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+```
