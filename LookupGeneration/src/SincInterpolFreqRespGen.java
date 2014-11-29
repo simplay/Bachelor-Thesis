@@ -162,11 +162,11 @@ public class SincInterpolFreqRespGen extends LookupGeneratorSincInterpol {
 	
 	float compute_pq_scale_factor(float w_u, float w_v){
 		float dx = (float)((double)this.dH*this.uvWid);//2.5f;
-		System.out.println("dx " + dx);
+//		System.out.println("dx " + dx);
 		
 		float in_periods = (float) Math.ceil(patchResolution/dx);
 //		in_periods = 26;
-		System.out.println("periods " + in_periods);
+//		System.out.println("periods " + in_periods);
 		
 		float T_1 = (float) (this.dH * uvWid);
 		float p1 = get_p_factor(w_u, T_1, in_periods);
@@ -217,7 +217,7 @@ public class SincInterpolFreqRespGen extends LookupGeneratorSincInterpol {
 
 			// correct it for proper division
 			//float vAngInc = 180.0f/ (numAng-1);
-			System.out.println("lIdx_foo " + lIdx);
+//			System.out.println("lIdx_foo " + lIdx);
 			for (int angIdx=0; angIdx < numAng; ++angIdx)
 			{
 				//float thetaR = (float)(Math.PI * (angIdx-midAngIdx)*vAngInc/180.0f );
@@ -265,10 +265,10 @@ public class SincInterpolFreqRespGen extends LookupGeneratorSincInterpol {
 				float k = (float) ((1.0) / lambda_iter);
 				float w_u = k*uu;
 				float w_v = k*vv;
-				System.out.println("w_u_v " + w_u  + " " + w_v);
+//				System.out.println("w_u_v " + w_u  + " " + w_v);
 				double fftMagSqr = getFFTMagSqr_At(uu,vv,ww, lIdx);
 				double pq_scale = compute_pq_scale_factor(w_u, w_v);
-				System.out.println("pq val " + pq_scale);
+//				System.out.println("pq val " + pq_scale);
 				// to avoid response on obtuse angles
 				if (angMin + angInc*angIdx > 90.0 || angMin + angInc*angIdx < -90.0)
 					fftMagSqr = 0.0;

@@ -10,16 +10,19 @@ public class WriteBackMonkey {
 	private VertexDataContainer vd;
 	private String filePath = "../out_files/vertexdata.txt";
 	private PrintWriter out;
+	private boolean writeBack = false;
 	
 	public WriteBackMonkey(VertexDataContainer vd){
 		this.vd = vd;
-        FileWriter outFile = null;
-		try {
-			outFile = new FileWriter(filePath);
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(writeBack) {
+	        FileWriter outFile = null;
+			try {
+				outFile = new FileWriter(filePath);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			out = new PrintWriter(outFile);
 		}
-		out = new PrintWriter(outFile);
 	}
 	
 	public void writeAll(){

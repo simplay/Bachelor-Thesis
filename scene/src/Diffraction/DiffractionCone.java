@@ -38,7 +38,7 @@ public class DiffractionCone extends DiffractionGeometricObject{
 		
 		VertexDataContainer data = new VertexDataContainer(vetices, normals, tangentVectors, colors, textureCoordinates, indices);
 		WriteBackMonkey monkey = new WriteBackMonkey(data);
-		monkey.writeAll();
+//		monkey.writeAll();
 	}
 
 	@Override

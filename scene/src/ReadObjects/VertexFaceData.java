@@ -316,7 +316,7 @@ public class VertexFaceData {
 		
 		VertexDataContainer data = new VertexDataContainer(vertices_f, normals_f, tangents_f, colors_f, TextureCoordinates_f, indices_i, avgEdgeLength);
 		WriteBackMonkey monkey = new WriteBackMonkey(data);
-		monkey.writeAll();
+//		monkey.writeAll();
 	}
 	
 	public VertexData getVetexData(){
